@@ -556,9 +556,12 @@ binary to write a pc presentation to <outfile>  for  the  group  of  that
 process for which a pc presentation has been previously  computed,  where
 the group of a process is the one given as first argument when  `PqStart'
 was called to initiate that process (for process <i> the group is  stored
-as  `ANUPQData.io[<i>].group').  If  a  pc  presentation  has  not   been
-previously computed by the `pq' binary, then `pq' is called to compute it
-first, effectively invoking `PqPcPresentation' (see~"PqPcPresentation").
+as `ANUPQData.io[<i>].group'). If  the  first  character  of  the  string
+<outfile> is not `/', <outfile> is assumed to be the path of  a  writable
+file relative to the directory in which  {\GAP}  was  started.  If  a  pc
+presentation has not been previously computed by the  `pq'  binary,  then
+`pq'   is   called   to   compute   it   first,   effectively    invoking
+`PqPcPresentation' (see~"PqPcPresentation").
 
 *Note:* For those familiar with the `pq' binary,  `PqPcWritePresentation'
 performs option 25 of the advanced $p$-Quotient menu.
