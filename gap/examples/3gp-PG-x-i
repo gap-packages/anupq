@@ -1,5 +1,5 @@
 #Example: "3gp-PG-x-i" . . . based on example from Werner
-#A `by hand' descendants example
+#Iterated descendants example
 #vars: F, procId;
 #options: OutputLevel
 F := FreeGroup("a", "b");
@@ -14,6 +14,37 @@ PqPGSupplyAutomorphisms(procId, [ [[1,1],
 
                                   [[0,1],
                                    [1,0]] ]);;
-PqPGExtendAutomorphisms(procId);
+PqPGExtendAutomorphisms(procId);;
+PqPGConstructDescendants(procId : ClassBound := 2,
+                                  CapableDescendants,
+                                  BasicAlgorithm);
+PqPGRestoreGroupFromFile(procId, 2, 5);
+PqPGExtendAutomorphisms(procId);;
 PqPGConstructDescendants(procId : ClassBound := 3,
-                                  BasicAlgorithm);;
+                                  CapableDescendants,
+                                  BasicAlgorithm);
+PqPGRestoreGroupFromFile(procId, 3, 2);
+PqPGExtendAutomorphisms(procId);;
+PqPGConstructDescendants(procId : ClassBound := 4,
+                                  CapableDescendants,
+                                  BasicAlgorithm);
+PqPGRestoreGroupFromFile(procId, 4, 2);
+PqPGExtendAutomorphisms(procId);;
+PqPGConstructDescendants(procId : ClassBound := 5,
+                                  CapableDescendants,
+                                  BasicAlgorithm);
+PqPGRestoreGroupFromFile(procId, 5, 1);
+PqPGExtendAutomorphisms(procId);;
+PqPGConstructDescendants(procId : ClassBound := 6,
+                                  CapableDescendants,
+                                  BasicAlgorithm);
+PqPGRestoreGroupFromFile(procId, 6, 1);
+PqPGExtendAutomorphisms(procId);;
+PqPGConstructDescendants(procId : ClassBound := 7,
+                                  CapableDescendants,
+                                  BasicAlgorithm);
+PqPGRestoreGroupFromFile(procId, 7, 1);
+PqPGExtendAutomorphisms(procId);;
+PqPGConstructDescendants(procId : ClassBound := 8,
+                                  CapableDescendants,
+                                  BasicAlgorithm);
