@@ -109,6 +109,12 @@ DeclareGlobalFunction( "PQ_CUSTOMISE_OUTPUT" );
 
 #############################################################################
 ##
+#F  PQ_APG_CUSTOM_OUTPUT(<datarec>, <subopt>, <suboptstring>, <suppstrings>)
+##    
+DeclareGlobalFunction( "PQ_APG_CUSTOM_OUTPUT" );
+
+#############################################################################
+##
 #F  SET_ANUPQ_OPTIONS( <funcname>, <options> ) . set options from OptionStack
 ##    
 DeclareGlobalFunction( "SET_ANUPQ_OPTIONS" );

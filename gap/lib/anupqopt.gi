@@ -89,8 +89,7 @@ InstallValue( ANUPQoptions,
                             "Bounds",
                             "PrintAutomorphisms",
                             "PrintPermutations",
-                            "OrbitsSummary",
-                            "OrbitsListing" ]
+                            "Filename" ]
                   )
              );
 
@@ -152,12 +151,10 @@ InstallValue( ANUPQoptionChecks,
                    Bounds := x -> IsSet(x) and 2 = Length(x) and 
                                   ForAll(x, IsPosInt),
                    QueueFactor := IsPosInt,
-                   OutputFile := IsString,
                    RedoPcp := IsBool,
                    PrintAutomorphisms := IsBool,
                    PrintPermutations := IsBool,
-                   OrbitsSummary := IsBool,
-                   OrbitsListing := IsBool
+                   Filename := IsString
                    )
              );
 
@@ -192,12 +189,10 @@ InstallValue( ANUPQoptionTypes,
                    CustomiseOutput := "record",
                    Bounds := "pair of increasing positive integers",
                    QueueFactor := "positive integer",
-                   OutputFile := "string",
                    RedoPcp := "boolean",
                    PrintAutomorphisms := "boolean",
                    PrintPermutations := "boolean",
-                   OrbitsSummary := "boolean",
-                   OrbitsListing := "boolean"
+                   Filename := "string"
                    )
              );
 
@@ -310,7 +305,7 @@ end);
 ##
 #F  PQ_CUSTOMISE_OUTPUT(<datarec>, <subopt>, <suboptstring>, <suppstrings>)
 ##    
-##  writes the requires output to the `pq' binary for the sub-option <subopt>
+##  writes the required output to the `pq' binary for the sub-option <subopt>
 ##  of  the  option  `CustomiseOutput',  the  value  of  that  option  having
 ##  previously been stored in `<datarec>.des.CustomiseOutput'; <suboptstring>
 ##  is part of the comment written to the `pq' binary for the sub-option  and
@@ -325,7 +320,7 @@ local optrec, isOptionSet, i;
     isOptionSet := IsBound( optrec.(subopt) ) and optrec.(subopt) in [1, true];
     ToPQ(datarec, [ PQ_BOOL( isOptionSet ), suboptstring ]);
   elif IsBound( optrec.(subopt) ) and IsList( optrec.(subopt) ) then
-    ToPQ(datarec, [ "0  #tailor ", suboptstring ]);
+    ToPQ(datarec, [ "0  #customise ", suboptstring ]);
     for i in [1 .. Length(suppstrings)] do
       isOptionSet := IsBound( optrec.(subopt)[i] ) and
                      optrec.(subopt)[i] in [1, true];
@@ -334,6 +329,35 @@ local optrec, isOptionSet, i;
   else
     ToPQ(datarec, [ "1  #default ", suboptstring ]);
   fi;
+end);
+  
+#############################################################################
+##
+#F  PQ_APG_CUSTOM_OUTPUT(<datarec>, <subopt>, <suboptstring>, <suppstrings>)
+##    
+##  writes the required output to the `pq' binary for the sub-option <subopt>
+##  of the option `CustomiseOutput',  as  required  by  an  Advanced  p-Group
+##  Generation Menu item, the value of that  option  having  previously  been
+##  stored in `<datarec>.des.CustomiseOutput'; <suboptstring> is part of  the
+##  comment written to the `pq' binary for the sub-option  and  <suppstrings>
+##  is a list of such comments for the supplementary questions asked  by  the
+##  `pq' binary for the sub-option <subopt>.
+##
+InstallGlobalFunction( PQ_APG_CUSTOM_OUTPUT, 
+function(datarec, subopt, suboptstring, suppstrings)
+local optrec, optlist, isOptionSet, i;
+  optrec := datarec.des.CustomiseOutput;
+  if not( IsRecord(optrec) and IsBound( optrec.(subopt) ) and 
+          IsList( optrec.(subopt) ) ) then
+    optlist := [];
+    datarec.des.CustomiseOutput.(subopt) := optlist;
+  else
+    optlist := optrec.(subopt);
+  fi;
+  for i in [1 .. Length(suppstrings)] do
+    isOptionSet := IsBound( optlist[i] ) and optlist[i] in [1, true];
+    ToPQ(datarec, [ PQ_BOOL( isOptionSet ), suppstrings[i] ]);
+  od;
 end);
   
 #############################################################################

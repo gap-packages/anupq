@@ -2437,22 +2437,32 @@ InstallGlobalFunction( PQ_PG_RESTORE_GROUP, function( datarec, cls, n )
     PQ_MENU(datarec, "pG");
   fi;
   ToPQ(datarec, [ "3  #restore group from file" ]);
-  ToPQ(datarec, [ datarec.GroupName, "_class", cls, "  #filename" ]);
+  if IsString(cls) then
+    ToPQ(datarec, [ cls, "  #filename" ]);
+  else
+    ToPQ(datarec, [ datarec.GroupName, "_class", cls, "  #filename" ]);
+  fi;
   ToPQ(datarec, [ n, "  #no. of group" ]);
-  datarec.match := true;
-  PQ_SET_GRP_DATA(datarec);
-  datarec.capable := datarec.class > cls;
-  datarec.pcoverclass := datarec.class;
+  if IsInt(cls) then
+    datarec.match := true;
+    PQ_SET_GRP_DATA(datarec);
+    datarec.capable := datarec.class > cls;
+    datarec.pcoverclass := datarec.class;
+  fi;
 end );
 
 #############################################################################
 ##
 #F  PqPGRestoreGroupFromFile(<i>, <cls>, <n>) . u ver of p-G/A p-G menu opt 3
 #F  PqPGRestoreGroupFromFile( <cls>, <n> )
+#F  PqPGRestoreGroupFromFile( <i> [: Filename := <name> ])
+#F  PqPGRestoreGroupFromFile([: Filename := <name> ])
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
 ##  binary to restore group <n> of class <cls> from a temporary  file,  where
-##  <cls> and <n> are positive integers.
+##  <cls> and <n> are positive integers, or the group stored  in  <name>.  In
+##  the `Filename' option forms, the option defaults to the last filename  in
+##  which a presentation was stored by the `pq' binary.
 ##
 ##  *Note:*
 ##  For those  familiar  with  the  `pq'  binary,  `PqPGRestoreGroupFromFile'
@@ -2461,22 +2471,28 @@ end );
 InstallGlobalFunction( PqPGRestoreGroupFromFile, function( arg )
 local len, datarec, cls, n;
   len := Length(arg);
-  if not(len in [2, 3]) or not(ForAll(arg, IsPosInt)) then
-    Error("expected 2 or 3 positive integer arguments\n");
+  if len > 3 or not(ForAll(arg, IsPosInt)) then
+    Error("expected at most 3 positive integer arguments\n");
   fi;
-  cls := arg[len - 1];
-  n   := arg[len];
-  arg := arg{[1 .. len - 2]};
+  if len in [2, 3] then
+    cls := arg[len - 1];
+    n   := arg[len];
+    arg := arg{[1 .. len - 2]};
+  fi;
   ANUPQ_IOINDEX_ARG_CHK(arg);
   datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  if not( IsBound(datarec.ndescendants) and 
-          IsBound( datarec.ndescendants[cls] ) ) then
-    Error( "descendants for class ", cls, " have not been constructed\n" );
-  elif datarec.ndescendants[cls][1] < n then
-    Error( "there is no group ", n, " saved (<n> must be < ",
-           datarec.ndescendants[cls][1], ")\n" );
+  if len in [2, 3] then
+    if not( IsBound(datarec.ndescendants) and 
+            IsBound( datarec.ndescendants[cls] ) ) then
+      Error( "descendants for class ", cls, " have not been constructed\n" );
+    elif datarec.ndescendants[cls][1] < n then
+      Error( "there is no group ", n, " saved (<n> must be < ",
+             datarec.ndescendants[cls][1], ")\n" );
+    fi;
+    PQ_PG_RESTORE_GROUP(datarec, cls, n);
+  else
+    PQ_PG_RESTORE_GROUP(datarec, VALUE_PQ_OPTION("Filename", datarec.des), 1);
   fi;
-  PQ_PG_RESTORE_GROUP( datarec, cls, n );
 end );
 
 #############################################################################
@@ -2502,7 +2518,7 @@ local nodescendants, class, firstStep, expectedNsteps, optrec, line, ngroups,
   # We do these here to ensure an error doesn't occur mid-input of the menu
   # item data 
   if IsBound(datarec.capable) then
-    #group has come from a `PqRestoreGroupFromFile' command
+    #group has come from a `PqPGRestoreGroupFromFile' command
     if not datarec.capable then
       Info(InfoWarning + InfoANUPQ, 1, "group restored from file is incapable");
       return [];
@@ -2693,6 +2709,9 @@ end );
 #F  PqAPGSupplyAutomorphisms( <i>[, <mlist>] ) . user ver of A p-G menu opt 1
 #F  PqAPGSupplyAutomorphisms([<mlist>])
 ##
+#T  This is implemented, but not documneted in the manual. There is one line
+#T  different in the C code between this menu item and the corresponding p-G
+#T  menu item. I don't understand the difference. - GG
 ##  for the <i>th or default interactive {\ANUPQ} process,  supply  the  `pq'
 ##  binary with the automorphism group data needed  for  the  group  of  that
 ##  process    (for    process    <i>    the    group    is     stored     as
@@ -2706,7 +2725,7 @@ end );
 ##
 ##  *Note:*
 ##  For those  familiar  with  the  `pq'  binary,  `PqAPGSupplyAutomorphisms'
-##  performs option 1 of the Advanced $p$-Group Generation menu.
+##  performs menu item 1 of the Advanced $p$-Group Generation menu.
 ##
 InstallGlobalFunction( PqAPGSupplyAutomorphisms, function( arg )
 local args;
@@ -2839,26 +2858,32 @@ end );
 ##
 #F  PQ_APG_ORBITS( <datarec> ) . . . . . . . . . . . . .  A p-G menu option 8
 ##
-##  inputs data to the `pq' binary for option 8 of the
-##  Advanced $p$-Group Generation menu.
+##  inputs data to the `pq' binary for menu item 8 of the Advanced  $p$-Group
+##  Generation menu, to compute orbits.
 ##
 InstallGlobalFunction( PQ_APG_ORBITS, function( datarec )
-local pcgsauts, efficient, summary, listing, line, norbits;
+local pcgsauts, efficient, output, summary, listing, line, norbits;
   pcgsauts  := VALUE_PQ_OPTION("PcgsAutomorphisms", false, datarec);
   efficient := VALUE_PQ_OPTION("SpaceEfficient", false, datarec.des);
-  summary   := VALUE_PQ_OPTION("OrbitsSummary", false);
-  listing   := VALUE_PQ_OPTION("OrbitsListing", false);
+  output := VALUE_PQ_OPTION("CustomiseOutput", rec(orbit := []), datarec.des);
+  if not( IsRecord(output) and IsBound(output.orbit) and 
+          IsList(output.orbit) ) then
+    output := rec(orbit := []);
+  fi;
+  summary   := IsBound( output.orbit[1] ) and output.orbit[1] in [1, true];
+  listing   := IsBound( output.orbit[2] ) and output.orbit[2] in [1, true];
   PQ_MENU(datarec, "ApG");
   ToPQ(datarec, [ "8  #compute orbits" ]);
   ToPQ(datarec, [ PQ_BOOL(pcgsauts),   "compute pcgs gen. seq. for auts." ]);
   ToPQ(datarec, [ PQ_BOOL(efficient),  "be space efficient" ]);
-  ToPQ(datarec, [ PQ_BOOL(summary),    "print an orbit summary" ]);
   if summary then
     datarec.match := "Number of orbits is";
   elif listing then
     datarec.match := "Orbit ";
   fi;
-  ToPQ(datarec, [ PQ_BOOL(listing),    "print a complete orbit listing" ]);
+  PQ_APG_CUSTOM_OUTPUT( datarec, "orbit", "orbit output",
+                        ["print orbit summary",
+                         "print complete orbit listing"] );
   if summary or listing then
     line := SplitString(datarec.matchedline, "", " \n");
     if summary then
@@ -2878,14 +2903,14 @@ end );
 #F  PqAPGOrbits( <i> : <options> ) . . .  user version of A p-G menu option 8
 #F  PqAPGOrbits( : <options> )
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, inputs data to the
-##  `pq' binary for the <i>th or default interactive {\ANUPQ} process, direct
-##  the `pq' binary to compute the orbit action of  the  automorphism  group,
-##  and return the number of orbits,  if  either  a  summary  or  a  complete
-##  listing (or both) of orbit information was requested.  Here  the  options
-##  <options>   recognised   are    `PcgsAutomorphisms',    `SpaceEfficient',
-##  `OrbitsSummary' and  `OrbitsListing'  (see  Chapter~"ANUPQ  Options"  for
-##  details).
+##  for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
+##  binary to compute the orbit action of the automorphism group, and  return
+##  the number of orbits, if either a summary or a complete listing (or both)
+##  of orbit information was requested. Here the options <options> recognised
+##  are `PcgsAutomorphisms',  `SpaceEfficient',  and  `CustomiseOutput'  (see
+##  Chapter~"ANUPQ Options" for details). For  the  `CustomiseOutput'  option
+##  only the setting of the `orbit' is recognised (all other  fields  if  set
+##  are ignored).
 ##
 ##  *Note:* For those familiar with the `pq' binary,  `PqAPGOrbits'  performs
 ##  menu item 8 of the Advanced $p$-Group Generation menu.
@@ -2904,23 +2929,60 @@ end );
 ##
 #F  PQ_APG_ORBIT_REPRESENTATIVES( <datarec> ) . . . . . . A p-G menu option 9
 ##
-##  inputs data to the `pq' binary for option 9 of the
-##  Advanced $p$-Group Generation menu.
+##  inputs data to the `pq' binary for menu item 9 of the Advanced  $p$-Group
+##  Generation menu, to process orbit representatives.
 ##
 InstallGlobalFunction( PQ_APG_ORBIT_REPRESENTATIVES, function( datarec )
+local pcgsauts, efficient, exponent, metabelian, alldescend, outputfile;
+  pcgsauts  := VALUE_PQ_OPTION("PcgsAutomorphisms", false, datarec);
+  efficient := VALUE_PQ_OPTION("SpaceEfficient", false, datarec.des);
+  exponent  := VALUE_PQ_OPTION("Exponent", false, datarec);
+  metabelian := VALUE_PQ_OPTION("Metabelian", false, datarec);
+  alldescend := not VALUE_PQ_OPTION(
+                        "CapableDescendants",
+                        VALUE_PQ_OPTION("AllDescendants", true),
+                        datarec.des);
+  outputfile := VALUE_PQ_OPTION("Filename", "redPCover", datarec.des);
+  VALUE_PQ_OPTION("CustomiseOutput", rec(), datarec.des);
+  PQ_MENU(datarec, "ApG");
+  ToPQ(datarec, [ "9  #process orbit reps" ]);
+  ToPQ(datarec, [ PQ_BOOL(pcgsauts),   "compute pcgs gen. seq. for auts." ]);
+  ToPQ(datarec, [ PQ_BOOL(efficient),  "be space efficient" ]);
+  ToPQ(datarec, [ PQ_BOOL(alldescend), 
+                  "completely process terminal descendants" ]);
+  ToPQ(datarec, [ exponent,            " #exponent" ]);
+  ToPQ(datarec, [ PQ_BOOL(metabelian), " #set metabelian" ]);
+  PQ_APG_CUSTOM_OUTPUT( datarec, "group", "group output",
+                        ["print allowable subgp standard matrix",
+                         "print pres'n of reduced p-covers",
+                         "print pres'n of immediate descendants",
+                         "print nuclear rank of descendants",
+                         "print p-mult'r rank of descendants"] );
+  PQ_APG_CUSTOM_OUTPUT( datarec, "autgroup", "aut. grp output",
+                        ["print commutator matrix",
+                         "print aut. grp descriptions of descendants",
+                         "print aut. grp orders of descendants"] );
+  ToPQ(datarec, [ outputfile,          " #output filename" ]);
 end );
 
 #############################################################################
 ##
-#F  PqAPGOrbitRepresentatives( <i> ) . .  user version of A p-G menu option 9
-#F  PqAPGOrbitRepresentatives()
+#F  PqAPGOrbitRepresentatives(<i> : <options>) . user ver of A p-G menu opt 9
+#F  PqAPGOrbitRepresentatives(: <options>)
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, inputs data
-##  to the `pq' binary
+##  for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
+##  binary to process  the  orbit  representatives  and  output  the  reduced
+##  $p$-cover to a file. The options <options> may be any of  the  following:
+##  are  `PcgsAutomorphisms',  `SpaceEfficient',  `Exponent',   `Metabelian',
+##  `CapableDescendants' (or `AllDescendants'), `CustomiseOutput' (where only
+##  the `group' and `autgroup' fields are  recognised)  and  `Filename'  (see
+##  Chapter~"ANUPQ Options"  for  details).  If  `Filename'  is  omitted  the
+##  reduced $p$-cover is written to the file `"redPCover"' in  the  temporary
+##  directory whose name is stored in `ANUPQData.tmpdir'.
 ##
-##  *Note:* For those  familiar  with  the  `pq'  binary, 
-##  `PqAPGOrbitRepresentatives' performs option 9 of the
-##  Advanced $p$-Group Generation menu.
+##  *Note:*
+##  For those familiar  with  the  `pq'  binary,  `PqAPGOrbitRepresentatives'
+##  performs option 9 of the Advanced $p$-Group Generation menu.
 ##
 InstallGlobalFunction( PqAPGOrbitRepresentatives, function( arg )
 local datarec;
