@@ -35,11 +35,13 @@ int type;
       break;
 
    case WORD:
-      printf ("Input the word for collection:\n");
+      printf ("Input the word for collection:\n" );
+      printf ("(use generators x1,x2,... and terminate with a semicolon)\n");
       break;
 
    case VALUE_A:
       printf ("Input the value of a:\n");
+      printf ("(use generators x1,x2,... and terminate with a semicolon)\n");
       break;
 
    case VALUE_B:
