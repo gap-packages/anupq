@@ -61,6 +61,8 @@ F 3.3. InfoANUPQ
 S 3.4. Hints and Warnings regarding the use of Options
 I 3.4. menu item!of pq program
 I 3.4. option!of pq program is a menu item
+I 3.4. troubleshooting tips
+F 3.4. ANUPQWarnOfOtherOptions
 S 3.5. Utility Functions
 F 3.5. PqLeftNormComm
 F 3.5. PqGAPRelators
