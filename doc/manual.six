@@ -279,6 +279,7 @@ F 6.1. option OutputLevel
 F 6.1. option SetupFile
 F 6.1. option PqWorkspace
 F 6.1. option PcgsAutomorphisms
+F 6.1. option PcgsAutomorphisms
 F 6.1. option OrderBound
 F 6.1. option StepSize
 F 6.1. option StepSize

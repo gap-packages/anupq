@@ -130,13 +130,21 @@ main storage array. By default, the  `pq'  binary  sets  this  figure  to
 this  case  may  be  set  by   giving   `PqStart'   a   second   argument
 (see~"PqStart").
 
-\>`PcgsAutomorphisms'{option PcgsAutomorphisms}@{option `PcgsAutomorphisms'|indexit}&
-Specifies that a polycyclic  generating  sequence  for  the  automorphism
-group of <G> (which must be *soluble*), be computed  and  passed  to  the
-`pq' binary. This increases the efficiency of the  computation;  it  also
-prevents the `pq' from calling {\GAP} for orbit-stabilizer  calculations.
-See  Section~"Computing   Descendants   of   a   p-Group"   for   further
-explanations.
+\>`PcgsAutomorphisms'{option PcgsAutomorphisms}%
+@{option `PcgsAutomorphisms'|indexit}
+\>`PcgsAutomorphisms := false'{option PcgsAutomorphisms}%
+@{option `PcgsAutomorphisms'|indexit}&
+Let <G> be the group associated with the calling function (or  associated
+interactive process). Passing the option  `PcgsAutomorphisms'  without  a
+value (or equivalently setting it to `true'), specifies that a polycyclic
+generating sequence for the automorphism group  of  <G>  (which  must  be
+*soluble*), be computed and passed to the `pq' binary. This increases the
+efficiency of the computation; it also prevents  the  `pq'  from  calling
+{\GAP} for orbit-stabilizer calculations. By default, `PcgsAutomorphisms'
+is set to the value returned by `IsSolvable( AutomorphismGroup(  <G>  )',
+and uses the package {\AutPGrp} to compute `AutomorphismGroup( <G> )'  if
+it is installed. See Section~"Computing Descendants  of  a  p-Group"  for
+further explanations.
 
 *Note:*
 If `PcgsAutomorphisms' is used when the  automorphism  group  of  <G>  is
