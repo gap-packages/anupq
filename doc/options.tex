@@ -204,10 +204,10 @@ commands written to <filename> are also `Info'-ed behind  a  ```ToPQ> '''
 prompt at `InfoANUPQ' level  4  (see~"InfoANUPQ").  Except  in  the  case
 following, the calling function returns `true'. If the  calling  function
 is  the  non-interactive  version  of  one   of   `Pq',   `PqPCover'   or
-`PqEpimorphism' and the group provided as  argument  has  no  generators,
-then no setup file is written and `fail' is returned  (the  `pq'  program
-cannot do anything useful with such a group). Interactively,  `SetupFile'
-is ignored.
+`PqEpimorphism' and the group provided as argument is trivial given  with
+an empty set of generators, then no setup file is written and  `fail'  is
+returned (the `pq' program cannot do anything useful with such a  group).
+Interactively, `SetupFile' is ignored.
 
 \>`PqWorkspace := <workspace>'{option PqWorkspace}@{option `PqWorkspace'|indexit}&
 Non-interactively, this option sets the memory used by the `pq'  program.

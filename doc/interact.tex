@@ -46,7 +46,7 @@ active  interactive  {\ANUPQ} processes.   If  {\GAP}  is killed  without
 *zombie* processes  (still living *child* processes  whose *parents* have
 died), may result. Since zombie processes do consume resources,  in  such
 an event, the responsible computer user should  seek  out  and  terminate
-those zombie processes (e.g.~on  Linux:  `ps  x  |  grep  pq'  gives  you
+those zombie processes (e.g.~on  Linux:  `ps xw  |  grep  pq'  gives  you
 information on  the  `pq'  processes  corresponding  to  any  interactive
 {\ANUPQ} processes started in a {\GAP} session; you  can  then  do  `kill
 <N>' for each number <N> appearing in the first column of this output).
@@ -879,11 +879,12 @@ menu item 1 of the main $p$-Quotient menu.
 \>PqSavePcPresentation( <filename> ) F
 
 for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
-program to save the pc presentation previously computed for  the  quotient
+program to save the pc presentation previously computed for the  quotient
 of the group of that process to the file with  name  <filename>.  If  the
 first character of the  string  <filename>  is  not  `/',  <filename>  is
 assumed to be the path of a writable file relative to  the  directory  in
-which {\GAP} was started.
+which  {\GAP}  was  started.  A   saved   file   may   be   restored   by
+`PqRestorePcPresentation' (see~"PqRestorePcPresentation").
 
 *Note:* For those familiar with the `pq'  program,  `PqSavePcPresentation'
 performs menu item 2 of the main $p$-Quotient menu.
@@ -892,10 +893,11 @@ performs menu item 2 of the main $p$-Quotient menu.
 \>PqRestorePcPresentation( <filename> ) F
 
 for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
-program to restore the pc presentation previously saved to <filename>.  If
-the first character of the string <filename> is not  `/',  <filename>  is
-assumed to be the path of a readable file relative to  the  directory  in
-which {\GAP} was started.
+program to restore the pc presentation previously saved to <filename>, by
+`PqSavePcPresentation'   (see~"PqSavePcPresentation").   If   the   first
+character of the string <filename> is not `/', <filename> is  assumed  to
+be the path of a readable file relative to the directory in which  {\GAP}
+was started.
 
 *Note:*
 For  those  familiar  with  the  `pq'  program,  `PqRestorePcPresentation'
@@ -1653,21 +1655,26 @@ performs menu item 5 of the main $p$-Group Generation menu.
 \>PqPGSetDescendantToPcp( <cls>, <n> ) F
 \>PqPGSetDescendantToPcp( <i> [: Filename := <name> ]) F
 \>PqPGSetDescendantToPcp([: Filename := <name> ]) F
-\>PqPGRestoreGroupFromFile(<i>, <cls>, <n>) F
-\>PqPGRestoreGroupFromFile( <cls>, <n> ) F
-\>PqPGRestoreGroupFromFile( <i> [: Filename := <name> ]) F
-\>PqPGRestoreGroupFromFile([: Filename := <name> ]) F
+\>PqPGRestoreDescendantFromFile(<i>, <cls>, <n>) F
+\>PqPGRestoreDescendantFromFile( <cls>, <n> ) F
+\>PqPGRestoreDescendantFromFile( <i> [: Filename := <name> ]) F
+\>PqPGRestoreDescendantFromFile([: Filename := <name> ]) F
 
-for the  <i>th or default  interactive {\ANUPQ} process, direct  the `pq'
-program to  read group <n>  of class <cls>  from a temporary  file, where
-<cls> and <n>  are positive integers, or the group  stored in <name>.  In
-the `Filename' option forms, the  option defaults to the last filename in
-which a presentation was stored by the `pq' program.
+for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
+binary to restore group <n> of class <cls> from a temporary  file,  where
+<cls> and <n> are positive integers,  or  the  group  stored  in  <name>.
+`PqPGSetDescendantToPcp'    and    `PqPGRestoreDescendantFromFile'    are
+synonyms;  they  make  sense  only  after  a  prior  call  to   construct
+descendants          by          say           `PqPGConstructDescendants'
+(see~"PqPGConstructDescendants")  or  the   interactive   `PqDescendants'
+(see~"PqDescendants!interactive"). In the `Filename'  option  forms,  the
+option defaults to the last filename in which a presentation  was  stored
+by the `pq' binary.
 
-*Note:* 
+*Note:*
 For those familiar with the  `pq'  binary,  `PqPGSetDescendantToPcp'  and
-`PqPGRestoreGroupFromFile' perform option  3  of  the  main  or  advanced
-$p$-Group Generation menu.
+`PqPGRestoreDescendantFromFile' perform  menu  item  3  of  the  main  or
+advanced $p$-Group Generation menu.
 
 \goodbreak%
 *Commands from the Advanced $p$-Group Generation menu*
@@ -1687,7 +1694,7 @@ descriptions.
 \>PqAPGDegree( <step>, <rank> [: Exponent := <n> ]) F
 
 for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
-program  to  compute  definition  sets  and  return  the  degree  of   the
+program  to  compute  definition  sets  and  return  the  degree  of  the
 permutation group. Here the step-size <step> and the rank <rank>  of  the
 initial segment subgroup are positive integers. See~"option Exponent" for
 the one recognised option `Exponent'.
@@ -1699,7 +1706,7 @@ menu item 6 of the Advanced $p$-Group Generation menu.
 \>PqAPGPermutations( : <options> ) F
 
 for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
-program to compute permutations of subgroups. Here the  options  <options>
+program to compute permutations of subgroups. Here the options  <options>
 recognised       are        `PcgsAutomorphisms',        `SpaceEfficient',
 `PrintAutomorphisms' and `PrintPermutations' (see Chapter~"ANUPQ Options"
 for details).
@@ -1726,7 +1733,7 @@ menu item 8 of the Advanced $p$-Group Generation menu.
 \>PqAPGOrbitRepresentatives(: <options> ) F
 
 for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
-program to process  the  orbit  representatives  and  output  the  reduced
+program to process the  orbit  representatives  and  output  the  reduced
 $p$-cover to a file. The options <options> may be any of  the  following:
 are  `PcgsAutomorphisms',  `SpaceEfficient',  `Exponent',   `Metabelian',
 `CapableDescendants' (or `AllDescendants'), `CustomiseOutput' (where only
