@@ -48,6 +48,12 @@ DeclareGlobalFunction( "ANUPQSetAutomorphismGroup" );
 
 #############################################################################
 ##
+#F  PqSupplementInnerAutomorphisms( <G> )
+##
+DeclareGlobalFunction( "PqSupplementInnerAutomorphisms" );
+
+#############################################################################
+##
 #F  ANUPQprintExps( <pqi>, <lst> ) . . . . . . . . . . .  print exponent list
 ##
 DeclareGlobalFunction( "ANUPQprintExps" );

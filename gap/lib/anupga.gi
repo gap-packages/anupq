@@ -14,6 +14,10 @@
 #Y  Copyright 1992-1994,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.24  2001/12/21 14:29:59  werner
+#H  Install PqSupplementInnerAutomorphism() via DeclareGlobalFunction()
+#H  and InstallGlobalFunction().
+#H
 #H  Revision 1.23  2001/12/03 06:09:11  werner
 #H  Do not set the automorphism group in SupplementInnerAutomorphisms() as
 #H  the function does not return the full automorphism group.           WN
@@ -440,13 +444,13 @@ end );
 ##  The following method does not return the full automorphisms group,
 ##  but only a supplement to the inner automorphism.
 ##
-#InstallMethod( AutomorphismGroup,
-#        "automorphism from ANUPQ output",
-#        [ IsPGroup and HasANUPQAutomorphisms ],
-#        100,
-
-SupplementInnerAutomorphisms := function( G )
+InstallGlobalFunction( "PqSupplementInnerAutomorphisms",
+function( G )
     local   gens,  automs,  A;
+
+    if not HasANUPQAutomorphisms( G ) then
+        return Error( "group does not carry automorphism information" );
+    fi;
 
     gens := ANUPQAutomorphisms( G ).gens;
     automs := Reversed( ANUPQAutomorphisms( G ).automs );
@@ -468,7 +472,7 @@ SupplementInnerAutomorphisms := function( G )
     fi;
 
     return A;
-end;
+end );
 
 #############################################################################
 ##
