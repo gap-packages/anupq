@@ -63,7 +63,7 @@ InstallGlobalFunction( PqEnumerateWords, function( proc, data, r )
 
     if wt = 0 then
         PqEvalSingleRelation( proc, r, data.instances );
-        Info( InfoANUPQ, 2, "Instance: ", data.instances[ n ] ); 
+        Info( InfoANUPQ, 3, "Instance: ", data.instances[ n ] ); 
         return;
     fi;
     
@@ -136,7 +136,7 @@ end );
 ##  demonstrate its usage.
 ##
 ##  \beginexample
-##  gap> F := FreeGroup(2);                    
+###  gap> F := FreeGroup(2);                    
 ##  <free group on the generators [ f1, f2 ]>
 ##  gap> f := w -> w^4;
 ##  function( w ) ... end
@@ -216,13 +216,13 @@ InstallGlobalFunction( PqWithIdentity, function( G, p, Cl, identity )
         
         datarec.nwords := 0;
         PqEvaluateIdentity( proc, identity, arity );
-        Info(InfoANUPQ, 1, "Evaluated ", datarec.nwords, " instances." );
+        Info(InfoANUPQ, 2, "Evaluated ", datarec.nwords, " instances." );
 
         PqEliminateRedundantGenerators( proc );
 
         class := class + 1;
         
-        Info(InfoANUPQ, 1, "Class ", class, " with ",
+        Info(InfoANUPQ, 2, "Class ", class, " with ",
                            PqNrPcGenerators(proc), " generators." );
     od;
 
@@ -316,7 +316,7 @@ InstallGlobalFunction( PQ_EVALUATE_IDENTITY, function( proc, identity )
       data.weightleft := c;
       EnumerateWords();
     od;
-    Info(InfoANUPQ, 1, "Evaluated ", nwords, " instances." );
+    Info(InfoANUPQ, 2, "Evaluated ", nwords, " instances." );
 end );
 
 #E  anupqid.gi  . . . . . . . . . . . . . . . . . . . . . . . . . . ends here 
