@@ -6,13 +6,15 @@
 ##  @(#)$Id$
 ##
 
-if not IsBound(GAPInfo) then
-  BindGlobal("GAPInfo",
-    rec(DirectoriesTemporary := DIRECTORIES_TEMPORARY,
-        PackagesInfo := rec(anupq := [rec(Version :=
+if not CompareVersionNumbers( VERSION, "4.4") then
+  if not IsBound(GAPInfo) then
+    BindGlobal( "GAPInfo", rec(DirectoriesTemporary := DIRECTORIES_TEMPORARY,
+                               PackagesInfo := rec()) );
+  fi;
+  GAPInfo.PackagesInfo.anupq 
+      := [rec(Version :=
           Chomp(StringFile(Filename( DirectoriesPackageLibrary("anupq", ""),
-                                     "VERSION" ))))])
-       ));
+                                     "VERSION" ))))];
 fi;
 
 ##  Install the documentation
