@@ -31,7 +31,7 @@ Version 2.0:
        - package version changed from 1.5 to 2.0
        - pq program version changed from 1.5 to 1.6
        - various GAP 4.4 documentation changes
-       - `PqSupplementInnerAutomorphisms' and example withdrawn
+       - `PqSupplementInnerAutomorphisms' example modified
    o PkgInfo.g replaced by PackageInfo.g
        - `Pkg...' fields replaced by `Package...' fields
        - `AutoLoad' fields replaced by `Autoload'
