@@ -9,7 +9,7 @@ SetPackageInfo( rec(
 
   PkgName := "ANUPQ",
   Version := "1.2",
-  Date    := "03/10/2002",
+  Date    := "03/11/2002",
   ArchiveURL 
           := "http://www.math.rwth-aachen.de/~Greg.Gamble/ANUPQ/anupq-1.2",
   ArchiveFormats 
