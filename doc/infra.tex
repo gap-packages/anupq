@@ -33,12 +33,12 @@ value 1 will give progressively more information  of  what  is  going  on
 ANUPQ via Info and InfoANUPQ");
 
 \item{$\bullet$} 
-if you passed options to a function and ran into an error then you should
-almost certainly type `ResetOptionsStack();' so  those  options  are  not
-still on the `OptionsStack' to affect subsequent  functions  and  setting
-the `ANUPQWarnOfOtherOptions  :=  true;'  (particularly  useful  for  the
-novice user) will warn you of misspelt options and may help in diagnosing
-other option usage problems (details are in Section~"Hints  and  Warnings
+if you passed options to a function and ran into an error  then  you  may
+need to type `ResetOptionsStack();' so that those options are  not  still
+on the `OptionsStack' to affect  subsequent  functions  and  setting  the
+`ANUPQWarnOfOtherOptions := true;' (particularly useful  for  the  novice
+user) will warn you of misspelt options and may help in diagnosing  other
+option  usage  problems  (details  are  in  Section~"Hints  and  Warnings
 regarding the use of Options");
 
 \item{$\bullet$} 
@@ -368,33 +368,37 @@ using the global method of passing options. In fact,  it  is  recommended
 that  prior  to  calling  `PqStart'  the  `OptionsStack'  be  empty.  The
 essential problem  with  setting  options  globally  using  the  function
 `PushOptions' is that options pushed onto `OptionsStack',  in  this  way,
-remain there until an explicit `PopOptions()' call is made.
+(generally) remain there until an explicit `PopOptions()' call is made.
 
 In contrast, options passed in the usual way behind a colon  following  a
 function's arguments (see "ref:Function Calls" in  the  {\GAP}  Reference
 Manual) are local, and disappear from `OptionsStack' after  the  function
-has executed successfully. However, if the function  does  *not*  execute
+has  executed  successfully.  If  the   function   does   *not*   execute
 successfully, i.e.~it runs into error and the user `quit's the  resulting
 `break' loop (see Section~"ref:Break  loops"  in  the  Reference  Manual)
 rather than attempting to repair the problem and  typing  `return;'  then
-the options of that function are *not* cleared  from  `OptionsStack'.  In
-such cases, the user will generally want to:
+usually  (so  long  as  your  {\GAP}  is  at  least  version   4.3)   the
+`OptionsStack' is reset. If, however, you have {\GAP} 4.2  or  the  error
+was detected inside the kernel (hopefully, this should occur only rarely,
+if at all) then the options of that function will *not* be  cleared  from
+`OptionsStack'; in such cases:
 
 \beginexample
 gap> ResetOptionsStack();
 #I  Options stack is already empty
 \endexample
 
-(see Chapter~"ref:ResetOptionsStack"  in  the  {\GAP}  Reference  Manual)
-which recursively calls `PopOptions()' until `OptionsStack' is empty, or
-as in the above case warns you that the `OptionsStack' is already empty.
+is usually necessary (see Chapter~"ref:ResetOptionsStack" in  the  {\GAP}
+Reference  Manual),  which   recursively   calls   `PopOptions()'   until
+`OptionsStack' is empty, or as in the  above  case  warns  you  that  the
+`OptionsStack' is already empty.
 
-Nevertheless, a function, that is passed options after  the  colon,  will
-also see any global options or any options passed down  recursively  from
+Note that a function, that is passed options after the colon,  will  also
+see any global options  or  any  options  passed  down  recursively  from
 functions calling that function, unless those options are over-ridden  by
-options passed via the function. Note that duplication  of  option  names
-for different programs may lead to  misinterpretations,  and  mis-spelled
-options will not be ``seen''.
+options passed via the function. Also, note that  duplication  of  option
+names  for  different  programs  may  lead  to  misinterpretations,   and
+mis-spelled options will not be ``seen''.
 
 The   non-interactive   functions   of   Chapter~"Non-interactive   ANUPQ
 Functions" that have `Pq' somewhere in their name provide an  alternative
@@ -428,28 +432,39 @@ moreOfline := ReadLine( iostream );
 Entering break read-eval-print loop ...
 you can 'quit;' to quit to outer loop, or
 you can 'return;' to continue
-brk> quit; # to get back to the `gap>' prompt
 \endtt
 
 Here we mistyped `ClassBound'  as  `Classbound',  and  after  seeing  the
 `Info'-ed warning that `Classbound' was ignored, we typed  a  <control>-C
 (that's the ```user interrupt at''' message) which took us into  a  break
-loop, from which we `quit;'. Since the  `Pq'  command  was  not  able  to
-finish, the options `Prime' and `Classbound', in particular,  will  still
-be on the `OptionsStack':
+loop. Since the `Pq' command was not able to finish, the options  `Prime'
+and `Classbound', in particular, will still be on the `OptionsStack':
 
 \begintt
-gap> OptionsStack;
+brk> OptionsStack;
 [ rec( Prime := 2, Classbound := 1 ), 
   rec( Prime := 2, Classbound := 1, PqEpiOrPCover := "pQuotient" ) ]
 \endtt
 
 The option `PqEpiOrPCover' is a behind-the-scenes option  that  need  not
-concern the user. We need to remove these options; hence we type:
+concern the user. Since {\GAP} 4.3, on `quit'ting  the  `break'-loop  the
+`OptionsStack' is reset and a warning telling you this is emitted:
+
+\begintt
+brk> quit; # to get back to the `gap>' prompt
+#I  Options stack has been reset
+\endtt
+
+However, as mentioned above, if your version of {\GAP} is only  4.2  then
+you will need to explicitly remove these options, by:
 
 \begintt
 gap> ResetOptionsStack();
 \endtt
+
+Note that there have been many improvements to {\GAP} since  {\GAP}  4.2,
+particularly  in  its  iostream  functionality.  You  will   get   strong
+performance benefits by upgrading to the most recent version of {\GAP}.
 
 Above, we altered `OnBreak' (see~"ref:OnBreak" in the  Reference  manual)
 to reduce the back-tracing on entry into a break  loop.  We  now  restore
