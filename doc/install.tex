@@ -10,24 +10,25 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Chapter{Installing the ANUPQ Package}
 
-The ANU `pq' program is written in C and the package can only be installed
-under UNIX. It has  been  tested  on  DECstation  running  Ultrix,  a  HP
-9000/700 and HP 9000/800 running HP-UX, a MIPS running RISC/os  Berkeley,
-a NeXTstation running NeXTSTEP 3.0, a SUN  running  SunOS  and  an  Intel
-Pentium based PC running Linux.
+The ANU `pq' program is  written  in  C  and  the  package  can  only  be
+installed under UNIX. It has been tested on DECstation running Ultrix,  a
+HP 9000/700 and  HP  9000/800  running  HP-UX,  a  MIPS  running  RISC/os
+Berkeley, a NeXTstation running NeXTSTEP 3.0, a SUN running SunOS and  an
+Intel Pentium based PC running Linux.
 
-To install the {\ANUPQ} package, move the file `anupq.zoo' into the `pkg'
-directory in which you plan to install {\ANUPQ}. Usually,  this  will  be
-the directory `pkg' in the hierarchy of your version of GAP 4.  (However,
-it is also possible to keep an additional `pkg' directory in your private
-directories, see section "ref:Installing GAP Packages"  of  the  {\GAP}~4
-reference manual for details on how to do this.)
+To install the {\ANUPQ} package, move the file `anupq-<XXX>.zoo' for some
+version number <XXX> into the  `pkg'  directory  in  which  you  plan  to
+install {\ANUPQ}. Usually, this  will  be  the  directory  `pkg'  in  the
+hierarchy of your version of GAP 4. (However, it is also possible to keep
+an additional `pkg' directory in your private  directories,  see  section
+"ref:Installing GAP  Packages"  of  the  {\GAP}~4  reference  manual  for
+details on how to do this.)
 
-Then unzoo `anupq.zoo' by
+Then unzoo `anupq-<XXX>.zoo' by
 
-\begintt
-unzoo -x anupq
-\endtt
+%\begintt
+\){\kernttindent}unzoo -x anupq-<XXX>
+%\endtt
 
 Change directory to the newly created `anupq' directory. Now you need  to
 call `configure <path>' where <path> is  the  path  to  the  {\GAP}  home

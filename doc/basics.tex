@@ -24,7 +24,7 @@ of the pq program".
 
 *pc Presentations and Consistency*
 
-For details, see \cite{NNN98}.
+For details, see  e.g.~\cite{NNN98}.
 
 Every $p$-group $G$ has a presentation of the form: 
 $$
@@ -44,7 +44,8 @@ with $0 \le e_i \< p$. Moreover any given product  of  the  generators
 and their inverses can be brought into such a normal  form  using  the
 defining relations in the above presentation  as  rewrite  rules.  Any
 such process is called *collection*. For  the  discussion  of  various
-collection methods see \cite{LGS90} and \cite{Vau90a}.
+collection methods see \cite{LGS90} and 
+\cite{VL90a}. %this should be Collection
 
 \index{consistent}\index{confluent rewriting system}\index{confluent}
 Every $p$-group of order $p^n$ has such  a  pcp  presentation  on  $n$
@@ -54,9 +55,10 @@ be of smaller order $p^m$ with $m\<n$. A pcp on  $n$  generators  that
 does in fact define a $p$-group of order $p^n$ is called  *consistent*
 in this manual, in line with most of the literature on the  algorithms
 occurring here. A consistent pcp  determines  a  *confluent  rewriting
-system* (see~"ref:IsConfluent") for the group it defines and for  this
-reason often (in particular in the {\GAP} Reference Manual) such a pcp
-presentation is also called *confluent*.
+system* (see~"ref:IsConfluent" in the {\GAP} Reference Manual) for the
+group it defines and for this  reason  often  (in  particular  in  the
+{\GAP} Reference Manual)  such  a  pcp  presentation  is  also  called
+*confluent*.
 
 Consistency of a pcp is tantamount to the fact that for any given word
 in the generators any two collections will yield the same normal form.
@@ -122,7 +124,7 @@ free group $F$ of  rank $d$. We denote $[F, R] R^p$  by $R^\*$.  It can
 be proved (see e.g.~\cite{OBr90}) that the isomorphism type of $G^\* :=
 F/R^\*$ depends only on $G$.   $G^\*$ is called the *$p$-covering group*
 or *$p$-cover* of $G$, and  $R/R^\*$ the $p$-multiplicator of $G$.  The
-$p$-multiplicator is  of course  an elementary abelian  $p$-group, its
+*$p$-multiplicator* is  of course  an elementary abelian  $p$-group, its
 minimal number of generators is called the *($p$-)multiplicator rank*.
 
 *Descendants, Capable, Terminal, Nucleus*
@@ -132,14 +134,14 @@ For details, see \cite{New77} and  \cite{OBr90}.
 \index{descendant}\index{immediate descendant}\index{nucleus}
 \index{capable}\index{terminal}\index{allowable}\index{permutation}
 \index{extended automorphism}
-Let again $G$  be a $p$-group of $p$-class $c$ and  with $d$ being the
+Let again $G$  be a $p$-group of $p$-class $c$ and  $d$ the
 minimal  number  of   generators  of  $G$.   A  $p$-group   $H$  is  a
 *descendant* of $G$ if the minimal  number of generators of $H$ is $d$
 and $H/P_c(H)$  is isomorphic to $G$.   A descendant $H$ of  $G$ is an
 *immediate  descendant* if  it  has $p$-class  $c+1$.   $G$ is  called
 *capable* if it has immediate descendants, otherwise *terminal*.
 
-Let $G^\* = F/F^\*$ again be  the  $p$-cover  of  $G$,  Then  the  group
+Let $G^\* = F/R^\*$ again be  the  $p$-cover  of  $G$,  Then  the  group
 $P_c(G^\*)$ is called the *nucleus* of $G$.  Note  that  $P_c(G^\*)$  is
 contained in the $p$-multiplicator $R/R^\*$.
 
@@ -159,7 +161,7 @@ $A$ of allowable subgroups. Choosing a representative  $S$  from  each
 orbit of $P$ on $A$, the set of  factor  groups  $F/S$  contains  each
 (isomorphism type of) immediate descendant of $G$ exactly once.
 
-(The group $P$ of permutations that will appear in the description  of
+(The group $P$ of permutations will appear in the description  of
 some interactive functions.)
 
 
@@ -167,7 +169,7 @@ some interactive functions.)
 \Section{The p-quotient Algorithm}
 
 For details see \cite{HN80} and \cite{NO96}. Other descriptions of the
-algorithm are given in \cite{Vau90b} and \cite{Sims94}.
+algorithm are given in \cite{VL90b} and \cite{Sims94}. %not collection
 
 \index{p-quotient algorithm}
 The aim of the $p$-quotient (`pq'-) algorithm is  to  find  $p$-factor
@@ -185,7 +187,7 @@ the biggest such factorgroup.
 $G/P_2(G)$ is  the largest elementary abelian $p$-factor  group of $G$
 and this  can be found  from the relation  matrix of $G$  using matrix
 diagonalisation   modulo  $p$.   So   it  suffices   to  explain   how
-$G/P_{i+1}(G)$ is found from $g$ and $G/P_i(G)$ for some $i \ge 1$.
+$G/P_{i+1}(G)$ is found from $G$ and $G/P_i(G)$ for some $i \ge 1$.
 
 
 *UP TO HERE*
@@ -240,7 +242,7 @@ computation of automorphism groups of $p$-groups.
 
 \endlist
 
-Further   background   may   be   found   in~\cite{OBr95},   \cite{Vau84},
+Further   background   may   be   found   in~\cite{OBr95},   \cite{VL84},
 \cite{NNN98}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
