@@ -385,12 +385,12 @@ gap> f( Q.1, Q.2 );
 \Section{A Large Example}
 
 \atindex{B(5,4)}{@$B(5, 4)$}
-An example which demonstrates in a big way just what the `pq' program via
-the {\ANUPQ}  package can  do, is the  computation of the  Burnside group
-$B(5, 4)$, the  largest group of exponent 4 generated  by 5 elements.  It
-has order $2^{2728}$ and lower exponent-$p$ central class 13. The example
-`"B5-4.g"' computes $B(5, 4)$; it is based on  a  `pq'  standalone  input
-file written by M.~F.~Newman.  
+An example  demonstrating how large  computation can be organised  by the
+{\ANUPQ} package  is the computation of the Burnside group $B(5, 4)$, the
+largest  group of  exponent  4 generated  by  5 elements.   It has  order
+$2^{2728}$  and   lower  exponent-$p$  central  class   13.  The  example
+`"B5-4.g"' computes  $B(5, 4)$;  it is based  on a `pq'  standalone input
+file written by M.~F.~Newman.
 
 To be able to do examples like this was part of the motivation to provide
 access to the  low-level functions of the standalone  program from within
@@ -403,6 +403,94 @@ the $p$-central  class  and  the  order  of  $B(5,  4)$.  Therefore,  the
 construction cannot be used to prove that $B(5, 4)$  has  the  order  and
 class mentioned above. It is merely a reconstruction of the  group.  More
 information is contained in the header of the file `examples/B5-4.g'.
+
+\goodbreak
+\begintt
+procId := PqStart( FreeGroup(5) : Exponent := 4, Prime := 2 );
+Pq( procId : ClassBound := 2 );
+PqSupplyAutomorphisms( procId,
+      [
+        [ [ 1, 1, 0, 0, 0],      # first automorphism
+          [ 0, 1, 0, 0, 0],
+          [ 0, 0, 1, 0, 0],
+          [ 0, 0, 0, 1, 0],
+          [ 0, 0, 0, 0, 1] ],
+
+        [ [ 0, 0, 0, 0, 1],      # second automorphism
+          [ 1, 0, 0, 0, 0],
+          [ 0, 1, 0, 0, 0],
+          [ 0, 0, 1, 0, 0],
+          [ 0, 0, 0, 1, 0] ]
+                             ] );;
+
+Relations :=
+  [ [],          ## class 1
+    [],          ## class 2
+    [],          ## class 3
+    [],          ## class 4
+    [],          ## class 5
+    [],          ## class 6
+    ## class 7     
+    [ [ "x2","x1","x1","x3","x4","x4","x4" ] ],
+    ## class 8
+    [ [ "x2","x1","x1","x3","x4","x5","x5","x5" ] ],
+    ## class 9
+    [ [ "x2","x1","x1","x3","x4","x4","x5","x5","x5" ],
+      [ "x2","x1","x1","x2","x3","x4","x5","x5","x5" ],
+      [ "x2","x1","x1","x3","x3","x4","x5","x5","x5" ] ],
+    ## class 10
+    [ [ "x2","x1","x1","x2","x3","x3","x4","x5","x5","x5" ],
+      [ "x2","x1","x1","x3","x3","x4","x4","x5","x5","x5" ] ],
+    ## class 11
+    [ [ "x2","x1","x1","x2","x3","x3","x4","x4","x5","x5","x5" ],
+      [ "x2","x1","x1","x2","x3","x1","x3","x4","x2","x4","x3" ] ],
+    ## class 12
+    [ [ "x2","x1","x1","x2","x3","x1","x3","x4","x2","x5","x5","x5" ],
+      [ "x2","x1","x1","x3","x2","x4","x3","x5","x4","x5","x5","x5" ] ],
+    ## class 13
+    [ [ "x2","x1","x1","x2","x3","x1","x3","x4","x2","x4","x5","x5","x5" 
+        ] ]
+];
+
+for class in [ 3 .. 13 ] do
+    Print( "Computing class ", class, "\n" );
+    PqSetupTablesForNextClass( procId );
+
+    for w in [ class, class-1 .. 7 ] do
+
+        PqAddTails( procId, w );   
+        PqDisplayPcPresentation( procId );
+
+        if Relations[ w ] <> [] then
+            # recalculate automorphisms
+            PqExtendAutomorphisms( procId );
+
+            for r in Relations[ w ] do
+                Print( "Collecting ", r, "\n" );
+                PqCommutator( procId, r, 1 );
+                PqEchelonise( procId );
+                PqApplyAutomorphisms( procId, 15 ); #queue factor = 15
+            od;
+
+            PqEliminateRedundantGenerators( procId );
+        fi;   
+        PqComputeTails( procId, w );
+    od;
+    PqDisplayPcPresentation( procId );
+
+    smallclass := Minimum( class, 6 );
+    for w in [ smallclass, smallclass-1 .. 2 ] do
+        PqTails( procId, w );
+    od;
+    # recalculate automorphisms
+    PqExtendAutomorphisms( procId );
+    PqCollect( procId, "x5^4" );
+    PqEchelonise( procId );
+    PqApplyAutomorphisms( procId, 15 ); #queue factor = 15
+    PqEliminateRedundantGenerators( procId );
+    PqDisplayPcPresentation( procId );
+od;
+\endtt
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
