@@ -14,6 +14,10 @@
 #Y  Copyright 1992-1994,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.23  2001/12/03 06:09:11  werner
+#H  Do not set the automorphism group in SupplementInnerAutomorphisms() as
+#H  the function does not return the full automorphism group.           WN
+#H
 #H  Revision 1.22  2001/11/28 17:40:02  gap
 #H  - added option `pQuotient'
 #H  - standard presentation functions (`StandardPresentation', etc.) now
@@ -462,8 +466,6 @@ SupplementInnerAutomorphisms := function( G )
         SetPcgs( A, automs );
         SetIsSolvableGroup( A, true );
     fi;
-
-    SetAutomorphismGroup( G, A );
 
     return A;
 end;
