@@ -10,6 +10,9 @@
 *Y  Copyright 1995-1997,  School of Mathematical Sciences, ANU,     Australia
 **
 *H  $Log$
+*H  Revision 1.13  2004/01/26 16:45:56  werner
+*H  output a newline after data
+*H
 *H  Revision 1.12  2002/02/15 10:09:57  gap
 *H  Change due to anustab.gi being moved up a directory from gap/lib to lib. - GG
 *H
@@ -142,13 +145,13 @@ void start_GAP_file ( GAP_input, auts, pga, pcp )
       printf ("\n");
 #endif
 
-   fprintf (*GAP_input,"relativeOrders := [");
+   fprintf( *GAP_input, "relativeOrders := [" );
    if (nmr_soluble > 0) {
       for (i = 1; i < nmr_soluble; ++i) 
           fprintf (*GAP_input, "%d, ", pga->relative[i]);
       fprintf (*GAP_input, "%d", pga->relative[nmr_soluble]);
    }
-   fprintf (*GAP_input, "]; ");
+   fprintf (*GAP_input, "];\n");
 
    for (i = nmr_soluble + 1; i <= pga->m; ++i) 
      write_GAP_matrix(*GAP_input,"ANUPQglb.glAutos",auts[i],pcp->ccbeg - 1,
