@@ -8,7 +8,7 @@ procId := PqStart(F : Prime := 11, Relators := rels);
 #comment: set a different print level by supplying <OutputLevel>
 #sub <OutputLevel> for <0> if set and ok
 PqSetOutputLevel(procId, 0);;
-PqSPPcPresentation(procId : ClassBound := 3);;
+PqSPComputePcpAndPCover(procId : ClassBound := 3);;
 #comment: set a different `ClassBound' by supplying <ClassBound>
 #comment: also save the presentation to a file by supplying <StandardPresentationFile>
 PqSPStandardPresentation(procId, [ [[1,0,0,0,1],
