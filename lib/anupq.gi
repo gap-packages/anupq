@@ -10,6 +10,17 @@
 #Y  Copyright 1992-1994,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.5  2004/02/03 18:49:04  gap
+#H  anupga.gi: commented out dangerous warning, changed documentation of
+#H             `PqSupplementInnerAutomorphisms' to reflect that it now returns
+#H             a record rather than a group
+#H  anupq.gi: `GAPInfo.DirectoriesTemporary' replaces `DIRECTORIES_TEMPORARY'
+#H            (GAP 4.4 change)
+#H  anupqi.gi: documentation of `PQ_AUT_INPUT' changed to reflect that it now
+#H             returns a record rather than a group;
+#H             `inhibit_orders' changed to `PqInhibitOrders' (cosmetic change
+#H             for conformity of style)                                    - GG
+#H
 #H  Revision 1.4  2004/01/26 16:41:47  werner
 #H  remove occurrance of DIRECTORIES_TEMPORARY
 #H
@@ -387,6 +398,7 @@ local created;
     return fail;
   fi;
 
+  Add( GAPInfo.DirectoriesTemporary, dir );
   ANUPQData.tmpdir  := Directory(dir);
   ANUPQData.outfile := Filename(ANUPQData.tmpdir, "PQ_OUTPUT");
   return ANUPQData.tmpdir;

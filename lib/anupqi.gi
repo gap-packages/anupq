@@ -30,9 +30,9 @@ end );
 ##
 #F  PQ_AUT_GROUP( <G> ) . . . . . . . . . . . . . . . . .  automorphism group
 ##
-##  returns the automorphism group of a $p$-group,  avoiding  computation  if
-##  possible, or else trying to use {\AutPGrp} if possible, or otherwise uses
-##  the library function knowing its limitations.
+##  returns the automorphism group of  a  $p$-group  as  a  record,  avoiding
+##  computation if possible (currently it *isn't*  possible),  or  else  uses
+##  {\AutPGrp}'s `AutomorphismGroupPGroup'.
 ##
 InstallGlobalFunction( PQ_AUT_GROUP, function( G )
 
@@ -94,7 +94,7 @@ InstallGlobalFunction( PQ_AUT_INPUT, function( datarec, G )
     ##  not have a faithful representation on the Frattini quotient of the
     ##  p-group and are treated accordingly by the standalone.
     ##
-    ##  The are written out in bottom up fashion as this is the order in
+    ##  They are written out in bottom up fashion as this is the order in
     ##  which the orbit algorithm for a group given by an ag-system needs
     ##  them.  
     for i in Reversed([1..Length(autrec.agAutos)]) do
@@ -106,7 +106,7 @@ InstallGlobalFunction( PQ_AUT_INPUT, function( datarec, G )
                                  e -> [ String(e), " "] ) );
 
             ToPQ(datarec, [ exponents ],
-                 [ " #gen'r exp'ts of im(aut ", i, ", gen ", j, ")" ]);
+                 [ " #gen'r exp'ts of im(ag aut ", i, ", gen ", j, ")" ]);
         od;
     od;
 
@@ -123,11 +123,11 @@ InstallGlobalFunction( PQ_AUT_INPUT, function( datarec, G )
                                  e -> [ String(e), " "] ) );
 
             ToPQ(datarec, [ exponents ],
-                 [ " #gen'r exp'ts of im(aut ", i, ", gen ", j, ")" ]);
+                 [ " #gen'r exp'ts of im(gl aut ", i, ", gen ", j, ")" ]);
         od;
     od;
 
-    if ValueOption( "inhibit_orders" ) <> true then
+    if ValueOption( "PqInhibitOrders" ) <> true then
         ##  Finally, tell the standalone the number of soluble automorphisms
         ##  and the relative order of each automorphism. 
         ToPQ(datarec, [ Length(autrec.agOrder) ], 
@@ -135,10 +135,9 @@ InstallGlobalFunction( PQ_AUT_INPUT, function( datarec, G )
     
         for i in Reversed( [1..Length( autrec.agOrder )] ) do
             ToPQ( datarec, [ autrec.agOrder[i] ], 
-                  [ "  #order of ", i, "th ag automorphism" ] );
+                  [ "  #rel order of ", i, "th ag automorphism" ] );
         od;
     fi;
-    
 
 end );
 
@@ -2422,7 +2421,7 @@ local datarec, savefile;
   ToPQ(datarec, [ VALUE_PQ_OPTION("ClassBound", 63)], [ "  #class bound" ]);
 
   if 1 = Length(arg) then
-    PQ_AUT_INPUT( datarec, datarec.pQuotient : inhibit_orders );
+    PQ_AUT_INPUT( datarec, datarec.pQuotient : PqInhibitOrders );
   else
     PQ_MANUAL_AUT_INPUT( datarec, arg[2] );
   fi;

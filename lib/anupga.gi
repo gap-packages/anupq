@@ -14,6 +14,17 @@
 #Y  Copyright 1992-1994,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.6  2004/02/03 18:49:04  gap
+#H  anupga.gi: commented out dangerous warning, changed documentation of
+#H             `PqSupplementInnerAutomorphisms' to reflect that it now returns
+#H             a record rather than a group
+#H  anupq.gi: `GAPInfo.DirectoriesTemporary' replaces `DIRECTORIES_TEMPORARY'
+#H            (GAP 4.4 change)
+#H  anupqi.gi: documentation of `PQ_AUT_INPUT' changed to reflect that it now
+#H             returns a record rather than a group;
+#H             `inhibit_orders' changed to `PqInhibitOrders' (cosmetic change
+#H             for conformity of style)                                    - GG
+#H
 #H  Revision 1.5  2004/01/26 20:01:53  werner
 #H  Fixed outstanding bug, reported by Boris Girnat
 #H
@@ -465,9 +476,19 @@ function( G, gens, centralAutos, otherAutos, relativeOrders, isSoluble )
 
 end );
 
+#############################################################################
 ##
-##  The following method does not return the full automorphisms group,
-##  but only a supplement to the inner automorphism.
+#F  PqSupplementInnerAutomorphisms( <G> ) 
+##
+##  returns   a   record   analogous   to   what   is   returned    by    the
+##  `AutomorphismGroupPGroup' function of the {\AutPGrp} package, except that
+##  only  the  fields  `agAutos',  `agOrder'  and  `glAutos'  are  set.   The
+##  automorphisms generate a subgroup of the automorphism  group  of  the  pc
+##  group <D> that supplements the inner automorphism group  of  <D>  in  the
+##  whole automorphism group of <D>. The group of automorphisms returned  may
+##  be a proper subgroup of the full automorphism group. The  descendant  <D>
+##  must   have   been   computed    by    the    function    `PqDescendants'
+##  (see~"PqDescendants").
 ##
 
 ##!!  Muss angepasst werden auf die jetzt besser verstandenen Anforderungen
@@ -478,8 +499,8 @@ InstallGlobalFunction( "PqSupplementInnerAutomorphisms",
 function( G )
     local   gens,  automs,  A, centralAutos, otherAutos;
 
-Print( "Attention: the function PqSupplementInnerAutomorphisms()",
-       " is outdated and dangerous\n" );
+#Print( "Attention: the function PqSupplementInnerAutomorphisms()",
+#       " is outdated and dangerous\n" );
 
     if not HasANUPQAutomorphisms( G ) then
         return Error( "group does not carry automorphism information" );
