@@ -10,6 +10,9 @@
 #Y  Copyright 1992-1994,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.14  2001/08/08 21:37:06  gap
+#H  Some fine-tuning of `PqExample' and `PQ_EVALUATE'. - GG
+#H
 #H  Revision 1.13  2001/08/08 13:03:42  gap
 #H  Now just close the stream when ending a non-interactive function call,
 #H  rather than giving the instructions to the `pq' to exit (doing this
@@ -593,6 +596,7 @@ local from, pos, statement, parts, var;
   pos := Position(string, ';', from);
   while pos <> fail do
     statement := string{[from + 1..pos]};
+    statement := ReplacedString(statement," last "," ANUPQData.example.last ");
     if pos < Length(string) and string[pos + 1] = ';' then
       Read( InputTextString(statement) );
       from := pos + 1;
@@ -601,11 +605,14 @@ local from, pos, statement, parts, var;
       if 2 < Length(parts) and parts[2] = ":=" then
         Read( InputTextString(statement) );
         Read( InputTextString( 
-                  Concatenation( "Print(", parts[1], ",\"\\n\");" ) ) );
+                  Concatenation( "View(", parts[1], "); Print(\"\\n\");" ) ) );
+        ANUPQData.example.last := parts[1];
       else
         var := TemporaryGlobalVarName();
         Read( InputTextString( Concatenation(var, ":=", statement) ) );
-        Print( VALUE_GLOBAL(var), "\n" );
+        View( VALUE_GLOBAL(var) );
+        Print( "\n" );
+        ANUPQData.example.last := VALUE_GLOBAL(var);
         UNBIND_GLOBAL(var);
       fi;
       from := pos;
@@ -627,9 +634,9 @@ end );
 ##  With just the one argument <example> that is the name of a  file  in  the
 ##  `gap/examples' directory, the example contained in that file is  executed
 ##  in its simplest form. Some examples accept options which you may  use  to
-##  modify some of the options used in the function of the example.  To  find
-##  out which options an example  accepts  use  one  of  the  mechanisms  for
-##  displaying the example, described below.
+##  modify some of the options used in the commands of the example.  To  find
+##  out which options an example  accepts, use  one  of  the  mechanisms  for
+##  displaying the example described below.
 ##
 ##  Some examples have both non-interactive and interactive forms; those that
 ##  are non-interactive only have a name ending  in  `-ni';  those  that  are
@@ -656,7 +663,16 @@ end );
 ##
 InstallGlobalFunction(PqExample, function(arg)
 local name, file, instream, line, input, doPqStart, vars, var, printonly,
-      filename, DoAltAction, GetNextLine, PrintLine, action, datarec, optname;
+      filename, DoAltAction, GetNextLine, PrintLine, action, datarec, optname,
+      linewidth, sizescreen;
+
+  sizescreen := SizeScreen();
+  if sizescreen[1] < 80 then
+    SizeScreen([80, sizescreen[2]]);
+    linewidth := 80;
+  else
+    linewidth := sizescreen[1];
+  fi;
 
   if IsEmpty(arg) then
     name := "index";
@@ -664,7 +680,7 @@ local name, file, instream, line, input, doPqStart, vars, var, printonly,
     name := arg[1];
   fi;
 
-  if name in ["README", "ORIGIN"] then
+  if name = "README" then
     file := fail;
   else
     file := Filename(DirectoriesPackageLibrary( "anupq", "gap/examples"), name);
@@ -832,8 +848,16 @@ local name, file, instream, line, input, doPqStart, vars, var, printonly,
   if name <> "index" then
     line := FLUSH_PQ_STREAM_UNTIL( instream, 1, 10, ReadLine,
                                    line -> IsMatchingSublist(line, "#vars:") );
-    Info(InfoANUPQ, 1, line{[Position(line, ' ')+1..Position(line, ';')-1]},
-                       " are local to `PqExample'");
+    if Length(line) + 21 < linewidth then
+      Info(InfoANUPQ, 1, line{[Position(line, ' ')+1..Position(line, ';')-1]},
+                         " are local to `PqExample'");
+    else
+      #this assumes one has been careful to ensure the `#vars:' line is not
+      #longer than 72 characters.
+      Info(InfoANUPQ, 1, line{[Position(line, ' ')+1..Position(line, ';')-1]},
+                         " are local");
+      Info(InfoANUPQ, 1, "to `PqExample'");
+    fi;
     vars := SplitString(line, "", " ,;\n");
     vars := vars{[2 .. Length(vars)]};
     if not printonly then
@@ -862,7 +886,7 @@ local name, file, instream, line, input, doPqStart, vars, var, printonly,
       fi;
     else
       ANUPQData.example.vars := rec();
-      for var in vars do 
+      for var in Filtered(vars, ISBOUND_GLOBAL) do 
         ANUPQData.example.vars.(var) := VALUE_GLOBAL(var);
       od;
       Info(InfoANUPQ, 1, "Variables used in `PqExample' are saved ",
@@ -873,6 +897,9 @@ local name, file, instream, line, input, doPqStart, vars, var, printonly,
     FLUSH_PQ_STREAM_UNTIL( instream, 1, 10, ReadLine, line -> line = fail );
   fi;
   CloseStream(instream);
+  if linewidth <> sizescreen[1] then
+    SizeScreen( sizescreen ); # restore what was there before
+  fi;
 end);
 
 #E  anupq.gi  . . . . . . . . . . . . . . . . . . . . . . . . . . . ends here 
