@@ -10,6 +10,9 @@
 #Y  Copyright 1992-1994,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.4  2004/01/26 16:41:47  werner
+#H  remove occurrance of DIRECTORIES_TEMPORARY
+#H
 #H  Revision 1.3  2002/07/09 02:59:39  gap
 #H  A number of bugs mainly to do with the input of generators/relations were
 #H  identified by Robert Morse (thanks Robert):
@@ -384,7 +387,6 @@ local created;
     return fail;
   fi;
 
-  Add( DIRECTORIES_TEMPORARY, dir );
   ANUPQData.tmpdir  := Directory(dir);
   ANUPQData.outfile := Filename(ANUPQData.tmpdir, "PQ_OUTPUT");
   return ANUPQData.tmpdir;
