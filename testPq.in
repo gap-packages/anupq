@@ -52,16 +52,19 @@ system("$gap -q -r < $tmpdir/gapinput > $tmpdir/gapout");
 #print "$tmpdir/gapoutput:\n";
 #system("more $tmpdir/gapoutput");
 open(GAPOUT, "<$tmpdir/gapout");
-if ( ($line = <GAPOUT>) =~ /true/ ) {
-  ($line = <GAPOUT>) =~ s/"//g;
-  chomp $line;
-  print "  GAP version ($line) ... OK.\n";
-} elsif ($line =~ /false/) {
-  chomp ($line = <GAPOUT>);
-  die "  GAP version ($line) ... too old! At least GAP 4r2 required!\n";
+$line = <GAPOUT>;
+$version = <GAPOUT>;
+if ( $line !~ /(true|false)/ ) { # the GAP 3 case
+  $version = $line;
+}
+$version =~ s/"//g;
+chomp $version;
+if ( $line =~ /true/ ) {
+  print "  GAP version ($version) ... OK.\n";
+} elsif ( $line =~ /false/ ) {
+  die "  GAP version ($version) ... too old! At least GAP 4r2 required!\n";
 } else { 
-  chomp ($line);
-  die "  GAP version ($line) ... please install GAP 4,",
+  die "  GAP version ($version) ... please install GAP 4,",
       " at least version 4r2 required!\n\n",
       "  If you already have a new enough version of GAP 4 installed\n",
       "  then you probably need to compile pq with an",
