@@ -15,6 +15,16 @@ Revision.anupqopt_gd :=
 
 #############################################################################
 ##
+#V  PQ_FUNCTION . . . . . . . . . internal functions called by user functions 
+##
+DeclareGlobalVariable( "PQ_FUNCTION", 
+  Concatenation( [
+    "A record whose fields are (function) names and whose values are\n",
+    "the internal functions called by the functions with those names." ] )
+  );
+
+#############################################################################
+##
 #V  ANUPQoptions  . . . . . . . . . . . . . . . . . . . .  admissible options
 ##
 DeclareGlobalVariable( "ANUPQoptions", 
@@ -27,8 +37,51 @@ DeclareGlobalVariable( "ANUPQoptions",
 
 #############################################################################
 ##
+#V  ANUPQoptionChecks . . . . . . . . . . . the checks for admissible options
+##
+DeclareGlobalVariable( "ANUPQoptionChecks", 
+  Concatenation( [
+    "A record of lists of names of admissible ANUPQ options.\n",
+    "A record whose fields are the names of admissible ANUPQ options,\n",
+    "and whose values are one-argument functions that return `true' when\n",
+    "given a value that is a valid value for the option, and `false'\n",
+    "otherwise." ] )
+  );
+
+#############################################################################
+##
+#V  ANUPQoptionTypes . . . . . .  the types (in words) for admissible options
+##
+DeclareGlobalVariable( "ANUPQoptionTypes", 
+  Concatenation( [
+    "A record whose fields are the names of admissible ANUPQ options\n",
+    "and whose values are words in angle brackets representing the valid\n",
+    "types of the options." ] )
+  );
+
+#############################################################################
+##
+#F  VALUE_PQ_OPTION( <optname> ) . . . . . . . . . enhancement of ValueOption
+#F  VALUE_PQ_OPTION( <optname>, <defaultval> ) 
+##
+DeclareGlobalFunction( "VALUE_PQ_OPTION" );
+
+#############################################################################
+##
 #F  SET_ANUPQ_OPTIONS( <funcname>, <options> ) . set options from OptionStack
 ##    
 DeclareGlobalFunction( "SET_ANUPQ_OPTIONS" );
+
+#############################################################################
+##
+#F  ANUPQoptError( <funcname>, <optnames> ) . . . . . create an error message
+##
+DeclareGlobalFunction( "ANUPQoptError" );
+
+#############################################################################
+##
+#F  ANUPQextractOptions( <funcname>, <i>, <args> ) . . . . .  extract options
+##
+DeclareGlobalFunction( "ANUPQextractOptions" );
 
 #E  anupqopt.gd . . . . . . . . . . . . . . . . . . . . . . . . . . ends here 

@@ -15,6 +15,18 @@ Revision.anupqi_gd :=
 
 #############################################################################
 ##
+#F  PQ_SP_PCP_INPUT( <datarec> : <options> ) . pcp input - p-Q/SP menu opt. 1
+##
+DeclareGlobalFunction( "PQ_SP_PCP_INPUT" );
+
+#############################################################################
+##
+#F  PQ_AUT_INPUT( <datarec>, <G> : <options> ) . . . . . . automorphism input
+##
+DeclareGlobalFunction( "PQ_AUT_INPUT" );
+
+#############################################################################
+##
 #F  PQ_PC_PRESENTATION( <datarec> : <options> ) . . . . . . p-Q menu option 1
 ##
 DeclareGlobalFunction( "PQ_PC_PRESENTATION" );
@@ -38,5 +50,43 @@ DeclareGlobalFunction( "PQ_WRITE_PC_PRESENTATION" );
 #F  PqWritePcPresentation( )
 ##
 DeclareGlobalFunction( "PqWritePcPresentation" );
+
+#############################################################################
+##
+#F  PQ_SP_PC_PRESENTATION( <datarec> : <options> ) . . . . . SP menu option 1
+##
+DeclareGlobalFunction( "PQ_SP_PC_PRESENTATION" );
+
+#############################################################################
+##
+#F  PqSPPcPresentation( <i> : <options> ) . . user version of p-Q menu opt. 1
+#F  PqSPPcPresentation( : <options> )
+DeclareGlobalFunction( "PqSPPcPresentation" );
+
+#############################################################################
+##
+#F  PQ_SP_STANDARD_PRESENTATION( <datarec> : <options> ) . . SP menu option 2
+##
+DeclareGlobalFunction( "PQ_SP_STANDARD_PRESENTATION" );
+
+#############################################################################
+##
+#F  PqSPStandardPresentation( <i> : <options> ) . user ver. of SP menu opt. 2
+#F  PqSPStandardPresentation( : <options> )
+##
+DeclareGlobalFunction( "PqSPStandardPresentation" );
+
+#############################################################################
+##
+#F  PQ_SP_ISOMORPHISM( <datarec> ) . . . . . . . . . . . . . SP menu option 8
+##
+DeclareGlobalFunction( "PQ_SP_ISOMORPHISM" );
+
+#############################################################################
+##
+#F  PqSPIsomorphism( <i> ) . . . . . . . . . user version of SP menu option 8
+#F  PqSPIsomorphism()
+##
+DeclareGlobalFunction( "PqSPIsomorphism" );
 
 #E  anupqi.gd . . . . . . . . . . . . . . . . . . . . . . . . . . . ends here 

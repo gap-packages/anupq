@@ -44,19 +44,21 @@ DeclareOperation( "FpGroupPcGroup", [ IsPcGroup ] );
 
 #############################################################################
 ##
-#F  EpimorphismPqStandardPresentation( <F>, <G> ... )  . compute a SP for <F>
+#F  PQ_EPIMORPHISM_STANDARD_PRESENTATION( <args> ) . . epi. onto SP for group
+#F  EpimorphismPqStandardPresentation( <F>, <G> )
 #O  EpimorphismStandardPresentation( <F>, <G> )
 ##
+DeclareGlobalFunction( "PQ_EPIMORPHISM_STANDARD_PRESENTATION" );
 DeclareGlobalFunction( "EpimorphismPqStandardPresentation" );
-DeclareOperation( "EpimorphismStandardPresentation", [IsFpGroup, IsObject] );
+DeclareOperation( "EpimorphismStandardPresentation", [IsObject, IsObject] );
 
 #############################################################################
 ##
-#F  PqStandardPresentation( <F>, <G> ... ) 
+#F  PqStandardPresentation( <arg> : <options> ) . . . . . . . .  SP for group
 #O  StandardPresentation( <F>, <G> ) 
 ##
 DeclareGlobalFunction( "PqStandardPresentation" );
-DeclareOperation( "StandardPresentation", [IsFpGroup, IsObject] );
+DeclareOperation( "StandardPresentation", [IsObject, IsObject] );
 
 #############################################################################
 ##

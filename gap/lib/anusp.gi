@@ -10,6 +10,11 @@
 #Y  Copyright 1993-2001,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.2  2001/05/24 22:05:03  gap
+#H  Added interactive versions of `[Epimorphism][Pq]StandardPresentation' and
+#H  factored out as separate functions the various menu items these functions
+#H  use. - GG
+#H
 #H  Revision 1.1  2001/04/21 21:15:40  gap
 #H  lib/
 #H     *.g,*.gd:
@@ -209,36 +214,23 @@ InstallMethod( FpGroupPcGroup, "pc group", [IsPcGroup], 0, PqFpGroupPcGroup );
 
 #############################################################################
 ##
-#F  EpimorphismPqStandardPresentation( <F>, <G> ... )  . compute a SP for <F>
+#F  PQ_EPIMORPHISM_STANDARD_PRESENTATION( <args> ) . . epi. onto SP for group
 ##
-InstallGlobalFunction( EpimorphismPqStandardPresentation, function( arg )
-    local   F,  rank,  G,  automorphisms,  generators,  x,  images,  
-            i,  r,  j,  aut,  p,  CR,  dir,  file,  string,  n,  
-            newgens,  gens,  g,  pq,  input,  output,  proc,  result,  
-            desc,  sp,  k;
+InstallGlobalFunction( PQ_EPIMORPHISM_STANDARD_PRESENTATION, 
+function( args )
+    local   datarec, p_or_G, rank, p, G, automorphisms, generators, x,
+            images, i, r, j, aut, success, outfile, result, desc, k;
 
-    if Length(arg) = 1 and IsList(arg[1]) then
-        arg := arg[1];
-    fi;
-
-    # check arguments
-    if Length(arg) < 1  then
-    	Error( 
-            "usage: Epimorphism[Pq]StandardPresentation( <F>, <G> : <options> )"
-            );
-    fi;
-    F := arg[1];
-    if not IsFpGroup(F)  then
-    	Error( "<F> must be a finitely presented group" );
-    fi;
-
-    # <G> must be an pc group or a prime
-    if IsInt(arg[2])  then
-    	p := arg[2];
+    datarec := ANUPQ_ARG_CHK(2, "StandardPresentation", "group", 
+                             IsFpGroup,  "an fp group", args);
+    p_or_G := args[ Length(args) ];
+    if IsInt(p_or_G)  then
+    	p := p_or_G;
         if not IsPrimeInt(p)  then
             Error( "<p> must be a prime" );
         fi;
-        rank := Number( List( AbelianInvariants(F), x->Gcd(x,p) ), y->y=p );
+        rank := Number( List( AbelianInvariants(datarec.group), x->Gcd(x,p) ),
+                        y->y=p );
 
         # construct free group with <rank> generators
         G := FreeGroup( rank, "g" );
@@ -246,7 +238,7 @@ InstallGlobalFunction( EpimorphismPqStandardPresentation, function( arg )
         # construct power-relation
         G := G / List( GeneratorsOfGroup(G), x -> x^p );
     
-        # construct ag group
+        # construct pc group
         G := PcGroupFpGroup(G);
     
         # construct automorphism
@@ -266,187 +258,55 @@ InstallGlobalFunction( EpimorphismPqStandardPresentation, function( arg )
             Add( automorphisms, aut );
         od;
         SetAutomorphismGroup( G, GroupByGenerators( automorphisms ) );
-        arg[2] := G;
     else
-        G := arg[2];
+        G := p_or_G;
         if not IsPcGroup(G)  then
-            Error( "<G> must be a pc-group" );
+            Error( "<G> must be a pc group" );
         elif not HasAutomorphismGroup(G)  then
-            Error( "The automorphism group of <G> must be known" );
+            Error( "the automorphism group of <G> must be known" );
+        fi;
+        p := PrimeOfPGroup( G );
+    fi;
+    
+    if datarec.calltype <> "interactive" or 
+       not IsBound(datarec.pcp) or 
+       ForAny( REC_NAMES( datarec.pcp ), 
+               optname -> not(ValueOption(optname) in
+                              [fail, datarec.pcp.(optname)]) ) then
+        # only do it in the interactive case if it hasn't already been done
+        # by checking whether options stored in datarec.pcp differ from those
+        # of a previous call ... if a check of an option value returns `fail'
+        # it is assumed the user intended the previous value stored in
+        # `<datarec>.pcp' (this is potentially problematic for boolean
+        # options, to reverse a previous `true', `false' must be explicitly
+        # set for the option on the subsequent function call)
+        
+        PQ_SP_PC_PRESENTATION(datarec : Prime := p, 
+                                        ClassBound := PClassPGroup(G));
+    fi;
+
+    datarec.pQuotient := G;
+    PQ_SP_STANDARD_PRESENTATION(datarec);
+
+    PQ_SP_ISOMORPHISM(datarec);
+
+    if datarec.calltype <> "interactive" then
+        success := PQ_COMPLETE_NONINTERACTIVE_FUNC_CALL(datarec);
+        if success = true then
+            return true;
+        elif success <> 0 then
+            Error( "process did not succeed\n" );
         fi;
     fi;
-    
-    # get exponent-p class
-    p := PrimeOfPGroup( G );
 
-    # deal with options or extra arguments
-    if Length(arg) = 2 then
-        CR := SET_ANUPQ_OPTIONS( "EpimorphismStandardPresentation", 
-                                 "StandardPresentation" );
-    elif IsRecord(arg[3])  then
-        CR := ShallowCopy(arg[3]);
-        CR.group := G;
-    else
-    	CR := ANUPQSPextractArgs(arg);
-    fi;
-
-    # set default values
-    if not IsBound(CR.Exponent)  then 
-    	CR.Exponent := 0;
-    fi;
-    if not IsBound(CR.Verbose) then 
-    	CR.Verbose := false;
-    fi;
-    if not IsBound(CR.PcgsAutomorphisms) then 
-    	CR.PcgsAutomorphisms := false;
-    fi;
-    CR.Prime := p;
-
-    # create tmp directory
-    if IsBound(CR.SetupFile)  then 
-    	file := CR.SetupFile;
-
-    # otherwise construct a temporary directory
-    elif not IsBound(CR.TmpDir) and ANUPQtmpDir = "ThisIsAHack"  then
-        dir := TmpName();
-
-        # create the directory
-        Exec( Concatenation( "mkdir ", dir ) );
-        file := Concatenation( dir, "/PQ_INPUT" );
-
-    # use a given directory and try to construct a random subdir
-    else
-        if IsBound(CR.TmpDir)  then
-            dir := CR.TmpDir;
-            Unbind(CR.TmpDir);
-        else
-            dir := ANUPQtmpDir;
-        fi;
-
-        # try to get a random directory name
-        i := Runtime();
-        i := i + RandomList( [ 1 .. 2^16 ] ) * RandomList( [ 1 .. 2^16 ] );
-        i := i * Runtime();
-        i := i mod 19^8;
-        dir := Concatenation( dir, "/", PqLetterInt(i), ".apq" );
-
-        # create the directory
-        Exec( Concatenation( "mkdir ", dir ) );
-        file := Concatenation( dir, "/PQ_INPUT" );
-    fi;
-
-    # setup input file
-    string := "#Standard Presentation input\n";
-    if IsBound(CR.OutputLevel)  then
-    	Append( string, "5\n", CR.OutputLevel, " \n" );
-    fi;
-    Append( string, "1\n" );
-    Append( string, Concatenation( "prime ", String(CR.Prime), "\n" ) );
-    Append( string, Concatenation( "class ", String(PClassPGroup(G)), "\n" ) );
-    if CR.Exponent <> 0  then
-        Append( string,
-                Concatenation( "exponent ", String(CR.Exponent), "\n" ) );
-    fi;
-    if IsBound(CR.Metabelian)  then
-        Append( string, "metabelian\n" );
-    fi;
-
-    # create generic generators "g1" ... "gn"
-    n := Length( GeneratorsOfGroup( F ) );
-    newgens := GeneratorsOfGroup( FreeGroup( n, "g" ) );
-    Append( string, "generators {" );
-    for x in newgens  do  
-        Append( string, String(x) ); 
-        Append( string, ", " );
-    od;
-    Append( string, " }\n" );
-
-    # write the presentation using these generators
-    Append( string, "relations {" );
-    gens := GeneratorsOfGroup( FreeGroupOfFpGroup(F) );
-    for r  in RelatorsOfFpGroup( F ) do
-        Append( string, String(MappedWord( r, gens, newgens ) ) );
-        Append( string, ",\n" );
-    od;
-    Append( string, "}\n;\n" );
-    Append( string, "2\nSPres\n" );
-
-    if not IsBound (CR.ClassBound) then 
-       CR.ClassBound := 63;
-    fi;
-    Append( string, String(CR.ClassBound) );
-    Append( string, "\n" );
-
-    # print automorphisms of <G>
-    rank := RankPGroup( G );
-    gens := PcgsPCentralSeriesPGroup( G );
-    automorphisms := GeneratorsOfGroup( AutomorphismGroup( G ) );
-    Append( string, String(Length(automorphisms)) );
-    Append( string, "\n" );
-    for aut in automorphisms  do
-        for g in gens do
-            for i in ExponentsOfPcElement( gens, Image( aut, g ) ) do
-                Append( string, String(i) );
-                Append( string, " " );
-            od;
-            Append( string, "\n" );
-        od;
-    od;
-    if CR.PcgsAutomorphisms  then 
-       Append( string, "1\n");
-    else 
-       Append( string, "0\n");
-    fi;
-
-    #new option EOB February 1995 
-    Append( string, "8\n" );
-    Append( string, "\n0\n" );
-
-    # if we only want to setup the file we are ready now
-    if IsBound(CR.SetupFile)  then
-        PrintTo( CR.SetupFile, string );
-    	Print( "#I  input file '", CR.SetupFile, "' written,\n",
-    	       "#I    run 'pq' with '-i -k' flags\n");
-    	return true;
-    fi;
-#    Print( string );    Print( dir, "\n" );
-
-    # Find the pq executable
-    pq := Filename( DirectoriesPackagePrograms( "anupq" ), "pq" );
-    if pq = fail then
-        Error( "Could not find the pq executable" );
-    fi;
-
-    # and finally start the pq
-    input := InputTextString( string );
-    if CR.Verbose  then 
-        output := OutputTextFile( "*stdout*", false );
-    else 
-        output := OutputTextNone();
-    fi;
-    proc := Process( Directory(dir), pq, input, output, 
-                    [ "-i", "-k", "-g"  ] );
-    CloseStream( output );
-    CloseStream( input );
-    if proc <> 0 then
-        Error( "process did not succeed" );
-    fi;
-    
-    # try to read <file>
-    file := Concatenation( dir, "/GAP_library" );
-    
-    result := ANUPQReadOutput( file, ANUSPGlobalVariables );
+    # try to read output
+    outfile := Filename( ANUPQData.tmpdir, "GAP_library" );
+    result := ANUPQReadOutput( outfile, ANUSPGlobalVariables );
 
     if not IsBound(result.ANUPQmagic)  then
-        Exec( Concatenation( "rm -rf ", dir ) );
-        Error( "cannot execute ANU pq,  please check installation" );
+        Error("something wrong with `pq' binary. Please check installation\n");
     fi;
 
-    # remove intermediate files and return
-#    Exec( Concatenation( "rm -rf ", dir ) );
-
-    # last presentation in file is the Standard Presentation
-    
     desc := rec();
     result.ANUPQgroups[Length(result.ANUPQgroups)](desc);
 #    if result.ANUPQautos <> fail and 
@@ -455,41 +315,108 @@ InstallGlobalFunction( EpimorphismPqStandardPresentation, function( arg )
 #    fi;
 
     # revise images to correspond to images of user-supplied generators 
-    sp := desc.group;
+    datarec.sp := desc.group;
     x  := Length( desc.map );
-    k  := Length( GeneratorsOfGroup( F ) );
+    k  := Length( GeneratorsOfGroup( datarec.group ) );
     # images of user supplied generators are last k entries in .pqImages 
 
-    return GroupHomomorphismByImagesNC( F, sp, 
-                   GeneratorsOfGroup(F),
-                   desc.map{[x - k + 1..x]} );
-
+    datarec.spEpi := GroupHomomorphismByImagesNC( 
+                         datarec.group, 
+                         datarec.sp, 
+                         GeneratorsOfGroup(datarec.group),
+                         desc.map{[x - k + 1..x]} );
+    return datarec.spEpi;
 end );
 
 #############################################################################
 ##
-#M  EpimorphismStandardPresentation( <F>, <G> ... ) . .  compute a SP for <F>
+#F  EpimorphismPqStandardPresentation( <arg> ) . . . . epi. onto SP for group
 ##
-InstallMethod( EpimorphismStandardPresentation, "fp group, pc group or prime",
-               [IsFpGroup, IsObject], 0,
-               EpimorphismPqStandardPresentation );
+InstallGlobalFunction( EpimorphismPqStandardPresentation, function( arg )
+    return PQ_EPIMORPHISM_STANDARD_PRESENTATION( arg );
+end );
 
 #############################################################################
 ##
-#F  PqStandardPresentation( <F>, <G> ... )
+#F  PqStandardPresentation( <arg> : <options> ) . . . . . . . .  SP for group
 ##
 InstallGlobalFunction( PqStandardPresentation, function( arg )
+    local spEpi;
 
-    return Range( EpimorphismPqStandardPresentation( arg ) );
+    spEpi := PQ_EPIMORPHISM_STANDARD_PRESENTATION( arg );
+    if spEpi = true then
+      return true; # the SetupFile case
+    fi;
+    return Image( spEpi );
 end );
 
 #############################################################################
 ##
-#M  StandardPresentation( <F>, <G> ... )
+#M  EpimorphismStandardPresentation( <F>, <G> ) . .  epi. onto SP for p-group
+#M  EpimorphismStandardPresentation( <i>, <G> )
+#M  EpimorphismStandardPresentation( <G> )
 ##
-InstallMethod( StandardPresentation, "fp group, pc group or prime",
-               [IsFpGroup, IsObject], 0,
+InstallMethod( EpimorphismStandardPresentation, 
+               "fp group, pc group",
+               [IsFpGroup, IsPcGroup], 0,
+               EpimorphismPqStandardPresentation );
+
+InstallMethod( EpimorphismStandardPresentation, 
+               "fp group, prime integer",
+               [IsFpGroup, IsPosInt], 0,
+               EpimorphismPqStandardPresentation );
+
+InstallMethod( EpimorphismStandardPresentation, 
+               "positive integer, pc group",
+               [IsPosInt, IsPcGroup], 0,
+               EpimorphismPqStandardPresentation );
+
+InstallMethod( EpimorphismStandardPresentation, 
+               "positive integer, prime integer",
+               [IsPosInt, IsPosInt], 0,
+               EpimorphismPqStandardPresentation );
+
+InstallOtherMethod( EpimorphismStandardPresentation, "pc group",
+                    [IsPcGroup], 0,
+                    EpimorphismPqStandardPresentation );
+
+InstallOtherMethod( EpimorphismStandardPresentation, "prime integer",
+                    [IsPosInt], 0,
+                    EpimorphismPqStandardPresentation );
+
+#############################################################################
+##
+#M  StandardPresentation( <F>, <G> ) . . . . . . . . . . . . . SP for p-group
+#M  StandardPresentation( <i>, <G> )
+#M  StandardPresentation( <G> )
+##
+InstallMethod( StandardPresentation, 
+               "fp group, pc group",
+               [IsFpGroup, IsPcGroup], 0,
                PqStandardPresentation );
+
+InstallMethod( StandardPresentation, 
+               "fp group, prime integer",
+               [IsFpGroup, IsPosInt], 0,
+               PqStandardPresentation );
+
+InstallMethod( StandardPresentation, 
+               "positive integer, pc group",
+               [IsPosInt, IsPcGroup], 0,
+               PqStandardPresentation );
+
+InstallMethod( StandardPresentation, 
+               "positive integer, prime integer",
+               [IsPosInt, IsPosInt], 0,
+               PqStandardPresentation );
+
+InstallOtherMethod( StandardPresentation, "pc group",
+                    [IsPcGroup], 0,
+                    PqStandardPresentation );
+
+InstallOtherMethod( StandardPresentation, "prime integer",
+                    [IsPosInt], 0,
+                    PqStandardPresentation );
 
 #############################################################################
 ##

@@ -59,7 +59,7 @@ DeclareGlobalFunction( "Pq" );
 
 #############################################################################
 ##
-#F  PQ_EPIMORPHISM( <arglist> : <options> ) . . .  prime quotient epimorphism
+#F  PQ_EPIMORPHISM( <args> : <options> ) . . . . . prime quotient epimorphism
 ##
 DeclareGlobalFunction( "PQ_EPIMORPHISM" );
 

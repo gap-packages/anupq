@@ -80,6 +80,12 @@ DeclareGlobalFunction( "PqLetterInt" );
 
 #############################################################################
 ##
+#F  PQ_DESCENDANTS( <arglist> : <options> ) . .  construct descendants of <G>
+##
+DeclareGlobalFunction( "PQ_DESCENDANTS" );
+
+#############################################################################
+##
 #F  PqDescendants( <G>, ... ) . . . . . . . . .  construct descendants of <G>
 ##
 DeclareGlobalFunction( "PqDescendants" );

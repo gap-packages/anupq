@@ -33,7 +33,7 @@ retained.
 A   $p$-group   generation   algorithm   to   generate   power-commutator
 presentations of groups of prime power order. The  algorithm  implemented
 here is based on the  algorithms  described  by  Newman~\cite{New77}  and
-O'Brien ~\cite{OBr90}. A FORTRAN implementation  of  this  algorithm  was
+O'Brien~\cite{OBr90}. A FORTRAN  implementation  of  this  algorithm  was
 developed earlier by Newman and O'Brien.
 
 \item{3.}
@@ -88,7 +88,12 @@ processes;
 
 \quad`infile' & the full path of the (non-interactive) `pq' input file;
 
-\quad`outfile'& the full path of the (non-interactive) `pq' output  file;
+\quad`outfile'& the full path of the default `pq' output  file;
+
+\quad`outfname' & is the file to which `pq' output is directed, which  is
+`ANUPQData.outfile' except when option `SetupFile' is used, in which case
+`outfname' is set to `"PQ_OUTPUT"';
+
 and
 
 \quad`version'& the version of the current `pq' binary.
@@ -115,16 +120,20 @@ following fields is created:
 \quad`workspace'& the workspace set for the `pq' process (either given as
 a second argument to `PqStart', or set by default to 10000000);
 
-\quad`menu'& the current menu of the `pq' process. (The  `pq'  binary  is
-managed by various menus. Normally  the  user  won't  need  to  know  the
-details. This field remembers which menu the `pq'  process  is  currently
-``in''.)
+\quad`menu'& the current menu of the `pq' process  (the  `pq'  binary  is
+managed by various  menus,  the  details  of  which  the  user  shouldn't
+normally need to know about -- the `menu' field remembers which menu  the
+`pq' process is currently ``in'');
 
-\quad`options' & The  options  of  the  last  interactive  function  that
-communicated with `pq' process <ioIndex>.
+\quad`outfname' & is the file to which `pq' output is directed, which  is
+always `ANUPQData.outfile' (see above) for an interactive process;
 
-\quad`haspcp' & This field is bound and set  to  `true'  after  `pq'  has
-computed a pc presentation for `group'.
+\quad`pcp' & If this field is bound it is a record containing the options
+used the last time that `pq' computed  a  pc  presentation  for  `group',
+i.e.~if it is bound then there has been such a call. (It is  used  mainly
+to avoid re-computing a pc presentation  that's  been  done  already,  by
+functions that require that a  pc  presentation  is  known  to  the  `pq'
+binary.)
 
 \quad`pQuotient'  &  This  is  set  to  the  value   returned   by   `Pq'
 (see~"Pq!interactive") when called interactively, for process  <i>.  (The
@@ -133,6 +142,17 @@ field `pQepi' is also set at the same time.)
 \quad`pQepi' & This is set  to  the  value  returned  by  `PqEpimorphism'
 (see~"PqEpimorphism!interactive") when called interactively, for  process
 <i>. (The field `pQuotient' is also set at the same time.)
+
+\quad`sp' & This is set to the value returned by `PqStandardPresentation'
+or `StandardPresentation' (see~"PqStandardPresentation!interactive") when
+called interactively, for process <i>. (The field `spEpi' is also set  at
+the same time.)
+
+\quad`spEpi'   &   This   is   set   to    the    value    returned    by
+`EpimorphismPqStandardPresentation' or  `EpimorphismStandardPresentation'
+(see~"EpimorphismPqStandardPresentation!interactive")     when     called
+interactively, for process <i>. (The field `sp' is also set at  the  same
+time.)
 
 \enditems
 

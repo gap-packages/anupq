@@ -148,8 +148,14 @@ DeclareGlobalFunction( "ToPQ" );
 
 #############################################################################
 ##
-#F  VALUE_PQ_OPTION( <optname>, <defaultval> ) . . enhancement of ValueOption
+#F  ANUPQ_ARG_CHK( <len>, <funcname>, <arg1>, <arg1type>, <arg1err>, <args> )
 ##
-DeclareGlobalFunction( "VALUE_PQ_OPTION" );
+DeclareGlobalFunction( "ANUPQ_ARG_CHK" );
+
+#############################################################################
+##
+#F  PQ_COMPLETE_NONINTERACTIVE_FUNC_CALL( <datarec> )
+##
+DeclareGlobalFunction( "PQ_COMPLETE_NONINTERACTIVE_FUNC_CALL" );
 
 #E  anupqios.gd . . . . . . . . . . . . . . . . . . . . . . . . . . ends here 

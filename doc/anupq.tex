@@ -78,18 +78,19 @@ Specifies that the largest metabelian $p$-quotient be constructed.
 Specifies the level of ``verbosity'' of the information output by the ANU
 `pq' binary when computing a pc presentation; <n> must be an  integer  in
 the range 0 to 3. `OutputLevel := 0' displays no output, `OutputLevel  :=
-1' displays minimal output and `OutputLevel's for <n>  greater  than  `1'
-give progressively more output. Non-interactively,  setting  this  option
-implies `Verbose'.
+1' displays minimal output (which  is  the  `pq'  binary's  default)  and
+`OutputLevel's for <n> greater than `1' give progressively  more  output.
+Non-interactively, setting this option (even to 1) implies `Verbose'.
 
 `Verbose' &
 Non-interactively if `Verbose' or `OutputLevel' is set or the `InfoLevel'
 of `InfoANUPQ' is at least 2, all the output from the ANU `pq' binary  is
-displayed, and if `InfoLevel' of `InfoANUPQ' is 3 each line of the  input
-script to the `pq' binary is  `Info'-ed  behind  a  ```ToPQ> '''  prompt.
+displayed (not `Info'-ed), and if `InfoLevel' of `InfoANUPQ' is 3, before
+the output from the `pq' binary displayed, each line of the input  script
+to  the  `pq'  binary  is  `Info'-ed  behind  a   ```ToPQ> '''    prompt.
 Interactively, the `Verbose' option is  ignored  and  all  input  to  and
 output from the the `pq' binary is `Info'-ed at the various  `InfoLevel's
-of `InfoANUPQ' described in Section~"InfoANUPQ".
+of `InfoANUPQ' as described in Section~"InfoANUPQ".
 
 `SetupFile := <filename>' &
 Non-interactively, this option directs that `pq' should not be called and
@@ -157,16 +158,16 @@ gap> Pq( H, "Prime", 5, "ClassBound", 5, "Metabelian" );
 
 \>PqEpimorphism( <F> : <options> ) F
 
-returns for the finitely presented group <F>,  an  epimorphism  from  <F>
-onto the  $p$-quotient  of  <F>  specified  by  <options>;  the  possible
-<options> are as for `Pq' (see~"Pq"). As for `Pq', `PqEpimorphism' may be
-called with no arguments or one integer argument, in  which  case  it  is
-being used interactively (see~"PqEpimorphism!interactive");  and  also  as
-for  `Pq',  the  same  options  may  be  used,  except  that   `Verbose',
-`SetupFile'  and  `PqWorkspace'  are  ignored  by  the  interactive  `Pq'
-function. The  same  alternative  methods  of  passing  options  for  the
-non-interactive `Pq' function are also available for the  non-interactive
-version of `PqEpimorphism'.
+returns for the finitely presented group <F> an epimorphism from <F> onto
+the $p$-quotient of <F> specified by <options>;  the  possible  <options>
+are as for `Pq' (see~"Pq"). As for `Pq', `PqEpimorphism'  may  be  called
+with no arguments or one integer argument, in which case it is being used
+interactively (see~"PqEpimorphism!interactive"); and also  as  for  `Pq',
+the same options may be used,  except  that  `Verbose',  `SetupFile'  and
+`PqWorkspace' are ignored by the  interactive  `Pq'  function.  The  same
+alternative methods of  passing  options  for  the  non-interactive  `Pq'
+function  are  also  available  for  the   non-interactive   version   of
+`PqEpimorphism'.
 
 \beginexample
 gap> F := FreeGroup (2, "F");
@@ -186,80 +187,84 @@ gap> Image( phi );
 \>StandardPresentation( <F>, <p> : <options> ) M
 \>StandardPresentation( <F>, <G> : <options> ) M
 
-return, for the finitely presented group <F>,  the  $p$-quotient  of  <F>
-specified by the second argument and <options>, as a  finitely  presented
-group. Behind the colon <options> a selection of  the  options  from  the
-following  list  should  be  given,  separated  by  commas  like   record
-components (see~"ref:function call with options").
+return, for the finitely presented group <F>, the  standard  presentation
+for the  $p$-quotient  of  <F>  specified  by  the  second  argument  and
+<options>, as a pc group. Behind the colon <options> a selection  of  the
+options from the following list should be given, separated by commas like
+record components (see~"ref:function call with options").
 
 If  the  user  supplies   a   prime   <p>   as   second   argument   then
 `PqStandardPresentation'    or    `StandardPresentation'    computes    a
 $p$-quotient of <F> for the prime <p>.
 
 Alternatively, a user may supply a pc group <G> as second argument  which
-is the class 1 $p$-quotient of <F>, and if she does so, the  automorphism
-group of <G> must be known. The presentation for <G> can  be  constructed
-by an initial call to `Pq' (see "Pq").
-
-Of course, <G> need not be the class 1 $p$-quotient of <F>. However,  the
-automorphism group of  <G>  must  be  known  and  this  is  most  readily
-available when <G> is an elementary abelian group.  Where  the  necessary
-information is available for a $p$-quotient  of  higher  class,  one  can
-apply the standard presentation algorithm from that class onwards.
+is a $p$-quotient of <F>, and if she does so, the automorphism  group  of
+<G> must be known. The presentation for <G>  can  be  constructed  by  an
+initial call to `Pq' (see "Pq"). For <G> one usually chooses  a  class  1
+$p$-quotient of <F>, since the automorphism group of <G>  must  be  known
+and this is most readily available when  <G>  is  an  elementary  abelian
+group. Where the necessary information is available for a $p$-quotient of
+higher class, one can apply the standard presentation algorithm from that
+class onwards.
 
 The following options are supported.
 
 \beginitems
 `ClassBound := <n>' &
-The standard presentation is computed for the largest $p$-quotient of <F>
-having lower exponent-$p$ class at most <n>.
+Specifies  the  standard  presentation  is  computed  for   the   largest
+$p$-quotient of <F> having lower expon\-ent-$p$ class at most <n>.
 
 `Exponent := <n>' &
-The $p$-quotient computed has exponent <n>. By default, no  exponent  law
-is enforced.
+Specifies the $p$-quotient computed has  exponent  <n>.  By  default,  no
+exponent law is enforced.
 
 `Metabelian' &
-The $p$-quotient constructed is metabelian.
+Specifies the $p$-quotient constructed is metabelian.
 
 `PcgsAutomorphisms' &
-This parameter instructs the function to compute a polycyclic  generating
-sequence for the automorphism group of <G> and  to  pass  the  polycyclic
-generating sequence to the `pq' binary. This increases the: efficiency of
-the computation; it also prevents the  `pq'  from  calling  {\GAP}  as  a
-subprocess for  orbit-stabilizer  calculations.  See  section  "Computing
-Descendants of a p-Group" for further explanations.
+Specifies that a polycyclic  generating  sequence  for  the  automorphism
+group of <G> (which must be *soluble*), be computed  and  passed  to  the
+`pq' binary. This increases the: efficiency of the computation;  it  also
+prevents  the  `pq'   from   calling   {\GAP}   as   a   subprocess   for
+orbit-stabilizer calculations. See section "Computing  Descendants  of  a
+p-Group" for further explanations.
 
 &
-This option can be used only if  the  automorphism  group  of  <G>  is
-soluble. If this parameter is  used  in  conjunction  with  an  insoluble
-automorphism group, an error message occurs.
-
-`Verbose' &
-Specifies that the runtime-information generated by the ANU  `pq'  binary
-is displayed. By default, `pq' works silently.
+*Note:*
+If `PcgsAutomorphisms' is used when the  automorphism  group  of  <G>  is
+insoluble, an error message occurs.
 
 `OutputLevel := <n>' &
-Specifies the level of ``verbosity'' of the runtime-information generated
-by the ANU `pq' binary; <n> must be an integer  in  the  range  0  to  3.
-`OutputLevel := 0'  displays  no  output,  `OutputLevel  :=  1'  displays
-minimal  output  and  `OutputLevel's  for  <n>  greater  than  `1'   give
-progressively more output. This parameter implies `Verbose'. 
+Specifies the level of ``verbosity'' of the information output by the ANU
+`pq' binary when computing a pc presentation; <n> must be an  integer  in
+the range 0 to 3. `OutputLevel := 0' displays no output, `OutputLevel  :=
+1' displays minimal output (which  is  the  `pq'  binary's  default)  and
+`OutputLevel's for <n> greater than `1' give progressively  more  output.
+Non-interactively, setting this option (even to 1) implies `Verbose'.
+
+`Verbose' &
+Non-interactively if `Verbose' or `OutputLevel' is set or the `InfoLevel'
+of `InfoANUPQ' is at least 2, all the output from the ANU `pq' binary  is
+displayed (not `Info'-ed), and if `InfoLevel' of `InfoANUPQ' is 3, before
+the output from the `pq' binary displayed, each line of the input  script
+to  the  `pq'  binary  is  `Info'-ed  behind  a   ```ToPQ> '''    prompt.
+Interactively, the `Verbose' option is  ignored  and  all  input  to  and
+output from the the `pq' binary is `Info'-ed at the various  `InfoLevel's
+of `InfoANUPQ' as described in Section~"InfoANUPQ".
 
 `SetupFile := <filename>' &
-Directs that `pq' should not be called and that an input file  with  name
-<filename> (a string), containing the commands necessary for the ANU `pq'
-standalone, be constructed. In this case, `StandardPresentation'  returns
-`true'.
+Non-interactively, this option directs that `pq' should not be called and
+that an input file  with  name  <filename>  (a  string),  containing  the
+commands necessary for the ANU `pq' standalone, be constructed.  In  this
+case, `Pq' returns `true'. Interactively, `SetupFile' is ignored.
 
-`TmpDir := <dir>' &
-`PqDescendants' stores  intermediate  results  in  temporary  files;  the
-location of these files is determined by the value selected by `TmpName'.
-If your default temporary directory does not have enough free disk space,
-you   can   supply   an   alternative   path   <dir>.   In   this    case
-`StandardPresentation' stores its intermediate  results  in  a  temporary
-subdirectory of <dir>. Alternatively, you can globally set  the  variable
-`ANUPQtmpDir', for instance in your `.gaprc' file, to point to a suitable
-location.
+`PqWorkspace := <workspace>' &
+Non-interactively, this option sets the memory used by the  `pq'  binary.
+It sets the maximum number of integer-sized elements to allocate  in  its
+main storage array. By default, the  `pq'  binary  sets  this  figure  to
+10000000. Interactively, `PqWorkspace' is ignored;  the  memory  used  in
+this  case  may  be  set  by   giving   `PqStart'   a   second   argument
+(see~"PqStart").
 
 \enditems
 

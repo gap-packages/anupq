@@ -31,7 +31,7 @@ Revision.anupqios_gi :=
 InstallGlobalFunction(PqStart, function(arg)
 local stream, opts, workspace, G;
 
-  opts := [ "-i", "-k" ];
+  opts := [ "-i", "-k", "-g" ];
   if IsEmpty(arg) or 2 < Length(arg) then
     Error("one or two arguments expected.\n");
   elif not IsFpGroup(arg[1]) then
@@ -508,19 +508,119 @@ end);
 
 #############################################################################
 ##
-#F  VALUE_PQ_OPTION( <optname>, <defaultval> ) . . enhancement of ValueOption
+#F  ANUPQ_ARG_CHK( <len>, <funcname>, <arg1>, <arg1type>, <arg1err>, <args> )
 ##
-##  returns  `ValueOption(  <optname>  )'  if  not  `fail'  and  <defaultval>
-##  otherwise.
+##  This checks the  argument  list  <args>  for  functions  that  have  both
+##  interactive and non-interactive versions; <len> is the length  of  <args>
+##  for the non-interactive  version  of  the  function,  <funcname>  is  the
+##  generic name of the function and is used  for  determining  the  list  of
+##  options for the function when they  are  passed  in  one  of  the  {\GAP}
+##  3-compatible ways only available non-interactively,  `<datarec>.(<arg1>)'
+##  is where, non-interactively, the  first  argument  of  <args>  should  be
+##  stored (and where interactively the corresponding variable  is  *already*
+##  stored), <arg1type> is the type of the first argument when  the  function
+##  is called non-interactively, <arg1err> is the error  message  given  when
+##  non-interactively the first argument  is  not  of  type  <arg1type>,  and
+##  <args>  is  the  list  of  arguments  passed  to  the  called   function.
+##  `ANUPQ_ARG_CHK' returns <datarec> which  is  either  `ANUPQData'  in  the
+##  non-interactive  case  or  `ANUPQData.io[<i>]'  for  some  <i>   in   the
+##  interactive  case,  after   setting   <datarec>.calltype'   to   one   of
+##  `"interactive"', `"non-interactive"' or `"GAP3compatible"'.
 ##
-InstallGlobalFunction(VALUE_PQ_OPTION, function(optname, defaultval)
-local optval;
-  optval := ValueOption(optname);
-  if optval = fail then
-    return defaultval;
+InstallGlobalFunction(ANUPQ_ARG_CHK, 
+function(len, funcname, arg1, arg1type, arg1err, args)
+local interactive, datarec, optrec, optnames;
+  interactive := Length(args) < len or IsInt( args[1] );
+  if interactive then
+    ANUPQ_IOINDEX_ARG_CHK(args{[1..Length(args) - 1]});
+    datarec := ANUPQData.io[ ANUPQ_IOINDEX(args{[1..Length(args) - 1]}) ];
+    datarec.outfname := ANUPQData.outfile;
+    datarec.calltype := "interactive";
+  elif Length(args) = len then
+    datarec := ANUPQData;
+    datarec.menu := "SP";
+    datarec.(arg1) := args[1];
+    if not arg1type( datarec.(arg1) ) then
+      Error( "first argument must be ", arg1err, ".\n" );
+    fi;
+    datarec.setupfile := VALUE_PQ_OPTION( "SetupFile" );
+    datarec.workspace := VALUE_PQ_OPTION( "PqWorkspace" );
+    datarec.opts := "-i -k -g";
+    if IsInt(datarec.workspace) then
+      Append(datarec.opts, Concatenation( " -s ", String(datarec.workspace) ));
+    else
+      datarec.workspace := 10000000;
+    fi;
+    if datarec.setupfile = fail then
+      datarec.stream := OutputTextFile(ANUPQData.infile, false);
+      ToPQk(datarec, [ "#pq called with flags: '", datarec.opts, "'" ]);
+      datarec.outfname := ANUPQData.outfile;
+    else
+      datarec.stream := OutputTextFile(ANUPQData.setupfile, false);
+      ToPQk(datarec, 
+            [ "#pq input file ... use with flags: '", datarec.opts, "'" ]);
+      datarec.outfname := "PQ_OUTPUT";
+    fi;
+    datarec.calltype := "non-interactive";
   else
-    return optval;
+    # GAP 3 way of passing options is supported in non-interactive use
+    datarec := ANUPQData;
+    if IsRecord(args[len + 1]) then
+      optrec := ShallowCopy(args[len + 1]);
+      optnames := Set( REC_NAMES(optrec) );
+      SubtractSet( optnames, Set( ANUPQoptions.(funcname) ) );
+      if not IsEmpty(optnames) then
+        Error(ANUPQoptError( funcname, optnames ), "\n");
+      fi;
+    else
+      optrec := ANUPQextractOptions(funcname, args{[len + 1 .. Length(args)]});
+    fi;
+    PushOptions(optrec);
+    PQ_FUNCTION.(funcname)( args{[1..len]} );
+    PopOptions();
+    datarec.calltype := "GAP3compatible";
   fi;
-end);
-  
+  return datarec;
+end );
+
+#############################################################################
+##
+#F  PQ_COMPLETE_NONINTERACTIVE_FUNC_CALL( <datarec> )
+##
+##  writes the final commands to the `pq' input/setup file and when not  just
+##  creating a setup file calls `pq' with the input file; if just creating  a
+##  setup file, `true'  is  returned,  or  otherwise  the  return  value  (an
+##  integer) of the call to `Process' is returned.
+##
+InstallGlobalFunction(PQ_COMPLETE_NONINTERACTIVE_FUNC_CALL, function(datarec)
+local output, proc;
+  PQ_MENU(datarec, "SP");
+  ToPQ(datarec, [ "0  #exit program" ]);
+  CloseStream(datarec.stream);
+
+  if datarec.setupfile <> fail then
+    Info(InfoANUPQ, 1, "Input file: '", datarec.setupfile, "' written.");
+    Info(InfoANUPQ, 1, "Run `pq' with '", datarec.opts, "' flags.");
+    Info(InfoANUPQ, 1, "The result will be saved in: '",datarec.outfname,"'");
+    return true;
+  fi;
+
+  if VALUE_PQ_OPTION( "Verbose" ) = true or
+     IsInt( VALUE_PQ_OPTION( "OutputLevel" ) ) or
+     InfoLevel(InfoANUPQ) >= 2 then
+    output := OutputTextFile( "*stdout*", false );
+  else 
+    output := OutputTextNone();
+  fi;
+  proc := Process(ANUPQData.tmpdir, 
+                  Filename( DirectoriesSystemPrograms(), "sh" ),
+                  InputTextUser(),
+                  output,
+                  [ "-c", Concatenation(ANUPQData.binary, " ", datarec.opts, 
+                                        " <", ANUPQData.infile) ]
+                  );
+  CloseStream( output );
+  return proc;
+end );
+
 #E  anupqios.gi . . . . . . . . . . . . . . . . . . . . . . . . . . ends here 

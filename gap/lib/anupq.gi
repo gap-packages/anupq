@@ -10,6 +10,11 @@
 #Y  Copyright 1992-1994,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.4  2001/05/24 22:05:03  gap
+#H  Added interactive versions of `[Epimorphism][Pq]StandardPresentation' and
+#H  factored out as separate functions the various menu items these functions
+#H  use. - GG
+#H
 #H  Revision 1.3  2001/05/17 22:40:57  gap
 #H  pkg/anupq:
 #H    Factored out the common code for interactive and non-interactive versions
@@ -281,103 +286,50 @@ end );
 
 #############################################################################
 ##
-#F  PQ_EPIMORPHISM( <arglist> : <options> ) . . .  prime quotient epimorphism
+#F  PQ_EPIMORPHISM( <args> : <options> ) . . . . . prime quotient epimorphism
 ##
-InstallGlobalFunction( PQ_EPIMORPHISM, function( arglist )
-    local   interactive, x, CR, datarec, infile, outfile, workspace, opts,
-            pqOpening, output, proc;
+InstallGlobalFunction( PQ_EPIMORPHISM, function( args )
+    local   datarec, success;
 
-    interactive := Length(arglist) < 1 or IsInt( arglist[1] );
-    if interactive then
-        ANUPQ_IOINDEX_ARG_CHK(arglist);
-        datarec := ANUPQData.io[ ANUPQ_IOINDEX(arglist) ];
-        outfile := ANUPQData.outfile;
-    elif Length(arglist) = 1 then
-        datarec := ANUPQData;
-        datarec.menu := "SP";
-        datarec.group := arglist[1];
-        if not IsFpGroup( datarec.group ) then
-    	    Error( "first argument must be a finitely presented group" );
+    datarec := ANUPQ_ARG_CHK(1, "Pq", "group", IsFpGroup, "an fp group", args);
+    if datarec.calltype = "interactive" then      
+        if IsBound(datarec.pQepi) then
+            return datarec.pQepi; # it's already been computed
         fi;
-        infile := ValueOption( "SetupFile" );
-        workspace := ValueOption( "PqWorkspace" );
-        opts := "-i -k";
-        if IsInt(workspace) then
-            opts := Concatenation( opts, " -s ", String(workspace) );
-        fi;
-        if infile = fail then
-            infile := ANUPQData.infile;
-            outfile := ANUPQData.outfile;
-            pqOpening := [ "#pq called with flags: '", opts, "'" ];
-        else
-            outfile := "PQ_OUTPUT";
-            pqOpening := [ "#pq called with flags: '", opts, "'" ];
-        fi;
-        datarec.stream := OutputTextFile(infile, false);
-        ToPQ(datarec, pqOpening);
-    else
-        # GAP 3 way of passing options is supported in non-interactive use
-        if IsRecord(arglist[2]) then
-            CR := ShallowCopy(arglist[2]);
-            x := Set( REC_NAMES(CR) );
-            SubtractSet( x, Set( ANUPQoptions.Pq ) );
-            if not IsEmpty(x) then
-                ANUPQerrorPq(x);
-            fi;
-        else
-    	    CR := ANUPQextractPqArgs( arglist );
-        fi;
-        PushOptions(CR);
-        PQ_EPIMORPHISM( arglist{[1]} );
-        PopOptions();
+    elif datarec.calltype = "GAP3compatible" then
         return ANUPQData.pQepi;
     fi;
 
-    if not interactive or not IsBound(datarec.haspcp) then
+    if datarec.calltype <> "interactive" or 
+       not IsBound(datarec.pcp) or 
+       ForAny( REC_NAMES( datarec.pcp ), 
+               optname -> not(ValueOption(optname) in
+                              [fail, datarec.pcp.(optname)]) ) then
+        # only do it in the interactive case if it hasn't already been done
+        # by checking whether options stored in datarec.pcp differ from those
+        # of a previous call ... if a check of an option value returns `fail'
+        # it is assumed the user intended the previous value stored in
+        # `<datarec>.pcp' (this is potentially problematic for boolean
+        # options, to reverse a previous `true', `false' must be explicitly
+        # set for the option on the subsequent function call)
+        
         PQ_PC_PRESENTATION(datarec);
-        if interactive then
-            datarec.haspcp := true;
-        fi;
     fi;
 
-    PQ_WRITE_PC_PRESENTATION(datarec, ANUPQData.outfile);
+    PQ_WRITE_PC_PRESENTATION(datarec, datarec.outfname);
     
-    if not interactive then
-        PQ_MENU(datarec, "SP");
-        ToPQ(datarec, [ "0  #exit program" ]);
-        CloseStream(datarec.stream);
-
-        if ValueOption( "SetupFile" ) <> fail then
-            Info(InfoANUPQ, 1, "Input file: '", infile, "' written.");
-            Info(InfoANUPQ, 1, "Run `pq' with '", opts, "' flags.");
-            Info(InfoANUPQ, 1, "The result will be saved in: 'PQ_OUTPUT'");
+    if datarec.calltype <> "interactive" then
+        success := PQ_COMPLETE_NONINTERACTIVE_FUNC_CALL(datarec);
+        if success = true then
             return true;
-        fi;
-
-        if ValueOption( "Verbose" ) = true or
-           IsPosInt( ValueOption( "OutputLevel" ) ) or
-           InfoLevel(InfoANUPQ) >= 2 then
-            output := OutputTextFile( "*stdout*", false );
-        else 
-            output := OutputTextNone();
-        fi;
-        proc := Process( 
-                  ANUPQData.tmpdir, 
-                  Filename( DirectoriesSystemPrograms(), "sh" ),
-                  InputTextUser(),
-                  output,
-                  [ "-c", 
-                    Concatenation(ANUPQData.binary, " ", opts, " <", infile) ]
-                  );
-        CloseStream( output );
-        if proc <> 0 then
-            Error( "process did not succeed" );
+        elif success <> 0 then
+            Error( "process did not succeed\n" );
         fi;
     fi;
-    
+            
     # read group and images from file
     HideGlobalVariables( "F", "MapImages" );
-    Read( outfile );
+    Read( ANUPQData.outfile );
     datarec.pQuotient := ValueGlobal( "F" );
     datarec.pQepi := GroupHomomorphismByImages( 
                        datarec.group,

@@ -18,8 +18,8 @@ An  interactive  {\ANUPQ}  process  is  initiated  by   `PqStart'   and
 terminated  via  `PqQuit';   these   functions   are   described   in
 Section~"Starting and Stopping Interactive ANUPQ Processes".
 
-Each interactive {\ANUPQ} function that  manipulate  an  already  started
-interactive {\ANUPQ} process, have a form where the first argument is the
+Each interactive {\ANUPQ} function that manipulates  an  already  started
+interactive {\ANUPQ} process, has a form where the first argument is  the
 integer <i> returned by the initiating `PqStart' command,  and  a  second
 form with one argument fewer (where the integer <i> is  discovered  by  a
 default mechanism, namely by determining the least integer <i> for  which
@@ -40,8 +40,8 @@ active interactive  {\ANUPQ}  processes.  If  {\GAP}  is  killed  without
 *zombie* processes (still living *child* processes whose  *parents*  have
 died), will result. Since zombie processes do consume resources, in  such
 an event, the responsible computer user should  seek  out  and  kill  the
-still living `ace' children (e.g.~by piping the output  of  a  `ps'  with
-appropriate options, usually `aux' or `ef', to `grep ace',  to  find  the
+still living `pq' children (e.g.~by piping the  output  of  a  `ps'  with
+appropriate options, usually `aux' or `ef', to `grep  pq',  to  find  the
 process ids, and then using `kill'; try `man ps' and `man kill' if  these
 hints are unhelpful).
 
@@ -55,7 +55,7 @@ activates an iostream for an interactive {\ANUPQ} process, i.e. it starts
 up the `pq' binary and opens an iostream to ``talk'' to it;  and  returns
 an integer <i> that can be used to  identify  that  process.  The  record
 `ANUPQData.io[<i>]' stores information that is important for the  process
-(see~"ANUPQData"). The argument <G> should be an fp group that  the  user
+(see~"ANUPQData"). The argument <G> should be an *fp group* that the user
 intends to manipute using interactive {\ANUPQ} functions. If `PqStart' is
 given a second argument <workspace> then the `pq' binary  is  started  up
 with a workspace (an integer array) of size <workspace> (i.e.  $4  \times
@@ -132,7 +132,14 @@ with the {\ANUPQ} share package to find out what  to  include  in  a  bug
 report and who to email it to.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\Section{Interactive ANUPQ Functions based on menu option of the pq binary}
+\Section{Interactive ANUPQ Functions based on menu items of the pq binary}
+
+The `pq' binary has 5 menus, the details of which  the  reader  will  not
+normally need to know, but if she wishes to know the details they may  be
+found in the standalone manual: `guide.dvi'.  Both  `guide.dvi'  and  the
+`pq' binary refer to the items of these 5 menus as ``options'', which  do
+*not* correspond in any way to the options used  by  any  of  the  {\GAP}
+functions that interface with the `pq' binary.
 
 \>PqPcPresentation( <i> : <options> ) F
 \>PqPcPresentation( : <options> ) F
@@ -144,7 +151,7 @@ as first argument when `PqStart' was called to initiate that process (for
 process <i> the group is stored as `ANUPQData.io[<i>].group').
 
 *Note:* For those  familiar  with  the  `pq'  binary,  `PqPcPresentation'
-performs option 1 of the main p-Quotient menu.
+performs option 1 of the main $p$-Quotient menu.
 
 \>PqWritePcPresentation( <i>, <outfile> ) F
 \>PqWritePcPresentation( <outfile> ) F
@@ -159,8 +166,45 @@ previously computed by the `pq' binary, then `pq' is called to compute it
 first, effectively invoking `PqPcPresentation' (see~"PqPcPresentation").
 
 *Note:* For those familiar with the `pq' binary,  `PqPcWritePresentation'
-performs option 25 of the interactive p-Quotient menu.
+performs option 25 of the interactive $p$-Quotient menu.
 
+\>PqSPPcPresentation( <i> : <options> ) F
+\>PqSPPcPresentation( : <options> ) F
+
+for the <i>th or default interactive {\ANUPQ} process, inputs data  given
+by <options> for the group of  that  process  so  that  the  `pq'  binary
+computes a pc presentation, where the group of a process is the one given
+as first argument when `PqStart' was called to initiate that process (for
+process <i> the group is stored as `ANUPQData.io[<i>].group').
+
+*Note:* For those familiar with  the  `pq'  binary,  `PqSPPcPresentation'
+performs option 1 of the Standard Presentation menu.
+
+\>PqSPStandardPresentation( <i> : <options> ) F
+\>PqSPStandardPresentation( : <options> ) F
+
+for the <i>th or default interactive {\ANUPQ} process, inputs data  given
+by <options> to compute a standard presentation for  the  group  of  that
+process and a previously computed $p$-quotient of the  group,  where  the
+group of a process is the one given as first argument when `PqStart'  was
+called to initiate that process (for process <i> the group is  stored  as
+`ANUPQData.io[<i>].group'   and   the   $p$-quotient   is    stored    as
+`ANUPQData.io[<i>].pQuotient'). If a $p$-quotient of the  group  has  not
+been previously computed a class 1 $p$-quotient is computed.
+
+*Note:* For those familiar with  the  `pq'  binary,  `PqSPPcPresentation'
+performs option 2 of the Standard Presentation menu.
+
+\>PqSPIsomorphism( <i> ) F
+\>PqSPIsomorphism() F
+
+for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+binary to compute the isomorphism from the generators of the automorphism
+group of `ANUPQData.io[<i>].pQuotient' to the generators for the standard
+presentation.
+
+*Note:* For  those  familiar  with  the  `pq'  binary,  `PqSPIsomorphism'
+performs option 8 of the Standard Presentation menu.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Interactive Versions of Non-interactive ANUPQ Functions}
@@ -168,17 +212,32 @@ performs option 25 of the interactive p-Quotient menu.
 \>Pq( <i> : <options> )!{interactive} F
 \>Pq( : <options> )!{interactive} F
 
-returns for the finitely presented group <G>, of  the  <i>th  or  default
-interactive {\ANUPQ}  process,  the  $p$-quotient  of  <G>  specified  by
-<options>, as a pc-group. The group <G>  is  the  group  given  as  first
+returns for the finitely presented group <F>, of  the  <i>th  or  default
+interactive {\ANUPQ}  process,  the  $p$-quotient  of  <F>  specified  by
+<options>, as a pc-group. The group <F>  is  the  group  given  as  first
 argument  to  `PqStart'  to  start  the  interactive   {\ANUPQ}   process
 (see~"PqStart"). Behind the colon <options> a selection  of  the  options
-give for the non-interactive `Pq' function (see~"Pq")  should  be  given,
+listed for the non-interactive `Pq' function (see~"Pq") should be  given,
 separated by commas like record components (see~"ref:function  call  with
 options"),  except   that   the   options   `SetupFile',   `Verbose'   or
-`PqWorkspace' are ignored by the interactive `Pq'. The following  is  one
-of the examples for the non-interactive `Pq' redone with the  interactive
-version:
+`PqWorkspace' are ignored by the interactive `Pq'. A pc  presentation  is
+only computed if one has not previously been computed  and  none  of  the
+options given in the call differ from previous values.
+
+*Note:*
+If a pc  presentation  has  previously  been  computed  any  options  not
+supplied are assumed to have  the  values  of  the  previous  call  to  a
+function that computed a pc presentation, i.e.~it is  ok  to  provide  no
+options if a pc presentation has already been computed. Take care though,
+if on a previous function call that computed a pc  presentation  you  set
+`Metabelian', for example, but on a subsequent  call  to  `Pq'  you  wish
+`Metabelian' to be `false', then you must explicitly set  `Metabelian  :=
+false' in the `Pq' call (the usual default of `false' is  over-ridden  by
+the previous value provided), or alternatively  call  `PqPcPresentation',
+which never avoids re-doing the computation, with your intended options.
+
+The following is one of the examples for the non-interactive `Pq'  redone
+with the interactive version:
 
 \beginexample
 gap> F := FreeGroup("a", "b");; a := F.1;; b := F.2;;
@@ -223,15 +282,51 @@ gap> Pq(: Prime := 2, ClassBound := 3 );
 \>PqEpimorphism( <i> : <options> )!{interactive} F
 \>PqEpimorphism( : <options> )!{interactive} F
 
-returns for the finitely presented group <G>, of  the  <i>th  or  default
-interactive  {\ANUPQ}  process,  an  epimorphism  from   <G>   onto   the
-$p$-quotient of <G> specified by <options>. The group <G>  is  the  group
-given as first argument to `PqStart' to start  the  interactive  {\ANUPQ}
+returns for the finitely presented group <F>, of  the  <i>th  or  default
+interactive  {\ANUPQ}  process,  an  epimorphism  from   <F>   onto   the
+$p$-quotient of <F> specified by <options>. The group <F>  is  the  group
+listed as first argument to `PqStart' to start the  interactive  {\ANUPQ}
 process (see~"PqStart"). Behind the colon <options> a  selection  of  the
-options give for the non-interactive `Pq' function (see~"Pq")  should  be
+options given for the non-interactive `Pq' function (see~"Pq") should  be
 given, separated by commas like record components (see~"ref:function call
 with  options"),  except  that  the  options  `SetupFile',  `Verbose'  or
 `PqWorkspace' are ignored by the interactive `PqEpimorphism' function.
+
+\index{automorphisms!of p groups}
+\>PqStandardPresentation( <i>, <p> : <options> )!{interactive} F
+\>PqStandardPresentation( <p> : <options> )!{interactive} F
+\>PqStandardPresentation( <i>, <G> : <options> )!{interactive} F
+\>PqStandardPresentation( <G> : <options> )!{interactive} F
+\>StandardPresentation( <i>, <p> : <options> )!{interactive} M
+\>StandardPresentation( <p> : <options> )!{interactive} M
+\>StandardPresentation( <i>, <G> : <options> )!{interactive} M
+\>StandardPresentation( <G> : <options> )!{interactive} M
+
+return, for the finitely presented group <F>  of  the  <i>th  or  default
+interactive  {\ANUPQ}  process,  the  standard   presentation   for   the
+$p$-quotient of <F> specified by the <p> or <G> argument  and  <options>,
+as a pc group. The group <F> is the group  given  as  first  argument  to
+`PqStart' to start  the  interactive  {\ANUPQ}  process  (see~"PqStart").
+Behind the colon <options> a selection  of  the  options  given  for  the
+non-interactive             `PqStandardPresentation'             function
+(see~"PqStandardPresentation") should be given, separated by commas  like
+record components (see~"ref:function call with options"), except that the
+options `SetupFile',  `Verbose'  or  `PqWorkspace'  are  ignored  by  the
+interactive    `PqStandardPresentation'    and     `StandardPresentation'
+functions.
+
+If the  user  supplies  a  prime  <p>  then  `PqStandardPresentation'  or
+`StandardPresentation' computes a $p$-quotient of <F> for the prime <p>.
+
+Alternatively, a user may supply a pc group <G> which is  a  $p$-quotient
+of <F>, and if she does so, the automorphism group of <G> must be  known.
+The presentation for <G> can be constructed by an initial  call  to  `Pq'
+(see "Pq"). For <G> one usually chooses a class 1  $p$-quotient  of  <F>,
+since the automorphism group of <G>  must  be  known  and  this  is  most
+readily available when <G> is an  elementary  abelian  group.  Where  the
+necessary information is available for a $p$-quotient  of  higher  class,
+one can  apply  the  standard  presentation  algorithm  from  that  class
+onwards.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Primitive Interactive ANUPQ Process Read/Write Functions}
