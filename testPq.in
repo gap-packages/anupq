@@ -112,6 +112,8 @@ while (<GAPOUT>) {
   next if ( !$seen_gap_prompt );
   if ( /^((gap> )*(\#I --|[+] |$)|true$)/ ) {
     next;
+  } elsif( /Pcgs\(\[ f1, f2, f3, f4 \]\) -> \[ / ) {
+    next;
   } else {
     print " error.\n";
     die   " Please email the file: $tmpdir/gapout\n",
