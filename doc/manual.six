@@ -27,16 +27,28 @@ I 2.1. immediate descendant
 I 2.1. nucleus
 I 2.1. capable
 I 2.1. terminal
-I 2.1. allowable
-I 2.1. permutation
-I 2.1. extended automorphism
+I 2.1. nucleus
+I 2.1. allowable subgroup
 I 2.1. extended automorphism
 I 2.1. permutations
+I 2.1. law
+I 2.1. identical relation
+I 2.1. exponent law
+I 2.1. metabelian law
+I 2.1. Engel identity
 S 2.2. The p-quotient Algorithm
-I 2.2. p-quotient algorithm
-S 2.3. Standard Presentation and Isomorphism Testing
-S 2.4. The p-group generation Algorithm
-S 2.5. Old stuff
+I 2.2. labelled pcp
+I 2.2. definition!of generator
+I 2.2. tails
+I 2.2. exponent check
+S 2.3. The p-group generation Algorithm, Standard Presentation, Isomorphism Testing
+I 2.3. p-group generation
+I 2.3. orbits
+I 2.3. standard presentation
+I 2.3. echelonised matrix
+I 2.3. label of standard matrix
+I 2.3. isomorphism testing
+I 2.3. compaction
 C infra.tex 3. Infrastructure
 S 3.1. Loading the ANUPQ Package
 I 3.1. banner
@@ -327,6 +339,7 @@ F 6.1. option Exponent
 F 6.1. option Relators
 F 6.1. option Metabelian
 F 6.1. option GroupName
+F 6.1. option Identities
 F 6.1. option OutputLevel
 F 6.1. option RedoPcp
 F 6.1. option SetupFile
