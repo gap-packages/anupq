@@ -11,12 +11,12 @@
 \Chapter{Introduction}
 
 \index{ANUPQ}
-The {\GAP} 4 share package {\ANUPQ} provides an interface to the ANU PQ C
+The {\GAP}~4 package {\ANUPQ} provides an  interface  to  the  ANU  PQ  C
 progam `pq' written by Eamonn O'Brien, making the functionality of the  C
 program available to {\GAP}. Henceforth, we shall refer to  the  {\ANUPQ}
 interface (resp. the `pq' binary), when discussing the  {\GAP}  component
-(resp. the C code component) of the  {\ANUPQ}  share  package.  The  `pq'
-program consists of implementations of the following algorithms:
+(resp. the C code component) of the {\ANUPQ} package.  The  `pq'  program
+consists of implementations of the following algorithms:
 
 \beginlist
 
@@ -51,8 +51,8 @@ $p$-group.
 
 \item{}
 This part of the `pq' program is  not  accessible  through  the  {\ANUPQ}
-share package. Instead, users are advised to consider the {\GAP}~4  share
-package {\AutPGrp}, which implements a better algorithm in {\GAP} for the
+package. Instead, users are advised  to  consider  the  {\GAP}~4  package
+{\AutPGrp}, which  implements  a  better  algorithm  in  {\GAP}  for  the
 computation of automorphism groups of $p$-groups.
 %The algorithm implemented here is described in~\cite{OBr94}. 
 
@@ -61,20 +61,20 @@ computation of automorphism groups of $p$-groups.
 %Further   background   may   be   found   in~\cite{OBr95},   \cite{Vau84}
 %and~\cite{NNN98}.
 
-The {\ANUPQ} Share Package  Manual  has  been  written  for  {\GAP}  4.3.
-Nevertheless, the {\ANUPQ} Share Package is compatible with  {\GAP}  4.2,
-but since it uses the iostream technology introduced in  {\GAP}  4.2,  it
+The  {\ANUPQ}  Package  Manual  has  been   written   for   {\GAP}   4.3.
+Nevertheless, the {\ANUPQ} Package is compatible  with  {\GAP}  4.2,  but
+since it uses the  iostream  technology  introduced  in  {\GAP}  4.2,  it
 requires at least {\GAP} 4.2.
 
 Section~"Authors" gives contact details for the authors of the components
-of the  {\ANUPQ}  share  package.  A  comprehensive  description  of  the
-background  and  terminology  used  is  given  in   Chapter~"Mathematical
-Background and Terminology", which also cites a number of references  for
-further reading.
+of the {\ANUPQ} package.  A  brief  description  of  the  background  and
+terminology  used  is  given  in  Chapter~"Mathematical  Background   and
+Terminology", which  also  cites  a  number  of  references  for  further
+reading.
 
-Instructions on how to install the {\ANUPQ} share package are located  in
-Chapter~"Installing the ANUPQ Share  Package"  and  Section~"Loading  the
-ANUPQ Share Package" describes how to load the {\ANUPQ} share package.
+Instructions on how to  install  the  {\ANUPQ}  package  are  located  in
+Chapter~"Installing the ANUPQ Package"  and  Section~"Loading  the  ANUPQ
+Package" describes how to load the {\ANUPQ} package.
 
 Section~"The ANUPQData Record" describes the global variable  `ANUPQData'
 in which various data including the temporary directory in which  various
@@ -91,14 +91,14 @@ Section~"Hints and Warnings regarding the  use  of  Options"  gives  some
 fairly important hints regarding these. Please take the time to read it.
 
 Chapter~"Non-interactive   ANUPQ    functions"    describes    all    the
-non-interactive functions  of  the  {\ANUPQ}  share  package;  these  are
-``one-shot'' functions that invoke the `pq' binary in  such  a  way  that
-once {\GAP} has got what it needs, the `pq' is allowed  to  exit.  It  is
-expected that most of the time users will only need these functions.
+non-interactive functions of the {\ANUPQ} package; these are ``one-shot''
+functions that invoke the `pq' binary in such a way that once {\GAP}  has
+got what it needs, the `pq' is allowed to exit. It is expected that  most
+of the time users will only need these functions.
 
 Finally,  Chapter~"Interactive  ANUPQ  functions"   describes   all   the
-interactive functions of the {\ANUPQ} share package; these are  functions
-that extract information via a dialogue  with  a  running  `pq'  process.
+interactive functions of the {\ANUPQ} package; these are  functions  that
+extract  information  via  a  dialogue  with  a  running  `pq'   process.
 Occasionally, a user needs the ``next step''; the functions  provided  in
 this chapter make use of data from previous steps retained  by  the  `pq'
 binary, thus allowing the user to interact with the `pq' binary like  one

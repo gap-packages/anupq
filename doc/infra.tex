@@ -18,8 +18,8 @@ to know that
 
 \item{$\bullet$} 
 you must do a `RequirePackage("anupq");' before you can expect to  use  a
-command  defined  by  the  {\ANUPQ}  Share  Package   (details   are   in
-Section~"Loading the ANUPQ Share Package");
+command defined by the {\ANUPQ} Package (details are in  Section~"Loading
+the ANUPQ Package");
 
 \item{$\bullet$}
 partial results of {\ANUPQ} commands and some other data  are  stored  in
@@ -43,21 +43,21 @@ in Section~"Utility functions" we describe functions `PqLeftNormComm' for
 computing  left  normed  commutators  in  {\GAP},  `PqGAPRelators'  which
 converts strings representing relators from  a  format  the  `pq'  binary
 understands to a form that  {\GAP}  understands,  and  `PqExample'  which
-executes examples for the {\ANUPQ} share package or displays an index  of
+executes examples for the  {\ANUPQ}  package  or  displays  an  index  of
 examples.
 
 \endlist
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\Section{Loading the ANUPQ Share Package}
+\Section{Loading the ANUPQ Package}
 
 \index{banner}
-To use the {\ANUPQ} Share Package you have to request it explicitly. This
-is done by calling
+To use the {\ANUPQ} Package you have to request it  explicitly.  This  is
+done by calling
 
 \beginexample
 gap> RequirePackage("anupq");
-#I    Loading the ANUPQ (ANU p-Quotient) share package
+#I    Loading the ANUPQ (ANU p-Quotient) package
 #I    C code by  Eamonn O'Brien <obrien@math.auckland.ac.nz>
 #I                ANU pq binary version: 1.5
 #I    GAP code by Werner Nickel <nickel@mathematik.tu-darmstadt.de>
@@ -75,7 +75,7 @@ If {\GAP} cannot find a working binary, the call to `RequirePackage' will
 fail.
 
 If you know you have a working {\ANUPQ} binary, as well  as  a  correctly
-installed {\ANUPQ} Share Package, it is possible to suppress  the  `Info'
+installed {\ANUPQ}  Package,  it  is  possible  to  suppress  the  `Info'
 messages by temporarily setting the `InfoLevel' of  `InfoWarning'  to  0,
 and a duplicated semicolon will suppress the `true' result:
 
@@ -155,18 +155,17 @@ used the `GroupName' option  (see  e.g.~"Pq")  or  applied  the  function
 `SetName'  (see~"ref:SetName")  to  the  group,  the   ``generic''   name
 `"\<grp>"' is set as a default);
 
-\quad`class'& the largest lower exponent-$p$ central class found for  the
-group (usually `group') whose pc presentation is defined by a call to the
-`pq' binary;
+\quad`class'& the largest lower exponent-$p$ central class of a  quotient
+group of the group (usually `group') found by a call to the `pq' binary;
 
-\quad`forder'& the factored order of the factor group  of  largest  lower
-exponent-$p$ central class found for the group (usually `group') whose pc
-presentation is defined by a call to the `pq' binary (this factored order
-is given as a list `[$p$, $n$]', indicating an order of $p^n$);
+\quad`forder'& the factored order of the quotient group of largest  lower
+exponent-$p$ central class found for the group  (usually  `group')  by  a
+call to the `pq' binary (this factored order is given as  a  list  `[$p$,
+$n$]', indicating an order of $p^n$);
 
-\quad`pcoverclass'& the lower exponent-$p$ central class  found  for  the
-$p$-covering group of a $p$-quotient of the group (usually `group') whose
-pc presentation is defined by a call to the `pq' binary;
+\quad`pcoverclass'&  the  lower  exponent-$p$  central   class   of   the
+$p$-covering group of a $p$-quotient of the group (usually `group') found
+by a call to the `pq' binary;
 
 \quad`workspace'& the workspace set for the `pq' process (either given as
 a second argument to `PqStart', or set by default to 10000000);
@@ -181,38 +180,38 @@ always `ANUPQData.outfile', except when option `SetupFile' is used with a
 non-interactive  function,  in  which   case   `outfname'   is   set   to
 `"PQ_OUTPUT"';
 
-\quad`pQpcp' & If this field is bound  it  is  a  record  containing  the
-options used the last time that  `pq'  computed  a  pc  presentation  for
-`group', while computing a $p$-quotient i.e.~if it is  bound  then  there
-has been such a call. (It is used  mainly  to  avoid  re-computing  a  pc
-presentation that's been done already, by functions that require  that  a
-pc presentation is known to the `pq' binary.)
+\quad`pQpcp' & if bound, this field is a record  containing  the  options
+used the last time the `pq' computed a pc presentation for a $p$-quotient
+of `group' i.e.~if it is bound then there has been such  a  call  (it  is
+used mainly to avoid re-computing a  pc  presentation  that's  been  done
+already, by functions that require that a pc presentation is known to the
+`pq' binary);
 
-\quad`pQuotient'  &  This  is  set  to  the  value   returned   by   `Pq'
-(see~"Pq!interactive") when called interactively, for process  <i>.  (The
-field `pQepi' is also set at the same time.)
+\quad`pQuotient'   &   is   set   to   the   value   returned   by   `Pq'
+(see~"Pq!interactive") when called interactively, for  process  <i>  (the
+field `pQepi' is also set at the same time);
 
-\quad`pQepi' & This is set  to  the  value  returned  by  `PqEpimorphism'
+\quad`pQepi'  &  is  set  to  the  value  returned   by   `PqEpimorphism'
 (see~"PqEpimorphism!interactive") when called interactively, for  process
-<i>. (The field `pQuotient' is also set at the same time.)
+<i> (the field `pQuotient' is also set at the same time);
 
-\quad`SPpcp' & If this field is bound  it  is  a  record  containing  the
-options used the last time that  `pq'  computed  a  pc  presentation  for
-`group', while computing a standard presentation i.e.~if it is bound then
-there has been such a call. (It is used mainly to avoid re-computing a pc
-presentation that's been done already, by functions that require  that  a
-pc presentation is known to the `pq' binary.)
+\quad`SPpcp' & if bound, this field is a record  containing  the  options
+used the last time the `pq' computed a pc presentation for a $p$-quotient
+of `group' i.e.~if it is bound then there has been such  a  call  (it  is
+used mainly to avoid re-computing a  pc  presentation  that's  been  done
+already, by functions that require that a pc presentation is known to the
+`pq' binary);
 
-\quad`SP' & This is set to the value returned by `PqStandardPresentation'
-or `StandardPresentation' (see~"PqStandardPresentation!interactive") when
-called interactively, for process <i>. (The field `SPepi' is also set  at
-the same time.)
+\quad`SP' & is set to the value returned by  `PqStandardPresentation'  or
+`StandardPresentation'  (see~"PqStandardPresentation!interactive")   when
+called interactively, for process <i> (the field `SPepi' is also  set  at
+the same time); and
 
-\quad`SPepi'   &   This   is   set   to    the    value    returned    by
+\quad`SPepi'    &    is    set    to    the     value     returned     by
 `EpimorphismPqStandardPresentation' or  `EpimorphismStandardPresentation'
 (see~"EpimorphismPqStandardPresentation!interactive")     when     called
-interactively, for process <i>. (The field `SP' is also set at  the  same
-time.)
+interactively, for process <i> (the field `SP' is also set  at  the  same
+time).
 
 \enditems
 
@@ -363,7 +362,7 @@ be trapped.
 \>PqLeftNormComm( <elts> ) F
 
 returns for a list of elements of some group (e.g.~<elts> may be  a  list
-of words in the generators of  a  free  of  fp  group)  the  left  normed
+of words in the generators of  a  free  or  fp  group)  the  left  normed
 commutator of <elts>, e.g.~if <w1>, <w2>, <w3>  are  such  elements  then
 `PqLeftNormComm( [<w1>, <w2>, <w3>] );' is  equivalent  to  `Comm(  Comm(
 <w1>, <w2> ), <w3> );'.

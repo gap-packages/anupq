@@ -11,15 +11,15 @@
 \Chapter{ANUPQ Options}
 
 In this chapter we describe in detail all the options used  by  functions
-of the {\ANUPQ} share package. Note that by ``options''  we  mean  {\GAP}
-options that are passed to functions after the  arguments  and  separated
-from the arguments by  a  colon  as  described  in  Chapter~"ref:Function
-Calls" in the Reference Manual. The user  is  strongly  advised  to  read
-Section~"Hints and Warnings regarding the use of Options".
+of the {\ANUPQ} package. Note that by ``options'' we mean {\GAP}  options
+that are passed to functions after the arguments and separated  from  the
+arguments by a colon as described in Chapter~"ref:Function Calls" in  the
+Reference Manual. The user is strongly advised to read Section~"Hints and
+Warnings regarding the use of Options".
 
 \>AllANUPQoptions() F
 
-lists all the {\GAP} options defined for functions of the {\ANUPQ}  share
+lists all the {\GAP}  options  defined  for  functions  of  the  {\ANUPQ}
 package:
 
 \beginexample
@@ -75,16 +75,18 @@ Specifies that the $p$-quotient to be  computed  has  lower  exponent-$p$
 class at most <n>.
 
 \>`Exponent := <n>'{option Exponent}@{option `Exponent'|indexit}&
-Specifies that the $p$-quotient computed has exponent <n>. By default, no
-exponent law is enforced.
+Specifies that the $p$-quotient to  be  computed  has  exponent  <n>.  By
+default, no exponent law is enforced.
 
 \>`Relators := <rels>'{option Relators}@{option `Relators'|indexit}&
 Specifies that the relators sent to the  `pq'  binary  should  be  <rels>
-instead of than the relators of the group <F>; <rels> should be a list of
+instead of the relators of the group <F>; <rels>  should  be  a  list  of
 *strings* in the string representations of the generators  of  <F>.  This
 option provides a way of giving relators  to  the  `pq'  binary,  without
 having  them  pre-expanded  by  {\GAP},  which  can  sometimes  effect  a
 performance loss of the order of 100.
+
+*POINT TO 11-group EXAMPLE*
 
 *Note:*
 The `pq' binary does not use `/' to indicate multiplication by an inverse
@@ -138,8 +140,8 @@ this  case  may  be  set  by   giving   `PqStart'   a   second   argument
 Let <G> be the group associated with the calling function (or  associated
 interactive process). Passing the option  `PcgsAutomorphisms'  without  a
 value (or equivalently setting it to `true'), specifies that a polycyclic
-generating sequence for the automorphism group  of  <G>  (which  must  be
-*soluble*), be computed and passed to the `pq' binary. This increases the
+generating sequence for the automorphism group (which must be  *soluble*)
+of <G>, be computed and passed to the `pq'  binary.  This  increases  the
 efficiency of the computation; it also prevents  the  `pq'  from  calling
 {\GAP} for orbit-stabilizer calculations. By default, `PcgsAutomorphisms'
 is set to the value returned by `IsSolvable( AutomorphismGroup( <G> ) )',
@@ -194,7 +196,7 @@ By default, *all* descendants are constructed. If this  flag  is  set  to
 `false', only capable descendants are computed. Passing  `AllDescendants'
 without a value  (which  is  equivalent  to  setting  it  to  `true')  is
 superfluous. This option is provided only for backward compatibility with
-the {\GAP} 3 version of the {\ANUPQ}  share  package,  where  by  default
+the  {\GAP}  3  version  of  the  {\ANUPQ}  package,  where  by   default
 `AllDescendants'  was  set  to  `false'  (rather  than  `true').  It   is
 preferable to use `CapableDescendants' (see~"option CapableDescendants").
 
@@ -217,15 +219,15 @@ should have any subset (or all) of the the following fields:
 
 \quad`perm := <list>' &
 where  <list>  is  a  list  of  booleans  which  determine  whether   the
-permutation  group  output  should  contain:  the  degree,  the  extended
-automorphisms,  the  automorphism   matrices,   and   the   permutations,
-respectively.
+permutation group output for the automorphism group should  contain:  the
+degree, the extended automorphisms, the automorphism  matrices,  and  the
+permutations, respectively.
 
 \quad`orbit := <list>' &
 where <list> is a list of booleans  which  determine  whether  the  orbit
-output should contain: a summary,  and  a  complete  listing  of  orbits,
-respectively. (It's possible to have *both*  a  summary  and  a  complete
-listing.)
+output of the action of the automorphism group should contain: a summary,
+and a complete listing of orbits, respectively. (It's  possible  to  have
+*both* a summary and a complete listing.)
 
 \quad`group := <list>' &
 where <list> is a list of booleans  which  determine  whether  the  group

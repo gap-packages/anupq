@@ -11,7 +11,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Chapter{Non-interactive ANUPQ functions}
 
-Here we describe all the non-interactive functions of the {\ANUPQ}  share
+Here we describe  all  the  non-interactive  functions  of  the  {\ANUPQ}
 package; i.e.~``one-shot'' functions that invoke the `pq' binary in  such
 a way that once {\GAP} has got what it needs, the `pq' binary is  allowed
 to exit. It is expected that most of the time users will only need  these
@@ -39,10 +39,9 @@ To use any of the functions one must have at some stage previously typed:
 gap> RequirePackage("anupq");
 \endexample
 
-(the response of which we have  omitted;  see~"Loading  the  ANUPQ  Share
-Package"). We will nevertheless remind you of this for each function,  in
-case you happen to be reading about that particular function via  on-line
-help.
+(the response of which we have omitted; see~"Loading the ANUPQ Package").
+We will nevertheless remind you of this for each function,  in  case  you
+happen to be reading about that particular function via on-line help.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Computing  p-Quotients}
@@ -54,12 +53,9 @@ specified by <options>, as a pc group. Following the colon, <options>  is
 a selection of the options from the following list, separated  by  commas
 like record components (see Section~"ref:function call with  options"  in
 the {\GAP} Reference Manual). As a minimum the user *must* supply  values
-for the `Prime' and `ClassBound' options. `Pq' may also be called with no
-arguments or one integer  argument,  in  which  case  it  is  being  used
-interactively (see~"Pq!interactive");  the  same  options  may  be  used,
-except that `SetupFile' and `PqWorkspace' are ignored by the  interactive
-`Pq' function.  Below  we  list  the  options  recognised  by  `Pq'  (see
-Chapter~"ANUPQ options" for detailed descriptions).
+for the `Prime' and `ClassBound'  options.  Below  we  list  the  options
+recognised  by   `Pq'   (see   Chapter~"ANUPQ   options"   for   detailed
+descriptions).
 
 \beginlist
 
@@ -92,8 +88,13 @@ Chapter~"ANUPQ options" for detailed descriptions).
 
 \endlist
 
-(`Pq' requires the {\ANUPQ} share package; see~"Loading the  ANUPQ  Share
-Package".)
+*Note:* `Pq' may  also  be  called  with  no  arguments  or  one  integer
+argument,   in   which   case   it   is    being    used    interactively
+(see~"Pq!interactive");  the  same  options  may  be  used,  except  that
+`SetupFile'  and  `PqWorkspace'  are  ignored  by  the  interactive  `Pq'
+function.
+
+(`Pq' requires the {\ANUPQ} package; see~"Loading the ANUPQ Package".)
 
 See also `PqEpimorphism' ("PqEpimorphism").
 
@@ -197,13 +198,9 @@ the $p$-quotient of <F> specified by <options>;  the  possible  <options>
 and *required* <options> (`"Prime"' and `"ClassBound"') are as  for  `Pq'
 (see~"Pq"). `PqEpimorphism' only differs from `Pq' in  what  it  outputs;
 everything about what must/may be passed as input to  `PqEpimorphism'  is
-the same  as  for  `Pq',  i.e.~`PqEpimorphism'  may  be  called  with  no
-arguments or one integer  argument,  in  which  case  it  is  being  used
-interactively   (see~"PqEpimorphism!interactive"),   and   the    options
-`SetupFile'  and   `PqWorkspace'   are   ignored   by   the   interactive
-`PqEpimorphism' function; and the same  alternative  methods  of  passing
-options to  the  non-interactive  `Pq'  function  are  available  to  the
-non-interactive version of `PqEpimorphism'.
+the same as for `Pq'. The same alternative methods of passing options  to
+the non-interactive `Pq' function are available  to  the  non-interactive
+version of `PqEpimorphism'.
 
 \beginexample
 gap> F := FreeGroup (2, "F");
@@ -216,6 +213,11 @@ gap> Image( phi );
 
 Typing: `PqExample( "PqEpimorphism" );' runs the above example in  {\GAP}
 (see~"PqExample").
+
+*Note:* `PqEpimorphism' may also be  called  with  no  arguments  or  one
+integer  argument,  in  which  case  it  is  being   used   interactively
+(see~"PqEpimorphism!interactive"),  and  the  options   `SetupFile'   and
+`PqWorkspace' are ignored by the interactive `PqEpimorphism' function.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Computing Standard Presentations}
@@ -323,8 +325,8 @@ gap> StandardPresentation( G4, K : ClassBound := 14 );
 Typing: `PqExample( "StandardPresentation" );' runs the above example  in
 {\GAP} (see~"PqExample").
 
-(These functions require the {\ANUPQ}  share  package;  see~"Loading  the
-ANUPQ Share Package".)
+(These functions require the {\ANUPQ}  package;  see~"Loading  the  ANUPQ
+Package".)
 
 \>EpimorphismPqStandardPresentation( <F>, <p> : <options> ) F
 \>EpimorphismPqStandardPresentation( <F>, <Q> : <options> ) F
@@ -376,8 +378,8 @@ gap> Size( Image(phi) );
 Typing: `PqExample( "EpimorphismStandardPresentation" );' runs the  above
 example in {\GAP} (see~"PqExample").
 
-(These functions require the {\ANUPQ}  share  package;  see~"Loading  the
-ANUPQ Share Package".)
+(These functions require the {\ANUPQ}  package;  see~"Loading  the  ANUPQ
+Package".)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Testing p-Groups for Isomorphism}
@@ -412,8 +414,8 @@ true
 Typing: `PqExample( "IsIsomorphicPGroup" );' runs the  above  example  in
 {\GAP} (see~"PqExample").
 
-(These functions require the {\ANUPQ}  share  package;  see~"Loading  the
-ANUPQ Share Package".)
+(These functions require the {\ANUPQ}  package;  see~"Loading  the  ANUPQ
+Package".)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Computing Descendants of a p-Group}
@@ -566,8 +568,8 @@ The     examples     `"PqDescendants-1"',     `"PqDescendants-2"'     and
 `"PqDescendants-3"' (in order) are essentially  the  same  as  the  above
 three examples (see~"PqExample").
 
-(The function requires the {\ANUPQ} share package; see~"Loading the ANUPQ
-Share Package".)
+(The function requires  the  {\ANUPQ}  package;  see~"Loading  the  ANUPQ
+Package".)
 
 \>PqList( <filename> [: SubList := <sub> ]) F
 
@@ -582,8 +584,8 @@ otherwise, if <sub> is a list of integers `PqList' returns  `Sublist(<L>,
 Both `PqList' and `SavePqList' (see "SavePqList") can be used to save and
 restore a list of descendants (see "PqDescendants").
 
-(The function requires the {\ANUPQ} share package; see~"Loading the ANUPQ
-Share Package".)
+(The function requires  the  {\ANUPQ}  package;  see~"Loading  the  ANUPQ
+Package".)
 
 \>SavePqList( <filename>, <list> ) F
 
@@ -593,8 +595,8 @@ string).
 `SavePqList' and `PqList' (see "PqList") can be used to save and restore,
 respectively, the results of `PqDescendants' (see "PqDescendants").
 
-(The function requires the {\ANUPQ} share package; see~"Loading the ANUPQ
-Share Package".)
+(The function requires  the  {\ANUPQ}  package;  see~"Loading  the  ANUPQ
+Package".)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%

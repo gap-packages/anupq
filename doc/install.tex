@@ -8,7 +8,7 @@
 %%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\Chapter{Installing the ANUPQ Share Package}
+\Chapter{Installing the ANUPQ Package}
 
 The ANU `pq' binary is written in C and the package can only be installed
 under UNIX. It has  been  tested  on  DECstation  running  Ultrix,  a  HP
@@ -16,12 +16,12 @@ under UNIX. It has  been  tested  on  DECstation  running  Ultrix,  a  HP
 a NeXTstation running NeXTSTEP 3.0, a SUN  running  SunOS  and  an  Intel
 Pentium based PC running Linux.
 
-To install the {\ANUPQ} share package, move the file `anupq.zoo' into the
-`pkg' directory in which you plan to install {\ANUPQ}. Usually, this will
-be the directory `pkg' in  the  hierarchy  of  your  version  of  GAP  4.
-(However, it is also possible to keep an additional  `pkg'  directory  in
-your private directories, see section "ref:Installing Share Packages"  of
-the {\GAP}~4 reference manual for details on how to do this.)
+To install the {\ANUPQ} package, move the file `anupq.zoo' into the `pkg'
+directory in which you plan to install {\ANUPQ}. Usually,  this  will  be
+the directory `pkg' in the hierarchy of your version of GAP 4.  (However,
+it is also possible to keep an additional `pkg' directory in your private
+directories, see section "ref:Installing GAP Packages"  of  the  {\GAP}~4
+reference manual for details on how to do this.)
 
 Then unzoo `anupq.zoo' by
 
@@ -142,18 +142,18 @@ Made dir: /tmp/testPq
 Testing the pq binary ... OK.
 Testing the pq binary's stack size ... OK.
 Checking GAP ...
- pq binary made with GAP set to: /usr/local/bin/gap
+ pq binary made with GAP set to: /home/rigel/gregg/bin/gap-dev
  Starting GAP to determine version and package availability ...
-  GAP version (4r2 fix8) ... OK.
-  GAP has ANUPQ share package (>= v 1.1) installed ... good.
-  GAP has AutPGrp share package installed ... good.
+  GAP version (4.dev) ... OK.
+  GAP has ANUPQ package (>= v 1.1) installed ... good.
+  GAP has AutPGrp package installed ... good.
  GAP is OK.
 Checking the link between the pq binary and GAP ... OK.
 Testing the standard presentation part of the pq binary ... OK.
-Doing final GAP test ... OK.
+Doing p-group generation (final GAP/ANUPQ) test ... OK.
 Tests complete.
 Removed dir: /tmp/testPq
-Enjoy using your functional ANUPQ share package!
+Enjoy using your functional ANUPQ package!
 \endtt
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -171,15 +171,15 @@ recommendations of the error messages you get and run the `testPq'  until
 all tests are passed.
 
 It is especially important that the {\GAP}, whose path you  gave,  should
-know where to find the {\ANUPQ} and {\AutPGrp} share packages. To  ensure
-this the path should be to a shell script that  invokes  {\GAP}.  If  you
-needed to install  the  needed  share  packages  in  your  own  directory
-(because, say, you are not a system administrator) then you should create
-your own shell script that runs {\GAP} with a correct setting of the `-l'
-option and set the path used by the `pq'  binary  to  the  path  of  that
-script  (see  Section~"ref:Installing  a  Share  Package  in  your   home
-directory" in the Reference Manual, which  describes  explicitly  how  to
-create the shell script).
+know where to find the {\ANUPQ} and {\AutPGrp} packages. To  ensure  this
+the path should be to a shell script that invokes {\GAP}. If  you  needed
+to install the needed packages in your own directory (because,  say,  you
+are not a system administrator) then you should  create  your  own  shell
+script that runs {\GAP} with a correct setting of the `-l' option and set
+the path used by the  `pq'  binary  to  the  path  of  that  script  (see
+Section~"ref:Installing a GAP Package in  your  home  directory"  in  the
+Reference Manual, which describes explicitly  how  to  create  the  shell
+script).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%

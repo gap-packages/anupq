@@ -10,7 +10,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Chapter{Interactive ANUPQ functions}
 
-Here we describe the interactive functions defined by the {\ANUPQ}  share
+Here we describe  the  interactive  functions  defined  by  the  {\ANUPQ}
 package, i.e.~the functions  that  manipulate  and  initiate  interactive
 {\ANUPQ} processes. These are functions that extract  information  via  a
 dialogue with a running `pq' process (process used in  the  UNIX  sense).
@@ -141,8 +141,8 @@ The {\GAP} iostream of an interactive {\ANUPQ} process will also  die  if
 the {\ANUPQ} binary has a segmentation fault. We do hope that this  never
 happens to you, but if it does and the failure is reproducible, then it's
 a bug and we'd like to know about it. Please read the `README' that comes
-with the {\ANUPQ} share package to find out what  to  include  in  a  bug
-report and who to email it to.
+with the {\ANUPQ} package to find out what to include in a bug report and
+who to email it to.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Interactive Versions of Non-interactive ANUPQ Functions}
@@ -368,19 +368,19 @@ gap> Size( Image(phi) );
 \>PqDescendants( <i> : <options> )!{interactive} F
 \>PqDescendants( : <options> )!{interactive} F
 
-returns for the the pc group <G>, of the  <i>th  or  default  interactive
-{\ANUPQ} process, which must be of prime power  order  with  a  confluent
-pc presentation  (see~"ref:IsConfluent!for  pc  groups"  in  the   {\GAP}
-Reference Manual), a list of descendants (pc groups) of  <G>.  The  group
-<G> is the group given as  first  argument  to  `PqStart'  to  start  the
-interactive  {\ANUPQ}  process  (see~"PqStart").  Following   the   colon
-<options> a selection of  the  options  listed  for  the  non-interactive
-`PqDescendants' function (see~"PqDescendants") should be given, separated
-by commas like record components  (see  Section~"ref:function  call  with
-options" in  the  {\GAP}  Reference  Manual),  except  that  the  options
-`SetupFile'   or   `PqWorkspace'   are   ignored   by   the   interactive
-`PqDescendants',  i.e.~the  following  options  are  recognised  by   the
-interactive `PqDescendants' function:
+returns for the pc  group  <G>,  of  the  <i>th  or  default  interactive
+{\ANUPQ} process, which must be of prime power order with a confluent  pc
+presentation (see~"ref:IsConfluent!for pc groups" in the {\GAP} Reference
+Manual), a list of descendants (pc groups) of <G>. The group <G>  is  the
+group given as first argument  to  `PqStart'  to  start  the  interactive
+{\ANUPQ}  process  (see~"PqStart").  Following  the  colon  <options>   a
+selection of the options listed for the  non-interactive  `PqDescendants'
+function (see~"PqDescendants") should be given, separated by commas  like
+record components (see Section~"ref:function call with  options"  in  the
+{\GAP}  Reference  Manual),  except  that  the  options  `SetupFile'   or
+`PqWorkspace' are ignored by the  interactive  `PqDescendants',  i.e.~the
+following options  are  recognised  by  the  interactive  `PqDescendants'
+function:
 
 \beginlist
 
@@ -670,8 +670,8 @@ performs menu item 3 of the main $p$-Quotient menu.
 \>PqNextClass( <i> [: QueueFactor ]) F
 \>PqNextClass([: QueueFactor ]) F
 
-for the <i>th or default interactive {\ANUPQ} process, direct  the  `pq'
-to calculate the next class of `ANUPQData.io[<i>].group'. 
+for the <i>th or default interactive {\ANUPQ} process, direct the `pq' to
+calculate the next class of `ANUPQData.io[<i>].group'.
 
 \atindex{option QueueFactor}{@option \noexpand`QueueFactor'}
 `PqNextClass'  accepts  the  option   `QueueFactor'   (see   also~"option
@@ -718,7 +718,7 @@ of the main $p$-Quotient menu.
 
 for the <i>th or default interactive {\ANUPQ} process, instruct the  `pq'
 binary to do a collection on <word>, a string representing the product of
-generators, e.g. `"x3*x2*x1"'.
+pc generators, e.g. `"x3*x2*x1"'.
 
 *FORM OF* <word> *WILL CHANGE*
 
@@ -729,7 +729,8 @@ menu item 1 of the Advanced $p$-Quotient menu.
 \>PqSolveEquation( <a>, <b> ) F
 
 for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
-binary to solve $<a> * <x> = <b>$ for <x>.
+binary to solve $<a> * <x> = <b>$ for <x>, where <a> and <b> are words in
+the pc generators.
 
 *Note:* 
 For those familiar  with  the  `pq'  binary,  `PqSolveEquation'  performs
@@ -740,7 +741,7 @@ menu item 2 of the Advanced $p$-Quotient menu.
 
 for the <i>th or default interactive {\ANUPQ} process, direct  the  `pq'
 binary to compute the left normed commutator of the list <words> of words
-in the generators raised to the integer power <pow>.
+in the pc generators raised to the integer power <pow>.
 
 *Note:*
 For those familiar with the `pq'  binary,  `PqCommutator'  performs  menu
@@ -749,44 +750,36 @@ item 3 of the Advanced $p$-Quotient menu.
 \>PqSetupTablesForNextClass( <i> ) F
 \>PqSetupTablesForNextClass() F
 
-for the <i>th or default interactive {\ANUPQ} process, direct  the  `pq'
-binary to set up tables for the next class.
+for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
+binary  to  set  up  tables  for  the  next  class.  As  as  side-effect,
+after   `PqSetupTablesForNextClass(<i>)'   the    value    returned    by
+`PqPClass(<i>)' will be one more than it was previously.
 
 *Note:* 
 For those familiar  with  the  `pq'  binary,  `PqSetupTablesForNextClass'
 performs menu item 6 of the Advanced $p$-Quotient menu.
 
-\>PqAddTails( <i>, <weight> ) F
-\>PqAddTails( <weight> ) F
-
-for the <i>th or default interactive {\ANUPQ} process, direct  the  `pq'
-binary to add tails of weight <weight>, where <weight> is a  non-negative
-integer (a <weight> of `0' means all weights).
-
-*Note:*
-For those familiar with the `pq' binary, `PqAddTails' uses menu item 7 of
-the Advanced $p$-Quotient menu.
-
-\>PqComputeTails( <i>, <weight> ) F
-\>PqComputeTails( <weight> ) F
-
-for the <i>th or default interactive {\ANUPQ} process, direct  the  `pq'
-binary  to  compute  tails  of  weight  <weight>,  where  <weight>  is  a
-non-negative integer (a <weight> of `0' means all weights).
-
-*Note:*
-For those familiar with the `pq' binary, `PqComputeTails' uses menu  item
-7 of the Advanced $p$-Quotient menu.
-
 \>PqTails( <i>, <weight> ) F
 \>PqTails( <weight> ) F
 
 for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
-binary to compute and add tails of weight <weight>, where <weight>  is  a
-non-negative integer (a <weight> of `0' means all weights). (For its  use
-in the context of finding the next class see "PqNextClass".)
+binary to compute and add tails of weight <weight> if <weight> is in  the
+integer range `[2 .. PqPClass(<i>)]' (assuming <i> is the number  of  the
+process, even in the default case) or for all weights if `<weight> = 0'.
+
+If <weight> is non-zero, then tails that  introduce  new  generators  for
+only weight <weight> are computed and added, and  in  this  case  and  if
+`<weight> \< PqPClass(<i>)', it is assumed that the tails that  introduce
+new generators for  each  weight  from  `PqPClass(<i>)'  down  to  weight
+`<weight>  +  1'  have  already  been  added.  You  may  wish   to   call
+`PqSetMetabelian' (see~"PqSetMetabelian") prior to calling `PqTails'.
 
 *Notes*
+
+For its use in the context of finding the next class  see  "PqNextClass";
+in     particular,     a     call     to      `PqSetupTablesForNextClass'
+(see~"PqSetupTablesForNextClass")  needs  to  have  been  made  prior  to
+calling `PqTails'.
 
 The single command: `PqTails(<i>, <weight>);' is equivalent to
 
@@ -796,17 +789,74 @@ The single command: `PqTails(<i>, <weight>);' is equivalent to
 For those familiar with the `pq' binary, `PqTails' uses menu  item  7  of
 the Advanced $p$-Quotient menu.
 
+\>PqComputeTails( <i>, <weight> ) F
+\>PqComputeTails( <weight> ) F
+
+for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
+binary to compute tails of weight <weight> if <weight> is in the  integer
+range `[2 .. PqPClass(<i>)]' (assuming <i> is the number of the  process,
+even in the default case) or for all  weights  if  `<weight>  =  0'.  See
+`PqTails' ("PqTails") for more details.
+
+*Note:*
+For those familiar with the `pq' binary, `PqComputeTails' uses menu  item
+7 of the Advanced $p$-Quotient menu.
+
+\>PqAddTails( <i>, <weight> ) F
+\>PqAddTails( <weight> ) F
+
+for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
+binary to add the  tails  of  weight  <weight>,  previously  computed  by
+`PqComputeTails' (see~"PqComputeTails"), if <weight> is  in  the  integer
+range `[2 .. PqPClass(<i>)]' (assuming <i> is the number of the  process,
+even in the default case) or for all  weights  if  `<weight>  =  0'.  See
+`PqTails' ("PqTails") for more details.
+
+*Note:*
+For those familiar with the `pq' binary, `PqAddTails' uses menu item 7 of
+the Advanced $p$-Quotient menu.
+
 \>PqDoConsistencyChecks( <i>, <weight>, <type> ) F
 \>PqDoConsistencyChecks( <weight>, <type> ) F
 
 for the <i>th or default interactive  {\ANUPQ}  process,  do  consistency
-checks of type <type> for weight <weight>; <type> should be an integer in
-`[0,1,2,3]' (`0' means do  *all*  checks),  and  <weight>  should  be  an
-integer in `[0 .. <class>]' where <class> is the maximum class (`0' means
-all weights). (For its use in the context of finding the next  class  see
-"PqNextClass".)
+checks for weight <weight> if <weight> is in the  integer  range  `[3  ..
+PqPClass(<i>)]' (assuming <i> is the number of the process)  or  for  all
+weights if `<weight> = 0', and for type <type> if <type> is in the  range
+`[1, 2, 3]' (see below) or for all types if `<type> = 0'. (For its use in
+the context of finding the next class see "PqNextClass".)
 
-*Note:*
+The  *type*   of   a   consistency   check   is   defined   as   follows.
+`PqDoConsistencyChecks(<i>, <weight>, <type>)' for  <weight>  in  `[3  ..
+PqPClass(<i>)]' and the given  value  of  <type>  invokes  the  following
+`PqJacobi' checks (see~"PqDoConsistencyCheck"):
+
+\beginitems
+
+`<type> = 1':&
+`PqJacobi(<i>, <a>, <a>, <a>)' checks for  pc  generators  of  index  <a>
+satisfying `2 * PqWeight(<i>, <a>) + 1 = <weight>'.
+
+`<type> = 2':&
+`PqJacobi(<i>, <b>, <b>, <a>)' checks for pc generators of  indices  <b>,
+<a> satisfying `<b> > <a>' and `PqWeight(<i>, <b>) + PqWeight(<i>, <a>) +
+1 = <weight>'.
+
+`<type> = 3':&
+`PqJacobi(<i>, <c>, <b>, <a>)' checks for pc generators of  indices  <c>,
+<b>, <a> satisfying `<c> > <b> > <a>' and the sum of the weights of these
+generators equals <weight>.
+
+\enditems
+
+*Notes*
+
+`PqWeight(<i>, <j>)' returns the weight of the <j>th  pc  generator,  for
+process <i> (see~"PqWeight").
+
+It is assumed that tails for the given weight (or weights)  have  already
+been added (see~"PqTails").
+
 For those familiar with the `pq' binary, `PqDoConsistencyChecks' performs
 menu item 8 of the Advanced $p$-Quotient menu.
 
@@ -824,6 +874,38 @@ incorrectly.
 For those familiar with  the  `pq'  binary,  `PqCollectDefiningRelations'
 performs menu item 9 of the Advanced $p$-Quotient menu.
 
+\>PqCollectWordInDefiningGenerators( <i>, <word> ) F
+\>PqCollectWordInDefiningGenerators( <word> ) F
+
+for the <i>th or default interactive {\ANUPQ} process, this can  be  used
+in      the      same      way      as       `PqCollectDefiningRelations'
+(see~"PqCollectDefiningRelations") to collect a user-defined word in  the
+generators of the original fp group of the process, with respect  to  the
+current pc presentation,  in  the  context  of  finding  the  next  class
+(see~"PqNextClass").
+
+*EXPLAIN FORM OF* <word>
+
+*Note:*
+For those familiar with the  `pq'  binary,  `PqCollectDefiningGenerators'
+performs menu item 23 of the Advanced $p$-Quotient menu.
+
+\>PqCommutatorDefiningGenerators( <i>, <words>, <pow> ) F
+\>PqCommutatorDefiningGenerators( <words>, <pow> ) F
+
+for the <i>th or default interactive {\ANUPQ} process, this can  be  used
+in      the      same      way      as       `PqCollectDefiningRelations'
+(see~"PqCollectDefiningRelations") to collect a  user-defined  commutator
+in the generators of the original fp group of the process,  with  respect
+to the current pc presentation, in the context of finding the next  class
+(see~"PqNextClass").
+
+*EXPLAIN FORM OF* <words>, <pow>
+
+*Note:*
+For those familiar with the `pq' binary, `PqCommutatorDefiningGenerators'
+performs menu item 24 of the Advanced $p$-Quotient menu.
+
 \>PqDoExponentChecks( <i> [: Bounds := <list> ]) F
 \>PqDoExponentChecks([: Bounds := <list> ]) F
 
@@ -832,7 +914,7 @@ binary to do exponent checks for weights (inclusively) between the bounds
 of `Bounds' or for all weights if `Bounds' is not given. The value <list>
 of `Bounds' (assuming the interactive process is numbered <i>) should  be
 a list of  two  integers  <low>,  <high>  satisfying  $1  \le  <low>  \le
-`PqPClass(<i>) + 1'$ (see~"PqPClass").
+<high> \le `PqPClass(<i>)'$ (see~"PqPClass").
 
 *Note:*
 For those familiar with the `pq'  binary,  `PqDoExponentChecks'  performs
@@ -876,7 +958,7 @@ performs menu item 13 of the Advanced $p$-Quotient menu.
 \>PqSetMetabelian( <i> ) F
 \>PqSetMetabelian() F
 
-for the <i>th or default interactive {\ANUPQ} process, direct  the  `pq'
+for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
 binary to enforce metabelian-ness.
 
 *Note:* 
@@ -885,19 +967,23 @@ menu item 14 of the Advanced $p$-Quotient menu.
 
 \>PqDoConsistencyCheck( <i>, <c>, <b>, <a> ) F
 \>PqDoConsistencyCheck( <c>, <b>, <a> ) F
+\>PqJacobi( <i>, <c>, <b>, <a> ) F
+\>PqJacobi( <c>, <b>, <a> ) F
 
-for the <i>th or default interactive {\ANUPQ} process, direct  the  `pq'
-binary to do a consistency check; the generator  indices  <c>,  <b>,  <a>
-should be non-increasing positive integers, i.e.~$<c> \ge <b> \ge <a>$.
+for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
+binary to do the Jacobi consistency check  for  the  pc  generators  with
+indices <c>, <b>, <a> which should be non-increasing  positive  integers,
+i.e.~$<c>   \ge   <b>   \ge   <a>$.   For   further   explanation,    see
+`PqDoConsistencyChecks' ("PqDoConsistencyChecks").
 
 *Note:*
-For those familiar with the `pq' binary, `PqDoConsistencyCheck'  performs
-menu item 15 of the Advanced $p$-Quotient menu.
+For those familiar  with  the  `pq'  binary,  `PqDoConsistencyCheck'  and
+`PqJacobi' perform menu item 15 of the Advanced $p$-Quotient menu.
 
 \>PqCompact( <i> ) F
 \>PqCompact() F
 
-for the <i>th or default interactive {\ANUPQ} process, direct  the  `pq'
+for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
 binary to do a compaction.
 
 *Note:*
@@ -934,8 +1020,8 @@ menu item 18 of the Advanced $p$-Quotient menu.
 \>PqExtendAutomorphisms( <i> ) F
 \>PqExtendAutomorphisms() F
 
-for the <i>th or default interactive {\ANUPQ} process, inputs data to the
-`pq' binary to extend previously-supplied automorphisms.
+for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
+binary to extend previously-supplied automorphisms.
 
 *Note:*
 For those familiar with the  `pq'  binary,  `PqExtendAutomorphisms'  uses
@@ -944,7 +1030,7 @@ menu item 18 of the Advanced $p$-Quotient menu.
 \>PqApplyAutomorphisms( <i>, <qfac> ) F
 \>PqApplyAutomorphisms( <qfac> ) F
 
-for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
 binary to apply automorphisms; <qfac> is the queue factor e.g. `15'.
 
 *Note:* 
@@ -954,7 +1040,7 @@ menu item 19 of the Advanced $p$-Quotient menu.
 \>PqDisplayStructure( <i> [: Bounds := <list> ]) F
 \>PqDisplayStructure([: Bounds := <list> ]) F
 
-for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
 binary  to  display  the  structure  for  the  pcp  generators   numbered
 (inclusively) between the bounds of `Bounds' or  for  all  generators  if
 `Bounds' is not  given.  The  value  <list>  of  `Bounds'  (assuming  the
@@ -972,7 +1058,7 @@ menu item 20 of the Advanced $p$-Quotient menu.
 \>PqDisplayAutomorphisms( <i> [: Bounds := <list> ]) F
 \>PqDisplayAutomorphisms([: Bounds := <list> ]) F
 
-for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
 binary to display the automorphism actions on the pcp generators numbered
 (inclusively) between the bounds of `Bounds' or  for  all  generators  if
 `Bounds' is not  given.  The  value  <list>  of  `Bounds'  (assuming  the
@@ -985,51 +1071,19 @@ also accepts the option `OutputLevel' (see "option OutputLevel").
 For  those  familiar  with  the  `pq'  binary,   `PqDisplayAutomorphisms'
 performs menu item 21 of the Advanced $p$-Quotient menu.
 
-\>PqCollectWordInDefiningGenerators( <i>, <word> ) F
-\>PqCollectWordInDefiningGenerators( <word> ) F
-
-for the <i>th or default interactive {\ANUPQ} process, this can  be  used
-in      the      same      way      as       `PqCollectDefiningRelations'
-(see~"PqCollectDefiningRelations") to collect a user-defined word in  the
-generators of the original fp group of the process, with respect  to  the
-current pc presentation,  in  the  context  of  finding  the  next  class
-(see~"PqNextClass").
-
-*EXPLAIN FORM OF* <word>
-
-*Note:*
-For those familiar with the  `pq'  binary,  `PqCollectDefiningGenerators'
-performs menu item 23 of the Advanced $p$-Quotient menu.
-
-\>PqCommutatorDefiningGenerators( <i>, <words>, <pow> ) F
-\>PqCommutatorDefiningGenerators( <words>, <pow> ) F
-
-for the <i>th or default interactive {\ANUPQ} process, this can  be  used
-in      the      same      way      as       `PqCollectDefiningRelations'
-(see~"PqCollectDefiningRelations") to collect a  user-defined  commutator
-in the generators of the original fp group of the process,  with  respect
-to the current pc presentation, in the context of finding the next  class
-(see~"PqNextClass").
-
-*EXPLAIN FORM OF* <words>, <pow>
-
-*Note:*
-For those familiar with the `pq' binary, `PqCommutatorDefiningGenerators'
-performs menu item 24 of the Advanced $p$-Quotient menu.
-
 \>PqWritePcPresentation( <i>, <filename> ) F
 \>PqWritePcPresentation( <filename> ) F
 
-for the <i>th or default interactive {\ANUPQ}  process,  tells  the  `pq'
-binary to write a pc presentation to the file with  name  <filename>  for
-the group of that process for which a pc presentation has been previously
-computed, where the group of a process is the one given as first argument
-when `PqStart' was called to initiate that process (for process  <i>  the
-group is stored as `ANUPQData.io[<i>].group'). If the first character  of
-the string <filename> is not `/', <filename> is assumed to be the path of
-a writable file relative to the directory in which {\GAP} was started. If
-a pc presentation has not been previously computed by  the  `pq'  binary,
-then  `pq'  is  called  to  compute  it   first,   effectively   invoking
+for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
+binary to write a pc presentation of a  previously-computed  quotient  of
+the group of that process, to the file with  name  <filename>.  Here  the
+group of a process is the one given as first argument when `PqStart'  was
+called to initiate that process (for process <i> the group is  stored  as
+`ANUPQData.io[<i>].group').  If  the  first  character  of   the   string
+<filename> is not `/', <filename> is assumed to be the path of a writable
+file relative to the directory in which  {\GAP}  was  started.  If  a  pc
+presentation has not been previously computed by the  `pq'  binary,  then
+`pq'   is   called   to   compute   it   first,   effectively    invoking
 `PqPcPresentation' (see~"PqPcPresentation").
 
 *Note:* For those familiar with the `pq' binary,  `PqPcWritePresentation'
@@ -1038,25 +1092,143 @@ performs menu item 25 of the Advanced $p$-Quotient menu.
 \>PqWriteCompactDescription( <i> ) F
 \>PqWriteCompactDescription() F
 
-for the <i>th or default interactive {\ANUPQ}  process,  tells  the  `pq'
-binary to write a compact description to a file.
+for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
+binary to write a compact description 
+
+*OF ....*
+
+to a file.
 
 *Note:* 
 For those familiar  with  the  `pq'  binary,  `PqWriteCompactDescription'
 performs menu item 26 of the Advanced $p$-Quotient menu.
 
+*Commands from the Standard Presentation menu*
+
+\>PqSPPcPresentation( <i> : <options> ) F
+\>PqSPPcPresentation( : <options> ) F
+
+for the <i>th or default interactive {\ANUPQ} process, inputs data  given
+by <options> for the group of  that  process  so  that  the  `pq'  binary
+computes a pc presentation, where the group of a process is the one given
+as first argument when `PqStart' was called to initiate that process (for
+process <i> the group is stored as `ANUPQData.io[<i>].group').
+
+The  possible  <options>  are  the  same  as  for  the  interactive  `Pq'
+(see~"Pq!interactive")   function,   namely:    `Prime',    `ClassBound',
+`Exponent', `Relators', `GroupName', `Metabelian' and `OutputLevel'  (see
+Chapter~"ANUPQ options" for details of these options). The option `Prime'
+is  required  unless  already  provided  to   `PqStart'.   Also,   option
+`ClassBound' *must* be supplied.
+
+*Note:* For those familiar with  the  `pq'  binary,  `PqSPPcPresentation'
+performs menu item 1 of the Standard Presentation menu.
+
+\>PqSPStandardPresentation( <i>[, <mlist>][: <options>]) F
+\>PqSPStandardPresentation( [<mlist>][: <options>]) F
+
+for the <i>th or default interactive {\ANUPQ} process, inputs data  given
+by <options> to compute a standard presentation for  the  group  of  that
+process.  If  argument  <mlist>  is  given  it  is  assumed  to  be   the
+automorphism group data required. Otherwise it is assumed that a call  to
+either      `Pq'      (see~"Pq!interactive")      or      `PqEpimorphism'
+(see~"PqEpimorphism!interactive") has generated a $p$-quotient  and  that
+{\GAP} can compute  its  automorphism  group  from  which  the  necessary
+automorphism group data can be derived. The group of the process  is  the
+one given as first argument when `PqStart' was  called  to  initiate  the
+process (for process <i> the group is stored as `ANUPQData.io[<i>].group'
+and     the     $p$-quotient     if     existent     is     stored     as
+`ANUPQData.io[<i>].pQuotient').  If  <mlist>   is   not   given   and   a
+$p$-quotient of the group has not been  previously  computed  a  class  1
+$p$-quotient is computed.
+
+`PqSPStandardPresentation' accepts three options, all optional:
+
+\beginlist
+
+\atindex{option ClassBound}{@option \noexpand`ClassBound'}
+\item{}`ClassBound := <n>'
+
+\atindex{option PcgsAutomorphisms}{@option \noexpand`PcgsAutomorphisms'}
+\item{}`PcgsAutomorphisms'
+
+\atindex{option StandardPresentationFile}%
+{@option \noexpand`StandardPresentationFile'}
+\item{}`StandardPresentationFile := <filename>'
+
+\endlist
+
+If `ClassBound' is omitted it defaults to 63.
+
+Detailed descriptions of the above options may be found in Chapter~"ANUPQ
+options".
+
+*Note:* For those familiar with  the  `pq'  binary,  `PqSPPcPresentation'
+performs menu item 2 of the Standard Presentation menu.
+
+\>PqSPSavePresentation( <i>, <filename> ) F
+\>PqSPSavePresentation( <filename> ) F
+
+for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+binary to save the standard  presentation  previously  computed  for  the
+group of that process to the file with name <filename>, where  the  group
+of a process is the one given as first argument when `PqStart' was called
+to initiate that process. If the first character of the string <filename>
+is not `/', <filename> is assumed to be  the  path  of  a  writable  file
+relative to the directory in which {\GAP} was started.
+
+*Note:* For those familiar with the `pq'  binary,  `PqSPSavePresentation'
+performs menu item 3 of the Standard Presentation menu.
+
+\>PqSPCompareTwoFilePresentations( <i>, <f1>, <f2> ) F
+\>PqSPCompareTwoFilePresentations( <f1>, <f2> ) F
+
+for the <i>th or default interactive {\ANUPQ} process, direct  the  `pq'
+binary to compare the presentations in the files with names <f1> and <f2>
+and returns `true' if they are identical and `false' otherwise. For  each
+of the strings <f1> and <f2>, if the first character is not a `/' then it
+is assumed to be the path of a readable file relative to the directory in
+which {\GAP} was started.
+
+*Notes*
+
+The presentations in files <f1> and <f2> must have been generated by  the
+`pq' binary but they do *not* need to be *standard* presentations.
+
+For      those      familiar      with       the       `pq'       binary,
+`PqSPCompareTwoFilePresentations' performs menu item 6  of  the  Standard
+Presentation menu.
+
+\>PqSPIsomorphism( <i> ) F
+\>PqSPIsomorphism() F
+
+for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
+binary to compute the isomorphism mapping from the pc  $p$-group  of  the
+process to its standard presentation.
+
+*CHECK THAT THIS DOES SOMETHING USEFUL*
+
+The ``given'' group is `ANUPQData.io[<i>].pQuotient'.
+
+*Note:* For  those  familiar  with  the  `pq'  binary,  `PqSPIsomorphism'
+performs menu item 8 of the Standard Presentation menu.
+
 *Commands from the Main $p$-Group Generation menu*
+
+Note that the $p$-group generation commands can only be applied once  the
+`pq' binary has produced a pc presentation of some quotient group of  the
+``group of the process''.
 
 \>PqPGSupplyAutomorphisms( <i>[, <mlist>] ) F
 \>PqPGSupplyAutomorphisms([<mlist>]) F
 
 for the <i>th or default interactive {\ANUPQ} process,  supply  the  `pq'
-binary with the automorphism group data needed  for  the  group  of  that
-process    (for    process    <i>    the    group    is     stored     as
-`ANUPQData.io[<i>].group'). If  the  argument  <mlist>  is  omitted  then
-{\GAP} *must* be able to determine the automorphism group of the group of
-the process. Otherwise the automorphism data  is  provided  from  <mlist>
-which  should  be  a  list  of   matrices   with   non-negative   integer
+binary with the automorphism group data needed for the  current  quotient
+of the group of that process (for process <i>  the  group  is  stored  as
+`ANUPQData.io[<i>].group'). If <mlist> is omitted the  automorphism  data
+is determined from the group of  the  process  which  must  have  been  a
+$p$-group in pc presentation. Otherwise the automorphism data is provided
+from <mlist> which should be a list of matrices with non-negative integer
 coefficients, where  each  matrix  must  have  the  same  dimensions;  in
 particular, the number of rows of each matrix must be  the  rank  of  the
 group of the process.
@@ -1081,9 +1253,9 @@ performs menu item 2 of the main $p$-Group Generation menu.
 \>PqPGRestoreGroupFromFile( <i>, <cls>, <n> ) F
 \>PqPGRestoreGroupFromFile( <cls>, <n> ) F
 
-for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
-binary to restore group <n> of class <cls> from a temporary  file,  where
-<cls> and <n> are positive integers.
+for the <i>th  or  default  interactive  {\ANUPQ}  process  and  positive
+integers <cls> and <n>, direct the `pq' binary to restore  group  <n>  of
+class <cls> from a temporary file.
 
 *Note:* 
 For those  familiar  with  the  `pq'  binary,  `PqPGRestoreGroupFromFile'
@@ -1152,111 +1324,6 @@ binary to restore group <n> of class <cls> from a temporary  file,  where
 *Note:*
 For those familiar  with  the  `pq'  binary,  `PqAPGRestoreGroupFromFile'
 performs menu item 3 of the Advanced $p$-Group Generation menu.
-
-*Commands from the Standard Presentation menu*
-
-\>PqSPPcPresentation( <i> : <options> ) F
-\>PqSPPcPresentation( : <options> ) F
-
-for the <i>th or default interactive {\ANUPQ} process, inputs data  given
-by <options> for the group of  that  process  so  that  the  `pq'  binary
-computes a pc presentation, where the group of a process is the one given
-as first argument when `PqStart' was called to initiate that process (for
-process <i> the group is stored as `ANUPQData.io[<i>].group').
-
-The  possible  <options>  are  the  same  as  for  the  interactive  `Pq'
-(see~"Pq!interactive")   function,   namely:    `Prime',    `ClassBound',
-`Exponent', `Relators', `GroupName', `Metabelian' and `OutputLevel'  (see
-Chapter~"ANUPQ options" for details of these options). The option `Prime'
-is  required  unless  already  provided  to   `PqStart'.   Also,   option
-`ClassBound' *must* be supplied.
-
-*Note:* For those familiar with  the  `pq'  binary,  `PqSPPcPresentation'
-performs menu item 1 of the Standard Presentation menu.
-
-\>PqSPStandardPresentation( <i>[, <mlist>][: <options>]) F
-\>PqSPStandardPresentation( [<mlist>][: <options>]) F
-
-for the <i>th or default interactive {\ANUPQ} process, inputs data  given
-by <options> to compute a standard presentation for  the  group  of  that
-process.  If  argument  <mlist>  is  given  it  is  assumed  to  be   the
-automorphism group data required. Otherwise it is assumed that a call  to
-either      `Pq'      (see~"Pq!interactive")      or      `PqEpimorphism'
-(see~"PqEpimorphism!interactive") has generated a $p$-quotient  and  that
-{\GAP} can compute  its  automorphism  group  from  which  the  necessary
-automorphism group data can be derived. The group of the process  is  the
-one given as first argument when `PqStart' was  called  to  initiate  the
-process (for process <i> the group is stored as `ANUPQData.io[<i>].group'
-and     the     $p$-quotient     if     existent     is     stored     as
-`ANUPQData.io[<i>].pQuotient').  If  <mlist>   is   not   given   and   a
-$p$-quotient of the group has not been  previously  computed  a  class  1
-$p$-quotient is computed.
-
-`PqSPStandardPresentation' accepts three options, all optional:
-
-\beginlist
-
-\atindex{option ClassBound}{@option \noexpand`ClassBound'}
-\item{}`ClassBound := <n>'
-
-\atindex{option PcgsAutomorphisms}{@option \noexpand`PcgsAutomorphisms'}
-\item{}`PcgsAutomorphisms'
-
-\atindex{option StandardPresentationFile}%
-{@option \noexpand`StandardPresentationFile'}
-\item{}`StandardPresentationFile := <filename>'
-
-\endlist
-
-Detailed descriptions of the above options may be found in Chapter~"ANUPQ
-options".
-
-*Note:* For those familiar with  the  `pq'  binary,  `PqSPPcPresentation'
-performs menu item 2 of the Standard Presentation menu.
-
-\>PqSPSavePresentation( <i>, <filename> ) F
-\>PqSPSavePresentation( <filename> ) F
-
-for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
-binary to save the standard  presentation  previously  computed  for  the
-group of that process to the file with name <filename>, where  the  group
-of a process is the one given as first argument when `PqStart' was called
-to initiate that process. If the first character of the string <filename>
-is not `/', <filename> is assumed to be  the  path  of  a  writable  file
-relative to the directory in which {\GAP} was started.
-
-*Note:* For those familiar with the `pq'  binary,  `PqSPSavePresentation'
-performs menu item 3 of the Standard Presentation menu.
-
-\>PqSPCompareTwoFilePresentations( <i>, <f1>, <f2> ) F
-\>PqSPCompareTwoFilePresentations( <f1>, <f2> ) F
-
-for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
-binary to compare the presentations in the files with names <f1> and <f2>
-and returns `true' if they are identical and `false' otherwise. For  each
-of the strings <f1> and <f2>, if the first character is not a `/' then it
-is assumed to be the path of a readable file relative to the directory in
-which {\GAP} was started.
-
-*Notes*
-
-The presentations in files <f1> and <f2> must have been generated by  the
-`pq' binary but they do *not* need to be *standard* presentations.
-
-For      those      familiar      with       the       `pq'       binary,
-`PqSPCompareTwoFilePresentations' performs menu item 6  of  the  Standard
-Presentation menu.
-
-\>PqSPIsomorphism( <i> ) F
-\>PqSPIsomorphism() F
-
-for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
-binary to compute the isomorphism from the generators of the automorphism
-group of `ANUPQData.io[<i>].pQuotient' to the generators for the standard
-presentation.
-
-*Note:* For  those  familiar  with  the  `pq'  binary,  `PqSPIsomorphism'
-performs menu item 8 of the Standard Presentation menu.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Primitive Interactive ANUPQ Process Read/Write Functions}

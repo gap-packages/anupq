@@ -4,7 +4,7 @@ S 1.1. Authors
 C basics.tex 2. Mathematical Background and Terminology
 I 2.0. capable
 C infra.tex 3. Infrastructure
-S 3.1. Loading the ANUPQ Share Package
+S 3.1. Loading the ANUPQ Package
 I 3.1. banner
 I 3.1. banner!suppression
 S 3.2. The ANUPQData Record
@@ -179,16 +179,20 @@ F 5.4. PqCommutator
 F 5.4. PqCommutator
 F 5.4. PqSetupTablesForNextClass
 F 5.4. PqSetupTablesForNextClass
-F 5.4. PqAddTails
-F 5.4. PqAddTails
-F 5.4. PqComputeTails
-F 5.4. PqComputeTails
 F 5.4. PqTails
 F 5.4. PqTails
+F 5.4. PqComputeTails
+F 5.4. PqComputeTails
+F 5.4. PqAddTails
+F 5.4. PqAddTails
 F 5.4. PqDoConsistencyChecks
 F 5.4. PqDoConsistencyChecks
 F 5.4. PqCollectDefiningRelations
 F 5.4. PqCollectDefiningRelations
+F 5.4. PqCollectWordInDefiningGenerators
+F 5.4. PqCollectWordInDefiningGenerators
+F 5.4. PqCommutatorDefiningGenerators
+F 5.4. PqCommutatorDefiningGenerators
 F 5.4. PqDoExponentChecks
 F 5.4. PqDoExponentChecks
 F 5.4. PqEliminateRedundantGenerators
@@ -201,6 +205,8 @@ F 5.4. PqSetMetabelian
 F 5.4. PqSetMetabelian
 F 5.4. PqDoConsistencyCheck
 F 5.4. PqDoConsistencyCheck
+F 5.4. PqJacobi
+F 5.4. PqJacobi
 F 5.4. PqCompact
 F 5.4. PqCompact
 F 5.4. PqEchelonise
@@ -215,28 +221,10 @@ F 5.4. PqDisplayStructure
 F 5.4. PqDisplayStructure
 F 5.4. PqDisplayAutomorphisms
 F 5.4. PqDisplayAutomorphisms
-F 5.4. PqCollectWordInDefiningGenerators
-F 5.4. PqCollectWordInDefiningGenerators
-F 5.4. PqCommutatorDefiningGenerators
-F 5.4. PqCommutatorDefiningGenerators
 F 5.4. PqWritePcPresentation
 F 5.4. PqWritePcPresentation
 F 5.4. PqWriteCompactDescription
 F 5.4. PqWriteCompactDescription
-F 5.4. PqPGSupplyAutomorphisms
-F 5.4. PqPGSupplyAutomorphisms
-F 5.4. PqPGExtendAutomorphisms
-F 5.4. PqPGExtendAutomorphisms
-F 5.4. PqPGRestoreGroupFromFile
-F 5.4. PqPGRestoreGroupFromFile
-F 5.4. PqPGConstructDescendants
-F 5.4. PqPGConstructDescendants
-F 5.4. PqAPGSupplyAutomorphisms
-F 5.4. PqAPGSupplyAutomorphisms
-F 5.4. PqAPGExtendAutomorphisms
-F 5.4. PqAPGExtendAutomorphisms
-F 5.4. PqAPGRestoreGroupFromFile
-F 5.4. PqAPGRestoreGroupFromFile
 F 5.4. PqSPPcPresentation
 F 5.4. PqSPPcPresentation
 F 5.4. PqSPStandardPresentation
@@ -250,6 +238,20 @@ F 5.4. PqSPCompareTwoFilePresentations
 F 5.4. PqSPCompareTwoFilePresentations
 F 5.4. PqSPIsomorphism
 F 5.4. PqSPIsomorphism
+F 5.4. PqPGSupplyAutomorphisms
+F 5.4. PqPGSupplyAutomorphisms
+F 5.4. PqPGExtendAutomorphisms
+F 5.4. PqPGExtendAutomorphisms
+F 5.4. PqPGRestoreGroupFromFile
+F 5.4. PqPGRestoreGroupFromFile
+F 5.4. PqPGConstructDescendants
+F 5.4. PqPGConstructDescendants
+F 5.4. PqAPGSupplyAutomorphisms
+F 5.4. PqAPGSupplyAutomorphisms
+F 5.4. PqAPGExtendAutomorphisms
+F 5.4. PqAPGExtendAutomorphisms
+F 5.4. PqAPGRestoreGroupFromFile
+F 5.4. PqAPGRestoreGroupFromFile
 S 5.5. Primitive Interactive ANUPQ Process Read/Write Functions
 F 5.5. PqRead
 F 5.5. PqRead
@@ -289,7 +291,7 @@ F 6.1. option CustomiseOutput
 F 6.1. option StandardPresentationFile
 F 6.1. option QueueFactor
 F 6.1. option Bounds
-C install.tex 7. Installing the ANUPQ Share Package
+C install.tex 7. Installing the ANUPQ Package
 I 7.0. ANUPQ_GAP_EXEC!environment variable
 S 7.1. Testing your ANUPQ installation
 I 7.1. ANUPQ_GAP_EXEC!environment variable
