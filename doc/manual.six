@@ -95,11 +95,9 @@ F 4.1. PqPCover
 S 4.2. Computing Standard Presentations
 I 4.2. automorphisms!of $p$-groups
 F 4.2. PqStandardPresentation
-F 4.2. PqStandardPresentation
-F 4.2. PqStandardPresentation
 F 4.2. StandardPresentation
-F 4.2. StandardPresentation
-F 4.2. StandardPresentation
+I 4.2. option Prime
+I 4.2. option pQuotient
 I 4.2. option ClassBound
 I 4.2. option Exponent
 I 4.2. option Metabelian
@@ -109,8 +107,6 @@ I 4.2. option StandardPresentationFile
 I 4.2. option SetupFile
 I 4.2. option PqWorkspace
 F 4.2. EpimorphismPqStandardPresentation
-F 4.2. EpimorphismPqStandardPresentation
-F 4.2. EpimorphismStandardPresentation
 F 4.2. EpimorphismStandardPresentation
 S 4.3. Testing p-Groups for Isomorphism
 F 4.3. IsPqIsomorphicPGroup
@@ -169,11 +165,9 @@ F 5.3. PqPCover!interactive
 F 5.3. PqPCover!interactive
 I 5.3. automorphisms!of $p$-groups
 F 5.3. PqStandardPresentation!interactive
-F 5.3. PqStandardPresentation!interactive
-F 5.3. PqStandardPresentation!interactive
 F 5.3. StandardPresentation!interactive
-F 5.3. StandardPresentation!interactive
-F 5.3. StandardPresentation!interactive
+I 5.3. option Prime
+I 5.3. option pQuotient
 I 5.3. option ClassBound
 I 5.3. option Exponent
 I 5.3. option Metabelian
@@ -181,12 +175,6 @@ I 5.3. option GroupName
 I 5.3. option OutputLevel
 I 5.3. option StandardPresentationFile
 F 5.3. EpimorphismPqStandardPresentation!interactive
-F 5.3. EpimorphismPqStandardPresentation!interactive
-F 5.3. EpimorphismPqStandardPresentation!interactive
-F 5.3. EpimorphismPqStandardPresentation!interactive
-F 5.3. EpimorphismStandardPresentation!interactive
-F 5.3. EpimorphismStandardPresentation!interactive
-F 5.3. EpimorphismStandardPresentation!interactive
 F 5.3. EpimorphismStandardPresentation!interactive
 F 5.3. PqDescendants!interactive
 F 5.3. PqDescendants!interactive
@@ -342,6 +330,7 @@ F 6.0. ANUPQoptions
 S 6.1. Detailed descriptions of ANUPQ Options
 F 6.1. option Prime
 F 6.1. option ClassBound
+F 6.1. option pQuotient
 F 6.1. option Exponent
 F 6.1. option Relators
 F 6.1. option Metabelian
