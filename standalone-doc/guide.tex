@@ -9,8 +9,8 @@
 %W  added a table of contents, cross-references and an examples appendix;
 %W  updated the bibliography and Eamonn's address, improved some  of  the
 %W  descriptions, re-arranged it slightly and updated it for changes made
-%W  for Version 1.5. The file needs to be latex-ed three times to  obtain
-%W  a correct `.dvi' file.
+%W  for Versions 1.5 and 1.6.  The file needs to be latex-ed three  times
+%W  to obtain a correct `.dvi' file.
 %%
 \documentclass[12pt]{article}
 %
@@ -28,9 +28,9 @@
 %
 \def\pq{the $p$-quotient implementation}
 \begin{document}
-\title{A guide to the ANU {\it p}-Quotient Program\\Version 1.5}
+\title{A guide to the ANU {\it p}-Quotient Program\\Version 1.6}
 \author{Eamonn O'Brien}
-\date{August 2001}
+\date{February 2004}
 \maketitle
 \tableofcontents
 \pagebreak
@@ -112,12 +112,12 @@ from within the computational group theory systems,
 This program is supplied as a package within {\sf GAP}.
 The link from {\sf GAP} to pq is described in the manual
 for {\sf GAP} 3.4 or in the manual found in the \texttt{doc} directory
-in the case of the {\sf GAP}~4 share package {\sf ANUPQ}; all of the 
+in the case of the {\sf GAP}~4 package {\sf ANUPQ}; all of the 
 necessary code can be found in the \texttt{gap} directory of these 
 distributions.
 The program is also distributed as part of Quotpic.
 
-Version 1.5 of the pq program (i.e.~the version you are currently reading
+Version 1.6 of the pq program (i.e.~the version you are currently reading
 the documentation for) is configured to call {\sf GAP} 4 to compute
 stabilisers when needed.
 
@@ -127,7 +127,7 @@ Nilpotent Quotient Program.
 \section{Installing pq}\label{sec:pq-install}
 
 To install pq just follow the instructions for installing the {\sf ANUPQ}
-share package, i.e. in the directory above, do:
+package, i.e. in the directory above, do:
 
 \begin{quote}
 \verb|./configure|\\
@@ -136,13 +136,13 @@ share package, i.e. in the directory above, do:
 
 If you are running Linux you may omit \textit{TARGET}. The path 
 \textit{GAPPATH} should be the path of a \emph{shell script} that runs
-{\sf GAP} 4 and the share package {\sf ANUPQ} Version 1.1 (or later)
-must be installed. If the {\sf ANUPQ} share package is not installed
+{\sf GAP} 4 and the package {\sf ANUPQ} Version 1.1 (or later)
+must be installed. If the {\sf ANUPQ} package is not installed
 in the \texttt{pkg} directory of the {\sf GAP} 4 distribution, then
 the \texttt{-l} option (last line of the \emph{shell script} previously
 mentioned) \emph{must} be set to be a semicolon-separated list of
 paths of the main {\sf GAP} directory and the path of the \texttt{pkg}
-directory containing the \texttt{anupq} share package directory.
+directory containing the \texttt{anupq} package directory.
 
 The pq program only needs {\sf GAP} for computing stabilisers when you
 answer ``No'' (\texttt{0}) to the question 
@@ -684,9 +684,18 @@ We now describe the options given by this menu.
 
 \begin{description}
 \item[\texttt{1.\ Read automorphism information for starting group}]\ \\
- prompts for the number of automorphisms; for each automorphism
- in turn, it prompts for its action on each of the pcp
- generators of the Frattini quotient of the group. 
+ first prompts for the following:
+ \begin{description}
+ \item[\texttt{Input the number of automorphisms:}]\ \\
+  You must provide the number of automorphisms generating the automorphism
+  group of the starting group. Then you will be prompted for the action
+  of each automorphism on the pcp generators of the Frattini quotient of the
+  group, after which you will be prompted:
+ \item[\texttt{Input number of soluble generators for automorphism group:}]\ \\
+  If you enter a positive integer $n$ you will then be prompted for the
+  relative order of each of those $n$ automorphisms.
+ \end{description}
+ %
 
 \item[\texttt{2.\ Extend and display automorphisms}]\ \\
  compute the extensions of these automorphisms to act on the pcp generators
@@ -840,6 +849,7 @@ about what additional information you desire
 (or don't want) for the category. The following are the questions that 
 result from a ``No" response to ``\texttt{Do you want default output?}":
 
+ \enlargethispage*{1\baselineskip}
  \begin{description}
  \item[\texttt{Do you want default permutation group output?}]\ \\
  A ``No" leads to the further questions:
@@ -884,6 +894,7 @@ order, and class criteria. If it does not, a message is displayed
 stating that this starting group is invalid. 
 
 %\newpage
+\enlargethispage*{2\baselineskip}
 \subsection{Advanced Menu for {\it p}-Group Generation}
 \label{sec:pgrp-gen-advanced-menu}
 \begin{verbatim}
@@ -1230,6 +1241,7 @@ Input 2 exponents for image of pcp generator 2: 2 1
 Now enter the data for automorphism 5
 Input 2 exponents for image of pcp generator 1: 2 0
 Input 2 exponents for image of pcp generator 2: 0 1
+Input number of soluble generators for automorphism group: 0
 
 Select option: 5                          #to construct descendants
 Input class bound on descendants: 4
@@ -1773,6 +1785,16 @@ Exiting from ANU p-Quotient Program
 Total user time in seconds is 0.10
 \end{verbatim}
 
+\section{Changes}
+\begin{description}
+  \item[\texttt{Version 1.6}]\ \\
+     In main Menu for {\it p}-Group Generation, when asking for 
+     automorphisms, now ask for the number of soluble automorphisms
+     and their relative orders when there are any.
+  \item[\texttt{Version 1.5}]\ \\
+     Added the \texttt{-G} option for use with \textsf{GAP} and the
+     \texttt{-v} option.
+\end{description}
 \pagebreak
 \section*{\centering References}
 \addcontentsline{toc}{section}{\numberline{}References}

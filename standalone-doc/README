@@ -2,9 +2,9 @@
 #
 #     Australian National University p-Quotient Program 
 #
-#     Version 1.5
+#     Version 1.6
 #
-#     June 2001, February 2002
+#     June 2001, February 2002, February 2004
 #
 ###############################################################################
 
@@ -70,13 +70,12 @@ a p-group. The algorithm implemented here is described in O'Brien (1995).
 #
 ###############################################################################
 
-Access to parts of this program is provided via GAP, Magma, 
-and Quotpic. 
+Access to parts of this program is provided via GAP, Magma, and Quotpic.
 
-This program is supplied as a package within GAP, both GAP 3.4 and GAP4.
-The link from GAP to pq is described in the manual for GAP 3.4, and is
-described in a separate manual supplied with the ANU PQ share package 
-anupq.zoo archive for GAP4.
+This program is supplied as a package within GAP, both GAP 3.4 and  GAP4.
+The link from GAP to pq is described in the manual for GAP  3.4,  and  is
+described in a separate manual supplied with the ANUPQ package  anupq.zoo
+archive for GAP4.
 
 ###############################################################################
 #
@@ -126,7 +125,7 @@ J. Symbolic Comput. 9, 725-733.
    main directory. The directory mapping of the anupq directory derived
    from anupq.zoo is as follows:
 
-   doc -- manual for the GAP4 share package that interfaces with pq
+   doc -- manual for the GAP4 package that interfaces with pq
    standalone-doc -- documentation on use of the pq standalone program
    standalone -- contains the pq standalone TEST, examples, isom directories
    include  -- C header files 

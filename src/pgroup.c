@@ -84,7 +84,8 @@ struct pcp_vars *pcp;
 
         new_group = TRUE;
 
-        read_value (TRUE, "Enter number of soluble generators for automorphism group?\n", 
+        read_value (TRUE, 
+                    "Input number of soluble generators for automorphism group: ", 
                     &pga.nmr_soluble, INT_MIN);
 
         if( pga.nmr_soluble > 0 ) {
@@ -93,10 +94,10 @@ struct pcp_vars *pcp;
 
           pga.relative = allocate_vector (pga.nmr_soluble, 1, FALSE);
 
-          for (k = 1; k < pga.nmr_soluble; ++k)
-            read_value (FALSE, "Enter next relative order\n", &pga.relative[k], 0);
-        
-          read_value (TRUE, "Enter last relative order\n", &pga.relative[k], 0);
+          for (k = 1; k <= pga.nmr_soluble; ++k) {
+            printf("Input relative order of soluble generator %d: ", k);
+            read_value (TRUE, "", &pga.relative[k], 0); 
+          }
         }
         
         start_group (&StartFile, auts, &pga, pcp);
