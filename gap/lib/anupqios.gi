@@ -16,77 +16,60 @@ Revision.anupqios_gi :=
 ##
 #F  PqStart( <G>, <workspace> )  . . .  Initiate an interactive ANUPQ session
 #F  PqStart( <G> )
-#T  #F  PqStart( <i>, <G> )
-#T  I would have liked to have this possibility, but the `pq' binary would
-#T  need to reset its counter for the `ANUPQgroups' and `ANUPQautos' lists
-#T  for this to work.
+#F  PqStart( <workspace> )
+#F  PqStart()
 ##
-##  In  the (first) two  forms,  `PqStart'  activates  an  iostream  for   an
-##  interactive {\ANUPQ} process, i.e. it starts up the `pq' binary and opens
-##  an iostream to ``talk'' to it; and returns an integer  <i>  that  can  be
-##  used to identify that  process.  The  record  `ANUPQData.io[<i>]'  stores
-##  information that is important  for  the  process  (see~"ANUPQData").  The
-##  argument <G> should be an *fp group* or *pc group* that the user  intends
-##  to manipute using interactive {\ANUPQ} functions. If `PqStart' is given a
-##  second argument <workspace> then the `pq' binary is  started  up  with  a
-##  workspace  (an  integer  array)  of  size  <workspace>  (i.e.  $4  \times
-##  <workspace>$ bytes in a 32-bit environment); otherwise, the  `pq'  binary
-##  sets a default workspace of $10000000$.
+##  activate an iostream for an interactive {\ANUPQ} process (i.e.  `PqStart'
+##  starts up a `pq' binary process and opens a {\GAP} iostream  to  ``talk''
+##  to that process) and returns an integer <i> that can be used to  identify
+##  that process. The argument <G>, if given, should be an *fp group* or  *pc
+##  group* that the user  intends  to  manipute  using  interactive  {\ANUPQ}
+##  functions. If `PqStart' is given an integer argument <workspace> then the
+##  `pq' binary is started up with a workspace (an  integer  array)  of  size
+##  <workspace> (i.e. $4 \times <workspace>$ bytes in a 32-bit  environment);
+##  otherwise, the `pq' binary sets a default workspace of $10000000$.
 ##
-#T  In the third form, `PqStart' redefines the  starting  group  <G>  for  an
+#T  In the fifth form, `PqStart' redefines the  starting  group  <G>  for  an
 #T  existing interactive {\ANUPQ} process identified by the positive  integer
 #T  <i>.
 ##
 InstallGlobalFunction(PqStart, function(arg)
-local opts, workspace, G, ioIndex, datarec, field, stream;
+local opts, iorec, G, workspace;
+
+  if 2 < Length(arg) then
+    Error("at most two arguments expected.\n");
+  fi;
+
+  iorec := rec( menu   := "SP" );
+  if not IsEmpty(arg) and IsGroup( arg[1] ) then
+    G := arg[1];
+    if not( IsFpGroup(G) or IsPcGroup(G) ) then
+      Error( "argument <G> should be an fp group or a pc group\n" );
+    fi;
+    iorec.group := G;
+    arg := arg{[2 .. Length(arg)]};
+  fi;
 
   opts := [ "-i", "-k", "-g" ];
-  if IsEmpty(arg) or 2 < Length(arg) then
-    Error("one or two arguments expected.\n");
-  ## The following is for the `third' form of `PqStart' (needs a change to
-  ## the `pq' binary to enable it to work, as mentioned above).
-  #elif IsPosInt(arg[1]) then
-  #  ANUPQ_IOINDEX_ARG_CHK(arg{[1]});
-  #  ioIndex := ANUPQ_IOINDEX(arg{[1]});
-  #  if not IsFpGroup(arg[2]) then
-  #    Error("second argument must be an fp group\n");
-  #  fi;
-  #  datarec := ANUPQData.io[ioIndex];
-  #  datarec.group := arg[2];
-  #  for field in Difference( REC_NAMES(datarec),
-  #                           ["stream", "group", "workspace", "menu"] ) do
-  #    Unbind(datarec.(field)); # unbind all the fields not associated with
-  #                             # the new group
-  #  od;
-  #  # The following is what the `pq' binary puts in the GAP_library file
-  #  # when it starts up
-  #  PrintTo(ANUPQData.SPimages, "ANUPQmagic := \"groups saved to file\";\n"); 
-  #  return ioIndex;
-  elif not( IsFpGroup(arg[1]) or IsPcGroup(arg[1]) ) then
-    Error("first argument must be an fp group or a pc group\n");
-  elif 2 = Length(arg) then
-    if not IsPosInt(arg[2]) then
-      Error("argument (workspace) should be a positive integer.\n");
+  if not IsEmpty(arg) then
+    workspace := arg[1];
+    if not IsPosInt(workspace) then
+      Error("argument <workspace> should be a positive integer.\n");
     fi;
-    workspace := arg[2];
     Append( opts, [ "-s", String(workspace) ] );
+    iorec.workspace := workspace;
   else
-    workspace := 10000000;
+    iorec.workspace := 10000000;
   fi;
-  G := arg[1];
 
   PrintTo(ANUPQData.SPimages, ""); #to ensure it's empty
-  stream := InputOutputLocalProcess(ANUPQData.tmpdir, ANUPQData.binary, opts);
-  if stream = fail then
-    Error("sorry! Run out of pseudo-ttys. Can't initiate stream.\n");
+  iorec.stream := InputOutputLocalProcess(ANUPQData.tmpdir, ANUPQData.binary, opts);
+  if iorec.stream = fail then
+    Error( "sorry! Run out of pseudo-ttys. Can't initiate stream.\n" );
   fi;
 
-  Add( ANUPQData.io, rec( stream := stream, 
-                          group  := G, 
-                          workspace := workspace, 
-                          menu   := "SP" ) );
-
-  FLUSH_PQ_STREAM_UNTIL(stream, 4, 2, PQ_READ_NEXT_LINE, IS_PQ_PROMPT);
+  Add( ANUPQData.io, iorec );
+  FLUSH_PQ_STREAM_UNTIL(iorec.stream, 4, 2, PQ_READ_NEXT_LINE, IS_PQ_PROMPT);
   return Length(ANUPQData.io);
 end);
 
