@@ -155,7 +155,9 @@ if "ReadAllLine" in ANUPQ_PROVIDE_FUNCTIONS then
           while not IsAllLine(line) do
               UNIXSelect([fd], [], [], fail, fail);
               moreOfline := ReadLine(iostream);
-              Append(line, moreOfline);
+              if moreOfline <> fail then
+                  Append(line, moreOfline);
+              fi;
           od;
       fi;
       return line;
