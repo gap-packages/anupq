@@ -47,27 +47,33 @@ DeclareGlobalFunction( "ANUPQReadOutput" );
 
 #############################################################################
 ##
-#F  PqEpimorphism( <arg> : <options> )  . . . . .  epimorphism onto a p-group
+#F  PqEpimorphism( <arg> : <options> ) . . . . .  epimorphism onto p-quotient
 ##
 DeclareGlobalFunction( "PqEpimorphism" );
 
 #############################################################################
 ##
-#F  Pq( <arg> : <options> )  . . . . . . . . . . . . . . . . . prime quotient
+#F  Pq( <arg> : <options> ) . . . . . . . . . . . . . . . . . . .  p-quotient
 ##
 DeclareGlobalFunction( "Pq" );
 
 #############################################################################
 ##
-#F  PQ_GET_PQUOTIENT( <datarec> ) . . . extract p-quotient from file into GAP
+#F  PqPCover( <arg> : <options> ) . . . . . .  p-covering group of p-quotient
 ##
-DeclareGlobalFunction( "PQ_GET_PQUOTIENT" );
+DeclareGlobalFunction( "PqPCover" );
 
 #############################################################################
 ##
-#F  PQ_EPIMORPHISM( <args> : <options> ) . . . . . prime quotient epimorphism
+#F  PQ_GROUP_FROM_PCP(<datarec>,<out>) . extract gp from pq pcp file into GAP
 ##
-DeclareGlobalFunction( "PQ_EPIMORPHISM" );
+DeclareGlobalFunction( "PQ_GROUP_FROM_PCP" );
+
+#############################################################################
+##
+#F  PQ_EPI_OR_PCOVER(<args>:<options>) .  p-quotient, its epi. or its p-cover
+##
+DeclareGlobalFunction( "PQ_EPI_OR_PCOVER" );
 
 #############################################################################
 ##

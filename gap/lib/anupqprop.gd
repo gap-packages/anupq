@@ -23,11 +23,11 @@ DeclareGlobalFunction( "SET_PQ_PROPS_AND_ATTRS" );
 ##
 #D  Declare properties and  attributes
 ##    
-DeclareProperty( "IsCapable", IsGroup );
+DeclareProperty( "IsCapable", IsPGroup );
 
-DeclareAttribute( "NuclearRank", IsGroup );
+DeclareAttribute( "NuclearRank", IsPGroup );
 
-DeclareAttribute( "MultiplicatorRank", IsGroup );
+DeclareAttribute( "MultiplicatorRank", IsPGroup );
 
 DeclareAttribute( "ANUPQIdentity", IsGroup );
 

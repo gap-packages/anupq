@@ -29,8 +29,6 @@ end );
 ##
 #M  IsCapable( <G> )
 ##    
-RedispatchOnCondition( IsCapable, true, [ IsGroup ], [ IsPGroup ], 0 );
-
 InstallMethod( IsCapable, "fp p-groups", true, [ IsPGroup and IsFpGroup ], 0,
 function( G )
   SET_PQ_PROPS_AND_ATTRS(G, G);
@@ -47,8 +45,6 @@ end );
 ##
 #M  NuclearRank( <G> )
 ##    
-RedispatchOnCondition( NuclearRank, true, [ IsGroup ], [ IsPGroup ], 0 );
-
 InstallMethod( NuclearRank, "fp p-groups", [ IsPGroup and IsFpGroup ], 0,
 function( G )
   SET_PQ_PROPS_AND_ATTRS(G, G);
@@ -65,8 +61,6 @@ end );
 ##
 #M  MultiplicatorRank( <G> )
 ##    
-RedispatchOnCondition( MultiplicatorRank, true, [ IsGroup ], [ IsPGroup ], 0 );
-
 InstallMethod( MultiplicatorRank, "fp p-groups", [ IsPGroup and IsFpGroup ], 0,
 function( G )
   SET_PQ_PROPS_AND_ATTRS(G, G);

@@ -10,6 +10,11 @@
 #Y  Copyright 1992-1994,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.24  2001/09/26 19:38:48  gap
+#H  Added `PqPCover' (a version that returns a pc group). Also simplified
+#H  `IsCapable' etc. to not need `RedispatchOnCondition'. Some internal
+#H  function names were changed so things fits together in a natural way. - GG
+#H
 #H  Revision 1.23  2001/09/19 14:40:58  gap
 #H  Bugfix for `PqWeight'. Various improvements. Got rid of `share'. - GG
 #H
@@ -421,65 +426,76 @@ end );
 
 #############################################################################
 ##
-#F  PqEpimorphism( <arg> : <options> )  . . . . .  epimorphism onto a p-group
+#F  PqEpimorphism( <arg> : <options> ) . . . . .  epimorphism onto p-quotient
 ##
 InstallGlobalFunction( PqEpimorphism, function( arg )
-    return PQ_EPIMORPHISM( arg );
+    return PQ_EPI_OR_PCOVER(arg : PqEpiOrPCover := "pQepi");
 end );
 
 #############################################################################
 ##
-#F  Pq( <arg> : <options> )  . . . . . . . . . . . . . . . . . prime quotient
+#F  Pq( <arg> : <options> ) . . . . . . . . . . . . . . . . . . .  p-quotient
 ##
 InstallGlobalFunction( Pq, function( arg )
-    local pQepi;
-
-    pQepi := PQ_EPIMORPHISM( arg );
-    if pQepi = true then
-      return true; # the SetupFile case
-    fi;
-    return Image( pQepi );
+    return PQ_EPI_OR_PCOVER(arg : PqEpiOrPCover := "pQuotient");
 end );
 
 #############################################################################
 ##
-#F  PQ_GET_PQUOTIENT( <datarec> ) . . . extract p-quotient from file into GAP
+#F  PqPCover( <arg> : <options> ) . . . . . .  p-covering group of p-quotient
 ##
-InstallGlobalFunction( PQ_GET_PQUOTIENT, function( datarec )
+InstallGlobalFunction( PqPCover, function( arg )
+    return PQ_EPI_OR_PCOVER(arg : PqEpiOrPCover := "pCover");
+end );
+
+#############################################################################
+##
+#F  PQ_GROUP_FROM_PCP(<datarec>,<out>) . extract gp from pq pcp file into GAP
+##
+InstallGlobalFunction( PQ_GROUP_FROM_PCP, function( datarec, out )
     HideGlobalVariables( "F", "MapImages" );
     Read( datarec.outfname );
-    datarec.pQuotient := ValueGlobal( "F" );
-    datarec.pQepi := GroupHomomorphismByImages( 
-                       datarec.group,
-                       datarec.pQuotient,
-                       GeneratorsOfGroup( datarec.group ),
-                       ValueGlobal( "MapImages" )
-                       );
-    SetFeatureObj( datarec.pQepi, IsSurjective, true );
+    if out = "pCover" then
+      datarec.pCover := ValueGlobal( "F" );;
+    else
+      datarec.pQepi := GroupHomomorphismByImages( 
+                           datarec.group,
+                           ValueGlobal( "F" ),
+                           GeneratorsOfGroup( datarec.group ),
+                           ValueGlobal( "MapImages" )
+                           );
+      SetFeatureObj( datarec.pQepi, IsSurjective, true );
+      datarec.pQuotient := Image( datarec.pQepi );
+    fi;
     UnhideGlobalVariables( "F", "MapImages" );
 end );
 
 #############################################################################
 ##
-#F  PQ_EPIMORPHISM( <args> : <options> ) . . . . . prime quotient epimorphism
+#F  PQ_EPI_OR_PCOVER(<args>:<options>) .  p-quotient, its epi. or its p-cover
 ##
-InstallGlobalFunction( PQ_EPIMORPHISM, function( args )
-    local   datarec;
+InstallGlobalFunction( PQ_EPI_OR_PCOVER, function( args )
+    local   datarec, out;
 
+    out := ValueOption("PqEpiOrPCover");
     datarec := ANUPQ_ARG_CHK(1, "Pq", "group", IsFpGroup, 
                              "an fp group", args, ["Prime", "ClassBound"]);
     datarec.filter := ["Output file in", "Group presentation"];
     if datarec.calltype = "interactive" then      
-        if IsBound(datarec.pQepi) then
-            return datarec.pQepi; # it's already been computed
+        if IsBound( datarec.(out) ) then
+            return datarec.(out); # it's already been computed
         fi;
     elif datarec.calltype = "GAP3compatible" then
-        # ANUPQ_ARG_CHK calls PQ_EPIMORPHISM itself in this case
-        # (so datarec.pQepi has already been computed)
-        return datarec.pQepi;
+        # ANUPQ_ARG_CHK calls PQ_EPI_OR_PCOVER itself in this case
+        # (so datarec.(out) has already been computed)
+        return datarec.(out);
     fi;
 
     PQ_PC_PRESENTATION(datarec, "pQ");
+
+    if out = "pCover" then
+      PQ_P_COVER( datarec );
+    fi;
 
     PushOptions( rec(nonuser := true) );
     PQ_WRITE_PC_PRESENTATION(datarec, datarec.outfname);
@@ -493,8 +509,8 @@ InstallGlobalFunction( PQ_EPIMORPHISM, function( args )
     fi;
             
     # read group and images from file
-    PQ_GET_PQUOTIENT( datarec );
-    return datarec.pQepi;
+    PQ_GROUP_FROM_PCP( datarec, out );
+    return datarec.(out);
 end );
 
 #############################################################################

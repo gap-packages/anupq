@@ -21,7 +21,7 @@ Revision.anupqopt_gi :=
 ##  internal functions called by the functions with those names.
 ##
 InstallValue( PQ_FUNCTION, 
-              rec( Pq                   := PQ_EPIMORPHISM,
+              rec( Pq                   := PQ_EPI_OR_PCOVER,
                    PqDescendants        := PQ_DESCENDANTS,
                    StandardPresentation := PQ_EPIMORPHISM_STANDARD_PRESENTATION
                   )

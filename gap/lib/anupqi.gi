@@ -695,22 +695,27 @@ end );
 
 #############################################################################
 ##
-#F  PqCurrentGroup( <i> ) . . . . extracts the current quotient as a pc group
+#F  PqCurrentGroup( <i> ) . extracts current p-quotient or p-cover as a pc gp
 #F  PqCurrentGroup()
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, return  the  lower
-##  exponent $p$-class quotient of the  group  currently  determined  by  the
-##  process as a {\GAP} pc group.
+##  exponent $p$-class quotient of the group or $p$-covering group  currently
+##  determined by the process as a {\GAP} pc group.
 ##
 InstallGlobalFunction( PqCurrentGroup, function( arg )
-local datarec;
+local datarec, out;
   datarec := PQ_DATA_CHK(arg);
   datarec.outfname := ANUPQData.outfile;
   PushOptions( rec(nonuser := true) );
   PQ_WRITE_PC_PRESENTATION(datarec, datarec.outfname);
   PopOptions();
-  PQ_GET_PQUOTIENT( datarec );
-  return datarec.pQuotient;
+  if IsBound(datarec.pcoverclass) and datarec.pcoverclass = datarec.class then
+    out := "pCover";
+  else
+    out := "pQuotient";
+  fi;
+  PQ_GROUP_FROM_PCP( datarec, out );
+  return datarec.(out);
 end );
 
 #############################################################################
@@ -2209,7 +2214,7 @@ local args, datarec;
   args := PQ_AUT_ARG_CHK(0, arg);
   datarec := ANUPQData.io[ args[1] ];
   if 1 = Length(args) and not IsBound(datarec.pQuotient) then
-    PQ_EPIMORPHISM( args[1] ); #PQ_EPIMORPHISM uses the data record io index
+    PQ_EPI_OR_PCOVER( args[1] : PqEpiOrPCover := "pQuotient");
   fi;
   args[1] := datarec;
   CallFuncList( PQ_SP_STANDARD_PRESENTATION, args );
