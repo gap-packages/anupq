@@ -1,0 +1,156 @@
+#!/usr/bin/env perl
+
+$tstdir = "gap/tst";
+$i = "";
+$tmpdir = "/tmp/testPq";
+while ( (-d "$tmpdir$i") && !(-W "$tmpdir$i") ) { $i++ }
+$tmpdir .= $i;
+system("rm -rf $tmpdir; mkdir $tmpdir");
+print "Made dir: $tmpdir\n";
+
+$pq = "bin/@GAPARCH@/pq";
+# Test 1
+syswrite STDOUT, "Testing the pq binary ...",
+         length( "Testing the pq binary ..." );
+check("test1.pga", "");
+# Test 2
+syswrite STDOUT, "Testing the pq binary's stack size ...",
+         length( "Testing the pq binary's stack size ..." );
+check("test2.pga", "");
+# Test GAP
+print "Checking GAP ...\n";
+$pq_does_not_know_GAP = 0;
+if ( ($gap = $ENV{ANUPQ_GAP_EXEC}) ne "" ) {
+  print " Found ANUPQ_GAP_EXEC environment variable set to: $gap\n"; 
+} elsif (-e "$tstdir/GAP" && (`wc -w $tstdir/GAP` + 0) ) {
+  open(GAP, "<$tstdir/GAP");
+  chomp($gap = <GAP>);
+  print " pq binary made with GAP set to: $gap\n";
+} else {
+  $pq_does_not_know_GAP = 1;
+  chomp($gap = `which gap4` || `which gap`);
+  print " Found gap: $gap\n";
+}
+open( GAPIN, ">$tmpdir/gapinput");
+print GAPIN
+      "if VERSION[1] <> '4' then\n",
+      "  #GAP 3\n",
+      "  CompareVersionNumbers := function(arg) return VERSION{[7..11]};end;\n",
+      "  TestPackageAvailability := function(arg) return \"GAP 3\"; end;\n",
+      "fi;\n",
+      "CompareVersionNumbers(VERSION, \"4r2\");\n",
+      "VERSION;\n",
+      "TestPackageAvailability(\"anupq\", \"1.1\");\n",
+      "TestPackageAvailability(\"autpgrp\", \"1.0\");\n";
+close GAPIN;
+print " Starting GAP to determine version and package availability ...\n"; 
+system("$gap -q < $tmpdir/gapinput > $tmpdir/gapout");
+#print "$tmpdir/gapinput:\n";
+#system("more $tmpdir/gapinput");
+#print "$tmpdir/gapoutput:\n";
+#system("more $tmpdir/gapoutput");
+open(GAPOUT, "<$tmpdir/gapout");
+if ( ($line = <GAPOUT>) =~ /true/ ) {
+  ($line = <GAPOUT>) =~ s/"//g;
+  chomp $line;
+  print "  GAP version ($line) ... OK.\n";
+} elsif ($line =~ /false/) {
+  chomp ($line = <GAPOUT>);
+  die "  GAP version ($line) ... too old! At least GAP 4r2 required!\n";
+} else { 
+  chomp ($line);
+  die "  GAP version ($line) ... please install GAP 4,".
+      " at least version 4r2 required!\n";
+}
+if ( ($line = <GAPOUT>) !~ /(fail|#I  Error)/ ) {
+  print "  GAP has ANUPQ share package (>= v 1.1) installed ... good.\n";
+} else {
+  die "  GAP does not have ANUPQ share package (>= v 1.1) installed ... \n".
+      "  Please check installation instructions for ANUPQ share package \n".
+      "  (at least version 1.1 is required).\n";
+}
+if ( ($line = <GAPOUT>) !~ /(fail|#I  Error)/ ) {
+  print "  GAP has AutPGrp share package installed ... good.\n";
+} else {
+  die "  GAP does not have AutPGrp share package installed ... \n",
+      "  Please check installation instructions for ANUPQ share package \n",
+      "  (the AutPGrp share package is required when the pq binary\n",
+      "  calls GAP to compute stabilisers).\n";
+}
+close GAPOUT;
+print " GAP is OK.\n";
+# Test 3
+syswrite STDOUT, "Checking the link between the pq binary and GAP ...",
+         length( "Checking the link between the pq binary and GAP ..." );
+$pq_does_not_know_GAP &&
+  die " The environment variable: ANUPQ_GAP_EXEC is not set;\n".
+      " and the pq binary was made with: make ... GAP=\"\" ??\n".
+      " Please check the ANUPQ share package installation instructions\n".
+      " and either set the environment variable: ANUPQ_GAP_EXEC, or\n".
+      " re-make the pq binary setting GAP to a valid path.\n";
+check("test3.pga", "");
+# Test 4
+syswrite STDOUT,"Testing the standard presentation part of the pq binary ...",
+         length("Testing the standard presentation part of the pq binary ...");
+check("test4.sp", "-i -k ");
+# Test 5
+syswrite STDOUT, "Doing final GAP test ...",
+         length( "Doing final GAP test ..." );
+open( GAPIN, ">$tmpdir/gapinput");
+print GAPIN "SetInfoLevel(InfoWarning, 0); RequirePackage( \"anupq\" );;\n",
+            "SetInfoLevel(InfoWarning, 1);\n",
+            "SetInfoLevel(InfoANUPQ, 1);\n",
+            "ReadTest( \"gap/tst/anupga.tst\" );\n";
+close GAPIN;
+system("$gap -b < $tmpdir/gapinput > $tmpdir/gapout");
+open(GAPOUT, "<$tmpdir/gapout");
+while (<GAPOUT>) {
+  if ( /^(GAP4, Version|(gap> )*([+] |$)|true$)/ ) {
+    next;
+  } else {
+    print " error.\n";
+    die   " Please email the file: $tmpdir/$gapout\n",
+          " to Werner.Nickel\@mathematik.tu-darmstadt.de\n";
+  }
+}
+print " OK.\n",
+      "Tests complete.\n";
+system("rm -rf $tmpdir; mkdir $tmpdir");
+print "Removed dir: $tmpdir\n",
+      "Enjoy using your functional ANUPQ share package!\n";
+
+sub check {
+  my ($file, $opts) = @_;
+  (my $outfile = $file) =~ s/[.](pga|sp)/.out/;
+  # run pq over test file and clean out system-dependent stuff
+  system("$pq $opts< $tstdir/$file | grep -v seconds > $tmpdir/tmpfile");
+  my $length = `wc -l $tmpdir/tmpfile` - 2;
+  system("tail -n $length $tmpdir/tmpfile > $tmpdir/$outfile");
+  # now there should be no differences with our master copy
+  my $diff = `diff $tstdir/out/$outfile $tmpdir/$outfile`;
+  if ($diff =~ /^\s*$/) {
+    print " OK.\n";
+    if ( $file =~ /4/ ) {
+      print " (actually it's not OK - there's a bug in pq's SP - \n",
+            "  but your answers agree with our wrong ones; \n",
+            "  we're working on it!)\n";
+    }
+  } else {
+    #print " differences:\n$diff";
+    if ( $file =~ /3/ ) {
+      if ($ENV{ANUPQ_GAP_EXEC} ne "") {
+        die " Please check the ANUPQ share package installation instructions.\n"
+           ." The setting of the environment variable: ANUPQ_GAP_EXEC\n"
+           ." is not a valid path for GAP.\n";
+      } else {
+        die " Please check the ANUPQ share package installation instructions.\n"
+           ." Value of <path> when the pq was made with: make ... GAP=<path>\n" 
+           ." is not a valid path for GAP.\n";
+      }
+    } else {
+      print " error.\n";
+      die   " Please email the file: $tmpdir/$outfile\n",
+            " to Werner.Nickel\@mathematik.tu-darmstadt.de\n";
+    }
+  }
+}
