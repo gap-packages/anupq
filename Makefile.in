@@ -357,6 +357,7 @@ $(EFILE):  $(OBJECTS)
 	@( $(CC) -o $(EFILE) $(OBJECTS) $(LOPTS) $(LDLIBS); \
 	   echo ""; echo "moving pq to ../bin/@GAPARCH@"; echo ""; \
 	   mv $(EFILE) ../bin/@GAPARCH@; rm -f ../standalone/bin/pq; \
+	   mkdir -p -m 755 ../standalone/bin; \
 	   ln -s ../../bin/@GAPARCH@/$(EFILE) ../standalone/bin/pq )
 
 ## clean me up ##############################################################
