@@ -277,7 +277,7 @@ InstallGlobalFunction( PQ_CHK_PATH, function( filename, rw )
   if not IsString(filename) or filename = "" then
     Error( "argument <filename> must be a non-empty string\n" );
   fi;
-  if filename[1] <> "/" then
+  if filename[1] <> '/' then
     # we need to do this as pq executes in ANUPQData.tmpdir
     filename := Concatenation(PQ_PATH_CURRENT_DIRECTORY(), "/", filename);
   fi;
