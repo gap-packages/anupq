@@ -15,7 +15,6 @@ Revision.anupqhead_g :=
 
 
 #############################################################################
-####
 ##
 #V  ANUPQData . . record used by various functions of the ANUPQ share package
 ##
@@ -64,7 +63,7 @@ DeclareInfoClass( "InfoANUPQ" );
 SetInfoLevel( InfoANUPQ, 1 );
 
 #############################################################################
-####
+##
 ##  Print a banner . . . . . .  using InfoWarning (so a user can turn it off)
 ##
 Info(InfoWarning,1,"  Loading the ANUPQ (ANU p-Quotient) share package");
@@ -75,5 +74,12 @@ Info(InfoWarning,1,"              ANUPQ package version: ",
                                   PACKAGES_VERSIONS.anupq);
 Info(InfoWarning,1,"");
 Info(InfoWarning,1,"              For help, type: ?ANUPQ");
+
+#############################################################################
+##
+##  Ensure no zombie `pq' processes from interactive (`PqStart') sessions are 
+##  left lying around when user quits GAP.
+##
+InstallAtExit( PqQuitAll );
 
 #E  anupqhead.g . . . . . . . . . . . . . . . . . . . . . . . . . . ends here 
