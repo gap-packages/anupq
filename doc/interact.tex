@@ -313,7 +313,7 @@ argument  to  `PqStart'  to  start  the  interactive   {\ANUPQ}   process
 
 Taking        our         earlier         non-interactive         example
 (see~"EpimorphismPqStandardPresentation")   we   again   illustrate   how
-something thta required two separate calls to the `pq' binary can now  be
+something that required two separate calls to the `pq' binary can now  be
 achieved with a dialogue with just one `pq' process.
 
 \beginexample
@@ -544,6 +544,27 @@ three generators, e.g. `"x3*x2*x1"'.
 *Note:* For those familiar with the  `pq'  binary,  `PqCollect'  performs
 option 1 of the Advanced $p$-Quotient menu.
 
+\>PqSolveEquation( <i>, <a>, <b> ) F
+\>PqSolveEquation( <a>, <b> ) F
+
+for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+binary to solve $<a> * <x> = <b>$ for <x>. 
+
+*Note:* 
+For those familiar  with  the  `pq'  binary,  `PqSolveEquation'  performs
+option 2 of the Advanced $p$-Quotient menu.
+
+\>PqCommutator( <i>, <words>, <pow> ) F
+\>PqCommutator( <words>, <pow> ) F
+
+for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+binary to compute the left norm commutator of the list <words>  of  words
+in the generators raised to the integer power <pow>.
+
+*Note:*
+For those familiar with the `pq' binary, `PqCommutator' performs option 3
+of the Advanced $p$-Quotient menu.
+
 \>PqAPQDisplayPresentation( <i> ) F
 \>PqAPQDisplayPresentation() F
 
@@ -565,6 +586,16 @@ menu.
 
 *Note:* For those familiar with  the  `pq'  binary,  `PqAPQSetPrintLevel'
 performs option 5 of the Advanced $p$-Quotient menu.
+
+\>PqSetupTablesForNextClass( <i> ) F
+\>PqSetupTablesForNextClass() F
+
+for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+binary to set up tables for the next class.
+
+*Note:* 
+For those familiar  with  the  `pq'  binary,  `PqSetupTablesForNextClass'
+performs option 6 of the Advanced $p$-Quotient menu.
 
 \>PqSupplyAutomorphisms( <i>, <mlist> ) F
 \>PqSupplyAutomorphisms( <mlist> ) F
