@@ -48,6 +48,7 @@ PqPCover( H : Prime := 5, ClassBound := 5, Metabelian,
 F := FreeGroup("a", "b");
 rels := [ "a^25", "[b, a, a]", "b^5" ];
 #alt: do
-#procId4 := PqStart( H );
-#alt: sub <procId4> for <H>
-PqPCover( F : Prime := 5, ClassBound := 5, Metabelian, Relators := rels);
+#procId4 := PqStart( F );
+#alt: sub <procId4> for <F>
+PqPCover( F : Prime := 5, ClassBound := 5, Metabelian, 
+              Relators := rels);

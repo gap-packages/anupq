@@ -16,7 +16,11 @@ Pq( G : Prime := 2, ClassBound := 3 );
 
 ## Now let's get a different p-quotient of the same group
 #alt: sub <procId2> for <G>
-Pq( G : Prime := 2, ClassBound := 3, Exponent := 4);
+Pq( G : Prime := 2, ClassBound := 3,
+#alt: do
+#              RedoPcp,
+              Exponent := 4);
+
 
 ## Now we'll get a p-quotient of another fp group
 ## which we will redo using the `Relators' option
@@ -36,12 +40,16 @@ rels := [ "a^25", "[b, a, a]", "b^5" ];
 R := PqGAPRelators(F, rels);
 H := F / R;
 #alt: sub <procId3> for <H>
-Pq( H : Prime := 5, ClassBound := 5, Metabelian, Relators := rels);
+Pq( H : Prime := 5, ClassBound := 5, Metabelian, 
+#alt: do
+#              RedoPcp,
+              Relators := rels);
+
 
 ## Above we could have just passed `F' (rather than `H'):
 F := FreeGroup("a", "b");
 rels := [ "a^25", "[b, a, a]", "b^5" ];
 #alt: do
-#procId4 := PqStart( H );
-#alt: sub <procId4> for <H>
+#procId4 := PqStart( F );
+#alt: sub <procId4> for <F>
 Pq( F : Prime := 5, ClassBound := 5, Metabelian, Relators := rels);
