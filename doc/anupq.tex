@@ -371,7 +371,7 @@ gap> Spc := PcGroupFpGroup( S );
 gap> 
 gap> H := F / [ a^625, Comm(Comm(Comm(Comm(b, a), a), a), a)/Comm(b, a)^5,
 >               Comm(Comm(b, a), b), b^625 ];;                     
-gap> StandardPresentation( H, 5 : ClassBound := 15, Metabelian );
+gap> StandardPresentation( H : Prime := 5, ClassBound := 15, Metabelian );
 <fp group on the generators [ f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, 
   f12, f13, f14, f15, f16, f17, f18, f19, f20 ]>
 gap> 
@@ -456,7 +456,8 @@ gap> phi!.Source; # This is the group Q (GAP uses F1, ... for gen'r symbols)
 <fp group on the generators [ F1, F2, F3, F4, F5, F6 ]>
 gap> phi!.Range;  # This is the group G (GAP uses f1, ... for gen'r symbols)
 <fp group on the generators [ f1, f2, f3, f4, f5, f6 ]>
-gap> AssignGeneratorVariables(G); # so f1, ... are now variables
+gap> AssignGeneratorVariables(G);
+#I  Assigned the global variables [ f1, f2, f3, f4, f5, f6 ]
 gap> # Just to see that the images of [F1, ..., F6] do generate G
 gap> Group([ f1*f2^2*f3, f1*f2*f3*f4*f5^2*f6^2, f3^2, f4, f5, f6 ]) = G;
 true
@@ -464,7 +465,6 @@ gap> Size( Image(phi) );
 729
 \endexample
 
-\goodbreak%
 Typing: `PqExample( "EpimorphismStandardPresentation" );' runs the  above
 example in {\GAP} (see~"PqExample"). Note that `AssignGeneratorVariables'
 (see~"ref:AssignGeneratorVariables")  has  only  been   available   since

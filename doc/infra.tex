@@ -341,12 +341,14 @@ rather than attempting to repair the problem and  typing  `return;'  then
 the options of that function are *not* cleared  from  `OptionsStack'.  In
 such cases, the user will generally want to:
 
-\begintt
+\beginexample
 gap> ResetOptionsStack();
-\endtt
+#I  Options stack is already empty
+\endexample
 
 (see Chapter~"ref:ResetOptionsStack"  in  the  {\GAP}  Reference  Manual)
-which recursively calls `PopOptions()' until `OptionsStack' is empty.
+which recursively calls `PopOptions()' until `OptionsStack' is empty, or
+as in the above case warns you that the `OptionsStack' is already empty.
 
 Nevertheless, a function, that is passed options after  the  colon,  will
 also see any global options or any options passed down  recursively  from
@@ -373,6 +375,7 @@ mis-spelled options. Here is an example using the  function  `Pq'  (first
 described in Chapter~"Non-interactive ANUPQ functions"):
 
 \begintt
+gap> SetInfoLevel(InfoANUPQ, 1);        # Set InfoANUPQ to default level
 gap> ANUPQWarnOfOtherOptions := true;;
 gap> # The following makes entry into break loops very ``quiet'' ...
 gap> OnBreak := function() Where(0); end;;
@@ -382,7 +385,7 @@ gap> Pq( F : Prime := 2, Classbound := 1 );
 #I  ANUPQ Warning: Options: [ "Classbound" ] ignored
 #I  (invalid for generic function: `Pq').
 user interrupt at
-ctimelev := 2;
+moreOfline := ReadLine( iostream );
 Entering break read-eval-print loop ...
 you can 'quit;' to quit to outer loop, or
 you can 'return;' to continue
@@ -405,9 +408,9 @@ gap> OptionsStack;
 The option `PqEpiOrPCover' is a behind-the-scenes option  that  need  not
 concern the user. We need to remove these options; hence we type:
 
-\beginexample
+\begintt
 gap> ResetOptionsStack();
-\endexample
+\endtt
 
 Above, we altered `OnBreak' (see~"ref:OnBreak" in the  Reference  manual)
 to reduce the back-tracing on entry into a break  loop.  We  now  restore
@@ -433,7 +436,7 @@ above. The function `Pq' recognises the option `OutputLevel' (see~"option
 OutputLevel"); if this option is set to at  least  1,  the  `pq'  program
 provides information on each class quotient as it is generated:
 
-\beginexample
+\begintt
 gap> ANUPQWarnOfOtherOptions := false;; # Set back to normal
 gap> F := FreeGroup( "a", "b" );
 gap> Pq( F : Prime := 2, Classbound := 1, OutputLevel := 1 ); 
@@ -451,7 +454,7 @@ gap> Pq( F : Prime := 2, Classbound := 1, OutputLevel := 1 );
 #I  Group: <grp> to lower exponent-2 central class 11 has order 2^932
 #I  Group: <grp> to lower exponent-2 central class 12 has order 2^1679
 [... output truncated ...]
-\endexample
+\endtt
 
 After seeing the information for the class 2 quotient we may have got the
 idea that the  `Classbound'  option  was  not  recognised  and  may  have
@@ -465,7 +468,7 @@ If you have some familiarity with ``keyword'' command input to  the  `pq'
 binary, then setting the level  of  `InfoANUPQ'  to  4  would  also  have
 indicated a problem:
 
-\beginexample
+\begintt
 gap> ResetOptionsStack(); # Necessary, if a break-loop was entered above
 gap> SetInfoLevel(InfoANUPQ, 4);
 gap> Pq( F : Prime := 2, Classbound := 1 );                  
@@ -479,7 +482,7 @@ gap> Pq( F : Prime := 2, Classbound := 1 );
 #I  ToPQ> generators { a,b }
 #I  ToPQ> relators   {  };
 [... output truncated ...]
-\endexample
+\endtt
 
 Here the line ```\#I  ToPQ> class 63''' indicates that a directive to set
 the classbound to 63 was sent to the `pq' program.
