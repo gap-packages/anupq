@@ -10,6 +10,9 @@
 #Y  Copyright 1992-1994,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.21  2001/08/30 01:34:24  gap
+#H  Found a nice level of output to give at `OutputLevel := 1' for `Pq'. - GG
+#H
 #H  Revision 1.20  2001/08/30 01:09:54  gap
 #H  - Make better use of InfoANUPQ, levels now mean:
 #H    1:non-(timing,memory usage) output from `pq' and general info.
@@ -447,9 +450,9 @@ InstallGlobalFunction( PQ_EPIMORPHISM, function( args )
         return datarec.pQepi;
     fi;
 
-    PushOptions( rec(nonuser := true) );
     PQ_PC_PRESENTATION(datarec, "pQ");
 
+    PushOptions( rec(nonuser := true) );
     PQ_WRITE_PC_PRESENTATION(datarec, datarec.outfname);
     
     if datarec.calltype = "non-interactive" then
