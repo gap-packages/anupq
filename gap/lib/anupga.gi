@@ -14,6 +14,17 @@
 #Y  Copyright 1992-1994,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.11  2001/07/19 21:13:20  gap
+#H  Renamed `PqSPSupplyAutomorphisms' to `PqSupplyAutomorphisms' and
+#H          `PqSPExtendAutomorphisms' to `PqExtendAutomorphisms'
+#H  (they correspond to items of the Advanced p-Quotient menu not the
+#H  Standard Presentation menu). Deleted the `PQ_SUPPLY_AND_EXTEND_AUTOMORPHISMS'
+#H  synonym of `PQ_SUPPLY_OR_EXTEND_AUTOMORPHISMS'. Generalised the NC versions
+#H  doing items 1 to 4 of the pG menu, so that they did the ApG menu too. One
+#H  common command `PQ_DISPLAY_PRESENTATION' now does item 5 of each menu and
+#H  temporarily alters the `InfoANUPQ' level if necessary to ensure there is a
+#H  display. - GG
+#H
 #H  Revision 1.10  2001/07/05 21:14:26  gap
 #H  Bug fixes. ANUPQ_ARG_CHK now checks required options are set ... all
 #H  functions that call it have been adjusted. The option `StepSize' had
@@ -490,7 +501,7 @@ InstallGlobalFunction( PQ_DESCENDANTS, function( args )
                         : Prime      := PrimePGroup(datarec.group),
                           ClassBound := PClassPGroup(datarec.group) );
     PQ_P_COVER( datarec );
-    PQ_PG_SUPPLY_AUTS( datarec );
+    PQ_PG_SUPPLY_AUTS( datarec, "pG" );
     PQ_PG_CONSTRUCT_DESCENDANTS( datarec );
 
     if datarec.calltype = "non-interactive" then

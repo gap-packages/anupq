@@ -248,16 +248,18 @@ end );
 
 #############################################################################
 ##
-#F  PQ_DISPLAY_PC_PRESENTATION( <datarec> ) . . . . . . . . p-Q menu option 4
+#F  PQ_DISPLAY_PRESENTATION( <datarec>, <menu> ) . . . . .  any menu option 4
 ##
 ##  directs the  `pq'  binary  to  display  the  pc  presentation  previously
-##  computed  (by   `PQ_PC_PRESENTATION')   or   restored   from   file   (by
-##  `PQ_RESTORE_PC_PRESENTATION') using option 4  of  the  main  $p$-Quotient
-##  menu.
+##  computed or restored from file using option 4 of <menu> menu.
 ##
-InstallGlobalFunction( PQ_DISPLAY_PC_PRESENTATION, function( datarec )
-  PQ_MENU(datarec, "pQ");
-  ToPQ(datarec, [ "4  #display pc presentation from file" ]);
+InstallGlobalFunction( PQ_DISPLAY_PRESENTATION, function( datarec, menu )
+local infolev;
+  PQ_MENU(datarec, menu);
+  infolev := InfoLevel(InfoANUPQ);
+  SetInfoLevel(InfoANUPQ, Maximum(2, infolev));
+  ToPQ(datarec, [ "4  #display presentation" ]);
+  SetInfoLevel(InfoANUPQ, infolev);
 end );
 
 #############################################################################
@@ -282,7 +284,7 @@ InstallGlobalFunction( PqDisplayPcPresentation, function( arg )
 local datarec;
   ANUPQ_IOINDEX_ARG_CHK(arg);
   datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  PQ_DISPLAY_PC_PRESENTATION( datarec );
+  PQ_DISPLAY_PRESENTATION( datarec, "pQ" );
 end );
 
 #############################################################################
@@ -525,33 +527,23 @@ end );
 
 #############################################################################
 ##
-#F  PQ_DISPLAY_PRESENTATION( <datarec>, <lev> ) . . . . . A p-Q menu option 4
-##
-##  directs the `pq' binary to display the presentation of  the  $p$-quotient
-##  using option 4 of the Advanced $p$-Quotient menu.
-##
-InstallGlobalFunction( PQ_DISPLAY_PRESENTATION, function( datarec )
-  PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
-  ToPQ(datarec, [ "4  #display presentation" ]);
-end );
-
-#############################################################################
-##
-#F  PqDisplayPresentation( <i>, <lev> ) . user version of A p-Q menu option 4
-#F  PqDisplayPresentation( <lev> )
+#F  PqAPQDisplayPresentation( <i> ) . . . user version of A p-Q menu option 4
+#F  PqAPQDisplayPresentation()
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
-##  binary to display the presentation of the $p$-quotient.
+##  binary to display the presentation of the $p$-quotient. To set the amount
+##  of  information  this   command   displays   you   may   wish   to   call
+##  `PqAPQSetPrintLevel' first (see~"PqAPQSetPrintLevel").
 ##
 ##  *Note:* 
-##  For those familiar with the `pq' binary, `PqDisplayPresentation' performs
-##  option 4 of the Advanced $p$-Quotient menu.
+##  For those  familiar  with  the  `pq'  binary,  `PqAPQDisplayPresentation'
+##  performs option 4 of the Advanced $p$-Quotient menu.
 ##
-InstallGlobalFunction( PqDisplayPresentation, function( arg )
+InstallGlobalFunction( PqAPQDisplayPresentation, function( arg )
 local datarec;
   ANUPQ_IOINDEX_ARG_CHK(arg);
   datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  PQ_DISPLAY_PRESENTATION( datarec );
+  PQ_DISPLAY_PRESENTATION( datarec, "ApQ" );
 end );
 
 #############################################################################
@@ -1022,8 +1014,8 @@ end );
 
 #############################################################################
 ##
-#F  PqSPSupplyAutomorphisms(<i>, <mlist>) . supply auts via A p-Q menu opt 18
-#F  PqSPSupplyAutomorphisms( <mlist> )
+#F  PqSupplyAutomorphisms(<i>, <mlist>) . . supply auts via A p-Q menu opt 18
+#F  PqSupplyAutomorphisms( <mlist> )
 ##
 ##  for the <i>th or  default  interactive  {\ANUPQ}  process,  supplies  the
 ##  automorphism  data  provided  by  the  list  <mlist>  of  matrices   with
@@ -1033,10 +1025,10 @@ end );
 ##  {\ANUPQ} process.
 ##
 ##  *Note:*
-##  For those familiar with the `pq' binary,  `PqSPSupplyAutomorphisms'  uses
+##  For those familiar with the  `pq'  binary,  `PqSupplyAutomorphisms'  uses
 ##  option 18 of the Advanced $p$-Quotient menu.
 ##
-InstallGlobalFunction( PqSPSupplyAutomorphisms, function( arg )
+InstallGlobalFunction( PqSupplyAutomorphisms, function( arg )
 local datarec, mlist, rank, nauts, nexpts;
   if IsEmpty(arg) or 2 < Length(arg) then
     Error("expected 1 or 2 arguments\n");
@@ -1047,7 +1039,7 @@ local datarec, mlist, rank, nauts, nexpts;
   datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
   if IsBound(datarec.hasAuts) and datarec.hasAuts then
     Error("huh! already have automorphisms.\n",
-          "Perhaps you wanted to use `PqSPExtendAutomorphisms'\n");
+          "Perhaps you wanted to use `PqExtendAutomorphisms'\n");
   fi;
   if not( IsList(mlist) and ForAll(mlist, IsMatrix) and
           ForAll(Flat(mlist), i -> IsInt(i) and i >= 0) ) then
@@ -1068,23 +1060,23 @@ end );
 
 #############################################################################
 ##
-#F  PqSPExtendAutomorphisms( <i> ) . . . .  extend auts via A p-Q menu opt 18
-#F  PqSPExtendAutomorphisms()
+#F  PqExtendAutomorphisms( <i> ) . . . . .  extend auts via A p-Q menu opt 18
+#F  PqExtendAutomorphisms()
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, inputs data to the
 ##  `pq' binary to extend previously-supplied automorphisms.
 ##
 ##  *Note:*
-##  For those familiar with the `pq' binary,  `PqSPExtendAutomorphisms'  uses
+##  For those familiar with the  `pq'  binary,  `PqExtendAutomorphisms'  uses
 ##  option 18 of the Advanced $p$-Quotient menu.
 ##
-InstallGlobalFunction( PqSPExtendAutomorphisms, function( arg )
+InstallGlobalFunction( PqExtendAutomorphisms, function( arg )
 local datarec;
   ANUPQ_IOINDEX_ARG_CHK(arg);
   datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
   if not(IsBound(datarec.hasAuts) and datarec.hasAuts) then
     Error("huh! don't have any automorphisms to extend.\n",
-          "Perhaps you wanted to use `PqSPSupplyAutomorphisms'\n");
+          "Perhaps you wanted to use `PqSupplyAutomorphisms'\n");
   fi;
   PQ_SUPPLY_OR_EXTEND_AUTOMORPHISMS( datarec );
 end );
@@ -1552,31 +1544,24 @@ end );
 
 #############################################################################
 ##
-#F  PQ_SP_DISPLAY_PRESENTATION( <datarec> ) . . . . . . . .  SP menu option 4
-##
-##  inputs data to the `pq' binary for option 4 of the
-##  Standard Presentation menu.
-##
-InstallGlobalFunction( PQ_SP_DISPLAY_PRESENTATION, function( datarec )
-end );
-
-#############################################################################
-##
 #F  PqSPDisplayPresentation( <i> ) . . . . . user version of SP menu option 4
 #F  PqSPDisplayPresentation()
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, inputs data
-##  to the `pq' binary
+##  for the <i>th or default interactive {\ANUPQ} process, inputs data to the
+##  `pq' binary for  the  <i>th  or  default  interactive  {\ANUPQ}  process,
+##  directs the `pq' binary to  display  the  standard  presentation  of  the
+##  $p$-quotient. To set the amount of information this command displays  you
+##  may wish to call `PqSPSetPrintLevel' first (see~"PqSPSetPrintLevel").
 ##
-##  *Note:* For those  familiar  with  the  `pq'  binary, 
-##  `PqSPDisplayPresentation' performs option 4 of the
-##  Standard Presentation menu.
+##  *Note:*
+##  For  those  familiar  with  the  `pq'  binary,  `PqSPDisplayPresentation'
+##  performs option 4 of the Standard Presentation menu.
 ##
 InstallGlobalFunction( PqSPDisplayPresentation, function( arg )
 local datarec;
   ANUPQ_IOINDEX_ARG_CHK(arg);
   datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  PQ_SP_DISPLAY_PRESENTATION( datarec );
+  PQ_DISPLAY_PRESENTATION( datarec, "SP" );
 end );
 
 #############################################################################
@@ -1661,14 +1646,14 @@ end );
 
 #############################################################################
 ##
-#F  PQ_PG_SUPPLY_AUTS( <datarec> ) . . . . . . . . . . . . . pG menu option 1
+#F  PQ_PG_SUPPLY_AUTS( <datarec>, <menu> ) . . . . .  p-G/A p-G menu option 1
 ##
 ##  defines the automorphism group of `<datarec>.group', using  option  1  of
-##  the main $p$-Group Generation menu.
+##  the main or Advanced $p$-Group Generation menu.
 ##
-InstallGlobalFunction( PQ_PG_SUPPLY_AUTS, function( datarec )
+InstallGlobalFunction( PQ_PG_SUPPLY_AUTS, function( datarec, menu )
 local gens;
-  PQ_MENU(datarec, "pG");
+  PQ_MENU(datarec, menu);
   ToPQk(datarec, [ "1  #supply automorphism data" ]);
   PQ_AUT_INPUT( datarec, datarec.group );
 end );
@@ -1689,17 +1674,19 @@ InstallGlobalFunction( PqPGSupplyAutomorphisms, function( arg )
 local datarec;
   ANUPQ_IOINDEX_ARG_CHK(arg);
   datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  PQ_PG_SUPPLY_AUTS( datarec );
+  PQ_PG_SUPPLY_AUTS( datarec, "pG" );
 end );
 
 #############################################################################
 ##
-#F  PQ_PG_EXTEND_AUTOMORPHISMS( <datarec> ) . . . . . . . . p-G menu option 2
+#F  PQ_PG_EXTEND_AUTOMORPHISMS( <datarec>, <menu> ) . p-G/A p-G menu option 2
 ##
-##  inputs data to the `pq' binary for option 2 of the
-##  main $p$-Group Generation menu.
+##  inputs data to the `pq' binary for option  2  of  the  main  or  Advanced
+##  $p$-Group Generation menu.
 ##
-InstallGlobalFunction( PQ_PG_EXTEND_AUTOMORPHISMS, function( datarec )
+InstallGlobalFunction( PQ_PG_EXTEND_AUTOMORPHISMS, function( datarec, menu )
+  PQ_MENU(datarec, menu);
+  ToPQ(datarec, [ "2  #extend automorphisms" ]);
 end );
 
 #############################################################################
@@ -1707,76 +1694,94 @@ end );
 #F  PqPGExtendAutomorphisms( <i> ) . . . .  user version of p-G menu option 2
 #F  PqPGExtendAutomorphisms()
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, inputs data
-##  to the `pq' binary
+##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+##  binary to compute the extensions of the automorphisms defined by  calling
+##  `PqPGSupplyAutomorphisms' (see~"PqPGSupplyAutomorphisms"). You  may  wish
+##  to set the `InfoLevel' of `InfoANUPQ' to 2 (or more) in order to see  the
+##  output from the `pq' (see~"InfoANUPQ").
 ##
-##  *Note:* For those  familiar  with  the  `pq'  binary, 
-##  `PqPGExtendAutomorphisms' performs option 2 of the
-##  main $p$-Group Generation menu.
+##  *Note:*
+##  For  those  familiar  with  the  `pq'  binary,  `PqPGExtendAutomorphisms'
+##  performs option 2 of the main $p$-Group Generation menu.
 ##
 InstallGlobalFunction( PqPGExtendAutomorphisms, function( arg )
 local datarec;
   ANUPQ_IOINDEX_ARG_CHK(arg);
   datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  PQ_PG_EXTEND_AUTOMORPHISMS( datarec );
+  PQ_PG_EXTEND_AUTOMORPHISMS( datarec, "pG" );
 end );
 
 #############################################################################
 ##
-#F  PQ_PG_RESTORE_GROUP_FROM_FILE( <datarec> ) . . . . . .  p-G menu option 3
+#F  PQ_PG_RESTORE_GROUP(<datarec>, <menu>, <cls>, <n>) . p-G/A p-G menu opt 3
 ##
-##  inputs data to the `pq' binary for option 3 of the
-##  main $p$-Group Generation menu.
+##  inputs data to the `pq' binary to restore group <n> of  class  <cls>  for
+##  option 3 of the main or Advanced $p$-Group Generation menu.
 ##
-InstallGlobalFunction( PQ_PG_RESTORE_GROUP_FROM_FILE, function( datarec )
+InstallGlobalFunction( PQ_PG_RESTORE_GROUP, function( datarec, menu, cls, n )
+  PQ_MENU(datarec, menu);
+  ToPQ(datarec, [ "3  #restore group from file" ]);
+  ToPQ(datarec, [ "G_class", cls, "  #filename" ]);
+  ToPQ(datarec, [ n,              "  #no. of group" ]);
 end );
 
 #############################################################################
 ##
-#F  PqPGRestoreGroupFromFile( <i> ) . . . . user version of p-G menu option 3
-#F  PqPGRestoreGroupFromFile()
+#F  PQ_PG_RESTORE_GROUP_ARG_CHK( <arg> ) .  check args for restore grp cmd ok
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, inputs data
-##  to the `pq' binary
+##  checks    the     arguments     for     `PqPGRestoreGroupFromFile'     or
+##  `PqPGARestoreGroupFromFile' are ok and returns the appropriate <datarec>.
 ##
-##  *Note:* For those  familiar  with  the  `pq'  binary, 
-##  `PqPGRestoreGroupFromFile' performs option 3 of the
-##  main $p$-Group Generation menu.
+InstallGlobalFunction( PQ_PG_RESTORE_GROUP_ARG_CHK, function( args )
+  if not(Length(args) in [2, 3]) or not(ForAll(args, IsPosInt)) then
+    #@should also check <cls> and <n> arg are feasible@
+    Error("expected 2 or 3 positive integer arguments\n");
+  fi;
+  ANUPQ_IOINDEX_ARG_CHK(args);
+  return ANUPQData.io[ ANUPQ_IOINDEX(args) ];
+end );
+
+#############################################################################
+##
+#F  PqPGRestoreGroupFromFile( <i>, <cls>, <n> ) .  user ver of p-G menu opt 3
+#F  PqPGRestoreGroupFromFile( <cls>, <n> )
+##
+##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+##  binary to restore group <n> of class <cls> from a temporary  file,  where
+##  <cls> and <n> are positive integers.
+##
+##  *Note:*
+##  For those  familiar  with  the  `pq'  binary,  `PqPGRestoreGroupFromFile'
+##  performs option 3 of the main $p$-Group Generation menu.
 ##
 InstallGlobalFunction( PqPGRestoreGroupFromFile, function( arg )
-local datarec;
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  PQ_PG_RESTORE_GROUP_FROM_FILE( datarec );
+local len, datarec, cls, n;
+  datarec := PQ_PG_RESTORE_GROUP_ARG_CHK(arg);
+  len := Length(arg);
+  PQ_PG_RESTORE_GROUP( datarec, "pG", arg[len - 1], arg[len] );
 end );
 
 #############################################################################
 ##
-#F  PQ_PG_DISPLAY_GROUP_PRESENTATION( <datarec> ) . . . . . p-G menu option 4
+#F  PqPGDisplayPresentation( <i> ) . . . .  user version of p-G menu option 4
+#F  PqPGDisplayPresentation()
 ##
-##  inputs data to the `pq' binary for option 4 of the
-##  main $p$-Group Generation menu.
+##  for the <i>th or default interactive {\ANUPQ} process, inputs data to the
+##  `pq' binary for the <i>th or default interactive {\ANUPQ} process, inputs
+##  data to the `pq' binary for the <i>th  or  default  interactive  {\ANUPQ}
+##  process, directs the `pq' binary to display the presentation of  a  group
+##  previously         selected         by         `PqPGRestoreGroupFromFile'
+##  (see~"PqPGRestoreGroupFromFile").
 ##
-InstallGlobalFunction( PQ_PG_DISPLAY_GROUP_PRESENTATION, function( datarec )
-end );
-
-#############################################################################
+##  *Note:*
+##  For  those  familiar  with  the  `pq'  binary,  `PqPGDisplayPresentation'
+##  performs option 4 of the main $p$-Group Generation menu.
 ##
-#F  PqPGDisplayGroupPresentation( <i> ) . . user version of p-G menu option 4
-#F  PqPGDisplayGroupPresentation()
-##
-##  for the <i>th or default interactive {\ANUPQ} process, inputs data
-##  to the `pq' binary
-##
-##  *Note:* For those  familiar  with  the  `pq'  binary, 
-##  `PqPGDisplayGroupPresentation' performs option 4 of the
-##  main $p$-Group Generation menu.
-##
-InstallGlobalFunction( PqPGDisplayGroupPresentation, function( arg )
+InstallGlobalFunction( PqPGDisplayPresentation, function( arg )
 local datarec;
   ANUPQ_IOINDEX_ARG_CHK(arg);
   datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  PQ_PG_DISPLAY_GROUP_PRESENTATION( datarec );
+  PQ_DISPLAY_PRESENTATION( datarec, "pG" );
 end );
 
 #############################################################################
@@ -1904,41 +1909,21 @@ end );
 
 #############################################################################
 ##
-#F  PQ_APG_SUPPLY_AUTOMORPHISMS( <datarec> ) . . . . . .  A p-G menu option 1
-##
-##  inputs data to the `pq' binary for option 1 of the
-##  Advanced $p$-Group Generation menu.
-##
-InstallGlobalFunction( PQ_APG_SUPPLY_AUTOMORPHISMS, function( datarec )
-end );
-
-#############################################################################
-##
 #F  PqAPGSupplyAutomorphisms( <i> ) . . . user version of A p-G menu option 1
 #F  PqAPGSupplyAutomorphisms()
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, inputs data
-##  to the `pq' binary
+##  for the <i>th or default interactive {\ANUPQ} process, supplies the  `pq'
+##  binary with the automorphism group  data  needed  for  `<datarec>.group'.
 ##
-##  *Note:* For those  familiar  with  the  `pq'  binary, 
-##  `PqAPGSupplyAutomorphisms' performs option 1 of the
-##  Advanced $p$-Group Generation menu.
+##  *Note:*
+##  For those  familiar  with  the  `pq'  binary,  `PqAPGSupplyAutomorphisms'
+##  performs option 1 of the Advanced $p$-Group Generation menu.
 ##
-InstallGlobalFunction( PqAPGSupplyAutomorphisms, function( arg )
+InstallGlobalFunction( PqPGSupplyAutomorphisms, function( arg )
 local datarec;
   ANUPQ_IOINDEX_ARG_CHK(arg);
   datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  PQ_APG_SUPPLY_AUTOMORPHISMS( datarec );
-end );
-
-#############################################################################
-##
-#F  PQ_APG_EXTEND_AUTOMORPHISMS( <datarec> ) . . . . . .  A p-G menu option 2
-##
-##  inputs data to the `pq' binary for option 2 of the
-##  Advanced $p$-Group Generation menu.
-##
-InstallGlobalFunction( PQ_APG_EXTEND_AUTOMORPHISMS, function( datarec )
+  PQ_PG_SUPPLY_AUTS( datarec, "ApG" );
 end );
 
 #############################################################################
@@ -1946,76 +1931,64 @@ end );
 #F  PqAPGExtendAutomorphisms( <i> ) . . . user version of A p-G menu option 2
 #F  PqAPGExtendAutomorphisms()
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, inputs data
-##  to the `pq' binary
+##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+##  binary to compute the extensions of the automorphisms defined by  calling
+##  `PqAPGSupplyAutomorphisms' (see~"PqAPGSupplyAutomorphisms"). You may wish
+##  to set the `InfoLevel' of `InfoANUPQ' to 2 (or more) in order to see  the
+##  output from the `pq' (see~"InfoANUPQ").
 ##
-##  *Note:* For those  familiar  with  the  `pq'  binary, 
-##  `PqAPGExtendAutomorphisms' performs option 2 of the
-##  Advanced $p$-Group Generation menu.
+##  *Note:*
+##  For  those  familiar  with  the  `pq'  binary,  `PqAPGExtendAutomorphisms'
+##  performs option 2 of the Advanced $p$-Group Generation menu.
 ##
 InstallGlobalFunction( PqAPGExtendAutomorphisms, function( arg )
 local datarec;
   ANUPQ_IOINDEX_ARG_CHK(arg);
   datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  PQ_APG_EXTEND_AUTOMORPHISMS( datarec );
+  PQ_PG_EXTEND_AUTOMORPHISMS( datarec, "ApG" );
 end );
 
 #############################################################################
 ##
-#F  PQ_APG_RESTORE_GROUP_FROM_FILE( <datarec> ) . . . . . A p-G menu option 3
+#F  PqAPGRestoreGroupFromFile(<i>, <cls>, <n>) . user ver of A p-G menu opt 3
+#F  PqAPGRestoreGroupFromFile( <cls>, <n> )
 ##
-##  inputs data to the `pq' binary for option 3 of the
-##  Advanced $p$-Group Generation menu.
+##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+##  binary to restore group <n> of class <cls> from a temporary  file,  where
+##  <cls> and <n> are positive integers.
 ##
-InstallGlobalFunction( PQ_APG_RESTORE_GROUP_FROM_FILE, function( datarec )
-end );
-
-#############################################################################
-##
-#F  PqAPGRestoreGroupFromFile( <i> ) . .  user version of A p-G menu option 3
-#F  PqAPGRestoreGroupFromFile()
-##
-##  for the <i>th or default interactive {\ANUPQ} process, inputs data
-##  to the `pq' binary
-##
-##  *Note:* For those  familiar  with  the  `pq'  binary, 
-##  `PqAPGRestoreGroupFromFile' performs option 3 of the
-##  Advanced $p$-Group Generation menu.
+##  *Note:*
+##  For those familiar  with  the  `pq'  binary,  `PqAPGRestoreGroupFromFile'
+##  performs option 3 of the Advanced $p$-Group Generation menu.
 ##
 InstallGlobalFunction( PqAPGRestoreGroupFromFile, function( arg )
-local datarec;
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  PQ_APG_RESTORE_GROUP_FROM_FILE( datarec );
+local len, datarec, cls, n;
+  datarec := PQ_PG_RESTORE_GROUP_ARG_CHK(arg);
+  len := Length(arg);
+  PQ_PG_RESTORE_GROUP( datarec, "ApG", arg[len - 1], arg[len] );
 end );
 
 #############################################################################
 ##
-#F  PQ_APG_DISPLAY_GROUP_PRESENTATION( <datarec> ) . . .  A p-G menu option 4
+#F  PqAPGDisplayPresentation( <i> ) . . . user version of A p-G menu option 4
+#F  PqAPGDisplayPresentation()
 ##
-##  inputs data to the `pq' binary for option 4 of the
-##  Advanced $p$-Group Generation menu.
+##  for the <i>th or default interactive {\ANUPQ} process, inputs data to the
+##  `pq' binary for the <i>th or default interactive {\ANUPQ} process, inputs
+##  data to the `pq' binary for the <i>th  or  default  interactive  {\ANUPQ}
+##  process, directs the `pq' binary to display the presentation of  a  group
+##  previously        selected         by         `PqAPGRestoreGroupFromFile'
+##  (see~"PqAPGRestoreGroupFromFile").
 ##
-InstallGlobalFunction( PQ_APG_DISPLAY_GROUP_PRESENTATION, function( datarec )
-end );
-
-#############################################################################
+##  *Note:*
+##  For those  familiar  with  the  `pq'  binary,  `PqAPGDisplayPresentation'
+##  performs option 4 of the Advanced $p$-Group Generation menu.
 ##
-#F  PqAPGDisplayGroupPresentation( <i> )  user version of A p-G menu option 4
-#F  PqAPGDisplayGroupPresentation()
-##
-##  for the <i>th or default interactive {\ANUPQ} process, inputs data
-##  to the `pq' binary
-##
-##  *Note:* For those  familiar  with  the  `pq'  binary, 
-##  `PqAPGDisplayGroupPresentation' performs option 4 of the
-##  Advanced $p$-Group Generation menu.
-##
-InstallGlobalFunction( PqAPGDisplayGroupPresentation, function( arg )
+InstallGlobalFunction( PqAPGDisplayPresentation, function( arg )
 local datarec;
   ANUPQ_IOINDEX_ARG_CHK(arg);
   datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  PQ_APG_DISPLAY_GROUP_PRESENTATION( datarec );
+  PQ_DISPLAY_PRESENTATION( datarec, "ApG" );
 end );
 
 #############################################################################

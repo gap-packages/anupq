@@ -60,9 +60,9 @@ DeclareGlobalFunction( "PqRestorePcPresentation" );
 
 #############################################################################
 ##
-#F  PQ_DISPLAY_PC_PRESENTATION( <datarec> ) . . . . . . . . p-Q menu option 4
+#F  PQ_DISPLAY_PRESENTATION( <datarec>, <menu> ) . . . . .  any menu option 4
 ##
-DeclareGlobalFunction( "PQ_DISPLAY_PC_PRESENTATION" );
+DeclareGlobalFunction( "PQ_DISPLAY_PRESENTATION" );
 
 #############################################################################
 ##
@@ -157,16 +157,10 @@ DeclareGlobalFunction( "PqCommutator" );
 
 #############################################################################
 ##
-#F PQ_DISPLAY_PRESENTATION( <datarec> ) . . . . . . . . . A p-Q menu option 4
+#F PqAPQDisplayPresentation( <i> ) . . .  user version of A p-Q menu option 4
+#F PqAPQDisplayPresentation()
 ##
-DeclareGlobalFunction( "PQ_DISPLAY_PRESENTATION" );
-
-#############################################################################
-##
-#F PqDisplayPresentation( <i> ) . . . . . user version of A p-Q menu option 4
-#F PqDisplayPresentation()
-##
-DeclareGlobalFunction( "PqDisplayPresentation" );
+DeclareGlobalFunction( "PqAPQDisplayPresentation" );
 
 #############################################################################
 ##
@@ -334,28 +328,22 @@ DeclareGlobalFunction( "PqEchelonise" );
 #############################################################################
 ##
 #F  PQ_SUPPLY_OR_EXTEND_AUTOMORPHISMS(<datarec>[,<mlist>])  A p-Q menu opt 18
-#F  PQ_SUPPLY_AND_EXTEND_AUTOMORPHISMS(<datarec>[,<mlist>])
-##
-##  The `OR' name accurately describes what this function does; but the `AND'
-##  name is added for backward compatibility.
 ##
 DeclareGlobalFunction( "PQ_SUPPLY_OR_EXTEND_AUTOMORPHISMS" );
-DeclareSynonym( "PQ_SUPPLY_AND_EXTEND_AUTOMORPHISMS",
-                PQ_SUPPLY_OR_EXTEND_AUTOMORPHISMS);
 
 #############################################################################
 ##
-#F  PqSPSupplyAutomorphisms(<i>, <mlist>) . supply auts via A p-Q menu opt 18
-#F  PqSPSupplyAutomorphisms( <mlist> )
+#F  PqSupplyAutomorphisms(<i>, <mlist>) . . supply auts via A p-Q menu opt 18
+#F  PqSupplyAutomorphisms( <mlist> )
 ##
-DeclareGlobalFunction( "PqSPSupplyAutomorphisms" );
+DeclareGlobalFunction( "PqSupplyAutomorphisms" );
 
 #############################################################################
 ##
-#F  PqSPExtendAutomorphisms( <i> ) . . . .  extend auts via A p-Q menu opt 18
-#F  PqSPExtendAutomorphisms()
+#F  PqExtendAutomorphisms( <i> ) . . . . .  extend auts via A p-Q menu opt 18
+#F  PqExtendAutomorphisms()
 ##
-DeclareGlobalFunction( "PqSPExtendAutomorphisms" );
+DeclareGlobalFunction( "PqExtendAutomorphisms" );
 
 #############################################################################
 ##
@@ -528,14 +516,8 @@ DeclareGlobalFunction( "PqSPSavePresentation" );
 
 #############################################################################
 ##
-#F PQ_SP_DISPLAY_PRESENTATION( <datarec> ) . . . . . . . . . SP menu option 4
-##
-DeclareGlobalFunction( "PQ_SP_DISPLAY_PRESENTATION" );
-
-#############################################################################
-##
-#F PqSPDisplayPresentation( <i> ) . . . . .  user version of SP menu option 4
-#F PqSPDisplayPresentation()
+#F  PqSPDisplayPresentation( <i> ) . . . . . user version of SP menu option 4
+#F  PqSPDisplayPresentation()
 ##
 DeclareGlobalFunction( "PqSPDisplayPresentation" );
 
@@ -543,6 +525,7 @@ DeclareGlobalFunction( "PqSPDisplayPresentation" );
 ##
 #F  PqSPSetPrintLevel( <i>, <lev> ) . . . .  user version of SP menu option 5
 #F  PqSPSetPrintLevel( <lev> )
+##
 DeclareGlobalFunction( "PqSPSetPrintLevel" );
 
 #############################################################################
@@ -573,7 +556,7 @@ DeclareGlobalFunction( "PqSPIsomorphism" );
 
 #############################################################################
 ##
-#F  PQ_PG_SUPPLY_AUTS( <datarec> ) . . . . . . . . . . . . . pG menu option 1
+#F  PQ_PG_SUPPLY_AUTS( <datarec>, <menu> ) . . . . .  p-G/A p-G menu option 1
 ##
 DeclareGlobalFunction( "PQ_PG_SUPPLY_AUTS" );
 
@@ -586,42 +569,42 @@ DeclareGlobalFunction( "PqPGSupplyAutomorphisms" );
 
 #############################################################################
 ##
-#F PQ_PG_EXTEND_AUTOMORPHISMS( <datarec> ) . . . . . . . .  p-G menu option 2
+#F  PQ_PG_EXTEND_AUTOMORPHISMS( <datarec>, <menu> ) . p-G/A p-G menu option 2
 ##
 DeclareGlobalFunction( "PQ_PG_EXTEND_AUTOMORPHISMS" );
 
 #############################################################################
 ##
-#F PqPGExtendAutomorphisms( <i> ) . . . . . user version of p-G menu option 2
-#F PqPGExtendAutomorphisms()
+#F  PqPGExtendAutomorphisms( <i> ) . . . .  user version of p-G menu option 2
+#F  PqPGExtendAutomorphisms()
 ##
 DeclareGlobalFunction( "PqPGExtendAutomorphisms" );
 
 #############################################################################
 ##
-#F PQ_PG_RESTORE_GROUP_FROM_FILE( <datarec> ) . . . . . . . p-G menu option 3
+#F  PQ_PG_RESTORE_GROUP(<datarec>, <menu>, <cls>, <n>) . p-G/A p-G menu opt 3
 ##
-DeclareGlobalFunction( "PQ_PG_RESTORE_GROUP_FROM_FILE" );
+DeclareGlobalFunction( "PQ_PG_RESTORE_GROUP" );
 
 #############################################################################
 ##
-#F PqPGRestoreGroupFromFile( <i> ) . . . .  user version of p-G menu option 3
-#F PqPGRestoreGroupFromFile()
+#F  PQ_PG_RESTORE_GROUP_ARG_CHK( <arg> ) .  check args for restore grp cmd ok
+##
+DeclareGlobalFunction( "PQ_PG_RESTORE_GROUP_ARG_CHK" );
+
+#############################################################################
+##
+#F  PqPGRestoreGroupFromFile( <i>, <cls>, <n> ) .  user ver of p-G menu opt 3
+#F  PqPGRestoreGroupFromFile( <cls>, <n> )
 ##
 DeclareGlobalFunction( "PqPGRestoreGroupFromFile" );
 
 #############################################################################
 ##
-#F PQ_PG_DISPLAY_GROUP_PRESENTATION( <datarec> ) . . . . .  p-G menu option 4
+#F  PqPGDisplayPresentation( <i> ) . . . .  user version of p-G menu option 4
+#F  PqPGDisplayPresentation()
 ##
-DeclareGlobalFunction( "PQ_PG_DISPLAY_GROUP_PRESENTATION" );
-
-#############################################################################
-##
-#F PqPGDisplayGroupPresentation( <i> ) . .  user version of p-G menu option 4
-#F PqPGDisplayGroupPresentation()
-##
-DeclareGlobalFunction( "PqPGDisplayGroupPresentation" );
+DeclareGlobalFunction( "PqPGDisplayPresentation" );
 
 #############################################################################
 ##
@@ -638,55 +621,31 @@ DeclareGlobalFunction( "PqPGConstructDescendants" );
 
 #############################################################################
 ##
-#F PQ_APG_SUPPLY_AUTOMORPHISMS( <datarec> ) . . . . . . . A p-G menu option 1
-##
-DeclareGlobalFunction( "PQ_APG_SUPPLY_AUTOMORPHISMS" );
-
-#############################################################################
-##
-#F PqAPGSupplyAutomorphisms( <i> ) . . .  user version of A p-G menu option 1
-#F PqAPGSupplyAutomorphisms()
+#F  PqAPGSupplyAutomorphisms( <i> ) . . . user version of A p-G menu option 1
+#F  PqAPGSupplyAutomorphisms()
 ##
 DeclareGlobalFunction( "PqAPGSupplyAutomorphisms" );
 
 #############################################################################
 ##
-#F PQ_APG_EXTEND_AUTOMORPHISMS( <datarec> ) . . . . . . . A p-G menu option 2
-##
-DeclareGlobalFunction( "PQ_APG_EXTEND_AUTOMORPHISMS" );
-
-#############################################################################
-##
-#F PqAPGExtendAutomorphisms( <i> ) . . .  user version of A p-G menu option 2
-#F PqAPGExtendAutomorphisms()
+#F  PqAPGExtendAutomorphisms( <i> ) . . . user version of A p-G menu option 2
+#F  PqAPGExtendAutomorphisms()
 ##
 DeclareGlobalFunction( "PqAPGExtendAutomorphisms" );
 
 #############################################################################
 ##
-#F PQ_APG_RESTORE_GROUP_FROM_FILE( <datarec> ) . . . . .  A p-G menu option 3
-##
-DeclareGlobalFunction( "PQ_APG_RESTORE_GROUP_FROM_FILE" );
-
-#############################################################################
-##
-#F PqAPGRestoreGroupFromFile( <i> ) . . . user version of A p-G menu option 3
-#F PqAPGRestoreGroupFromFile()
+#F  PqAPGRestoreGroupFromFile(<i>, <cls>, <n>) . user ver of A p-G menu opt 3
+#F  PqAPGRestoreGroupFromFile( <cls>, <n> )
 ##
 DeclareGlobalFunction( "PqAPGRestoreGroupFromFile" );
 
 #############################################################################
 ##
-#F PQ_APG_DISPLAY_GROUP_PRESENTATION( <datarec> ) . . . . A p-G menu option 4
+#F  PqAPGDisplayPresentation( <i> ) . . . user version of A p-G menu option 4
+#F  PqAPGDisplayPresentation()
 ##
-DeclareGlobalFunction( "PQ_APG_DISPLAY_GROUP_PRESENTATION" );
-
-#############################################################################
-##
-#F PqAPGDisplayGroupPresentation( <i> ) . user version of A p-G menu option 4
-#F PqAPGDisplayGroupPresentation()
-##
-DeclareGlobalFunction( "PqAPGDisplayGroupPresentation" );
+DeclareGlobalFunction( "PqAPGDisplayPresentation" );
 
 #############################################################################
 ##
