@@ -47,6 +47,7 @@ I 4.2. option Metabelian
 I 4.2. option GroupName
 I 4.2. option PcgsAutomorphisms
 I 4.2. option OutputLevel
+I 4.2. option StandardPresentationFile
 I 4.2. option SetupFile
 I 4.2. option PqWorkspace
 F 4.2. EpimorphismPqStandardPresentation
@@ -62,10 +63,10 @@ I 4.4. option ClassBound
 I 4.4. option Relators
 I 4.4. option OrderBound
 I 4.4. option StepSize
-I 4.4. option StepSize
 I 4.4. option PcgsAutomorphisms
 I 4.4. option RankInitialSegmentSubgroups
 I 4.4. option SpaceEfficient
+I 4.4. option CapableDescendants
 I 4.4. option AllDescendants
 I 4.4. option Exponent
 I 4.4. option Metabelian
@@ -96,6 +97,13 @@ I 5.2. interruption
 S 5.3. Interactive Versions of Non-interactive ANUPQ Functions
 F 5.3. Pq!interactive
 F 5.3. Pq!interactive
+I 5.3. option Prime
+I 5.3. option ClassBound
+I 5.3. option Exponent
+I 5.3. option Relators
+I 5.3. option Metabelian
+I 5.3. option GroupName
+I 5.3. option OutputLevel
 F 5.3. PqEpimorphism!interactive
 F 5.3. PqEpimorphism!interactive
 I 5.3. automorphisms!of $p$-groups
@@ -107,6 +115,13 @@ F 5.3. StandardPresentation!interactive
 F 5.3. StandardPresentation!interactive
 F 5.3. StandardPresentation!interactive
 F 5.3. StandardPresentation!interactive
+I 5.3. option ClassBound
+I 5.3. option Exponent
+I 5.3. option Metabelian
+I 5.3. option GroupName
+I 5.3. option PcgsAutomorphisms
+I 5.3. option OutputLevel
+I 5.3. option StandardPresentationFile
 F 5.3. EpimorphismPqStandardPresentation!interactive
 F 5.3. EpimorphismPqStandardPresentation!interactive
 F 5.3. EpimorphismPqStandardPresentation!interactive
@@ -117,6 +132,21 @@ F 5.3. EpimorphismStandardPresentation!interactive
 F 5.3. EpimorphismStandardPresentation!interactive
 F 5.3. PqDescendants!interactive
 F 5.3. PqDescendants!interactive
+I 5.3. option ClassBound
+I 5.3. option Relators
+I 5.3. option OrderBound
+I 5.3. option StepSize
+I 5.3. option PcgsAutomorphisms
+I 5.3. option RankInitialSegmentSubgroups
+I 5.3. option SpaceEfficient
+I 5.3. option CapableDescendants
+I 5.3. option AllDescendants
+I 5.3. option Exponent
+I 5.3. option Metabelian
+I 5.3. option GroupName
+I 5.3. option SubList
+I 5.3. option BasicAlgorithm
+I 5.3. option TailorOutput
 S 5.4. Low-level Interactive ANUPQ Functions based on menu items of the pq binary
 F 5.4. PqPcPresentation
 F 5.4. PqPcPresentation
@@ -215,9 +245,9 @@ F 5.4. PqSPPcPresentation
 F 5.4. PqSPPcPresentation
 F 5.4. PqSPStandardPresentation
 F 5.4. PqSPStandardPresentation
-I 5.4. option StandardPresentationFile
 I 5.4. option ClassBound
 I 5.4. option PcgsAutomorphisms
+I 5.4. option StandardPresentationFile
 F 5.4. PqSPSavePresentation
 F 5.4. PqSPSavePresentation
 F 5.4. PqSPCompareTwoFilePresentations
@@ -235,9 +265,36 @@ F 5.5. PqReadUntil
 F 5.5. PqReadUntil
 F 5.5. PqWrite
 F 5.5. PqWrite
-C install.tex 6. Installing the ANUPQ Share Package
-I 6.0. ANUPQ_GAP_EXEC!environment variable
-S 6.1. Testing your ANUPQ installation
-I 6.1. ANUPQ_GAP_EXEC!environment variable
-S 6.2. Running the pq binary as a standalone
-I 6.2. ANUPQ_GAP_EXEC!environment variable
+C options.tex 6. ANUPQ Options
+F 6.0. AllANUPQoptions
+F 6.0. ANUPQoptions V
+S 6.1. Detailed descriptions of ANUPQ Options
+F 6.1. option Prime
+F 6.1. option ClassBound
+F 6.1. option Exponent
+F 6.1. option Relators
+F 6.1. option Metabelian
+F 6.1. option GroupName
+F 6.1. option OutputLevel
+F 6.1. option SetupFile
+F 6.1. option PqWorkspace
+F 6.1. option PcgsAutomorphisms
+F 6.1. option OrderBound
+F 6.1. option StepSize
+F 6.1. option StepSize
+F 6.1. option RankInitialSegmentSubgroups
+F 6.1. option SpaceEfficient
+F 6.1. option CapableDescendants
+F 6.1. option AllDescendants
+F 6.1. option SubList
+F 6.1. option BasicAlgorithm
+F 6.1. option TailorOutput
+F 6.1. option StandardPresentationFile
+F 6.1. option QueueFactor
+F 6.1. option Bounds
+C install.tex 7. Installing the ANUPQ Share Package
+I 7.0. ANUPQ_GAP_EXEC!environment variable
+S 7.1. Testing your ANUPQ installation
+I 7.1. ANUPQ_GAP_EXEC!environment variable
+S 7.2. Running the pq binary as a standalone
+I 7.2. ANUPQ_GAP_EXEC!environment variable

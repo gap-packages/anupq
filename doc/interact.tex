@@ -70,10 +70,11 @@ functions. If `PqStart' is given an integer argument <workspace> then the
 otherwise, the `pq' binary sets a default workspace of $10000000$.
 
 The  only  <options>  currently  recognised  by  `PqStart'  are  `Prime',
-`Exponent' and `Relators' (see~"Pq" for details) and if provided they are
-essentially global for the interactive {\ANUPQ} process, except that  any
-interactive function interacting with the process and passing new  values
-for these options will over-ride the global values.
+`Exponent' and  `Relators'  (see  Chapter~"ANUPQ  options"  for  detailed
+descriptions of these options)  and  if  provided  they  are  essentially
+global for the interactive {\ANUPQ} process, except that any  interactive
+function interacting with the process and passing new  values  for  these
+options will over-ride the global values.
 
 \>PqQuit( <i> ) F
 \>PqQuit() F
@@ -157,10 +158,43 @@ argument  to  `PqStart'  to  start  the  interactive   {\ANUPQ}   process
 listed for the non-interactive `Pq' function (see~"Pq") should be  given,
 separated by commas like record components (see~"ref:function  call  with
 options"), except that  the  options  `SetupFile'  or  `PqWorkspace'  are
-ignored by the interactive `Pq'. As a minimum the user must supply values
-for the `Prime' and `ClassBound'  options.  A  pc  presentation  is  only
-computed if one has not previously been computed and none of the  options
-given in the call differ from previous values.
+ignored by the interactive `Pq' i.e.~the following options are recognised
+by the interactive `Pq' function:
+
+\beginlist
+
+\atindex{option Prime}{@option \noexpand`Prime'}
+\item{}`Prime := <p>'
+
+\atindex{option ClassBound}{@option \noexpand`ClassBound'}
+\item{}`ClassBound := <n>'
+
+\atindex{option Exponent}{@option \noexpand`Exponent'}
+\item{}`Exponent := <n>'
+
+\atindex{option Relators}{@option \noexpand`Relators'}
+\item{}`Relators := <rels>'
+
+\atindex{option Metabelian}{@option \noexpand`Metabelian'}
+\item{}`Metabelian'
+
+\atindex{option GroupName}{@option \noexpand`GroupName'}
+\item{}`GroupName := <name>'
+
+\atindex{option OutputLevel}{@option \noexpand`OutputLevel'}
+\item{}`OutputLevel := <n>'
+
+\endlist
+
+Detailed descriptions of the above options may be found in Chapter~"ANUPQ
+options".
+
+As  a  minimum  the  user  *must*  supply  values  for  the  `Prime'  and
+`ClassBound' options, though `Prime' need not be passed to  `Pq'  in  the
+case it has previously been provided to  `PqStart'  (see~"PqStart")  when
+starting the interactive process. A pc presentation is only  computed  if
+one has not previously been computed and none of the options given in the
+call differ from previous values.
 
 *Note:*
 If a pc  presentation  has  previously  been  computed  any  options  not
@@ -258,7 +292,37 @@ non-interactive             `PqStandardPresentation'             function
 (see~"PqStandardPresentation") should be given, separated by commas  like
 record components (see~"ref:function call with options"), except that the
 options `SetupFile' or  `PqWorkspace'  are  ignored  by  the  interactive
-`PqStandardPresentation' and `StandardPresentation' functions.
+`PqStandardPresentation' and `StandardPresentation'  functions,  i.e.~the
+following options are recognised:
+
+\beginlist
+
+\atindex{option ClassBound}{@option \noexpand`ClassBound'}
+\item{}`ClassBound := <n>'
+
+\atindex{option Exponent}{@option \noexpand`Exponent'}
+\item{}`Exponent := <n>'
+
+\atindex{option Metabelian}{@option \noexpand`Metabelian'}
+\item{}`Metabelian'
+
+\atindex{option GroupName}{@option \noexpand`GroupName'}
+\item{}`GroupName := <name>'
+
+\atindex{option PcgsAutomorphisms}{@option \noexpand`PcgsAutomorphisms'}
+\item{}`PcgsAutomorphisms'
+
+\atindex{option OutputLevel}{@option \noexpand`OutputLevel'}
+\item{}`OutputLevel := <n>'
+
+\atindex{option StandardPresentationFile}%
+{@option \noexpand`StandardPresentationFile'}
+\item{}`StandardPresentationFile := <filename>'
+
+\endlist
+
+Detailed descriptions of the above options may be found in Chapter~"ANUPQ
+options".
 
 If the  user  supplies  a  prime  <p>  then  `PqStandardPresentation'  or
 `StandardPresentation' computes a $p$-quotient of <F> for the prime <p>.
@@ -351,7 +415,61 @@ listed    for    the     non-interactive     `PqDescendants'     function
 (see~"PqDescendants") should be given, separated by  commas  like  record
 components  (see~"ref:function  call  with  options"),  except  that  the
 options `SetupFile' or  `PqWorkspace'  are  ignored  by  the  interactive
-`PqDescendants'.
+`PqDescendants',  i.e.~the  following  options  are  recognised  by   the
+interactive `PqDescendants' function:
+
+\beginlist
+
+\atindex{option ClassBound}{@option \noexpand`ClassBound'}
+\item{}`ClassBound := <n>'
+
+\atindex{option Relators}{@option \noexpand`Relators'}
+\item{}`Relators := <rels>'
+
+\atindex{option OrderBound}{@option \noexpand`OrderBound'}
+\item{}`OrderBound := <n>'
+
+\atindex{option StepSize}{@option \noexpand`StepSize'}
+\item{}`StepSize := <nOrlist>'
+
+\atindex{option PcgsAutomorphisms}{@option \noexpand`PcgsAutomorphisms'}
+\item{}`PcgsAutomorphisms'
+
+\atindex{option RankInitialSegmentSubgroups}%
+{@option \noexpand`RankInitialSegmentSubgroups'}
+\item{}`RankInitialSegmentSubgroups := <n>'
+
+\atindex{option SpaceEfficient}{@option \noexpand`SpaceEfficient'}
+\item{}`SpaceEfficient'
+
+\atindex{option CapableDescendants}{@option \noexpand`CapableDescendants'}
+\item{}`CapableDescendants'
+
+\atindex{option AllDescendants}{@option \noexpand`AllDescendants'}
+\item{}`AllDescendants := false'
+
+\atindex{option Exponent}{@option \noexpand`Exponent'}
+\item{}`Exponent := <n>'
+
+\atindex{option Metabelian}{@option \noexpand`Metabelian'}
+\item{}`Metabelian'
+
+\atindex{option GroupName}{@option \noexpand`GroupName'}
+\item{}`GroupName := <name>'
+
+\atindex{option SubList}{@option \noexpand`SubList'}
+\item{}`SubList := <sub>'
+
+\atindex{option BasicAlgorithm}{@option \noexpand`BasicAlgorithm'}
+\item{}`BasicAlgorithm'
+
+\atindex{option TailorOutput}{@option \noexpand`TailorOutput'}
+\item{}`TailorOutput := <rec>'
+
+\endlist
+
+Detailed descriptions of the above options may be found in Chapter~"ANUPQ
+options".
 
 If <G> does *not* have $p$-class 1, then the automorphism  group  of  <G>
 must be known. In practice, the automorphism group  of  <G>  is  computed
@@ -376,8 +494,7 @@ gap> G := PcGroupFpGroup( F / [ a^2, b^2, Comm(b, a) ] );
 gap> PqStart(G);
 4
 gap> #This is now the 4th interactive process running
-gap> des := PqDescendants( 4 : OrderBound := 6, ClassBound := 5,
->                              AllDescendants );;
+gap> des := PqDescendants( 4 : OrderBound := 6, ClassBound := 5 );;
 gap> Length(des);
 83
 gap> List(des, Size);
@@ -411,7 +528,7 @@ Pcgs([ [ g1, g2 ] -> [ g1, g2^2 ], [ g1, g2 ] -> [ g1, g1*g2 ],
 gap> PqStart(G); #This will now be the 5th interactive process running
 5
 gap> des := PqDescendants( 5 : OrderBound := 3, ClassBound := 2,
->                              PcgsAutomorphisms );
+>                              PcgsAutomorphisms, CapableDescendants );
 [ <pc group of size 27 with 3 generators>, 
   <pc group of size 27 with 3 generators> ]
 gap> List(des, d -> Length( PCentralSeries( d, 3 ) ) - 1 );
@@ -429,7 +546,7 @@ gap> G := PcGroupFpGroup( F / [ F.1^5, F.2^5, Comm(F.2, F.1) ] );
 gap> PqStart(G); #This will now be the 6th interactive process running
 6
 gap> des := PqDescendants( 6 : Metabelian, ClassBound := 3,
->                              Exponent := 5 );
+>                              Exponent := 5, CapableDescendants );
 [ <pc group of size 125 with 3 generators>, 
   <pc group of size 625 with 4 generators>, 
   <pc group of size 3125 with 5 generators> ]
@@ -468,10 +585,12 @@ computes a pc presentation, where the group of a process is the one given
 as first argument when `PqStart' was called to initiate that process (for
 process <i> the group is stored as `ANUPQData.io[<i>].group').
 
-The possible <options> are `Prime', `ClassBound', `Relators', `Exponent',
-`Metabelian' and `OutputLevel', which are as described for  the  function
-`Pq' (see~"Pq"). The option `Prime' is required unless  already  provided
-to `PqStart'. Also, option `ClassBound' *must* be supplied.
+The  possible  <options>  are  the  same  as  for  the  interactive  `Pq'
+(see~"Pq!interactive")   function,   namely:    `Prime',    `ClassBound',
+`Exponent', `Relators', `GroupName', `Metabelian' and `OutputLevel'  (see
+Chapter~"ANUPQ options" for a detailed description  for  these  options).
+The option `Prime' is required  unless  already  provided  to  `PqStart'.
+Also, option `ClassBound' *must* be supplied.
 
 *Note:* For those  familiar  with  the  `pq'  binary,  `PqPcPresentation'
 performs option 1 of the main $p$-Quotient menu.
@@ -569,7 +688,7 @@ binary was a $p$-group generation command (for  which  there  is  only  a
 verbose output level), to set the  amount  of  information  this  command
 displays   you   may    wish    to    call    `PqSetOutputLevel'    first
 (see~"PqSetOutputLevel"), or equivalently pass the  option  `OutputLevel'
-(see e.g.~"Pq" where the option is described).
+(see~"option OutputLevel").
 
 *Note:*
 For  those  familiar  with  the  `pq'  binary,  `PqDisplayPcPresentation'
@@ -839,7 +958,7 @@ binary  to  display  the  structure  for  the  pcp  generators   numbered
 interactive process is numbered <i>) should be a  list  of  two  integers
 <low>,  <high>  satisfying  $1  \le  <low>  \le  `PqNrPcGenerators(<i>)'$
 (see~"PqNrPcGenerators"). `PqDisplayStructure' also  accepts  the  option
-`OutputLevel' (see e.g.~"Pq" where the option is listed).
+`OutputLevel' (see "option OutputLevel").
 
 *Note:*
 For those familiar with the `pq'  binary,  `PqDisplayStructure'  performs
@@ -855,7 +974,7 @@ binary to display the  automorphisms  for  the  pcp  generators  numbered
 interactive process is numbered <i>) should be a  list  of  two  integers
 <low>,  <high>  satisfying  $1  \le  <low>  \le  `PqNrPcGenerators(<i>)'$
 (see~"PqNrPcGenerators"). `PqDisplayStructure' also  accepts  the  option
-`OutputLevel' (see e.g.~"Pq" where the option is listed).
+`OutputLevel' (see "option OutputLevel").
 
 *Note:*
 For  those  familiar  with  the  `pq'  binary,   `PqDisplayAutomorphisms'
@@ -960,8 +1079,13 @@ performs option 3 of the main $p$-Group Generation menu.
 
 for the <i>th or default interactive {\ANUPQ} process, inputs data  given
 by <options> to the `pq' binary to  construct  descendants.  The  options
-possible are all those given  for  `PqDescendants'  (see~"PqDescendants")
-except for `Relators', `SubList', `SetupFile' and `PqWorkspace'.
+possible are the same as those listed for the interactive `PqDescendants'
+(see~"PqDescendants!interactive")   function,    namely:    `ClassBound',
+`Relators',      `OrderBound',      `StepSize',      `PcgsAutomorphisms',
+`RankInitialSegmentSubgroups',  `SpaceEfficient',   `CapableDescendants',
+`AllDescendants',  `Exponent',  `Metabelian',   `GroupName',   `SubList',
+`BasicAlgorithm', `TailorOutput'. (Detailed descriptions of these options
+may be found in Chapter~"ANUPQ options".)
 
 `PqPGConstructDescendants' requires that the `pq' binary  has  previously
 computed a pc presentation and a $p$-cover for the group of the process.
@@ -1025,10 +1149,12 @@ computes a pc presentation, where the group of a process is the one given
 as first argument when `PqStart' was called to initiate that process (for
 process <i> the group is stored as `ANUPQData.io[<i>].group').
 
-The possible <options> are `Prime', `ClassBound', `Relators', `Exponent',
-`Metabelian' and `OutputLevel', which are as described for  the  function
-`Pq' (see~"Pq"). The option `Prime' is required unless  already  provided
-to `PqStart'. Also, option `ClassBound' *must* be supplied.
+The  possible  <options>  are  the  same  as  for  the  interactive  `Pq'
+(see~"Pq!interactive")   function,   namely:    `Prime',    `ClassBound',
+`Exponent', `Relators', `GroupName', `Metabelian' and `OutputLevel'  (see
+Chapter~"ANUPQ options" for details of these options). The option `Prime'
+is  required  unless  already  provided  to   `PqStart'.   Also,   option
+`ClassBound' *must* be supplied.
 
 *Note:* For those familiar with  the  `pq'  binary,  `PqSPPcPresentation'
 performs option 1 of the Standard Presentation menu.
@@ -1053,34 +1179,22 @@ $p$-quotient is computed.
 
 `PqSPStandardPresentation' accepts three options, all optional:
 
-\beginitems
+\beginlist
+
+\atindex{option ClassBound}{@option \noexpand`ClassBound'}
+\item{}`ClassBound := <n>'
+
+\atindex{option PcgsAutomorphisms}{@option \noexpand`PcgsAutomorphisms'}
+\item{}`PcgsAutomorphisms'
 
 \atindex{option StandardPresentationFile}%
 {@option \noexpand`StandardPresentationFile'}
-`StandardPresentationFile := <filename>' &
-Specifies that the file to which the standard presentation is written has
-name <filename>. If the first character of the string <filename>  is  not
-`/', <filename> is assumed to be the path of a writable file relative  to
-the directory in which {\GAP} was started. If this option is  omitted  it
-is written to the file with the name generated by the command  `Filename(
-ANUPQData.tmpdir, "SPres" );', i.e.~the file with name `"SPres"'  in  the
-temporary directory in which the `pq' binary executes.
+\item{}`StandardPresentationFile := <filename>'
 
-\atindex{option ClassBound}{@option \noexpand`ClassBound'}
-`ClassBound := <n>' &
-Specifies that the $p$-quotient computed has lower exponent-$p$ class  at
-most <n>. If this option is omitted a default of 63 is used.
+\endlist
 
-\atindex{option PcgsAutomorphisms}{@option \noexpand`PcgsAutomorphisms'}
-`PcgsAutomorphisms' &
-Specifies that a polycyclic  generating  sequence  for  the  automorphism
-group of the group of the process (which must be *soluble*), be  computed
-and passed to the `pq' binary.  This  increases  the  efficiency  of  the
-computation;  it  also  prevents  the  `pq'  from  calling   {\GAP}   for
-orbit-stabilizer calculations. See section "Computing  Descendants  of  a
-p-Group" for further explanations.
-
-\enditems
+Detailed descriptions of the above options may be found in Chapter~"ANUPQ
+options".
 
 *Note:* For those familiar with  the  `pq'  binary,  `PqSPPcPresentation'
 performs option 2 of the Standard Presentation menu.
