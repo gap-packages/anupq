@@ -249,19 +249,21 @@ There are five other user-intended `InfoANUPQ' levels: 2, 3, 4, 5 and 6.
 gap> SetInfoLevel(InfoANUPQ, 2);
 \endexample
 
-enables the display of timing and memory usage data from the `pq' program.
+enables the display of most timing and memory usage data  from  the  `pq'
+program. (Some timing and memory usage data, particularly when profuse in
+quantity, is `Info'-ed at `InfoANUPQ' level 3 instead.)
 
 \beginexample
 gap> SetInfoLevel(InfoANUPQ, 3);
 \endexample
 
 enables the display of output of the nature of the first two  `InfoANUPQ'
-that was not directly invoked by the user (some commands  require  {\GAP}
-to discover something about the current state known to the `pq'  program).
-In some cases, the `pq' program produces a lot of output despite the  fact
-that the `OutputLevel' (see~"option OutputLevel") is unset or is  set  to
-0; such output except (for timing and memory usage) is also `Info'-ed  at
-`InfoANUPQ' level 3.
+that was not directly invoked by the  user  (e.g.~some  commands  require
+{\GAP} to discover something about the current state known  to  the  `pq'
+program). In some cases, the  `pq'  program  produces  a  lot  of  output
+despite the fact that the  `OutputLevel'  (see~"option  OutputLevel")  is
+unset or is set to 0; such output except is also `Info'-ed at `InfoANUPQ'
+level 3.
 
 \beginexample
 gap> SetInfoLevel(InfoANUPQ, 4);

@@ -79,6 +79,7 @@ I 4.1. option ClassBound
 I 4.1. option Exponent
 I 4.1. option Relators
 I 4.1. option Metabelian
+I 4.1. option Identities
 I 4.1. option GroupName
 I 4.1. option OutputLevel
 I 4.1. option SetupFile
@@ -153,6 +154,7 @@ I 5.3. option ClassBound
 I 5.3. option Exponent
 I 5.3. option Relators
 I 5.3. option Metabelian
+I 5.3. option Identities
 I 5.3. option GroupName
 I 5.3. option OutputLevel
 I 5.3. option RedoPcp

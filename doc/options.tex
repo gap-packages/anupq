@@ -26,11 +26,11 @@ package:
 gap> AllANUPQoptions();
 [ "AllDescendants", "BasicAlgorithm", "Bounds", "CapableDescendants", 
   "ClassBound", "CustomiseOutput", "Exponent", "Filename", "GroupName", 
-  "Metabelian", "OrderBound", "OutputLevel", "PcgsAutomorphisms", 
-  "PqWorkspace", "Prime", "PrintAutomorphisms", "PrintPermutations", 
-  "QueueFactor", "RankInitialSegmentSubgroups", "RedoPcp", "Relators", 
-  "SetupFile", "SpaceEfficient", "StandardPresentationFile", "StepSize", 
-  "SubList" ]
+  "Identities", "Metabelian", "OrderBound", "OutputLevel", 
+  "PcgsAutomorphisms", "PqWorkspace", "Prime", "PrintAutomorphisms", 
+  "PrintPermutations", "QueueFactor", "RankInitialSegmentSubgroups", 
+  "RedoPcp", "Relators", "SetupFile", "SpaceEfficient", 
+  "StandardPresentationFile", "StepSize", "SubList" ]
 \endexample
 
 The following global variable gives a  partial  breakdown  of  where  the
@@ -119,16 +119,54 @@ the `pq' program should use. Otherwise, the ``generic'' name `"\<grp>"' is
 set as a default.
 
 \>`Identities := <funcs>'{option Identities}@{option `Identities'|indexit}&
-Specifies that the pc presentation should satisfy the laws defined by each
-function in the list <funcs>.
+Specifies that the pc presentation should satisfy  the  laws  defined  by
+each function in the list <funcs>. This option may  be  called  by  `Pq',
+`PqEpimorphism', or `PqPCover' (see~"Pq").  Each  function  in  the  list
+<funcs> must return a word in its arguments (there may be any  number  of
+arguments). Let <identity> be one such function in <funcs>. Then as  each
+lower exponent <p>-class quotient is formed, instances  $<identity>(<w1>,
+\dots, <wn>)$ are added as relators to the pc presentation, where  $<w1>,
+\dots, <wn>$ are words in the pc generators  of  the  quotient.  At  each
+class the number  of  instances  and  the  number  of  pc  generators  is
+`Info'-ed at `InfoANUPQ' level 1. The instances that  are  evaluated  are
+`Info'-ed at `InfoANUPQ' level 2. Other information (including timing and
+memory usage), of which there is generally a *lot* of,  is  `Info'-ed  at
+`InfoANUPQ' level 3. Try the examples `"B2-4-Id"' and `"11gp-3-Engel-Id"' 
+which demonstrate the usage of the `Identities'  option;  these  are  run
+using `PqExample'  (see~"PqExample").  Take  note  of  Note  1.~below  in
+relation to the  example  `"B2-4-Id"';  the  companion  example  `"B2-4"'
+generates the same group using the `Exponent' option.
+
+*Notes*
+
+\beginlist%ordered
+
+\item{1.}
+Setting the `InfoANUPQ' level to 3 or more when setting the  `Identities'
+option may slow down the computation considerably, by overloading  {\GAP}
+with io operations.
+
+\item{2.}
+The `Identities' option is implemented at the {\GAP} level.  An  identity
+that is just an exponent law should be  specified  using  the  `Exponent'
+option (see~"option Exponent"), which is implemented at the C  level  and
+is highly optimised and so is much more efficient.
+
+\item{3.}
+The  number  of  instances  of  the   each   identity   tends   to   grow
+combinatorially. So *care* should be exercised in using the  `Identities'
+option, by including other restrictions, e.g.~by using  the  `ClassBound'
+option (see~"option ClassBound").
+
+\endlist
 
 \>`OutputLevel := <n>'{option OutputLevel}@{option `OutputLevel'|indexit}&
 Specifies the level of ``verbosity'' of the information output by the ANU
-`pq' program when computing a pc presentation; <n> must be an  integer  in
+`pq' program when computing a pc presentation; <n> must be an integer  in
 the range 0 to 3. `OutputLevel := 0' displays at most one line of  output
 and is the default; `OutputLevel := 1' displays (usually)  slightly  more
 output and `OutputLevel's of 2 and 3 are two levels of verbose output. To
-see these messages from the `pq' program, the `InfoANUPQ'  level  must  be
+see these messages from the `pq' program, the `InfoANUPQ' level  must  be
 set to at least 1 (see~"InfoANUPQ").
 
 \>`RedoPcp'{option RedoPcp}@{option `RedoPcp'|indexit}&
