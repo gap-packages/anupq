@@ -10,6 +10,9 @@
 #Y  Copyright 1992-1994,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.16  2001/08/10 16:51:24  gap
+#H  Amended a comment. - GG
+#H
 #H  Revision 1.15  2001/08/10 16:46:04  gap
 #H  Enhanced `PqExample' to work with more complicated files. Fixed minor bug
 #H  in `...Display..' functions (ensured prompt was Info-ed at the right level).
@@ -647,7 +650,8 @@ end );
 ##
 ##  Some examples have both non-interactive and interactive forms; those that
 ##  are non-interactive only have a name ending  in  `-ni';  those  that  are
-##  interactive only have a name ending in `-i'; all other examples have both
+##  interactive only have a name ending in `-i'; examples with  names  ending
+##  in  `.g'  also  have  only  one  form;  all  other  examples  have   both
 ##  non-interactive and interactive forms and for these giving  `PqStart'  as
 ##  second argument invokes `PqStart' initially  and  makes  the  appropriate
 ##  adjustments  so  that  the  example  is  executed  or   displayed   using
