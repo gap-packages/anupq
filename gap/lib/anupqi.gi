@@ -911,6 +911,24 @@ end );
 
 #############################################################################
 ##
+#F  PqEvaluateIdentities( <i> ) . . . . evaluate Identities option identities
+#F  PqEvaluateIdentities()
+##
+##  for the  <i>th  or  default  interactive  {\ANUPQ}  process,  invoke  the
+##  evaluation  of  identities  defined  by  the  `Identities'  option,   and
+##  eliminate any redundant pc generators formed. Since a previous  value  of
+##  `Identities'  is  saved  in  the  data  record  of  the  process,  it  is
+##  unnecessary to pass the `Identities' if set previously.
+##
+##  *Note:* This function is mainly implemented at the {\GAP} level. It  does
+##  not correspond to a menu item of the `pq' program.
+##
+InstallGlobalFunction( PqEvaluateIdentities, function( arg )
+  PQ_EVALUATE_IDENTITIES( CallFuncList(ANUPQDataRecord, arg) );
+end );
+
+#############################################################################
+##
 #F  PQ_FINISH_NEXT_CLASS( <datarec> ) . . .  take the p-cover to a next class
 ##
 ##  does the usual operations required after calculating the  <p>-cover  that

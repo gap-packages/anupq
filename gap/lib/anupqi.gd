@@ -220,6 +220,13 @@ DeclareGlobalFunction( "PQ_EVALUATE_IDENTITIES" );
 
 #############################################################################
 ##
+#F  PqEvaluateIdentities( <i> ) . . . . evaluate Identities option identities
+#F  PqEvaluateIdentities()
+##
+DeclareGlobalFunction( "PqEvaluateIdentities" );
+
+#############################################################################
+##
 #F  PQ_FINISH_NEXT_CLASS( <datarec> ) . . .  take the p-cover to a next class
 ##
 DeclareGlobalFunction( "PQ_FINISH_NEXT_CLASS" );

@@ -81,7 +81,7 @@ end );
 ##  options will over-ride the global values.
 ##
 InstallGlobalFunction(PqStart, function(arg)
-local opts, iorec, G, workspace, optname;
+local opts, iorec, procId, G, workspace, optname;
 
   if 2 < Length(arg) then
     Error("at most two arguments expected.\n");
@@ -116,14 +116,13 @@ local opts, iorec, G, workspace, optname;
   # We add iorec to the next *non-prime* position in ANUPQData.io
   # ... the reason for this is to be able to distinguish easily
   # the <i> and <p> arguments of [Epimorphism][Pq]StandardPresentation
-  if 1 = Length(ANUPQData.io) then
-    Append( ANUPQData.io, [,, iorec]);
-  elif IsPrimeInt( Length(ANUPQData.io) + 1 ) then
-    Append( ANUPQData.io, [, iorec] );
-  else
-    Add( ANUPQData.io, iorec );
-  fi;
-  return Length(ANUPQData.io);
+  procId := Length(ANUPQData.io) + 1;
+  while IsPrimeInt(procId) do
+    procId := procId + 1;
+  od;
+  iorec.procId := procId;
+  ANUPQData.io[ procId ] := iorec;
+  return procId;
 end);
 
 #############################################################################
@@ -689,12 +688,11 @@ local interactive, ioArgs, ioIndex, datarec, group, posNonGroup, p,
   interactive := IsEmpty(args) or not IsGroup( args[1] );
   if interactive then
     ioArgs := args{[1..Length(args) - len + 1]};
-    if not IsEmpty(ioArgs) and IsInt( ioArgs[1] ) and IsPrime( ioArgs[1] ) then
+    if funcname = "StandardPresentation" and 
+       not IsEmpty(ioArgs) and IsInt( ioArgs[1] ) and IsPrime( ioArgs[1] ) then
       ioArgs := [];
     fi;
-    ioIndex := CallFuncList( PqProcessIndex, ioArgs );
-    datarec := ANUPQData.io[ ioIndex ];
-    datarec.procId := ioIndex;
+    datarec := ANUPQData.io[ CallFuncList( PqProcessIndex, ioArgs ) ];
     group := datarec.group;
     posNonGroup := 1;
   else
