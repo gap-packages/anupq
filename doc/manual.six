@@ -151,6 +151,8 @@ I 5.3. option GroupName
 I 5.3. option SubList
 I 5.3. option BasicAlgorithm
 I 5.3. option CustomiseOutput
+F 5.3. PqSetPQuotientToGroup
+F 5.3. PqSetPQuotientToGroup
 S 5.4. Low-level Interactive ANUPQ Functions based on menu items of the pq binary
 F 5.4. PqFactoredOrder
 F 5.4. PqFactoredOrder

@@ -453,19 +453,25 @@ gap> Size( Image(phi) );
 \>PqDescendants( <i> : <options> )!{interactive} F
 \>PqDescendants( : <options> )!{interactive} F
 
-returns for the pc  group  <G>,  of  the  <i>th  or  default  interactive
-{\ANUPQ} process, which must be of prime power order with a confluent  pc
+return for the pc group <G> of the <i>th or default interactive  {\ANUPQ}
+process, which  must  be  of  prime  power  order  with  a  confluent  pc
 presentation (see~"ref:IsConfluent!for pc groups" in the {\GAP} Reference
-Manual), a list of descendants (pc groups) of <G>. The group <G>  is  the
-group given as first argument  to  `PqStart'  to  start  the  interactive
-{\ANUPQ}  process  (see~"PqStart").  Following  the  colon  <options>   a
-selection of the options listed for the  non-interactive  `PqDescendants'
-function (see~"PqDescendants") should be given, separated by commas  like
-record components (see Section~"ref:function call with  options"  in  the
-{\GAP}  Reference  Manual),  except  that  the  options  `SetupFile'   or
-`PqWorkspace' are ignored by the  interactive  `PqDescendants',  i.e.~the
-following options  are  recognised  by  the  interactive  `PqDescendants'
-function:
+Manual), a list of descendants (pc groups)  of  <G>.  The  group  <G>  is
+usually  given  as  first  argument  to  `PqStart'  when   starting   the
+interactive {\ANUPQ}  process  (see~"PqStart").  Alternatively,  one  may
+initiate  the  process  with  an  fp  group,   use   `Pq'   interactively
+(see~"Pq!interactive")    to    create    a    pc    group    and     use
+`PqSetPQuotientToGroup'  (see~"PqSetPQuotientToGroup"),  which   involves
+*no* computation, to set the pc group returned by `Pq' as  the  group  of
+the process.
+
+Following the colon <options> a selection of the options listed  for  the
+non-interactive `PqDescendants' function (see~"PqDescendants") should  be
+given,   separated   by    commas    like    record    components    (see
+Section~"ref:function call with options" in the {\GAP} Reference Manual),
+except that the options `SetupFile' or `PqWorkspace' are ignored  by  the
+interactive `PqDescendants', i.e.~the following options are recognised by
+the interactive `PqDescendants' function:
 
 \beginlist%unordered
 
@@ -600,14 +606,48 @@ gap> List(des, d -> Maximum( List( Elements(d), Order ) ) );
 [ 5, 5, 5 ]
 \endexample
 
+\>PqSetPQuotientToGroup( <i> ) F
+\>PqSetPQuotientToGroup() F
+
+for  the  <i>th  or  default  interactive  {\ANUPQ}  process,   set   the
+$p$-quotient  previously  computed  by  the  interactive  `Pq'   function
+(see~"Pq!interactive") to be the group of the process. This  function  is
+supplied to enable the computation of descendants of a $p$-quotient  that
+is already known to the `pq' binary, via the interactive  `PqDescendants'
+function (see~"PqDescendants!interactive"), thus  avoiding  the  need  to
+re-submit it and have the `pq' binary recompute it.
+
+The following example of the usage of `PqSetPQuotientToGroup',  which  is
+essentially   equivalent    to    what    is    obtained    by    running
+`PqExample("PqDescendants-1-i");',   redoes   the   first   example    of
+"PqDescendants!interactive" (which computes the descendants of the  Klein
+four group).
+
+\beginexample
+gap> F := FreeGroup( "a", "b" );
+<free group on the generators [ a, b ]>
+gap> procId := PqStart( F : Prime := 2 );
+7
+gap> Pq( procId : ClassBound := 1 );
+<pc group of size 4 with 2 generators>
+gap> PqSetPQuotientToGroup( procId );
+gap> des := PqDescendants( procId : OrderBound := 6, ClassBound := 5 );;
+gap> Length(des);
+83
+gap> List(des, Size);
+[ 8, 8, 8, 16, 16, 16, 32, 16, 16, 16, 16, 16, 32, 32, 64, 64, 32, 32, 32, 32, 32, 32, 32, 
+  64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 32, 32, 32, 32, 64, 64, 64, 64, 64, 64, 64, 
+  64, 64, 64, 64, 32, 32, 32, 32, 32, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 
+  64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64 ]
+gap> List(des, d -> Length( PCentralSeries( d, 2 ) ) - 1 );
+[ 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 
+  3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 
+  4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5 ]
+\endexample
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Low-level Interactive ANUPQ Functions based on menu items of the
 pq binary}
-
-*WARNING!! MOST OF THE FOLLOWING FUNCTIONS HAVE FEW SAFEGUARDS ... WE'RE
- WORKING ON IT, BUT IT'S USE AT YOUR OWN RISK AT THE MOMENT ... IF YOU
- DON'T DEFINE A PC PRESENTATION BEFORE DOING CERTAIN COMMANDS, THE pq
- BINARY WILL PROBABLY DIE ON YOU*
 
 The `pq' binary has 5 menus, the details of which  the  reader  will  not
 normally need to know, but if she wishes to know the details they may  be
@@ -615,6 +655,16 @@ found in the standalone manual: `guide.dvi'.  Both  `guide.dvi'  and  the
 `pq' binary refer to the items of these 5 menus as ``options'', which  do
 *not* correspond in any way to the options used  by  any  of  the  {\GAP}
 functions that interface with the `pq' binary.
+
+*Warning:*
+The commands provided in this section are intended to  provide  something
+like the interactive functionality one has when running  the  standalone,
+from within {\GAP}. The `pq' standalone (in particular, its  ``advanced''
+menus) assumes some expertise of the user; doing the ``wrong'' thing  can
+cause the program to crash.  While  a  number  of  safeguards  have  been
+provided in the {\GAP} interface to the `pq'  program,  these  are  *not*
+foolproof, and the user should exercise care and ensure pre-requisites of
+the various commands are met.
 
 *General commands*
 
