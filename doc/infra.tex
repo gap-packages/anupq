@@ -35,16 +35,19 @@ ANUPQ via Info and InfoANUPQ");
 \item{$\bullet$} 
 if you passed options to a function and ran into an error then you should
 almost certainly type `ResetOptionsStack();' so  those  options  are  not
-still on the `OptionsStack' to affect subsequent functions  (details  are
-in Section~"Hints and Warnings regarding the use of Options");
+still on the `OptionsStack' to affect subsequent  functions  and  setting
+the `ANUPQWarnOfOtherOptions  :=  true;'  (particularly  useful  for  the
+novice user) will warn you of misspelt options and may help in diagnosing
+other option usage problems (details are in Section~"Hints  and  Warnings
+regarding the use of Options");
 
 \item{$\bullet$} 
 in  Section~"Utility functions"  we describe  some utility  functions and
 functions  that run  examples from  the  collection of  examples of  this
-package.
+package; and
 
 \item{$\bullet$} 
-In Section~"Attributes and a Property for fp and pc p-groups" we describe
+in Section~"Attributes and a Property for fp and pc p-groups" we describe
 the  attributes  and   property  `NuclearRank',  `MultiplicatorRank'  and
 `IsCapable'.
 
@@ -92,7 +95,15 @@ The banner is also suppressed if the global {\GAP}  variable  `QUIET'  is
 invoked with the `-q' or `-b' command line  switches,  respectively).  If
 you want to load the  {\ANUPQ}  package  by  default,  you  can  put  the
 `RequirePackage' command into your `.gaprc'  file  (see  Section~"ref:The
-.gaprc file" in the {\GAP} Reference Manual).
+.gaprc file" in the {\GAP} Reference Manual).  The  novice  user  of  the
+{\ANUPQ} package should probably also append the line
+
+\begintt
+ANUPQWarnOfOtherOptions := true;
+\endtt
+
+to their `.gaprc' file, somewhere after the  `RequirePackage( "anupq" );'
+command (see~"ANUPQWarnOfOtherOptions").
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{The ANUPQData Record}
@@ -224,7 +235,7 @@ directory (object) where one is not so limited.
 
 \>`InfoANUPQ' V
 
-The input to and the output from the `pq'  program  is,  by  default,  not
+The input to and the output from the `pq' program  is,  by  default,  not
 displayed. However the user may choose to  see  some,  or  all,  of  this
 input/output.   This   is   done   via   the   `Info'   mechanism    (see
 Chapter~"ref:Info Functions" in the {\GAP} Reference  Manual).  For  this
@@ -233,7 +244,7 @@ purpose, there is the <InfoClass>  `InfoANUPQ'.  If  the  `InfoLevel'  of
 a call to `Info' and will be displayed for the user to see.  By  default,
 the `InfoLevel' of `InfoANUPQ' is 1, and it is recommended that you leave
 it at this level, or higher. Messages that  the  user  should  presumably
-want to see and output from the `pq' program influenced by  the  value  of
+want to see and output from the `pq' program influenced by the  value  of
 the option `OutputLevel' (see the options listed in Section~"Pq"),  other
 than timing and memory usage are directed to `Info' at `InfoANUPQ'  level
 1.
@@ -268,7 +279,9 @@ gap> SetInfoLevel(InfoANUPQ, 4);
 
 enables the display of all the commands  directed  to  the  `pq'  program,
 behind a ```ToPQ> ''' prompt (so that you can  distinguish  it  from  the
-output from the `pq' program).
+output from the `pq' program). See Section~"Hints and Warnings  regarding
+the use of  Options"  for  an  example  of  how  this  can  be  a  useful
+troubleshooting tool.
 
 \beginexample
 gap> SetInfoLevel(InfoANUPQ, 5);
@@ -349,6 +362,128 @@ Functions" that have `Pq' somewhere in their name provide an  alternative
 method  of  passing  options  as  additional  arguments.  This  has   the
 advantages that options can be abbreviated and mis-spelled  options  will
 be trapped.
+
+\index{troubleshooting tips}
+\>`ANUPQWarnOfOtherOptions' V
+
+is a global variable that is by default `false'. If it is set  to  `true'
+then any function provided by the {\ANUPQ} function  that  recognises  at
+least one option, will warn you of ``other'' options,  i.e.~options  that
+the  function  does  not  recognise.  These  warnings  are   emitted   at
+`InfoWarning' or `InfoANUPQ'  level  1.  This  is  useful  for  detecting
+mis-spelled options. Here is an example using the  function  `Pq'  (first
+described in Chapter~"Non-interactive ANUPQ functions"):
+
+\begintt
+gap> ANUPQWarnOfOtherOptions := true;;
+gap> # The following makes entry into break loops very ``quiet'' ...
+gap> OnBreak := function() Where(0); end;;
+gap> F := FreeGroup( "a", "b" );
+<free group on the generators [ a, b ]>
+gap> Pq( F : Prime := 2, Classbound := 1 );
+#I  ANUPQ Warning: Options: [ "Classbound" ] ignored
+#I  (invalid for generic function: `Pq').
+user interrupt at
+ctimelev := 2;
+Entering break read-eval-print loop ...
+you can 'quit;' to quit to outer loop, or
+you can 'return;' to continue
+brk> quit; # to get back to the `gap>' prompt
+\endtt
+
+Here we mistyped `ClassBound'  as  `Classbound',  and  after  seeing  the
+`Info'-ed warning that `Classbound' was ignored, we typed  a  <control>-C
+(that's the ```user interrupt at''' message) which took us into  a  break
+loop, from which we `quit;'. Since the  `Pq'  command  was  not  able  to
+finish the options `Prime' and `Classbound', in particular, will still be
+on the `OptionsStack':
+
+\begintt
+gap> OptionsStack;
+[ rec( Prime := 2, Classbound := 1 ), 
+  rec( Prime := 2, Classbound := 1, PqEpiOrPCover := "pQuotient" ) ]
+\endtt
+
+The option `PqEpiOrPCover' is a behind-the-scenes option  that  need  not
+concern the user. We need to remove these options; hence we type:
+
+\beginexample
+gap> ResetOptionsStack();
+\endexample
+
+We altered `OnBreak' (see~"ref:OnBreak" in the Reference manual) to reduce
+the back-tracing on entry into a break loop.
+
+\beginexample
+gap> OnBreak := Where;; # Restore `OnBreak' to its usual value
+\endexample
+
+*Notes*
+
+In cases where functions recursively call others with options  (e.g.~when
+using `PqExample'  with  options),  setting  `ANUPQWarnOfOtherOptions  :=
+true' may give rise to spurious ``other'' option detections.
+
+It is recommended that the novice user set  `ANUPQWarnOfOtherOptions'  to
+`true' in their `.gaprc' file (see Section~"Loading the ANUPQ Package").
+
+*Other Troubleshooting Strategies*
+
+There are some other strategies which may have helped us  see  our  error
+above. The function `Pq' recognises the option `OutputLevel' (see~"option
+OutputLevel"); if this option is set to at  least  1,  the  `pq'  program
+provides information on each class as it is generated:
+
+\beginexample
+gap> ANUPQWarnOfOtherOptions := false;; # Set back to normal
+gap> F := FreeGroup( "a", "b" );
+gap> Pq( F : Prime := 2, Classbound := 1, OutputLevel := 1 ); 
+#I  Lower exponent-2 central series for <grp>
+#I  Group: <grp> to lower exponent-2 central class 1 has order 2^2
+#I  Group: <grp> to lower exponent-2 central class 2 has order 2^5
+#I  Group: <grp> to lower exponent-2 central class 3 has order 2^10
+#I  Group: <grp> to lower exponent-2 central class 4 has order 2^18
+#I  Group: <grp> to lower exponent-2 central class 5 has order 2^32
+#I  Group: <grp> to lower exponent-2 central class 6 has order 2^55
+#I  Group: <grp> to lower exponent-2 central class 7 has order 2^96
+#I  Group: <grp> to lower exponent-2 central class 8 has order 2^167
+#I  Group: <grp> to lower exponent-2 central class 9 has order 2^294
+#I  Group: <grp> to lower exponent-2 central class 10 has order 2^520
+#I  Group: <grp> to lower exponent-2 central class 11 has order 2^932
+#I  Group: <grp> to lower exponent-2 central class 12 has order 2^1679
+[... output truncated ...]
+\endexample
+
+After seeing the information on class 2 we would have got the  idea  that
+the `Classbound' option  was  not  recognised  and  would  probably  have
+realised that this was due to a mis-spelling. The above  will  ordinarily
+cause   the   available   space   to    be    exhausted,    necessitating
+user-intervention by typing <control>-C and `quit;' (to escape the  break
+loop); otherwise `Pq' terminates when the class reaches 63  (the  default
+value of `ClassBound').
+
+If you have some familiarity with ``keyword'' command input to  the  `pq'
+binary, then setting the level  of  `InfoANUPQ'  to  4  would  also  have
+indicated a problem:
+
+\beginexample
+gap> ResetOptionsStack(); # Necessary, if a break-loop was entered above
+gap> SetInfoLevel(InfoANUPQ, 4);
+gap> Pq( F : Prime := 2, Classbound := 1 );                  
+#I  ToPQ> 7  #to (Main) p-Quotient Menu
+#I  ToPQ> 1  #define group
+#I  ToPQ> name <grp>
+#I  ToPQ> prime 2
+#I  ToPQ> class 63
+#I  ToPQ> exponent 0
+#I  ToPQ> output 0
+#I  ToPQ> generators { a,b }
+#I  ToPQ> relators   {  };
+[... output truncated ...]
+\endexample
+
+Here the line ```\#I  ToPQ> class 63''' indicates that a directive to set
+the classbound to 63 was sent to the `pq' program.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Utility Functions}

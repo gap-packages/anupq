@@ -302,11 +302,11 @@ IsPGroup(<F>)' is `true', then
 
 `Prime'& 
 defaults to `PrimePGroup(<F>)', if not supplied and  `HasPrimePGroup(<F>)
-= true'.
+= true'; and
 
 `ClassBound'&
-defaults to `PClassPGroup(<F>)+1' if `HasPClassPGroup(<F>) = true' if
-not supplied, or to the usual default of 63, otherwise.
+defaults to `PrimePGroup(<F>)' if `HasPClassPGroup(<F>) =  true'  if  not
+supplied, or to the usual default of 63, otherwise.
 
 \enditems
 \beginlist%ordered{1}{2}
@@ -796,10 +796,11 @@ program to compute the pc presentation of  the  quotient  (determined  by
 as `ANUPQData.io[<i>].group'.
 
 The  possible  <options>  are  the  same  as  for  the  interactive  `Pq'
-(see~"Pq!interactive")   function,   namely:    `Prime',    `ClassBound',
-`Exponent',  `Relators',  `GroupName',  `Metabelian',  `Identities'   and
-`OutputLevel' (see Chapter~"ANUPQ options" for a detailed description for
-these options). The option `Prime' is required unless already provided to
+(see~"Pq!interactive") function, except  for  `RedoPcp'  (which,  in  any
+case, would be superfluous), namely: `Prime',  `ClassBound',  `Exponent',
+`Relators', `GroupName',  `Metabelian',  `Identities'  and  `OutputLevel'
+(see  Chapter~"ANUPQ  options"  for  a  detailed  description  for  these
+options). The option `Prime'  is  required  unless  already  provided  to
 `PqStart'.
 
 *Notes* 
@@ -1668,11 +1669,11 @@ directory whose name is stored in `ANUPQData.tmpdir'.
 For those familiar  with  the  `pq'  program,  `PqAPGOrbitRepresentatives'
 performs option 9 of the Advanced $p$-Group Generation menu.
 
-\>PqAPGSingleStage( <i> ) F
-\>PqAPGSingleStage() F
+\>PqAPGSingleStage( <i> : <options> ) F
+\>PqAPGSingleStage( : <options> ) F
 
 for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
-program to do a single stage of the descendants construction algorithm  as
+program to do a single stage of the descendants construction algorithm as
 prescribed  by  <options>.   The   possible   options   are   `StepSize',
 `PcgsAutomorphisms',   `RankInitialSegmentSubgroups',   `SpaceEfficient',
 `CapableDescendants',   `AllDescendants',    `Exponent',    `Metabelian',

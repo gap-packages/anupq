@@ -40,8 +40,6 @@ gap> RequirePackage("anupq");
 \endexample
 
 (the response of which we have omitted; see~"Loading the ANUPQ Package").
-We will nevertheless remind you of this for each function,  in  case  you
-happen to be reading about that particular function via on-line help.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Computing  p-Quotients}
@@ -119,7 +117,7 @@ gap> G := F / [a^4, b^4];
 gap> Pq( G : Prime := 2, ClassBound := 3 ); 
 <pc group of size 256 with 8 generators>
 gap> # Now let's get a different p-quotient of the same group
-gap> Pq( G : Prime := 2, ClassBound := 3, Exponent := 4); 
+gap> Pq( G : Prime := 2, ClassBound := 3, Exponent := 4 ); 
 <pc group of size 128 with 7 generators>
 gap> # Now we'll get a p-quotient of another fp group
 gap> # which we will redo using the `Relators' option
@@ -127,7 +125,7 @@ gap> R := [ a^25, Comm(Comm(b, a), a), b^5 ];
 [ a^25, a^-1*b^-1*a*b*a^-1*b^-1*a^-1*b*a^2, b^5 ]
 gap> H := F / R;
 <fp group on the generators [ a, b ]>
-gap> Pq( H : Prime := 5, ClassBound := 5, Metabelian);
+gap> Pq( H : Prime := 5, ClassBound := 5, Metabelian );
 <pc group of size 78125 with 7 generators>
 \endexample
 
@@ -152,7 +150,8 @@ gap> R := PqGAPRelators(F, rels);
 [ a^25, a^-1*b^-1*a*b*a^-1*b^-1*a^-1*b*a^2, b^5 ]
 gap> H := F / R;
 <fp group on the generators [ a, b ]>
-gap> Pq( H : Prime := 5, ClassBound := 5, Metabelian, Relators := rels);
+gap> Pq( H : Prime := 5, ClassBound := 5, Metabelian, 
+>            Relators := rels );
 <pc group of size 78125 with 7 generators>
 \endexample
 
@@ -163,7 +162,8 @@ could have done:
 gap> F := FreeGroup("a", "b");;
 gap> rels := [ "a^25", "[b, a, a]", "b^5" ];
 [ "a^25", "[b, a, a]", "b^5" ]
-gap> Pq( F : Prime := 5, ClassBound := 5, Metabelian, Relators := rels);
+gap> Pq( F : Prime := 5, ClassBound := 5, Metabelian, 
+>            Relators := rels );
 <pc group of size 78125 with 7 generators>
 \endexample
 
@@ -247,8 +247,8 @@ defaults to `PrimePGroup(<F>)', if not supplied and  `HasPrimePGroup(<F>)
 = true'; and
 
 `ClassBound'&
-defaults to `PClassPGroup(<F>)+1' if `HasPClassPGroup(<F>) = true' if
-not supplied, or to the usual default of 63, otherwise.
+defaults to `PrimePGroup(<F>)' if `HasPClassPGroup(<F>) =  true'  if  not
+supplied, or to the usual default of 63, otherwise.
 
 \enditems
 
@@ -256,7 +256,7 @@ The same alternative methods of passing options  to  the  non-interactive
 `Pq' function are available to the non-interactive version of `PqPCover'.
 
 We now give a few examples of the use of `PqPCover'. These  examples  are
-just the same as the ones we gave for `Pq'  (see~"Pq"),  except  that  in
+just a subset of the ones we gave for `Pq'  (see~"Pq"),  except  that  in
 each instance  the  command  `Pq'  has  been  replaced  with  `PqPCover'.
 Essentially  the  same  examples  may  be  run  by  typing:   `PqExample(
 "PqPCover" );' (see~"PqExample").
@@ -273,7 +273,7 @@ gap> PqPCover( G : Prime := 2, ClassBound := 3 );
 <pc group of size 16384 with 14 generators>
 gap> 
 gap> # Now let's get a p-cover of a different p-quotient of the same group
-gap> PqPCover( G : Prime := 2, ClassBound := 3, Exponent := 4);
+gap> PqPCover( G : Prime := 2, ClassBound := 3, Exponent := 4 );
 <pc group of size 8192 with 13 generators>
 gap> 
 gap> # Now we'll get a p-cover of a p-quotient of another fp group
@@ -282,14 +282,15 @@ gap> R := [ a^25, Comm(Comm(b, a), a), b^5 ];
 [ a^25, a^-1*b^-1*a*b*a^-1*b^-1*a^-1*b*a^2, b^5 ]
 gap> H := F / R;
 <fp group on the generators [ a, b ]>
-gap> PqPCover( H : Prime := 5, ClassBound := 5, Metabelian);
+gap> PqPCover( H : Prime := 5, ClassBound := 5, Metabelian );
 <pc group of size 48828125 with 11 generators>
 gap> 
 gap> # Now we redo the previous example using the `Relators' option
 gap> F := FreeGroup("a", "b");;
 gap> rels := [ "a^25", "[b, a, a]", "b^5" ];
 [ "a^25", "[b, a, a]", "b^5" ]
-gap> PqPCover( F : Prime := 5, ClassBound := 5, Metabelian, Relators := rels);
+gap> PqPCover( F : Prime := 5, ClassBound := 5, Metabelian, 
+>                  Relators := rels );
 <pc group of size 48828125 with 11 generators>
 \endexample
 
