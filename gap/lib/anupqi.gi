@@ -2082,24 +2082,29 @@ end );
 
 #############################################################################
 ##
-#F  PqSPPcPresentation( <i> : <options> ) . .  user version of SP menu opt. 1
-#F  PqSPPcPresentation( : <options> )
+#F  PqSPComputePcpAndPCover(<i> : <options>) . . . user ver of SP menu opt. 1
+#F  PqSPComputePcpAndPCover( : <options> )
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, inputs data  given
-##  by <options> for the group of  that  process  so  that  the  `pq'  binary
-##  computes a pc presentation, where the group of a process is the one given
-##  as first argument when `PqStart' was called to initiate that process (for
-##  process <i> the group is stored as `ANUPQData.io[<i>].group').
+##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+##  binary to compute for the group of that process a pc presentation  up  to
+##  the $p$-quotient of maximum class or the value of the option `ClassBound'
+##  and the $p$-cover of that  quotient,  and  sets  up  tabular  information
+##  required for computation of a standard presentation. Here the group of  a
+##  process is the one given as first argument when `PqStart' was  called  to
+##  initiate  that  process  (for  process  <i>  the  group  is   stored   as
+##  `ANUPQData.io[<i>].group').
 ##
 ##  The possible <options> are `Prime', `ClassBound', `Relators', `Exponent',
-##  `Metabelian' and `OutputLevel', which are as described for  the  function
-##  `Pq' (see~"Pq"). The option `Prime' is required unless  already  provided
-##  to `PqStart'. Also, option `ClassBound' *must* be supplied.
+##  `Metabelian' and `OutputLevel' (see Chapter~"ANUPQ Options" for  detailed
+##  descriptions of these options). The option `Prime' is normally determined
+##  via `PrimePGroup', and so is not required unless the group  doesn't  know
+##  it's a $p$-group and `HasPrimePGroup' returns `false'.
 ##
-##  *Note:* For those familiar with  the  `pq'  binary,  `PqSPPcPresentation'
+##  *Note:*
+##  For  those  familiar  with  the  `pq'  binary,  `PqSPComputePcpAndPCover'
 ##  performs option 1 of the Standard Presentation menu.
 ##
-InstallGlobalFunction( PqSPPcPresentation, function( arg )
+InstallGlobalFunction( PqSPComputePcpAndPCover, function( arg )
 local datarec;
   ANUPQ_IOINDEX_ARG_CHK(arg);
   datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
@@ -2380,19 +2385,21 @@ end );
 
 #############################################################################
 ##
-#F  PQ_PG_EXTEND_AUTOMORPHISMS( <datarec>, <menu> ) . p-G/A p-G menu option 2
+#F  PQ_PG_EXTEND_AUTOMORPHISMS( <datarec> ) . . . . . p-G/A p-G menu option 2
 ##
 ##  inputs data to the `pq' binary for option  2  of  the  main  or  Advanced
 ##  $p$-Group Generation menu.
 ##
-InstallGlobalFunction( PQ_PG_EXTEND_AUTOMORPHISMS, function( datarec, menu )
-  PQ_MENU(datarec, menu);
+InstallGlobalFunction( PQ_PG_EXTEND_AUTOMORPHISMS, function( datarec )
+  if not(PQ_MENU(datarec) in ["pG", "ApG"]) then
+    PQ_MENU(datarec, "pG");
+  fi;
   ToPQ(datarec, [ "2  #extend automorphisms" ]);
 end );
 
 #############################################################################
 ##
-#F  PqPGExtendAutomorphisms( <i> ) . . . .  user version of p-G menu option 2
+#F  PqPGExtendAutomorphisms( <i> ) .  user version of p-G/A p-G menu option 2
 #F  PqPGExtendAutomorphisms()
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
@@ -2403,48 +2410,34 @@ end );
 ##
 ##  *Note:*
 ##  For  those  familiar  with  the  `pq'  binary,  `PqPGExtendAutomorphisms'
-##  performs option 2 of the main $p$-Group Generation menu.
+##  performs option 2 of the main or advanced $p$-Group Generation menu.
 ##
 InstallGlobalFunction( PqPGExtendAutomorphisms, function( arg )
 local datarec;
   ANUPQ_IOINDEX_ARG_CHK(arg);
   datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  PQ_PG_EXTEND_AUTOMORPHISMS( datarec, "pG" );
+  PQ_PG_EXTEND_AUTOMORPHISMS( datarec );
 end );
 
 #############################################################################
 ##
-#F  PQ_PG_RESTORE_GROUP(<datarec>, <menu>, <cls>, <n>) . p-G/A p-G menu opt 3
+#F  PQ_PG_RESTORE_GROUP(<datarec>, <cls>, <n>) . . . . . p-G/A p-G menu opt 3
 ##
 ##  inputs data to the `pq' binary to restore group <n> of  class  <cls>  for
 ##  option 3 of the main or Advanced $p$-Group Generation menu.
 ##
-InstallGlobalFunction( PQ_PG_RESTORE_GROUP, function( datarec, menu, cls, n )
-  PQ_MENU(datarec, menu);
-  ToPQ(datarec, [ "3  #restore group from file" ]);
-  ToPQ(datarec, [ "G_class", cls, "  #filename" ]);
-  ToPQ(datarec, [ n,              "  #no. of group" ]);
-end );
-
-#############################################################################
-##
-#F  PQ_PG_RESTORE_GROUP_ARG_CHK( <arg> ) .  check args for restore grp cmd ok
-##
-##  checks    the     arguments     for     `PqPGRestoreGroupFromFile'     or
-##  `PqPGARestoreGroupFromFile' are ok and returns the appropriate <datarec>.
-##
-InstallGlobalFunction( PQ_PG_RESTORE_GROUP_ARG_CHK, function( args )
-  if not(Length(args) in [2, 3]) or not(ForAll(args, IsPosInt)) then
-    #@should also check <cls> and <n> arg are feasible@
-    Error("expected 2 or 3 positive integer arguments\n");
+InstallGlobalFunction( PQ_PG_RESTORE_GROUP, function( datarec, cls, n )
+  if not(PQ_MENU(datarec) in ["pG", "ApG"]) then
+    PQ_MENU(datarec, "pG");
   fi;
-  ANUPQ_IOINDEX_ARG_CHK(args);
-  return ANUPQData.io[ ANUPQ_IOINDEX(args) ];
+  ToPQ(datarec, [ "3  #restore group from file" ]);
+  ToPQ(datarec, [ datarec.GroupName, "_class", cls, "  #filename" ]);
+  ToPQ(datarec, [ n, "  #no. of group" ]);
 end );
 
 #############################################################################
 ##
-#F  PqPGRestoreGroupFromFile( <i>, <cls>, <n> ) .  user ver of p-G menu opt 3
+#F  PqPGRestoreGroupFromFile(<i>, <cls>, <n>) . u ver of p-G/A p-G menu opt 3
 #F  PqPGRestoreGroupFromFile( <cls>, <n> )
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
@@ -2453,13 +2446,18 @@ end );
 ##
 ##  *Note:*
 ##  For those  familiar  with  the  `pq'  binary,  `PqPGRestoreGroupFromFile'
-##  performs option 3 of the main $p$-Group Generation menu.
+##  performs option 3 of the main or advanced $p$-Group Generation menu.
 ##
 InstallGlobalFunction( PqPGRestoreGroupFromFile, function( arg )
 local len, datarec, cls, n;
-  datarec := PQ_PG_RESTORE_GROUP_ARG_CHK(arg);
+  if not(Length(arg) in [2, 3]) or not(ForAll(arg, IsPosInt)) then
+    #@should also check <cls> and <n> arg are feasible@
+    Error("expected 2 or 3 positive integer arguments\n");
+  fi;
+  ANUPQ_IOINDEX_ARG_CHK(arg);
+  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
   len := Length(arg);
-  PQ_PG_RESTORE_GROUP( datarec, "pG", arg[len - 1], arg[len] );
+  PQ_PG_RESTORE_GROUP( datarec, arg[len - 1], arg[len] );
 end );
 
 #############################################################################
@@ -2660,48 +2658,6 @@ local args;
   args[1] := ANUPQData.io[ args[1] ];
   Add(args, "ApG");
   CallFuncList( PQ_PG_SUPPLY_AUTS, args );
-end );
-
-#############################################################################
-##
-#F  PqAPGExtendAutomorphisms( <i> ) . . . user version of A p-G menu option 2
-#F  PqAPGExtendAutomorphisms()
-##
-##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
-##  binary to compute the extensions of the automorphisms defined by  calling
-##  `PqAPGSupplyAutomorphisms' (see~"PqAPGSupplyAutomorphisms"). You may wish
-##  to set the `InfoLevel' of `InfoANUPQ' to 2 (or more) in order to see  the
-##  output from the `pq' (see~"InfoANUPQ").
-##
-##  *Note:*
-##  For  those  familiar  with  the  `pq'  binary,  `PqAPGExtendAutomorphisms'
-##  performs option 2 of the Advanced $p$-Group Generation menu.
-##
-InstallGlobalFunction( PqAPGExtendAutomorphisms, function( arg )
-local datarec;
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  PQ_PG_EXTEND_AUTOMORPHISMS( datarec, "ApG" );
-end );
-
-#############################################################################
-##
-#F  PqAPGRestoreGroupFromFile(<i>, <cls>, <n>) . user ver of A p-G menu opt 3
-#F  PqAPGRestoreGroupFromFile( <cls>, <n> )
-##
-##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
-##  binary to restore group <n> of class <cls> from a temporary  file,  where
-##  <cls> and <n> are positive integers.
-##
-##  *Note:*
-##  For those familiar  with  the  `pq'  binary,  `PqAPGRestoreGroupFromFile'
-##  performs option 3 of the Advanced $p$-Group Generation menu.
-##
-InstallGlobalFunction( PqAPGRestoreGroupFromFile, function( arg )
-local len, datarec, cls, n;
-  datarec := PQ_PG_RESTORE_GROUP_ARG_CHK(arg);
-  len := Length(arg);
-  PQ_PG_RESTORE_GROUP( datarec, "ApG", arg[len - 1], arg[len] );
 end );
 
 #############################################################################

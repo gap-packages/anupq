@@ -601,10 +601,10 @@ DeclareGlobalFunction( "PqProcessRelationsFile" );
 
 #############################################################################
 ##
-#F  PqSPPcPresentation( <i> : <options> ) . .  user version of SP menu opt. 1
-#F  PqSPPcPresentation( : <options> )
+#F  PqSPComputePcpAndPCover(<i> : <options>) . . . user ver of SP menu opt. 1
+#F  PqSPComputePcpAndPCover( : <options> )
 ##
-DeclareGlobalFunction( "PqSPPcPresentation" );
+DeclareGlobalFunction( "PqSPComputePcpAndPCover" );
 
 #############################################################################
 ##
@@ -673,7 +673,7 @@ DeclareGlobalFunction( "PqPGSupplyAutomorphisms" );
 
 #############################################################################
 ##
-#F  PQ_PG_EXTEND_AUTOMORPHISMS( <datarec>, <menu> ) . p-G/A p-G menu option 2
+#F  PQ_PG_EXTEND_AUTOMORPHISMS( <datarec> ) . . . . . p-G/A p-G menu option 2
 ##
 DeclareGlobalFunction( "PQ_PG_EXTEND_AUTOMORPHISMS" );
 
@@ -686,19 +686,13 @@ DeclareGlobalFunction( "PqPGExtendAutomorphisms" );
 
 #############################################################################
 ##
-#F  PQ_PG_RESTORE_GROUP(<datarec>, <menu>, <cls>, <n>) . p-G/A p-G menu opt 3
+#F  PQ_PG_RESTORE_GROUP(<datarec>, <cls>, <n>) . . . . . p-G/A p-G menu opt 3
 ##
 DeclareGlobalFunction( "PQ_PG_RESTORE_GROUP" );
 
 #############################################################################
 ##
-#F  PQ_PG_RESTORE_GROUP_ARG_CHK( <arg> ) .  check args for restore grp cmd ok
-##
-DeclareGlobalFunction( "PQ_PG_RESTORE_GROUP_ARG_CHK" );
-
-#############################################################################
-##
-#F  PqPGRestoreGroupFromFile( <i>, <cls>, <n> ) .  user ver of p-G menu opt 3
+#F  PqPGRestoreGroupFromFile(<i>, <cls>, <n>) . u ver of p-G/A p-G menu opt 3
 #F  PqPGRestoreGroupFromFile( <cls>, <n> )
 ##
 DeclareGlobalFunction( "PqPGRestoreGroupFromFile" );
@@ -722,20 +716,6 @@ DeclareGlobalFunction( "PqPGConstructDescendants" );
 #F  PqAPGSupplyAutomorphisms([<mlist>])
 ##
 DeclareGlobalFunction( "PqAPGSupplyAutomorphisms" );
-
-#############################################################################
-##
-#F  PqAPGExtendAutomorphisms( <i> ) . . . user version of A p-G menu option 2
-#F  PqAPGExtendAutomorphisms()
-##
-DeclareGlobalFunction( "PqAPGExtendAutomorphisms" );
-
-#############################################################################
-##
-#F  PqAPGRestoreGroupFromFile(<i>, <cls>, <n>) . user ver of A p-G menu opt 3
-#F  PqAPGRestoreGroupFromFile( <cls>, <n> )
-##
-DeclareGlobalFunction( "PqAPGRestoreGroupFromFile" );
 
 #############################################################################
 ##
