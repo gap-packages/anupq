@@ -10,6 +10,12 @@
 #Y  Copyright 1992-1994,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.13  2001/08/08 13:03:42  gap
+#H  Now just close the stream when ending a non-interactive function call,
+#H  rather than giving the instructions to the `pq' to exit (doing this
+#H  occasionally created a problem where GAP tried to read past the end of
+#H  a stream). There is also now the final version of `PqExample'. - GG
+#H
 #H  Revision 1.12  2001/08/05 15:39:46  gap
 #H  Fixed bug reported by Werner in `PQ_AUT_INPUT' ... the no. of generator
 #H  images is now RankPGroup(gp) as its hould have been. There's also a
@@ -566,7 +572,6 @@ local gens, relgens, diff, g;
                                      ReplacedString(rel, "]", "])"),
                                      "[", "PqLeftNormComm(["
                                      ) ) );
-  for g in gens do UNBIND_GLOBAL(g); od;
   CallFuncList(UnhideGlobalVariables, gens);
   return rels;
 end );
@@ -612,80 +617,258 @@ end );
 #############################################################################
 ##
 #F  PqExample() . . . . . . . . . . execute a pq example or display the index
-#F  PqExample( <filename>[, PqStart] )
+#F  PqExample( <example>[, PqStart][, Display] )
+#F  PqExample( <example>[, PqStart][, <filename>] )
 ##
-##  With no arguments, or with single argument `"index"', or a string that is
-##  not a filename in the `gap/examples' directory,  an  index  of  available
-##  examples is displayed.
+##  With no arguments,  or  with  single  argument  `"index"',  or  a  string
+##  <example> that is not the name of a file in the `gap/examples' directory,
+##  an index of available examples is displayed.
 ##
-##  With argument <filename> that is the name of a file in the `gap/examples'
-##  directory other than `"index"' the example is  displayed.  Some  examples
-##  have  both  non-interactive  and  interactive  forms;  those   that   are
-##  non-interactive only  have  a  name  ending  in  `-ni';  those  that  are
+##  With just the one argument <example> that is the name of a  file  in  the
+##  `gap/examples' directory, the example contained in that file is  executed
+##  in its simplest form. Some examples accept options which you may  use  to
+##  modify some of the options used in the function of the example.  To  find
+##  out which options an example  accepts  use  one  of  the  mechanisms  for
+##  displaying the example, described below.
+##
+##  Some examples have both non-interactive and interactive forms; those that
+##  are non-interactive only have a name ending  in  `-ni';  those  that  are
 ##  interactive only have a name ending in `-i'; all other examples have both
 ##  non-interactive and interactive forms and for these giving  `PqStart'  as
 ##  second argument invokes `PqStart' initially  and  makes  the  appropriate
-##  adjustments so that the example is executed with interactive functions.
+##  adjustments  so  that  the  example  is  executed  or   displayed   using
+##  interactive functions.
+##
+##  If `PqExample' is called with last (second or third)  argument  `Display'
+##  then the example  is  displayed  without  being  executed.  If  the  last
+##  argument is a non-empty  string  <filename>  then  the  example  is  also
+##  displayed without being executed but is also written to a file with  that
+##  name. Passing an empty string as last argument has  the  same  effect  as
+##  passing `Display'.
+##
+##  *Note:*
+##  The  variables  used  in  `PqExample'  are  local  to  the   running   of
+##  `PqExample', so there's no  danger  of  having  some  of  your  variables
+##  over-written. However, they are not  completely  lost  either.  They  are
+##  saved to a record `ANUPQData.examples.vars', i.e.~if `F'  is  a  variable
+##  used in the example then you will be able to access it after  `PqExample'
+##  has finished as `ANUPQData.examples.vars.F'.
 ##
 InstallGlobalFunction(PqExample, function(arg)
-local name, file, instream, line, input, PQfunc, vars, var;
-      #EnquoteIfString, optnames, lastoptname, optname;
+local name, file, instream, line, input, doPqStart, vars, var, printonly,
+      filename, DoAltAction, GetNextLine, PrintLine, action, datarec, optname;
 
   if IsEmpty(arg) then
     name := "index";
   else
     name := arg[1];
-    if Length(arg) > 1 then
-      PQfunc := arg[2];
-    else
-      PQfunc := "";
-    fi;
-    ANUPQData.example := rec();
-    if not IsEmpty(OptionsStack) then
-      ANUPQData.example.options := OptionsStack[ Length(OptionsStack) ];
-    fi;
   fi;
-  file := Filename( DirectoriesPackageLibrary( "anupq", "gap/examples"), name );
+
+  if name in ["README", "ORIGIN"] then
+    file := fail;
+  else
+    file := Filename(DirectoriesPackageLibrary( "anupq", "gap/examples"), name);
+  fi;
   if file = fail then
     Info(InfoANUPQ + InfoWarning, 1,
-         "Sorry! There is no ANUPQ example file with name `", name, "'");
+         "Sorry! There is no ANUPQ example with name `", name, "'",
+         " ... displaying index.");
     name := "index";
     file := Filename(DirectoriesPackageLibrary( "anupq", "gap/examples"), name);
   fi;
-  # Display file ... after a few minor modifications
+
+  if name <> "index" then
+    doPqStart := false;
+    if Length(arg) > 1 then
+      # At this point the name of the variable <printonly> doesn't make
+      # sense; however, if the value assigned to <printonly> is `Display'
+      # or an empty string then we ``print only'' and if it is a non-empty
+      # string then it is assumed to be a filename and we `LogTo' that filename.
+      printonly := arg[Minimum(3, Length(arg))];
+      if arg[2] = PqStart then
+        if name[Length(name)] = 'i' then
+          Error( "example does not have an interactive form\n" );
+        fi;
+        doPqStart := true;
+      fi;
+    else
+      printonly := false;
+    fi;
+
+    DoAltAction := function()
+      if doPqStart then
+        if action[2] = "do" then
+          # uncomment line
+          line := line{[2..Length(line)]};
+        else
+          # replace a variable with a proc id
+          line := ReplacedString( line, action[5], action[3] ); 
+        fi;
+      fi;
+    end;
+
+    if printonly = Display or IsString(printonly) then
+      GetNextLine := function()
+        local from, to;
+        line := ReadLine(instream);
+        if line = fail then
+          return;
+        elif IsBound(action) then
+          action := SplitString(action, "", "# <>\n");
+          DoAltAction();
+          Unbind(action);
+        elif 3 < Length(line) and line{[1..4]} = "#alt" then
+          # only "#alt" actions recognised
+          action := line;
+        elif IsMatchingSublist(line, "#comment:") then
+          line := ReplacedString(line, " supplying", "");
+          from := Position(line, ' ');
+          to   := Position(line, '<', from);
+          Info(InfoANUPQ, 1, 
+               "In the next command, you may", line{[from .. to - 1]});
+          from := to + 1;
+          to   := Position(line, '>') - 1;
+          Info(InfoANUPQ, 1, "supplying to `PqExample' the option: `", 
+                             line{[from .. to]}, "'");
+        fi;
+      end;
+
+      if IsString(printonly) and printonly <> "" then
+        filename := printonly;
+        LogTo( filename ); #Make sure it's empty and writable
+      fi;
+      PrintLine := function()
+        if IsMatchingSublist(line, "##") then 
+          line := line{[2..Length(line)]};
+        elif line[1] = '#' then
+          return;
+        fi;
+        Print( ReplacedString(line, ";;", ";") );
+      end;
+      printonly := true; #now the name of the variable makes sense
+    else
+      printonly := false;
+      ANUPQData.example := rec(options := rec());
+      datarec := ANUPQData.example.options;
+
+      GetNextLine := function()
+        local from, to, bhsinput;
+        repeat
+          line := ReadLine(instream);
+          if line = fail then return; fi;
+        until not IsMatchingSublist(line, "#comment:");
+        if IsBound(action) then
+          action := SplitString(action, "", "# <>\n");
+          if action[1] = "alt:" then
+            DoAltAction();
+          else
+            # action[2] = name of a possible option passed to `PqExample'
+            # action[4] = string to be replaced in <line> with the value
+            #             of the option if ok and set
+            optname := action[2];
+            if IsDigitChar(optname[ Length(optname) ]) then
+              optname := optname{[1..Length(optname) - 1]};
+            fi;
+            datarec.(action[2]) := ValueOption(action[2]);
+            if datarec.(action[2]) = fail then
+              Unbind( datarec.(action[2]) );
+            else
+              if not ANUPQoptionChecks.(optname)( datarec.(action[2]) ) then
+                Info(InfoANUPQ, 1, "\"", action[2], "\" value must be a ",
+                                   ANUPQoptionTypes.(optname), 
+                                   ": option ignored.");
+                Unbind( datarec.(action[2]) );
+              else
+                if action[1] = "add" then
+                  line[1] := ' ';
+                fi;
+                if IsString( datarec.(action[2]) ) then
+                  line := ReplacedString( line, action[4],
+                                          Flat(['"',datarec.(action[2]),'"']) );
+                else
+                  line := ReplacedString( line, action[4], 
+                                          String( datarec.(action[2]) ) );
+                fi;
+              fi;
+            fi;
+          fi;
+          Unbind(action);
+        elif IsMatchingSublist(line, "##") then
+          ; # do nothing
+        elif 3 < Length(line) and line{[1..4]} in ["#sub", "#add", "#alt"] then
+          action := line;
+        elif line[1] = '#' then
+          # execute instructions behind the scenes
+          bhsinput := "";
+          repeat
+            Append( bhsinput, 
+                    ReplacedString(line{[2..Length(line)]},
+                                   "datarec",
+                                   "ANUPQData.example.options") );
+            line := ReadLine(instream);
+          until line[1] <> '#' or
+                (3 < Length(line) and line{[1..4]} in ["#sub", "#add", "#com"]);
+          Read( InputTextString(bhsinput) );
+        fi;
+      end;
+
+      PrintLine := function()
+        if IsMatchingSublist(line, "##") then 
+          line := line{[2..Length(line)]};
+        elif line[1] = '#' then
+          return;
+        fi;
+        if input = "" then
+          Print("gap> ");
+        else
+          Print(">    ");
+        fi;
+        Print( ReplacedString(line, ";;", ";") );
+      end;
+    fi;
+  fi;
+  
   instream := InputTextFile(file);
   if name <> "index" then
     line := FLUSH_PQ_STREAM_UNTIL( instream, 1, 10, ReadLine,
                                    line -> IsMatchingSublist(line, "#vars:") );
-    Info(InfoANUPQ, 1, line{[Position(line, ' ')..Position(line, ';') - 1]},
+    Info(InfoANUPQ, 1, line{[Position(line, ' ')+1..Position(line, ';')-1]},
                        " are local to `PqExample'");
     vars := SplitString(line, "", " ,;\n");
     vars := vars{[2 .. Length(vars)]};
-    CallFuncList(HideGlobalVariables, vars);
+    if not printonly then
+      CallFuncList(HideGlobalVariables, vars);
+    fi;
+    line := FLUSH_PQ_STREAM_UNTIL(instream, 1, 10, ReadLine,
+                                  line -> IsMatchingSublist(line, "#options:"));
     input := "";
-    line := ReadLine(instream);
+    GetNextLine();
     while line <> fail do
-      if input = "" then
-        Print("gap> ");
-      else
-        Print(">    ");
+      PrintLine();
+      if line[1] <> '#' then
+        if not printonly then
+          Append(input, line);
+          if 1 < Length(input) and input[Length(input) - 1] = ';' then
+            PQ_EVALUATE(input);
+            input := "";
+          fi;
+        fi;
       fi;
-      Print( ReplacedString(line, ";;", ";") );
-      Append(input, line);
-      if 1 < Length(input) and input[Length(input) - 1] = ';' then
-        PQ_EVALUATE(input);
-        input := "";
+      GetNextLine();
+    od;
+    if printonly then
+      if IsBound(filename) then
+        LogTo();
       fi;
-      line := ReadLine(instream);
-    od;
-    ANUPQData.example.vars := rec();
-    for var in vars do 
-      ANUPQData.example.vars.(var) := VALUE_GLOBAL(var);
-      UNBIND_GLOBAL(var);
-    od;
-    Info(InfoANUPQ, 1, 
-         "variables used in `PqExample' saved in `ANUPQData.example.vars'");
-    CallFuncList(UnhideGlobalVariables, vars);
+    else
+      ANUPQData.example.vars := rec();
+      for var in vars do 
+        ANUPQData.example.vars.(var) := VALUE_GLOBAL(var);
+      od;
+      Info(InfoANUPQ, 1, "Variables used in `PqExample' are saved ",
+                         "in `ANUPQData.example.vars'.");
+      CallFuncList(UnhideGlobalVariables, vars);
+    fi;
   else
     FLUSH_PQ_STREAM_UNTIL( instream, 1, 10, ReadLine, line -> line = fail );
   fi;

@@ -684,13 +684,14 @@ end );
 ##
 #F  PQ_COMPLETE_NONINTERACTIVE_FUNC_CALL( <datarec> )
 ##
-##  writes the final commands to the `pq' stream/setup file so that the  `pq'
-##  binary makes a clean exit.
+##  writes the final commands to the `pq' setup file so that the `pq'  binary
+##  makes a clean exit, or just closes the stream to kill the `pq' process.
 ##
 InstallGlobalFunction(PQ_COMPLETE_NONINTERACTIVE_FUNC_CALL, function(datarec)
-local output, proc;
-  PQ_MENU(datarec, "SP");
-  ToPQk(datarec, [ "0  #exit program" ]);
+  if IsBound( datarec.setupfile ) then
+    PQ_MENU(datarec, "SP");
+    ToPQk(datarec, [ "0  #exit program" ]);
+  fi;
   CloseStream(datarec.stream);
 
   if IsBound( datarec.setupfile ) then
