@@ -11,6 +11,8 @@ F 3.2. ANUPQDirectoryTemporary
 S 3.3. Setting the Verbosity of ANUPQ via Info and InfoANUPQ
 F 3.3. InfoANUPQ
 S 3.4. Hints and Warnings regarding the use of Options
+S 3.5. Left norm commutators
+F 3.5. PqLeftNormComm
 C anupq.tex 4. Non-interactive ANUPQ functions
 S 4.1. Computing p-Quotients
 F 4.1. Pq
@@ -167,10 +169,14 @@ F 5.4. PqSPPcPresentation
 F 5.4. PqSPPcPresentation
 F 5.4. PqSPStandardPresentation
 F 5.4. PqSPStandardPresentation
+F 5.4. PqSPSavePresentation
+F 5.4. PqSPSavePresentation
 F 5.4. PqSPDisplayPresentation
 F 5.4. PqSPDisplayPresentation
 F 5.4. PqSPSetPrintLevel
 F 5.4. PqSPSetPrintLevel
+F 5.4. PqSPCompareTwoFilePresentations
+F 5.4. PqSPCompareTwoFilePresentations
 F 5.4. PqSPIsomorphism
 F 5.4. PqSPIsomorphism
 S 5.5. Primitive Interactive ANUPQ Process Read/Write Functions

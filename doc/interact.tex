@@ -463,6 +463,11 @@ computes a pc presentation, where the group of a process is the one given
 as first argument when `PqStart' was called to initiate that process (for
 process <i> the group is stored as `ANUPQData.io[<i>].group').
 
+The   possible   <options>   are   `Prime',   `ClassBound',   `Exponent',
+`Metabelian' and `OutputLevel', which are as described for  the  function
+`Pq' (see~"Pq"). The option `Prime' is required unless  already  provided
+to `PqStart'. Also, option `ClassBound' *must* be supplied.
+
 *Note:* For those  familiar  with  the  `pq'  binary,  `PqPcPresentation'
 performs option 1 of the main $p$-Quotient menu.
 
@@ -471,8 +476,11 @@ performs option 1 of the main $p$-Quotient menu.
 
 for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
 binary to save the pc presentation previously computed for the  group  of
-that process, where the group of a process is  the  one  given  as  first
-argument when `PqStart' was called to initiate that process.
+that process to the file with name  <filename>,  where  the  group  of  a
+process is the one given as first argument when `PqStart' was  called  to
+initiate that process. If the first character of the string <filename> is
+not `/', <filename> is assumed to be the path of a writable file relative
+to the directory in which {\GAP} was started.
 
 *Note:* For those familiar with the `pq'  binary,  `PqSavePcPresentation'
 performs option 2 of the main $p$-Quotient menu.
@@ -483,7 +491,10 @@ performs option 2 of the main $p$-Quotient menu.
 for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
 binary to restore the pc presentation previously saved to <filename>  for
 the group of that process, where the group of a process is the one  given
-as first argument when `PqStart' was called to initiate that process.
+as first argument when `PqStart' was called to initiate that process.  If
+the first character of the string <filename> is not  `/',  <filename>  is
+assumed to be the path of a readable file relative to  the  directory  in
+which {\GAP} was started.
 
 *Note:*
 For  those  familiar  with  the  `pq'  binary,  `PqRestorePcPresentation'
@@ -836,23 +847,23 @@ in the generators raised to the integer power <pow>.
 For those familiar with the `pq' binary, `PqCommutatorDefiningGenerators'
 performs option 24 of the Advanced $p$-Quotient menu.
 
-\>PqWritePcPresentation( <i>, <outfile> ) F
-\>PqWritePcPresentation( <outfile> ) F
+\>PqWritePcPresentation( <i>, <filename> ) F
+\>PqWritePcPresentation( <filename> ) F
 
 for the <i>th or default interactive {\ANUPQ}  process,  tells  the  `pq'
-binary to write a pc presentation to <outfile>  for  the  group  of  that
-process for which a pc presentation has been previously  computed,  where
-the group of a process is the one given as first argument when  `PqStart'
-was called to initiate that process (for process <i> the group is  stored
-as `ANUPQData.io[<i>].group'). If  the  first  character  of  the  string
-<outfile> is not `/', <outfile> is assumed to be the path of  a  writable
-file relative to the directory in which  {\GAP}  was  started.  If  a  pc
-presentation has not been previously computed by the  `pq'  binary,  then
-`pq'   is   called   to   compute   it   first,   effectively    invoking
+binary to write a pc presentation to the file with  name  <filename>  for
+the group of that process for which a pc presentation has been previously
+computed, where the group of a process is the one given as first argument
+when `PqStart' was called to initiate that process (for process  <i>  the
+group is stored as `ANUPQData.io[<i>].group'). If the first character  of
+the string <filename> is not `/', <filename> is assumed to be the path of
+a writable file relative to the directory in which {\GAP} was started. If
+a pc presentation has not been previously computed by  the  `pq'  binary,
+then  `pq'  is  called  to  compute  it   first,   effectively   invoking
 `PqPcPresentation' (see~"PqPcPresentation").
 
 *Note:* For those familiar with the `pq' binary,  `PqPcWritePresentation'
-performs option 25 of the advanced $p$-Quotient menu.
+performs option 25 of the Advanced $p$-Quotient menu.
 
 \>PqWriteCompactDescription( <i> ) F
 \>PqWriteCompactDescription() F
@@ -933,7 +944,8 @@ performs option 5 of the main $p$-Group Generation menu.
 \>PqAPGSupplyAutomorphisms() F
 
 for the <i>th or default interactive {\ANUPQ} process, supplies the  `pq'
-binary with the automorphism group  data  needed  for  `<datarec>.group'.
+binary    with    the    automorphism    group    data     needed     for
+`ANUPQData.io[<i>].group'.
 
 *Note:*
 For those  familiar  with  the  `pq'  binary,  `PqAPGSupplyAutomorphisms'
@@ -952,7 +964,7 @@ output from the `pq' (see~"InfoANUPQ").
 For  those  familiar  with  the  `pq'  binary, `PqAPGExtendAutomorphisms'
 performs option 2 of the Advanced $p$-Group Generation menu.
 
-\>PqAPGRestoreGroupFromFile(<i>, <cls>, <n>) F
+\>PqAPGRestoreGroupFromFile( <i>, <cls>, <n> ) F
 \>PqAPGRestoreGroupFromFile( <cls>, <n> ) F
 
 for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
@@ -988,23 +1000,75 @@ computes a pc presentation, where the group of a process is the one given
 as first argument when `PqStart' was called to initiate that process (for
 process <i> the group is stored as `ANUPQData.io[<i>].group').
 
+The   possible   <options>   are   `Prime',   `ClassBound',   `Exponent',
+`Metabelian' and `OutputLevel', which are as described for  the  function
+`Pq' (see~"Pq"). The option `Prime' is required unless  already  provided
+to `PqStart'. Also, option `ClassBound' *must* be supplied.
+
 *Note:* For those familiar with  the  `pq'  binary,  `PqSPPcPresentation'
 performs option 1 of the Standard Presentation menu.
 
-\>PqSPStandardPresentation( <i> : <options> ) F
-\>PqSPStandardPresentation( : <options> ) F
+\>PqSPStandardPresentation( <i>[, <mlist>][: <options>]) F
+\>PqSPStandardPresentation( [<mlist>][: <options>]) F
 
 for the <i>th or default interactive {\ANUPQ} process, inputs data  given
 by <options> to compute a standard presentation for  the  group  of  that
-process and a previously computed $p$-quotient of the  group,  where  the
-group of a process is the one given as first argument when `PqStart'  was
-called to initiate that process (for process <i> the group is  stored  as
-`ANUPQData.io[<i>].group'   and   the   $p$-quotient   is    stored    as
-`ANUPQData.io[<i>].pQuotient'). If a $p$-quotient of the  group  has  not
-been previously computed a class 1 $p$-quotient is computed.
+process.  If  argument  <mlist>  is  given  it  is  assumed  to  be   the
+automorphism group data required. Otherwise it is assumed that a call  to
+either      `Pq'      (see~"Pq!interactive")      or      `PqEpimorphism'
+(see~"PqEpimorphism!interactive") has generated a $p$-quotient  and  that
+{\GAP} can compute  its  automorphism  group  from  which  the  necessary
+automorphism group data can be derived. The group of the process  is  the
+one given as first argument when `PqStart' was  called  to  initiate  the
+process (for process <i> the group is stored as `ANUPQData.io[<i>].group'
+and     the     $p$-quotient     if     existent     is     stored     as
+`ANUPQData.io[<i>].pQuotient').  If  <mlist>   is   not   given   and   a
+$p$-quotient of the group has not been  previously  computed  a  class  1
+$p$-quotient is computed.
+
+`PqSPStandardPresentation' accepts three options, all optional:
+
+\beginitems
+
+`StandardPresentationFile := <filename>'&
+Specifies that the file to which the standard presentation is written has
+name <filename>. If the first character of the string <filename>  is  not
+`/', <filename> is assumed to be the path of a writable file relative  to
+the directory in which {\GAP} was started. If this option is  omitted  it
+is written to the file with the name generated by the command  `Filename(
+ANUPQData.tmpdir, "SPres" );', i.e.~the file with name `"SPres"'  in  the
+temporary directory in which the `pq' binary executes.
+
+`ClassBound := <n>' & 
+Specifies that the $p$-quotient computed has lower exponent-$p$ class  at
+most <n>. If this option is omitted a default of 63 is used.
+
+`PcgsAutomorphisms' &
+Specifies that a polycyclic  generating  sequence  for  the  automorphism
+group of the group of the process (which must be *soluble*), be  computed
+and passed to the `pq' binary.  This  increases  the  efficiency  of  the
+computation;  it  also  prevents  the  `pq'  from  calling   {\GAP}   for
+orbit-stabilizer calculations. See section "Computing  Descendants  of  a
+p-Group" for further explanations.
+
+\enditems
 
 *Note:* For those familiar with  the  `pq'  binary,  `PqSPPcPresentation'
 performs option 2 of the Standard Presentation menu.
+
+\>PqSPSavePresentation( <i>, <filename> ) F
+\>PqSPSavePresentation( <filename> ) F
+
+for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+binary to save the standard  presentation  previously  computed  for  the
+group of that process to the file with name <filename>, where  the  group
+of a process is the one given as first argument when `PqStart' was called
+to initiate that process. If the first character of the string <filename>
+is not `/', <filename> is assumed to be  the  path  of  a  writable  file
+relative to the directory in which {\GAP} was started.
+
+*Note:* For those familiar with the `pq'  binary,  `PqSPSavePresentation'
+performs option 3 of the Standard Presentation menu.
 
 \>PqSPDisplayPresentation( <i> [: OutputLevel := <lev>]) F
 \>PqSPDisplayPresentation([: OutputLevel := <lev>]) F
@@ -1031,6 +1095,25 @@ menu.
 
 *Note:* For those familiar  with  the  `pq'  binary,  `PqSPSetPrintLevel'
 performs option 5 of the Standard Presentation menu.
+
+\>PqSPCompareTwoFilePresentations( <i>, <f1>, <f2> ) F
+\>PqSPCompareTwoFilePresentations( <f1>, <f2> ) F
+
+for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+binary to compare the presentations in the files with names <f1> and <f2>
+and returns `true' if they are identical and `false' otherwise. For  each
+of the strings <f1> and <f2>, if the first character is not a `/' then it
+is assumed to be the path of a readable file relative to the directory in
+which {\GAP} was started.
+
+*Notes*
+
+The presentations in files <f1> and <f2> must have been generated by  the
+`pq' binary but they do *not* need to be *standard* presentations.
+
+For      those      familiar      with      the       `pq'       binary,
+`PqSPCompareTwoFilePresentations' performs  option  6  of  the  Standard
+Presentation menu.
 
 \>PqSPIsomorphism( <i> ) F
 \>PqSPIsomorphism() F

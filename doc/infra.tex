@@ -30,13 +30,17 @@ Record");
 doing `SetInfoLevel(InfoANUPQ, <n>);' for <n> greater  than  the  default
 value 1 will give progressively more information  of  what  is  going  on
 ``behind the scenes'' (details are in Section~"Setting the  Verbosity  of
-ANUPQ via Info and InfoANUPQ"); and
+ANUPQ via Info and InfoANUPQ");
 
 \item{$\bullet$} 
 if you passed options to a function and ran into an error then you should
 almost certainly type `ResetOptionsStack();' so  those  options  are  not
 still on the `OptionsStack' to affect subsequent functions  (details  are
-in Section~"Hints and Warnings regarding the use of Options").
+in Section~"Hints and Warnings regarding the use of Options"); and
+
+\item{$\bullet$} 
+in Section~"Left norm commutators" we define a function  `PqLeftNormComm'
+for computing left norm commutators in {\GAP}.
 
 \endlist
 
@@ -288,6 +292,17 @@ Functions" that have `Pq' somewhere in their name provide an  alternative
 method  of  passing  options  as  additional  arguments.  This  has   the
 advantages that options can be abbreviated and mis-spelled  options  will
 be trapped.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\Section{Left norm commutators}
+
+\>PqLeftNormComm( <words> ) F
+
+returns for a list <words> of words in the generators of a free group  or
+an fp group and <pow> is a positive integer, the left norm commutator  of
+<words>, e.g.~if <w1>, <w2>, <w3> are words in  the  generators  of  some
+free or  fp  group  then  `PqLeftNormComm(  [<w1>,  <w2>,  <w3>]  );'  is
+equivalent to `Comm( Comm( <w1>, <w2> ), <w3> );'.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
