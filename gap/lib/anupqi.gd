@@ -506,10 +506,10 @@ DeclareGlobalFunction( "PQ_COLLECT_DEFINING_GENERATORS" );
 
 #############################################################################
 ##
-#F  PqCollectDefiningGenerators(<i>, <word>) .  user ver of A p-Q menu opt 23
-#F  PqCollectDefiningGenerators( <word> )
+#F  PqCollectWordInDefiningGenerators(<i>,<word>) . u ver of A p-Q menu op 23
+#F  PqCollectWordInDefiningGenerators( <word> )
 ##
-DeclareGlobalFunction( "PqCollectDefiningGenerators" );
+DeclareGlobalFunction( "PqCollectWordInDefiningGenerators" );
 
 #############################################################################
 ##

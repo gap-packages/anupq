@@ -1152,7 +1152,7 @@ InstallGlobalFunction( PQ_DO_CONSISTENCY_CHECKS,
 function( datarec, weight, type )
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
   ToPQ(datarec, [ "8  #check consistency" ]);
-  ToPQ(datarec, [ weight, "  #weight to be checked" ]);
+  ToPQ(datarec, [ weight, " #weight to be checked" ]);
   ToPQ(datarec, [ type, "  #type" ]);
 end );
 
@@ -1308,6 +1308,10 @@ end );
 InstallGlobalFunction( PQ_REVERT_TO_PREVIOUS_CLASS, function( datarec )
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
   ToPQ(datarec, [ "12 #revert to previous class" ]);
+  Unbind( datarec.ngens[ datarec.class ] );
+  datarec.match := true;
+  PQ_SET_GRP_DATA(datarec); #Just to be sure it's up-to-date
+  datarec.setupclass := datarec.class;
 end );
 
 #############################################################################
@@ -1742,18 +1746,18 @@ end );
 
 #############################################################################
 ##
-#F  PqCollectDefiningGenerators(<i>, <word>) .  user ver of A p-Q menu opt 23
-#F  PqCollectDefiningGenerators( <word> )
+#F  PqCollectWordInDefiningGenerators(<i>,<word>) . u ver of A p-Q menu op 23
+#F  PqCollectWordInDefiningGenerators( <word> )
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
 ##  binary to do a collection on <word> a string representing the product  of
 ##  three generators, e.g. `"x3*x2*x1"'.
 ##
-##  *Note:*
-##  For those familiar with the  `pq'  binary,  `PqCollectDefiningGenerators'
-##  performs option 23 of the Advanced $p$-Quotient menu.
+##  *Note:*    For    those    familiar     with     the     `pq'     binary,
+##  `PqCollectWordInDefiningGenerators' performs option 23  of  the  Advanced
+##  $p$-Quotient menu.
 ##
-InstallGlobalFunction( PqCollectDefiningGenerators, function( arg )
+InstallGlobalFunction( PqCollectWordInDefiningGenerators, function( arg )
   CallFuncList( PQ_COLLECT_DEFINING_GENERATORS, 
                 PQ_CHK_COLLECT_COMMAND_ARGS(arg) );
 end );
