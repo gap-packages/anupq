@@ -131,34 +131,34 @@ DeclareGlobalFunction( "PqCollect" );
 
 #############################################################################
 ##
-#F PQ_SOLVE_EQUATION( <datarec> ) . . . . . . . . . . . . A p-Q menu option 2
+#F  PQ_SOLVE_EQUATION( <datarec>, <a>, <b> ) . . . . . .  A p-Q menu option 2
 ##
 DeclareGlobalFunction( "PQ_SOLVE_EQUATION" );
 
 #############################################################################
 ##
-#F PqSolveEquation( <i> ) . . . . . . . . user version of A p-Q menu option 2
-#F PqSolveEquation()
+#F  PqSolveEquation( <i>, <a>, <b> ) . .  user version of A p-Q menu option 2
+#F  PqSolveEquation( <a>, <b> )
 ##
 DeclareGlobalFunction( "PqSolveEquation" );
 
 #############################################################################
 ##
-#F PQ_COMMUTATOR( <datarec> ) . . . . . . . . . . . . . . A p-Q menu option 3
+#F  PQ_COMMUTATOR( <datarec>, <words>, <pow> ) . . . . .  A p-Q menu option 3
 ##
 DeclareGlobalFunction( "PQ_COMMUTATOR" );
 
 #############################################################################
 ##
-#F PqCommutator( <i> ) . . . . . . . . .  user version of A p-Q menu option 3
-#F PqCommutator()
+#F  PqCommutator( <i>, <words>, <pow> ) . user version of A p-Q menu option 3
+#F  PqCommutator( <words>, <pow> )
 ##
 DeclareGlobalFunction( "PqCommutator" );
 
 #############################################################################
 ##
-#F PqAPQDisplayPresentation( <i> ) . . .  user version of A p-Q menu option 4
-#F PqAPQDisplayPresentation()
+#F  PqAPQDisplayPresentation( <i> ) . . . user version of A p-Q menu option 4
+#F  PqAPQDisplayPresentation()
 ##
 DeclareGlobalFunction( "PqAPQDisplayPresentation" );
 
@@ -171,79 +171,99 @@ DeclareGlobalFunction( "PqAPQSetPrintLevel" );
 
 #############################################################################
 ##
-#F PQ_SETUP_TABLES_FOR_NEXT_CLASS( <datarec> ) . . . . .  A p-Q menu option 6
+#F  PQ_SETUP_TABLES_FOR_NEXT_CLASS( <datarec> ) . . . . . A p-Q menu option 6
 ##
 DeclareGlobalFunction( "PQ_SETUP_TABLES_FOR_NEXT_CLASS" );
 
 #############################################################################
 ##
-#F PqSetupTablesForNextClass( <i> ) . . . user version of A p-Q menu option 6
-#F PqSetupTablesForNextClass()
+#F  PqSetupTablesForNextClass( <i> ) . .  user version of A p-Q menu option 6
+#F  PqSetupTablesForNextClass()
 ##
 DeclareGlobalFunction( "PqSetupTablesForNextClass" );
 
 #############################################################################
 ##
-#F PQ_INSERT_TAILS( <datarec> ) . . . . . . . . . . . . . A p-Q menu option 7
+#F  PQ_INSERT_TAILS( <datarec>, <weight>, <which> )  . .  A p-Q menu option 7
 ##
 DeclareGlobalFunction( "PQ_INSERT_TAILS" );
 
 #############################################################################
 ##
-#F PqInsertTails( <i> ) . . . . . . . . . user version of A p-Q menu option 7
-#F PqInsertTails()
+#F  PQ_CHK_TAILS_ARGS( <args> ) . . . . .  check args for insert tails cmd ok
 ##
-DeclareGlobalFunction( "PqInsertTails" );
+DeclareGlobalFunction( "PQ_CHK_TAILS_ARGS" );
 
 #############################################################################
 ##
-#F PQ_DO_CONSISTENCY_CHECKS( <datarec> ) . . . . . . . .  A p-Q menu option 8
+#F  PqAddTails( <i>, <weight> ) . . . .  adds tails using A p-Q menu option 7
+#F  PqAddTails( <weight> )
+##
+DeclareGlobalFunction( "PqAddTails" );
+
+#############################################################################
+##
+#F  PqComputeTails( <i>, <weight> ) . . computes tails using A p-Q menu opt 7
+#F  PqComputeTails( <weight> )
+##
+DeclareGlobalFunction( "PqComputeTails" );
+
+#############################################################################
+##
+#F  PqTails( <i>, <weight> ) . computes and adds tails using A p-Q menu opt 7
+#F  PqTails( <weight> )
+##
+DeclareGlobalFunction( "PqTails" );
+
+#############################################################################
+##
+#F  PQ_DO_CONSISTENCY_CHECKS( <datarec>, <weight>, <type> ) . A p-Q menu opt 8
 ##
 DeclareGlobalFunction( "PQ_DO_CONSISTENCY_CHECKS" );
 
 #############################################################################
 ##
-#F PqDoConsistencyChecks( <i> ) . . . . . user version of A p-Q menu option 8
-#F PqDoConsistencyChecks()
+#F  PqDoConsistencyChecks(<i>,<weight>,<type>) . user ver of A p-Q menu opt 8
+#F  PqDoConsistencyChecks( <weight>, <type> )
 ##
 DeclareGlobalFunction( "PqDoConsistencyChecks" );
 
 #############################################################################
 ##
-#F PQ_COLLECT_DEFINING_RELATIONS( <datarec> ) . . . . . . A p-Q menu option 9
+#F  PQ_COLLECT_DEFINING_RELATIONS( <datarec> ) . . . . .  A p-Q menu option 9
 ##
 DeclareGlobalFunction( "PQ_COLLECT_DEFINING_RELATIONS" );
 
 #############################################################################
 ##
-#F PqCollectDefiningRelations( <i> ) . .  user version of A p-Q menu option 9
-#F PqCollectDefiningRelations()
+#F  PqCollectDefiningRelations( <i> ) . . user version of A p-Q menu option 9
+#F  PqCollectDefiningRelations()
 ##
 DeclareGlobalFunction( "PqCollectDefiningRelations" );
 
 #############################################################################
 ##
-#F PQ_DO_EXPONENT_CHECKS( <datarec> ) . . . . . . . . .  A p-Q menu option 10
+#F  PQ_DO_EXPONENT_CHECKS( <datarec>, <w1>, <w2> ) . . . A p-Q menu option 10
 ##
 DeclareGlobalFunction( "PQ_DO_EXPONENT_CHECKS" );
 
 #############################################################################
 ##
-#F PqDoExponentChecks( <i> ) . . . . . . user version of A p-Q menu option 10
-#F PqDoExponentChecks()
+#F  PqDoExponentChecks( <i>, <w1>, <w2> ) . .  user version A p-Q menu opt 10
+#F  PqDoExponentChecks( <w1>, <w2> )
 ##
 DeclareGlobalFunction( "PqDoExponentChecks" );
 
 #############################################################################
 ##
-#F PQ_ELIMINATE_REDUNDANT_GENERATORS( <datarec> ) . . .  A p-Q menu option 11
+#F  PQ_ELIMINATE_REDUNDANT_GENERATORS( <datarec> ) . . . A p-Q menu option 11
 ##
 DeclareGlobalFunction( "PQ_ELIMINATE_REDUNDANT_GENERATORS" );
 
 #############################################################################
 ##
-#F PqEliminateRedundantGenerators( <i> ) user version of A p-Q menu option 11
-#F PqEliminateRedundantGenerators()
+#F  PqEliminateRedundantGenerators( <i> ) .  user ver of A p-Q menu option 11
+#F  PqEliminateRedundantGenerators()
 ##
 DeclareGlobalFunction( "PqEliminateRedundantGenerators" );
 
@@ -314,14 +334,14 @@ DeclareGlobalFunction( "PqCompact" );
 
 #############################################################################
 ##
-#F PQ_ECHELONISE( <datarec> ) . . . . . . . . . . . . .  A p-Q menu option 17
+#F  PQ_ECHELONISE( <datarec> ) . . . . . . . . . . . . . A p-Q menu option 17
 ##
 DeclareGlobalFunction( "PQ_ECHELONISE" );
 
 #############################################################################
 ##
-#F PqEchelonise( <i> ) . . . . . . . . . user version of A p-Q menu option 17
-#F PqEchelonise()
+#F  PqEchelonise( <i> ) . . . . . . . .  user version of A p-Q menu option 17
+#F  PqEchelonise()
 ##
 DeclareGlobalFunction( "PqEchelonise" );
 
@@ -347,16 +367,16 @@ DeclareGlobalFunction( "PqExtendAutomorphisms" );
 
 #############################################################################
 ##
-#F PQ_CLOSE_RELATIONS( <datarec> ) . . . . . . . . . . . A p-Q menu option 19
+#F  PQ_CLOSE_RELATIONS( <datarec>, <qfac> ) . . . . . .  A p-Q menu option 19
 ##
 DeclareGlobalFunction( "PQ_CLOSE_RELATIONS" );
 
 #############################################################################
 ##
-#F PqCloseRelations( <i> ) . . . . . . . user version of A p-Q menu option 19
-#F PqCloseRelations()
+#F  PqApplyAutomorphisms( <i>, <qfac> ) . .  user ver of A p-Q menu option 19
+#F  PqApplyAutomorphisms( <qfac> )
 ##
-DeclareGlobalFunction( "PqCloseRelations" );
+DeclareGlobalFunction( "PqApplyAutomorphisms" );
 
 #############################################################################
 ##

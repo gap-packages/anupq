@@ -618,77 +618,131 @@ end );
 ##
 #F  PQ_INSERT_TAILS( <datarec>, <weight>, <which> )  . .  A p-Q menu option 7
 ##
-##  inputs data to the `pq' binary for option 7 of the
-##  Advanced $p$-Quotient menu.
+##  inputs data to the `pq' binary for option 7 of the Advanced  $p$-Quotient
+##  menu, to add and/or compute tails.
 ##
 InstallGlobalFunction( PQ_INSERT_TAILS, function( datarec, weight, which )
 local intwhich;
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
-  ToPQ(datarec, [ "7  #insert tails" ]);
-  ToPQ(datarec, [ weight, "  #weight of tails to add/compute" ]);
-  #@check weight in [0..class]@
-  repeat
-    intwhich := Position( [ "all", "add", "compute" ], which );
-    if intwhich = fail then
-      Error( "<which> should be one of: \"all\", \"add\", \"compute\"\n",
-             "To continue type: 'which := <value>; return;'\n" );
-    fi;
-  until intwhich <> fail;
-  if which = "all" then
-    which := "add and compute";
-  fi;
-  ToPQ(datarec, [ intwhich - 1, "  #", which ]);
+  intwhich := Position( [ "compute and add", "add", "compute" ], which ) - 1;
+  ToPQ(datarec, [ "7  #", which, " tails" ]);
+  ToPQ(datarec, [ weight,   "  #weight of tails" ]);
+  ToPQ(datarec, [ intwhich, "  #", which ]);
 end );
 
 #############################################################################
 ##
-#F  PqInsertTails( <i> ) . . . . . . . .  user version of A p-Q menu option 7
-#F  PqInsertTails()
+#F  PQ_CHK_TAILS_ARGS( <args> ) . . . . .  check args for insert tails cmd ok
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, inputs data
-##  to the `pq' binary
+InstallGlobalFunction( PQ_CHK_TAILS_ARGS, function( args )
+local weight;
+  if IsEmpty(args) or 2 < Length(args) then
+    Error( "1 or 2 arguments expected\n");
+  fi;
+  weight := args[Length(args)];
+  args := args{[1..Length(args) - 1]};
+  ANUPQ_IOINDEX_ARG_CHK(args);
+  if not IsInt(weight) or weight < 0 then
+    #@check weight in [0..class]@
+    Error( "argument <weight> should be a non-negative integer\n" );
+  fi;
+  return ANUPQData.io[ ANUPQ_IOINDEX(args) ];
+end );
+
+#############################################################################
 ##
-##  *Note:* For those  familiar  with  the  `pq'  binary, 
-##  `PqInsertTails' performs option 7 of the
+#F  PqAddTails( <i>, <weight> ) . . . .  adds tails using A p-Q menu option 7
+#F  PqAddTails( <weight> )
+##
+##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+##  binary to add tails of weight <weight>, where <weight> is an integer.
+##
+##  *Note:*
+##  For those familiar with the `pq' binary, `PqAddTails' uses  option  7  of
+##  the Advanced $p$-Quotient menu.
+##
+InstallGlobalFunction( PqAddTails, function( arg )
+  PQ_INSERT_TAILS( PQ_CHK_TAILS_ARGS(arg), arg[Length(arg)], "add" );
+end );
+
+#############################################################################
+##
+#F  PqComputeTails( <i>, <weight> ) . . computes tails using A p-Q menu opt 7
+#F  PqComputeTails( <weight> )
+##
+##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+##  binary to compute tails of weight <weight>, where <weight> is an integer.
+##
+##  *Note:*
+##  For those familiar with the `pq' binary, `PqComputeTails' uses  option  7
+##  of the Advanced $p$-Quotient menu.
+##
+InstallGlobalFunction( PqComputeTails, function( arg )
+  PQ_INSERT_TAILS( PQ_CHK_TAILS_ARGS(arg), arg[Length(arg)], "compute" );
+end );
+
+#############################################################################
+##
+#F  PqTails( <i>, <weight> ) . computes and adds tails using A p-Q menu opt 7
+#F  PqTails( <weight> )
+##
+##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+##  binary to compute and add tails of weight <weight>, where <weight> is  an
+##  integer.
+##
+##  *Note:*
+##  For those familiar with the `pq' binary, `PqTails' uses option 7  of  the
 ##  Advanced $p$-Quotient menu.
 ##
-InstallGlobalFunction( PqInsertTails, function( arg )
-local datarec;
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  PQ_INSERT_TAILS( datarec );
+InstallGlobalFunction( PqTails, function( arg )
+  PQ_INSERT_TAILS(PQ_CHK_TAILS_ARGS(arg), arg[Length(arg)], "compute and add");
 end );
 
 #############################################################################
 ##
 #F  PQ_DO_CONSISTENCY_CHECKS( <datarec>, <weight>, <type> ) . A p-Q menu opt 8
 ##
-##  inputs data to the `pq' binary for option 8 of the
-##  Advanced $p$-Quotient menu.
+##  inputs data to the `pq' binary for option 8 of the Advanced  $p$-Quotient
+##  menu, to do consistency checks.
 ##
 InstallGlobalFunction( PQ_DO_CONSISTENCY_CHECKS, 
 function( datarec, weight, type )
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
   ToPQ(datarec, [ "8  #check consistency" ]);
   ToPQ(datarec, [ weight, "  #weight of tails to add/compute" ]);
-  #@check type in: [0,1,2,3] 0 = `all' weight in [0..class]@
   ToPQ(datarec, [ type, "  #type" ]);
 end );
 
 #############################################################################
 ##
-#F  PqDoConsistencyChecks( <i> ) . . . .  user version of A p-Q menu option 8
-#F  PqDoConsistencyChecks()
+#F  PqDoConsistencyChecks(<i>,<weight>,<type>) . user ver of A p-Q menu opt 8
+#F  PqDoConsistencyChecks( <weight>, <type> )
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, inputs data
-##  to the `pq' binary
+##  for the <i>th or default interactive  {\ANUPQ}  process,  do  consistency
+##  checks of type <type> for weight <weight>; <type> should be an integer in
+##  `[0,1,2,3]' (`0' means do  *all*  checks),  and  <weight>  should  be  an
+##  integer in `[0 .. <class>]' where <class> is the maximum class.
 ##
-##  *Note:* For those  familiar  with  the  `pq'  binary, 
-##  `PqDoConsistencyChecks' performs option 8 of the
-##  Advanced $p$-Quotient menu.
+##  *Note:*
+##  For those familiar with the `pq' binary, `PqDoConsistencyChecks' performs
+##  option 8 of the Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqDoConsistencyChecks, function( arg )
-local datarec;
+local len, datarec, weight, type;
+  len := Length(arg);
+  if not(len in [2, 3]) then
+    Error("expected 2 or 3 arguments\n");
+  fi;
+  weight := arg[len - 1];
+  type   := arg[len];
+  if not IsInt(weight) or weight < 0 then
+    #@check weight in [0..class]@
+    Error( "argument <weight> should be a non-negative integer\n" );
+  fi;
+  if not(type in [0..3]) then
+    Error( "argument <type> should be in [0,1,2,3]\n" );
+  fi;
+  arg := arg{[1 .. len - 2]};
   ANUPQ_IOINDEX_ARG_CHK(arg);
   datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
   PQ_DO_CONSISTENCY_CHECKS( datarec );
@@ -698,8 +752,8 @@ end );
 ##
 #F  PQ_COLLECT_DEFINING_RELATIONS( <datarec> ) . . . . .  A p-Q menu option 9
 ##
-##  inputs data to the `pq' binary for option 9 of the
-##  Advanced $p$-Quotient menu.
+##  inputs data to the `pq' binary for option 9 of the Advanced  $p$-Quotient
+##  menu, to collect defining relations.
 ##
 InstallGlobalFunction( PQ_COLLECT_DEFINING_RELATIONS, function( datarec )
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
@@ -711,12 +765,12 @@ end );
 #F  PqCollectDefiningRelations( <i> ) . . user version of A p-Q menu option 9
 #F  PqCollectDefiningRelations()
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, inputs data
-##  to the `pq' binary
+##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+##  binary to collect defining relations.
 ##
-##  *Note:* For those  familiar  with  the  `pq'  binary, 
-##  `PqCollectDefiningRelations' performs option 9 of the
-##  Advanced $p$-Quotient menu.
+##  *Note:*
+##  For those familiar with  the  `pq'  binary,  `PqCollectDefiningRelations'
+##  performs option 9 of the Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqCollectDefiningRelations, function( arg )
 local datarec;
@@ -727,49 +781,59 @@ end );
 
 #############################################################################
 ##
-#F  PQ_DO_EXPONENT_CHECKS( <datarec>, <weight1>, <weight2> ) A p-Q menu optn 10
+#F  PQ_DO_EXPONENT_CHECKS( <datarec>, <w1>, <w2> ) . . . A p-Q menu option 10
 ##
-##  inputs data to the `pq' binary for option 10 of the
-##  Advanced $p$-Quotient menu.
+##  inputs data to the `pq' binary for option 10 of the Advanced $p$-Quotient
+##  menu, to do exponent checks.
 ##
-InstallGlobalFunction( PQ_DO_EXPONENT_CHECKS, 
-function( datarec, weight1, weight2 )
+InstallGlobalFunction( PQ_DO_EXPONENT_CHECKS, function( datarec, w1, w2 )
   #@does default only at the moment@
   if not IsBound(datarec.Exponent) or datarec.Exponent = 0 then
     Error( "no exponent law set\n" );
   fi;
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
   ToPQ(datarec, [ "10  #do exponent checks" ]);
-  ToPQ(datarec, [ weight1, "  #start weight"]);
-  ToPQ(datarec, [ weight2, "  #end weight"]);
-  ToPQ(datarec, [ 1, "  #do default check"]);
+  ToPQ(datarec, [ w1, "  #start weight"     ]);
+  ToPQ(datarec, [ w2, "  #end weight"       ]);
+  ToPQ(datarec, [ 1,  "  #do default check" ]);
 end );
 
 #############################################################################
 ##
-#F  PqDoExponentChecks( <i> ) . . . . .  user version of A p-Q menu option 10
-#F  PqDoExponentChecks()
+#F  PqDoExponentChecks( <i>, <w1>, <w2> ) . .  user version A p-Q menu opt 10
+#F  PqDoExponentChecks( <w1>, <w2> )
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, inputs data
-##  to the `pq' binary
+##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+##  binary to do exponent checks between weights <w1> and <w2>, where $0  \le
+##  <w1> \< <w2> \le <class>$ and <class> is the maximum class.
 ##
-##  *Note:* For those  familiar  with  the  `pq'  binary, 
-##  `PqDoExponentChecks' performs option 10 of the
-##  Advanced $p$-Quotient menu.
+##  *Note:* 
+##  For those familiar with the `pq'  binary,  `PqDoExponentChecks'  performs
+##  option 10 of the Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqDoExponentChecks, function( arg )
-local datarec;
+local len, w1, w2, datarec;
+  len := Length(arg);
+  if not(len in [2, 3]) then
+    Error( "expected 2 or 3 arguments\n" );
+  fi;
+  w1 := arg[len - 1];
+  w2 := arg[len];
+  if not( IsInt(w1) and IsInt(w2) and 0 <= w1 and w1 < w2 ) then
+    Error( "weights should satisfy 0 <= <w1> < <w2>\n" );
+  fi;
+  arg := arg{[1 .. len - 2]};
   ANUPQ_IOINDEX_ARG_CHK(arg);
   datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  PQ_DO_EXPONENT_CHECKS( datarec );
+  PQ_DO_EXPONENT_CHECKS( datarec, w1, w2 );
 end );
 
 #############################################################################
 ##
 #F  PQ_ELIMINATE_REDUNDANT_GENERATORS( <datarec> ) . . . A p-Q menu option 11
 ##
-##  inputs data to the `pq' binary for option 11 of the
-##  Advanced $p$-Quotient menu.
+##  inputs data to the `pq' binary for option 11 of the Advanced $p$-Quotient
+##  menu, to eliminate redundant generators.
 ##
 InstallGlobalFunction( PQ_ELIMINATE_REDUNDANT_GENERATORS, function( datarec )
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
@@ -778,15 +842,15 @@ end );
 
 #############################################################################
 ##
-#F  PqEliminateRedundantGenerators( <i> )  user version of A p-Q menu option 11
+#F  PqEliminateRedundantGenerators( <i> ) .  user ver of A p-Q menu option 11
 #F  PqEliminateRedundantGenerators()
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, inputs data
-##  to the `pq' binary
+##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+##  binary to eliminate redundant generators.
 ##
-##  *Note:* For those  familiar  with  the  `pq'  binary, 
-##  `PqEliminateRedundantGenerators' performs option 11 of the
-##  Advanced $p$-Quotient menu.
+##  *Note:* 
+##  For those familiar with the `pq' binary, `PqEliminateRedundantGenerators'
+##  performs option 11 of the Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqEliminateRedundantGenerators, function( arg )
 local datarec;
@@ -967,8 +1031,8 @@ end );
 ##
 #F  PQ_ECHELONISE( <datarec> ) . . . . . . . . . . . . . A p-Q menu option 17
 ##
-##  inputs data to the `pq' binary for option 17 of the
-##  Advanced $p$-Quotient menu.
+##  inputs data to the `pq' binary for option 17 of the Advanced $p$-Quotient
+##  menu, to echelonise.
 ##
 InstallGlobalFunction( PQ_ECHELONISE, function( datarec )
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
@@ -981,12 +1045,12 @@ end );
 #F  PqEchelonise( <i> ) . . . . . . . .  user version of A p-Q menu option 17
 #F  PqEchelonise()
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, inputs data
-##  to the `pq' binary
+##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+##  binary to echelonise.
 ##
-##  *Note:* For those  familiar  with  the  `pq'  binary, 
-##  `PqEchelonise' performs option 17 of the
-##  Advanced $p$-Quotient menu.
+##  *Note:*
+##  For those familiar with the `pq' binary, `PqEchelonise'  performs  option
+##  17 of the Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqEchelonise, function( arg )
 local datarec;
@@ -1101,33 +1165,38 @@ end );
 
 #############################################################################
 ##
-#F  PQ_CLOSE_RELATIONS( <datarec> ) . . . . . . . . . .  A p-Q menu option 19
+#F  PQ_CLOSE_RELATIONS( <datarec>, <qfac> ) . . . . . .  A p-Q menu option 19
 ##
-##  inputs data to the `pq' binary for option 19 of the
-##  Advanced $p$-Quotient menu.
+##  inputs data to the `pq' binary for option 19 of the Advanced $p$-Quotient
+##  menu, to apply automorphisms.
 ##
-InstallGlobalFunction( PQ_CLOSE_RELATIONS, function( datarec )
+InstallGlobalFunction( PQ_CLOSE_RELATIONS, function( datarec, qfac )
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
-  ToPQ(datarec, [ "19  #close relations" ]);
+  ToPQ(datarec, [ "19  #close relations"  ]);
+  ToPQ(datarec, [ qfac, "  #queue factor" ]);
 end );
 
 #############################################################################
 ##
-#F  PqCloseRelations( <i> ) . . . . . .  user version of A p-Q menu option 19
-#F  PqCloseRelations()
+#F  PqApplyAutomorphisms( <i>, <qfac> ) . .  user ver of A p-Q menu option 19
+#F  PqApplyAutomorphisms( <qfac> )
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, inputs data
-##  to the `pq' binary
+##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+##  binary to apply automorphisms; <qfac> is the queue factor e.g. `15'.
 ##
-##  *Note:* For those  familiar  with  the  `pq'  binary, 
-##  `PqCloseRelations' performs option 19 of the
-##  Advanced $p$-Quotient menu.
+##  *Note:* 
+##  For those familiar with  the  `pq'  binary,  `PqCloseRelations'  performs
+##  option 19 of the Advanced $p$-Quotient menu.
 ##
-InstallGlobalFunction( PqCloseRelations, function( arg )
-local datarec;
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  PQ_CLOSE_RELATIONS( datarec );
+InstallGlobalFunction( PqApplyAutomorphisms, function( arg )
+local len, datarec, qfac;
+  len := Length(arg);
+  if not(len in [1,2]) then
+    Error("expected 1 or 2 arguments\n");
+  fi;
+  ANUPQ_IOINDEX_ARG_CHK(arg{[1 .. len -1]});
+  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg{[1 .. len -1]}) ];
+  PQ_CLOSE_RELATIONS( datarec, arg[len] );
 end );
 
 #############################################################################
