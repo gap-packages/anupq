@@ -194,7 +194,7 @@ gap> Pq(: Prime := 2, ClassBound := 3 );
 #I  ToPQ> exponent 0
 #I  ToPQ> output 1
 #I  ToPQ> generators { a,b }
-#I  ToPQ> relations  { a^4,b^4 };
+#I  ToPQ> relators   { a^4,b^4 };
 #I  
 #I  Lower exponent-2 central series for G
 #I  
@@ -210,7 +210,7 @@ gap> Pq(: Prime := 2, ClassBound := 3 );
 #I  Select option: 
 #I  ToPQ> 25 #set output file
 #I  Enter output file name: 
-#I  ToPQ> /tmp/filev02Q2b.2/PQ_OUTPUT
+#I  ToPQ> /tmp/file2v1O8X.2/PQ_OUTPUT
 #I  Output file in CAYLEY (1) or GAP (2) or Magma (3) format? 
 #I  ToPQ> 2  #output in GAP format
 #I  Group presentation written in GAP format to file
@@ -317,7 +317,7 @@ something that required two separate calls to the `pq' binary can now  be
 achieved with a dialogue with just one `pq' process.
 
 \beginexample
-gap> F := FreeGroup (6);;
+gap> F := FreeGroup(6);;
 gap> x := F.1;; y := F.2;; z := F.3;; w := F.4;; a := F.5;; b := F.6;;
 gap> R := [x^3 / w, y^3 / w * a^2 * b^2, w^3 / b,
 >          Comm (y, x) / z, Comm (z, x), Comm (z, y) / a, z^3 ];;
