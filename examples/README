@@ -1,0 +1,7 @@
+All files beginning with pga_ are examples of usage of 
+p-group generation.
+
+All other files utilize features of the p-quotient algorithm.
+Those files which begin with keyword_* are examples of files 
+containing presentations defined using key words.  
+
