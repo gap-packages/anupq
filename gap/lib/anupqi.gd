@@ -15,6 +15,12 @@ Revision.anupqi_gd :=
 
 #############################################################################
 ##
+#F  PQ_UNBIND( <datarec>, <fields> ) . . . . . unbind fields of a data record
+##
+DeclareGlobalFunction( "PQ_UNBIND" );
+
+#############################################################################
+##
 #F  PQ_AUT_INPUT( <datarec>, <G> : <options> ) . . . . . . automorphism input
 ##
 DeclareGlobalFunction( "PQ_AUT_INPUT" );
@@ -30,12 +36,6 @@ DeclareGlobalFunction( "PQ_MANUAL_AUT_INPUT" );
 #F  PQ_AUT_ARG_CHK(<minnargs>, <args>) . checks args for a func defining auts
 ##
 DeclareGlobalFunction( "PQ_AUT_ARG_CHK" );
-
-#############################################################################
-##
-#F  PQ_SET_GRP_DATA( <datarec>, <fields> ) . . . save group data of curr. grp
-##
-DeclareGlobalFunction( "PQ_SET_GRP_DATA" );
 
 #############################################################################
 ##
@@ -90,21 +90,68 @@ DeclareGlobalFunction( "PqRestorePcPresentation" );
 
 #############################################################################
 ##
-#F  PQ_PRE_DISPLAY( <datarec>, <menu> ) . . . .  execute pre-display commands
-##
-DeclareGlobalFunction( "PQ_PRE_DISPLAY" );
-
-#############################################################################
-##
-#F  PQ_DISPLAY_PRESENTATION( <datarec>, <menu> ) . . . . .  any menu option 4
+#F  PQ_DISPLAY_PRESENTATION( <datarec> ) . . . . . . . . .  any menu option 4
 ##
 DeclareGlobalFunction( "PQ_DISPLAY_PRESENTATION" );
 
 #############################################################################
 ##
-#F  PQ_POST_DISPLAY( <datarec>, <infolev> ) . . . . . .  flush display output
+#F  PQ_GRP_EXISTS_CHK( <datarec> ) . . check the `pq' binary knows about a gp
 ##
-DeclareGlobalFunction( "PQ_POST_DISPLAY" );
+DeclareGlobalFunction( "PQ_GRP_EXISTS_CHK" );
+
+#############################################################################
+##
+#F  PQ_SET_GRP_DATA( <datarec> ) .  save group data of current class of group
+##
+DeclareGlobalFunction( "PQ_SET_GRP_DATA" );
+
+#############################################################################
+##
+#F  PQ_DATA( <datarec> ) . . . . gets class/gen'r data from (A)p-Q menu opt 4
+##
+DeclareGlobalFunction( "PQ_DATA" );
+
+#############################################################################
+##
+#F  PQ_DATA_CHK( <args> ) . . .  call PQ_DATA if class/gen'r data out-of-date
+##
+DeclareGlobalFunction( "PQ_DATA_CHK" );
+
+#############################################################################
+##
+#F  PqFactoredOrder( <i> ) . the `pq' binary's current group's factored order
+#F  PqFactoredOrder()
+##
+DeclareGlobalFunction( "PqFactoredOrder" );
+
+#############################################################################
+##
+#F  PqOrder( <i> ) . . . .  the order of the current group of the `pq' binary
+#F  PqOrder()
+##
+DeclareGlobalFunction( "PqOrder" );
+
+#############################################################################
+##
+#F  PqPClass( <i> ) . . . the p class of the current group of the `pq' binary
+#F  PqPClass()
+##
+DeclareGlobalFunction( "PqPClass" );
+
+#############################################################################
+##
+#F  PqNrPcGenerators( <i> ) . number of pc gen'rs of `pq' binary's current gp
+#F  PqNrPcGenerators()
+##
+DeclareGlobalFunction( "PqNrPcGenerators" );
+
+#############################################################################
+##
+#F  PqWeight( <i>, <j> ) . . . . . . . . . . . . . . .  weight of a generator
+#F  PqWeight( <j> )
+##
+DeclareGlobalFunction( "PqWeight" );
 
 #############################################################################
 ##
@@ -128,22 +175,16 @@ DeclareGlobalFunction( "PqDisplayPcPresentation" );
 
 #############################################################################
 ##
-#F  PQ_SET_PRINT_LEVEL(<datarec>, <menu>, <lev>) . . p-Q/SP/A p-Q menu opt. 5
+#F  PQ_SET_OUTPUT_LEVEL(<datarec>, <lev>) . . . .  p-Q/SP/A p-Q menu option 5
 ##
-DeclareGlobalFunction( "PQ_SET_PRINT_LEVEL" );
+DeclareGlobalFunction( "PQ_SET_OUTPUT_LEVEL" );
 
 #############################################################################
 ##
-#F  PQ_CHK_PRINT_ARGS( <args> ) . . . . . . check args for print level cmd ok
+#F  PqSetOutputLevel( <i>, <lev> ) .  user version of p-Q/SP/A p-Q menu opt 5
+#F  PqSetOutputLevel( <lev> )
 ##
-DeclareGlobalFunction( "PQ_CHK_PRINT_ARGS" );
-
-#############################################################################
-##
-#F  PqSetPrintLevel( <i>, <lev> ) . . . . . user version of p-Q menu option 5
-#F  PqSetPrintLevel( <lev> )
-##
-DeclareGlobalFunction( "PqSetPrintLevel" );
+DeclareGlobalFunction( "PqSetOutputLevel" );
 
 #############################################################################
 ##
@@ -224,20 +265,6 @@ DeclareGlobalFunction( "PqCommutator" );
 
 #############################################################################
 ##
-#F  PqAPQDisplayPresentation( <i> ) . . . user version of A p-Q menu option 4
-#F  PqAPQDisplayPresentation()
-##
-DeclareGlobalFunction( "PqAPQDisplayPresentation" );
-
-#############################################################################
-##
-#F  PqAPQSetPrintLevel( <i>, <lev> ) . . .  user version of p-Q menu option 5
-#F  PqAPQSetPrintLevel( <lev> )
-##
-DeclareGlobalFunction( "PqAPQSetPrintLevel" );
-
-#############################################################################
-##
 #F  PQ_SETUP_TABLES_FOR_NEXT_CLASS( <datarec> ) . . . . . A p-Q menu option 6
 ##
 DeclareGlobalFunction( "PQ_SETUP_TABLES_FOR_NEXT_CLASS" );
@@ -310,14 +337,14 @@ DeclareGlobalFunction( "PqCollectDefiningRelations" );
 
 #############################################################################
 ##
-#F  PQ_DO_EXPONENT_CHECKS( <datarec>, <w1>, <w2> ) . . . A p-Q menu option 10
+#F  PQ_DO_EXPONENT_CHECKS( <datarec>, <bnds> ) . . . . . A p-Q menu option 10
 ##
 DeclareGlobalFunction( "PQ_DO_EXPONENT_CHECKS" );
 
 #############################################################################
 ##
-#F  PqDoExponentChecks( <i>, <w1>, <w2> ) . .  user version A p-Q menu opt 10
-#F  PqDoExponentChecks( <w1>, <w2> )
+#F  PqDoExponentChecks(<i>[: Bounds := <list>]) . user ver A p-Q menu opt. 10
+#F  PqDoExponentChecks([: Bounds := <list>])
 ##
 DeclareGlobalFunction( "PqDoExponentChecks" );
 
@@ -349,20 +376,14 @@ DeclareGlobalFunction( "PqRevertToPreviousClass" );
 
 #############################################################################
 ##
-#F  PQ_SET_MAXIMAL_OCCURRENCES( <datarec>, <weights> ) . . A p-Q menu opt. 13
+#F  PQ_SET_MAXIMAL_OCCURRENCES( <datarec>, <noccur> ) . .  A p-Q menu opt. 13
 ##
 DeclareGlobalFunction( "PQ_SET_MAXIMAL_OCCURRENCES" );
 
 #############################################################################
 ##
-#F  PQ_PQUOTIENT_CHK( <datarec> ) . . . .  check p-quotient has been computed
-##
-DeclareGlobalFunction( "PQ_PQUOTIENT_CHK" );
-
-#############################################################################
-##
-#F  PqSetMaximalOccurrences( <i>, <weights> ) . user ver of A p-Q menu opt 13
-#F  PqSetMaximalOccurrences( <weights> )
+#F  PqSetMaximalOccurrences( <i>, <noccur> ) . user ver of A p-Q menu opt. 13
+#F  PqSetMaximalOccurrences( <noccur> )
 ##
 DeclareGlobalFunction( "PqSetMaximalOccurrences" );
 
@@ -453,33 +474,27 @@ DeclareGlobalFunction( "PqApplyAutomorphisms" );
 
 #############################################################################
 ##
-#F  PQ_PRINT_STRUCTURE( <datarec>, <m>, <n> ) . . . . .  A p-Q menu option 20
+#F  PQ_DISPLAY( <datarec>, <opt>, <type>, <bnds> ) .  A p-Q menu option 20/21
 ##
-DeclareGlobalFunction( "PQ_PRINT_STRUCTURE" );
+DeclareGlobalFunction( "PQ_DISPLAY" );
 
 #############################################################################
 ##
-#F  PQ_CHK_DISPLAY_COMMAND_ARGS( <args> ) . . check args for a display cmd ok
+#F  PQ_BOUNDS( <datarec>, <hibnd> ) . . provide bounds from option or default
 ##
-DeclareGlobalFunction( "PQ_CHK_DISPLAY_COMMAND_ARGS" );
+DeclareGlobalFunction( "PQ_BOUNDS" );
 
 #############################################################################
 ##
-#F  PqPrintStructure( <i>, <m>, <n> ) .  user version of A p-Q menu option 20
-#F  PqPrintStructure( <m>, <n> )
+#F  PqDisplayStructure(<i>[: Bounds := <list>]) . user ver A p-Q menu opt. 20
+#F  PqDisplayStructure([: Bounds := <list>])
 ##
-DeclareGlobalFunction( "PqPrintStructure" );
+DeclareGlobalFunction( "PqDisplayStructure" );
 
 #############################################################################
 ##
-#F  PQ_DISPLAY_AUTOMORPHISMS( <datarec>, <m>, <n> ) . .  A p-Q menu option 21
-##
-DeclareGlobalFunction( "PQ_DISPLAY_AUTOMORPHISMS" );
-
-#############################################################################
-##
-#F  PqDisplayAutomorphisms( <i>, <m>, <n> ) . . user ver of A p-Q menu opt 21
-#F  PqDisplayAutomorphisms( <m>, <n> )
+#F  PqDisplayAutomorphisms(<i>[: Bounds := <list>]) . u ver A p-Q menu opt 21
+#F  PqDisplayAutomorphisms([: Bounds := <list>])
 ##
 DeclareGlobalFunction( "PqDisplayAutomorphisms" );
 
@@ -616,20 +631,6 @@ DeclareGlobalFunction( "PqSPSavePresentation" );
 
 #############################################################################
 ##
-#F  PqSPDisplayPresentation( <i> ) . . . . . user version of SP menu option 4
-#F  PqSPDisplayPresentation()
-##
-DeclareGlobalFunction( "PqSPDisplayPresentation" );
-
-#############################################################################
-##
-#F  PqSPSetPrintLevel( <i>, <lev> ) . . . .  user version of SP menu option 5
-#F  PqSPSetPrintLevel( <lev> )
-##
-DeclareGlobalFunction( "PqSPSetPrintLevel" );
-
-#############################################################################
-##
 #F  PQ_SP_COMPARE_TWO_FILE_PRESENTATIONS(<datarec>,<f1>,<f2>) . SP menu opt 6
 ##
 DeclareGlobalFunction( "PQ_SP_COMPARE_TWO_FILE_PRESENTATIONS" );
@@ -701,13 +702,6 @@ DeclareGlobalFunction( "PqPGRestoreGroupFromFile" );
 
 #############################################################################
 ##
-#F  PqPGDisplayPresentation( <i> ) . . . .  user version of p-G menu option 4
-#F  PqPGDisplayPresentation()
-##
-DeclareGlobalFunction( "PqPGDisplayPresentation" );
-
-#############################################################################
-##
 #F  PQ_PG_CONSTRUCT_DESCENDANTS( <datarec> : <options> ) . . pG menu option 5
 ##
 DeclareGlobalFunction( "PQ_PG_CONSTRUCT_DESCENDANTS" );
@@ -739,13 +733,6 @@ DeclareGlobalFunction( "PqAPGExtendAutomorphisms" );
 #F  PqAPGRestoreGroupFromFile( <cls>, <n> )
 ##
 DeclareGlobalFunction( "PqAPGRestoreGroupFromFile" );
-
-#############################################################################
-##
-#F  PqAPGDisplayPresentation( <i> ) . . . user version of A p-G menu option 4
-#F  PqAPGDisplayPresentation()
-##
-DeclareGlobalFunction( "PqAPGDisplayPresentation" );
 
 #############################################################################
 ##

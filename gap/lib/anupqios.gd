@@ -95,12 +95,6 @@ DeclareGlobalFunction( "IS_PQ_PROMPT" );
 
 #############################################################################
 ##
-#F  IS_PQ_REQUEST( <line> ) . .  checks whether the line is a request from pq
-##
-DeclareGlobalFunction( "IS_PQ_REQUEST" );
-
-#############################################################################
-##
 #F  IS_ALL_PQ_LINE( <line> ) . checks whether line is a complete line from pq
 ##
 DeclareGlobalFunction( "IS_ALL_PQ_LINE" );
@@ -123,6 +117,12 @@ DeclareGlobalFunction( "PQ_READ_NEXT_LINE" );
 ##  . . .  . . . . . . . . . . . read lines from a stream until a wanted line
 ##
 DeclareGlobalFunction( "FLUSH_PQ_STREAM_UNTIL" );
+
+#############################################################################
+##
+#F  FILTER_PQ_STREAM_UNTIL_PROMPT( <datarec> )
+##
+DeclareGlobalFunction( "FILTER_PQ_STREAM_UNTIL_PROMPT" );
 
 #############################################################################
 ##

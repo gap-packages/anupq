@@ -15,6 +15,19 @@ Revision.anupqi_gi :=
 
 #############################################################################
 ##
+#F  PQ_UNBIND( <datarec>, <fields> ) . . . . . unbind fields of a data record
+##
+##  unbinds the fields in the list <fields> of that data record <datarec>.
+##
+InstallGlobalFunction( PQ_UNBIND, function( datarec, fields )
+local field;
+  for field in fields do
+    Unbind( datarec.(field) );
+  od;
+end );
+
+#############################################################################
+##
 #F  PQ_AUT_INPUT( <datarec>, <G> : <options> ) . . . . . . automorphism input
 ##
 ##  inputs automorphism data for `<datarec>.group' given by <options> to  the
@@ -61,10 +74,8 @@ InstallGlobalFunction( PQ_MANUAL_AUT_INPUT, function( datarec, mlist )
 local line, nauts, rank, nexpts, i, j, aut, exponents;
   nauts  := Length(mlist);
   rank   := Length(mlist[1]);
-  ToPQk(datarec, [ nauts,  "  #no. of auts" ]);
-  line := FLUSH_PQ_STREAM_UNTIL( datarec.stream, 2, 2, PQ_READ_NEXT_LINE,
-                                 IS_PQ_PROMPT );
-  if line = "Input the number of exponents: " then
+  ToPQ(datarec, [ nauts,  "  #no. of auts" ]);
+  if datarec.line = "Input the number of exponents: " then
     nexpts := Length(mlist[1][1]);
     ToPQ(datarec, [ nexpts, "  #no. of exponents" ]);
   fi;
@@ -128,28 +139,6 @@ end );
 
 #############################################################################
 ##
-#F  PQ_SET_GRP_DATA( <datarec>, <fields> ) . . . save group data of curr. grp
-##
-##  gleans from the `pq' binary information on the current group and set  the
-##  fields in <fields> of the record <datarec> to the name  (if  a  non-empty
-##  string), class and order of that group, respectively, and then flushes to
-##  the next prompt.
-##
-InstallGlobalFunction( PQ_SET_GRP_DATA, function( datarec, fields )
-local line;
-  line := FLUSH_PQ_STREAM_UNTIL( datarec.stream, 2, 2, PQ_READ_NEXT_LINE,
-                                 [line -> IsMatchingSublist( line, "Group:" ),
-                                  IS_PQ_PROMPT] );
-  line := SplitString(line, "", ": ");
-  if fields[1] <> "" then
-    datarec.(fields[1]) := line[2];              #name
-  fi;
-  datarec.(fields[2]) := Int( line[8] );         #class
-  datarec.(fields[3]) := EvalString( line[11] ); #order
-end );
-
-#############################################################################
-##
 #F  PQ_PC_PRESENTATION( <datarec>, <menu> ) . . . . . .  p-Q/SP menu option 1
 ##
 ##  inputs  data  given  by  <options>  to  the   `pq'   binary   for   group
@@ -185,9 +174,11 @@ local gens, rels, pcp, p, pcgs, len, strp, i, j, Rel, line;
 
   # Option 1 of p-Quotient/Standard Presentation Menu: defining the group
   ToPQk(datarec, ["1  #define group"]);
-  if VALUE_PQ_OPTION("GroupName", datarec.(pcp)) <> fail then
-    ToPQk(datarec, ["name ", datarec.(pcp).GroupName]);
+  if VALUE_PQ_OPTION("GroupName", "<grp>", datarec.(pcp)) = "<grp>" and
+     IsBound(datarec.group) and IsBound(datarec.group!.Name) then
+    datarec.(pcp).GroupName := datarec.group!.Name;
   fi;
+  ToPQk(datarec, ["name ",     datarec.(pcp).GroupName]);
   ToPQk(datarec, ["prime ",    p]);
   ToPQk(datarec, ["class ",    datarec.(pcp).ClassBound]);
   ToPQk(datarec, ["exponent ", VALUE_PQ_OPTION("Exponent", 0, datarec)]);
@@ -195,7 +186,7 @@ local gens, rels, pcp, p, pcgs, len, strp, i, j, Rel, line;
   if VALUE_PQ_OPTION( "Metabelian", false, datarec.(pcp) ) = true then
     ToPQk(datarec, [ "metabelian" ]);
   fi;
-  ToPQk(datarec, ["output ", VALUE_PQ_OPTION("OutputLevel", 1, datarec.(pcp))]);
+  ToPQk(datarec, ["output ", VALUE_PQ_OPTION("OutputLevel", 0, datarec)]);
 
   if IsFpGroup(datarec.group) then
     gens := List( FreeGeneratorsOfFpGroup(datarec.group), String );
@@ -245,8 +236,18 @@ local gens, rels, pcp, p, pcgs, len, strp, i, j, Rel, line;
   datarec.gens := gens;
   datarec.rels := rels;
   ToPQk(datarec, ["generators { ", JoinStringsWithSeparator( gens ), " }"]);
-  ToPQk(datarec, ["relators   { ", JoinStringsWithSeparator( rels ), " };"]);
-  PQ_SET_GRP_DATA(datarec, ["name", "class", "order"]);
+  # pq is intolerant of long lines and integers that are split over lines
+  rels := Concatenation(
+              "relators   { ", JoinStringsWithSeparator( rels, ", " ), " };");
+  while Length(rels) >= 69 do
+    i := 68;
+    while not (rels[i] in "*^, ") do i := i - 1; od;
+    ToPQk(datarec, [ rels{[1 .. i]} ]);
+    rels := Concatenation( "  ", rels{[i + 1 .. Length(rels)]} );
+  od;
+  datarec.match := "Group:";
+  ToPQ(datarec, [ rels ]);
+  PQ_SET_GRP_DATA(datarec);
 end );
 
 #############################################################################
@@ -286,7 +287,9 @@ end );
 InstallGlobalFunction( PQ_SAVE_PC_PRESENTATION, function( datarec, filename )
   PQ_MENU(datarec, "pQ");
   ToPQ(datarec, [ "2  #save pc presentation to file" ]);
+  datarec.filter := ["Presentation"];
   ToPQ(datarec, [ filename, "  #filename" ]);
+  Unbind(datarec.filter);
 end );
 
 #############################################################################
@@ -379,10 +382,10 @@ end );
 InstallGlobalFunction( PQ_RESTORE_PC_PRESENTATION, function( datarec, filename )
   PQ_MENU(datarec, "pQ");
   ToPQ(datarec, [ "3  #restore pc presentation from file" ]);
+  datarec.match := "Group:";
   ToPQ(datarec, [ filename, "  #filename" ]);
   datarec.pQpcp := rec(); # Just so it's bound
-  ToPQk(datarec, [ "4  #display presentation" ]);
-  PQ_SET_GRP_DATA(datarec, ["name", "class", "order"]);
+  PQ_SET_GRP_DATA(datarec);
 end );
 
 #############################################################################
@@ -416,59 +419,235 @@ end );
 
 #############################################################################
 ##
-#F  PQ_PRE_DISPLAY( <datarec>, <menu> ) . . . .  execute pre-display commands
+#F  PQ_DISPLAY_PRESENTATION( <datarec> ) . . . . . . . . .  any menu option 4
 ##
-##  sets  up  a  display  command  by  ensuring  the  print  level   is   set
-##  appropriately and the `InfoLevel' of  `InfoANUPQ'  is  at  least  2,  and
-##  returns  the  `InfoLevel'  of  `InfoANUPQ'  at  the  point   of   calling
-##  `PQ_PRE_DISPLAY'.
+##  directs the `pq' binary to display the pc presentation of  the  group  to
+##  the current class, using option 4 of the current menu.
 ##
-InstallGlobalFunction( PQ_PRE_DISPLAY, function( datarec, menu )
-local lev, infolev;
-  PQ_MENU(datarec, menu);
-  if menu[ Length(menu) ] <> 'G' then
-    lev := VALUE_PQ_OPTION("OutputLevel");
-    if lev <> fail then
-      PQ_SET_PRINT_LEVEL( datarec, menu, lev );
-    fi;
+InstallGlobalFunction( PQ_DISPLAY_PRESENTATION, function( datarec )
+  if datarec.menu[ Length(datarec.menu) ] <> 'G' and
+     VALUE_PQ_OPTION("OutputLevel", datarec) <> fail then
+    PQ_SET_OUTPUT_LEVEL( datarec, datarec.OutputLevel );
   fi;
-  infolev := InfoLevel(InfoANUPQ);
-  SetInfoLevel(InfoANUPQ, Maximum(2, infolev));
-  return infolev;
+  ToPQ(datarec, [ "4  #display presentation" ]);
 end );
 
 #############################################################################
 ##
-#F  PQ_DISPLAY_PRESENTATION( <datarec>, <menu> ) . . . . .  any menu option 4
+#F  PQ_GRP_EXISTS_CHK( <datarec> ) . . check the `pq' binary knows about a gp
 ##
-##  directs the  `pq'  binary  to  display  the  pc  presentation  previously
-##  computed or restored from file using option 4 of <menu> menu.
+##  checks that `<datarec>.ngens' is set and non-empty (which can only happen
+##  if the `pq' binary has been fed a group) and generates an error if not.
 ##
-InstallGlobalFunction( PQ_DISPLAY_PRESENTATION, function( datarec, menu )
-local infolev;
-  infolev := PQ_PRE_DISPLAY(datarec, menu);
-  ToPQk(datarec, [ "4  #display presentation" ]);
-  PQ_POST_DISPLAY( datarec, infolev );
+InstallGlobalFunction( PQ_GRP_EXISTS_CHK, function( datarec )
+  if not IsBound(datarec.ngens) or IsEmpty(datarec.ngens) then
+    Error( "huh! No current group defined for this process!?\n" );
+  fi;
 end );
 
 #############################################################################
 ##
-#F  PQ_POST_DISPLAY( <datarec>, <infolev> ) . . . . . .  flush display output
+#F  PQ_SET_GRP_DATA( <datarec> ) .  save group data of current class of group
 ##
-##  flushes the display output at at least `InfoANUPQ' level  2  but  ensures
-##  the following prompt is displayed  at  `InfoANUPQ'  level  <infolev>  and
-##  resets the `InfoANUPQ' level to <infolev>.
+##  If `<datarec>.matchedline' is not  set  the  `pq'  binary  is  called  to
+##  display the presentation; usually  `<datarec>.matchedline'  is  set  when
+##  filtering `pq' output for lines starting with `"Group:"' (the  value  set
+##  for `<datarec>.match'), but no such  lines  occur  when  computing  a  pc
+##  presentation with the `OutputLevel' option set to 0, or when restoring  a
+##  pc presentation, or when computing tails etc. From this line  the  fields
+##  `name', `class' and `forder' of the record <datarec> are set to the name,
+##  class  and  factored   order   of   that   group,   respectively.   Also,
+##  `<datarec>.ngens' is updated, and if it is afterwards incomplete and  the
+##  call to `PQ_SET_GRP_DATA' was not initiated by `PQ_DATA'  then  `PQ_DATA'
+##  is called to ensure `<datarec>.ngens' is complete.
 ##
-InstallGlobalFunction( PQ_POST_DISPLAY, function( datarec, infolev )
+InstallGlobalFunction( PQ_SET_GRP_DATA, function( datarec )
 local line;
-  line := FLUSH_PQ_STREAM_UNTIL( 
-              datarec.stream, 2, 3, PQ_READ_NEXT_LINE,
-              line -> IsMatchingSublist( line, "Select option:" ) );
-  if infolev = 2 then
-    Info(InfoANUPQ, infolev, Chomp(line) );
-  else
-    SetInfoLevel(InfoANUPQ, infolev);
+  if not IsBound(datarec.matchedline) then
+    PushOptions(rec(nonuser := true));
+    ToPQ(datarec, [ "4  #display presentation" ]);
+    PopOptions();
   fi;
+  line := SplitString(datarec.matchedline, "", ": ^\n");
+  datarec.name   := line[2];
+  datarec.class  := Int( line[8] );
+  datarec.forder := List( line{[11,12]}, Int);
+  PQ_UNBIND(datarec, ["match", "matchedline"]);
+  # First see if we can update datarec.ngens cheaply
+  if not IsBound(datarec.ngens) then
+    datarec.ngens := [];
+  fi;
+  datarec.ngens[ datarec.class ] := datarec.forder[2];
+
+  if not IsBound(datarec.inPQ_DATA) and not IsDenseList(datarec.ngens) then
+    # It wasn't possible to update datarec.ngens cheaply
+    PQ_DATA( datarec );
+  fi;
+end );
+
+#############################################################################
+##
+#F  PQ_DATA( <datarec> ) . . . . gets class/gen'r data from (A)p-Q menu opt 4
+##
+##  ensures that the menu is a $p$-Quotient menu and that the output level is
+##  3 and using option 4 of the now  current  menu  extracts  the  number  of
+##  generators of each class currently known to the `pq' binary.  (The  order
+##  of each $p$-class quotient is taken as $p^n$ where $n$ is the  number  of
+##  generators for the class; this may be an over-estimate if tails have been
+##  added  and  the  necessary  consistency  checks,  relation   collections,
+##  exponent law checks and redundant generator eliminations  have  not  been
+##  done for a class.) All output that would  have  appeared  at  `InfoANUPQ'
+##  levels 1 or 2 if user-initiated is `Info'-ed at `InfoANUPQ' level 3.  The
+##  menu and output level are reset to their original values (if changed)  on
+##  leaving.
+##
+InstallGlobalFunction( PQ_DATA, function( datarec )
+local menu, lev, ngen, i, line, class;
+  PushOptions(rec(nonuser := true));
+  datarec.inPQ_DATA := true;
+  if datarec.menu[ Length(datarec.menu) ] <> 'Q' then
+    menu := datarec.menu;
+    PQ_MENU(datarec, "pQ");
+  fi;
+  if not IsBound(datarec.OutputLevel) then
+    lev := 0;
+    PQ_SET_OUTPUT_LEVEL( datarec, 3 );
+  elif datarec.OutputLevel < 3 then
+    lev := datarec.OutputLevel;
+    PQ_SET_OUTPUT_LEVEL( datarec, 3 );
+  fi;
+  datarec.matchlist := ["Group:", "Class", " is defined on "];
+  datarec.matchedlines := [];
+  ToPQ(datarec, [ "4  #display presentation" ]);
+  datarec.matchedline := datarec.matchedlines[1];
+  PQ_SET_GRP_DATA(datarec);
+  for i in [2 .. Length(datarec.matchedlines)] do
+    line := SplitString(datarec.matchedlines[i], "", " \n");
+    if line[1] = "Class" then
+      class := Int( line[2] );
+      if class > 1 then
+        datarec.ngens[class - 1] := Int(ngen);
+        if class = datarec.class then
+          break;
+        fi;
+      fi;
+    else
+      ngen := line[1];
+    fi;
+  od;
+  if IsBound(menu) then
+    PQ_MENU(datarec, menu);
+  fi;
+  if IsBound(lev) then
+    PQ_SET_OUTPUT_LEVEL( datarec, lev );
+  fi;
+  PQ_UNBIND( datarec, ["matchlist", "matchedlines", "inPQ_DATA"] );
+  PopOptions();
+end );
+
+#############################################################################
+##
+#F  PQ_DATA_CHK( <args> ) . . .  call PQ_DATA if class/gen'r data out-of-date
+##
+##  determines the data record <datarec>, calls `PQ_DATA'  if  necessary  and
+##  returns <datarec>.
+##
+InstallGlobalFunction( PQ_DATA_CHK, function( args )
+local datarec;
+  ANUPQ_IOINDEX_ARG_CHK(args);
+  datarec := ANUPQData.io[ ANUPQ_IOINDEX(args) ];
+  if not IsBound(datarec.ngens) or IsEmpty(datarec.ngens) or 
+     not IsDenseList(datarec.ngens) then
+    PQ_DATA( datarec );
+  fi;
+  return datarec;
+end );
+
+#############################################################################
+##
+#F  PqFactoredOrder( <i> ) . the `pq' binary's current group's factored order
+#F  PqFactoredOrder()
+##
+##  for the <i>th  or  default  interactive  {\ANUPQ}  process,  returns  the
+##  factored order as a list `[<p>, <n>]' of the current class group  of  the
+##  `pq' binary.
+##
+##  *Note:* The order of each $p$-class quotient is taken as $p^n$ where  $n$
+##  is the number of generators for the class; this may be  an  over-estimate
+##  if tails have been added and the necessary consistency  checks,  relation
+##  collections, exponent law checks  and  redundant  generator  eliminations
+##  have not been done for a class.
+##
+InstallGlobalFunction( PqFactoredOrder, function( arg )
+  return PQ_DATA_CHK(arg).forder;
+end );
+
+#############################################################################
+##
+#F  PqOrder( <i> ) . . . .  the order of the current group of the `pq' binary
+#F  PqOrder()
+##
+##  for the <i>th or default interactive {\ANUPQ} process, returns the  order
+##  of the current class group of the `pq' binary.
+##
+##  *Note:* The order of each $p$-class quotient is taken as $p^n$ where  $n$
+##  is the number of generators for the class; this may be  an  over-estimate
+##  if tails have been added and the necessary consistency  checks,  relation
+##  collections, exponent law checks  and  redundant  generator  eliminations
+##  have not been done for a class.
+##
+InstallGlobalFunction( PqOrder, function( arg )
+local forder;
+  forder := CallFuncList( PqFactoredOrder, arg );
+  return forder[1]^forder[2];
+end );
+
+#############################################################################
+##
+#F  PqPClass( <i> ) . . . the p class of the current group of the `pq' binary
+#F  PqPClass()
+##
+##  for the <i>th  or  default  interactive  {\ANUPQ}  process,  returns  the
+##  current lower exponent-$p$ class group of the `pq' binary.
+##
+InstallGlobalFunction( PqPClass, function( arg )
+  return PQ_DATA_CHK(arg).class;
+end );
+
+#############################################################################
+##
+#F  PqNrPcGenerators( <i> ) . number of pc gen'rs of `pq' binary's current gp
+#F  PqNrPcGenerators()
+##
+##  for the <i>th or default interactive {\ANUPQ} process, returns the number
+##  of pc generators of the current exponent-$p$  class  group  of  the  `pq'
+##  binary.
+##
+InstallGlobalFunction( PqNrPcGenerators, function( arg )
+  return PQ_DATA_CHK(arg).forder[2];
+end );
+
+#############################################################################
+##
+#F  PqWeight( <i>, <j> ) . . . . . . . . . . . . . . .  weight of a generator
+#F  PqWeight( <j> )
+##
+##  for the <i>th or default interactive {\ANUPQ} process, returns the weight
+##  of the <j>th pc generator of the current exponent-$p$ class group of  the
+##  `pq' binary, or `fail' if there is no such numbered pc generator.
+##
+InstallGlobalFunction( PqWeight, function( arg )
+local ngens, i, j;
+  if not Length(arg) in [1, 2] then
+    Error( "expected 1 or 2 arguments\n" );
+  fi;
+  j := arg[ Length(arg) ];
+  if not IsPosInt(j) then
+    Error( "argument <j> should be a positive integer\n" );
+  fi;
+  Unbind( arg[ Length(arg) ] );
+  ngens := PQ_DATA_CHK(arg).ngens;
+  return First([1 .. Length(ngens)], i -> ngens[i] > j);
 end );
 
 #############################################################################
@@ -479,19 +658,18 @@ end );
 ##
 InstallGlobalFunction( PQ_CURRENT_GROUP, function( datarec )
 local lev, line;
+  datarec.match := "Group:";
   PQ_MENU(datarec, "pQ");
   if not IsBound(datarec.pQ) then
     datarec.pQ := rec();
   fi;
-  if IsBound(datarec.pQ.OutputLevel) then
-    lev := datarec.pQ.OutputLevel;
+  if IsBound(datarec.OutputLevel) then
+    lev := datarec.OutputLevel;
     ToPQ(datarec, [ "5  #set print level" ]);
     ToPQ(datarec, [ "0  #minimal print level" ]);
   fi;
-  ToPQk(datarec, [ "4  #display presentation" ]);
   datarec.pQ.currGrp := rec();
-  PQ_SET_GRP_DATA(datarec.pQ.currGrp, ["name", "class", "order"]);
-  FLUSH_PQ_STREAM_UNTIL(datarec.stream, 2, 2, PQ_READ_NEXT_LINE, IS_PQ_PROMPT);
+  PQ_SET_GRP_DATA(datarec.pQ.currGrp);
   if IsBound(lev) then
     ToPQ(datarec, [ "5  #set print level" ]);
     ToPQ(datarec, [ lev, "  #print level" ]);
@@ -522,84 +700,73 @@ end );
 
 #############################################################################
 ##
-#F  PqDisplayPcPresentation( <i> ) . . . .  user version of p-Q menu option 4
+#F  PqDisplayPcPresentation( <i> ) . . . .  user version of any menu option 4
 #F  PqDisplayPcPresentation()
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
-##  binary  to  display  the  pc   presentation   previously   computed   (by
-##  `PqPcPresentation'; see~"PqPcPresentation") or  restored  from  file  (by
-##  `PqRestorePcPresentation'; see~"PqRestorePcPresentation") for  the  group
-##  of that process, where the group of a process is the one given  as  first
-##  argument when `PqStart' was called to initiate that process. To  set  the
-##  amount of  information  this  command  displays  you  may  wish  to  call
-##  `PqSetPrintLevel' first (see~"PqSetPrintLevel").
+##  binary to display the pc presentation to the current class known  to  the
+##  `pq' binary for the group of that process, where the group of  a  process
+##  is the one given as first argument when `PqStart' was called to  initiate
+##  that process. Except if the last  command  communicating  with  the  `pq'
+##  binary was a $p$-group generation command (for  which  there  is  only  a
+##  verbose output level), to set the  amount  of  information  this  command
+##  displays   you   may    wish    to    call    `PqSetOutputLevel'    first
+##  (see~"PqSetOutputLevel"), or equivalently pass the  option  `OutputLevel'
+##  (see e.g.~"Pq" where the option is described).
 ##
 ##  *Note:* 
 ##  For  those  familiar  with  the  `pq'  binary,  `PqDisplayPcPresentation'
-##  performs option 4 of the main $p$-Quotient menu.
+##  performs option 4 of the current menu of the `pq' binary.
 ##
 InstallGlobalFunction( PqDisplayPcPresentation, function( arg )
 local datarec;
   ANUPQ_IOINDEX_ARG_CHK(arg);
   datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  PQ_DISPLAY_PRESENTATION( datarec, "pQ" );
+  PQ_GRP_EXISTS_CHK( datarec );
+  PQ_DISPLAY_PRESENTATION( datarec );
 end );
 
 #############################################################################
 ##
-#F  PQ_SET_PRINT_LEVEL(<datarec>, <menu>, <lev>) . . p-Q/SP/A p-Q menu opt. 5
+#F  PQ_SET_OUTPUT_LEVEL(<datarec>, <lev>) . . . .  p-Q/SP/A p-Q menu option 5
 ##
 ##  inputs data to the `pq' binary to set the print level  to  <lev>  in  the
-##  <menu> menu, where <menu> is either `"pQ"' (main  $p$-Quotient  menu)  or
-##  `"SP' (Standard Presentation  menu)  or  `"ApQ"'  (Advanced  $p$-Quotient
-##  menu), by performing option 5 of <menu> menu.
+##  current menu or the ``basic'' $p$-Quotient menu if the current menu is  a
+##  $p$-Group generation menu.
 ##
-InstallGlobalFunction( PQ_SET_PRINT_LEVEL, function( datarec, menu, lev )
-  if not IsBound( datarec.(menu) ) then
-    datarec.(menu) := rec();
+InstallGlobalFunction( PQ_SET_OUTPUT_LEVEL, function( datarec, lev )
+  if datarec.menu[ Length(datarec.menu) ] = 'G' then
+    PQ_MENU(datarec, "pQ");
   fi;
-  if not IsBound( datarec.(menu).OutputLevel ) or 
-     datarec.(menu).OutputLevel <> lev then
-    PQ_MENU(datarec, menu);
-    ToPQ(datarec, [ "5  #set print level" ]);
-    ToPQ(datarec, [ lev, "  #print level" ]);
-    datarec.(menu).OutputLevel := lev;
-  fi;
+  ToPQ(datarec, [ "5  #set output level" ]);
+  ToPQ(datarec, [ lev, "  #output level" ]);
+  datarec.OutputLevel := lev;
 end );
 
 #############################################################################
 ##
-#F  PQ_CHK_PRINT_ARGS( <args> ) . . . . . . check args for print level cmd ok
+#F  PqSetOutputLevel( <i>, <lev> ) .  user version of p-Q/SP/A p-Q menu opt 5
+#F  PqSetOutputLevel( <lev> )
 ##
-InstallGlobalFunction( PQ_CHK_PRINT_ARGS, function( args )
-local lev;
-  if IsEmpty(args) or 2 < Length(args) then
+##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+##  binary to set the output level of the `pq' binary to <lev>.
+##
+##  *Note:* For those  familiar  with  the  `pq'  binary,  `PqSetOutputLevel'
+##  performs option 5 of the main (or advanced)  $p$-Quotient  menu,  or  the
+##  Standard Presentation menu.
+##
+InstallGlobalFunction( PqSetOutputLevel, function( arg )
+local datarec, lev;
+  if IsEmpty(arg) or 2 < Length(arg) then
     Error( "1 or 2 arguments expected\n");
   fi;
-  lev := args[Length(args)];
+  lev := arg[Length(arg)];
   if not(lev in [0..3]) then
     Error( "argument <lev> should be an integer in [0 .. 3]\n" );
   fi;
-  args := args{[1..Length(args) - 1]};
-  ANUPQ_IOINDEX_ARG_CHK(args);
-  return ANUPQData.io[ ANUPQ_IOINDEX(args) ];
-end );
-
-#############################################################################
-##
-#F  PqSetPrintLevel( <i>, <lev> ) . . . . . user version of p-Q menu option 5
-#F  PqSetPrintLevel( <lev> )
-##
-##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
-##  binary to set the print level to <lev>, in the main $p$-Quotient menu.
-##
-##  *Note:* For  those  familiar  with  the  `pq'  binary,  `PqSetPrintLevel'
-##  performs option 5 of the main $p$-Quotient menu.
-##
-InstallGlobalFunction( PqSetPrintLevel, function( arg )
-local datarec;
-  datarec := PQ_CHK_PRINT_ARGS( arg );
-  PQ_SET_PRINT_LEVEL( datarec, "pQ", arg[Length(arg)] );
+  ANUPQ_IOINDEX_ARG_CHK(arg);
+  datarec := ANUPQData.io[ ANUPQ_IOINDEX( arg{[1..Length(arg) - 1]} ) ];
+  PQ_SET_OUTPUT_LEVEL( datarec, lev);
 end );
 
 #############################################################################
@@ -615,14 +782,12 @@ end );
 InstallGlobalFunction( PQ_NEXT_CLASS, function( datarec )
 local line;
   PQ_MENU(datarec, "pQ");
-  ToPQk(datarec, [ "6  #calculate next class" ]);
-  line := FLUSH_PQ_STREAM_UNTIL(
-              datarec.stream, 2, 2, PQ_READ_NEXT_LINE,
-              line -> IsMatchingSublist(line, "Select option:") or
-                      IsMatchingSublist(line, "Input queue factor:") );
-  if IsMatchingSublist(line, "Input queue factor:") then
+  datarec.match := "Group:";
+  ToPQ(datarec, [ "6  #calculate next class" ]);
+  if IsMatchingSublist(datarec.line, "Input queue factor:") then
     ToPQ(datarec, [ VALUE_PQ_OPTION("QueueFactor", 15), " #queue factor"]);
   fi;
+  PQ_SET_GRP_DATA(datarec);
 end );
 
 #############################################################################
@@ -645,6 +810,7 @@ InstallGlobalFunction( PqNextClass, function( arg )
 local datarec;
   ANUPQ_IOINDEX_ARG_CHK(arg);
   datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
+  PQ_GRP_EXISTS_CHK( datarec );
   PQ_NEXT_CLASS( datarec );
 end );
 
@@ -658,8 +824,10 @@ end );
 InstallGlobalFunction( PQ_P_COVER, function( datarec )
 local savefile;
   PQ_MENU(datarec, "pQ");
-  ToPQk(datarec, [ "7  #compute p-cover" ]);
-  PQ_SET_GRP_DATA(datarec, ["", "pcoverclass", "pcoverorder"]);
+  datarec.match := "Group:";
+  ToPQ(datarec, [ "7  #compute p-cover" ]);
+  PQ_SET_GRP_DATA(datarec);
+  datarec.pcoverclass := datarec.class;
 end );
 
 #############################################################################
@@ -677,6 +845,7 @@ InstallGlobalFunction( PqPCover, function( arg )
 local datarec;
   ANUPQ_IOINDEX_ARG_CHK(arg);
   datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
+  PQ_GRP_EXISTS_CHK( datarec );
   PQ_P_COVER( datarec );
 end );
 
@@ -691,10 +860,7 @@ end );
 InstallGlobalFunction( PQ_COLLECT, function( datarec, word )
 
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
-  ToPQk(datarec, [ "1  #do individual collection" ]);
-  FLUSH_PQ_STREAM_UNTIL(
-      datarec.stream, 2, 2, PQ_READ_NEXT_LINE,
-      line -> 0 < Length(line) and line[Length(line)] = '\n');
+  ToPQ(datarec, [ "1  #do individual collection" ]);
   ToPQ(datarec, [ word, ";  #word to be collected" ]);
 end );
 
@@ -745,14 +911,8 @@ end );
 ##
 InstallGlobalFunction( PQ_SOLVE_EQUATION, function( datarec, a, b )
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
-  ToPQk(datarec, [ "2  #solve equation" ]);
-  FLUSH_PQ_STREAM_UNTIL(
-      datarec.stream, 2, 2, PQ_READ_NEXT_LINE,
-      line -> 0 < Length(line) and line[Length(line)] = '\n');
-  ToPQk(datarec, [ a, ";  #word a" ]);
-  FLUSH_PQ_STREAM_UNTIL(
-      datarec.stream, 2, 2, PQ_READ_NEXT_LINE,
-      line -> 0 < Length(line) and line[Length(line)] = '\n');
+  ToPQ(datarec, [ "2  #solve equation" ]);
+  ToPQ(datarec, [ a, ";  #word a" ]);
   ToPQ(datarec, [ b, ";  #word b" ]);
 end );
 
@@ -775,8 +935,8 @@ local len, datarec;
     Error("expected 2 or 3 arguments\n");
   fi;
   #@need to add argument checking for a and b@
-  ANUPQ_IOINDEX_ARG_CHK(arg{[1..len -2]});
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg{[1..len -2]}) ];
+  ANUPQ_IOINDEX_ARG_CHK(arg{[1..len - 2]});
+  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg{[1..len - 2]}) ];
   PQ_SOLVE_EQUATION( datarec, arg[len - 1], arg[len] );
 end );
 
@@ -795,15 +955,10 @@ local i;
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
   ToPQ(datarec, [ item ]);
   # @add argument checking@
-  ToPQk(datarec, [ Length(words), "  #no. of components" ]);
+  ToPQ(datarec, [ Length(words), "  #no. of components" ]);
   for i in [1..Length(words)] do
-    FLUSH_PQ_STREAM_UNTIL(
-        datarec.stream, 2, 2, PQ_READ_NEXT_LINE,
-        line -> 1 < Length(line) and 
-                line{[Length(line) - 1..Length(line)]} = ":\n");
-    ToPQk(datarec, [ words[i], ";  #word ", i ]);
+    ToPQ(datarec, [ words[i], ";  #word ", i ]);
   od;
-  FLUSH_PQ_STREAM_UNTIL(datarec.stream, 2, 2, PQ_READ_NEXT_LINE, IS_PQ_PROMPT);
   ToPQ(datarec, [ pow, "  #power" ]);
 end );
 
@@ -856,45 +1011,6 @@ end );
 
 #############################################################################
 ##
-#F  PqAPQDisplayPresentation( <i> ) . . . user version of A p-Q menu option 4
-#F  PqAPQDisplayPresentation()
-##
-##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
-##  binary to display the presentation of the $p$-quotient. To set the amount
-##  of  information  this   command   displays   you   may   wish   to   call
-##  `PqAPQSetPrintLevel' first (see~"PqAPQSetPrintLevel").
-##
-##  *Note:* 
-##  For those  familiar  with  the  `pq'  binary,  `PqAPQDisplayPresentation'
-##  performs option 4 of the Advanced $p$-Quotient menu.
-##
-InstallGlobalFunction( PqAPQDisplayPresentation, function( arg )
-local datarec;
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  PQ_DISPLAY_PRESENTATION( datarec, "ApQ" );
-end );
-
-#############################################################################
-##
-#F  PqAPQSetPrintLevel( <i>, <lev> ) . . .  user version of p-Q menu option 5
-#F  PqAPQSetPrintLevel( <lev> )
-##
-##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
-##  binary to set the print level to  <lev>,  in  the  Advanced  $p$-Quotient
-##  menu.
-##
-##  *Note:* For those familiar with  the  `pq'  binary,  `PqAPQSetPrintLevel'
-##  performs option 5 of the Advanced $p$-Quotient menu.
-##
-InstallGlobalFunction( PqAPQSetPrintLevel, function( arg )
-local datarec;
-  datarec := PQ_CHK_PRINT_ARGS( arg );
-  PQ_SET_PRINT_LEVEL( datarec, "ApQ", arg[Length(arg)] );
-end );
-
-#############################################################################
-##
 #F  PQ_SETUP_TABLES_FOR_NEXT_CLASS( <datarec> ) . . . . . A p-Q menu option 6
 ##
 ##  inputs data to the `pq' binary for option 6 of the Advanced  $p$-Quotient
@@ -903,7 +1019,9 @@ end );
 InstallGlobalFunction( PQ_SETUP_TABLES_FOR_NEXT_CLASS, function( datarec )
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
   ToPQ(datarec, [ "6  #set up tables for next class" ]);
-  #@datarec.class should be incremented here@
+  datarec.match := "Group:";
+  PQ_SET_GRP_DATA(datarec); #Just to be sure it's up-to-date
+  datarec.setupclass := datarec.class + 1;
 end );
 
 #############################################################################
@@ -938,8 +1056,12 @@ local intwhich;
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
   intwhich := Position( [ "compute and add", "add", "compute" ], which ) - 1;
   ToPQ(datarec, [ "7  #", which, " tails" ]);
-  ToPQ(datarec, [ weight,   "  #weight of tails" ]);
+  ToPQ(datarec, [ weight,   " #weight of tails" ]);
   ToPQ(datarec, [ intwhich, "  #", which ]);
+  if intwhich <= 1 then
+    datarec.match := "Group:";
+    PQ_SET_GRP_DATA(datarec);
+  fi;
 end );
 
 #############################################################################
@@ -1023,7 +1145,7 @@ InstallGlobalFunction( PQ_DO_CONSISTENCY_CHECKS,
 function( datarec, weight, type )
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
   ToPQ(datarec, [ "8  #check consistency" ]);
-  ToPQ(datarec, [ weight, "  #weight of tails to add/compute" ]);
+  ToPQ(datarec, [ weight, "  #weight to be checked" ]);
   ToPQ(datarec, [ type, "  #type" ]);
 end );
 
@@ -1096,50 +1218,44 @@ end );
 
 #############################################################################
 ##
-#F  PQ_DO_EXPONENT_CHECKS( <datarec>, <w1>, <w2> ) . . . A p-Q menu option 10
+#F  PQ_DO_EXPONENT_CHECKS( <datarec>, <bnds> ) . . . . . A p-Q menu option 10
 ##
-##  inputs data to the `pq' binary for option 10 of the Advanced $p$-Quotient
-##  menu, to do exponent checks.
+##  inputs data to the `pq' binary to do exponent checks for weights  between
+##  <bnds> inclusive, using option 10 of the Advanced $p$-Quotient menu.
 ##
-InstallGlobalFunction( PQ_DO_EXPONENT_CHECKS, function( datarec, w1, w2 )
+InstallGlobalFunction( PQ_DO_EXPONENT_CHECKS, function( datarec, bnds )
   #@does default only at the moment@
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
-  ToPQ(datarec, [ "10  #do exponent checks" ]);
-  ToPQ(datarec, [ VALUE_PQ_OPTION("Exponent", 0, datarec),
-                      "  #exponent law" ]);
-  ToPQ(datarec, [ w1, "  #start weight"     ]);
-  ToPQ(datarec, [ w2, "  #end weight"       ]);
+  ToPQ(datarec, [ "10 #do exponent checks" ]);
+  if IsMatchingSublist(datarec.line, "Input exponent law") then
+    ToPQ(datarec, [ VALUE_PQ_OPTION("Exponent", 0, datarec),
+                      "  #exponent" ]);
+  fi;
+  ToPQ(datarec, [ bnds[1], " #start weight" ]);
+  ToPQ(datarec, [ bnds[2], " #end weight"   ]);
   ToPQ(datarec, [ 1,  "  #do default check" ]);
 end );
 
 #############################################################################
 ##
-#F  PqDoExponentChecks( <i>, <w1>, <w2> ) . .  user version A p-Q menu opt 10
-#F  PqDoExponentChecks( <w1>, <w2> )
+#F  PqDoExponentChecks(<i>[: Bounds := <list>]) . user ver A p-Q menu opt. 10
+#F  PqDoExponentChecks([: Bounds := <list>])
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
-##  binary to do exponent checks between weights <w1> and <w2>, where $0  \le
-##  <w1> \< <w2> \le <class>$ and <class> is the maximum class.
+##  binary to do exponent checks for weights (inclusively) between the bounds
+##  of `Bounds' or for all weights if `Bounds' is not given. The value <list>
+##  of `Bounds' (assuming the interactive process is numbered <i>) should  be
+##  a list of  two  integers  <low>,  <high>  satisfying  `1  \<=  <low>  \<=
+##  PqPClass(<i>) + 1' (see~"PqPClass").
 ##
 ##  *Note:* 
 ##  For those familiar with the `pq'  binary,  `PqDoExponentChecks'  performs
 ##  option 10 of the Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqDoExponentChecks, function( arg )
-local len, w1, w2, datarec;
-  len := Length(arg);
-  if not(len in [2, 3]) then
-    Error( "expected 2 or 3 arguments\n" );
-  fi;
-  w1 := arg[len - 1];
-  w2 := arg[len];
-  if not( IsInt(w1) and IsInt(w2) and 0 <= w1 and w1 < w2 ) then
-    Error( "weights should satisfy 0 <= <w1> < <w2>\n" );
-  fi;
-  arg := arg{[1 .. len - 2]};
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  PQ_DO_EXPONENT_CHECKS( datarec, w1, w2 );
+local datarec;
+  datarec := PQ_DATA_CHK(arg);
+  PQ_DO_EXPONENT_CHECKS( datarec, PQ_BOUNDS(datarec, datarec.class + 1) );
 end );
 
 #############################################################################
@@ -1151,7 +1267,7 @@ end );
 ##
 InstallGlobalFunction( PQ_ELIMINATE_REDUNDANT_GENERATORS, function( datarec )
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
-  ToPQ(datarec, [ "11  #eliminate redundant generators" ]);
+  ToPQ(datarec, [ "11 #eliminate redundant generators" ]);
 end );
 
 #############################################################################
@@ -1182,7 +1298,7 @@ end );
 ##
 InstallGlobalFunction( PQ_REVERT_TO_PREVIOUS_CLASS, function( datarec )
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
-  ToPQ(datarec, [ "12  #revert to previous class" ]);
+  ToPQ(datarec, [ "12 #revert to previous class" ]);
 end );
 
 #############################################################################
@@ -1206,75 +1322,53 @@ end );
 
 #############################################################################
 ##
-#F  PQ_SET_MAXIMAL_OCCURRENCES( <datarec>, <weights> ) . . A p-Q menu opt. 13
+#F  PQ_SET_MAXIMAL_OCCURRENCES( <datarec>, <noccur> ) . .  A p-Q menu opt. 13
 ##
-##  inputs data to the `pq' binary for option 13 of the
+##  inputs data to the  `pq'  binary,  to  set  the  maximal  occurrences  of
+##  generators of weight 1 in generator definitions, using option 13  of  the
 ##  Advanced $p$-Quotient menu.
 ##
-InstallGlobalFunction( PQ_SET_MAXIMAL_OCCURRENCES, function( datarec, weights )
+InstallGlobalFunction( PQ_SET_MAXIMAL_OCCURRENCES, function( datarec, noccur )
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
-  ToPQ(datarec, [ "13  #set maximal occurrences" ]);
-  ToPQ(datarec, [ JoinStringsWithSeparator( List(weights, String), " " ),
-                    "  #weights"]);
+  ToPQ(datarec, [ "13 #set maximal occurrences" ]);
+  ToPQ(datarec, [ JoinStringsWithSeparator( List(noccur, String), " " ),
+                    " #max occurrences of weight 1 gen'rs"]);
 end );
 
 #############################################################################
 ##
-#F  PQ_PQUOTIENT_CHK( <datarec> ) . . . .  check p-quotient has been computed
-##
-##  checks  whether  a  p-quotient  has  been  generated  using  `Pq'   (sets
-##  `<datarec>.pQuotient') or `PqPcPresentation' (sets `<datarec>.pQpcp')  or
-##  `PqSPPcPresentation' (sets `<datarec>.SPpcp') and returns the  number  of
-##  generators of `<datarec>.pQuotient' in the first instance or  the  number
-##  of generators of `<datarec>.group' in the second or third  instances,  or
-##  otherwise generates an error. 
-#T  This is possibly not the right way to get the number of generators in
-#T  general. I probably should make `PqCurrentGroup' discover the number
-#T  of generators and use that. - GG
-##
-InstallGlobalFunction( PQ_PQUOTIENT_CHK, function( datarec )
-local field;
-  field := First( ["pQuotient", "pQpcp", "SPpcp"], 
-                  field -> IsBound( datarec.(field) ) );
-  if field = fail then
-    Error( "huh! p-quotient hasn't been generated\n" );
-  elif field = "pQuotient" then
-    return Length( GeneratorsOfGroup( datarec.pQuotient ) );
-  else
-    return Length( GeneratorsOfGroup( datarec.group ) );
-  fi;
-end );
-
-#############################################################################
-##
-#F  PqSetMaximalOccurrences( <i>, <weights> ) . user ver of A p-Q menu opt 13
-#F  PqSetMaximalOccurrences( <weights> )
+#F  PqSetMaximalOccurrences( <i>, <noccur> ) . user ver of A p-Q menu opt. 13
+#F  PqSetMaximalOccurrences( <noccur> )
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
-##  binary to set maximal occurrences; <weights> must be a list  of  integers
-##  of length the number of generators of weight 1 of the $p$-quotient  which
-##  must have been previously computed.
+##  binary to set maximal occurrences of  the  weight  1  generators  in  the
+##  definitions of pcp generators of the group of the process; <noccur>  must
+##  be a list of non-negative integers of  length  the  number  of  weight  1
+##  generators (i.e.~the rank of the class 1 $p$-quotient of the group of the
+##  process). An entry of `0' for a particular generator indicates that there
+##  is no limit on the number of occurrences for the generator.
 ##
 ##  *Note:*
 ##  For  those  familiar  with  the  `pq'  binary,  `PqSetMaximalOccurrences'
 ##  performs option 13 of the Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqSetMaximalOccurrences, function( arg )
-local len, ngens, weights, datarec;
+local len, noccur, datarec;
   len := Length(arg);
   if not(len in [1, 2]) then
     Error( "expected 1 or 2 arguments\n");
   fi;
-  weights := arg[len];
-  arg := arg{[1 .. len - 1]};
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  ngens := PQ_PQUOTIENT_CHK( datarec );
-  if ngens <> Length(weights) then
-    Error( "no. of weights must be equal to the no. of generators of ",
-           "weight 1 (", ngens, ")\n" );
+  noccur := arg[len];
+  if not IsList(noccur) or not ForAll(noccur, x -> IsInt(x) and x >= 0) then
+    Error( "<noccur> argument must be a list of non-negative integers\n" );
   fi;
-  PQ_SET_MAXIMAL_OCCURRENCES( datarec, weights );
+  arg := arg{[1 .. len - 1]};
+  datarec := PQ_DATA_CHK(arg);
+  if Length(noccur) <> datarec.ngens[1] then
+    Error( "<noccur> argument must be a list of length equal to\n",
+           "the no. of generators of weight 1 (",  datarec.ngens[1], ")\n" );
+  fi;
+  PQ_SET_MAXIMAL_OCCURRENCES( datarec, noccur );
 end );
 
 #############################################################################
@@ -1286,7 +1380,7 @@ end );
 ##
 InstallGlobalFunction( PQ_SET_METABELIAN, function( datarec )
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
-  ToPQ(datarec, [ "14  #set metabelian" ]);
+  ToPQ(datarec, [ "14 #set metabelian" ]);
 end );
 
 #############################################################################
@@ -1317,7 +1411,7 @@ end );
 ##
 InstallGlobalFunction( PQ_DO_CONSISTENCY_CHECK, function( datarec, c, b, a )
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
-  ToPQ(datarec, [ "15  #do individual consistency check" ]);
+  ToPQ(datarec, [ "15 #do individual consistency check" ]);
   ToPQ(datarec, [ c, " ", b, " ", a, "  #generator indices"]);
 end );
 
@@ -1350,7 +1444,7 @@ local len, c, b, a, datarec;
   arg := arg{[1 .. len - 3]};
   ANUPQ_IOINDEX_ARG_CHK(arg);
   datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  PQ_DO_CONSISTENCY_CHECK( datarec, a, b, c );
+  PQ_DO_CONSISTENCY_CHECK( datarec, c, b, a );
 end );
 
 #############################################################################
@@ -1362,7 +1456,7 @@ end );
 ##
 InstallGlobalFunction( PQ_COMPACT, function( datarec )
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
-  ToPQ(datarec, [ "16  #compact" ]);
+  ToPQ(datarec, [ "16 #compact" ]);
 end );
 
 #############################################################################
@@ -1394,7 +1488,7 @@ end );
 InstallGlobalFunction( PQ_ECHELONISE, function( datarec )
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
   #@dependence@
-  ToPQ(datarec, [ "17  #echelonise" ]);
+  ToPQ(datarec, [ "17 #echelonise" ]);
 end );
 
 #############################################################################
@@ -1431,9 +1525,9 @@ local datarec;
   datarec := arg[1];
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
   if 1 = Length(arg) then
-    ToPQ(datarec, [ "18  #extend auts" ]);
+    ToPQ(datarec, [ "18 #extend auts" ]);
   else
-    ToPQ(datarec, [ "18  #supply auts" ]);
+    ToPQ(datarec, [ "18 #supply auts" ]);
     CallFuncList(PQ_MANUAL_AUT_INPUT, arg);
   fi;
   datarec.hasAuts := true;
@@ -1498,8 +1592,8 @@ end );
 ##
 InstallGlobalFunction( PQ_CLOSE_RELATIONS, function( datarec, qfac )
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
-  ToPQ(datarec, [ "19  #close relations"  ]);
-  ToPQ(datarec, [ qfac, "  #queue factor" ]);
+  ToPQ(datarec, [ "19 #close relations"  ]);
+  ToPQ(datarec, [ qfac, " #queue factor" ]);
 end );
 
 #############################################################################
@@ -1527,96 +1621,100 @@ end );
 
 #############################################################################
 ##
-#F  PQ_PRINT_STRUCTURE( <datarec>, <m>, <n> ) . . . . .  A p-Q menu option 20
+#F  PQ_DISPLAY( <datarec>, <opt>, <type>, <bnds> ) .  A p-Q menu option 20/21
 ##
-##  inputs data to the `pq' binary for option 20 of the Advanced $p$-Quotient
-##  menu, to print the structure for the pcp generators numbered from <m>  to
-##  <n>.
+##  inputs data to the `pq' binary  for  Advanced  $p$-Quotient  menu  option
+##  <opt> (<opt> should be 20 or 21) to display the generator  structure  (if
+##  `<opt> = 20' and `<type> = "structure"') or to display automorphisms  (if
+##  `<opt> = 21' and `<type> =  "automorphisms"'),  for  the  pcp  generators
+##  numbered between the bounds determined by the option `Bounds' or for  all
+##  pcp generators if `Bounds' is not set.
 ##
-InstallGlobalFunction( PQ_PRINT_STRUCTURE, function( datarec, m, n )
-local infolev;
-  infolev := PQ_PRE_DISPLAY(datarec, "ApQ");
-  ToPQ( datarec, [ "20  #print structure" ]);
-  ToPQ( datarec, [ m, "  #no. of first generator" ]);
-  ToPQk(datarec, [ n, "  #no. of last generator"  ]);
-  PQ_POST_DISPLAY( datarec, infolev );
+InstallGlobalFunction( PQ_DISPLAY, function( datarec, opt, type, bnds )
+  PQ_MENU(datarec, "ApQ");
+  if VALUE_PQ_OPTION("OutputLevel", datarec) <> fail then
+    PQ_SET_OUTPUT_LEVEL( datarec, datarec.OutputLevel );
+  fi;
+  ToPQ(datarec, [ opt,     " #display ", type ]);
+  ToPQ(datarec, [ bnds[1], " #no. of first generator" ]);
+  ToPQ(datarec, [ bnds[2], " #no. of last generator"  ]);
 end );
 
 #############################################################################
 ##
-#F  PQ_CHK_DISPLAY_COMMAND_ARGS( <args> ) . . check args for a display cmd ok
+#F  PQ_BOUNDS( <datarec>, <hibnd> ) . . provide bounds from option or default
 ##
-##  returns a list of valid arguments for  a  low-level  display  command  or
-##  generates an error.
+##  extracts a list of two integer bounds from option  `Bounds'  if  set,  or
+##  otherwise uses `[1 .. <hibnd>]' as default. If `Bounds' is set  they  are
+##  checked to lie in the range `[1 .. <hibnd>]' and an error is generated if
+##  they are not. If there is no error the list of two bounds  determined  by
+##  the above is returned.
 ##
-InstallGlobalFunction( PQ_CHK_DISPLAY_COMMAND_ARGS, function( args )
-local len, ngens, m, n, datarec;
-  len := Length(args);
-  if not(len in [2, 3]) then
-    Error( "expected 2 or 3 arguments\n");
+InstallGlobalFunction( PQ_BOUNDS, function( datarec, hibnd )
+local bounds;
+  bounds := VALUE_PQ_OPTION("Bounds");
+  if bounds = fail then
+    return [1, hibnd];
+  elif bounds[2] > hibnd then 
+    # most checking has already been done by VALUE_PQ_OPTION
+    Info(InfoWarning + InfoANUPQ, 1, 
+         "2nd bound ", bounds[2], " of `Bounds' can be at most ", hibnd);
+    Info(InfoWarning + InfoANUPQ, 1, 
+         "... replacing this bound most with", hibnd);
+    return [bounds[1], hibnd];
+  else
+    return bounds;
   fi;
-  m := args[len - 1];
-  n := args[len];
-  args := args{[1 .. len - 2]};
-  ANUPQ_IOINDEX_ARG_CHK(args);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(args) ];
-  ngens := PQ_PQUOTIENT_CHK( datarec );
-  if not ForAll([m, n], IsPosInt) or m > ngens or m > n then
-    Error( "<m> and <n> must satisfy: 1 <= <m> <= <n> <= ",
-           "no. of pcp generators\n" );
-  fi;
-  return [datarec, m, n];
 end );
 
 #############################################################################
 ##
-#F  PqPrintStructure( <i>, <m>, <n> ) .  user version of A p-Q menu option 20
-#F  PqPrintStructure( <m>, <n> )
+#F  PqDisplayStructure(<i>[: Bounds := <list>]) . user ver A p-Q menu opt. 20
+#F  PqDisplayStructure([: Bounds := <list>])
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
-##  binary to print the structure for the pcp generators numbered from <m> to
-##  <n>.
+##  binary  to  display  the  structure  for  the  pcp  generators   numbered
+##  (inclusively) between the bounds of `Bounds' or  for  all  generators  if
+##  `Bounds' is not  given.  The  value  <list>  of  `Bounds'  (assuming  the
+##  interactive process is numbered <i>) should be a  list  of  two  integers
+##  <low>,  <high>  satisfying  `1  \<=  <low>   \<=   PqNrPcGenerators(<i>)'
+##  (see~"PqNrPcGenerators"). `PqDisplayStructure' also  accepts  the  option
+##  `OutputLevel' (see e.g.~"Pq" where the option is listed).
 ##
 ##  *Note:*
-##  For those familiar with  the  `pq'  binary,  `PqPrintStructure'  performs
+##  For those familiar with the `pq'  binary,  `PqDisplayStructure'  performs
 ##  option 20 of the Advanced $p$-Quotient menu.
 ##
-InstallGlobalFunction( PqPrintStructure, function( arg )
-  CallFuncList( PQ_PRINT_STRUCTURE, PQ_CHK_DISPLAY_COMMAND_ARGS(arg) );
+InstallGlobalFunction( PqDisplayStructure, function( arg )
+local datarec;
+  datarec := PQ_DATA_CHK(arg);
+  PQ_DISPLAY( datarec, 20, "structure", 
+              PQ_BOUNDS(datarec, datarec.forder[2]) );
 end );
 
 #############################################################################
 ##
-#F  PQ_DISPLAY_AUTOMORPHISMS( <datarec>, <m>, <n> ) . .  A p-Q menu option 21
-##
-##  inputs data to the `pq' binary for option 21 of the Advanced $p$-Quotient
-##  menu, to display automorphisms for the generators numbered  from  <m>  to
-##  <n>.
-##
-InstallGlobalFunction( PQ_DISPLAY_AUTOMORPHISMS, function( datarec, m, n )
-local infolev;
-  infolev := PQ_PRE_DISPLAY(datarec, "ApQ");
-  ToPQ( datarec, [ "21 #display automorphisms" ]);
-  ToPQ( datarec, [ m, "  #no. of first generator" ]);
-  ToPQk(datarec, [ n, "  #no. of last generator"  ]);
-  PQ_POST_DISPLAY( datarec, infolev );
-end );
-
-#############################################################################
-##
-#F  PqDisplayAutomorphisms( <i>, <m>, <n> ) . . user ver of A p-Q menu opt 21
-#F  PqDisplayAutomorphisms( <m>, <n> )
+#F  PqDisplayAutomorphisms(<i>[: Bounds := <list>]) . u ver A p-Q menu opt 21
+#F  PqDisplayAutomorphisms([: Bounds := <list>])
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
-##  binary to display automorphisms for the generators numbered from  <m>  to
-##  <n>.
+##  binary to display the  automorphisms  for  the  pcp  generators  numbered
+##  (inclusively) between the bounds of `Bounds' or  for  all  generators  if
+##  `Bounds' is not  given.  The  value  <list>  of  `Bounds'  (assuming  the
+##  interactive process is numbered <i>) should be a  list  of  two  integers
+##  <low>,  <high>  satisfying  `1  \<=  <low>   \<=   PqNrPcGenerators(<i>)'
+##  (see~"PqNrPcGenerators"). `PqDisplayStructure' also  accepts  the  option
+##  `OutputLevel' (see e.g.~"Pq" where the option is listed).
 ##
 ##  *Note:*
 ##  For  those  familiar  with  the  `pq'  binary,   `PqDisplayAutomorphisms'
 ##  performs option 21 of the Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqDisplayAutomorphisms, function( arg )
-  CallFuncList( PQ_DISPLAY_AUTOMORPHISMS, PQ_CHK_DISPLAY_COMMAND_ARGS(arg) );
+local datarec;
+  datarec := PQ_DATA_CHK(arg);
+  PQ_DISPLAY( datarec, 21, "automorphisms", 
+              PQ_BOUNDS(datarec, datarec.forder[2]) );
 end );
 
 #############################################################################
@@ -1629,10 +1727,7 @@ end );
 ##
 InstallGlobalFunction( PQ_COLLECT_DEFINING_GENERATORS, function( datarec, word )
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
-  ToPQk(datarec, [ "23  #collect defining generators" ]);
-  FLUSH_PQ_STREAM_UNTIL(
-      datarec.stream, 2, 2, PQ_READ_NEXT_LINE,
-      line -> 0 < Length(line) and line[Length(line)] = '\n');
+  ToPQ(datarec, [ "23 #collect defining generators" ]);
   ToPQ(datarec, [ word, ";  #word to be collected" ]);
 end );
 
@@ -1763,7 +1858,7 @@ end );
 ##
 InstallGlobalFunction( PQ_EVALUATE_CERTAIN_FORMULAE, function( datarec )
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
-  ToPQ(datarec, [ "27  #evaluate certain formulae" ]);
+  ToPQ(datarec, [ "27 #evaluate certain formulae" ]);
 end );
 
 #############################################################################
@@ -1794,7 +1889,7 @@ end );
 ##
 InstallGlobalFunction( PQ_EVALUATE_ACTION, function( datarec )
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
-  ToPQ(datarec, [ "28  #evaluate action" ]);
+  ToPQ(datarec, [ "28 #evaluate action" ]);
 end );
 
 #############################################################################
@@ -1825,7 +1920,7 @@ end );
 ##
 InstallGlobalFunction( PQ_EVALUATE_ENGEL_IDENTITY, function( datarec )
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
-  ToPQ(datarec, [ "29  #evaluate Engel identity" ]);
+  ToPQ(datarec, [ "29 #evaluate Engel identity" ]);
 end );
 
 #############################################################################
@@ -1856,7 +1951,7 @@ end );
 ##
 InstallGlobalFunction( PQ_PROCESS_RELATIONS_FILE, function( datarec )
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
-  ToPQ(datarec, [ "30  #process relations file" ]);
+  ToPQ(datarec, [ "30 #process relations file" ]);
 end );
 
 #############################################################################
@@ -2043,46 +2138,6 @@ end );
 
 #############################################################################
 ##
-#F  PqSPDisplayPresentation( <i> ) . . . . . user version of SP menu option 4
-#F  PqSPDisplayPresentation()
-##
-##  for the <i>th or default interactive {\ANUPQ} process, inputs data to the
-##  `pq' binary for  the  <i>th  or  default  interactive  {\ANUPQ}  process,
-##  directs the `pq' binary to  display  the  standard  presentation  of  the
-##  $p$-quotient. To set the amount of information this command displays  you
-##  may wish to call `PqSPSetPrintLevel' first (see~"PqSPSetPrintLevel").
-##
-##  *Note:*
-##  For  those  familiar  with  the  `pq'  binary,  `PqSPDisplayPresentation'
-##  performs option 4 of the Standard Presentation menu.
-##
-InstallGlobalFunction( PqSPDisplayPresentation, function( arg )
-local datarec;
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  PQ_DISPLAY_PRESENTATION( datarec, "SP" );
-end );
-
-#############################################################################
-##
-#F  PqSPSetPrintLevel( <i>, <lev> ) . . . .  user version of SP menu option 5
-#F  PqSPSetPrintLevel( <lev> )
-##
-##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
-##  binary to set the print level to  <lev>,  in  the  Standard  Presentation
-##  menu.
-##
-##  *Note:* For those familiar  with  the  `pq'  binary,  `PqSPSetPrintLevel'
-##  performs option 5 of the Standard Presentation menu.
-##
-InstallGlobalFunction( PqSPSetPrintLevel, function( arg )
-local datarec;
-  datarec := PQ_CHK_PRINT_ARGS( arg );
-  PQ_SET_PRINT_LEVEL( datarec, "SP", arg[Length(arg)] );
-end );
-
-#############################################################################
-##
 #F  PQ_SP_COMPARE_TWO_FILE_PRESENTATIONS(<datarec>,<f1>,<f2>) . SP menu opt 6
 ##
 ##  inputs data to the `pq' binary for option 6 of the Standard  Presentation
@@ -2093,13 +2148,14 @@ InstallGlobalFunction( PQ_SP_COMPARE_TWO_FILE_PRESENTATIONS,
 function( datarec, f1, f2 )
 local line;
   PQ_MENU(datarec, "SP");
-  ToPQ( datarec, [ "6  #compare to file presentations" ]);
+  ToPQ( datarec, [ "6  #compare two file presentations" ]);
   ToPQ( datarec, [ f1, "  #1st filename" ]);
-  ToPQk(datarec, [ f2, "  #2nd filename" ]);
-  line := FLUSH_PQ_STREAM_UNTIL( datarec.stream, 2, 2, PQ_READ_NEXT_LINE,
-                                 line -> IsMatchingSublist(line, "Identical") );
-  FLUSH_PQ_STREAM_UNTIL(datarec.stream, 2, 2, PQ_READ_NEXT_LINE, IS_PQ_PROMPT);
-  return EvalString( LowercaseString( SplitString(line, "", "? \n")[3] ) );
+  datarec.match := "Identical";
+  datarec.filter := ["Identical"];
+  ToPQ(datarec, [ f2, "  #2nd filename" ]);
+  line := SplitString(datarec.matchedline, "", "? \n");
+  PQ_UNBIND(datarec, ["match", "matchedline", "filter"]);
+  return EvalString( LowercaseString( line[3] ) );
 end );
 
 #############################################################################
@@ -2301,29 +2357,6 @@ end );
 
 #############################################################################
 ##
-#F  PqPGDisplayPresentation( <i> ) . . . .  user version of p-G menu option 4
-#F  PqPGDisplayPresentation()
-##
-##  for the <i>th or default interactive {\ANUPQ} process, inputs data to the
-##  `pq' binary for the <i>th or default interactive {\ANUPQ} process, inputs
-##  data to the `pq' binary for the <i>th  or  default  interactive  {\ANUPQ}
-##  process, directs the `pq' binary to display the presentation of  a  group
-##  previously         selected         by         `PqPGRestoreGroupFromFile'
-##  (see~"PqPGRestoreGroupFromFile").
-##
-##  *Note:*
-##  For  those  familiar  with  the  `pq'  binary,  `PqPGDisplayPresentation'
-##  performs option 4 of the main $p$-Group Generation menu.
-##
-InstallGlobalFunction( PqPGDisplayPresentation, function( arg )
-local datarec;
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  PQ_DISPLAY_PRESENTATION( datarec, "pG" );
-end );
-
-#############################################################################
-##
 #F  PQ_PG_CONSTRUCT_DESCENDANTS( <datarec> : <options> ) .  p-G menu option 5
 ##
 ##  inputs  data  given  by  <options>  to  the  `pq'  binary  to   construct
@@ -2343,18 +2376,12 @@ local class, firstStep, expectedNsteps, optrec;
 
   # We do these here to ensure an error doesn't occur mid-input of the menu
   # item data 
-  if IsBound(datarec.class) then
-    class := datarec.class;
-  elif IsPGroup(datarec.group) then #Hmm! probably don't want these 2 lines
-    class := PClassPGroup(datarec.group);
-  else
-    Error("huh! Nothing known about the p-class of the input group?!\n");
+  if not IsBound(datarec.pcoverclass) or 
+     datarec.pcoverclass <> datarec.class then
+    Error("the p-cover of the last p-quotient has not yet been computed!\n");
   fi;
-  VALUE_PQ_OPTION("ClassBound", class + 1, datarec.des);
+  VALUE_PQ_OPTION("ClassBound", datarec.pcoverclass, datarec.des);
   VALUE_PQ_OPTION("TailorOutput", false, datarec.des);
-  if not IsBound(datarec.pcoverclass) then
-    Error("the p-covering group has not yet been computed!\n");
-  fi;
 
   # sanity checks
   if     VALUE_PQ_OPTION("SpaceEfficient", false, datarec.des) and 
@@ -2387,7 +2414,7 @@ local class, firstStep, expectedNsteps, optrec;
 
   PQ_MENU(datarec, "pG");
   ToPQ(datarec, [ "5  #construct descendants" ]);
-  ToPQ(datarec, [ datarec.des.ClassBound, "  #class bound" ]);
+  ToPQ(datarec, [ datarec.des.ClassBound, " #class bound" ]);
 
   #Construct all descendants?
   if not IsBound(datarec.des.StepSize) then
@@ -2395,7 +2422,7 @@ local class, firstStep, expectedNsteps, optrec;
     #Set an order bound for descendants?
     if datarec.des.OrderBound <> 0 then
       ToPQ(datarec, [ "1  #do set an order bound" ]);
-      ToPQ(datarec, [ datarec.des.OrderBound, "  #order bound" ]);
+      ToPQ(datarec, [ datarec.des.OrderBound, " #order bound" ]);
     else
       ToPQ(datarec, [ "0  #do not set an order bound" ]);
     fi;
@@ -2558,29 +2585,6 @@ local len, datarec, cls, n;
   datarec := PQ_PG_RESTORE_GROUP_ARG_CHK(arg);
   len := Length(arg);
   PQ_PG_RESTORE_GROUP( datarec, "ApG", arg[len - 1], arg[len] );
-end );
-
-#############################################################################
-##
-#F  PqAPGDisplayPresentation( <i> ) . . . user version of A p-G menu option 4
-#F  PqAPGDisplayPresentation()
-##
-##  for the <i>th or default interactive {\ANUPQ} process, inputs data to the
-##  `pq' binary for the <i>th or default interactive {\ANUPQ} process, inputs
-##  data to the `pq' binary for the <i>th  or  default  interactive  {\ANUPQ}
-##  process, directs the `pq' binary to display the presentation of  a  group
-##  previously        selected         by         `PqAPGRestoreGroupFromFile'
-##  (see~"PqAPGRestoreGroupFromFile").
-##
-##  *Note:*
-##  For those  familiar  with  the  `pq'  binary,  `PqAPGDisplayPresentation'
-##  performs option 4 of the Advanced $p$-Group Generation menu.
-##
-InstallGlobalFunction( PqAPGDisplayPresentation, function( arg )
-local datarec;
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  PQ_DISPLAY_PRESENTATION( datarec, "ApG" );
 end );
 
 #############################################################################

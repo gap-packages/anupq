@@ -10,6 +10,37 @@
 #Y  Copyright 1993-2001,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.10  2001/08/30 01:09:54  gap
+#H  - Make better use of InfoANUPQ, levels now mean:
+#H    1:non-(timing,memory usage) output from `pq' and general info.
+#H    2:timing,memory usage output from `pq'
+#H    3:non-user invoked output from `pq' of nature of 1, 2
+#H    4:commands sent to `pq' (behind a `ToPQ> ' prompt)
+#H    5:menus and prompts and other info. that is usually meaningless to a user
+#H    Still need to rethink `OutputLevel := 0' in this scheme. For the moment
+#H    I've added a behind-the-scenes option: `nonuser' which makes all the
+#H    output from `Pq', `PqDescendants' and `StandardPresentation' etc. get
+#H    Info-ed at ANUPQ level 3.
+#H  - Rationalised the `Display' functions. Now there is just
+#H    `PqDisplayPcPresentation' and it uses whatever is the current `pq' menu.
+#H  - Rationalised the ..Set..PrintLevel functions in the same way, except it
+#H    is now called `PqSetOutputLevel' (like the `OutputLevel' option).
+#H  - A number of functions now call `PQ_SET_GROUP_DATA' which may in turn
+#H    call `PQ_DATA' which between them set the fields `name', `class' (current
+#H    class), `forder' (factored order) and `ngens' (the no. of gen'rs for each
+#H    class up to the current class) of the data record associated with an
+#H    interactive process.
+#H  - There are now functions: `PqFactoredOrder', `PqOrder', `PqNrPcGenerators',
+#H    `PqPClass' and `PqWeight' (weight of a generator) which determine their
+#H    values by looking at the fields `class', `forder' and `ngens' of the data
+#H    record associated with a process. `PqCurrentGroup' is not useful yet.
+#H  - Fixed bug in `PqDoConsistencyCheck'.
+#H  - `PqDoExponentChecks', `PqDisplayStructure' (was `PqPrintStructure') and
+#H    `PqDisplayAutomorphisms' now have their non-process-id arguments as the
+#H    option `Bounds'.
+#H  - There is now a guard against `pq' seg-faults just from changing menu.
+#H     GG
+#H
 #H  Revision 1.9  2001/07/05 21:14:26  gap
 #H  Bug fixes. ANUPQ_ARG_CHK now checks required options are set ... all
 #H  functions that call it have been adjusted. The option `StepSize' had
@@ -314,6 +345,7 @@ function( args )
         p := PrimeOfPGroup( G );
     fi;
     
+    PushOptions(rec(nonuser := true));
     PQ_PC_PRESENTATION(datarec, "SP" : Prime := p, 
                                        ClassBound := PClassPGroup(G));
 
@@ -325,6 +357,7 @@ function( args )
     if datarec.calltype = "non-interactive" then
         PQ_COMPLETE_NONINTERACTIVE_FUNC_CALL(datarec);
         if IsBound( datarec.setupfile ) then
+            PopOptions();
             return true;
         fi;
     fi;
@@ -354,6 +387,7 @@ function( args )
                          datarec.SP, 
                          GeneratorsOfGroup(datarec.group),
                          desc.map{[x - k + 1..x]} );
+    PopOptions();
     return datarec.SPepi;
 end );
 

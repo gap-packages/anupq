@@ -45,7 +45,7 @@ local opts, iorec;
     if iorec.stream = fail then
       Error( "sorry! Run out of pseudo-ttys. Can't open an io stream.\n" );
     fi;
-    FLUSH_PQ_STREAM_UNTIL(iorec.stream, 4, 2, PQ_READ_NEXT_LINE, IS_PQ_PROMPT);
+    FLUSH_PQ_STREAM_UNTIL(iorec.stream, 5, 5, PQ_READ_NEXT_LINE, IS_PQ_PROMPT);
   else
     iorec.stream := OutputTextFile(setupfile, false);
     iorec.setupfile := setupfile;
@@ -279,31 +279,29 @@ InstallValue(PQ_MENUS, rec(
 InstallGlobalFunction(PQ_MENU, function(arg)
 local datarec, newmenu, nextmenu, tomenu;
   datarec := arg[1];
-  #!!!! Must check Option 1 or 3 of SP or pQ menu done before entering ApQ
   if 2 = Length(arg) then
     newmenu := arg[2];
+    if datarec.menu in ["SP", "pQ"] and newmenu in ["ApQ", "pG", "ApG"] then
+      PQ_GRP_EXISTS_CHK( datarec ); #We try to avoid seg-faults!
+    fi;
     while datarec.menu <> newmenu do
       if PQ_MENUS.(datarec.menu).depth >= PQ_MENUS.(newmenu).depth then
         datarec.menu := PQ_MENUS.(datarec.menu).prev;
         tomenu := PQ_MENUS.(datarec.menu).name;
         ToPQk(datarec, [ 0 , "  #to ", tomenu]);
-        FLUSH_PQ_STREAM_UNTIL(datarec.stream, 2, 2, PQ_READ_NEXT_LINE,
-                              IS_PQ_PROMPT);
       elif datarec.menu = "pQ" and newmenu = "ApQ" then
         datarec.menu := "ApQ";
         tomenu := PQ_MENUS.(datarec.menu).name;
         ToPQk(datarec, [ PQ_MENUS.pQ.nextopt.ApQ, "  #to ", tomenu ]);
-        FLUSH_PQ_STREAM_UNTIL(datarec.stream, 4, 2, PQ_READ_NEXT_LINE,
-                              IS_PQ_PROMPT);
       else
         nextmenu := RecNames( PQ_MENUS.(datarec.menu).nextopt )[1];
         tomenu := PQ_MENUS.(nextmenu).name;
         ToPQk(datarec, [ PQ_MENUS.(datarec.menu).nextopt.(nextmenu),
                          "  #to ", tomenu ]);
-        FLUSH_PQ_STREAM_UNTIL(datarec.stream, 4, 2, PQ_READ_NEXT_LINE,
-                              IS_PQ_PROMPT);
         datarec.menu := nextmenu;
       fi;
+      FLUSH_PQ_STREAM_UNTIL(datarec.stream, 5, 5, PQ_READ_NEXT_LINE,
+                            IS_PQ_PROMPT);
     od;
   fi;
   return datarec.menu;
@@ -313,42 +311,45 @@ end);
 ##
 #F  IS_PQ_PROMPT( <line> ) . . . .  checks whether the line is a prompt of pq
 ##
-##  returns `true' if  the  string  <line>  ends  in  `": "'  or  `"? "',  or
-##  otherwise returns `false'.
+##  returns `true' if the string  <line>  is  a  `pq'  prompt,  or  otherwise
+##  returns `false'.
 ##
-InstallGlobalFunction(IS_PQ_PROMPT, function(line)
-local len;
-  len := Length(line);
-  return 1 < len  and line[len] = ' ' and line[len - 1] in ":?";
-end);
-
-#############################################################################
-##
-#F  IS_PQ_REQUEST( <line> ) . .  checks whether the line is a request from pq
-##
-##  returns `true' if the string <line>  starts  with  `"GAP"'  and  ends  in
-##  `"!\n"' (i.e. is a request from `pq' to {\GAP} to compute stabilisers) or
-##  otherwise returns `false'.
-##
-InstallGlobalFunction(IS_PQ_REQUEST, function(line)
-local len;
-  len := Length(line);
-  return 4 < len  and line{[1 .. 3]} = "GAP" and line{[len - 1 .. len]} = "!\n";
-end);
+InstallGlobalFunction(IS_PQ_PROMPT,
+  line -> IS_ALL_PQ_LINE(line) and ANUPQData.linetype = "prompt"
+);
 
 #############################################################################
 ##
 #F  IS_ALL_PQ_LINE( <line> ) . checks whether line is a complete line from pq
 ##
-##  returns `true' if the string <line> ends in a `\n' or is a `pq' prompt or
-##  a  request  from  `pq'  to  {\GAP}  to  compute  stabilisers;  otherwise,
-##  `IS_ALL_PQ_LINE' returns `false'.
+##  returns `true' if the string <line> is a `pq' prompt or  a  request  from
+##  `pq' to {\GAP} to compute stabilisers or simply ends  in  a  newline  and
+##  sets `ANUPQData.linetype' to `"prompt"', `"request"'  or  `"hasnewline"',
+##  accordingly; otherwise `ANUPQData.linetype' is  set  to  `"unknown"'  and
+##  `false' is returned.
 ##
-InstallGlobalFunction(IS_ALL_PQ_LINE, 
-  line -> 0 < Length(line) and ( line[Length(line)] = '\n' or 
-                                 IS_PQ_PROMPT(line) or 
-                                 IS_PQ_REQUEST(line) )
-);
+InstallGlobalFunction(IS_ALL_PQ_LINE, function( line )
+local len;
+  ANUPQData.linetype := "unknown";
+  len := Length(line);
+  if 0 < len then
+    if line[len] = '\n' then
+      if 4 < len  and line{[1 .. 3]} = "GAP" and line[len - 1] = '!' then
+        ANUPQData.linetype := "request";
+      elif 6 < len and line{[1 .. 6]} in ["Enter ", "Input "] then
+        ANUPQData.linetype := "prompt";
+      else
+        ANUPQData.linetype := "hasnewline";
+      fi;
+    elif line = "Select option: " or
+         1 < len and line{[len - 1 .. len]} = "? "  or
+         8 < len and line{[len - 1 .. len]} = ": " and
+                     line{[1 .. 6]} in ["Enter ", "Input ", "Add ne"] then
+      ANUPQData.linetype := "prompt";
+    fi;
+  fi;
+  return ANUPQData.linetype <> "unknown";
+end);
 
 #############################################################################
 ##
@@ -377,54 +378,79 @@ InstallGlobalFunction(PQ_READ_NEXT_LINE,
 ##  . . .  . . . . . . . . . . . read lines from a stream until a wanted line
 ##
 ##  calls <readln> (which should be one of `ReadLine', `PQ_READ_NEXT_LINE' or
-##  `PQ_READ_ALL_LINE') to read lines from an  stream  <stream>  and  `Info's
-##  each line read at `InfoANUPQ' level <infoLev> until a line <line> is read
-##  for  which  `<IsMyLine>(<line>)'  is  `true';  <line>  is  `Info'-ed   at
-##  `InfoANUPQ' level  <infoLevMy>  and  returned.  <IsMyLine>  should  be  a
-##  boolean-valued function that expects a string as its only  argument,  and
-##  <infoLev> and <infoLevMy> should be positive integers. An <infoLevMy>  of
-##  10 means that the line  <line>  matched  by  `<IsMyLine>(<line>)'  should
-##  never be `Info'-ed.
-##
-##  If the argument <IsMyLine> is a list of two functions, the first is named
-##  <IsMatchingLine> and <IsMyLine> is renamed to be the second function, and
-##  then `FLUSH_PQ_STREAM_UNTIL' works as described  above  except  that  the
-##  line <line> returned is the last line for which <IsMatchingLine>(<line>)'
-##  returns `true' is returned instead of the last line flushed.
+##  `PQ_READ_ALL_LINE') to read lines from a stream <stream> and `Info's each
+##  line read at `InfoANUPQ' level <infoLev> until a line <line> is read  for
+##  which `<IsMyLine>(<line>)' is `true'; <line> is `Info'-ed at  `InfoANUPQ'
+##  level <infoLevMy> and returned. <IsMyLine>  should  be  a  boolean-valued
+##  function that expects a string as its only argument,  and  <infoLev>  and
+##  <infoLevMy> should be positive integers. An <infoLevMy> of 10 means  that
+##  the  line  <line>  matched  by  `<IsMyLine>(<line>)'  should   never   be
+##  `Info'-ed.
 ##
 InstallGlobalFunction(FLUSH_PQ_STREAM_UNTIL, 
 function(stream, infoLev, infoLevMy, readln, IsMyLine)
-local line, IsMatchingLine, MatchLine, matchedline;
-
-  if not IsInputStream(stream) then
-    return fail;
-  fi;
-
-  if IsList(IsMyLine) then
-    IsMatchingLine := IsMyLine[1];
-    IsMyLine := IsMyLine[2];
-    MatchLine := function(line)
-      if IsMatchingLine(line) then
-        matchedline := line;
-      fi;
-    end;
-  else
-    MatchLine := function(line)
-      matchedline := line;
-    end;
-  fi;
-
+local line;
   line := readln(stream);
-  MatchLine(line);
   while not IsMyLine(line) do
     Info(InfoANUPQ, infoLev, Chomp(line));
     line := readln(stream);
-    MatchLine(line);
   od;
   if line <> fail and infoLevMy < 10 then
     Info(InfoANUPQ, infoLevMy, Chomp(line));
   fi;
-  return matchedline;
+  return line;
+end);
+
+#############################################################################
+##
+#F  FILTER_PQ_STREAM_UNTIL_PROMPT( <datarec> )
+##
+##  reads `pq' output from `<datarec>.stream' until a `pq' prompt and `Info's
+##  any lines that are prompts, blank lines, menu exits  or  start  with  the
+##  strings in the list `<datarec>.filter' (if bound) at `InfoANUPQ' level 5;
+##  all  other  lines  are  either  `Info'-ed  at  `InfoANUPQ'  level  3   if
+##  `datarec.nonuser' is set, or, more usually, are `Info'-ed at  `InfoANUPQ'
+##  level 2 if  they  are  computation  times  or  at  `InfoANUPQ'  level  1,
+##  otherwise.
+##
+InstallGlobalFunction(FILTER_PQ_STREAM_UNTIL_PROMPT, function( datarec )
+local filter, lowlev, ctimelev;
+  filter := ["Exiting", "pq,", "Now enter", "Presentation listing images"];
+  if IsBound(datarec.filter) then
+    Append(filter, datarec.filter);
+  fi;
+  if ValueOption("nonuser") = true then
+    lowlev := 3;
+    ctimelev := 3;
+  else
+    lowlev := 1;
+    ctimelev := 2;
+  fi;
+  repeat
+    datarec.line := PQ_READ_NEXT_LINE(datarec.stream);
+    if ANUPQData.linetype in ["prompt", "request"] then
+      Info( InfoANUPQ, 5,        Chomp(datarec.line) );
+      break;
+    elif ForAny(["seconds", "Lused", "*** Final "], 
+                s -> PositionSublist(datarec.line, s) <> fail) then
+      Info( InfoANUPQ, ctimelev, Chomp(datarec.line) );
+    elif datarec.line = "\n" or
+         ForAny( filter, s -> IsMatchingSublist(datarec.line, s) ) or
+         PositionSublist(datarec.line, "groups saved on file") <> fail then
+      Info( InfoANUPQ, 5,        Chomp(datarec.line) );
+    else
+      Info( InfoANUPQ, lowlev,   Chomp(datarec.line) );
+    fi;
+    if IsBound(datarec.match) then
+      if IsMatchingSublist(datarec.line, datarec.match) then
+        datarec.matchedline := datarec.line;
+      fi;
+    elif IsBound(datarec.matchlist) and 
+         ForAny( datarec.matchlist, 
+                 s -> PositionSublist(datarec.line, s) <> fail ) then
+      Add(datarec.matchedlines, datarec.line);
+    fi;
+  until false;
 end);
 
 #############################################################################
@@ -438,16 +464,19 @@ end);
 ##  binary one never wants to flush output).
 ##
 InstallGlobalFunction(ToPQk, function(datarec, list)
-local string;
+local string, ok;
 
   if not IsOutputTextStream(datarec.stream) and 
      IsEndOfStream(datarec.stream) then
-    Info(InfoANUPQ + InfoWarning, 1, "Sorry. Process stream has died!");
-    return fail;
+    Error("sorry! Process stream has died!\n");
   fi;
-  string := Concatenation( List(list, x -> String(x)) );
-  Info(InfoANUPQ, 3, "ToPQ> ", string);
-  return WriteLine(datarec.stream, string);
+  string := Concatenation( List(list, String) );
+  Info(InfoANUPQ, 4, "ToPQ> ", string);
+  ok := WriteLine(datarec.stream, string);
+  if ok = fail then
+    Error("write to stream failed\n");
+  fi;
+  return ok;
 end);
 
 #############################################################################
@@ -580,26 +609,19 @@ end);
 #F  ToPQ(<datarec>, <list>) .  write list to pq stream (& for iostream flush)
 ##
 ##  calls `ToPQk' to write list <list>  to  iostream  `<datarec>.stream'  and
-##  `Info' <list> at `InfoANUPQ' level 3 after  a  ```ToPQ> '''  prompt,  and
+##  `Info' <list> at `InfoANUPQ' level 3 after a  ```ToPQ>  '''  prompt,  and
 ##  then, if we are not just writing a setup  file  (determined  by  checking
-##  whether `<datarec>.setupfile' is bound), calls `FLUSH_PQ_STREAM_UNTIL' to
-##  flush all `pq' output at `InfoANUPQ' level 2, and finally returns  `true'
-##  if successful and `fail' otherwise. If we are not writing  a  setup  file
-##  the last line flushed (or `fail') is saved in `<datarec>.line'.
+##  whether       `<datarec>.setupfile'        is        bound),        calls
+##  `FILTER_PQ_STREAM_UNTIL_PROMPT' to filter lines to `Info' at the  various
+##  `InfoANUPQ' levels. If we are not writing a  setup  file  the  last  line
+##  flushed is saved in `<datarec>.line'.
 ##
 InstallGlobalFunction(ToPQ, function(datarec, list)
-local ok;
-  ok := ToPQk(datarec, list);
-  if ok = true and not IsBound( datarec.setupfile ) then
-    datarec.line := FLUSH_PQ_STREAM_UNTIL( datarec.stream, 2, 2,
-                                           PQ_READ_NEXT_LINE, 
-                                           line -> IS_PQ_PROMPT(line) or
-                                                   IS_PQ_REQUEST(line) );
+  ToPQk(datarec, list);
+  if not IsBound( datarec.setupfile ) then
+    FILTER_PQ_STREAM_UNTIL_PROMPT(datarec);
   
-    while datarec.line <> fail and 
-          PositionSublist(
-              datarec.line, "GAP, please compute stabiliser!") <> fail do
-
+    while ANUPQData.linetype = "request" do
       HideGlobalVariables( "ANUPQglb", "F", "gens", "relativeOrders",
                            "ANUPQsize", "ANUPQagsize" );
       Read( Filename( ANUPQData.tmpdir, "GAP_input" ) );
@@ -608,14 +630,7 @@ local ok;
                              "ANUPQsize", "ANUPQagsize" );
       ToPQ( datarec, [ "pq, stabiliser is ready!" ] );
     od;
-  
-    if IsString(datarec.line) then
-      ok := true;
-    else
-      ok := fail;
-    fi;
   fi;
-  return ok;
 end);
 
 #############################################################################

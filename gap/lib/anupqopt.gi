@@ -127,6 +127,8 @@ InstallValue( ANUPQoptionChecks,
                                     and IsPosInt(x[1])),
                    TailorOutput := IsRecord,
                    TmpDir := IsString,
+                   Bounds := x -> IsSet(x) and 2 = Length(x) and 
+                                  ForAll(x, IsPosInt),
                    QueueFactor := IsPosInt,
                    OutputFile := IsString
                    )
@@ -162,6 +164,7 @@ InstallValue( ANUPQoptionTypes,
                        := "pos've integer or increasing pos've integer list",
                    TailorOutput := "record",
                    TmpDir := "string",
+                   Bounds := "pair of increasing positive integers",
                    QueueFactor := "positive integer",
                    OutputFile := "string"
                    )
