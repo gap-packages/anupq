@@ -1,4 +1,4 @@
-#Example: "PqDescendants-1-" . . . based on manual example
+#Example: "PqDescendants-1-i" . . . based on manual example
 #(demonstrates `PqSetPQuotientToGroup' usage)
 #vars: F, procId, G, des;
 #options: 
