@@ -727,13 +727,13 @@ DeclareGlobalFunction( "PQ_PG_RESTORE_GROUP" );
 #F  PqPGSetDescendantToPcp( <cls>, <n> )
 #F  PqPGSetDescendantToPcp( <i> [: Filename := <name> ])
 #F  PqPGSetDescendantToPcp([: Filename := <name> ])
-#F  PqPGRestoreGroupFromFile(<i>, <cls>, <n>)
-#F  PqPGRestoreGroupFromFile( <cls>, <n> )
-#F  PqPGRestoreGroupFromFile( <i> [: Filename := <name> ])
-#F  PqPGRestoreGroupFromFile([: Filename := <name> ])
+#F  PqPGRestoreDescendantFromFile(<i>, <cls>, <n>)
+#F  PqPGRestoreDescendantFromFile( <cls>, <n> )
+#F  PqPGRestoreDescendantFromFile( <i> [: Filename := <name> ])
+#F  PqPGRestoreDescendantFromFile([: Filename := <name> ])
 ##
 DeclareGlobalFunction( "PqPGSetDescendantToPcp" );
-DeclareSynonym( "PqPGRestoreGroupFromFile", PqPGSetDescendantToPcp );
+DeclareSynonym( "PqPGRestoreDescendantFromFile", PqPGSetDescendantToPcp );
 
 #############################################################################
 ##

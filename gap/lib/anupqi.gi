@@ -388,11 +388,12 @@ end );
 #F  PqSavePcPresentation( <filename> )
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
-##  binary to save the pc presentation previously computed for  the  quotient
+##  program to save the pc presentation previously computed for the  quotient
 ##  of the group of that process to the file with  name  <filename>.  If  the
 ##  first character of the  string  <filename>  is  not  `/',  <filename>  is
 ##  assumed to be the path of a writable file relative to  the  directory  in
-##  which {\GAP} was started.
+##  which  {\GAP}  was  started.  A   saved   file   may   be   restored   by
+##  `PqRestorePcPresentation' (see~"PqRestorePcPresentation").
 ##
 ##  *Note:* For those familiar with the `pq'  binary,  `PqSavePcPresentation'
 ##  performs menu item 2 of the main $p$-Quotient menu.
@@ -429,10 +430,11 @@ end );
 #F  PqRestorePcPresentation( <filename> )
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
-##  binary to restore the pc presentation previously saved to <filename>.  If
-##  the first character of the string <filename> is not  `/',  <filename>  is
-##  assumed to be the path of a readable file relative to  the  directory  in
-##  which {\GAP} was started.
+##  program to restore the pc presentation previously saved to <filename>, by
+##  `PqSavePcPresentation'   (see~"PqSavePcPresentation").   If   the   first
+##  character of the string <filename> is not `/', <filename> is  assumed  to
+##  be the path of a readable file relative to the directory in which  {\GAP}
+##  was started.
 ##
 ##  *Note:*
 ##  For  those  familiar  with  the  `pq'  binary,  `PqRestorePcPresentation'
@@ -2651,21 +2653,26 @@ end );
 #F  PqPGSetDescendantToPcp( <cls>, <n> )
 #F  PqPGSetDescendantToPcp( <i> [: Filename := <name> ])
 #F  PqPGSetDescendantToPcp([: Filename := <name> ])
-#F  PqPGRestoreGroupFromFile(<i>, <cls>, <n>)
-#F  PqPGRestoreGroupFromFile( <cls>, <n> )
-#F  PqPGRestoreGroupFromFile( <i> [: Filename := <name> ])
-#F  PqPGRestoreGroupFromFile([: Filename := <name> ])
+#F  PqPGRestoreDescendantFromFile(<i>, <cls>, <n>)
+#F  PqPGRestoreDescendantFromFile( <cls>, <n> )
+#F  PqPGRestoreDescendantFromFile( <i> [: Filename := <name> ])
+#F  PqPGRestoreDescendantFromFile([: Filename := <name> ])
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
 ##  binary to restore group <n> of class <cls> from a temporary  file,  where
-##  <cls> and <n> are positive integers, or the group stored  in  <name>.  In
-##  the `Filename' option forms, the option defaults to the last filename  in
-##  which a presentation was stored by the `pq' binary.
+##  <cls> and <n> are positive integers,  or  the  group  stored  in  <name>.
+##  `PqPGSetDescendantToPcp'    and    `PqPGRestoreDescendantFromFile'    are
+##  synonyms;  they  make  sense  only  after  a  prior  call  to   construct
+##  descendants          by          say           `PqPGConstructDescendants'
+##  (see~"PqPGConstructDescendants")  or  the   interactive   `PqDescendants'
+##  (see~"PqDescendants!interactive"). In the `Filename'  option  forms,  the
+##  option defaults to the last filename in which a presentation  was  stored
+##  by the `pq' binary.
 ##
 ##  *Note:*
 ##  For those familiar with the  `pq'  binary,  `PqPGSetDescendantToPcp'  and
-##  `PqPGRestoreGroupFromFile' perform option  3  of  the  main  or  advanced
-##  $p$-Group Generation menu.
+##  `PqPGRestoreDescendantFromFile' perform  menu  item  3  of  the  main  or
+##  advanced $p$-Group Generation menu.
 ##
 InstallGlobalFunction( PqPGSetDescendantToPcp, function( arg )
 local len, datarec, cls, n;
