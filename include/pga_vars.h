@@ -52,8 +52,8 @@ struct pga_vars {
    int    nmr_of_descendants;   /* number of immediate descendants */
    int    nmr_of_capables;      /* number of capable immediate descendants */
 
-  int    *relative;            /* used at various places -- Eamonn probably */
-   int    nmr_soluble;         /*   forgot to send new include file.     WN */
+   int    *relative;
+   int    nmr_soluble;
 
    int    *map;                 /* map from automorphisms to permutations */
    int    nmr_of_perms;         /* number of permutations */
