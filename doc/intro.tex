@@ -11,12 +11,13 @@
 \Chapter{Introduction}
 
 \index{ANUPQ}
-The {\GAP}~4 package {\ANUPQ} provides an  interface  to  the  ANU  PQ  C
-progam `pq' written by Eamonn O'Brien, making the functionality of the  C
+The {\GAP}~4 package {\ANUPQ} provides an interface to  the  ANU  `pq'  C
+progam written by Eamonn O'Brien,  making  the  functionality  of  the  C
 program available to {\GAP}. Henceforth, we shall refer to  the  {\ANUPQ}
-interface (resp. the `pq' binary), when discussing the  {\GAP}  component
-(resp. the C code component) of the {\ANUPQ} package.  The  `pq'  program
-consists of implementations of the following algorithms:
+package when referring to the {\GAP}  interface,  and  to  the  ANU  `pq'
+program or just `pq' when referring to that C program.
+
+The `pq' program consists of implementations of the following algorithms:
 
 \beginlist%ordered
 
@@ -61,8 +62,8 @@ computation of automorphism groups of $p$-groups.
 %Further   background   may   be   found   in~\cite{OBr95},   \cite{Vau84}
 %and~\cite{NNN98}.
 
-The  {\ANUPQ}  Package  Manual  has  been   written   for   {\GAP}   4.3.
-Nevertheless, the {\ANUPQ} Package is compatible  with  {\GAP}  4.2,  but
+The manual of the {\ANUPQ} package  has  been  written  for  {\GAP}  4.3.
+Nevertheless, the {\ANUPQ} package is compatible  with  {\GAP}  4.2,  but
 since it uses the  iostream  technology  introduced  in  {\GAP}  4.2,  it
 requires at least {\GAP} 4.2.
 
@@ -73,18 +74,18 @@ Terminology", which  also  cites  a  number  of  references  for  further
 reading.
 
 Instructions on how to  install  the  {\ANUPQ}  package  are  located  in
-Chapter~"Installing the ANUPQ Package"  and  Section~"Loading  the  ANUPQ
+Chapter~"Installing the ANUPQ package"  and  Section~"Loading  the  ANUPQ
 Package" describes how to load the {\ANUPQ} package.
 
 Section~"The ANUPQData Record" describes the global variable  `ANUPQData'
 in which various data including the temporary directory in which  various
-input and output files are created for and by the `pq' binary and various
-results of functions are retained. On an initial reading you can probably
-skip this section.
+input and output files are created  for  and  by  the  `pq'  program  and
+various results of functions are retained. On an initial reading you  can
+probably skip this section.
 
 Section~"Setting the Verbosity of ANUPQ via Info and InfoANUPQ" describes
 an `Info' class which when set to appropriate levels allows one to see if
-desired all the dialogue that passes between {\GAP} and the `pq' binary.
+desired all the dialogue that passes between {\GAP} and the `pq' program.
 
 Most {\ANUPQ}  functions  use  options  (in  the  sense  of  {\GAP})  and
 Section~"Hints and Warnings regarding the  use  of  Options"  gives  some
@@ -92,7 +93,7 @@ fairly important hints regarding these. Please take the time to read it.
 
 Chapter~"Non-interactive   ANUPQ    functions"    describes    all    the
 non-interactive functions of the {\ANUPQ} package; these are ``one-shot''
-functions that invoke the `pq' binary in such a way that once {\GAP}  has
+functions that invoke the `pq' program in such a way that once {\GAP} has
 got what it needs, the `pq' is allowed to exit. It is expected that  most
 of the time users will only need these functions.
 
@@ -101,9 +102,9 @@ interactive functions of the {\ANUPQ} package; these are  functions  that
 extract  information  via  a  dialogue  with  a  running  `pq'   process.
 Occasionally, a user needs the ``next step''; the functions  provided  in
 this chapter make use of data from previous steps retained  by  the  `pq'
-binary, thus allowing the user to interact with the `pq' binary like  one
-can when one uses the `pq' binary as a  stand-alone  (see~`guide.dvi'  in
-the `standalone-doc' directory).
+program, thus allowing the user to interact with the  `pq'  program  like
+one can when one uses the `pq' program as a stand-alone  (see~`guide.dvi'
+in the `standalone-doc' directory).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Authors}

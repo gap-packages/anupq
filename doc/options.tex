@@ -75,7 +75,7 @@ Specifies that the $p$-quotient for the prime  <p>  should  be  computed.
 \>`ClassBound := <n>'{option  ClassBound}@{option  `ClassBound'|indexit}&
 Specifies that the $p$-quotient to be  computed  has  lower  exponent-$p$
 class at most <n>. If this option is omitted a default of  63  (which  is
-the  maximum  possible  for  the  `pq'  binary)  is  taken,  except   for
+the  maximum  possible  for  the  `pq'  program)  is  taken,  except   for
 `PqDescendants' (see~"PqDescendants") and in a special case of `PqPCover'
 (see~"PqPCover"). Let <F> be the argument (or start group of the  process
 in the interactive case) for the function; then for  `PqDescendants'  the
@@ -89,19 +89,19 @@ for the process. Otherwise (and non-interactively),  the  default  is  0,
 which means that no exponent law is enforced.
 
 \>`Relators := <rels>'{option Relators}@{option `Relators'|indexit}&
-Specifies that the relators sent to the  `pq'  binary  should  be  <rels>
+Specifies that the relators sent to the  `pq'  program  should  be  <rels>
 instead of the relators of the group <F>; <rels>  should  be  a  list  of
 *strings* in the string representations of the generators  of  <F>.  This
-option provides a way of giving relators  to  the  `pq'  binary,  without
+option provides a way of giving relators  to  the  `pq'  program,  without
 having  them  pre-expanded  by  {\GAP},  which  can  sometimes  effect  a
 performance loss of the order of 100.
 
 *POINT TO 11-group EXAMPLE*
 
 *Note:*
-The `pq' binary does not use `/' to indicate multiplication by an inverse
+The `pq' program does not use `/' to indicate multiplication by an inverse
 and uses square brackets to represent (left  normed)  commutators.  Also,
-even though the `pq' binary accepts relations,  all  elements  of  <rels>
+even though the `pq' program accepts relations,  all  elements  of  <rels>
 *must* be in relator form, i.e.~a relation of form `<w1> = <w2>' must  be
 written as `<w1>*(<w2>)^-1' and then put in a pair  of  double-quotes  to
 make it a string. See the example below.
@@ -112,24 +112,24 @@ conditions specified by other options be  constructed.  By  default  this
 restriction is not enforced.
 
 \>`GroupName := <name>'{option GroupName}@{option `GroupName'|indexit}&
-Specifies that the `pq' binary should refer to  the  group  by  the  name
+Specifies that the `pq' program should refer to  the  group  by  the  name
 <name> (a string). If `GroupName' is not  set  and  the  group  has  been
 assigned a name via `SetName' (see~"ref:SetName") it is set as  the  name
-the `pq' binary should use. Otherwise, the ``generic'' name `"\<grp>"' is
+the `pq' program should use. Otherwise, the ``generic'' name `"\<grp>"' is
 set as a default.
 
 \>`OutputLevel := <n>'{option OutputLevel}@{option `OutputLevel'|indexit}&
 Specifies the level of ``verbosity'' of the information output by the ANU
-`pq' binary when computing a pc presentation; <n> must be an  integer  in
+`pq' program when computing a pc presentation; <n> must be an  integer  in
 the range 0 to 3. `OutputLevel := 0' displays at most one line of  output
 and is the default; `OutputLevel := 1' displays (usually)  slightly  more
 output and `OutputLevel's of 2 and 3 are two levels of verbose output. To
-see these messages from the `pq' binary, the `InfoANUPQ'  level  must  be
+see these messages from the `pq' program, the `InfoANUPQ'  level  must  be
 set to at least 1 (see~"InfoANUPQ").
 
 \>`RedoPcp'{option RedoPcp}@{option `RedoPcp'|indexit}&
 Specifies that the current pc presentation (for an  interactive  process)
-stored by the `pq' binary be  scrapped  and  clears  the  current  values
+stored by the `pq' program be  scrapped  and  clears  the  current  values
 stored for the options `Prime', `ClassBound', `Exponent' and `Metabelian'
 and also clears the `pQuotient', `pQepi' and `pCover' fields of the  data
 record of the process.
@@ -143,9 +143,9 @@ prompt at `InfoANUPQ' level  4  (see~"InfoANUPQ").  In  this  case,  `Pq'
 returns `true'. Interactively, `SetupFile' is ignored.
 
 \>`PqWorkspace := <workspace>'{option PqWorkspace}@{option `PqWorkspace'|indexit}&
-Non-interactively, this option sets the memory used by the  `pq'  binary.
+Non-interactively, this option sets the memory used by the  `pq'  program.
 It sets the maximum number of integer-sized elements to allocate  in  its
-main storage array. By default, the  `pq'  binary  sets  this  figure  to
+main storage array. By default, the  `pq'  program  sets  this  figure  to
 10000000. Interactively, `PqWorkspace' is ignored;  the  memory  used  in
 this  case  may  be  set  by   giving   `PqStart'   a   second   argument
 (see~"PqStart").
@@ -158,7 +158,7 @@ Let <G> be the group associated with the calling function (or  associated
 interactive process). Passing the option  `PcgsAutomorphisms'  without  a
 value (or equivalently setting it to `true'), specifies that a polycyclic
 generating sequence for the automorphism group (which must be  *soluble*)
-of <G>, be computed and passed to the `pq'  binary.  This  increases  the
+of <G>, be computed and passed to the `pq'  program.  This  increases  the
 efficiency of the computation; it also prevents  the  `pq'  from  calling
 {\GAP} for orbit-stabilizer calculations. By default, `PcgsAutomorphisms'
 is set to the value returned by `IsSolvable( AutomorphismGroup( <G> ) )',
@@ -194,7 +194,7 @@ Sets the rank of the initial  segment  subgroup  chosen  to  be  <n>.  By
 default, this has value 0.
 
 \>`SpaceEfficient'{option SpaceEfficient}@{option `SpaceEfficient'|indexit}&
-Specifies that the `pq' binary perform calculations more slowly but  with
+Specifies that the `pq' program perform calculations more slowly but  with
 greater space efficiency. This flag is frequently necessary for groups of
 large Frattini quotient rank. The space saving occurs  because  only  one
 permutation is stored at any one time. This option is only  available  if
@@ -227,7 +227,7 @@ Suppose that <L> is the list of descendants generated, then  for  a  list
 `<L>[<n>]'.
 
 \>`BasicAlgorithm'{option BasicAlgorithm}@{option `BasicAlgorithm'|indexit}&
-Specifies that an algorithm that the `pq' binary  calls  its  ``default''
+Specifies that an algorithm that the `pq' program  calls  its  ``default''
 algorithm be used. By default this  algorithm  is  *not*  used.  If  this
 option is supplied the settings of options `RankInitialSegmentSubgroups',
 `AllDescendants', `Exponent' and `Metabelian' are ignored.
@@ -290,13 +290,13 @@ name <filename>. If the first character of the string <filename>  is  not
 the directory in which {\GAP} was started. If this option is  omitted  it
 is written to the file with the name generated by the command  `Filename(
 ANUPQData.tmpdir, "SPres" );', i.e.~the file with name `"SPres"'  in  the
-temporary directory in which the `pq' binary executes.
+temporary directory in which the `pq' program executes.
 
 \>`QueueFactor := <n>'{option QueueFactor}@{option `QueueFactor'|indexit}&
 Specifies a queue factor of <n>, where <n> should be a positive  integer.
 This option may be used with `PqNextClass' (see~"PqNextClass").
 
-The queue factor is used when the `pq' binary uses automorphisms to close
+The queue factor is used when the `pq' program uses automorphisms to close
 a set of elements of the $p$-multiplicator under their action.
 
 The algorithm used is a spinning algorithm:  it  starts  with  a  set  of
@@ -332,7 +332,7 @@ Specifies that permutations of the subgroups be printed.
 
 \>`Filename := <string>'{option Filename}@{option `Filename'|indexit}&
 Specifies that an output or input file to be written to or read  from  by
-the `pq' binary should have the name <string>.
+the `pq' program should have the name <string>.
 
 \enditems
 

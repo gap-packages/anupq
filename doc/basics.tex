@@ -10,12 +10,148 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Chapter{Mathematical Background and Terminology}
 
-The {\GAP}~4 package {\ANUPQ} provides an  interface  to  the  ANU  PQ  C
-progam `pq' written by Eamonn O'Brien, making the functionality of the  C
-program available to {\GAP}. Henceforth, we shall refer to  the  {\ANUPQ}
-package (resp. the `pq' binary), when  discussing  the  {\GAP}  component
-(resp. the C code component) of ANU PQ. The ANU `pq' standalone  provides
-access to implementations of the following algorithms:
+In this chapter  we will give a brief  description of the mathematical
+notions used in the algorithms  implemented in the ANU `pq' program
+that are made accessible from {\GAP} through this package.  For proofs
+and  details  we  will  point  to relevant  places  in  the  published
+literature.  Also we will try  to give some explanation of terminology
+that may help to use the ``low-level'' interactive functions described
+in Section~"Low-level Interactive ANUPQ  Functions based on menu items
+of the pq program".
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\Section{Basic notions}
+
+*pc presentations and consistency*
+
+For details, see \cite{NNN98}.
+
+Every $p$-group $G$ has a presentation of the form: 
+$$ 
+\{a_1,\dots, a_n \mid a_i^p = v_{ii}, 1 \le i \le n, 
+                   [a_k, a_j] = v_{jk}, 1 \le j \< k \le n \}.  
+$$
+where $v_{jk}$is a word in the elements $a_{k+1},\dots,a_n$ for 
+$1 \le j \< k \le n$.
+
+\index{power-commutator presentation}\index{pc presentation}\index{pcp}
+\index{pc generators}\index{collection}
+This is  called a *power-commutator*  presentation (or *pc presentation*
+or *pcp*) of $G$, generators from  such a presentation will be referred
+to as *pc generators*.  In terms of such pc generators every element
+of $G$  can be written in a  ``normal form'' $a_1^{e_1},\dots,a_n^{e_n}$
+with $0 \le  e_i \< p$.  Moreover any given  product of the generators
+and  their inverses can  be brought  into such a  normal form  using the
+defining  relations in the  above presentation  as rewrite  rules. Any
+such process is called  *collection*.  For the discussion of various
+collection methods see \cite{LGS90}.
+
+\index{consistent}\index{confluent rewriting system}\index{confluent}
+Every  $p$-group of order  $p^n$ has  such a  pcp presentation  on $n$
+generators and conversely every such presentation defines a $p$-group.
+However a $p$-group defined by a pc-presentation on $n$ generators can
+be of  smaller order $p^m$ with  $m\<n$. A pcp on  $n$ generators that
+does  in   fact  define   a  $p$-group  of   order  $p^n$   is  called
+*consistent* in this  manual, in line with most  of the literature on
+the  algorithms  occurring  here.  A  consistent  pcp   determines   a
+*confluent rewriting system* (see~"ref:IsConfluent") for the group  it
+defines and for  this  reason  often  (in  particular  in  the  {\GAP}
+Reference  Manual)  such   a   pcp   presentation   is   also   called
+*confluent*.
+
+Consistency of a pcp is tantamount to the fact that for any given word
+in the generators any two collections will yield the same normal form.
+
+\index{consistency conditions}
+Consistency of a  pcp can be checked by a  finite set of *consistency
+conditions*, demanding  that collection of the left hand  side and of
+the right  hand side of  certain equations, starting  with subproducts
+indicated by bracketing, will result in the same normal form.  There
+are 3 types of such equations (that will be referred to in the manual):
+$$
+\matrix{
+(a^n)a &=& a(a^n)                           \hfill&{\rm (Type\ 1)}\cr
+(b^n)a &=& b^(n-1)(ba), b(a^n) = (ba)a^(n-1)\hfill&{\rm (Type\ 2)}\cr
+  (ba) &=& (cb)a                            \hfill&{\rm (Type\ 3)}\cr
+}
+$$
+
+*Exponent-$p$ central series and weighted pc presentations*
+
+For details, see \cite{NNN98}.
+
+\atindex{exponent-p central series}{@exponent-$p$ central series}
+The (*descending*  or  *lower*)  (exponent-)$p$-central  series 
+of an arbitrary  group $G$ is defined by  
+$$ 
+U_1  := G,  U_i := [G, U_{i-1}] U_{i-1}^p.   
+$$ 
+\atindex{p-class}{@$p$-class}\index{class}
+For a $p$-group $G$ this  series terminates with the trivial group. $G$
+has $p$-class $c$  if $c$ is the smallest  integer such that $U_{c+1}$
+is  the trivial group.   In this  manual, as  well as  in much  of the
+literature about the pq- and related algorithms the $p$-class is often
+referred to simply as *class*.
+
+Let  the  $p$-group $G$  have  a consistent  pcp  as  above. Then  the
+subgroups
+$$
+\langle1\rangle \< \langle a_1 \rangle \< \langle a_1, a_2 \rangle %
+    \< \dots \< \langle a_1,\dots,a_i \rangle \< \dots \< G
+$$
+\index{weight function}
+form a central series  of $G$. If this refines  the $p$-central series,
+we can  define the  *weight function* $w$  for the pc  generators by
+$w(a_i) = k$ if $a_i$ is contained in $U_{k-1}$  but not in $U_k$.
+
+\index{weighted pcp}
+The pair of  such a weight function and  a pcp allowing it  is called a
+*weighted pcp*.
+
+*$p$-cover, $p$-multiplicator*
+
+For details, see \cite{NNN98}.
+
+\atindex{p-covering group}{@$p$-covering group}\atindex{p-cover}{@$p$-cover}
+\atindex{p-multiplicator}{@$p$-multiplicator}
+\atindex{p-multiplicator rank}{@$p$-multiplicator rank}
+\index{multiplicator rank}
+Let $d$ be the minimal number of generators of the $p$-group G. Then G
+is isomorphic to a factor group $F/R$ of a free group $F$ of rank $d$.
+It can be proved (see e.g.~\cite{OBr90}) that the isomorphism type  of
+$F/[F, R]  R^p$  depends  only  on  $G$.  This  group  is  called  the
+*$p$-covering group* or *$p$-cover* of $G$, and  $R/[F,  R]  R^p$  the
+$p$-multiplicator of  $G$.  The  $p$-multiplicator  is  of  course  an
+elementary abelian $p$-group, its  minimal  number  of  generators  is
+called the *($p$-)multiplicator rank*.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\Section{The p-quotient algorithm}
+
+The aim of the $p$-quotient (`pq'-) algorithm is  to  find  $p$-factor
+groups (or $p$-quotient groups) of a  given  finitely  presented  (fp)
+group $G$ for a given prime $p$.
+
+The `pq'  algorithm successively determines  the factor groups  of the
+groups of the $p$-central series of a fp group $G$. If a bound $b$ for
+the $p$-class is given, it will determine those factor groups up to at
+most  $p$-class  $b$, If  the  $p$-central  series  terminates with  a
+subgroup $U_k$ with $k \< b$, the algorithm will stop with that group.
+If  no such  bound is  given, it  will try  to find  the  biggest such
+factorgroup.
+
+$G/U_2$ is the largest elementary  abelian $p$-factor group of $G$ and
+this  can  be found  from  the relation  matrix  of  $G$ using  matrix
+diagonalisation modulo $p$. So  it suffices to explain how $G/U_{i+1}$
+is found from $G/U_i$ for some $i \ge 1$.
+
+*UP TO HERE*
+
+If they are  not fulfilled they will provide a  set of equations among
+the 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\Section{Old stuff}
 
 \beginlist
 
@@ -59,70 +195,6 @@ For details regarding the standalone version see the file `guide.dvi'.
 We say a $p$-quotient descendant is *capable* if that  descendant  occurs
 as the  factor  group  of  a  $p$-group  modulo  the  last  term  of  its
 $p$-central series.
-
-*confluent*
-
-*pc presentation*
-
-*exponent law*
-
-*standard presentation*
-
-*class*
-
-*p-covering group*
-
-*collection*
-
-*equation ax = b*
-
-*tails*
-
-*descendants*
-
-*exponent checks*
-
-*maximal occurrences for pcp generators*
-
-*compaction*
-
-*echelonisation*
-
-*automorphism action on generators*
-
-*Engel (p-1)-identity*
-
-*PAG-generating system/PcgsAutomorphisms*
-
-*p-group generation*
-
-*initial segment subgroup*
-
-*rank of p-multiplicator*
-
-*metabelian law*
-
-*orbits*
-
-*allowable subgroup*
-
-*standard matrix*
-
-*reduced p-covering group*
-
-*immediate descendants*
-
-*nuclear rank*
-
-*definition sets*
-
-*degree*
-
-*label for standard matrix*
-
-*vector space*
-
-*isomorphism of standard presentation*
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%

@@ -2,7 +2,29 @@ C intro.tex 1. Introduction
 I 1.0. ANUPQ
 S 1.1. Authors
 C basics.tex 2. Mathematical Background and Terminology
-I 2.0. capable
+S 2.1. Basic notions
+I 2.1. power-commutator presentation
+I 2.1. pc presentation
+I 2.1. pcp
+I 2.1. pc generators
+I 2.1. collection
+I 2.1. consistent
+I 2.1. confluent rewriting system
+I 2.1. confluent
+I 2.1. consistency conditions
+I 2.1. exponent-p central series
+I 2.1. p-class
+I 2.1. class
+I 2.1. weight function
+I 2.1. weighted pcp
+I 2.1. p-covering group
+I 2.1. p-cover
+I 2.1. p-multiplicator
+I 2.1. p-multiplicator rank
+I 2.1. multiplicator rank
+S 2.2. The p-quotient algorithm
+S 2.3. Old stuff
+I 2.3. capable
 C infra.tex 3. Infrastructure
 S 3.1. Loading the ANUPQ Package
 I 3.1. banner
@@ -13,8 +35,8 @@ F 3.2. ANUPQDirectoryTemporary
 S 3.3. Setting the Verbosity of ANUPQ via Info and InfoANUPQ
 F 3.3. InfoANUPQ
 S 3.4. Hints and Warnings regarding the use of Options
-I 3.4. menu item!of pq binary
-I 3.4. option!of pq binary is a menu item
+I 3.4. menu item!of pq program
+I 3.4. option!of pq program is a menu item
 S 3.5. Utility Functions
 F 3.5. PqLeftNormComm
 F 3.5. PqGAPRelators
@@ -153,7 +175,7 @@ I 5.3. option BasicAlgorithm
 I 5.3. option CustomiseOutput
 F 5.3. PqSetPQuotientToGroup
 F 5.3. PqSetPQuotientToGroup
-S 5.4. Low-level Interactive ANUPQ Functions based on menu items of the pq binary
+S 5.4. Low-level Interactive ANUPQ Functions based on menu items of the pq program
 F 5.4. PqFactoredOrder
 F 5.4. PqFactoredOrder
 F 5.4. PqOrder

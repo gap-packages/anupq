@@ -10,7 +10,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Chapter{Installing the ANUPQ Package}
 
-The ANU `pq' binary is written in C and the package can only be installed
+The ANU `pq' program is written in C and the package can only be installed
 under UNIX. It has  been  tested  on  DECstation  running  Ultrix,  a  HP
 9000/700 and HP 9000/800 running HP-UX, a MIPS running RISC/os  Berkeley,
 a NeXTstation running NeXTSTEP 3.0, a SUN  running  SunOS  and  an  Intel
@@ -113,9 +113,9 @@ select an appropriate target without `-gmp'.
 The path of {\GAP} used by the `pq' binary (the value `GAP' is set to  in
 the `make'  command)  may  be  over-ridden  by  setting  the  environment
 variable `ANUPQ_GAP_EXEC'. These values are only  of  interest  when  the
-`pq' binary is run as a standalone; however, the `testPq' script  assumes
+`pq' program is run as a standalone; however, the `testPq' script  assumes
 you have set one of these  correctly  (see  Section~"Testing  your  ANUPQ
-installation"). When the `pq' binary is started from {\GAP} communication
+installation"). When the `pq' program is started from {\GAP} communication
 occurs via an iostream, so that the `pq' binary does not actually need to
 know a valid path for {\GAP} is this case.
 
@@ -126,9 +126,9 @@ know a valid path for {\GAP} is this case.
 Now it is time to test the  installation.  After  doing  `configure'  and
 `make' you will have a `testPq' script. The script assumes that,  if  the
 environment variable `ANUPQ_GAP_EXEC' is set, it is a  correct  path  for
-{\GAP}, or otherwise that the `make' call that compiled the  `pq'  binary
+{\GAP}, or otherwise that the `make' call that compiled the  `pq'  program
 set `GAP' to a correct path  for  {\GAP}  (see  Section~"Running  the  pq
-binary as a standalone" for more details). To run the tests, just type:
+program as a standalone" for more details). To run the tests, just type:
 
 \begintt
 testPq
@@ -160,7 +160,7 @@ Enjoy using your functional ANUPQ package!
 \Section{Running the pq binary as a standalone}
 
 \indextt{ANUPQ_GAP_EXEC!environment variable}
-When the `pq' binary is run as a standalone it sometimes  needs  to  call
+When the `pq' program is run as a standalone it sometimes  needs  to  call
 {\GAP} to compute stabilisers of subgroups; in doing so, it first  checks
 the value of the environment variable `ANUPQ_GAP_EXEC', and uses that, if
 set, or otherwise the value of `GAP' it was compiled with,  as  the  path

@@ -18,7 +18,7 @@ to know that
 
 \item{$\bullet$} 
 you must do a `RequirePackage("anupq");' before you can expect to  use  a
-command defined by the {\ANUPQ} Package (details are in  Section~"Loading
+command defined by the {\ANUPQ} package (details are in  Section~"Loading
 the ANUPQ Package");
 
 \item{$\bullet$}
@@ -41,7 +41,7 @@ in Section~"Hints and Warnings regarding the use of Options");
 \item{$\bullet$} 
 in Section~"Utility functions" we describe functions `PqLeftNormComm' for
 computing  left  normed  commutators  in  {\GAP},  `PqGAPRelators'  which
-converts strings representing relators from  a  format  the  `pq'  binary
+converts strings representing relators from  a  format  the  `pq'  program
 understands to a form that  {\GAP}  understands,  and  `PqExample'  which
 executes examples for the  {\ANUPQ}  package  or  displays  an  index  of
 examples; and
@@ -57,8 +57,8 @@ the  attributes  and  property  `NuclearRank',  `MultiplicatorRank'   and
 \Section{Loading the ANUPQ Package}
 
 \index{banner}
-To use the {\ANUPQ} Package you have to request it  explicitly.  This  is
-done by calling
+To use the {\ANUPQ} package, as with  any  {\GAP}  package,  it  must  be
+requested explicitly. This is done by calling
 
 \beginexample
 gap> RequirePackage("anupq");
@@ -76,11 +76,11 @@ true
 The `RequirePackage' command is described in Section~"ref:RequirePackage"
 in the {\GAP} Reference Manual.
 
-If {\GAP} cannot find a working binary, the call to `RequirePackage' will
-fail.
+If {\GAP} cannot find a working `pq' binary, the call to `RequirePackage'
+will return `fail'.
 
-If you know you have a working {\ANUPQ} binary, as well  as  a  correctly
-installed {\ANUPQ}  Package,  it  is  possible  to  suppress  the  `Info'
+If you know you have a working `pq'  program,  as  well  as  a  correctly
+installed {\ANUPQ}  package,  it  is  possible  to  suppress  the  `Info'
 messages by temporarily setting the `InfoLevel' of  `InfoWarning'  to  0,
 and a duplicated semicolon will suppress the `true' result:
 
@@ -110,7 +110,7 @@ within {\GAP} is stored; its fields are:
 
 \beginitems
 
-\quad`binary' & the path of the {\ANUPQ} binary;
+\quad`binary' & the path of the `pq' binary;
 
 \quad`tmpdir' & the path of the temporary  directory  used  by  the  `pq'
 binary and {\GAP} (i.e.~the directory in which all the  `pq''s  temporary
@@ -119,7 +119,7 @@ files are created) (also see "ANUPQDirectoryTemporary" below);
 \quad`outfile'& the full path of the default `pq' output  file;
 
 \quad`SPimages'& the full path of the file  `GAP_library'  to  which  the
-`pq' binary writes its Standard Presentation images;
+`pq' program writes its Standard Presentation images;
 
 \quad`version'& the version of the current `pq' binary;
 
@@ -149,33 +149,33 @@ the same purpose as for a `ANUPQData.io[<ioIndex>]' record.
 synonymous methods);
 
 \quad`gens'& a list of the generators of the  group  `group'  as  strings
-(the same as those passed to the `pq' binary);
+(the same as those passed to the `pq' program);
 
 \quad`rels'& a list of the relators of the group `group' as strings  (the
-same as those passed to the `pq' binary);
+same as those passed to the `pq' program);
 
 \quad`name'& the name of the group whose pc presentation is defined by  a
-call to the `pq' binary (according to the `pq' binary -- unless you  have
+call to the `pq' program (according to the `pq' program -- unless you  have
 used the `GroupName' option  (see  e.g.~"Pq")  or  applied  the  function
 `SetName'  (see~"ref:SetName")  to  the  group,  the   ``generic''   name
 `"\<grp>"' is set as a default);
 
 \quad`class'& the largest lower exponent-$p$ central class of a  quotient
-group of the group (usually `group') found by a call to the `pq' binary;
+group of the group (usually `group') found by a call to the `pq' program;
 
 \quad`forder'& the factored order of the quotient group of largest  lower
 exponent-$p$ central class found for the group  (usually  `group')  by  a
-call to the `pq' binary (this factored order is given as  a  list  `[$p$,
+call to the `pq' program (this factored order is given as  a  list  `[$p$,
 $n$]', indicating an order of $p^n$);
 
 \quad`pcoverclass'&  the  lower  exponent-$p$  central   class   of   the
 $p$-covering group of a $p$-quotient of the group (usually `group') found
-by a call to the `pq' binary;
+by a call to the `pq' program;
 
 \quad`workspace'& the workspace set for the `pq' process (either given as
 a second argument to `PqStart', or set by default to 10000000);
 
-\quad`menu'& the current menu of the `pq' process  (the  `pq'  binary  is
+\quad`menu'& the current menu of the `pq' process  (the  `pq'  program  is
 managed by various  menus,  the  details  of  which  the  user  shouldn't
 normally need to know about -- the `menu' field remembers which menu  the
 `pq' process is currently ``in'');
@@ -225,7 +225,7 @@ directory (object) where one is not so limited.
 
 \>`InfoANUPQ' V
 
-The input to and the output from the `pq'  binary  is,  by  default,  not
+The input to and the output from the `pq'  program  is,  by  default,  not
 displayed. However the user may choose to  see  some,  or  all,  of  this
 input/output.   This   is   done   via   the   `Info'   mechanism    (see
 Chapter~"ref:Info Functions" in the {\GAP} Reference  Manual).  For  this
@@ -234,7 +234,7 @@ purpose, there is the <InfoClass>  `InfoANUPQ'.  If  the  `InfoLevel'  of
 a call to `Info' and will be displayed for the user to see.  By  default,
 the `InfoLevel' of `InfoANUPQ' is 1, and it is recommended that you leave
 it at this level, or higher. Messages that  the  user  should  presumably
-want to see and output from the `pq' binary influenced by  the  value  of
+want to see and output from the `pq' program influenced by  the  value  of
 the option `OutputLevel' (see the options listed in Section~"Pq"),  other
 than timing and memory usage are directed to `Info' at `InfoANUPQ'  level
 1.
@@ -247,7 +247,7 @@ There are five other user-intended `InfoANUPQ' levels: 2, 3, 4, 5 and 6.
 gap> SetInfoLevel(InfoANUPQ, 2);
 \endexample
 
-enables the display of timing and memory usage data from the `pq' binary.
+enables the display of timing and memory usage data from the `pq' program.
 
 \beginexample
 gap> SetInfoLevel(InfoANUPQ, 3);
@@ -255,8 +255,8 @@ gap> SetInfoLevel(InfoANUPQ, 3);
 
 enables the display of output of the nature of the first two  `InfoANUPQ'
 that was not directly invoked by the user (some commands  require  {\GAP}
-to discover something about the current state known to the `pq'  binary).
-In some cases, the `pq' binary produces a lot of output despite the  fact
+to discover something about the current state known to the `pq'  program).
+In some cases, the `pq' program produces a lot of output despite the  fact
 that the `OutputLevel' (see~"option OutputLevel") is unset or is  set  to
 0; such output except (for timing and memory usage) is also `Info'-ed  at
 `InfoANUPQ' level 3.
@@ -265,34 +265,34 @@ that the `OutputLevel' (see~"option OutputLevel") is unset or is  set  to
 gap> SetInfoLevel(InfoANUPQ, 4);
 \endexample
 
-enables the display of all the commands  directed  to  the  `pq'  binary,
+enables the display of all the commands  directed  to  the  `pq'  program,
 behind a ```ToPQ> ''' prompt (so that you can  distinguish  it  from  the
-output from the `pq' binary).
+output from the `pq' program).
 
 \beginexample
 gap> SetInfoLevel(InfoANUPQ, 5);
 \endexample
 
-enables the display of the  `pq'  binary's  banner,  prompts  for  input.
+enables the display of the  `pq'  program's  banner,  prompts  for  input.
 Finally,
 
 \beginexample
 gap> SetInfoLevel(InfoANUPQ, 6);
 \endexample
 
-enables the display of all other output from the `pq' binary, namely  the
-banner and menus. However, the timing data printed when the  `pq'  binary
+enables the display of all other output from the `pq' program, namely  the
+banner and menus. However, the timing data printed when the  `pq'  program
 exits can never be observed.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Hints and Warnings regarding the use of Options}
 
-\index{menu item!of pq binary}
-\index{option!of pq binary is a menu item}
+\index{menu item!of pq program}
+\index{option!of pq program is a menu item}
 *Note:*
-By ``options'' we refer to {\GAP} options. The `pq' binary also uses  the
+By ``options'' we refer to {\GAP} options. The `pq' program also uses  the
 term ``option''; to distinguish the two usages  of  ``option'',  in  this
-manual we use the term *menu item* to  refer  to  what  the  `pq'  binary
+manual we use the term *menu item* to  refer  to  what  the  `pq'  program
 refers to as an ``option''.
 
 Options are passed to the {\ANUPQ} interface functions in either  of  the
@@ -364,12 +364,12 @@ commutator of <elts>, e.g.~if <w1>, <w2>, <w3>  are  such  elements  then
 
 returns a list of words that {\GAP} understands, given a list  <rels>  of
 strings in the string representations of the generators of the fp  or  pc
-group <group> prepared as a list of relators for the `pq' binary.
+group <group> prepared as a list of relators for the `pq' program.
 
 *Note:*
-The `pq' binary does not use `/' to indicate multiplication by an inverse
+The `pq' program does not use `/' to indicate multiplication by an inverse
 and uses square brackets to represent (left  normed)  commutators.  Also,
-even though the `pq' binary accepts relations,  all  elements  of  <rels>
+even though the `pq' program accepts relations,  all  elements  of  <rels>
 *must* be in relator form, i.e.~a relation of form `<w1> = <w2>' must  be
 written as `<w1>*(<w2>)^-1'.
 
