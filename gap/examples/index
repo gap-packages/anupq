@@ -18,6 +18,7 @@ The following ANUPQ examples are available:
  p-Quotient examples:
   general:
    "Pq"                   "Pq-ni"                "PqEpimorphism"        
+   "PqPCover"
   2-groups:
    "2gp-Rel"              "2gp-Rel-i"            "2gp-a-Rel-i"
    "B2-8-i"               "B4-4-i"               "B4-4-a-i"
