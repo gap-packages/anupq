@@ -60,6 +60,8 @@ struct pcp_vars *pcp;
 pga->terminal = FALSE;
 */
 
+   pcp->multiplicator_rank = pcp->lastg - y[pcp->clend + pcp->cc - 1];
+
    /* possible that nucleus is trivial but presentation 
       for p-covering group present */
    if (pga->terminal && pcp->newgen == 0 && pcp->complete == FALSE) {
@@ -81,8 +83,6 @@ pga->terminal = FALSE;
    if (pga->print_multiplicator_rank) 
       printf ("Group %s has %d-multiplicator rank %d\n", pcp->ident,
 	      pcp->p, pcp->lastg - y[pcp->clend + pcp->cc - 1]);
-
-   pcp->multiplicator_rank = pcp->lastg - y[pcp->clend + pcp->cc - 1];
 
    /* if descendant is capable or terminal is true, 
       compute central automorphisms */
