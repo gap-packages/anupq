@@ -90,6 +90,7 @@ I 4.1. option OutputLevel
 I 4.1. option SetupFile
 I 4.1. option PqWorkspace
 I 4.1. option Relators!example of usage
+I 4.1. option Identities!example of usage
 F 4.1. PqEpimorphism
 F 4.1. PqPCover
 S 4.2. Computing Standard Presentations
