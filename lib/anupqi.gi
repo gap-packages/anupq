@@ -1191,7 +1191,7 @@ InstallGlobalFunction( PQ_COMMUTATOR_CHK_ARGS, function( args )
 local len, words, pow, item, datarec, ngens;
   len := Length(args);
   if not(len in [3, 4]) then
-    Error("expected 2 or 3 arguments\n");
+    Error("expected 3 or 4 arguments\n");
   fi;
   words := args[len - 2];
   pow   := args[len - 1];
@@ -1200,7 +1200,7 @@ local len, words, pow, item, datarec, ngens;
     Error( "argument <pow> must be a positive integer\n" );
   fi;
   datarec := CallFuncList(ANUPQDataRecord, args{[1 .. len - 3]});
-  if item[1][1][1] = 3 then
+  if item[1][1] = 3 then
     ngens := datarec.ngens[ Length(datarec.ngens) ];
   else
     ngens := datarec.ngens[ 1 ];
@@ -1236,7 +1236,7 @@ end );
 InstallGlobalFunction( PqCommutator, function( arg )
   return CallFuncList( PQ_COMMUTATOR, 
                        PQ_COMMUTATOR_CHK_ARGS( 
-                           Concatenation( arg, [[3], ["  #commutator"]] ) ) );
+                           Concatenation( arg, [[[3], ["  #commutator"]]] ) ) );
 end );
 
 #############################################################################
@@ -2100,7 +2100,8 @@ InstallGlobalFunction( PqCommutatorDefiningGenerators, function( arg )
   return CallFuncList( PQ_COMMUTATOR, 
                        PQ_COMMUTATOR_CHK_ARGS(
                            Concatenation(
-                               arg, [[24], [" #commutator of defining genrs"]] )
+                               arg, 
+                               [[[24], [" #commutator of defining genrs"]]] )
                            ) );
 end );
 
