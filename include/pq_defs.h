@@ -49,6 +49,7 @@
 #include <ctype.h> 
 #include <string.h>
 #include <limits.h> 
+#include <time.h> 
 
 /* under Solaris, CLK_TCK is defined in <limits.h> */
 
