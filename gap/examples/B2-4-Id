@@ -1,4 +1,4 @@
-#Example: "B2-4-Id" . alternative way to generate B(2, 4) by Werner Nickel
+#Example: "B2-4-Id" . . . alternative way to generate B(2, 4)
 #Generates B(2, 4) by using the `Identities' option
 #... this is not as efficient as using `Exponent' but
 #demonstrates the usage of the `Identities' option.

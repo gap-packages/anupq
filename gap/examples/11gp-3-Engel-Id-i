@@ -1,4 +1,4 @@
-#Example: "11gp-3-Engel-Id-i" . 3-Engel grp for prime 11 by Werner Nickel
+#Example: "11gp-3-Engel-Id-i" . . . 3-Engel grp for prime 11
 #Variation of "11gp-3-Engel-Id" broken down into its lower-level component
 #command parts.
 #vars: F, a, b, G, f, procId, Q;

@@ -1,4 +1,4 @@
-#Example: "11gp-3-Engel-Id" . 3-Engel group for prime 11 by Werner Nickel
+#Example: "11gp-3-Engel-Id" . . . 3-Engel group for prime 11
 #Non-trivial example of using the `Identities' option
 #vars: F, a, b, G, f, procId, Q;
 #options: 
