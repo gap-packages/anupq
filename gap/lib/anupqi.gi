@@ -309,6 +309,7 @@ local lev, line;
   datarec.pQ.currGrp := rec( name := line[2], 
                              class := Int( line[8] ),
                              order := EvalString( line[11] ) );
+  FLUSH_PQ_STREAM_UNTIL(datarec.stream, 2, 2, PQ_READ_NEXT_LINE, IS_PQ_PROMPT);
   if IsBound(lev) then
     ToPQ(datarec, [ "5  #set print level" ]);
     ToPQ(datarec, [ lev, "  #print level" ]);
