@@ -7,7 +7,7 @@ Version 1.2:
    o PQ_GROUP_FROM_PCP (lib/anupq.gi line 531):
        `GroupHomomorphismByImages' replaced by `GroupHomomorphismByImagesNC'
        Reason: The check was unnecessary and slowed things down enormously.
-   o PQ_PC_PRESENTATION (lib/anupq.g):
+   o PQ_PC_PRESENTATION (lib/anupq.gi):
        - datarec.gens, datarec.rels: previously `String' was applied to
          the generators/relators provided and then stored in datarec.gens,
          datarec.rels; this can be enormously costly. Now, no processing
@@ -25,6 +25,27 @@ Version 1.2:
        efficiency. The data is still split into ``nice'' lines of length < 69
        characters, but care is taken to avoid infinite loops when there are
        no nice places to break the lines.
+   Also updated for changes made in GAP 4.3fix4. 
+   o PqSupplementInnerAutomorphisms (lib/anupga.gi):
+       `SetPcgs' changed to `SetGeneralizedPcgs'.
+   o PQ_AUT_INPUT (lib/anupqi.gi):
+       `Pcgs' changed to `GeneralizedPcgs'.
+   Now requires at least GAP 4.3fix4 and updated AutPGrp package 
+   (in .../autpgrp/gap/autos.gi `ConvertHybridAutGroup' uses 
+   `SetGeneralizedPcgs' in lieu of `SetPcgs'.)
+   o lib/anupq4r2cpt.g[id]: 
+       deprecated.
+   o init.g:
+       commented out backward compatibility with GAP 4.2, since version 1.2
+       requires GAP 4.3fix4 anyway.
+   Updated:
+   o testPq.in:
+       checks for new requirements mentioned above.
+   o make_zoo
+   o README
+   o doc/{intro.tex,install.tex}
+   Added:
+   o PkgInfo.g
 
 Version 1.1:
   First GAP 4 release (GAP 4.2 compatible). Updates the GAP 3 release
@@ -41,4 +62,4 @@ Version 1.1:
    o the source code has also been modified to remove a few bugs;
    o the functionality has been significantly increased.
 
-   - Greg Gamble -- 9 July, 2002. 
+   - Greg Gamble -- 9 July, 2002; 3 November, 2002. 

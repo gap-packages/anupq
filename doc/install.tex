@@ -111,14 +111,24 @@ installed on your system, don't worry,  `gmp'  is  *not  required*;  just
 select an appropriate target without `-gmp'.
 
 \indextt{ANUPQ_GAP_EXEC!environment variable}
-The path of {\GAP} used by the `pq' binary (the value `GAP' is set to  in
-the `make'  command)  may  be  over-ridden  by  setting  the  environment
-variable `ANUPQ_GAP_EXEC'. These values are only  of  interest  when  the
-`pq' program is run as a standalone; however, the `testPq' script  assumes
-you have set one of these  correctly  (see  Section~"Testing  your  ANUPQ
-installation"). When the `pq' program is started from {\GAP} communication
-occurs via an iostream, so that the `pq' binary does not actually need to
-know a valid path for {\GAP} is this case.
+The path of {\GAP} (see *Note* below) used by the `pq' binary (the  value
+`GAP' is set to in the `make' command) may be over-ridden by setting  the
+environment variable `ANUPQ_GAP_EXEC'. These values are only of  interest
+when the `pq' program is run  as  a  standalone;  however,  the  `testPq'
+script assumes you have set one of these correctly (see  Section~"Testing
+your ANUPQ installation"). When the `pq' program is started  from  {\GAP}
+communication occurs via an iostream, so that the `pq'  binary  does  not
+actually need to know a valid path for {\GAP} is this case.
+
+*Note.* By ``path of {\GAP}'' we mean the path of  the  command  used  to
+invoke {\GAP} (which  should  be  a  script,  e.g.  the  `gap.sh'  script
+generated in the `bin' directory for the version of  {\GAP}  when  {\GAP}
+was compiled). The usual strategy is to copy the  `gap.sh'  script  to  a
+standard location, e.g. `/usr/local/bin/gap'. It is a mistake to copy the
+{\GAP}  executable  `gap'   (in   a   directory   with   name   of   form
+`bin/<compile-platform>')  to  the  standard   location,   since   direct
+invocation of the executable results in  {\GAP}  starting  without  being
+able to find its own library (a fatal error).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Testing your ANUPQ installation}
@@ -127,7 +137,7 @@ know a valid path for {\GAP} is this case.
 Now it is time to test the  installation.  After  doing  `configure'  and
 `make' you will have a `testPq' script. The script assumes that,  if  the
 environment variable `ANUPQ_GAP_EXEC' is set, it is a  correct  path  for
-{\GAP}, or otherwise that the `make' call that compiled the  `pq'  program
+{\GAP}, or otherwise that the `make' call that compiled the  `pq' program
 set `GAP' to a correct path  for  {\GAP}  (see  Section~"Running  the  pq
 program as a standalone" for more details). To run the tests, just type:
 
@@ -135,20 +145,34 @@ program as a standalone" for more details). To run the tests, just type:
 testPq
 \endtt
 
-Some of the tests the script runs take a while. Please  be  patient.  The
-output you see should be something like the following:
+Some of the tests the script runs take a while. Please be  patient.  Note
+that version 1.2 of the {\ANUPQ} package requires at least {\GAP} 4.3fix4
+and updates to the {\AutPGrp} package provided at the time fix4 of {\GAP}
+4.3 was released (the `testPq' script checks for these). The  output  you
+see should be something like the following:
 
 \begintt
 Made dir: /tmp/testPq
+Testing installation of ANUPQ Package (version 1.2)
+
+The first two tests check that the pq C program compiled ok.
 Testing the pq binary ... OK.
 Testing the pq binary's stack size ... OK.
+The pq C program compiled ok!
+
+The next tests check that you have the right version of GAP
+for version 1.2 of the ANUPQ package and that GAP is finding
+the right versions of the ANUPQ and AutPGrp packages.
+
 Checking GAP ...
- pq binary made with GAP set to: /home/rigel/gregg/bin/gap-dev
+ pq binary made with GAP set to: /usr/local/bin/gap
  Starting GAP to determine version and package availability ...
-  GAP version (4.dev) ... OK.
-  GAP has ANUPQ package (>= v 1.1) installed ... good.
-  GAP has AutPGrp package installed ... good.
+  GAP version (4.3fix4) ... OK.
+  GAP found ANUPQ package (1.2) ... good.
+  GAP has AutPGrp package installed ...
+   checking AutPGrp package includes recent updates ... yes.
  GAP is OK.
+
 Checking the link between the pq binary and GAP ... OK.
 Testing the standard presentation part of the pq binary ... OK.
 Doing p-group generation (final GAP/ANUPQ) test ... OK.
@@ -161,7 +185,7 @@ Enjoy using your functional ANUPQ package!
 \Section{Running the pq program as a standalone}
 
 \indextt{ANUPQ_GAP_EXEC!environment variable}
-When the `pq' program is run as a standalone it sometimes  needs  to  call
+When the `pq' program is run as a standalone it sometimes  needs  to call
 {\GAP} to compute stabilisers of subgroups; in doing so, it first  checks
 the value of the environment variable `ANUPQ_GAP_EXEC', and uses that, if
 set, or otherwise the value of `GAP' it was compiled with,  as  the  path

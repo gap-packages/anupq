@@ -10,7 +10,15 @@ $tmpdir .= $i;
 system("rm -rf $tmpdir; mkdir $tmpdir");
 print "Made dir: $tmpdir\n";
 
+$ANUPQversion = `cat VERSION`;
+chomp $ANUPQversion;
+
+$GAPversion = "4.3fix4"; # required GAP version for ANUPQ
+
+print "Testing installation of ANUPQ Package (version $ANUPQversion)\n\n",
+      "The first two tests check that the pq C program compiled ok.\n";
 $pq = "$pwd/bin/@GAPARCH@/pq";
+### standalone tests ###############################################
 # Test 1
 syswrite STDOUT, "Testing the pq binary ...",
          length( "Testing the pq binary ..." );
@@ -19,6 +27,12 @@ check("test1.pga", "");
 syswrite STDOUT, "Testing the pq binary's stack size ...",
          length( "Testing the pq binary's stack size ..." );
 check("test2.pga", "");
+
+print "The pq C program compiled ok!\n\n",
+      "The next tests check that you have the right version of GAP\n",
+      "for version $ANUPQversion of the ANUPQ package and that GAP is finding\n",
+      "the right versions of the ANUPQ and AutPGrp packages.\n\n";
+### GAP - ANUPQ package tests #####################################
 # Test GAP
 print "Checking GAP ...\n";
 $pq_does_not_know_GAP = 0;
@@ -40,10 +54,13 @@ print GAPIN
       "  CompareVersionNumbers := function(arg) return VERSION{[7..11]};end;\n",
       "  TestPackageAvailability := function(arg) return \"GAP 3\"; end;\n",
       "fi;\n",
-      "CompareVersionNumbers(VERSION, \"4r2\");\n",
+      "CompareVersionNumbers(VERSION, \"$GAPversion\");\n",
       "VERSION;\n",
-      "TestPackageAvailability(\"anupq\", \"1.1\");\n",
-      "TestPackageAvailability(\"autpgrp\", \"1.0\");\n";
+      "TestPackageAvailability(\"anupq\", \"$ANUPQversion\");\n",
+      "TestPackageAvailability(\"autpgrp\", \"1.0\");\n",
+      "if RequirePackage(\"autpgrp\", \"1.0\") = true then\n",
+      "  Print(ConvertHybridAutGroup);\n",
+      "fi;\n";
 close GAPIN;
 print " Starting GAP to determine version and package availability ...\n"; 
 system("$gap -q -r < $tmpdir/gapinput > $tmpdir/gapout");
@@ -62,32 +79,53 @@ chomp $version;
 if ( $line =~ /true/ ) {
   print "  GAP version ($version) ... OK.\n";
 } elsif ( $line =~ /false/ ) {
-  die "  GAP version ($version) ... too old! At least GAP 4r2 required!\n";
+  die "  GAP version ($version) ... too old! At least GAP $GAPversion required!\n";
 } else { 
   die "  GAP version ($version) ... please install GAP 4,",
-      " at least version 4r2 required!\n\n",
+      " at least version $GAPversion required!\n\n",
       "  If you already have a new enough version of GAP 4 installed\n",
       "  then you probably need to compile pq with an",
       " explicit GAP path, e.g.\n\n",
       "    make GAP=/usr/local/bin/gap4\n";
 }
 if ( ($line = <GAPOUT>) !~ /(fail|#I  Error)/ ) {
-  print "  GAP has ANUPQ package (>= v 1.1) installed ... good.\n";
+  print "  GAP found ANUPQ package ($ANUPQversion) ... good.\n";
 } else {
-  die "  GAP does not have ANUPQ package (>= v 1.1) installed ... \n".
-      "  Please check installation instructions for ANUPQ package \n".
-      "  (at least version 1.1 is required).\n";
+  die "  GAP did not find ANUPQ package ($ANUPQversion) ... \n".
+      "  Please check installation instructions for ANUPQ package.\n";
 }
 if ( ($line = <GAPOUT>) !~ /(fail|#I  Error)/ ) {
-  print "  GAP has AutPGrp package installed ... good.\n";
+  print "  GAP has AutPGrp package installed ... \n";
+  syswrite STDOUT, "   checking AutPGrp package includes recent updates ...",
+           length( "   checking AutPGrp package includes recent updates ...");
+  $autpgrpok = 0;
+  while ($line = <GAPOUT>) {
+    if ($line =~ /Set(Generalized|)Pcgs/) {
+      $autpgrpok = ($1 eq "Generalized");
+      last;
+    }
+  }
+  if ($autpgrpok) {
+    print(" yes.\n");
+  } else {
+    print(" no.\n\n");
+    die "   A version of AutPGrp package with the recent updates is required.\n",
+        "   The AutPGrp package has the recent updates if the first line of its\n",
+        "   banner reads:\n\n",
+        "   #I ------------ The AutPGrp package -------------- \n\n",
+        "   and function ConvertHybridAutGroup in file autpgrp/gap/autos.gi\n",
+        "   has a line:\n\n",
+        "           SetGeneralizedPcgs( B, pcgs );\n\n",
+        "   and not a line:\n\n",
+        "           SetPcgs( B, pcgs );\n\n";
+  }
 } else {
   die "  GAP does not have AutPGrp package installed ... \n",
-      "  see, for example, ?PqDescendants (the AutPGrp package\n",
-      "  may be required to compute automorphism groups, e.g. if\n",
-      "  the pq binary calls GAP to compute stabilisers).\n";
+      "  the ANUPQ package requires the AutPGrp package for ",
+      "  the computation of automorphism groups.\n";
 }
 close GAPOUT;
-print " GAP is OK.\n";
+print " GAP is OK.\n\n";
 # Test 3
 syswrite STDOUT, "Checking the link between the pq binary and GAP ...",
          length( "Checking the link between the pq binary and GAP ..." );

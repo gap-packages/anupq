@@ -1,6 +1,8 @@
 C intro.tex 1. Introduction
 I 1.0. ANUPQ
 S 1.1. Authors and Acknowledgements
+I 1.1. bug reports
+S 1.2. Change history
 C basics.tex 2. Mathematical Background and Terminology
 S 2.1. Basic notions
 I 2.1. power-commutator presentation
@@ -59,25 +61,25 @@ F 3.2. ANUPQData
 F 3.2. ANUPQDirectoryTemporary
 S 3.3. Setting the Verbosity of ANUPQ via Info and InfoANUPQ
 F 3.3. InfoANUPQ
-S 3.4. Hints and Warnings regarding the use of Options
-I 3.4. menu item!of pq program
-I 3.4. option!of pq program is a menu item
-I 3.4. troubleshooting tips
-F 3.4. ANUPQWarnOfOtherOptions
-S 3.5. Utility Functions
-F 3.5. PqLeftNormComm
-F 3.5. PqGAPRelators
-F 3.5. PqParseWord
-F 3.5. PqExample
-F 3.5. PqExample
-F 3.5. PqExample
-F 3.5. AllPqExamples
-F 3.5. GrepPqExamples
-F 3.5. ToPQLog
-S 3.6. Attributes and a Property for fp and pc p-groups
-F 3.6. NuclearRank
-F 3.6. MultiplicatorRank
-F 3.6. IsCapable
+S 3.4. Utility Functions
+F 3.4. PqLeftNormComm
+F 3.4. PqGAPRelators
+F 3.4. PqParseWord
+F 3.4. PqExample
+F 3.4. PqExample
+F 3.4. PqExample
+F 3.4. AllPqExamples
+F 3.4. GrepPqExamples
+F 3.4. ToPQLog
+S 3.5. Attributes and a Property for fp and pc p-groups
+F 3.5. NuclearRank
+F 3.5. MultiplicatorRank
+F 3.5. IsCapable
+S 3.6. Hints and Warnings regarding the use of Options
+I 3.6. menu item!of pq program
+I 3.6. option!of pq program is a menu item
+I 3.6. troubleshooting tips
+F 3.6. ANUPQWarnOfOtherOptions
 C anupq.tex 4. Non-interactive ANUPQ functions
 S 4.1. Computing p-Quotients
 F 4.1. Pq

@@ -6,7 +6,8 @@ system( "make distclean; cp README ../README.anupq; ".
 chdir "..";
 $prune = "zoo|make_|replace|[._]cvs|[.]tsk|[.]bbl|[.]aux|[.]toc".
          "|[.][ib]lg|[.]log|[.]lab|[.]ind|[.]idx|[.]swp|[.-]bak|~".
-         "|[.]tst-new|magma|anupq/TEST|anupq/isom|anupq/gap";
+         "|[.]tst-new|magma|anupq4r2cpt|anupq/TEST|doc/test".
+         "|anupq/isom|anupq/gap";
 # Create new .zoo file
 system( "find anupq -path '*/CVS' -prune -o -print | egrep -v '$prune' |".
         "zoo ahI anupq-$version.zoo" );

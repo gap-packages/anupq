@@ -63,10 +63,13 @@ $p$-groups.
 %Further   background   may   be   found   in~\cite{OBr95},   \cite{VL84}
 %and~\cite{NNN98}.
 
-The manual of the {\ANUPQ} package  has  been  written  for  {\GAP}  4.3.
-Nevertheless, the {\ANUPQ} package is compatible  with  {\GAP}  4.2,  but
-since it uses the  iostream  technology  introduced  in  {\GAP}  4.2,  it
-requires at least {\GAP} 4.2.
+The manual of the {\ANUPQ} package has been written for {\GAP}  4.3.  The
+current  version  requires  {\GAP}  4.3  updated  to  (at  least)   fix4.
+References to {\GAP} 4.2 remain, since the previous  version  was  {\GAP}
+4.2 compatible. (See "Change history" for more details.)
+%Nevertheless, the {\ANUPQ} package is compatible  with  {\GAP}  4.2,  but
+%since it uses the  iostream  technology  introduced  in  {\GAP}  4.2,  it
+%requires at least {\GAP} 4.2.
 
 *How to read this manual*
 
@@ -168,6 +171,29 @@ number of valuable suggestions for extensions of the package  beyond  the
 If you find a bug, the last section of {\ANUPQ}'s `README' describes  the
 information we need and where to send us a bug report;  please  take  the
 time to read this (i.e.~help us to help you).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\Section{Change history}
+
+Below we list the main changes between versions of the {\ANUPQ} package.
+
+\beginlist
+
+\item{`1.2'}
+Fixed some inefficiencies in transmission of relators to the `pq' program
+(thanks to  Robert  Morse  for  identifying  the  problem).  Updated  for
+bugfixes in fix4 of {\GAP}~4.3, which required some usages of  `Pcgs'  to
+be replaced by `GeneralizedPcgs'. Requires at least {\GAP}~4.3fix4 and an
+updated {\AutPGrp} package that  uses  `SetGeneralizedPcgs'  in  lieu  of
+`SetPcgs' in its definition of `ConvertHybridAutGroup'.
+
+\item{`1.1'}
+First {\GAP}~4 release. Requires  at  least  {\GAP}~4.2,  but  {\GAP}~4.3
+recommended. Supersedes the earlier {\GAP}~3 version (1.0) in many  ways;
+in particular, it provides an interactive interface  using  the  IOStream
+technology introduced in {\GAP}~4.2.
+
+\endlist
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
