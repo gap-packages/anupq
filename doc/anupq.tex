@@ -301,12 +301,12 @@ gap> PqPCover( F : Prime := 5, ClassBound := 5, Metabelian,
 \>PqStandardPresentation( <F> : <options> ) F
 \>StandardPresentation( <F> : <options> ) M
 
-return the <p>-quotient of the fp or pc group <F> specified by <options>,
-as an *fp group* which has a standard presentation. Here <options>  is  a
-selection of the options from  the  following  list  (see  Chapter~"ANUPQ
-options"  for  detailed  descriptions).   Section~"Hints   and   Warnings
-regarding the use of Options" gives some  important  hints  and  warnings
-regarding option usage, and Section~"ref:function call!with  options"  in
+return the <p>-quotient specified by  <options> of the fp or pc $p$-group
+<F>, as an *fp group*  which has a standard presentation.  Here <options>
+is a selection of the options from the following list (see Chapter~"ANUPQ
+options"  for   detailed  descriptions).   Section~"Hints   and  Warnings
+regarding the  use of  Options" gives some  important hints  and warnings
+regarding option  usage, and Section~"ref:function  call!with options" in
 the {\GAP} Reference Manual describes their ``record''-like syntax.
 
 \beginlist%unordered
@@ -515,6 +515,11 @@ should  be  given,  separated  by  commas  like  record  components  (see
 Section~"ref:function call!with options" in the {\GAP} Reference Manual).
 See Chapter~"ANUPQ options" for detailed descriptions of the options.
 
+For  each descendant  <D>  a subgroup  of  automorphism group  of <D>  is
+computed which is  a supplement to the inner automorphisms  of <D> in the
+whole automorphism group  of <D>.  This subgroup can  be accessed via the
+function "PqSupplementInnerAutomorphisms".
+
 \beginlist%unordered
 
 \atindex{option ClassBound}{@option \noexpand`ClassBound'}
@@ -657,6 +662,18 @@ gap> List(des, d -> Maximum( List( Elements(d), Order ) ) );
 The     examples     `"PqDescendants-1"',     `"PqDescendants-2"'     and
 `"PqDescendants-3"' (in order) are essentially  the  same  as  the  above
 three examples (see~"PqExample").
+
+\>PqSupplementInnerAutomorphisms( <D> ) F
+
+This function returns  a subgroup of the automorphism  group of <D> which
+is  a supplement  to the  inner automorphism  group of  <D> in  the whole
+automorphism group.   The descendant <D>  must have been computed  by the
+function "PqDescendants".
+
+\beginexample
+gap>
+gap>
+\endexample
 
 \>PqList( <filename> [: SubList := <sub> ]) F
 

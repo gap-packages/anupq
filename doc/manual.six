@@ -129,6 +129,7 @@ I 4.4. option BasicAlgorithm
 I 4.4. option CustomiseOutput
 I 4.4. option SetupFile
 I 4.4. option PqWorkspace
+F 4.4. PqSupplementInnerAutomorphisms
 F 4.4. PqList
 F 4.4. SavePqList
 C interact.tex 5. Interactive ANUPQ functions
@@ -195,14 +196,14 @@ I 5.3. option CustomiseOutput
 F 5.3. PqSetPQuotientToGroup
 F 5.3. PqSetPQuotientToGroup
 S 5.4. Low-level Interactive ANUPQ Functions based on menu items of the pq program
+F 5.4. PqNrPcGenerators
+F 5.4. PqNrPcGenerators
 F 5.4. PqFactoredOrder
 F 5.4. PqFactoredOrder
 F 5.4. PqOrder
 F 5.4. PqOrder
 F 5.4. PqPClass
 F 5.4. PqPClass
-F 5.4. PqNrPcGenerators
-F 5.4. PqNrPcGenerators
 F 5.4. PqWeight
 F 5.4. PqWeight
 F 5.4. PqCurrentGroup
@@ -293,16 +294,16 @@ F 5.4. PqPGSupplyAutomorphisms
 F 5.4. PqPGSupplyAutomorphisms
 F 5.4. PqPGExtendAutomorphisms
 F 5.4. PqPGExtendAutomorphisms
-F 5.4. PqPGSetDescendantToPcp
-F 5.4. PqPGSetDescendantToPcp
-F 5.4. PqPGSetDescendantToPcp
-F 5.4. PqPGSetDescendantToPcp
-F 5.4. PqPGRestoreGroupFromFile
-F 5.4. PqPGRestoreGroupFromFile
-F 5.4. PqPGRestoreGroupFromFile
-F 5.4. PqPGRestoreGroupFromFile
 F 5.4. PqPGConstructDescendants
 F 5.4. PqPGConstructDescendants
+F 5.4. PqPGSetDescendantToPcp
+F 5.4. PqPGSetDescendantToPcp
+F 5.4. PqPGSetDescendantToPcp
+F 5.4. PqPGSetDescendantToPcp
+F 5.4. PqPGRestoreGroupFromFile
+F 5.4. PqPGRestoreGroupFromFile
+F 5.4. PqPGRestoreGroupFromFile
+F 5.4. PqPGRestoreGroupFromFile
 F 5.4. PqAPGDegree
 F 5.4. PqAPGDegree
 F 5.4. PqAPGPermutations

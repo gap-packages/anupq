@@ -595,7 +595,7 @@ matches are `Info'-ed at `InfoANUPQ' level 2.
 
 return the nuclear rank  of  <G>,  $p$-multiplicator  rank  of  <G>,  and
 whether <G> is capable (i.e.~`true' if it is, or `false' if it  is  not),
-respectively, where <G> is either an fp $p$-group or a pc $p$-group.
+respectively.
 
 These attributes and property are set automatically if <G> is one of  the
 following:
@@ -614,13 +614,23 @@ call (see~"EpimorphismPqStandardPresentation"); or
 
 \endlist
 
-If <G> is not one of the above and the  attribute  or  property  has  not
-otherwise been set for <G>, then `PqStandardPresentation'  is  called  to
-set all three  of  `NuclearRank',  `MultiplicatorRank'  and  `IsCapable',
-before returning the value of the attribute or property actually  called.
-Such a group <G> must know in advance that it is a $p$-group; this is the
-case for the groups returned by the functions `Pq'  and  `PqPCover',  and
-the image group of the epimorphism returned by `PqEpimorphism'.
+If <G> is an fp group or a pc $p$-group and not one of the above and
+the attribute or property has not otherwise been set for <G>, then
+`PqStandardPresentation' is called to set all three of `NuclearRank',
+`MultiplicatorRank' and `IsCapable', before returning the value of the
+attribute or property actually called.  Such a group <G> must know in
+advance that it is a $p$-group; this is the case for the groups
+returned by the functions `Pq' and `PqPCover', and the image group of
+the epimorphism returned by `PqEpimorphism'.  Otherwise, if you know
+the group to be a $p$-group, then this can be set by typing 
+
+\begintt
+SetFeatureObj( <G>, ISPGroup, true );
+\endtt
+
+or invoking IsPGroup( <G> ).  Note that for an fp group <G>, the
+latter might result in calling a coset enumeration which may not
+terminate in time.
 
 *Note:* For <G> such that `HasNuclearRank(<G>) = true',  `IsCapable(<G>)'
 is equivalent to (the truth or falsity of) `NuclearRank( <G> ) = 0'.
