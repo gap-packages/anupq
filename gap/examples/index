@@ -21,8 +21,8 @@ The following ANUPQ examples are available:
    "PqPCover"
   2-groups:
    "2gp-Rel"              "2gp-Rel-i"            "2gp-a-Rel-i"
-   "B2-8-i"               "B4-4-i"               "B4-4-a-i"
-   "B5-4.g"
+   "B2-4"                 "B2-4-Id"              "B2-8-i"
+   "B4-4-i"               "B4-4-a-i"             "B5-4.g"
   3-groups:
    "3gp-Rel-i"            "3gp-a-Rel"            "3gp-a-Rel-i"
    "3gp-a-x-Rel-i"        "3gp-maxoccur-Rel-i"
@@ -35,6 +35,7 @@ The following ANUPQ examples are available:
    "7gp-Rel-i"
   11-groups:
    "11gp-i"               "11gp-Rel-i"           "11gp-a-Rel-i"
+   "11gp-3-Engel-Id"
 
  p-Group Generation examples:
   general:
