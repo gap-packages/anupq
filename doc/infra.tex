@@ -33,23 +33,23 @@ value 1 will give progressively more information  of  what  is  going  on
 ANUPQ via Info and InfoANUPQ");
 
 \item{$\bullet$} 
-if you passed options to a function and ran into an error  then  you  may
-need to type `ResetOptionsStack();' so that those options are  not  still
-on the `OptionsStack' to affect  subsequent  functions  and  setting  the
-`ANUPQWarnOfOtherOptions := true;' (particularly useful  for  the  novice
-user) will warn you of misspelt options and may help in diagnosing  other
-option  usage  problems  (details  are  in  Section~"Hints  and  Warnings
-regarding the use of Options");
-
-\item{$\bullet$} 
 in  Section~"Utility functions"  we describe  some utility  functions and
 functions  that run  examples from  the  collection of  examples of  this
-package; and
+package;
 
 \item{$\bullet$} 
 in Section~"Attributes and a Property for fp and pc p-groups" we describe
 the  attributes  and   property  `NuclearRank',  `MultiplicatorRank'  and
-`IsCapable'.
+`IsCapable'; and
+
+\item{$\bullet$} 
+in Section~"Hints and Warnings regarding the use of Options" we  describe
+some troubleshooting strategies. If you are still  using  {\GAP}~4.2,  it
+will be important to know to use  `ResetOptionsStack();'  if  you  passed
+options to a function and ran into an error. Also this section  describes
+how  setting   `ANUPQWarnOfOtherOptions   :=   true;'   may   be   useful
+(particularly for  novice  users)  for  detecting  misspelt  options  and
+diagnosing other option usage problems.
 
 \endlist
 
@@ -318,7 +318,10 @@ gap> SetInfoLevel(InfoANUPQ, 2);
 enables the display of most timing and memory usage data  from  the  `pq'
 program, and also the number of identity instances when the  `Identities'
 option is used. (Some timing and memory  usage  data,  particularly  when
-profuse in quantity, is `Info'-ed at `InfoANUPQ' level 3 instead.)
+profuse in quantity, is `Info'-ed at `InfoANUPQ' level 3  instead.)  Note
+that the the {\GAP} functions `time' and `Runtime' (see~"ref:Runtime"  in
+the {\GAP} Reference Manual) count the time spent by {\GAP} and *not* the
+time spent by the (external) `pq' program.
 
 \beginexample
 gap> SetInfoLevel(InfoANUPQ, 3);
@@ -358,14 +361,178 @@ banner and menus. However, the timing data printed when the  `pq'  program
 exits can never be observed.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\Section{Utility Functions}
+
+\>PqLeftNormComm( <elts> ) F
+
+returns for a list of elements of some group (e.g.~<elts> may be  a  list
+of words in the generators of  a  free  or  fp  group)  the  left  normed
+commutator of <elts>, e.g.~if <w1>, <w2>, <w3>  are  such  elements  then
+`PqLeftNormComm( [<w1>, <w2>, <w3>] );' is  equivalent  to  `Comm(  Comm(
+<w1>, <w2> ), <w3> );'.
+
+*Note:* <elts> must contain at least two elements.
+
+\>PqGAPRelators( <group>, <rels> ) F
+
+returns a list of words that {\GAP} understands, given a list  <rels>  of
+strings in the string representations of the generators of the  fp  group
+<group> prepared as a list of relators for the `pq' program.
+
+*Note:*
+The `pq' program does not  use  `/'  to  indicate  multiplication  by  an
+inverse and uses square brackets to represent (left normed)  commutators.
+Also, even though the `pq' program accepts  relations,  all  elements  of
+<rels> *must* be in relator form, i.e.~a relation of form `<w1>  =  <w2>'
+must be written as `<w1>*(<w2>)^-1'.
+
+Here is an example:
+
+\beginexample
+gap> F := FreeGroup("a", "b");
+<free group on the generators [ a, b ]>
+gap> PqGAPRelators(F, [ "a*b^2", "[a,b]^2*a", "([a,b,a,b,b]*a*b)^2*a" ]);
+[ a*b^2, a^-1*b^-1*a*b*a^-1*b^-1*a*b*a, b^-1*a^-1*b^-1*a^-1*b*a*b^-1*a*b*a^
+    -1*b*a^-1*b^-1*a*b*a*b^-1*a^-1*b^-1*a^-1*b*a*b^-1*a*b^-1*a^-1*b*a^-1*b^
+    -1*a*b*a*b*a^-1*b*a*b^-1*a*b*a^-1*b*a^-1*b^-1*a*b*a*b^-1*a^-1*b^-1*a^
+    -1*b*a*b^-1*a*b^-1*a^-1*b*a^-1*b^-1*a*b*a*b^2*a*b*a ]
+\endexample
+
+\>PqParseWord( <word>, <n> ) F
+
+parses a <word>, a string  representing  a  word  in  the  pc  generators
+`x1,...,x<n>',  through  {\GAP}.  This  function   is   provided   as   a
+rough-and-ready check of <word> for syntax errors. A  syntax  error  will
+cause the entering of a `break'-loop, in which the error message  may  or
+may not be meaningful (depending on whether the syntax error gets  caught
+at the {\GAP} or kernel level).
+
+*Note:*
+The reason the generators *must* be `x1,...,x<n>' is that these  are  the
+pc generator names used  by  the  `pq'  program  (as  distinct  from  the
+generator names for the group provided by the user  to  a  function  like
+`Pq' that invokes the `pq' program).
+
+\>PqExample() F
+\>PqExample( <example>[, PqStart][, Display] ) F
+\>PqExample( <example>[, PqStart][, <filename>] ) F
+
+With no arguments,  or  with  single  argument  `"index"',  or  a  string
+<example> that is not the name of a file in the `examples' directory,  an
+index of available examples is displayed.
+
+With just the one argument <example> that is the name of a  file  in  the
+`examples' directory, the example contained in that file is  executed  in
+its simplest form. Some examples accept options  which  you  may  use  to
+modify some of the options used in the commands of the example.  To  find
+out which options an example accepts,  use  one  of  the  mechanisms  for
+displaying the example described below.
+
+Some examples have both non-interactive and interactive forms; those that
+are non-interactive only have a name ending  in  `-ni';  those  that  are
+interactive only have a name ending in `-i'; examples with  names  ending
+in  `.g'  also  have  only  one  form;  all  other  examples  have   both
+non-interactive and interactive forms and for these giving  `PqStart'  as
+second argument invokes `PqStart' initially  and  makes  the  appropriate
+adjustments  so  that  the  example  is  executed  or   displayed   using
+interactive functions.
+
+If `PqExample' is called with last (second or third)  argument  `Display'
+then the example  is  displayed  without  being  executed.  If  the  last
+argument is a non-empty  string  <filename>  then  the  example  is  also
+displayed without being executed but is also written to a file with  that
+name. Passing an empty string as last argument has  the  same  effect  as
+passing `Display'.
+
+*Note:*
+The  variables  used  in  `PqExample'  are  local  to  the   running   of
+`PqExample', so there's no  danger  of  having  some  of  your  variables
+over-written. However, they are not  completely  lost  either.  They  are
+saved to a record `ANUPQData.examples.vars', i.e.~if `F'  is  a  variable
+used in the example then you will be able to access it after  `PqExample'
+has finished as `ANUPQData.examples.vars.F'.
+
+\>AllPqExamples() F
+
+returns  a  list  of  all  currently  available   examples   in   default
+UNIX-listing (i.e.~alphabetic) order.
+
+\>GrepPqExamples( <string> ) F
+
+runs the UNIX command `grep <string>'  over  the  {\ANUPQ}  examples  and
+returns the list of examples for which  there  is  a  match.  The  actual
+matches are `Info'-ed at `InfoANUPQ' level 2.
+
+\>ToPQLog([ <filename> ]) F
+
+With string argument <filename>,  `ToPQLog'  opens  the  file  with  name
+<filename> for logging; all commands written to the `pq' binary (that are
+`Info'-ed behind a ```ToPQ> ''' prompt at `InfoANUPQ' level 4)  are  then
+also written to that  file  (but  without  prompts).  With  no  argument,
+`ToPQLog' stops logging to whatever file was being logged to. If  a  file
+was already being logged to, that file is closed and the file  with  name
+<filename> is opened for logging.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\Section{Attributes and a Property for fp and pc p-groups}
+
+\>NuclearRank( <G> ) A
+\>MultiplicatorRank( <G> ) A
+\>IsCapable( <G> ) P
+
+return the nuclear rank  of  <G>,  $p$-multiplicator  rank  of  <G>,  and
+whether <G> is capable (i.e.~`true' if it is, or `false' if it  is  not),
+respectively.
+
+These attributes and property are set automatically if <G> is one of  the
+following:
+
+\beginlist%unordered
+
+\item{--}  an  fp   group   returned   by   `PqStandardPresentation'   or
+`StandardPresentation' (see~"PqStandardPresentation");
+
+\item{--} the  image  (fp  group)  of  the  epimorphism  returned  by  an
+`EpimorphismPqStandardPresentation' or  `EpimorphismStandardPresentation'
+call (see~"EpimorphismPqStandardPresentation"); or
+
+\item{--} one of the pc groups of the list  of  descendants  returned  by
+`PqDescendants' (see~"PqDescendants").
+
+\endlist
+
+If <G> is an fp group or a pc $p$-group and not one of the above and
+the attribute or property has not otherwise been set for <G>, then
+`PqStandardPresentation' is called to set all three of `NuclearRank',
+`MultiplicatorRank' and `IsCapable', before returning the value of the
+attribute or property actually called.  Such a group <G> must know in
+advance that it is a $p$-group; this is the case for the groups
+returned by the functions `Pq' and `PqPCover', and the image group of
+the epimorphism returned by `PqEpimorphism'.  Otherwise, if you know
+the group to be a $p$-group, then this can be set by typing 
+
+\){\kernttindent}SetFeatureObj( <G>, IsPGroup, true );
+
+or by invoking `IsPGroup( <G> )'.  Note that for an fp group <G>, the
+latter may result in a coset enumeration which might not
+terminate in a reasonable time.
+
+*Note:* For <G> such that `HasNuclearRank(<G>) = true',  `IsCapable(<G>)'
+is equivalent to (the truth or falsity of) `NuclearRank( <G> ) = 0'.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Hints and Warnings regarding the use of Options}
+
+On a first reading we recommend you skip this  section  (unless  you  are
+still using {\GAP}~4.2) and come back to it if  and  when  you  run  into
+trouble.
 
 \index{menu item!of pq program}
 \index{option!of pq program is a menu item}
 *Note:*
-By ``options'' we refer to {\GAP} options. The `pq' program also uses  the
+By ``options'' we refer to {\GAP} options. The `pq' program also uses the
 term ``option''; to distinguish the two usages  of  ``option'',  in  this
-manual we use the term *menu item* to  refer  to  what  the  `pq'  program
+manual we use the term *menu item* to refer  to  what  the  `pq'  program
 refers to as an ``option''.
 
 Options are passed to the {\ANUPQ} interface functions in either  of  the
@@ -562,166 +729,6 @@ gap> Pq( F : Prime := 2, Classbound := 1 );
 
 Here the line ```\#I  ToPQ> class 63''' indicates that a directive to set
 the classbound to 63 was sent to the `pq' program.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\Section{Utility Functions}
-
-\>PqLeftNormComm( <elts> ) F
-
-returns for a list of elements of some group (e.g.~<elts> may be  a  list
-of words in the generators of  a  free  or  fp  group)  the  left  normed
-commutator of <elts>, e.g.~if <w1>, <w2>, <w3>  are  such  elements  then
-`PqLeftNormComm( [<w1>, <w2>, <w3>] );' is  equivalent  to  `Comm(  Comm(
-<w1>, <w2> ), <w3> );'.
-
-*Note:* <elts> must contain at least two elements.
-
-\>PqGAPRelators( <group>, <rels> ) F
-
-returns a list of words that {\GAP} understands, given a list  <rels>  of
-strings in the string representations of the generators of the  fp  group
-<group> prepared as a list of relators for the `pq' program.
-
-*Note:*
-The `pq' program does not  use  `/'  to  indicate  multiplication  by  an
-inverse and uses square brackets to represent (left normed)  commutators.
-Also, even though the `pq' program accepts  relations,  all  elements  of
-<rels> *must* be in relator form, i.e.~a relation of form `<w1>  =  <w2>'
-must be written as `<w1>*(<w2>)^-1'.
-
-Here is an example:
-
-\beginexample
-gap> F := FreeGroup("a", "b");
-<free group on the generators [ a, b ]>
-gap> PqGAPRelators(F, [ "a*b^2", "[a,b]^2*a", "([a,b,a,b,b]*a*b)^2*a" ]);
-[ a*b^2, a^-1*b^-1*a*b*a^-1*b^-1*a*b*a, b^-1*a^-1*b^-1*a^-1*b*a*b^-1*a*b*a^
-    -1*b*a^-1*b^-1*a*b*a*b^-1*a^-1*b^-1*a^-1*b*a*b^-1*a*b^-1*a^-1*b*a^-1*b^
-    -1*a*b*a*b*a^-1*b*a*b^-1*a*b*a^-1*b*a^-1*b^-1*a*b*a*b^-1*a^-1*b^-1*a^
-    -1*b*a*b^-1*a*b^-1*a^-1*b*a^-1*b^-1*a*b*a*b^2*a*b*a ]
-\endexample
-
-\>PqParseWord( <word>, <n> ) F
-
-parses a <word>, a string  representing  a  word  in  the  pc  generators
-`x1,...,x<n>',  through  {\GAP}.  This  function   is   provided   as   a
-rough-and-ready check of <word> for syntax errors. A  syntax  error  will
-cause the entering of a `break'-loop, in which the error message  may  or
-may not be meaningful (depending on whether the syntax error gets  caught
-at the {\GAP} or kernel level).
-
-*Note:*
-The reason the generators *must* be `x1,...,x<n>' is that these  are  the
-pc generator names used  by  the  `pq'  program  (as  distinct  from  the
-generator names for the group provided by the user  to  a  function  like
-`Pq' that invokes the `pq' program).
-
-\>PqExample() F
-\>PqExample( <example>[, PqStart][, Display] ) F
-\>PqExample( <example>[, PqStart][, <filename>] ) F
-
-With no arguments,  or  with  single  argument  `"index"',  or  a  string
-<example> that is not the name of a file in the `examples' directory,  an
-index of available examples is displayed.
-
-With just the one argument <example> that is the name of a  file  in  the
-`examples' directory, the example contained in that file is  executed  in
-its simplest form. Some examples accept options  which  you  may  use  to
-modify some of the options used in the commands of the example.  To  find
-out which options an example accepts,  use  one  of  the  mechanisms  for
-displaying the example described below.
-
-Some examples have both non-interactive and interactive forms; those that
-are non-interactive only have a name ending  in  `-ni';  those  that  are
-interactive only have a name ending in `-i'; examples with  names  ending
-in  `.g'  also  have  only  one  form;  all  other  examples  have   both
-non-interactive and interactive forms and for these giving  `PqStart'  as
-second argument invokes `PqStart' initially  and  makes  the  appropriate
-adjustments  so  that  the  example  is  executed  or   displayed   using
-interactive functions.
-
-If `PqExample' is called with last (second or third)  argument  `Display'
-then the example  is  displayed  without  being  executed.  If  the  last
-argument is a non-empty  string  <filename>  then  the  example  is  also
-displayed without being executed but is also written to a file with  that
-name. Passing an empty string as last argument has  the  same  effect  as
-passing `Display'.
-
-*Note:*
-The  variables  used  in  `PqExample'  are  local  to  the   running   of
-`PqExample', so there's no  danger  of  having  some  of  your  variables
-over-written. However, they are not  completely  lost  either.  They  are
-saved to a record `ANUPQData.examples.vars', i.e.~if `F'  is  a  variable
-used in the example then you will be able to access it after  `PqExample'
-has finished as `ANUPQData.examples.vars.F'.
-
-\>AllPqExamples() F
-
-returns  a  list  of  all  currently  available   examples   in   default
-UNIX-listing (i.e.~alphabetic) order.
-
-\>GrepPqExamples( <string> ) F
-
-runs the UNIX command `grep <string>'  over  the  {\ANUPQ}  examples  and
-returns the list of examples for which  there  is  a  match.  The  actual
-matches are `Info'-ed at `InfoANUPQ' level 2.
-
-\>ToPQLog([ <filename> ]) F
-
-With string argument <filename>,  `ToPQLog'  opens  the  file  with  name
-<filename> for logging; all commands written to the `pq' binary (that are
-`Info'-ed behind a ```ToPQ> ''' prompt at `InfoANUPQ' level 4)  are  then
-also written to that  file  (but  without  prompts).  With  no  argument,
-`ToPQLog' stops logging to whatever file was being logged to. If  a  file
-was already being logged to, that file is closed and the file  with  name
-<filename> is opened for logging.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\Section{Attributes and a Property for fp and pc p-groups}
-
-\>NuclearRank( <G> ) A
-\>MultiplicatorRank( <G> ) A
-\>IsCapable( <G> ) P
-
-return the nuclear rank  of  <G>,  $p$-multiplicator  rank  of  <G>,  and
-whether <G> is capable (i.e.~`true' if it is, or `false' if it  is  not),
-respectively.
-
-These attributes and property are set automatically if <G> is one of  the
-following:
-
-\beginlist%unordered
-
-\item{--}  an  fp   group   returned   by   `PqStandardPresentation'   or
-`StandardPresentation' (see~"PqStandardPresentation");
-
-\item{--} the  image  (fp  group)  of  the  epimorphism  returned  by  an
-`EpimorphismPqStandardPresentation' or  `EpimorphismStandardPresentation'
-call (see~"EpimorphismPqStandardPresentation"); or
-
-\item{--} one of the pc groups of the list  of  descendants  returned  by
-`PqDescendants' (see~"PqDescendants").
-
-\endlist
-
-If <G> is an fp group or a pc $p$-group and not one of the above and
-the attribute or property has not otherwise been set for <G>, then
-`PqStandardPresentation' is called to set all three of `NuclearRank',
-`MultiplicatorRank' and `IsCapable', before returning the value of the
-attribute or property actually called.  Such a group <G> must know in
-advance that it is a $p$-group; this is the case for the groups
-returned by the functions `Pq' and `PqPCover', and the image group of
-the epimorphism returned by `PqEpimorphism'.  Otherwise, if you know
-the group to be a $p$-group, then this can be set by typing 
-
-\){\kernttindent}SetFeatureObj( <G>, IsPGroup, true );
-
-or by invoking `IsPGroup( <G> )'.  Note that for an fp group <G>, the
-latter may result in a coset enumeration which might not
-terminate in a reasonable time.
-
-*Note:* For <G> such that `HasNuclearRank(<G>) = true',  `IsCapable(<G>)'
-is equivalent to (the truth or falsity of) `NuclearRank( <G> ) = 0'.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%

@@ -68,44 +68,56 @@ Nevertheless, the {\ANUPQ} package is compatible  with  {\GAP}  4.2,  but
 since it uses the  iostream  technology  introduced  in  {\GAP}  4.2,  it
 requires at least {\GAP} 4.2.
 
-Section~"Authors and Acknowledgements"  gives  contact  details  for  the
-authors of the components of the {\ANUPQ} package. A brief description of
-the background and terminology used  is  given  in  Chapter~"Mathematical
-Background and Terminology", which also cites a number of references  for
-further reading.
+*How to read this manual*
 
-Instructions on how to  install  the  {\ANUPQ}  package  are  located  in
-Chapter~"Installing the ANUPQ package"  and  Section~"Loading  the  ANUPQ
-Package" describes how to load the {\ANUPQ} package.
+It is not expected that readers of this manual will read it in  a  linear
+fashion from cover to cover; some sections contain material that  is  far
+too technical to be absorbed on a first reading.
 
-Section~"The ANUPQData Record" describes the global variable  `ANUPQData'
-in which various data including the temporary directory in which  various
-input and output files are created  for  and  by  the  `pq'  program  and
-various results of functions are retained. On an initial reading you  can
-probably skip this section.
+Firstly,  installers  of  the  {\ANUPQ}  package  will   need   to   read
+Chapter~"Installing the ANUPQ package", if they have not already  gleaned
+these details from the `README' file.
 
-Section~"Setting the Verbosity of ANUPQ via Info and InfoANUPQ" describes
-an `Info' class which when set to appropriate levels allows one to see if
-desired all the dialogue that passes between {\GAP} and the `pq' program.
+Once the {\ANUPQ} package is installed, users  of  the  {\ANUPQ}  package
+will benefit most by first reading Chapter~"Mathematical  Background  and
+Terminology", which gives a  brief  description  of  the  background  and
+terminology used (this chapter also cites  a  number  of  references  for
+further reading), and the introduction of Chapter~"Infrastructure"  (skip
+the remainder of the chapter on a first reading).
 
-Most {\ANUPQ}  functions  use  options  (in  the  sense  of  {\GAP})  and
-Section~"Hints and Warnings regarding the  use  of  Options"  gives  some
-fairly important hints regarding these. Please take the time to read it.
+Then  the  user/reader  should  pursue   Chapter~"Non-interactive   ANUPQ
+functions" in detail, delving into Chapter~"ANUPQ Options"  as  necessary
+for the options of the functions that are described. The user will become
+best acquainted with the {\ANUPQ} package by trying  the  examples.  This
+chapter describes the non-interactive functions of the {\ANUPQ}  package,
+i.e.~``one-shot'' functions that invoke the `pq' program in  such  a  way
+that once {\GAP} has got what it needs, the `pq' is allowed to  exit.  It
+is expected that most of the time, users will only need these functions.
 
-Chapter~"Non-interactive   ANUPQ    functions"    describes    all    the
-non-interactive functions of the {\ANUPQ} package; these are ``one-shot''
-functions that invoke the `pq' program in such a way that once {\GAP} has
-got what it needs, the `pq' is allowed to exit. It is expected that  most
-of the time users will only need these functions.
+Advanced users will want to explore Chapter~"Interactive ANUPQ functions"
+which describes all the interactive functions of  the  {\ANUPQ}  package;
+these are functions that  extract  information  via  a  dialogue  with  a
+running `pq' process. Occasionally, a user needs the ``next  step'';  the
+functions provided in this chapter make use of data from  previous  steps
+retained by the `pq' program, thus allowing the user to interact with the
+`pq' program like one can when one uses the `pq' program as a stand-alone
+(see~`guide.dvi' in the `standalone-doc' directory).
 
-Finally,  Chapter~"Interactive  ANUPQ  functions"   describes   all   the
-interactive functions of the {\ANUPQ} package; these are  functions  that
-extract  information  via  a  dialogue  with  a  running  `pq'   process.
-Occasionally, a user needs the ``next step''; the functions  provided  in
-this chapter make use of data from previous steps retained  by  the  `pq'
-program, thus allowing the user to interact with the  `pq'  program  like
-one can when one uses the `pq' program as a stand-alone  (see~`guide.dvi'
-in the `standalone-doc' directory).
+After   having   read    Chapters~"Non-interactive    ANUPQ    functions"
+and~"Interactive ANUPQ functions", cross-references will have  taken  the
+reader into Chapter~"ANUPQ Options"; by this stage, the reader need  only
+read the introduction of Chapter~"ANUPQ Options".
+
+After the reader has developed some facility with the  {\ANUPQ}  package,
+she should explore the examples described in Appendix~"Examples".
+
+If  you  run  into   trouble   using   the   {\ANUPQ}   functions,   some
+troubleshooting hints are given in Section~"Hints and Warnings  regarding
+the use of Options".  If  you  are  still  using  {\GAP}~4.2  you  should
+probably scan this section  *before*  you  read  Chapter~"Non-interactive
+ANUPQ   functions".   If   the   troubleshooting   hints   don't    help,
+Section~"Authors and Acknowledgements" below, gives contact  details  for
+the authors of the components of the {\ANUPQ} package.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Authors and Acknowledgements}
@@ -141,7 +153,7 @@ assistance of Werner Nickel by
 \){\kernttindent}Templergraben 64, 52062 Aachen, Germany
 %\endtt
 
-{\kernttindent}`email:' \Mailto{gregg@math.rwth-aachen.de}
+{\kernttindent}`email:' \Mailto{gregg@math.rwth-aachen.de} 
 
 The authors would  like  to  thank  Joachim  Neub\accent127user  for  his
 careful    proof-reading    and    advice,    and     for     formulating
@@ -150,7 +162,12 @@ Chapter~"Mathematical Background and Terminology".
 We would also like to thank Bettina Eick who by her testing and provision
 of examples helped us to eliminate a number of bugs and  who  provided  a
 number of valuable suggestions for extensions of the package  beyond  the
-{\GAP}~3 capabilities.
+{\GAP}~3 capabilities. 
+
+\index{bug reports}
+If you find a bug, the last section of {\ANUPQ}'s `README' describes  the
+information we need and where to send us a bug report;  please  take  the
+time to read this (i.e.~help us to help you).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%

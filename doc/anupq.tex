@@ -12,12 +12,12 @@
 \Chapter{Non-interactive ANUPQ functions}
 
 Here we describe  all  the  non-interactive  functions  of  the  {\ANUPQ}
-package; i.e.~``one-shot'' functions that invoke the `pq' program in  such
-a way that once {\GAP} has got what it needs, the `pq' program is  allowed
+package; i.e.~``one-shot'' functions that invoke the `pq' program in such
+a way that once {\GAP} has got what it needs, the `pq' program is allowed
 to exit. It is expected that most of the time users will only need  these
 functions. The functions interface with three of the four algorithms (see
 Chapter~"Introduction") provided by the  ANU  `pq'  C  program,  and  are
-mainly grouped according to the algorithm of the `pq' program they  relate
+mainly grouped according to the algorithm of the `pq' program they relate
 to.
 
 In Section~"Computing p-Quotients", we describe the functions  that  give
@@ -40,6 +40,11 @@ gap> RequirePackage("anupq");
 \endtt
 
 (the response of which we have omitted; see~"Loading the ANUPQ Package").
+
+It is strongly recommended that the user try the  examples  provided.  To
+save typing there is a `PqExample' equivalent for each manual example. We
+also  suggest  that  to  start  with  you  may  find  the  examples  more
+instructive if you set the `InfoANUPQ' level to 2 (see~"InfoANUPQ").
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Computing  p-Quotients}
