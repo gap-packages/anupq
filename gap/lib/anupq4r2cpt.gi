@@ -62,7 +62,7 @@ end);
 ##
 #F  EvalString( <expr> ) . . . . . . . . . . . . evaluate a string expression
 ##
-InstallGlobalFunction("EvalString", function( expr )
+InstallGlobalFunction( EvalString, function( expr )
   local tmp;
   tmp := Concatenation( "return ", expr, ";" );
   return ReadAsFunction( InputTextString( tmp ) )();
@@ -96,5 +96,15 @@ end);
 
 InstallOtherMethod( IsMatchingSublist,"list,empty,pos",true,
   [IsList,IsEmpty,IS_INT], 0, ReturnTrue);
+
+#############################################################################
+##
+#F  FileDescriptorOfStream( <stream> )
+#F  UNIXSelect( <arg> )
+##
+InstallGlobalFunction( FileDescriptorOfStream, stream -> 1 );
+InstallGlobalFunction( UNIXSelect, function( arg )
+  return 1;
+end);
 
 #E  anupq4r2cpt.gi  . . . . . . . . . . . . . . . . . . . . . . . . ends here 

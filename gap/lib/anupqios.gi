@@ -335,6 +335,10 @@ local len;
   return 2 < len  and line{[1 .. 3]} = "GAP" and line{[len - 1 .. len]} = "!\n";
 end);
 
+# UNIXSelect may disappear!
+if not("UNIXSelect" in NamesGVars()) then
+  BindGlobal("UNIXSelect", function(arg) end); #a no-op
+fi;
 #############################################################################
 ##
 #F  PQ_READ_ALL_LINE(<iostream>) . read line from stream until sentinel char.
@@ -345,15 +349,20 @@ end);
 ##  returning.
 ##
 InstallGlobalFunction(PQ_READ_ALL_LINE, function(iostream)
-local line, moreOfline;
+local fd, line, moreOfline;
 
+  fd := FileDescriptorOfStream( iostream );
   line := "";
   repeat
     moreOfline := ReadLine(iostream);
+    if moreOfline = fail then 
+      UNIXSelect([fd], [], [], fail, fail);
+      moreOfline := ReadLine(iostream);
+    fi;
     if moreOfline <> fail then
       Append(line, moreOfline);
-    #else
-    #  Sleep(1);
+      # Do I want to keep the following line?
+      Info(InfoANUPQ, 6, "PQ_READ_ALL_LINE moreOfline: ", moreOfline);
     fi;
     Info(InfoANUPQ, 5, "PQ_READ_ALL_LINE line: ", line);
   until 0 < Length(line) and ( line[Length(line)] = '\n' or 

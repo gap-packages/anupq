@@ -82,4 +82,16 @@ DeclareGlobalFunction( "EvalString" );
 ##
 DeclareOperation( "IsMatchingSublist", [ IsList, IsList, IS_INT ] );
 
+#############################################################################
+##
+#F  FileDescriptorOfStream( <stream> )
+#F  UNIXSelect( <arg> )
+##
+##  We provide dummy functions for these. In {\GAP} 4.3 they are  implemented
+##  in the kernel. Each returns 1 for {\GAP} 4.2, which for the  way  we  use
+##  them in the {\ANUPQ} package essentially renders them as no-ops.
+##
+DeclareGlobalFunction( "FileDescriptorOfStream" );
+DeclareGlobalFunction( "UNIXSelect" );
+
 #E  anupq4r2cpt.gd  . . . . . . . . . . . . . . . . . . . . . . . . ends here 
