@@ -71,7 +71,7 @@ I 4.4. option Metabelian
 I 4.4. option GroupName
 I 4.4. option SubList
 I 4.4. option BasicAlgorithm
-I 4.4. option TailorOutput
+I 4.4. option CustomiseOutput
 I 4.4. option SetupFile
 I 4.4. option PqWorkspace
 F 4.4. PqList
@@ -142,7 +142,7 @@ I 5.3. option Metabelian
 I 5.3. option GroupName
 I 5.3. option SubList
 I 5.3. option BasicAlgorithm
-I 5.3. option TailorOutput
+I 5.3. option CustomiseOutput
 S 5.4. Low-level Interactive ANUPQ Functions based on menu items of the pq binary
 F 5.4. PqFactoredOrder
 F 5.4. PqFactoredOrder
@@ -285,7 +285,7 @@ F 6.1. option CapableDescendants
 F 6.1. option AllDescendants
 F 6.1. option SubList
 F 6.1. option BasicAlgorithm
-F 6.1. option TailorOutput
+F 6.1. option CustomiseOutput
 F 6.1. option StandardPresentationFile
 F 6.1. option QueueFactor
 F 6.1. option Bounds
