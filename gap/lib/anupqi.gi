@@ -40,7 +40,7 @@ local autGrp, rank, automorphisms, gens, i, j, aut, g, exponents;
   ToPQ(datarec, [ Length(automorphisms), "  #number of automorphisms" ]);
   for i in [1..Length(automorphisms)] do
     aut := automorphisms[i];
-    for j in [1..Length(gens)] do
+    for j in [1..rank] do
       g := gens[j];
       exponents := Flat( List( ExponentsOfPcElement( gens, Image( aut, g ) ),
                                e -> [ String(e), " "] ) );
@@ -2103,7 +2103,7 @@ end );
 InstallGlobalFunction( PQ_PG_SUPPLY_AUTS, function( datarec, menu )
 local gens;
   PQ_MENU(datarec, menu);
-  ToPQk(datarec, [ "1  #supply automorphism data" ]);
+  ToPQ(datarec, [ "1  #supply automorphism data" ]);
   PQ_AUT_INPUT( datarec, datarec.group );
 end );
 

@@ -10,6 +10,11 @@
 #Y  Copyright 1992-1994,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.12  2001/08/05 15:39:46  gap
+#H  Fixed bug reported by Werner in `PQ_AUT_INPUT' ... the no. of generator
+#H  images is now RankPGroup(gp) as its hould have been. There's also a
+#H  preliminary version of `PqExample'. - GG
+#H
 #H  Revision 1.11  2001/08/02 17:27:08  gap
 #H  Fixed a bug I introduced earlier in the week. Noone at Oberwolfach is looking
 #H  at this ... otherwise they would have noticed. Added a `Relators' option so
@@ -565,5 +570,126 @@ local gens, relgens, diff, g;
   CallFuncList(UnhideGlobalVariables, gens);
   return rels;
 end );
+
+#############################################################################
+##
+#F  PQ_EVALUATE( <string> ) . . . . . . . . . evaluate a string emulating GAP
+##
+##  For each substring of the string <string> that is a statement (i.e.  ends
+##  in a `;'), `PQ_EVALUATE( <string> )' evaluates it in the same way  {\GAP}
+##  would. If the substring is further followed by  a  `;'  (i.e.  there  was
+##  `;;'), this is an indication that the statement would produce no  output;
+##  otherwise the output that the user would normally see if  she  typed  the
+##  statement interactively is displayed.
+##
+InstallGlobalFunction(PQ_EVALUATE, function(string)
+local from, pos, statement, parts, var;
+  from := 0;
+  pos := Position(string, ';', from);
+  while pos <> fail do
+    statement := string{[from + 1..pos]};
+    if pos < Length(string) and string[pos + 1] = ';' then
+      Read( InputTextString(statement) );
+      from := pos + 1;
+    else
+      parts := SplitString(statement, "", " ");
+      if 2 < Length(parts) and parts[2] = ":=" then
+        Read( InputTextString(statement) );
+        Read( InputTextString( 
+                  Concatenation( "Print(", parts[1], ",\"\\n\");" ) ) );
+      else
+        var := TemporaryGlobalVarName();
+        Read( InputTextString( Concatenation(var, ":=", statement) ) );
+        Print( VALUE_GLOBAL(var), "\n" );
+        UNBIND_GLOBAL(var);
+      fi;
+      from := pos;
+    fi;
+    pos := Position(string, ';', from);
+  od;
+end );
+
+#############################################################################
+##
+#F  PqExample() . . . . . . . . . . execute a pq example or display the index
+#F  PqExample( <filename>[, PqStart] )
+##
+##  With no arguments, or with single argument `"index"', or a string that is
+##  not a filename in the `gap/examples' directory,  an  index  of  available
+##  examples is displayed.
+##
+##  With argument <filename> that is the name of a file in the `gap/examples'
+##  directory other than `"index"' the example is  displayed.  Some  examples
+##  have  both  non-interactive  and  interactive  forms;  those   that   are
+##  non-interactive only  have  a  name  ending  in  `-ni';  those  that  are
+##  interactive only have a name ending in `-i'; all other examples have both
+##  non-interactive and interactive forms and for these giving  `PqStart'  as
+##  second argument invokes `PqStart' initially  and  makes  the  appropriate
+##  adjustments so that the example is executed with interactive functions.
+##
+InstallGlobalFunction(PqExample, function(arg)
+local name, file, instream, line, input, PQfunc, vars, var;
+      #EnquoteIfString, optnames, lastoptname, optname;
+
+  if IsEmpty(arg) then
+    name := "index";
+  else
+    name := arg[1];
+    if Length(arg) > 1 then
+      PQfunc := arg[2];
+    else
+      PQfunc := "";
+    fi;
+    ANUPQData.example := rec();
+    if not IsEmpty(OptionsStack) then
+      ANUPQData.example.options := OptionsStack[ Length(OptionsStack) ];
+    fi;
+  fi;
+  file := Filename( DirectoriesPackageLibrary( "anupq", "gap/examples"), name );
+  if file = fail then
+    Info(InfoANUPQ + InfoWarning, 1,
+         "Sorry! There is no ANUPQ example file with name `", name, "'");
+    name := "index";
+    file := Filename(DirectoriesPackageLibrary( "anupq", "gap/examples"), name);
+  fi;
+  # Display file ... after a few minor modifications
+  instream := InputTextFile(file);
+  if name <> "index" then
+    line := FLUSH_PQ_STREAM_UNTIL( instream, 1, 10, ReadLine,
+                                   line -> IsMatchingSublist(line, "#vars:") );
+    Info(InfoANUPQ, 1, line{[Position(line, ' ')..Position(line, ';') - 1]},
+                       " are local to `PqExample'");
+    vars := SplitString(line, "", " ,;\n");
+    vars := vars{[2 .. Length(vars)]};
+    CallFuncList(HideGlobalVariables, vars);
+    input := "";
+    line := ReadLine(instream);
+    while line <> fail do
+      if input = "" then
+        Print("gap> ");
+      else
+        Print(">    ");
+      fi;
+      Print( ReplacedString(line, ";;", ";") );
+      Append(input, line);
+      if 1 < Length(input) and input[Length(input) - 1] = ';' then
+        PQ_EVALUATE(input);
+        input := "";
+      fi;
+      line := ReadLine(instream);
+    od;
+    ANUPQData.example.vars := rec();
+    for var in vars do 
+      ANUPQData.example.vars.(var) := VALUE_GLOBAL(var);
+      UNBIND_GLOBAL(var);
+    od;
+    Info(InfoANUPQ, 1, 
+         "variables used in `PqExample' saved in `ANUPQData.example.vars'");
+    CallFuncList(UnhideGlobalVariables, vars);
+  else
+    FLUSH_PQ_STREAM_UNTIL( instream, 1, 10, ReadLine, line -> line = fail );
+  fi;
+  CloseStream(instream);
+end);
 
 #E  anupq.gi  . . . . . . . . . . . . . . . . . . . . . . . . . . . ends here 

@@ -96,4 +96,17 @@ DeclareGlobalFunction( "PqLeftNormComm" );
 ##
 DeclareGlobalFunction( "PqGAPRelators" );
 
+#############################################################################
+##
+#F  PQ_EVALUATE( <string> ) . . . . . . . . . evaluate a string emulating GAP
+##
+DeclareGlobalFunction( "PQ_EVALUATE" );
+
+#############################################################################
+##
+#F  PqExample() . . . . . . . . . . execute a pq example or display the index
+#F  PqExample( <filename>[, PqStart] )
+##
+DeclareGlobalFunction( "PqExample" );
+
 #E  anupq.gd  . . . . . . . . . . . . . . . . . . . . . . . . . . . ends here 
