@@ -256,6 +256,12 @@ F 5.4. PqPGConstructDescendants
 F 5.4. PqPGConstructDescendants
 F 5.4. PqAPGSupplyAutomorphisms
 F 5.4. PqAPGSupplyAutomorphisms
+F 5.4. PqAPGDegree
+F 5.4. PqAPGDegree
+F 5.4. PqAPGPermutations
+F 5.4. PqAPGPermutations
+F 5.4. PqAPGOrbits
+F 5.4. PqAPGOrbits
 S 5.5. Primitive Interactive ANUPQ Process Read/Write Functions
 F 5.5. PqRead
 F 5.5. PqRead
@@ -296,6 +302,10 @@ F 6.1. option CustomiseOutput
 F 6.1. option StandardPresentationFile
 F 6.1. option QueueFactor
 F 6.1. option Bounds
+F 6.1. option PrintAutomorphisms
+F 6.1. option PrintPermutations
+F 6.1. option OrbitsSummary
+F 6.1. option OrbitsListing
 C install.tex 7. Installing the ANUPQ Package
 I 7.0. ANUPQ_GAP_EXEC!environment variable
 S 7.1. Testing your ANUPQ installation

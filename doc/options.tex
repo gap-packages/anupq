@@ -82,8 +82,10 @@ default  is  `PClassPGroup(<F>)  +  1',  and  for  the  special  case  of
 `PqPCover' the default is `PClassPGroup(<F>)'.
 
 \>`Exponent := <n>'{option Exponent}@{option `Exponent'|indexit}&
-Specifies that the $p$-quotient to  be  computed  has  exponent  <n>.  By
-default, no exponent law is enforced.
+Specifies that the $p$-quotient to be computed has exponent <n>.  For  an
+interactive process, `Exponent' defaults to a previously  supplied  value
+for the process. Otherwise (and non-interactively),  the  default  is  0,
+which means that no exponent law is enforced.
 
 \>`Relators := <rels>'{option Relators}@{option `Relators'|indexit}&
 Specifies that the relators sent to the  `pq'  binary  should  be  <rels>
@@ -196,7 +198,10 @@ greater space efficiency. This flag is frequently necessary for groups of
 large Frattini quotient rank. The space saving occurs  because  only  one
 permutation is stored at any one time. This option is only  available  if
 the   `PcgsAutomorphisms'   flag   is   set   to   `true'    (see~"option
-PcgsAutomorphisms").
+PcgsAutomorphisms").  For  an   interactive   process,   `SpaceEfficient'
+defaults to a previously supplied value for the process.  Otherwise  (and
+non-interactively), `SpaceEfficient' is by default `false'.
+
 
 \>`CapableDescendants'{option CapableDescendants}@{option `CapableDescendants'|indexit}&
 By default, *all* (i.e.~capable and terminal) descendants  are  computed.
@@ -294,6 +299,24 @@ This option may be used with `PqNextClass' (see~"PqNextClass").
 Specifies a lower and upper bound on the indices of a list, where  <list>
 is a pair of positive non-decreasing  integers.  See~"PqDisplayStructure"
 and~"PqDisplayAutomorphisms" where this option may be used.
+
+\>`PrintAutomorphisms := <list>'{option PrintAutomorphisms}%
+@{option `PrintAutomorphisms'|indexit}&
+Specifies that automorphism matrices be printed.
+
+\>`PrintPermutations := <list>'{option PrintPermutations}%
+@{option `PrintPermutations'|indexit}&
+Specifies that permutations of the subgroups be printed.
+
+\>`OrbitsSummary := <list>'{option OrbitsSummary}%
+@{option `OrbitsSummary'|indexit}&
+Specifies that a summary of orbit information be printed.
+
+\>`OrbitsListing := <list>'{option OrbitsListing}%
+@{option `OrbitsListing'|indexit}&
+Specifies that a complete listing of orbit information be  printed.  This
+option is independent of `OrbitsSummary' (it's possible to  have  both  a
+summary and a complete listing of orbit information).
 
 \enditems
 

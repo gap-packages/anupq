@@ -1364,15 +1364,16 @@ performs menu item 3 of the main or advanced $p$-Group Generation menu.
 \>PqPGConstructDescendants( <i> : <options> ) F
 \>PqPGConstructDescendants( : <options> ) F
 
-for the <i>th or default interactive {\ANUPQ} process, inputs data  given
-by <options> to the `pq' binary to  construct  descendants.  The  options
-possible are the same as those listed for the interactive `PqDescendants'
+for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
+binary to construct descendants prescribed by <options>, and  return  the
+number of descendants constructed. The options possible are the  same  as
+those      listed      for      the      interactive      `PqDescendants'
 (see~"PqDescendants!interactive")   function,    namely:    `ClassBound',
 `Relators',      `OrderBound',      `StepSize',      `PcgsAutomorphisms',
 `RankInitialSegmentSubgroups',  `SpaceEfficient',   `CapableDescendants',
 `AllDescendants',  `Exponent',  `Metabelian',   `GroupName',   `SubList',
 `BasicAlgorithm',  `CustomiseOutput'.  (Detailed  descriptions  of  these
-options may be found in Chapter~"ANUPQ options".)
+options may be found in Chapter~"ANUPQ Options".)
 
 `PqPGConstructDescendants' requires that the `pq' binary  has  previously
 computed a pc presentation and a $p$-cover for  a  $p$-quotient  of  some
@@ -1401,6 +1402,43 @@ group of the process.
 *Note:*
 For those  familiar  with  the  `pq'  binary,  `PqAPGSupplyAutomorphisms'
 performs menu item 1 of the Advanced $p$-Group Generation menu.
+
+\>PqAPGDegree( <i>, <step>, <rank> [: Exponent := <n> ]) F
+\>PqAPGDegree( <step>, <rank> [: Exponent := <n> ]) F
+
+for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
+binary  to  compute  definition  sets  and  return  the  degree  of   the
+permutation group. Here the step-size <step> and the rank <rank>  of  the
+initial segment subgroup are positive integers. See~"option Exponent" for
+the one recognised option `Exponent'.
+
+*Note:* For those familiar with the `pq' binary,  `PqAPGDegree'  performs
+menu item 6 of the Advanced $p$-Group Generation menu.
+
+\>PqAPGPermutations( <i> : <options> ) F
+\>PqAPGPermutations( : <options> ) F
+
+for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
+binary to compute permutations of subgroups. Here the  options  <options>
+recognised       are        `PcgsAutomorphisms',        `SpaceEfficient',
+`PrintAutomorphisms' and `PrintPermutations' (see Chapter~"ANUPQ Options"
+for details).
+
+*Note:* For those familiar  with  the  `pq'  binary,  `PqAPGPermutations'
+performs menu item 7 of the Advanced $p$-Group Generation menu.
+
+\>PqAPGOrbits( <i> : <options> ) F
+\>PqAPGOrbits( : <options> ) F
+
+for the <i>th or default interactive {\ANUPQ} process, inputs data to the
+`pq' binary for the <i>th or default interactive {\ANUPQ} process, direct
+the `pq' binary to compute the orbit action of  the  automorphism  group,
+and return the number of orbits. Here the  options  <options>  recognised
+are   `PcgsAutomorphisms',    `SpaceEfficient',    `OrbitsSummary'    and
+`OrbitsListing' (see Chapter~"ANUPQ Options" for details).
+
+*Note:* For those familiar with the `pq' binary,  `PqAPGOrbits'  performs
+menu item 8 of the Advanced $p$-Group Generation menu.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Primitive Interactive ANUPQ Process Read/Write Functions}
