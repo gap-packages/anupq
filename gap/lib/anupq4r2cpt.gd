@@ -34,4 +34,18 @@ DeclareGlobalFunction( "Chomp" );
 ##
 DeclareGlobalFunction( "JoinStringsWithSeparator" );
 
+#############################################################################
+##
+#F  ResetOptionsStack( ) . . . . . . . . . . . . . . . . . remove all options
+##
+##  unbinds (i.e. removes) all the options records from the options stack.
+##
+##  *Note:*
+##  `ResetOptionsStack' should *not* be used within a function. Its  intended
+##  use is to clean up the options stack in  the  event  that  the  user  has
+##  `quit' from a `break'  loop,  so  leaving  a  stack  of  no-longer-needed
+##  options (see~"quit").
+##
+DeclareGlobalFunction( "ResetOptionsStack");
+
 #E  anupq4r2cpt.gd  . . . . . . . . . . . . . . . . . . . . . . . . ends here 

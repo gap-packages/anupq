@@ -10,6 +10,14 @@
 #Y  Copyright 1992-1994,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.3  2001/05/17 22:40:57  gap
+#H  pkg/anupq:
+#H    Factored out the common code for interactive and non-interactive versions
+#H    of `Pq' and `PqEpimorphism' and defined the two menu item functions
+#H    `PqPcPresentation' and `PqWritePcPresentation' on which they depend.
+#H    The intention is to put all functions based on menu items of the `pq'
+#H    binary in the files gap/lib/anupqi.g[id]. - GG
+#H
 #H  Revision 1.2  2001/05/10 17:33:23  gap
 #H  gap/lib/anupqios.g[id], doc/interact.tex:
 #H    - defined and documented various interactive functions, in particular,
@@ -135,6 +143,7 @@ InstallGlobalFunction( ANUPQerrorPq, function( param )
     "    \"OutputLevel\", <level>\n",
     "    \"Verbose\"\n",
     "    \"SetupFile\", <file>\n",
+    "    \"PqWorkspace\", <workspace>\n",
     "Illegal Parameter: \"", param, "\"" );
 end );
 
@@ -189,6 +198,11 @@ InstallGlobalFunction( ANUPQextractPqArgs, function( args )
     	    i := i + 1;
             CR.SetupFile := args[i];
 
+    	# "PqWorkspace", <workspace>
+        elif match( act, "PqWorkspace" )  then
+    	    i := i + 1;
+            CR.PqWorkspace := args[i];
+
     	# "Verbose"
         elif match( act, "Verbose" ) then
             CR.Verbose := true;
@@ -210,7 +224,7 @@ end );
 ##
 InstallValue( ANUPQGlobalVariables, 
               [ "F",          #  a free group
-                "MapImages",  #  images of the generators in G
+                "MapImages"   #  images of the generators in G
                 ] );
 
 #############################################################################
@@ -245,173 +259,135 @@ end );
 
 #############################################################################
 ##
-#F  PqEpimorphism   . . . . . . . . . . . . . . .  epimorphism onto a p-group
+#F  PqEpimorphism( <arg> : <options> )  . . . . .  epimorphism onto a p-group
 ##
 InstallGlobalFunction( PqEpimorphism, function( arg )
-    local   F,  Fgens,  gens,  x,  r,  outname,  pq,  input,  phi,
-            output,  proc,  result,  images,  CR,  string,  cmd;
-
-    # check arguments
-    if Length(arg) = 2 and ValueOption("PqChecked") = true then
-        # We got here via a call to Pq and the args have been checked already
-        F  := arg[1];
-        CR := arg[2];
-    else
-        if Length(arg) < 1  then
-    	    Error( "usage: PqEpimorphism( <F> : <control-options> )" );
-        fi;
-        F := arg[1];
-        if not IsFpGroup( F ) then
-    	    Error( "first argument must be a finitely presented group" );
-        fi;
-        if Length(arg) = 1 then
-            CR := SET_ANUPQ_OPTIONS( "PqEpimorphism", "Pq" );
-        elif IsRecord(arg[2])  then
-    	    CR := ShallowCopy(arg[2]);
-    	    x := Set( REC_NAMES(CR) );
-    	    SubtractSet( x, Set( ANUPQoptions.Pq ) );
-    	    if 0 < Length(x)  then
-    	        ANUPQerrorPq(x);
-    	    fi;
-        else
-    	    CR := ANUPQextractPqArgs( arg );
-        fi;
-    fi;
-
-    # at least "Prime" and "Class" must be given
-    if not IsBound(CR.Prime)  then
-    	Error( "you must supply a prime" );
-    fi;
-    if not IsBound(CR.ClassBound)  then
-    	Error( "you must supply a class bound" );
-    fi;
-
-    # set default values
-    if not IsBound(CR.Exponent)  then 
-    	CR.Exponent := 0;
-    fi;
-    if not IsBound(CR.Verbose) then 
-    	CR.Verbose := false;
-    fi;
-
-    string := "#input file for pq\n";
-
-    # setup input string
-    Append( string, "1\n" );
-    cmd := Concatenation( "prime ", String(CR.Prime), " \n" );
-    Append( string, cmd );
-    cmd := Concatenation( "class ", String(CR.ClassBound), " \n" );
-    Append( string, cmd );
-    if CR.Exponent <> 0  then
-        cmd := Concatenation( "exponent ", String(CR.Exponent), "\n" );
-        Append( string, cmd );
-    fi;
-    if IsBound(CR.Metabelian)  then 
-        Append( string, "metabelian\n" );
-    fi;
-    if IsBound(CR.OutputLevel)  then
-        cmd := Concatenation( "output ", CR.OutputLevel, " \n" );
-    	Append( string, cmd );
-    fi;
-
-    # create generic generators "g1" ... "gn"
-    Fgens := GeneratorsOfGroup( FreeGroupOfFpGroup(F) );
-    gens := GeneratorsOfGroup( FreeGroup( Length( Fgens ), "g" ) );
-    Append( string, "generators {" );
-    for x  in gens  do
-    	Append( string, String(x) );
-        Append( string, ", " );
-    od;
-    Append( string, " }\n" );
-
-    # write the presentation using these generators
-    Append( string, "relations {" );
-    for r  in RelatorsOfFpGroup(F)  do
-        Append( string, String( MappedWord(r,Fgens,gens) ) );
-        Append( string, ",\n" );
-    od;
-    Append( string, "}\n;\n" );
-    
-    # if we only want to setup the file we are ready now
-    if IsBound(CR.SetupFile)  then
-        Append( string, "8\n25\nPQ_OUTPUT\n2\n0\n0\n" );
-    	Print( "#I  input file '", CR.SetupFile, "' written,\n",
-    	       "#I    run 'pq' with '-k' flag, the result will be saved in ",
-    	       "'PQ_OUTPUT'\n" );
-        PrintTo( CR.SetupFile, string );
-    	return true;
-    fi;
-
-    # otherwise append code to save the output in a temporary file
-    outname := TmpName();
-    Append( string, Concatenation( "8\n25\n", outname, "\n2\n0\n" ) );
-    Append( string, "0\n" );
-
-    # Find the pq executable
-    pq := Filename( DirectoriesPackagePrograms( "anupq" ), "pq" );
-    if pq = fail then
-        Error( "Could not find the pq executable" );
-    fi;
-
-    # and finally start the pq
-    input := InputTextString( string );
-    if CR.Verbose  then 
-        output := OutputTextFile( "*stdout*", false );
-    else 
-        output := OutputTextNone();
-    fi;
-    proc := Process( DirectoryCurrent(), pq, input, output, [ "-k",  ] );
-    CloseStream( output );
-    CloseStream( input );
-    if proc <> 0 then
-        Error( "process did not succeed" );
-    fi;
-    
-    # read group and images from file
-    result := ANUPQReadOutput( outname, ANUPQGlobalVariables );
-
-    # remove intermediate files
-    Exec( Concatenation( "rm -f ", outname ) );
-
-    phi := GroupHomomorphismByImages( F, result.F, 
-                   GeneratorsOfGroup( F ), result.MapImages );
-    SetFeatureObj( phi, IsSurjective, true );
-
-    return phi;
-
+    return PQ_EPIMORPHISM( arg );
 end );
 
 #############################################################################
 ##
-#F  Pq( <F> : <options> ) . . . . . . . . . . . . . . . . . .  prime quotient
+#F  Pq( <arg> : <options> )  . . . . . . . . . . . . . . . . . prime quotient
 ##
 InstallGlobalFunction( Pq, function( arg )
-    local   phi,  x,  CR,  F;
+    local pQepi;
 
-    # Is it an interactive Pq call?
-    if Length(arg) < 1 or IsInt( arg[1] ) then
-    	return PQ_INTERACTIVE( arg );
+    pQepi := PQ_EPIMORPHISM( arg );
+    if pQepi = true then
+      return true; # the SetupFile case
     fi;
+    return Image( pQepi );
+end );
 
-    F := arg[1];
-    if not IsFpGroup( F ) then
-    	Error( "first argument must be a finitely presented group" );
-    fi;
-    if Length(arg) = 1 then
-        CR := SET_ANUPQ_OPTIONS( "Pq", "Pq" );
-    elif IsRecord(arg[2])  then
-    	CR := ShallowCopy(arg[2]);
-    	x := Set( REC_NAMES(CR) );
-    	SubtractSet( x, Set( ANUPQoptions.Pq ) );
-    	if 0 < Length(x)  then
-    	    ANUPQerrorPq(x);
-    	fi;
+#############################################################################
+##
+#F  PQ_EPIMORPHISM( <arglist> : <options> ) . . .  prime quotient epimorphism
+##
+InstallGlobalFunction( PQ_EPIMORPHISM, function( arglist )
+    local   interactive, x, CR, datarec, infile, outfile, workspace, opts,
+            pqOpening, output, proc;
+
+    interactive := Length(arglist) < 1 or IsInt( arglist[1] );
+    if interactive then
+        ANUPQ_IOINDEX_ARG_CHK(arglist);
+        datarec := ANUPQData.io[ ANUPQ_IOINDEX(arglist) ];
+        outfile := ANUPQData.outfile;
+    elif Length(arglist) = 1 then
+        datarec := ANUPQData;
+        datarec.menu := "SP";
+        datarec.group := arglist[1];
+        if not IsFpGroup( datarec.group ) then
+    	    Error( "first argument must be a finitely presented group" );
+        fi;
+        infile := ValueOption( "SetupFile" );
+        workspace := ValueOption( "PqWorkspace" );
+        opts := "-i -k";
+        if IsInt(workspace) then
+            opts := Concatenation( opts, " -s ", String(workspace) );
+        fi;
+        if infile = fail then
+            infile := ANUPQData.infile;
+            outfile := ANUPQData.outfile;
+            pqOpening := [ "#pq called with flags: '", opts, "'" ];
+        else
+            outfile := "PQ_OUTPUT";
+            pqOpening := [ "#pq called with flags: '", opts, "'" ];
+        fi;
+        datarec.stream := OutputTextFile(infile, false);
+        ToPQ(datarec, pqOpening);
     else
-    	CR := ANUPQextractPqArgs( arg );
+        # GAP 3 way of passing options is supported in non-interactive use
+        if IsRecord(arglist[2]) then
+            CR := ShallowCopy(arglist[2]);
+            x := Set( REC_NAMES(CR) );
+            SubtractSet( x, Set( ANUPQoptions.Pq ) );
+            if not IsEmpty(x) then
+                ANUPQerrorPq(x);
+            fi;
+        else
+    	    CR := ANUPQextractPqArgs( arglist );
+        fi;
+        PushOptions(CR);
+        PQ_EPIMORPHISM( arglist{[1]} );
+        PopOptions();
+        return ANUPQData.pQepi;
     fi;
 
-    phi := PqEpimorphism( F, CR : PqChecked);
-    return Image( phi );
+    if not interactive or not IsBound(datarec.haspcp) then
+        PQ_PC_PRESENTATION(datarec);
+        if interactive then
+            datarec.haspcp := true;
+        fi;
+    fi;
+
+    PQ_WRITE_PC_PRESENTATION(datarec, ANUPQData.outfile);
+    
+    if not interactive then
+        PQ_MENU(datarec, "SP");
+        ToPQ(datarec, [ "0  #exit program" ]);
+        CloseStream(datarec.stream);
+
+        if ValueOption( "SetupFile" ) <> fail then
+            Info(InfoANUPQ, 1, "Input file: '", infile, "' written.");
+            Info(InfoANUPQ, 1, "Run `pq' with '", opts, "' flags.");
+            Info(InfoANUPQ, 1, "The result will be saved in: 'PQ_OUTPUT'");
+            return true;
+        fi;
+
+        if ValueOption( "Verbose" ) = true or
+           IsPosInt( ValueOption( "OutputLevel" ) ) or
+           InfoLevel(InfoANUPQ) >= 2 then
+            output := OutputTextFile( "*stdout*", false );
+        else 
+            output := OutputTextNone();
+        fi;
+        proc := Process( 
+                  ANUPQData.tmpdir, 
+                  Filename( DirectoriesSystemPrograms(), "sh" ),
+                  InputTextUser(),
+                  output,
+                  [ "-c", 
+                    Concatenation(ANUPQData.binary, " ", opts, " <", infile) ]
+                  );
+        CloseStream( output );
+        if proc <> 0 then
+            Error( "process did not succeed" );
+        fi;
+    fi;
+    
+    # read group and images from file
+    HideGlobalVariables( "F", "MapImages" );
+    Read( outfile );
+    datarec.pQuotient := ValueGlobal( "F" );
+    datarec.pQepi := GroupHomomorphismByImages( 
+                       datarec.group,
+                       datarec.pQuotient,
+                       GeneratorsOfGroup( datarec.group ),
+                       ValueGlobal( "MapImages" )
+                       );
+    SetFeatureObj( datarec.pQepi, IsSurjective, true );
+    UnhideGlobalVariables( "F", "MapImages" );
+    return datarec.pQepi;
 end );
 
 #############################################################################

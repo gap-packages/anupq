@@ -46,20 +46,27 @@ F 4.2. PqProcessIndices
 F 4.2. IsPqProcessAlive
 F 4.2. IsPqProcessAlive
 I 4.2. interruption
-S 4.3. Interactive Versions of Non-interactive ANUPQ Functions
-F 4.3. Pq!interactive
-F 4.3. Pq!interactive
-S 4.4. Primitive Interactive ANUPQ Process Read/Write Functions
-F 4.4. PqRead
-F 4.4. PqRead
-F 4.4. PqReadAll
-F 4.4. PqReadAll
-F 4.4. PqReadUntil
-F 4.4. PqReadUntil
-F 4.4. PqReadUntil
-F 4.4. PqReadUntil
-F 4.4. PqWrite
-F 4.4. PqWrite
+S 4.3. Interactive ANUPQ Functions based on menu option of the pq binary
+F 4.3. PqPcPresentation
+F 4.3. PqPcPresentation
+F 4.3. PqWritePcPresentation
+F 4.3. PqWritePcPresentation
+S 4.4. Interactive Versions of Non-interactive ANUPQ Functions
+F 4.4. Pq!interactive
+F 4.4. Pq!interactive
+F 4.4. PqEpimorphism!interactive
+F 4.4. PqEpimorphism!interactive
+S 4.5. Primitive Interactive ANUPQ Process Read/Write Functions
+F 4.5. PqRead
+F 4.5. PqRead
+F 4.5. PqReadAll
+F 4.5. PqReadAll
+F 4.5. PqReadUntil
+F 4.5. PqReadUntil
+F 4.5. PqReadUntil
+F 4.5. PqReadUntil
+F 4.5. PqWrite
+F 4.5. PqWrite
 C install.tex 5. Installing and Loading the ANUPQ Share Package
 S 5.1. Installing the ANUPQ Share Package
 S 5.2. Loading the ANUPQ Share Package

@@ -21,8 +21,9 @@ DeclareGlobalFunction( "PqStart" );
 
 #############################################################################
 ##
-#F  PqQuit( <i> )  . . . . . . . . . . . . Close an interactive ANUPQ session
+#F  PqQuit( <i> )  . . . . . . . . . . . . . . . . .  User version of PQ_QUIT
 #F  PqQuit()
+##
 DeclareGlobalFunction( "PqQuit" );
 
 #############################################################################
@@ -105,9 +106,9 @@ DeclareGlobalFunction( "FLUSH_PQ_STREAM_UNTIL" );
 
 #############################################################################
 ##
-#F  WRITE_LIST_TO_PQ( <stream>, <list> ) . . . writes a list to a pq iostream
+#F  ToPQk( <datarec>, <list> ) . . . . . . . . writes a list to a pq iostream
 ##
-DeclareGlobalFunction( "WRITE_LIST_TO_PQ" );
+DeclareGlobalFunction( "ToPQk" );
 
 #############################################################################
 ##
@@ -141,21 +142,14 @@ DeclareGlobalFunction( "PqWrite" );
 
 #############################################################################
 ##
-#F  WRITE_AND_FLUSH_PQ_STREAM( <stream>, <list> )
+#F  ToPQ( <datarec>, <list> ) .  write list to pq iostream (& int'vely flush)
 ##
-DeclareGlobalFunction( "WRITE_AND_FLUSH_PQ_STREAM" );
+DeclareGlobalFunction( "ToPQ" );
 
 #############################################################################
 ##
 #F  VALUE_PQ_OPTION( <optname>, <defaultval> ) . . enhancement of ValueOption
 ##
 DeclareGlobalFunction( "VALUE_PQ_OPTION" );
-
-#############################################################################
-##
-#F  PQ_INTERACTIVE( <i> : <options> ) . . . . . . . interactive version of Pq
-#F  PQ_INTERACTIVE( : <options> )
-##
-DeclareGlobalFunction( "PQ_INTERACTIVE" );
 
 #E  anupqios.gd . . . . . . . . . . . . . . . . . . . . . . . . . . ends here 

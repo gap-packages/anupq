@@ -131,7 +131,38 @@ a bug and we'd like to know about it. Please read the `README' that comes
 with the {\ANUPQ} share package to find out what  to  include  in  a  bug
 report and who to email it to.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\Section{Interactive ANUPQ Functions based on menu option of the pq binary}
+
+\>PqPcPresentation( <i> : <options> ) F
+\>PqPcPresentation( : <options> ) F
+
+for the <i>th or default interactive {\ANUPQ} process, inputs data  given
+by <options> for the group of  that  process  so  that  the  `pq'  binary
+computes a pc presentation, where the group of a process is the one given
+as first argument when `PqStart' was called to initiate that process (for
+process <i> the group is stored as `ANUPQData.io[<i>].group').
+
+*Note:* For those  familiar  with  the  `pq'  binary,  `PqPcPresentation'
+performs option 1 of the main p-Quotient menu.
+
+\>PqWritePcPresentation( <i>, <outfile> ) F
+\>PqWritePcPresentation( <outfile> ) F
+
+for the <i>th or default interactive {\ANUPQ}  process,  tells  the  `pq'
+binary to write a pc presentation to <outfile>  for  the  group  of  that
+process for which a pc presentation has been previously  computed,  where
+the group of a process is the one given as first argument when  `PqStart'
+was called to initiate that process (for process <i> the group is  stored
+as  `ANUPQData.io[<i>].group').  If  a  pc  presentation  has  not   been
+previously computed by the `pq' binary, then `pq' is called to compute it
+first, effectively invoking `PqPcPresentation' (see~"PqPcPresentation").
+
+*Note:* For those familiar with the `pq' binary,  `PqPcWritePresentation'
+performs option 25 of the interactive p-Quotient menu.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Interactive Versions of Non-interactive ANUPQ Functions}
 
 \>Pq( <i> : <options> )!{interactive} F
@@ -142,12 +173,12 @@ interactive {\ANUPQ}  process,  the  $p$-quotient  of  <G>  specified  by
 <options>, as a pc-group. The group <G>  is  the  group  given  as  first
 argument  to  `PqStart'  to  start  the  interactive   {\ANUPQ}   process
 (see~"PqStart"). Behind the colon <options> a selection  of  the  options
-from the following list should be given, separated by commas like  record
-components (see~"ref:function call with options"). This version  of  `Pq'
-performs the same function as its non-interactive counterpart and  except
-that it doesn't recognise the `SetupFile' or `Verbose' option it uses the
-same options (see~"Pq"). The following is one of the examples for the non-interactive
-`Pq' redone with the interactive version:
+give for the non-interactive `Pq' function (see~"Pq")  should  be  given,
+separated by commas like record components (see~"ref:function  call  with
+options"),  except   that   the   options   `SetupFile',   `Verbose'   or
+`PqWorkspace' are ignored by the interactive `Pq'. The following  is  one
+of the examples for the non-interactive `Pq' redone with the  interactive
+version:
 
 \beginexample
 gap> F := FreeGroup("a", "b");; a := F.1;; b := F.2;;
@@ -188,6 +219,19 @@ gap> Pq(: Prime := 2, ClassBound := 3 );
 #I  Select option: 
 <pc group of size 256 with 8 generators>
 \endexample
+
+\>PqEpimorphism( <i> : <options> )!{interactive} F
+\>PqEpimorphism( : <options> )!{interactive} F
+
+returns for the finitely presented group <G>, of  the  <i>th  or  default
+interactive  {\ANUPQ}  process,  an  epimorphism  from   <G>   onto   the
+$p$-quotient of <G> specified by <options>. The group <G>  is  the  group
+given as first argument to `PqStart' to start  the  interactive  {\ANUPQ}
+process (see~"PqStart"). Behind the colon <options> a  selection  of  the
+options give for the non-interactive `Pq' function (see~"Pq")  should  be
+given, separated by commas like record components (see~"ref:function call
+with  options"),  except  that  the  options  `SetupFile',  `Verbose'  or
+`PqWorkspace' are ignored by the interactive `PqEpimorphism' function.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Primitive Interactive ANUPQ Process Read/Write Functions}

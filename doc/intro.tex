@@ -95,6 +95,11 @@ and
 
 \enditems
 
+Some or all of the fields: `group', `workspace', `menu', `pQuotient'  and
+`pQepi' may also be set after  a  non-interactive  {\ANUPQ}  function  is
+called.  They  have  a  similar  role  as  the  corresponding  fields  of
+`ANUPQData.io[<ioIndex>]' we describe below.
+
 Each time an interactive {\ANUPQ}  process  is  initiated  via  `PqStart'
 (see~"PqStart"), an identifying number <ioIndex>  is  generated  for  the
 interactive process  and  a  record  `ANUPQData.io[<ioIndex>]'  with  the
@@ -117,6 +122,17 @@ details. This field remembers which menu the `pq'  process  is  currently
 
 \quad`options' & The  options  of  the  last  interactive  function  that
 communicated with `pq' process <ioIndex>.
+
+\quad`haspcp' & This field is bound and set  to  `true'  after  `pq'  has
+computed a pc presentation for `group'.
+
+\quad`pQuotient'  &  This  is  set  to  the  value   returned   by   `Pq'
+(see~"Pq!interactive") when called interactively, for process  <i>.  (The
+field `pQepi' is also set at the same time.)
+
+\quad`pQepi' & This is set  to  the  value  returned  by  `PqEpimorphism'
+(see~"PqEpimorphism!interactive") when called interactively, for  process
+<i>. (The field `pQuotient' is also set at the same time.)
 
 \enditems
 

@@ -47,15 +47,21 @@ DeclareGlobalFunction( "ANUPQReadOutput" );
 
 #############################################################################
 ##
-#F  PqEpimorphism   . . . . . . . . . . . . . . .  epimorphism onto a p-group
+#F  PqEpimorphism( <arg> : <options> )  . . . . .  epimorphism onto a p-group
 ##
 DeclareGlobalFunction( "PqEpimorphism" );
 
 #############################################################################
 ##
-#F  Pq( <G>, ... )  . . . . . . . . . . . . . . . . . . . . .  prime quotient
+#F  Pq( <arg> : <options> )  . . . . . . . . . . . . . . . . . prime quotient
 ##
 DeclareGlobalFunction( "Pq" );
+
+#############################################################################
+##
+#F  PQ_EPIMORPHISM( <arglist> : <options> ) . . .  prime quotient epimorphism
+##
+DeclareGlobalFunction( "PQ_EPIMORPHISM" );
 
 #############################################################################
 ##

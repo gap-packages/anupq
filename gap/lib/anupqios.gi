@@ -73,7 +73,7 @@ InstallGlobalFunction(PqQuit, function(arg)
 local ioIndex;
 
   ioIndex := ANUPQ_IOINDEX(arg);
-  # I don't think we need to bother about descending through the menus.
+  # No need to bother about descending through the menus.
   CloseStream(ANUPQData.io[ioIndex].stream);
   Unbind(ANUPQData.io[ioIndex]);
 end);
@@ -230,22 +230,20 @@ local datarec, newmenu, nextmenu, tomenu;
       if PQ_MENUS.(datarec.menu).depth >= PQ_MENUS.(newmenu).depth then
         datarec.menu := PQ_MENUS.(datarec.menu).prev;
         tomenu := PQ_MENUS.(datarec.menu).name;
-        WRITE_LIST_TO_PQ(datarec.stream, [ 0 , " #to ", tomenu]);
+        ToPQk(datarec, [ 0 , "  #to ", tomenu]);
         FLUSH_PQ_STREAM_UNTIL(datarec.stream, 2, 2, PQ_READ_NEXT_LINE,
                               IS_PQ_PROMPT);
       elif datarec.menu = "pQ" and newmenu = "IpQ" then
         datarec.menu := "IpQ";
         tomenu := PQ_MENUS.(datarec.menu).name;
-        WRITE_LIST_TO_PQ(datarec.stream, 
-                         [ PQ_MENUS.pQ.nextopt.IpQ, " #to ", tomenu ]);
+        ToPQk(datarec, [ PQ_MENUS.pQ.nextopt.IpQ, "  #to ", tomenu ]);
         FLUSH_PQ_STREAM_UNTIL(datarec.stream, 4, 2, PQ_READ_NEXT_LINE,
                               IS_PQ_PROMPT);
       else
         nextmenu := RecNames( PQ_MENUS.(datarec.menu).nextopt )[1];
         tomenu := PQ_MENUS.(nextmenu).name;
-        WRITE_LIST_TO_PQ(datarec.stream, 
-                         [ PQ_MENUS.(datarec.menu).nextopt.(nextmenu),
-                           " #to ", tomenu ]);
+        ToPQk(datarec, [ PQ_MENUS.(datarec.menu).nextopt.(nextmenu),
+                         "  #to ", tomenu ]);
         FLUSH_PQ_STREAM_UNTIL(datarec.stream, 4, 2, PQ_READ_NEXT_LINE,
                               IS_PQ_PROMPT);
         datarec.menu := nextmenu;
@@ -347,22 +345,25 @@ end);
 
 #############################################################################
 ##
-#F  WRITE_LIST_TO_PQ( <stream>, <list> ) . . . writes a list to a pq iostream
+#F  ToPQk( <datarec>, <list> ) . . . . . . . . writes a list to a pq iostream
 ##
-##  writes list <list> to iostream <stream> with  a  ```ToPQ> '''  prompt  to
-##  `Info' at `InfoANUPQ' level 3 and returns `true' if successful and `fail'
-##  otherwise.
+##  writes list  <list> to  iostream  <datarec>.stream  with  a  ```ToPQ> '''
+##  prompt to `Info' at `InfoANUPQ' level 3 and returns `true' if  successful
+##  and `fail' otherwise. The ``k'' at  the  end  of  the  function  name  is
+##  mnemonic for ``keyword'' (for ``keyword'' inputs to the `pq'  binary  one
+##  never wants to flush output).
 ##
-InstallGlobalFunction(WRITE_LIST_TO_PQ, function(stream, list)
+InstallGlobalFunction(ToPQk, function(datarec, list)
 local string;
 
-  if not IsOutputTextStream(stream) and IsEndOfStream(stream) then
+  if not IsOutputTextStream(datarec.stream) and 
+     IsEndOfStream(datarec.stream) then
     Info(InfoANUPQ + InfoWarning, 1, "Sorry. Process stream has died!");
     return fail;
   fi;
   string := Concatenation( List(list, x -> String(x)) );
   Info(InfoANUPQ, 3, "ToPQ> ", string);
-  return WriteLine(stream, string);
+  return WriteLine(datarec.stream, string);
 end);
 
 #############################################################################
@@ -484,8 +485,7 @@ local ioIndex, line;
 
   if Length(arg) in [1, 2] then
     ioIndex := ANUPQ_IOINDEX(arg{[1..Length(arg) - 1]});
-    return WRITE_LIST_TO_PQ( ANUPQData.io[ioIndex].stream,
-                             arg{[Length(arg)..Length(arg)]} );
+    return ToPQ( ANUPQData.io[ioIndex], arg{[Length(arg)..Length(arg)]} );
   else
     Error("expected 1 or 2 arguments ... not ", Length(arg), " arguments\n");
   fi;
@@ -493,14 +493,17 @@ end);
 
 #############################################################################
 ##
-#F  WRITE_AND_FLUSH_PQ_STREAM( <stream>, <list> )
+#F  ToPQ( <datarec>, <list> ) .  write list to pq iostream (& int'vely flush)
 ##
-##  writes   list   <list>   to   iostream   <stream>   and    then    calls
-##  `FLUSH_PQ_STREAM_UNTIL' to flush all `pq' output at `InfoANUPQ' level 2.
+##  writes list <list> to iostream  <stream>  and  then,  if  an  interactive
+##  function (determined by checking <datarec>) calls `FLUSH_PQ_STREAM_UNTIL'
+##  to flush all `pq' output at `InfoANUPQ' level 2.
 ##
-InstallGlobalFunction(WRITE_AND_FLUSH_PQ_STREAM, function(stream, list)
-  WRITE_LIST_TO_PQ(stream, list);
-  FLUSH_PQ_STREAM_UNTIL(stream, 2, 2, PQ_READ_NEXT_LINE, IS_PQ_PROMPT);
+InstallGlobalFunction(ToPQ, function(datarec, list)
+  ToPQk(datarec, list);
+  if datarec <> ANUPQData then # if not a non-interactive call
+    FLUSH_PQ_STREAM_UNTIL(datarec.stream,2,2,PQ_READ_NEXT_LINE,IS_PQ_PROMPT);
+  fi;
 end);
 
 #############################################################################
@@ -520,65 +523,4 @@ local optval;
   fi;
 end);
   
-#############################################################################
-##
-#F  PQ_INTERACTIVE( <i> : <options> ) . . . . . . . interactive version of Pq
-#F  PQ_INTERACTIVE( : <options> )
-##
-InstallGlobalFunction(PQ_INTERACTIVE, function(arglist)
-local datarec, gens, rels, ToPQk, ToPQ;
-
-  ANUPQ_IOINDEX_ARG_CHK(arglist);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arglist) ];
-  PQ_MENU(datarec, "pQ");
-
-  ToPQk := function(list)
-    WRITE_LIST_TO_PQ(datarec.stream, list);
-  end;
-
-  ToPQ := function(list)
-    WRITE_AND_FLUSH_PQ_STREAM(datarec.stream, list);
-  end;
-
-  # at least "Prime" and "Class" must be given
-  if not IsInt( ValueOption( "Prime" ) ) then
-    Error( "you must supply a prime" );
-  fi;
-  if not IsInt( ValueOption( "ClassBound" ) ) then
-    Error( "you must supply a class bound" );
-  fi;
-
-  # Option 1 of p-Quotient Menu: defining the group
-  ToPQk([ "1 #define group" ]);
-  ToPQk([ "prime ",    ValueOption( "Prime") ]);
-  ToPQk([ "class ",    ValueOption( "ClassBound") ]);
-  ToPQk([ "exponent ", VALUE_PQ_OPTION( "Exponent", 0) ]);
-  if ValueOption( "Metabelian" ) = true then
-    ToPQk([ "metabelian" ]);
-  fi;
-  if IsInt( ValueOption( "OutputLevel" ) ) then
-    ToPQk([ "output ", ValueOption( "OutputLevel" ) ]);
-  fi;
-  gens := JoinStringsWithSeparator(
-              List( FreeGeneratorsOfFpGroup( datarec.group ), String ) );
-  ToPQk([ "generators { ", gens, " }" ]);
-  rels := JoinStringsWithSeparator(
-              List( Filtered( RelatorsOfFpGroup( datarec.group ), 
-                              rel -> not IsOne(rel) ), String ) );
-  ToPQ([ "relations  { ", rels, " };" ]);
-
-  PrintTo(ANUPQData.outfile, ""); #to ensure it's empty
-  PQ_MENU(datarec, "IpQ"); #we need options from the Interactive p-Q Menu
-  ToPQ([ "25 #set output file" ]);
-  ToPQ([ ANUPQData.outfile ]);
-  ToPQ([ "2  #output in GAP format" ]);
-
-  HideGlobalVariables( "F", "MapImages" );
-  Read( ANUPQData.outfile );
-  datarec.quotient := ValueGlobal( "F" );
-  UnhideGlobalVariables( "F", "MapImages" );
-
-  return datarec.quotient;
-end);
-
 #E  anupqios.gi . . . . . . . . . . . . . . . . . . . . . . . . . . ends here 
