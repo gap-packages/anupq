@@ -207,10 +207,10 @@ DeclareGlobalFunction( "PQ_P_COVER" );
 
 #############################################################################
 ##
-#F  PqPCover( <i> ) . . . . . . . . . . . . user version of p-Q menu option 7
-#F  PqPCover()
+#F  PqComputePCover( <i> ) . . . . . . . .  user version of p-Q menu option 7
+#F  PqComputePCover()
 ##
-DeclareGlobalFunction( "PqPCover" );
+DeclareGlobalFunction( "PqComputePCover" );
 
 #############################################################################
 ##

@@ -14,6 +14,15 @@
 #Y  Copyright 1992-1994,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.15  2001/09/25 15:23:15  gap
+#H  Changed `PqPCover' to `PqComputePCover' to free up the name for another
+#H  function that returns the p-cover of a group.
+#H  Implemented suggestions from Bettina:
+#H   - `PcgsAutomorphisms' is now set to
+#H     `HasIsSolvableGroup(A) and IsSolvableGroup(A)' where A is the aut. gp.
+#H   - `IsSolvableGroup' is being set for a descendant's aut. gp. if known
+#H     to be soluble.                                                    - GG
+#H
 #H  Revision 1.14  2001/09/19 14:40:58  gap
 #H  Bugfix for `PqWeight'. Various improvements. Got rid of `share'. - GG
 #H
@@ -384,7 +393,10 @@ function( G, gens, automs, isSoluble )
     SetIsAutomorphismGroup( A, true );
     SetIsFinite( A, true );
 
-    if isSoluble then SetPcgs( A, automs ); fi;
+    if isSoluble then 
+        SetPcgs( A, automs );
+        SetIsSolvableGroup( A, true );
+    fi;
 
     SetAutomorphismGroup( G, A );
 
@@ -676,7 +688,7 @@ InstallGlobalFunction( SavePqList, function( file, list )
             od;
     	    AppendTo( file, "ANUPQSetAutomorphismGroup( G, B, A, " );
             if HasIsSolvableGroup( AutomorphismGroup(G) ) then
-                AppendTo( file, IsSolvable( G ), " );\n" );
+                AppendTo( file, IsSolvableGroup( G ), " );\n" );
             else
                 AppendTo( file, false, " );\n" );
             fi;

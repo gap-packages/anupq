@@ -60,7 +60,9 @@ end );
 InstallGlobalFunction( PQ_AUT_INPUT, function( datarec, G )
 local autGrp, rank, automorphisms, gens, i, j, aut, g, exponents;
   autGrp := PQ_AUT_GROUP( G );
-  if VALUE_PQ_OPTION("PcgsAutomorphisms", IsSolvableGroup(autGrp), datarec) then
+  if VALUE_PQ_OPTION("PcgsAutomorphisms", 
+                     HasIsSolvableGroup(autGrp) and IsSolvableGroup(autGrp),
+                     datarec) then
     automorphisms := Pcgs( autGrp );
     if automorphisms = fail then
       Error( "option \"PcgsAutomorphisms\" used with insoluble",
@@ -857,25 +859,25 @@ end );
 
 #############################################################################
 ##
-#F  PqPCover( <i> ) . . . . . . . . . . . . user version of p-Q menu option 7
-#F  PqPCover()
+#F  PqComputePCover( <i> ) . . . . . . . .  user version of p-Q menu option 7
+#F  PqComputePCover()
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, direct the `pq' to
 ##  compute the $p$-covering group of `ANUPQData.io[<i>].group'.
 ##
 ##  *Notes*
 ##
-##  The single command: `PqPCover(<i>);' is equivalent to executing
+##  The single command: `PqComputePCover(<i>);' is equivalent to executing
 ##
 ##  \){\kernttindent}PqSetupTablesForNextClass(<i>);
 ##  \){\kernttindent}PqTails(<i>, 0);
 ##  \){\kernttindent}PqDoConsistencyChecks(<i>, 0, 0);
 ##  \){\kernttindent}PqEliminateRedundantGenerators(<i>);
 ##
-##  For those familiar with the `pq' binary, `PqPCover' performs menu item  7
-##  of the main $p$-Quotient menu.
+##  For those familiar with the `pq' binary, `PqComputePCover' performs  menu
+##  item 7 of the main $p$-Quotient menu.
 ##
-InstallGlobalFunction( PqPCover, function( arg )
+InstallGlobalFunction( PqComputePCover, function( arg )
 local datarec;
   ANUPQ_IOINDEX_ARG_CHK(arg);
   datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
