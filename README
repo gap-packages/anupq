@@ -1,8 +1,8 @@
-                         The ANUPQ share package
-                         -----------------------
+                            The ANUPQ package
+                            -----------------
 
-The ANUPQ share package is a GAP4 interface with the  ANU  pq  C  program
-written by Eamonn O'Brien. The  ANU  pq  C  program  provides  access  to
+The ANUPQ package is a GAP4 interface with the ANU pq C  program  written
+by  Eamonn  O'Brien.  The  ANU  pq   C   program   provides   access   to
 implementations of the following algorithms:
 
 1. A p-quotient algorithm to compute a power-commutator presentation  for
@@ -26,12 +26,12 @@ here is described in O'Brien (1994).
 4. An algorithm which can be used to compute the automorphism group of  a
 p-group. The algorithm implemented here is described in O'Brien (1994).
 
-The following section describes  the  installation  of  the  ANUPQ  share
-package. A description of the functions  available  in  the  ANUPQ  share
-package is given in the share package manual in the  doc  directory.  For
-details about the implementation  and  the  standalone  version  see  the
-README and guide.dvi in the standalone-doc directory. As mentioned  above
-the implementation in C was written by
+The following section describes the installation of the ANUPQ package.  A
+description of the functions available in the ANUPQ package is  given  in
+the  package  manual  in  the  doc  directory.  For  details  about   the
+implementation and the standalone version see the README and guide.dvi in
+the standalone-doc directory. As mentioned above the implementation in  C
+was written by
 
 Eamonn O'Brien
 Department of Mathematics
@@ -42,17 +42,18 @@ New Zealand
 
 e-mail: obrien@math.auckland.ac.nz 
 
-                    Obtaining the ANUPQ share package
-                    ---------------------------------
+                       Obtaining the ANUPQ package
+                       ---------------------------
 
-Note that, owing to its C code component, the  ANUPQ  share  package  can
-only be installed under UNIX. It has been tested  on  DECstation  running
-Ultrix, a HP 9000/700 and HP  9000/800  running  HP-UX,  a  MIPS  running
-RISC/os Berkeley, a NeXTstation running NeXTSTEP 3.0, SUNs running  SunOS
-and Intel Pentium based PCs running Linux.
+Note that, owing to its C code component, the ANUPQ package can  only  be
+installed under UNIX. It has been tested on DECstation running Ultrix,  a
+HP 9000/700 and  HP  9000/800  running  HP-UX,  a  MIPS  running  RISC/os
+Berkeley, a NeXTstation running NeXTSTEP  3.0,  SUNs  running  SunOS  and
+Intel Pentium based PCs running Linux.
 
-You can download `anupq.zoo', a `zoo' archive containing the ANUPQ  share
-package from the same places as GAP. The main FTP servers are:
+You can download `anupq-<XXX>.zoo', for some version number <XXX>,  which
+is a `zoo' archive containing the ANUPQ package from the same  places  as
+GAP. The main FTP servers are:
 
 ftp://ftp-gap.dcs.st-and.ac.uk/pub/gap/gap4/share/
 ftp://ftp.math.rwth-aachen.de/pub/gap4/share/
@@ -66,19 +67,19 @@ http://www.math.rwth-aachen.de/~GAP/Info4/share.html
 http://mirrors.ccs.neu.edu/GAP/NEU/Info4/share.html
 http://wwwmaths.anu.edu.au/research.groups/algebra/GAP/www/Info4/share.html
 
-                   Installing the ANUPQ share package
-                   ----------------------------------
+                      Installing the ANUPQ package
+                      ----------------------------
 
-To install the ANUPQ share package, move the file  `anupq.zoo'  into  the
-`pkg' directory in which you plan to install ANUPQ. Usually, this will be
-the directory `pkg' in the hierarchy of your version of GAP 4.  (However,
-it is also possible to keep an additional `pkg' directory in your private
-directories, see section "ref:Installing Share Packages"  of  the  GAP  4
+To install the ANUPQ package, move the file `anupq.zoo'  into  the  `pkg'
+directory in which you plan to install ANUPQ. Usually, this will  be  the
+directory `pkg' in the hierarchy of your version of GAP 4.  (However,  it
+is also possible to keep an additional `pkg' directory  in  your  private
+directories, see section "ref:Installing  GAP  Packages"  of  the  GAP  4
 reference manual for details on how to do this.)
 
-Then unzoo `anupq.zoo' by
+Then unzoo `anupq-<XXX>.zoo' by
 
-  unzoo -x anupq
+  unzoo -x anupq-<XXX>
 
 Change directory to the newly created `anupq' directory. Now you need  to
 call `configure <path>'  where  <path>  is  the  path  to  the  GAP  home
@@ -150,16 +151,25 @@ If you  don't  have  the  *GNU*  multiple  precision  arithmetic  (`gmp')
 installed on your system, not to worry, `gmp'  is  *not  required*;  just
 select an appropriate target without `-gmp'.
 
-           Establishing the ANUPQ share package documentation
-           --------------------------------------------------
+The path of GAP used by the `pq' binary (the value `GAP' is set to in the
+`make' command) may be over-ridden by setting  the  environment  variable
+`ANUPQ_GAP_EXEC'. These values are only of interest when the `pq' program
+is run as a standalone; however, the `testPq' script assumes you have set
+one of these correctly (see Section "Testing your  ANUPQ  installation").
+When the `pq' program is started from GAP  communication  occurs  via  an
+iostream, so that the `pq' binary does not actually need to know a  valid
+path for GAP is this case.
 
-The ANUPQ share package documentation source files are found in the `doc'
+              Establishing the ANUPQ package documentation
+              --------------------------------------------
+
+The ANUPQ package documentation source  files  are  found  in  the  `doc'
 directory. There you should also find  `manual.dvi'.  It  should  not  be
 necessary for you to re-create the documentation. An HTML version of  the
-ANUPQ share package manual  is  provided  in  the  `htm'  directory  with
-initial page `chapters.htm'. If you have deleted the TeX DVI  version  of
-the manual and need to recreate it (and the `.lab' and `.toc'  files  are
-still present) then just do
+ANUPQ package manual is provided in the `htm' directory with initial page
+`chapters.htm'. If you have deleted the TeX DVI version of the manual and
+need to recreate it (and the `.lab' and `.toc' files are  still  present)
+then just do
 
   tex manual
 
@@ -183,158 +193,66 @@ files). Although the `.six' file  is  re-generated  each  time  `tex'  or
 provides the ``section index'' used by the on-line help.  You  must  also
 keep the `.ind' file; there is no way to re-generate it if it is removed.
 
-              Testing the ANUPQ share package installation
-              --------------------------------------------
+                 Testing the ANUPQ package installation
+                 --------------------------------------
 
-Now it is time to test the installation. The first test  only  tests  the
-ANU pq binary.
+Now it is time to test the  installation.  After  doing  `configure'  and
+`make' you will have a `testPq' script. The script assumes that,  if  the
+environment variable `ANUPQ_GAP_EXEC' is set, it is a  correct  path  for
+GAP, or otherwise that the `make' call that compiled the `pq' program set
+`GAP' to a correct path for GAP (see Section "Running the pq program as a
+standalone" in the ANUPQ package manual for more  details).  To  run  the
+tests, just type:
 
-    me@mypc > cd ../..
-    me@mypc > bin/i686-pc-linux-gnu-gcc/pq < gap/tst/test1.pga
-    # a lot of messages ending in
-    **************************************************
-    Starting group: c3c3 # 2;2 # 4;3
-    Order: 3^7
-    Nuclear rank: 3
-    3-multiplicator rank: 4
-    # of immediate descendants of order 3^8 is 7
-    # of capable immediate descendants is 5
+  testPq
 
-    **************************************************
-    34 capable groups saved on file c3c3_class4
-    Construction of descendants took 1.92 seconds
+Some of the tests the script runs take a while. Please  be  patient.  The
+output you see should be something like the following:
 
-    Select option: 0 
-    Exiting from p-group generation
+  Made dir: /tmp/testPq
+  Testing the pq binary ... OK.
+  Testing the pq binary's stack size ... OK.
+  Checking GAP ...
+   pq binary made with GAP set to: /home/rigel/gregg/bin/gap-dev
+   Starting GAP to determine version and package availability ...
+    GAP version (4.dev) ... OK.
+    GAP has ANUPQ package (>= v 1.1) installed ... good.
+    GAP has AutPGrp package installed ... good.
+   GAP is OK.
+  Checking the link between the pq binary and GAP ... OK.
+  Testing the standard presentation part of the pq binary ... OK.
+  Doing p-group generation (final GAP/ANUPQ) test ... OK.
+  Tests complete.
+  Removed dir: /tmp/testPq
+  Enjoy using your functional ANUPQ package!
 
-    Select option: 0 
-    Exiting from ANU p-Quotient Program
-    Total user time in seconds is 1.97
-    me@mypc > ls -l c3c3*
-    total 89
-    -rw-r--r--    1 gap    3320 Jun 24 11:24 c3c3_class2
-    -rw-r--r--    1 gap    5912 Jun 24 11:24 c3c3_class3
-    -rw-r--r--    1 gap   56184 Jun 24 11:24 c3c3_class4
-    me@mypc > rm c3c3_class*
+                               Bug reports
+                               -----------
 
-The second test tests the stacksize. If it is too small you  will  get  a
-memory fault.
+If you encounter problems with the `pq' binary, please contact the C code
+author: Eamonn O'Brien <obrien@math.auckland.ac.nz>.
 
-    me@mypc > bin/i686-pc-linux-gnu-gcc/pq < gap/tst/test2.pga
-    # a lot of messages ending in
-    **************************************************
-    Starting group: c2c2 # 1;1 # 1;1 # 1;1
-    Order: 2^5
-    Nuclear rank: 1
-    2-multiplicator rank: 3
-    Group c2c2 # 1;1 # 1;1 # 1;1 is an invalid starting group
+If you encounter problems at the GAP level, please  contact  one  of  the
+ANUPQ package  authors:  Greg  Gamble  <gregg@csee.uq.edu.au>  or  Werner
+Nickel <nickel@mathematik.tu-darmstadt.de>.
 
-    **************************************************
-    Starting group: c2c2 # 2;1 # 1;1 # 1;1
-    Order: 2^5
-    Nuclear rank: 1
-    2-multiplicator rank: 3
-    Group c2c2 # 2;1 # 1;1 # 1;1 is an invalid starting group
-    Construction of descendants took 0.47 seconds
+When sending a bug report, remember we will need to be able to  reproduce
+the problem; so please include:
 
-    Select option: 0 
-    Exiting from p-group generation
+ * The version of GAP you are using; either look at  the  header  when
+   you start up GAP, or at the gap> prompt type: VERSION;
+ * The operating system you are using e.g. Linux, SunOS 5.8 =  Solaris
+   2.8, IRIX 6.5, ...
+ * The compiler you used to compile `pq' and  the  options  you  used.
+   Type: gcc -v or: cc -version, and  look  in  src/Makefile  for  the
+   value of CC to find out.
+ * A script, either in GAP or standalone `pq', that  demonstrates  the
+   bug, along with a description of why it's a  bug  (e.g.  by  adding
+   comments  to  the  script  -  recall,  comments,  both  in  GAP  or
+   standalone `pq', begin with a #).
 
-    Select option: 0 
-    Exiting from ANU p-Quotient Program
-    Total user time in seconds is 0.50
-    me@mypc:../anupq > ls -l c2c2*
-    total 45
-    -rw-r--r--    1 gap   6228 Jun 24 11:25 c2c2_class2
-    -rw-r--r--    1 gap  11156 Jun 24 11:25 c2c2_class3
-    -rw-r--r--    1 gap   2248 Jun 24 11:25 c2c2_class4
-    -rw-r--r--    1 gap      0 Jun 24 11:25 c2c2_class5
-    me@mypc > rm c2c2_class*
+  - Greg Gamble 
+    e-mail: gregg@csee.uq.edu.au
+    www:    http://www.csee.uq.edu.au/~gregg
+  -- 9 October, 2001.
 
-The third example tests the link between the ANU pq binary  and  GAP.  If
-there is a problem you will get a error message saying `Error  in  system
-call  to  GAP';  if  this  happens,  check   the   environment   variable
-`ANUPQ_GAP_EXEC'.
-
-    me@mypc > bin/i686-pc-linux-gnu-gcc/pq < gap/tst/test3.pga
-    [..messages from the ANU pq..]
-    **************************************************
-    Starting group: c5c5 # 1;1 # 1;1
-    Order: 5^4
-    Nuclear rank: 1
-    5-multiplicator rank: 2
-    # of immediate descendants of order 5^5 is 2
-
-    **************************************************
-    Starting group: c5c5 # 1;1 # 2;2
-    Order: 5^5
-    Nuclear rank: 3
-    5-multiplicator rank: 3
-    # of immediate descendants of order 5^6 is 3
-    # of immediate descendants of order 5^7 is 3
-    # of capable immediate descendants is 1
-    # of immediate descendants of order 5^8 is 1
-    # of capable immediate descendants is 1
-
-    **************************************************
-    2 capable groups saved on file c5c5_class4
-
-    **************************************************
-    Starting group: c5c5 # 1;1 # 2;2 # 4;2
-    Order: 5^7
-    Nuclear rank: 1
-    5-multiplicator rank: 2
-    # of immediate descendants of order 5^8 is 2
-    # of capable immediate descendants is 2
-
-    **************************************************
-    Starting group: c5c5 # 1;1 # 2;2 # 7;3
-    Order: 5^8
-    Nuclear rank: 2
-    # of immediate descendants of order 5^9 is 1
-    # of capable immediate descendants is 1
-    # of immediate descendants of order 5^10 is 1
-    # of capable immediate descendants is 1
-
-    **************************************************
-    4 capable groups saved on file c5c5_class5
-    Construction of descendants took 0.62 seconds
-
-    Select option: 0 
-    Exiting from p-group generation
-
-    Select option: 0 
-    Exiting from ANU p-Quotient Program
-    Total user time in seconds is 0.68
-    me@mypc > ls -l c5c5*
-    total 41
-    -rw-r--r--    1 gap     924 Jun 24 11:27 c5c5_class2
-    -rw-r--r--    1 gap    2220 Jun 24 11:28 c5c5_class3
-    -rw-r--r--    1 gap    3192 Jun 24 11:30 c5c5_class4
-    -rw-r--r--    1 gap    7476 Jun 24 11:32 c5c5_class5
-    me@mypc > rm c5c5_class*
-
-The fourth test tests the  standard  presentation  part  of  the  ANU  pq
-binary.
-
-    me@mypc > bin/pq -i -k < gap/tst/test4.sp
-    [..messages from the ANU pq binary..]
-    Computing standard presentation for class 5 took 0.03 seconds
-
-    Select option: 0 
-    Exiting from ANU p-Quotient Program
-    Total user time in seconds is 6.97
-    me@mypc > ls -l SPRES
-    -rw-r--r--    1 me   mygroup        488 Mar 27 11:40 SPRES
-    me@mypc > diff SPRES gap/out4.sp
-    # there should be no difference if compiled with '-gmp'
-    156250000
-    me@mypc > rm SPRES
-
-The last test tests the link between  GAP  and  the  ANU  pq  binary.  If
-everything goes well you should not see any message.
-
-    me@mypc > gap -b
-    gap> RequirePackage( "anupq" );
-    gap> ReadTest( "gap/tst/anupga.tst" );
-    gap>
