@@ -597,6 +597,90 @@ binary to set up tables for the next class.
 For those familiar  with  the  `pq'  binary,  `PqSetupTablesForNextClass'
 performs option 6 of the Advanced $p$-Quotient menu.
 
+\>PqAddTails( <i>, <weight> ) F
+\>PqAddTails( <weight> ) F
+
+for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+binary to add tails of weight <weight>, where <weight> is an integer.
+
+*Note:*
+For those familiar with the `pq' binary, `PqAddTails' uses  option  7  of
+the Advanced $p$-Quotient menu.
+
+\>PqComputeTails( <i>, <weight> ) F
+\>PqComputeTails( <weight> ) F
+
+for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+binary to compute tails of weight <weight>, where <weight> is an integer.
+
+*Note:*
+For those familiar with the `pq' binary, `PqComputeTails' uses  option  7
+of the Advanced $p$-Quotient menu.
+
+\>PqTails( <i>, <weight> ) F
+\>PqTails( <weight> ) F
+
+for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+binary to compute and add tails of weight <weight>, where <weight> is  an
+integer.
+
+*Note:*
+For those familiar with the `pq' binary, `PqTails' uses option 7  of  the
+Advanced $p$-Quotient menu.
+
+\>PqDoConsistencyChecks(<i>,<weight>,<type>) F
+\>PqDoConsistencyChecks( <weight>, <type> ) F
+
+for the <i>th or default interactive  {\ANUPQ}  process,  do  consistency
+checks of type <type> for weight <weight>; <type> should be an integer in
+`[0,1,2,3]' (`0' means do  *all*  checks),  and  <weight>  should  be  an
+integer in `[0 .. <class>]' where <class> is the maximum class.
+
+*Note:*
+For those familiar with the `pq' binary, `PqDoConsistencyChecks' performs
+option 8 of the Advanced $p$-Quotient menu.
+
+\>PqCollectDefiningRelations( <i> ) F
+\>PqCollectDefiningRelations() F
+
+for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+binary to collect defining relations.
+
+*Note:*
+For those familiar with  the  `pq'  binary,  `PqCollectDefiningRelations'
+performs option 9 of the Advanced $p$-Quotient menu.
+
+\>PqDoExponentChecks( <i>, <w1>, <w2> ) F
+\>PqDoExponentChecks( <w1>, <w2> ) F
+
+for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+binary to do exponent checks between weights <w1> and <w2>, where $0  \le
+<w1> \< <w2> \le <class>$ and <class> is the maximum class.
+
+*Note:*
+For those familiar with the `pq'  binary,  `PqDoExponentChecks'  performs
+option 10 of the Advanced $p$-Quotient menu.
+
+\>PqEliminateRedundantGenerators( <i> ) F
+\>PqEliminateRedundantGenerators() F
+
+for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+binary to eliminate redundant generators.
+
+*Note:* 
+For those familiar with the `pq' binary, `PqEliminateRedundantGenerators'
+performs option 11 of the Advanced $p$-Quotient menu.
+
+\>PqEchelonise( <i> ) F
+\>PqEchelonise() F
+
+for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+binary to echelonise.
+
+*Note:*
+For those familiar with the `pq' binary, `PqEchelonise'  performs  option
+17 of the Advanced $p$-Quotient menu.
+
 \>PqSupplyAutomorphisms( <i>, <mlist> ) F
 \>PqSupplyAutomorphisms( <mlist> ) F
 
@@ -620,6 +704,16 @@ for the <i>th or default interactive {\ANUPQ} process, inputs data to the
 *Note:*
 For those familiar with the  `pq'  binary,  `PqExtendAutomorphisms'  uses
 option 18 of the Advanced $p$-Quotient menu.
+
+\>PqApplyAutomorphisms( <i>, <qfac> ) F
+\>PqApplyAutomorphisms( <qfac> ) F
+
+for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+binary to apply automorphisms; <qfac> is the queue factor e.g. `15'.
+
+*Note:* 
+For those familiar with  the  `pq'  binary,  `PqCloseRelations'  performs
+option 19 of the Advanced $p$-Quotient menu.
 
 \>PqWritePcPresentation( <i>, <outfile> ) F
 \>PqWritePcPresentation( <outfile> ) F
