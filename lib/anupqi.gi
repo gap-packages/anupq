@@ -65,7 +65,7 @@ local autGrp, rank, automorphisms, gens, i, j, aut, g, exponents;
   if VALUE_PQ_OPTION("PcgsAutomorphisms", 
                      HasIsSolvableGroup(autGrp) and IsSolvableGroup(autGrp),
                      datarec) then
-    automorphisms := Pcgs( autGrp );
+    automorphisms := GeneralizedPcgs( autGrp );
     if automorphisms = fail then
       Error( "option \"PcgsAutomorphisms\" used with insoluble",
              "automorphism group\n" );

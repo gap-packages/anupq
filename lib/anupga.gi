@@ -14,6 +14,9 @@
 #Y  Copyright 1992-1994,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.3  2002/10/31 13:56:38  werner
+#H  Adjust to changes in autpgrp (GeneralizedPcgs)
+#H
 #H  Revision 1.2  2002/03/25 15:16:25  gap
 #H  Added `PqDescendantsTreeCoclassOne' and supporting changes. - GG
 #H
@@ -473,7 +476,7 @@ function( G )
     SetIsFinite( A, true );
 
     if ANUPQAutomorphisms(G).isSoluble then 
-        SetPcgs( A, automs );
+        SetGeneralizedPcgs( A, automs );
         SetIsSolvableGroup( A, true );
     fi;
 
