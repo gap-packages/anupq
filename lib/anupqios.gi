@@ -25,7 +25,7 @@ Revision.anupqios_gi :=
 ##  a positive integer), and `stream' (the io or file stream opened).
 ##
 InstallGlobalFunction(PQ_START, function( workspace, setupfile )
-local opts, iorec;
+local opts, iorec, topqlogfile;
   PrintTo(ANUPQData.SPimages, ""); #to ensure it's empty
   if setupfile = fail then
     opts := [ "-G" ];
@@ -50,9 +50,9 @@ local opts, iorec;
   else
     iorec.stream := OutputTextFile(setupfile, false);
     iorec.setupfile := setupfile;
-    ToPQk(iorec, [ "#call pq with flags: '",
-                   JoinStringsWithSeparator(opts, " "),
-                   "'" ]);
+    ToPQk(iorec, [], [ "#call pq with flags: '",
+                       JoinStringsWithSeparator(opts, " "),
+                       "'" ]);
   fi;
   return iorec;
 end );
@@ -302,24 +302,26 @@ local datarec, newmenu, nextmenu, tomenu, infolev;
       if PQ_MENUS.(datarec.menu).depth >= PQ_MENUS.(newmenu).depth then
         datarec.menu := PQ_MENUS.(datarec.menu).prev;
         tomenu := PQ_MENUS.(datarec.menu).name;
-        ToPQk(datarec, [ 0 , "  #to ", tomenu]);
+        ToPQk(datarec, [ 0 ], [ "  #to ", tomenu]);
         infolev := 5;
       elif datarec.menu = "pQ" and newmenu = "ApQ" then
         datarec.menu := "ApQ";
         tomenu := PQ_MENUS.(datarec.menu).name;
-        ToPQk(datarec, [ PQ_MENUS.pQ.nextopt.ApQ, "  #to ", tomenu ]);
+        ToPQk(datarec, [ PQ_MENUS.pQ.nextopt.ApQ ], [ "  #to ", tomenu ]);
         infolev := 6;
       else
         nextmenu := RecNames( PQ_MENUS.(datarec.menu).nextopt )[1];
         tomenu := PQ_MENUS.(nextmenu).name;
-        ToPQk(datarec, [ PQ_MENUS.(datarec.menu).nextopt.(nextmenu),
-                         "  #to ", tomenu ]);
+        ToPQk(datarec, [ PQ_MENUS.(datarec.menu).nextopt.(nextmenu) ],
+                       [ "  #to ", tomenu ]);
         datarec.menu := nextmenu;
         infolev := 6;
       fi;
       # menus are flushed at InfoANUPQ level 6, prompts at level 5
-      FLUSH_PQ_STREAM_UNTIL(datarec.stream, infolev, 5, PQ_READ_NEXT_LINE,
-                            IS_PQ_PROMPT);
+      if not IsBound(datarec.setupfile) then
+        FLUSH_PQ_STREAM_UNTIL(datarec.stream, infolev, 5, PQ_READ_NEXT_LINE,
+                              IS_PQ_PROMPT);
+      fi;
     od;
   fi;
   return datarec.menu;
@@ -421,6 +423,17 @@ end);
 
 #############################################################################
 ##
+#V  PQ_ERROR_EXIT_MESSAGES . . . error messages emitted by the pq before exit
+##
+##  A list of the error messages the `pq' emits just before exiting.
+##
+InstallValue(PQ_ERROR_EXIT_MESSAGES,
+  [ "Evaluation in compute_degree may cause integer overflow",
+    "A relation is too long -- increase the value of MAXWORD",
+    "Ran out of space during computation" ]);
+
+#############################################################################
+##
 #F  FILTER_PQ_STREAM_UNTIL_PROMPT( <datarec> )
 ##
 ##  reads `pq' output from `<datarec>.stream' until a `pq' prompt and `Info's
@@ -469,6 +482,12 @@ local match, filter, lowlev, ctimelev;
       Info( InfoANUPQ, 5,        Chomp(datarec.line) );
     elif PositionSublist(datarec.line, " saved on file") <> fail then
       Info( InfoANUPQ, ctimelev, Chomp(datarec.line) );
+    elif ForAny( PQ_ERROR_EXIT_MESSAGES,
+                 s -> IsMatchingSublist(datarec.line, s) ) then
+      Info( InfoANUPQ + InfoWarning, 1, 
+            "pq program will exit, having detected ",
+            "the following error condition ..." );
+      Info( InfoANUPQ + InfoWarning, 1, Chomp(datarec.line) );
     else
       Info( InfoANUPQ, lowlev,   Chomp(datarec.line) );
     fi;
@@ -488,28 +507,88 @@ end);
 
 #############################################################################
 ##
-#F  ToPQk( <datarec>, <list> ) . . . . . . . . . writes a list to a pq stream
+#F  ToPQk( <datarec>, <cmd>, <comment> ) . . . . . . .  writes to a pq stream
 ##
-##  writes list <list> to iostream `<datarec>.stream' and `Info's  <list>  at
-##  `InfoANUPQ' level 3 after a ```ToPQ> ''' prompt, and  returns  `true'  if
-##  successful and `fail' otherwise. The ``k'' at the  end  of  the  function
-##  name is mnemonic for ``keyword'' (for  ``keyword''  inputs  to  the  `pq'
-##  binary one never wants to flush output).
+##  writes  <cmd>  (and  <comment>,   in   setup   file   case)   to   stream
+##  `<datarec>.stream' and `Info's <cmd> and <comment> at `InfoANUPQ' level 3
+##  after a ```ToPQ> ''' prompt, and returns `true' if successful and  `fail'
+##  otherwise. The ``k'' at the end of the  function  name  is  mnemonic  for
+##  ``keyword'' (for ``keyword'' inputs to the `pq' binary one never wants to
+##  flush output).
 ##
-InstallGlobalFunction(ToPQk, function(datarec, list)
-local string, ok;
+InstallGlobalFunction(ToPQk, function(datarec, cmd, comment)
+local ok;
 
   if not IsOutputTextStream(datarec.stream) and 
      IsEndOfStream(datarec.stream) then
     Error("sorry! Process stream has died!\n");
   fi;
-  string := Concatenation( List(list, String) );
-  Info(InfoANUPQ, 4, "ToPQ> ", string);
-  ok := WriteLine(datarec.stream, string);
+  # We add a null string in case <cmd> or <comment> is []
+  # ... so that `Concatenation( List(., String) );' statements return strings
+  Add(cmd, "");
+  Add(comment, "");
+  cmd     := Concatenation( List(cmd, String) );
+  comment := Concatenation( List(comment, String) );
+  Info(InfoANUPQ, 4, "ToPQ> ", cmd, comment);
+  if IsBound( datarec.setupfile) then
+    ok := WriteLine(datarec.stream, Concatenation(cmd, comment));
+  else
+    ok := WriteLine(datarec.stream, cmd);
+    if IsBound( ANUPQData.topqlogfile ) then
+      WriteLine(ANUPQData.logstream, Concatenation(cmd, comment));
+    fi;
+  fi;
   if ok = fail then
     Error("write to stream failed\n");
   fi;
   return ok;
+end);
+
+#############################################################################
+##
+#F  ToPQ(<datarec>, <cmd>, <comment>) . .  write to pq (& for iostream flush)
+##
+##  calls `ToPQk' to write <cmd> (and  <comment>,  in  setup  file  case)  to
+##  stream `<datarec>.stream' and `Info' <cmd> and <comment>  at  `InfoANUPQ'
+##  level 3 after a ```ToPQ> ''' prompt, and then, if we are not just writing
+##  a setup file (determined by  checking  whether  `<datarec>.setupfile'  is
+##  bound), calls `FILTER_PQ_STREAM_UNTIL_PROMPT' to filter lines  to  `Info'
+##  at the various `InfoANUPQ' levels. If we are not writing a setup file the
+##  last line flushed is saved in `<datarec>.line'.
+##
+InstallGlobalFunction(ToPQ, function(datarec, cmd, comment)
+  ToPQk(datarec, cmd, comment);
+  if not IsBound( datarec.setupfile ) then
+    FILTER_PQ_STREAM_UNTIL_PROMPT(datarec);
+  
+    while ANUPQData.linetype = "request" do
+      HideGlobalVariables( "ANUPQglb", "F", "gens", "relativeOrders",
+                           "ANUPQsize", "ANUPQagsize" );
+      Read( Filename( ANUPQData.tmpdir, "GAP_input" ) );
+      Read( Filename( ANUPQData.tmpdir, "GAP_rep" ) );
+      UnhideGlobalVariables( "ANUPQglb", "F", "gens", "relativeOrders",
+                             "ANUPQsize", "ANUPQagsize" );
+      ToPQk( datarec, [ "pq, stabiliser is ready!" ], [] );
+      FILTER_PQ_STREAM_UNTIL_PROMPT(datarec);
+    od;
+  fi;
+end);
+
+#############################################################################
+##
+#F  ToPQ_BOOL( <datarec>, <optval>, <comment> ) . . . .  pass a boolean to pq
+##    
+##  converts a {\GAP} boolean  <optval>  to  a  C  boolean  and  appends  the
+##  appropriate adjustment to the string <comment> before calling `ToPQ'  (we
+##  assume that <optval> is boolean ... `VALUE_PQ_OPTION' should already have
+##  checked that).
+##
+InstallGlobalFunction( ToPQ_BOOL, function( datarec, optval, comment )
+  if optval = true then
+    ToPQ( datarec, [ 1 ], [ "  #do ", comment ] );
+  else
+    ToPQ( datarec, [ 0 ], [ "  #do not ", comment ] );
+  fi;
 end);
 
 #############################################################################
@@ -629,39 +708,9 @@ local ioIndex, line;
 
   if Length(arg) in [1, 2] then
     ioIndex := ANUPQ_IOINDEX(arg{[1..Length(arg) - 1]});
-    return ToPQk( ANUPQData.io[ioIndex], arg{[Length(arg)..Length(arg)]} );
+    return ToPQk( ANUPQData.io[ioIndex], arg{[Length(arg)..Length(arg)]}, [] );
   else
     Error("expected 1 or 2 arguments ... not ", Length(arg), " arguments\n");
-  fi;
-end);
-
-#############################################################################
-##
-#F  ToPQ(<datarec>, <list>) .  write list to pq stream (& for iostream flush)
-##
-##  calls `ToPQk' to write list <list>  to  iostream  `<datarec>.stream'  and
-##  `Info' <list> at `InfoANUPQ' level 3 after a  ```ToPQ>  '''  prompt,  and
-##  then, if we are not just writing a setup  file  (determined  by  checking
-##  whether       `<datarec>.setupfile'        is        bound),        calls
-##  `FILTER_PQ_STREAM_UNTIL_PROMPT' to filter lines to `Info' at the  various
-##  `InfoANUPQ' levels. If we are not writing a  setup  file  the  last  line
-##  flushed is saved in `<datarec>.line'.
-##
-InstallGlobalFunction(ToPQ, function(datarec, list)
-  ToPQk(datarec, list);
-  if not IsBound( datarec.setupfile ) then
-    FILTER_PQ_STREAM_UNTIL_PROMPT(datarec);
-  
-    while ANUPQData.linetype = "request" do
-      HideGlobalVariables( "ANUPQglb", "F", "gens", "relativeOrders",
-                           "ANUPQsize", "ANUPQagsize" );
-      Read( Filename( ANUPQData.tmpdir, "GAP_input" ) );
-      Read( Filename( ANUPQData.tmpdir, "GAP_rep" ) );
-      UnhideGlobalVariables( "ANUPQglb", "F", "gens", "relativeOrders",
-                             "ANUPQsize", "ANUPQagsize" );
-      ToPQk( datarec, [ "pq, stabiliser is ready!" ] );
-      FILTER_PQ_STREAM_UNTIL_PROMPT(datarec);
-    od;
   fi;
 end);
 
@@ -747,7 +796,7 @@ end );
 InstallGlobalFunction(PQ_COMPLETE_NONINTERACTIVE_FUNC_CALL, function(datarec)
   if IsBound( datarec.setupfile ) then
     PQ_MENU(datarec, "SP");
-    ToPQk(datarec, [ "0  #exit program" ]);
+    ToPQk(datarec, [ 0 ], [ "  #exit program" ]);
   fi;
   CloseStream(datarec.stream);
 
@@ -758,5 +807,34 @@ InstallGlobalFunction(PQ_COMPLETE_NONINTERACTIVE_FUNC_CALL, function(datarec)
                        datarec.outfname, "'.");
   fi;
 end );
+
+#############################################################################
+##
+#F  ToPQLog([<filename>]) . . . . . . log or stop logging pq commands to file
+##
+##  With string argument <filename>,  `ToPQLog'  opens  the  file  with  name
+##  <filename> for logging; all commands written to the `pq' binary (that are
+##  `Info'-ed behind a ```ToPQ> ''' prompt at `InfoANUPQ' level 4)  are  then
+##  also written to that  file  (but  without  prompts).  With  no  argument,
+##  `ToPQLog' stops logging to whatever file was being logged to. If  a  file
+##  was already being logged to, that file is closed and the file  with  name
+##  <filename> is opened for logging.
+##
+InstallGlobalFunction(ToPQLog, function(arg)
+  if not( IsEmpty(arg) or IsString( arg[1] ) ) then
+    Error( "expected no arguments or one string argument\n" );
+  fi;
+  if IsBound(ANUPQData.topqlogfile) then
+    CloseStream(ANUPQData.logstream);
+    PQ_UNBIND(ANUPQData, ["topqlogfile", "logstream"]);
+  elif IsEmpty(arg) then
+    Info(InfoANUPQ + InfoWarning, 1, "No file currently being logged to.");
+    return;
+  fi;
+  if not( IsEmpty(arg) ) and IsString(arg[1]) then
+    ANUPQData.topqlogfile := arg[1];
+    ANUPQData.logstream := OutputTextFile(ANUPQData.topqlogfile, false);
+  fi;
+end);
 
 #E  anupqios.gi . . . . . . . . . . . . . . . . . . . . . . . . . . ends here 

@@ -77,15 +77,15 @@ local autGrp, rank, automorphisms, gens, i, j, aut, g, exponents;
 
   rank := RankPGroup( G );
   gens := PcgsPCentralSeriesPGroup( G );
-  ToPQ(datarec, [ Length(automorphisms), "  #number of automorphisms" ]);
+  ToPQ(datarec, [ Length(automorphisms) ], [ "  #number of automorphisms" ]);
   for i in [1..Length(automorphisms)] do
     aut := automorphisms[i];
     for j in [1..rank] do
       g := gens[j];
       exponents := Flat( List( ExponentsOfPcElement( gens, Image( aut, g ) ),
                                e -> [ String(e), " "] ) );
-      ToPQ(datarec, 
-           [ exponents, " #gen'r exp'ts of im(aut ", i, ", gen ", j, ")" ]);
+      ToPQ(datarec, [ exponents ],
+                    [ " #gen'r exp'ts of im(aut ", i, ", gen ", j, ")" ]);
     od;
   od;
 end );
@@ -101,17 +101,17 @@ InstallGlobalFunction( PQ_MANUAL_AUT_INPUT, function( datarec, mlist )
 local line, nauts, rank, nexpts, i, j, aut, exponents;
   nauts  := Length(mlist);
   rank   := Length(mlist[1]);
-  ToPQ(datarec, [ nauts,  "  #no. of auts" ]);
+  ToPQ(datarec, [ nauts ], [ "  #no. of auts" ]);
   if datarec.line = "Input the number of exponents: " then
     nexpts := Length(mlist[1][1]);
-    ToPQ(datarec, [ nexpts, "  #no. of exponents" ]);
+    ToPQ(datarec, [ nexpts ], [ "  #no. of exponents" ]);
   fi;
   for i in [1..nauts] do
     aut := mlist[i];
     for j in [1..rank] do
       exponents := Flat( List( aut[j], e -> [ String(e), " "] ) );
-      ToPQ(datarec, 
-           [ exponents, " #gen'r exp'ts of im(aut ", i, ", gen ", j, ")" ]);
+      ToPQ(datarec, [ exponents ], 
+                    [ " #gen'r exp'ts of im(aut ", i, ", gen ", j, ")" ]);
     od;
   od;
 end );
@@ -183,25 +183,25 @@ local gens, rels, p, fpgrp, identities, pcgs, len, strp, i, j, Rel, line;
                 VALUE_PQ_OPTION("Identities", [], datarec) <> [];
 
   # Option 1 of p-Quotient/Standard Presentation Menu: defining the group
-  ToPQk(datarec, ["1  #define group"]);
+  ToPQk(datarec, [1], ["  #define group"]);
   if VALUE_PQ_OPTION("GroupName", "<grp>", datarec) = "<grp>" and
      IsBound(datarec.group) and IsBound(datarec.group!.Name) then
     datarec.GroupName := datarec.group!.Name;
   fi;
-  ToPQk(datarec, ["name ",     datarec.GroupName]);
-  ToPQk(datarec, ["prime ",    p]);
+  ToPQk(datarec, ["name ",  datarec.GroupName], []);
+  ToPQk(datarec, ["prime ", p], []);
   if identities then
     datarec.prevngens := 0;
-    ToPQk(datarec, ["class ",  1]);
+    ToPQk(datarec, ["class ", 1], []);
   else
-    ToPQk(datarec, ["class ",  VALUE_PQ_OPTION("ClassBound", 63, datarec)]);
+    ToPQk(datarec, ["class ", VALUE_PQ_OPTION("ClassBound", 63, datarec)], []);
   fi;
-  ToPQk(datarec, ["exponent ", VALUE_PQ_OPTION("Exponent", 0, datarec)]);
+  ToPQk(datarec, ["exponent ", VALUE_PQ_OPTION("Exponent", 0, datarec)], []);
                                              # "Exponent" is a `global' option
   if VALUE_PQ_OPTION( "Metabelian", false, datarec ) = true then
-    ToPQk(datarec, [ "metabelian" ]);
+    ToPQk(datarec, [ "metabelian" ], []);
   fi;
-  ToPQk(datarec, ["output ", VALUE_PQ_OPTION("OutputLevel", 0, datarec)]);
+  ToPQk(datarec, ["output ", VALUE_PQ_OPTION("OutputLevel", 0, datarec)], []);
 
   if IsFpGroup(datarec.group) then
     gens := List( FreeGeneratorsOfFpGroup(datarec.group), String );
@@ -258,18 +258,18 @@ local gens, rels, p, fpgrp, identities, pcgs, len, strp, i, j, Rel, line;
   fi;
   datarec.gens := gens;
   datarec.rels := rels;
-  ToPQk(datarec, ["generators { ", JoinStringsWithSeparator( gens ), " }"]);
+  ToPQk(datarec, ["generators { ", JoinStringsWithSeparator( gens ), " }"], []);
   # pq is intolerant of long lines and integers that are split over lines
   rels := Concatenation(
               "relators   { ", JoinStringsWithSeparator( rels, ", " ), " };");
   while Length(rels) >= 69 do
     i := 68;
     while not (rels[i] in "*^, ") do i := i - 1; od;
-    ToPQk(datarec, [ rels{[1 .. i]} ]);
+    ToPQk(datarec, [ rels{[1 .. i]} ], []);
     rels := Concatenation( "  ", rels{[i + 1 .. Length(rels)]} );
   od;
   datarec.match := true;
-  ToPQ(datarec, [ rels ]);
+  ToPQ(datarec, [ rels ], []);
   datarec.haspcp := true;
   PQ_SET_GRP_DATA(datarec);
   if identities and datarec.ngens[1] <> 0 then
@@ -325,9 +325,9 @@ end );
 ##
 InstallGlobalFunction( PQ_SAVE_PC_PRESENTATION, function( datarec, filename )
   PQ_MENU(datarec, "pQ");
-  ToPQ(datarec, [ "2  #save pc presentation to file" ]);
+  ToPQ(datarec, [ 2 ], [ "  #save pc presentation to file" ]);
   datarec.filter := ["Presentation"];
-  ToPQ(datarec, [ filename, "  #filename" ]);
+  ToPQ(datarec, [ filename ], [ "  #filename" ]);
   Unbind(datarec.filter);
 end );
 
@@ -354,14 +354,14 @@ end );
 
 #############################################################################
 ##
-#F  PQ_CHK_PATH(<filename>, <rw>) . add curr dir path if nec. & check file ok
+#F  PQ_CHK_PATH(<filename>, <rw>, <datarec>) . . . . . . .  check/add to path
 ##
 ##  checks <filename> is a non-empty string, if it doesn't begin with  a  `/'
 ##  prepends a path for the current directory, and checks the result  is  the
 ##  name of a readable (resp. writable) if <rw> is `"r"' (resp.  if  <rw>  is
 ##  `"w"') and if there is no error returns the result.
 ##
-InstallGlobalFunction( PQ_CHK_PATH, function( filename, rw )
+InstallGlobalFunction( PQ_CHK_PATH, function( filename, rw, datarec )
   if not IsString(filename) or filename = "" then
     Error( "argument <filename> must be a non-empty string\n" );
   fi;
@@ -374,8 +374,10 @@ InstallGlobalFunction( PQ_CHK_PATH, function( filename, rw )
       Error( "file with name <filename> is not readable\n" );
     fi;
   else # rw = "w"
-    PrintTo(filename, ""); # This is what will generate the error
-                           # but it also ensures it's empty
+    if not IsBound(datarec.setupfile) then
+      PrintTo(filename, ""); # This is what will generate the error
+                             # but it also ensures it's empty
+    fi;
     if IsWritableFile(filename) <> true then
       Error( "file with name <filename> cannot be written to\n" );
     fi;
@@ -404,9 +406,8 @@ local datarec, filename;
   if 0 = Length(arg) or Length(arg) > 2 then
     Error( "expected 1 or 2 arguments\n" );
   fi;
-  filename := PQ_CHK_PATH( arg[Length(arg)], "w" );
-  arg := arg{[1..Length(arg) - 1]};
-  datarec := CallFuncList(ANUPQDataRecord, arg);
+  datarec := CallFuncList(ANUPQDataRecord, arg{[1..Length(arg) - 1]});
+  filename := PQ_CHK_PATH( arg[Length(arg)], "w", datarec );
   PQ_SAVE_PC_PRESENTATION( datarec, filename );
 end );
 
@@ -419,9 +420,9 @@ end );
 ##
 InstallGlobalFunction( PQ_RESTORE_PC_PRESENTATION, function( datarec, filename )
   PQ_MENU(datarec, "pQ");
-  ToPQ(datarec, [ "3  #restore pc presentation from file" ]);
+  ToPQ(datarec, [ 3 ], [ "  #restore pc presentation from file" ]);
   datarec.match := true;
-  ToPQ(datarec, [ filename, "  #filename" ]);
+  ToPQ(datarec, [ filename ], [ "  #filename" ]);
   datarec.haspcp := true;
   PQ_SET_GRP_DATA(datarec);
 end );
@@ -447,9 +448,8 @@ local datarec, filename;
   if 0 = Length(arg) or Length(arg) > 2 then
     Error( "expected 1 or 2 arguments\n" );
   fi;
-  filename := PQ_CHK_PATH( arg[Length(arg)], "r" );
-  arg := arg{[1..Length(arg) - 1]};
-  datarec := CallFuncList(ANUPQDataRecord, arg);
+  datarec := CallFuncList(ANUPQDataRecord, arg{[1..Length(arg) - 1]});
+  filename := PQ_CHK_PATH( arg[Length(arg)], "r", datarec );
   PQ_RESTORE_PC_PRESENTATION( datarec, filename );
 end );
 
@@ -465,7 +465,7 @@ InstallGlobalFunction( PQ_DISPLAY_PRESENTATION, function( datarec )
      VALUE_PQ_OPTION("OutputLevel", datarec) <> fail then
     PQ_SET_OUTPUT_LEVEL( datarec, datarec.OutputLevel );
   fi;
-  ToPQ(datarec, [ "4  #display presentation" ]);
+  ToPQ(datarec, [ 4 ], [ "  #display presentation" ]);
 end );
 
 #############################################################################
@@ -499,12 +499,24 @@ end );
 ##
 InstallGlobalFunction( PQ_SET_GRP_DATA, function( datarec )
 local line, classpos;
+  if IsBound(datarec.setupfile) then 
+    # A fudge ... some things we can only know by actually running it!
+    Info(InfoANUPQ + InfoWarning,1, 
+         "Guess made of `class' and `ngens' fields");
+    Info(InfoANUPQ + InfoWarning,1, 
+         "... please check commands ok by running without `SetupFile' option");
+    Info(InfoANUPQ + InfoWarning,1, 
+         "and comparing with `ToPQ> ' commands observed at InfoANUPQ level 4");
+    datarec.class := datarec.ClassBound;
+    datarec.ngens := [ 1 ];
+    return;
+  fi;
   # Either datarec.matchedline is of one of the following forms:
   # Group completed. Lower exponent-<p> central class = <c>, Order = <p>^<n>
   # Group: <grp> to lower exponent-<p> central class <c> has order <p>^<n>
   if not IsBound(datarec.matchedline) then
     PushOptions(rec(nonuser := true));
-    ToPQ(datarec, [ "4  #display presentation" ]);
+    ToPQ(datarec, [ 4 ], [ "  #display presentation" ]);
     PopOptions();
   fi;
   line := SplitString(datarec.matchedline, "", ":,. ^\n");
@@ -575,7 +587,7 @@ local menu, lev, ngen, i, line, class;
   fi;
   datarec.matchlist := ["Group", "Class", " is defined on "];
   datarec.matchedlines := [];
-  ToPQ(datarec, [ "4  #display presentation" ]);
+  ToPQ(datarec, [ 4 ], [ "  #display presentation" ]);
   datarec.matchedline := datarec.matchedlines[1];
   PQ_SET_GRP_DATA(datarec);
   for i in [2 .. Length(datarec.matchedlines)] do
@@ -772,8 +784,8 @@ InstallGlobalFunction( PQ_SET_OUTPUT_LEVEL, function( datarec, lev )
   if datarec.menu[ Length(datarec.menu) ] = 'G' then
     PQ_MENU(datarec, "pQ");
   fi;
-  ToPQ(datarec, [ "5  #set output level" ]);
-  ToPQ(datarec, [ lev, "  #output level" ]);
+  ToPQ(datarec, [ 5 ], [ "  #set output level" ]);
+  ToPQ(datarec, [ lev ], [ "  #output level" ]);
   datarec.OutputLevel := lev;
 end );
 
@@ -824,9 +836,10 @@ local line;
     PQ_FINISH_NEXT_CLASS(datarec);
   else
     datarec.match := true;
-    ToPQ(datarec, [ "6  #calculate next class" ]);
+    ToPQ(datarec, [ 6 ], [ "  #calculate next class" ]);
     if IsMatchingSublist(datarec.line, "Input queue factor:") then
-      ToPQ(datarec, [ VALUE_PQ_OPTION("QueueFactor", 15), " #queue factor"]);
+      ToPQ(datarec, [ VALUE_PQ_OPTION("QueueFactor", 15) ],
+                    [ " #queue factor"]);
     fi;
     PQ_SET_GRP_DATA(datarec);
   fi;
@@ -880,7 +893,7 @@ local savefile;
   PQ_MENU(datarec, "pQ");
   Unbind( datarec.pCover );
   datarec.match := true;
-  ToPQ(datarec, [ "7  #compute p-cover" ]);
+  ToPQ(datarec, [ 7 ], [ "  #compute p-cover" ]);
   PQ_SET_GRP_DATA(datarec);
   datarec.pcoverclass := datarec.class;
   Unbind(datarec.capable);
@@ -974,9 +987,9 @@ end );
 InstallGlobalFunction( PQ_COLLECT, function( datarec, word )
 
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
-  ToPQ(datarec, [ "1  #do individual collection" ]);
+  ToPQ(datarec, [ 1 ], [ "  #do individual collection" ]);
   datarec.match := "The result of collection is";
-  ToPQ(datarec, [ word, ";  #word to be collected" ]);
+  ToPQ(datarec, [ word, ";"], [ "  #word to be collected" ]);
   return PQ_WORD(datarec);
 end );
 
@@ -1116,9 +1129,9 @@ end );
 ##
 InstallGlobalFunction( PQ_SOLVE_EQUATION, function( datarec, a, b )
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
-  ToPQ(datarec, [ "2  #solve equation" ]);
-  ToPQ(datarec, [ a, ";  #word a" ]);
-  ToPQ(datarec, [ b, ";  #word b" ]);
+  ToPQ(datarec, [ 2 ], [ "  #solve equation" ]);
+  ToPQ(datarec, [ a, ";" ], [ "  #word a" ]);
+  ToPQ(datarec, [ b, ";" ], [ "  #word b" ]);
 end );
 
 #############################################################################
@@ -1157,13 +1170,13 @@ end );
 InstallGlobalFunction( PQ_COMMUTATOR, function( datarec, words, pow, item )
 local i;
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
-  ToPQ(datarec, [ item ]);
-  ToPQ(datarec, [ Length(words), "  #no. of components" ]);
+  ToPQ(datarec, item[1], item[2]);
+  ToPQ(datarec, [ Length(words) ], [ "  #no. of components" ]);
   for i in [1..Length(words)] do
-    ToPQ(datarec, [ words[i], ";  #word ", i ]);
+    ToPQ(datarec, [ words[i], ";" ], [ "  #word ", i ]);
   od;
   datarec.match := "The commutator is";
-  ToPQ(datarec, [ pow, "  #power" ]);
+  ToPQ(datarec, [ pow ], [ "  #power" ]);
   return PQ_WORD(datarec);
 end );
 
@@ -1187,7 +1200,7 @@ local len, words, pow, item, datarec, ngens;
     Error( "argument <pow> must be a positive integer\n" );
   fi;
   datarec := CallFuncList(ANUPQDataRecord, args{[1 .. len - 3]});
-  if item[1] = '3' then
+  if item[1][1][1] = 3 then
     ngens := datarec.ngens[ Length(datarec.ngens) ];
   else
     ngens := datarec.ngens[ 1 ];
@@ -1223,7 +1236,7 @@ end );
 InstallGlobalFunction( PqCommutator, function( arg )
   return CallFuncList( PQ_COMMUTATOR, 
                        PQ_COMMUTATOR_CHK_ARGS( 
-                           Concatenation( arg, [ "3  #commutator" ] ) ) );
+                           Concatenation( arg, [[3], ["  #commutator"]] ) ) );
 end );
 
 #############################################################################
@@ -1235,7 +1248,7 @@ end );
 ##
 InstallGlobalFunction( PQ_SETUP_TABLES_FOR_NEXT_CLASS, function( datarec )
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
-  ToPQ(datarec, [ "6  #set up tables for next class" ]);
+  ToPQ(datarec, [ 6 ], [ "  #set up tables for next class" ]);
   datarec.match := true;
   PQ_SET_GRP_DATA(datarec); #Just to be sure it's up-to-date
   datarec.setupclass := datarec.class;
@@ -1272,9 +1285,9 @@ InstallGlobalFunction( PQ_INSERT_TAILS, function( datarec, weight, which )
 local intwhich;
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
   intwhich := Position( [ "compute and add", "add", "compute" ], which ) - 1;
-  ToPQ(datarec, [ "7  #", which, " tails" ]);
-  ToPQ(datarec, [ weight,   " #weight of tails" ]);
-  ToPQ(datarec, [ intwhich, "  #", which ]);
+  ToPQ(datarec, [ 7 ], [ "  #", which, " tails" ]);
+  ToPQ(datarec, [ weight ], [ " #weight of tails" ]);
+  ToPQ(datarec, [ intwhich ], [ "  #", which ]);
   if intwhich <= 1 then
     datarec.match := true;
     PQ_SET_GRP_DATA(datarec);
@@ -1387,9 +1400,9 @@ end );
 InstallGlobalFunction( PQ_DO_CONSISTENCY_CHECKS, 
 function( datarec, weight, type )
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
-  ToPQ(datarec, [ "8  #check consistency" ]);
-  ToPQ(datarec, [ weight, " #weight to be checked" ]);
-  ToPQ(datarec, [ type, "  #type" ]);
+  ToPQ(datarec, [ 8 ], [ "  #check consistency" ]);
+  ToPQ(datarec, [ weight ], [ " #weight to be checked" ]);
+  ToPQ(datarec, [ type ], [ "  #type" ]);
 end );
 
 #############################################################################
@@ -1471,7 +1484,7 @@ end );
 ##
 InstallGlobalFunction( PQ_COLLECT_DEFINING_RELATIONS, function( datarec )
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
-  ToPQ(datarec, [ "9  #collect defining relations" ]);
+  ToPQ(datarec, [ 9 ], [ "  #collect defining relations" ]);
 end );
 
 #############################################################################
@@ -1507,19 +1520,19 @@ InstallGlobalFunction( PQ_DO_EXPONENT_CHECKS, function( datarec, bnds )
   #@does default only at the moment@
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
   datarec.match := "Group is complete";
-  ToPQ(datarec, [ "10 #do exponent checks" ]);
+  ToPQ(datarec, [ 10 ], [ " #do exponent checks" ]);
   if IsBound(datarec.matchedline) and
      IsMatchingSublist(datarec.matchedline, "Group is complete") then
     PQ_UNBIND(datarec, ["match", "matchedline"]);
     datarec.complete := true;
     return;
   elif IsMatchingSublist(datarec.line, "Input exponent law") then
-    ToPQ(datarec, [ VALUE_PQ_OPTION("Exponent", 0, datarec),
-                      "  #exponent" ]);
+    ToPQ(datarec, [ VALUE_PQ_OPTION("Exponent", 0, datarec) ],
+                  [ "  #exponent" ]);
   fi;
-  ToPQ(datarec, [ bnds[1], " #start weight" ]);
-  ToPQ(datarec, [ bnds[2], " #end weight"   ]);
-  ToPQ(datarec, [ 1,  "  #do default check" ]);
+  ToPQ(datarec, [ bnds[1] ], [ " #start weight" ]);
+  ToPQ(datarec, [ bnds[2] ], [ " #end weight"   ]);
+  ToPQ(datarec, [ 1 ], [ "  #do default check" ]);
   Unbind(datarec.match);
 end );
 
@@ -1555,7 +1568,7 @@ end );
 ##
 InstallGlobalFunction( PQ_ELIMINATE_REDUNDANT_GENERATORS, function( datarec )
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
-  ToPQ(datarec, [ "11 #eliminate redundant generators" ]);
+  ToPQ(datarec, [ 11 ], [ " #eliminate redundant generators" ]);
   datarec.match := true;
   PQ_SET_GRP_DATA(datarec);
 end );
@@ -1587,7 +1600,7 @@ end );
 ##
 InstallGlobalFunction( PQ_REVERT_TO_PREVIOUS_CLASS, function( datarec )
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
-  ToPQ(datarec, [ "12 #revert to previous class" ]);
+  ToPQ(datarec, [ 12 ], [ " #revert to previous class" ]);
   Unbind( datarec.ngens[ datarec.class ] );
   datarec.match := true;
   PQ_SET_GRP_DATA(datarec); #Just to be sure it's up-to-date
@@ -1622,9 +1635,9 @@ end );
 ##
 InstallGlobalFunction( PQ_SET_MAXIMAL_OCCURRENCES, function( datarec, noccur )
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
-  ToPQ(datarec, [ "13 #set maximal occurrences" ]);
-  ToPQ(datarec, [ JoinStringsWithSeparator( List(noccur, String), " " ),
-                    " #max occurrences of weight 1 gen'rs"]);
+  ToPQ(datarec, [ 13 ], [ " #set maximal occurrences" ]);
+  ToPQ(datarec, [ JoinStringsWithSeparator( List(noccur, String), " " ) ],
+                [ " #max occurrences of weight 1 gen'rs"]);
 end );
 
 #############################################################################
@@ -1672,7 +1685,7 @@ end );
 ##
 InstallGlobalFunction( PQ_SET_METABELIAN, function( datarec )
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
-  ToPQ(datarec, [ "14 #set metabelian" ]);
+  ToPQ(datarec, [ 14 ], [ " #set metabelian" ]);
 end );
 
 #############################################################################
@@ -1702,8 +1715,8 @@ end );
 ##
 InstallGlobalFunction( PQ_DO_CONSISTENCY_CHECK, function( datarec, c, b, a )
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
-  ToPQ(datarec, [ "15 #do individual consistency check" ]);
-  ToPQ(datarec, [ c, " ", b, " ", a, "  #generator indices"]);
+  ToPQ(datarec, [ 15 ], [ " #do individual consistency check" ]);
+  ToPQ(datarec, [ c, " ", b, " ", a ], [ "  #generator indices"]);
 end );
 
 #############################################################################
@@ -1755,7 +1768,7 @@ end );
 ##
 InstallGlobalFunction( PQ_COMPACT, function( datarec )
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
-  ToPQ(datarec, [ "16 #compact" ]);
+  ToPQ(datarec, [ 16 ], [ " #compact" ]);
 end );
 
 #############################################################################
@@ -1787,7 +1800,7 @@ InstallGlobalFunction( PQ_ECHELONISE, function( datarec )
 local line, redgen;
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
   datarec.match := "Generator";
-  ToPQ(datarec, [ "17 #echelonise" ]);
+  ToPQ(datarec, [ 17 ], [ " #echelonise" ]);
   if IsBound(datarec.matchedline) and 
      PositionSublist(datarec.matchedline, "redundant") <> fail then
     line := SplitString(datarec.matchedline, "", " \n");
@@ -1836,9 +1849,9 @@ local datarec;
   datarec := arg[1];
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
   if 1 = Length(arg) then
-    ToPQ(datarec, [ "18 #extend auts" ]);
+    ToPQ(datarec, [ 18 ], [ " #extend auts" ]);
   else
-    ToPQ(datarec, [ "18 #supply auts" ]);
+    ToPQ(datarec, [ 18 ], [ " #supply auts" ]);
     CallFuncList(PQ_MANUAL_AUT_INPUT, arg);
   fi;
   datarec.hasAuts := true;
@@ -1902,8 +1915,8 @@ end );
 ##
 InstallGlobalFunction( PQ_CLOSE_RELATIONS, function( datarec, qfac )
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
-  ToPQ(datarec, [ "19 #close relations"  ]);
-  ToPQ(datarec, [ qfac, " #queue factor" ]);
+  ToPQ(datarec, [ 19 ], [ " #close relations"  ]);
+  ToPQ(datarec, [ qfac ], [ " #queue factor" ]);
 end );
 
 #############################################################################
@@ -1944,9 +1957,9 @@ InstallGlobalFunction( PQ_DISPLAY, function( datarec, opt, type, bnds )
   if VALUE_PQ_OPTION("OutputLevel", datarec) <> fail then
     PQ_SET_OUTPUT_LEVEL( datarec, datarec.OutputLevel );
   fi;
-  ToPQ(datarec, [ opt,     " #display ", type ]);
-  ToPQ(datarec, [ bnds[1], " #no. of first generator" ]);
-  ToPQ(datarec, [ bnds[2], " #no. of last generator"  ]);
+  ToPQ(datarec, [ opt ],     [ " #display ", type ]);
+  ToPQ(datarec, [ bnds[1] ], [ " #no. of first generator" ]);
+  ToPQ(datarec, [ bnds[2] ], [ " #no. of last generator"  ]);
 end );
 
 #############################################################################
@@ -2038,9 +2051,9 @@ end );
 ##
 InstallGlobalFunction( PQ_COLLECT_DEFINING_GENERATORS, function( datarec, word )
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
-  ToPQ(datarec, [ "23 #collect defining generators" ]);
+  ToPQ(datarec, [ 23 ], [ " #collect defining generators" ]);
   datarec.match := "The result of collection is";
-  ToPQ(datarec, [ word, ";  #word to be collected" ]);
+  ToPQ(datarec, [ word, ";" ], [ "  #word to be collected" ]);
   return PQ_WORD(datarec);
 end );
 
@@ -2087,7 +2100,7 @@ InstallGlobalFunction( PqCommutatorDefiningGenerators, function( arg )
   return CallFuncList( PQ_COMMUTATOR, 
                        PQ_COMMUTATOR_CHK_ARGS(
                            Concatenation(
-                               arg, [ "24 #commutator of defining genrs" ] )
+                               arg, [[24], [" #commutator of defining genrs"]] )
                            ) );
 end );
 
@@ -2100,11 +2113,13 @@ end );
 ##  $p$-Quotient menu).
 ##
 InstallGlobalFunction( PQ_WRITE_PC_PRESENTATION, function( datarec, filename )
-  PrintTo(filename, "");   #to ensure it's writable and empty
+  if not IsBound(datarec.setupfile) then
+    PrintTo(filename, "");   #to ensure it's writable and empty
+  fi;
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
-  ToPQ(datarec, [ "25 #set output file" ]);
-  ToPQ(datarec, [ filename ]);
-  ToPQ(datarec, [ "2  #output in GAP format" ]);
+  ToPQ(datarec, [ 25 ], [ " #set output file" ]);
+  ToPQ(datarec, [ filename ], []);
+  ToPQ(datarec, [ 2 ], [ "  #output in GAP format" ]);
 end );
 
 #############################################################################
@@ -2132,9 +2147,8 @@ local filename, datarec;
   if 2 < Length(arg) or IsEmpty(arg) then
     Error("expected one or two arguments.\n");
   fi;
-  filename := PQ_CHK_PATH( arg[Length(arg)], "w" );
-  Unbind( arg[ Length(arg) ] );
-  datarec := CallFuncList(ANUPQDataRecord, arg);
+  datarec := CallFuncList(ANUPQDataRecord, arg{[1..Length(arg) - 1]});
+  filename := PQ_CHK_PATH( arg[Length(arg)], "w", datarec );
   if not( IsBound(datarec.pCover) and datarec.pcoverclass = datarec.class or
           IsBound(datarec.pQuotient) ) then
     Error( "no p-quotient or p-cover has been computed\n" );
@@ -2150,7 +2164,7 @@ end );
 ##
 InstallGlobalFunction( PQ_WRITE_COMPACT_DESCRIPTION, function( datarec )
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
-  ToPQ(datarec, [ "26 #write compact description to file" ]);
+  ToPQ(datarec, [ 26 ], [ " #write compact description to file" ]);
 end );
 
 #############################################################################
@@ -2178,7 +2192,7 @@ end );
 ##
 InstallGlobalFunction( PQ_EVALUATE_CERTAIN_FORMULAE, function( datarec )
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
-  ToPQ(datarec, [ "27 #evaluate certain formulae" ]);
+  ToPQ(datarec, [ 27 ], [ " #evaluate certain formulae" ]);
 end );
 
 #############################################################################
@@ -2208,7 +2222,7 @@ end );
 ##
 InstallGlobalFunction( PQ_EVALUATE_ACTION, function( datarec )
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
-  ToPQ(datarec, [ "28 #evaluate action" ]);
+  ToPQ(datarec, [ 28 ], [ " #evaluate action" ]);
 end );
 
 #############################################################################
@@ -2238,7 +2252,7 @@ end );
 ##
 InstallGlobalFunction( PQ_EVALUATE_ENGEL_IDENTITY, function( datarec )
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
-  ToPQ(datarec, [ "29 #evaluate Engel identity" ]);
+  ToPQ(datarec, [ 29 ], [ " #evaluate Engel identity" ]);
 end );
 
 #############################################################################
@@ -2268,7 +2282,7 @@ end );
 ##
 InstallGlobalFunction( PQ_PROCESS_RELATIONS_FILE, function( datarec )
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
-  ToPQ(datarec, [ "30 #process relations file" ]);
+  ToPQ(datarec, [ 30 ], [ " #process relations file" ]);
 end );
 
 #############################################################################
@@ -2338,20 +2352,19 @@ local datarec, savefile;
   savefile := PQ_CHK_PATH( 
                   VALUE_PQ_OPTION( "StandardPresentationFile",
                                    Filename( ANUPQData.tmpdir, "SPres" ) ),
-                  "w");
+                  "w", datarec);
   PQ_MENU(datarec, "SP");
-  ToPQ(datarec, [ "2  #compute standard presentation" ]);
-  ToPQ(datarec, [ savefile, "  #file for saving pres'n" ]);
-  ToPQ(datarec, [ VALUE_PQ_OPTION("ClassBound", 63), "  #class bound" ]);
+  ToPQ(datarec, [ 2 ], [ "  #compute standard presentation" ]);
+  ToPQ(datarec, [ savefile ], [ "  #file for saving pres'n" ]);
+  ToPQ(datarec, [ VALUE_PQ_OPTION("ClassBound", 63)], [ "  #class bound" ]);
 
   if 1 = Length(arg) then
     PQ_AUT_INPUT( datarec, datarec.pQuotient );
   else
     PQ_MANUAL_AUT_INPUT( datarec, arg[2] );
   fi;
-  ToPQ(datarec, 
-       [ PQ_BOOL( VALUE_PQ_OPTION("PcgsAutomorphisms", false, datarec) ), 
-         "compute pcgs gen. seq. for auts." ]);
+  ToPQ_BOOL(datarec, VALUE_PQ_OPTION("PcgsAutomorphisms", false, datarec),
+                     "compute pcgs gen. seq. for auts.");
 end );
 
 #############################################################################
@@ -2425,8 +2438,8 @@ end );
 ##
 InstallGlobalFunction( PQ_SP_SAVE_PRESENTATION, function( datarec, filename )
   PQ_MENU(datarec, "SP");
-  ToPQ(datarec, [ "3  #save standard presentation to file" ]);
-  ToPQ(datarec, [ filename, "  #filename" ]);
+  ToPQ(datarec, [ 3 ], [ "  #save standard presentation to file" ]);
+  ToPQ(datarec, [ filename ], [ "  #filename" ]);
 end );
 
 #############################################################################
@@ -2451,9 +2464,8 @@ local datarec, filename;
   if 0 = Length(arg) or Length(arg) > 2 then
     Error( "expected 1 or 2 arguments\n" );
   fi;
-  filename := PQ_CHK_PATH( arg[Length(arg)], "w" );
-  arg := arg{[1..Length(arg) - 1]};
-  datarec := CallFuncList(ANUPQDataRecord, arg);
+  datarec := CallFuncList(ANUPQDataRecord, arg{[1..Length(arg) - 1]});
+  filename := PQ_CHK_PATH( arg[Length(arg)], "w", datarec );
   PQ_SP_SAVE_PRESENTATION( datarec, filename );
 end );
 
@@ -2469,11 +2481,11 @@ InstallGlobalFunction( PQ_SP_COMPARE_TWO_FILE_PRESENTATIONS,
 function( datarec, f1, f2 )
 local line;
   PQ_MENU(datarec, "SP");
-  ToPQ( datarec, [ "6  #compare two file presentations" ]);
-  ToPQ( datarec, [ f1, "  #1st filename" ]);
+  ToPQ( datarec, [ 6 ], [ "  #compare two file presentations" ]);
+  ToPQ( datarec, [ f1 ], [ "  #1st filename" ]);
   datarec.match := "Identical";
   datarec.filter := ["Identical"];
-  ToPQ(datarec, [ f2, "  #2nd filename" ]);
+  ToPQ(datarec, [ f2 ], [ "  #2nd filename" ]);
   line := SplitString(datarec.matchedline, "", "? \n");
   PQ_UNBIND(datarec, ["match", "matchedline", "filter"]);
   return EvalString( LowercaseString( line[3] ) );
@@ -2506,10 +2518,9 @@ local len, datarec, f1, f2;
   if not(len in [2, 3]) then
     Error( "expected 2 or 3 arguments\n" );
   fi;
-  f1 := PQ_CHK_PATH( arg[len - 1], "r" );
-  f2 := PQ_CHK_PATH( arg[len], "r" );
-  arg := arg{[1..len - 2]};
-  datarec := CallFuncList(ANUPQDataRecord, arg);
+  datarec := CallFuncList(ANUPQDataRecord, arg{[1..len - 2]});
+  f1 := PQ_CHK_PATH( arg[len - 1], "r", datarec );
+  f2 := PQ_CHK_PATH( arg[len], "r", datarec );
   return PQ_SP_COMPARE_TWO_FILE_PRESENTATIONS( datarec, f1, f2 );
 end );
 
@@ -2523,7 +2534,7 @@ end );
 ##
 InstallGlobalFunction( PQ_SP_ISOMORPHISM, function( datarec )
   PQ_MENU(datarec, "SP");
-  ToPQ(datarec, [ "8  #compute isomorphism" ]);
+  ToPQ(datarec, [ 8 ], [ "  #compute isomorphism" ]);
 end );
 
 #############################################################################
@@ -2556,7 +2567,7 @@ end );
 ##
 InstallGlobalFunction( PQ_PG_SUPPLY_AUTS, function( arg )
   CallFuncList( PQ_MENU, arg{[1, Length(arg)]});
-  ToPQ(arg[1], [ "1  #supply automorphism data" ]);
+  ToPQ(arg[1], [ 1 ], [ "  #supply automorphism data" ]);
   if 2 = Length(arg) then
     PQ_AUT_INPUT( arg[1], arg[1].group );
   else
@@ -2603,7 +2614,7 @@ InstallGlobalFunction( PQ_PG_EXTEND_AUTOMORPHISMS, function( datarec )
   if not(PQ_MENU(datarec) in ["pG", "ApG"]) then
     PQ_MENU(datarec, "pG");
   fi;
-  ToPQ(datarec, [ "2  #extend automorphisms" ]);
+  ToPQ(datarec, [ 2 ], [ "  #extend automorphisms" ]);
 end );
 
 #############################################################################
@@ -2638,13 +2649,13 @@ InstallGlobalFunction( PQ_PG_RESTORE_GROUP, function( datarec, cls, n )
   if not(PQ_MENU(datarec) in ["pG", "ApG"]) then
     PQ_MENU(datarec, "pG");
   fi;
-  ToPQ(datarec, [ "3  #restore group from file" ]);
+  ToPQ(datarec, [ 3 ], [ "  #restore group from file" ]);
   if IsString(cls) then
-    ToPQ(datarec, [ cls, "  #filename" ]);
+    ToPQ(datarec, [ cls ], [ "  #filename" ]);
   else
-    ToPQ(datarec, [ datarec.GroupName, "_class", cls, "  #filename" ]);
+    ToPQ(datarec, [ datarec.GroupName, "_class", cls ], [ "  #filename" ]);
   fi;
-  ToPQ(datarec, [ n, "  #no. of group" ]);
+  ToPQ(datarec, [ n ], [ "  #no. of group" ]);
   if IsInt(cls) then
     datarec.match := true;
     PQ_SET_GRP_DATA(datarec);
@@ -2788,72 +2799,69 @@ local nodescendants, class, firstStep, expectedNsteps, optrec, line, ngroups,
     PQ_MENU(datarec, "pG");
     datarec.matchlist := [" is an invalid starting group"];
     datarec.matchedlines := [];
-    ToPQ(datarec, [ "5  #construct descendants" ]);
+    ToPQ(datarec, [ 5 ], [ "  #construct descendants" ]);
     nodescendants := not IsEmpty(datarec.matchedlines);
     PQ_UNBIND( datarec, ["matchlist", "matchedlines"] );
     if nodescendants then
       return 0;
     fi;
-    ToPQ(datarec, [ datarec.des.ClassBound, " #class bound" ]);
+    ToPQ(datarec, [ datarec.des.ClassBound ], [ " #class bound" ]);
 
     #Construct all descendants?
     if not IsBound(datarec.des.StepSize) then
-      ToPQ(datarec, [ "1  #do construct all descendants" ]);
+      ToPQ(datarec, [ 1 ], [ "  #do construct all descendants" ]);
       #Set an order bound for descendants?
       if datarec.des.OrderBound <> 0 then
-        ToPQ(datarec, [ "1  #do set an order bound" ]);
-        ToPQ(datarec, [ datarec.des.OrderBound, " #order bound" ]);
+        ToPQ(datarec, [ 1 ], [ "  #do set an order bound" ]);
+        ToPQ(datarec, [ datarec.des.OrderBound ], [ " #order bound" ]);
       else
-        ToPQ(datarec, [ "0  #do not set an order bound" ]);
+        ToPQ(datarec, [ 0 ], [ "  #do not set an order bound" ]);
       fi;
     else
-      ToPQ(datarec, [ "0  #do not construct all descendants" ]);
+      ToPQ(datarec, [ 0 ], [ "  #do not construct all descendants" ]);
       if expectedNsteps = 1 then
         # Input step size
-        ToPQ(datarec, [ "1  #step size" ]);
+        ToPQ(datarec, [ 1 ], [ "  #step size" ]);
 
         # Constant step size?
       elif IsInt(datarec.des.StepSize) then
-        ToPQ(datarec, [ "1  #set constant step size" ]);
-        ToPQ(datarec, [ datarec.des.StepSize, "  #step size" ]);
+        ToPQ(datarec, [ 1 ], [ "  #set constant step size" ]);
+        ToPQ(datarec, [ datarec.des.StepSize ], [ "  #step size" ]);
       else
-        ToPQ(datarec, [ "0  #set variable step size" ]);
+        ToPQ(datarec, [ 0 ], [ "  #set variable step size" ]);
         ToPQ(datarec, [ JoinStringsWithSeparator(
-                            List(datarec.des.StepSize, String), " "),
-                         "  #step sizes" ]);
+                            List(datarec.des.StepSize, String), " ") ],
+                      [ "  #step sizes" ]);
       fi;
     fi;
 
   else
     PQ_MENU(datarec, "ApG");
-    ToPQ(datarec, [ "5  #single stage" ]);
-    ToPQ(datarec, [VALUE_PQ_OPTION("StepSize", datarec.des), " #step size"]);
+    ToPQ(datarec, [ 5 ], [ "  #single stage" ]);
+    ToPQ(datarec, [ VALUE_PQ_OPTION("StepSize", datarec.des) ],
+                  [ " #step size" ]);
   fi;
-  ToPQ(datarec, [ PQ_BOOL(VALUE_PQ_OPTION("PcgsAutomorphisms", false, datarec)),
-                   "compute pcgs gen. seq. for auts." ]);
-  ToPQ(datarec, [ PQ_BOOL(
-                      VALUE_PQ_OPTION("BasicAlgorithm", false, datarec.des)
-                      ),
-                   "use default algorithm" ]);
+  ToPQ_BOOL(datarec, VALUE_PQ_OPTION("PcgsAutomorphisms", false, datarec),
+                     "compute pcgs gen. seq. for auts.");
+  ToPQ_BOOL(datarec, VALUE_PQ_OPTION("BasicAlgorithm", false, datarec.des),
+                     "use default algorithm");
   if not datarec.des.BasicAlgorithm then
-    ToPQ(datarec, [ VALUE_PQ_OPTION("RankInitialSegmentSubgroups", 0,
-                                    datarec.des),
-                    "  #rank of initial segment subgrp" ]);
+    ToPQ_BOOL(datarec,
+              VALUE_PQ_OPTION("RankInitialSegmentSubgroups", 0, datarec.des),
+              "  #rank of initial segment subgrp");
     if datarec.PcgsAutomorphisms then
-      ToPQ(datarec, [ PQ_BOOL(datarec.des.SpaceEfficient),
-                      "be space efficient" ]);
+      ToPQ_BOOL(datarec, datarec.des.SpaceEfficient, "be space efficient");
     fi;
     VALUE_PQ_OPTION("AllDescendants", true, datarec.des);
-    ToPQ(datarec, [ PQ_BOOL( not VALUE_PQ_OPTION(
-                                     "CapableDescendants", 
-                                     not datarec.des.AllDescendants,
-                                     datarec.des ) ),
-                    "completely process terminal descendants" ]);
-    ToPQ(datarec, [ VALUE_PQ_OPTION("Exponent", 0, datarec), "  #exponent" ]);
-                                             # "Exponent" is a `global' option
-    ToPQ(datarec, [ PQ_BOOL( VALUE_PQ_OPTION("Metabelian", 
-                                             false, datarec.des) ),
-                    "enforce metabelian law" ]);
+    ToPQ_BOOL(datarec,
+              not VALUE_PQ_OPTION( "CapableDescendants", 
+                                   not datarec.des.AllDescendants,
+                                   datarec.des ),
+              "completely process terminal descendants");
+    ToPQ(datarec, [ VALUE_PQ_OPTION("Exponent", 0, datarec) ],
+                  [ "  #exponent" ]); # "Exponent" is a `global' option
+    ToPQ_BOOL(datarec, VALUE_PQ_OPTION("Metabelian", false, datarec.des),
+                       "enforce metabelian law");
   fi;
   datarec.matchlist := [ "group saved on file", "groups saved on file" ];
   datarec.matchedlines := [];
@@ -2861,7 +2869,7 @@ local nodescendants, class, firstStep, expectedNsteps, optrec, line, ngroups,
      not IsEmpty( Intersection( RecNames(datarec.des.CustomiseOutput),
                                 ["perm", "orbit", "group", "autgroup", "trace"]
                                 ) ) then
-    ToPQ(datarec, [ "0  #customise output" ]);
+    ToPQ(datarec, [ 0 ], [ "  #customise output" ]);
     PQ_CUSTOMISE_OUTPUT( datarec, "perm", "perm. grp output",
                          ["print degree",
                           "print extended auts",
@@ -2882,11 +2890,11 @@ local nodescendants, class, firstStep, expectedNsteps, optrec, line, ngroups,
                           "print aut. grp orders of descendants"] );
     PQ_CUSTOMISE_OUTPUT( datarec, "trace", "provide algorithm trace", [] );
   else
-    ToPQ(datarec, [ "1  #default output" ]);
+    ToPQ(datarec, [ 1 ], [ "  #default output" ]);
   fi;
   if onestage then
-    ToPQ(datarec, [ VALUE_PQ_OPTION("Filename", "onestage", datarec.des),
-                      " #output filename" ]);
+    ToPQ(datarec, [ VALUE_PQ_OPTION("Filename", "onestage", datarec.des) ],
+                  [ " #output filename" ]);
     Unbind(datarec.des.onestage);
   else
     if not IsBound(datarec.ndescendants) then
@@ -3003,11 +3011,11 @@ InstallGlobalFunction( PQ_APG_DEGREE, function( datarec, step, rank )
 local expt, line;
   expt := VALUE_PQ_OPTION("Exponent", 0, datarec);
   PQ_MENU(datarec, "ApG");
-  ToPQ(datarec, [ "6  #compute defn sets and find degree" ]);
-  ToPQ(datarec, [ step, " #step size" ]);
-  ToPQ(datarec, [ rank, " #rank of initial segment subgroup" ]);
+  ToPQ(datarec, [ 6 ], [ "  #compute defn sets and find degree" ]);
+  ToPQ(datarec, [ step ], [ " #step size" ]);
+  ToPQ(datarec, [ rank ], [ " #rank of initial segment subgroup" ]);
   datarec.match := "Degree of permutation group";
-  ToPQ(datarec, [ expt, " #exponent" ]);
+  ToPQ(datarec, [ expt ], [ " #exponent" ]);
   line := SplitString(datarec.matchedline, "", " \n");
   Unbind(datarec.match);
   return Int( line[6] );
@@ -3052,11 +3060,11 @@ local pcgsauts, efficient, printauts, printperms;
   printauts := VALUE_PQ_OPTION("PrintAutomorphisms", false);
   printperms := VALUE_PQ_OPTION("PrintPermutations", false);
   PQ_MENU(datarec, "ApG");
-  ToPQ(datarec, [ "7  #compute permutations" ]);
-  ToPQ(datarec, [ PQ_BOOL(pcgsauts),   "compute pcgs gen. seq. for auts." ]);
-  ToPQ(datarec, [ PQ_BOOL(efficient),  "be space efficient" ]);
-  ToPQ(datarec, [ PQ_BOOL(printauts),  "print automorphism matrices" ]);
-  ToPQ(datarec, [ PQ_BOOL(printperms), "print permutations" ]);
+  ToPQ(datarec, [ 7 ], [ "  #compute permutations" ]);
+  ToPQ_BOOL(datarec, pcgsauts, "compute pcgs gen. seq. for auts.");
+  ToPQ_BOOL(datarec, efficient, "be space efficient");
+  ToPQ_BOOL(datarec, printauts, "print automorphism matrices");
+  ToPQ_BOOL(datarec, printperms, "print permutations");
 end );
 
 #############################################################################
@@ -3099,9 +3107,9 @@ local pcgsauts, efficient, output, summary, listing, line, norbits;
   summary   := IsBound( output.orbit[1] ) and output.orbit[1] in [1, true];
   listing   := IsBound( output.orbit[2] ) and output.orbit[2] in [1, true];
   PQ_MENU(datarec, "ApG");
-  ToPQ(datarec, [ "8  #compute orbits" ]);
-  ToPQ(datarec, [ PQ_BOOL(pcgsauts),   "compute pcgs gen. seq. for auts." ]);
-  ToPQ(datarec, [ PQ_BOOL(efficient),  "be space efficient" ]);
+  ToPQ(datarec, [ 8 ], [ "  #compute orbits" ]);
+  ToPQ_BOOL(datarec, pcgsauts, "compute pcgs gen. seq. for auts.");
+  ToPQ_BOOL(datarec, efficient, "be space efficient");
   if summary then
     datarec.match := "Number of orbits is";
   elif listing then
@@ -3171,13 +3179,12 @@ local pcgsauts, efficient, exponent, metabelian, alldescend, outputfile;
   outputfile := VALUE_PQ_OPTION("Filename", "redPCover", datarec.des);
   VALUE_PQ_OPTION("CustomiseOutput", rec(), datarec.des);
   PQ_MENU(datarec, "ApG");
-  ToPQ(datarec, [ "9  #process orbit reps" ]);
-  ToPQ(datarec, [ PQ_BOOL(pcgsauts),   "compute pcgs gen. seq. for auts." ]);
-  ToPQ(datarec, [ PQ_BOOL(efficient),  "be space efficient" ]);
-  ToPQ(datarec, [ PQ_BOOL(alldescend), 
-                  "completely process terminal descendants" ]);
-  ToPQ(datarec, [ exponent,            " #exponent" ]);
-  ToPQ(datarec, [ PQ_BOOL(metabelian), " #set metabelian" ]);
+  ToPQ(datarec, [ 9 ], [ "  #process orbit reps" ]);
+  ToPQ_BOOL(datarec, pcgsauts, "compute pcgs gen. seq. for auts.");
+  ToPQ_BOOL(datarec, efficient, "be space efficient");
+  ToPQ_BOOL(datarec, alldescend, "completely process terminal descendants");
+  ToPQ(datarec, [ exponent ], [ " #exponent" ]);
+  ToPQ_BOOL(datarec, metabelian, " set metabelian");
   PQ_APG_CUSTOM_OUTPUT( datarec, "group", "group output",
                         ["print allowable subgp standard matrix",
                          "print pres'n of reduced p-covers",
@@ -3188,7 +3195,7 @@ local pcgsauts, efficient, exponent, metabelian, alldescend, outputfile;
                         ["print commutator matrix",
                          "print aut. grp descriptions of descendants",
                          "print aut. grp orders of descendants"] );
-  ToPQ(datarec, [ outputfile,          " #output filename" ]);
+  ToPQ(datarec, [ outputfile ], [ " #output filename" ]);
 end );
 
 #############################################################################

@@ -126,15 +126,36 @@ DeclareGlobalFunction( "FLUSH_PQ_STREAM_UNTIL" );
 
 #############################################################################
 ##
+#V  PQ_ERROR_EXIT_MESSAGES . . . error messages emitted by the pq before exit
+##
+##  A list of the error messages the `pq' emits just before exiting.
+##
+DeclareGlobalVariable( "PQ_ERROR_EXIT_MESSAGES",
+  "A list of the error messages the pq emits just before exiting" );
+
+#############################################################################
+##
 #F  FILTER_PQ_STREAM_UNTIL_PROMPT( <datarec> )
 ##
 DeclareGlobalFunction( "FILTER_PQ_STREAM_UNTIL_PROMPT" );
 
 #############################################################################
 ##
-#F  ToPQk( <datarec>, <list> ) . . . . . . . . writes a list to a pq iostream
+#F  ToPQk( <datarec>, <cmd>, <comment> ) . . . . . . .  writes to a pq stream
 ##
 DeclareGlobalFunction( "ToPQk" );
+
+#############################################################################
+##
+#F  ToPQ(<datarec>, <cmd>, <comment>) . .  write to pq (& for iostream flush)
+##
+DeclareGlobalFunction( "ToPQ" );
+
+#############################################################################
+##
+#F  ToPQ_BOOL( <datarec>, <optval>, <comment> ) . . . .  pass a boolean to pq
+##    
+DeclareGlobalFunction( "ToPQ_BOOL" );
 
 #############################################################################
 ##
@@ -168,12 +189,6 @@ DeclareGlobalFunction( "PqWrite" );
 
 #############################################################################
 ##
-#F  ToPQ( <datarec>, <list> ) .  write list to pq iostream (& int'vely flush)
-##
-DeclareGlobalFunction( "ToPQ" );
-
-#############################################################################
-##
 #F  ANUPQ_ARG_CHK( <funcname>, <args> ) . . . . check args of int/non-int fns
 ##
 DeclareGlobalFunction( "ANUPQ_ARG_CHK" );
@@ -183,5 +198,11 @@ DeclareGlobalFunction( "ANUPQ_ARG_CHK" );
 #F  PQ_COMPLETE_NONINTERACTIVE_FUNC_CALL( <datarec> )
 ##
 DeclareGlobalFunction( "PQ_COMPLETE_NONINTERACTIVE_FUNC_CALL" );
+
+#############################################################################
+##
+#F  ToPQLog([<filename>]) . . . . . . log or stop logging pq commands to file
+##
+DeclareGlobalFunction( "ToPQLog" );
 
 #E  anupqios.gd . . . . . . . . . . . . . . . . . . . . . . . . . . ends here 

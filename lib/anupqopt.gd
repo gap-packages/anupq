@@ -103,12 +103,6 @@ DeclareGlobalFunction( "PQ_OPTION_CHECK" );
   
 #############################################################################
 ##
-#F  PQ_BOOL( <optval> ) . .  convert a GAP boolean to a `pq' (i.e. C) boolean
-##    
-DeclareGlobalFunction( "PQ_BOOL" );
-  
-#############################################################################
-##
 #F  PQ_CUSTOMISE_OUTPUT(<datarec>, <subopt>, <suboptstring>, <suppstrings>)
 ##    
 DeclareGlobalFunction( "PQ_CUSTOMISE_OUTPUT" );

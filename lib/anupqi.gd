@@ -70,7 +70,7 @@ DeclareGlobalFunction( "PQ_PATH_CURRENT_DIRECTORY" );
 
 #############################################################################
 ##
-#F  PQ_CHK_PATH(<filename>, <rw>) . add curr dir path if nec. & check file ok
+#F  PQ_CHK_PATH(<filename>, <rw>, <datarec>) . . . . . . .  check/add to path
 ##
 DeclareGlobalFunction( "PQ_CHK_PATH" );
 

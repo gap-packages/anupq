@@ -429,22 +429,6 @@ end);
 
 #############################################################################
 ##
-#F  PQ_BOOL( <optval> ) . .  convert a GAP boolean to a `pq' (i.e. C) boolean
-##    
-##  returns `"1 #do "' if <optval> is `true' or `"0  #do  not  "'  otherwise,
-##  i.e. a string C boolean with the beginnings of a comment (we assume  that
-##  <optval> is boolean ... `VALUE_PQ_OPTION'  should  already  have  checked
-##  that).
-##
-InstallGlobalFunction( PQ_BOOL, function( optval )
-  if optval = true then
-    return "1  #do ";
-  fi;
-  return "0  #do not ";
-end);
-  
-#############################################################################
-##
 #F  PQ_CUSTOMISE_OUTPUT(<datarec>, <subopt>, <suboptstring>, <suppstrings>)
 ##    
 ##  writes the required output to the `pq' binary for the sub-option <subopt>
@@ -460,16 +444,16 @@ local optrec, isOptionSet, i;
   optrec := datarec.des.CustomiseOutput;
   if IsEmpty(suppstrings) then
     isOptionSet := IsBound( optrec.(subopt) ) and optrec.(subopt) in [1, true];
-    ToPQ(datarec, [ PQ_BOOL( isOptionSet ), suboptstring ]);
+    ToPQ_BOOL(datarec, isOptionSet, suboptstring);
   elif IsBound( optrec.(subopt) ) and IsList( optrec.(subopt) ) then
-    ToPQ(datarec, [ "0  #customise ", suboptstring ]);
+    ToPQ(datarec, [ 0 ], [ "  #customise ", suboptstring ]);
     for i in [1 .. Length(suppstrings)] do
       isOptionSet := IsBound( optrec.(subopt)[i] ) and
                      optrec.(subopt)[i] in [1, true];
-      ToPQ(datarec, [ PQ_BOOL( isOptionSet ), suppstrings[i] ]);
+      ToPQ_BOOL(datarec, isOptionSet, suppstrings[i]);
     od;
   else
-    ToPQ(datarec, [ "1  #default ", suboptstring ]);
+    ToPQ(datarec, [ 1 ], [ "  #default ", suboptstring ]);
   fi;
 end);
   
@@ -498,7 +482,7 @@ local optrec, optlist, isOptionSet, i;
   fi;
   for i in [1 .. Length(suppstrings)] do
     isOptionSet := IsBound( optlist[i] ) and optlist[i] in [1, true];
-    ToPQ(datarec, [ PQ_BOOL( isOptionSet ), suppstrings[i] ]);
+    ToPQ_BOOL(datarec, isOptionSet, suppstrings[i]);
   od;
 end);
   

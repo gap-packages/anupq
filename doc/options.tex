@@ -212,6 +212,17 @@ an empty set of generators, then no setup file is written and  `fail'  is
 returned (the `pq' program cannot do anything useful with such a  group).
 Interactively, `SetupFile' is ignored.
 
+*Note:*
+Since commands emitted to the `pq' program may depend on knowing what the
+``current state'' is, to form a setup file some ``close enough  guesses''
+may sometimes be necessary; when this occurs a warning  is  `Info'-ed  at
+`InfoANUPQ' or `InfoWarning' level 1. To determine  whether  the  ``close
+enough guesses'' give an accurate setup file, it is necessary to run  the
+command  without  the  `SetupFile'  option,  after  either  setting   the
+`InfoANUPQ' level to at least 4  (the  setup  file  script  can  then  be
+compared with the ```ToPQ> ''' commands that are `Info'-ed) or setting  a
+`pq' command log file by using `ToPQLog' (see~"ToPQLog").
+
 \>`PqWorkspace := <workspace>'{option PqWorkspace}@{option `PqWorkspace'|indexit}&
 Non-interactively, this option sets the memory used by the `pq'  program.
 It sets the maximum number of integer-sized elements to allocate  in  its
