@@ -15,7 +15,7 @@ S 4.1. Computing p-Quotients
 F 4.1. Pq
 F 4.1. PqEpimorphism
 S 4.2. Computing Standard Presentations
-I 4.2. automorphisms!of p groups
+I 4.2. automorphisms!of $p$-groups
 F 4.2. PqStandardPresentation
 F 4.2. PqStandardPresentation
 F 4.2. StandardPresentation
@@ -52,7 +52,7 @@ F 5.3. Pq!interactive
 F 5.3. Pq!interactive
 F 5.3. PqEpimorphism!interactive
 F 5.3. PqEpimorphism!interactive
-I 5.3. automorphisms!of p groups
+I 5.3. automorphisms!of $p$-groups
 F 5.3. PqStandardPresentation!interactive
 F 5.3. PqStandardPresentation!interactive
 F 5.3. PqStandardPresentation!interactive
@@ -116,3 +116,8 @@ F 5.5. PqReadUntil
 F 5.5. PqWrite
 F 5.5. PqWrite
 C install.tex 6. Installing the ANUPQ Share Package
+I 6.0. ANUPQ_GAP_EXEC!environment variable
+S 6.1. Testing your ANUPQ installation
+I 6.1. ANUPQ_GAP_EXEC!environment variable
+S 6.2. Running the pq binary as a standalone
+I 6.2. ANUPQ_GAP_EXEC!environment variable
