@@ -1461,14 +1461,12 @@ performs menu item 3 of the main or advanced $p$-Group Generation menu.
 
 for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
 binary to construct descendants prescribed by <options>, and  return  the
-number of descendants constructed. The options possible are the  same  as
-those      listed      for      the      interactive      `PqDescendants'
-(see~"PqDescendants!interactive")   function,    namely:    `ClassBound',
-`Relators',      `OrderBound',      `StepSize',      `PcgsAutomorphisms',
+number of descendants constructed. The options possible are `ClassBound',
+`OrderBound',              `StepSize',               `PcgsAutomorphisms',
 `RankInitialSegmentSubgroups',  `SpaceEfficient',   `CapableDescendants',
-`AllDescendants',  `Exponent',  `Metabelian',   `GroupName',   `SubList',
-`BasicAlgorithm',  `CustomiseOutput'.  (Detailed  descriptions  of  these
-options may be found in Chapter~"ANUPQ Options".)
+`AllDescendants',     `Exponent',     `Metabelian',     `BasicAlgorithm',
+`CustomiseOutput'. (Detailed descriptions of these options may  be  found
+in Chapter~"ANUPQ Options".)
 
 `PqPGConstructDescendants' requires that the `pq' binary  has  previously
 computed a pc presentation and a $p$-cover for  a  $p$-quotient  of  some
@@ -1479,6 +1477,10 @@ For those  familiar  with  the  `pq'  binary,  `PqPGConstructDescendants'
 performs menu item 5 of the main $p$-Group Generation menu.
 
 *Commands from the Advanced $p$-Group Generation menu*
+
+To see the following  functions  based  on  the  `pq'  binary's  Advanced
+$p$-Group Generation menu in action,  try  `PqExample("Nott-APG-Rel-i");'
+in {\GAP}.
 
 \>PqAPGDegree( <i>, <step>, <rank> [: Exponent := <n> ]) F
 \>PqAPGDegree( <step>, <rank> [: Exponent := <n> ]) F
@@ -1535,6 +1537,21 @@ directory whose name is stored in `ANUPQData.tmpdir'.
 *Note:*
 For those familiar  with  the  `pq'  binary,  `PqAPGOrbitRepresentatives'
 performs option 9 of the Advanced $p$-Group Generation menu.
+
+\>PqAPGSingleStage( <i> ) F
+\>PqAPGSingleStage() F
+
+for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
+binary to do a single stage of the descendants construction algorithm  as
+prescribed  by  <options>.   The   possible   options   are   `StepSize',
+`PcgsAutomorphisms',   `RankInitialSegmentSubgroups',   `SpaceEfficient',
+`CapableDescendants',   `AllDescendants',    `Exponent',    `Metabelian',
+`BasicAlgorithm' and `CustomiseOutput'. (Detailed descriptions  of  these
+options may be found in Chapter~"ANUPQ Options".)
+
+*Note:*
+For those familiar with  the  `pq'  binary,  `PqAPGSingleStage'  performs
+option 5 of the Advanced $p$-Group Generation menu.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Primitive Interactive ANUPQ Process Read/Write Functions}

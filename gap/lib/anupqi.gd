@@ -719,12 +719,6 @@ DeclareGlobalFunction( "PqAPGSupplyAutomorphisms" );
 
 #############################################################################
 ##
-#F PQ_APG_SINGLE_STAGE( <datarec> ) . . . . . . . . . . . A p-G menu option 5
-##
-DeclareGlobalFunction( "PQ_APG_SINGLE_STAGE" );
-
-#############################################################################
-##
 #F PqAPGSingleStage( <i> ) . . . . . . .  user version of A p-G menu option 5
 #F PqAPGSingleStage()
 ##

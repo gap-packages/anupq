@@ -2504,103 +2504,118 @@ end );
 ##
 InstallGlobalFunction( PQ_PG_CONSTRUCT_DESCENDANTS, function( datarec )
 local nodescendants, class, firstStep, expectedNsteps, optrec, line, ngroups,
-      cls, totngroups;
+      cls, totngroups, onestage;
 
-  datarec.des := rec();
-  # deal with the easy answer
-  if VALUE_PQ_OPTION("OrderBound", 0, datarec.des) <> 0 and 
-     IsPGroup(datarec.group) and
-     datarec.des.OrderBound <= LogInt(Size(datarec.group), 
-                                      PrimePGroup(datarec.group)) then
-    return [];
-  fi;
-
-  # We do these here to ensure an error doesn't occur mid-input of the menu
-  # item data 
-  if IsBound(datarec.capable) then
-    #group has come from a `PqPGRestoreGroupFromFile' command
-    if not datarec.capable then
-      Info(InfoWarning + InfoANUPQ, 1, "group restored from file is incapable");
-      return [];
-    fi;
-  fi;
-  if not IsBound(datarec.pcoverclass) or 
-     datarec.pcoverclass <> datarec.class then
-    Error("the p-cover of the last p-quotient has not yet been computed!\n");
+  onestage := IsBound(datarec.des) and IsBound(datarec.des.onestage) and
+              datarec.des.onestage;
+  if not onestage then
+    datarec.des := rec();
   fi;
   VALUE_PQ_OPTION("CustomiseOutput", false, datarec.des);
+  if not onestage then
+    # deal with the easy answer
+    if VALUE_PQ_OPTION("OrderBound", 0, datarec.des) <> 0 and 
+       IsPGroup(datarec.group) and
+       datarec.des.OrderBound <= LogInt(Size(datarec.group), 
+                                        PrimePGroup(datarec.group)) then
+      return [];
+    fi;
 
-  # sanity checks
-  if VALUE_PQ_OPTION("ClassBound", datarec.pcoverclass, datarec.des)
-     < datarec.pcoverclass then
-    Error("option `ClassBound' must be at least ", datarec.pcoverclass, "\n");
+    # We do these here to ensure an error doesn't occur mid-input of the menu
+    # item data 
+    if IsBound(datarec.capable) then
+      #group has come from a `PqPGRestoreGroupFromFile' command
+      if not datarec.capable then
+        Info(InfoWarning + InfoANUPQ, 1, "group restored from file is incapable");
+        return [];
+      fi;
+    fi;
+    if not IsBound(datarec.pcoverclass) or 
+       datarec.pcoverclass <> datarec.class then
+      Error("the p-cover of the last p-quotient has not yet been computed!\n");
+    fi;
+
+    # sanity checks
+    if VALUE_PQ_OPTION("ClassBound", datarec.pcoverclass, datarec.des)
+       < datarec.pcoverclass then
+      Error("option `ClassBound' must be at least ", datarec.pcoverclass, "\n");
+    fi;
   fi;
+
   if     VALUE_PQ_OPTION("SpaceEfficient", false, datarec.des) and 
      not VALUE_PQ_OPTION("PcgsAutomorphisms", false, datarec) then
     Info(InfoWarning + InfoANUPQ, 1,
          "\"SpaceEfficient\" ignored since \"PcgsAutomorphisms\" is set.");
   fi;
-  if VALUE_PQ_OPTION("StepSize", datarec.des) <> fail then
-    if datarec.des.OrderBound <> 0 then
-      Error("\"StepSize\" and \"OrderBound\" ",
-            "must not be set simultaneously\n");
+
+  if not onestage then
+    if VALUE_PQ_OPTION("StepSize", datarec.des) <> fail then
+      if datarec.des.OrderBound <> 0 then
+        Error("\"StepSize\" and \"OrderBound\" ",
+              "must not be set simultaneously\n");
+      fi;
+      expectedNsteps := datarec.des.ClassBound - datarec.pcoverclass + 1;
+      if IsList(datarec.des.StepSize) then
+        firstStep := datarec.des.StepSize[1];
+        if Length(datarec.des.StepSize) <> expectedNsteps then
+          Error( "the number of step-sizes in the \"StepSize\" list must\n",
+                 "equal ", expectedNsteps, " (one more than the difference\n",
+                 "of \"ClassBound\" and the class of the p-covering group)\n" );
+        fi;
+      else
+        firstStep := datarec.des.StepSize;
+      fi;
+      if HasNuclearRank(datarec.group) and 
+         firstStep > NuclearRank(datarec.group) then
+        Error("the first \"StepSize\" element (= ", firstStep, ") must not be\n",
+              "greater than the \"Nuclear Rank\" (= ",
+              NuclearRank(datarec.group), ")\n");
+      fi;
     fi;
-    expectedNsteps := datarec.des.ClassBound - datarec.pcoverclass + 1;
-    if IsList(datarec.des.StepSize) then
-      firstStep := datarec.des.StepSize[1];
-      if Length(datarec.des.StepSize) <> expectedNsteps then
-        Error( "the number of step-sizes in the \"StepSize\" list must\n",
-               "equal ", expectedNsteps, " (one more than the difference\n",
-               "of \"ClassBound\" and the class of the p-covering group)\n" );
+
+    PQ_MENU(datarec, "pG");
+    datarec.matchlist := [" is an invalid starting group"];
+    datarec.matchedlines := [];
+    ToPQ(datarec, [ "5  #construct descendants" ]);
+    nodescendants := not IsEmpty(datarec.matchedlines);
+    PQ_UNBIND( datarec, ["matchlist", "matchedlines"] );
+    if nodescendants then
+      return [];
+    fi;
+    ToPQ(datarec, [ datarec.des.ClassBound, " #class bound" ]);
+
+    #Construct all descendants?
+    if not IsBound(datarec.des.StepSize) then
+      ToPQ(datarec, [ "1  #do construct all descendants" ]);
+      #Set an order bound for descendants?
+      if datarec.des.OrderBound <> 0 then
+        ToPQ(datarec, [ "1  #do set an order bound" ]);
+        ToPQ(datarec, [ datarec.des.OrderBound, " #order bound" ]);
+      else
+        ToPQ(datarec, [ "0  #do not set an order bound" ]);
       fi;
     else
-      firstStep := datarec.des.StepSize;
-    fi;
-    if HasNuclearRank(datarec.group) and 
-       firstStep > NuclearRank(datarec.group) then
-      Error("the first \"StepSize\" element (= ", firstStep, ") must not be\n",
-            "greater than the \"Nuclear Rank\" (= ",
-            NuclearRank(datarec.group), ")\n");
-    fi;
-  fi;
+      ToPQ(datarec, [ "0  #do not construct all descendants" ]);
+      if expectedNsteps = 1 then
+        # Input step size
+        ToPQ(datarec, [ "1  #step size" ]);
 
-  PQ_MENU(datarec, "pG");
-  datarec.matchlist := [" is an invalid starting group"];
-  datarec.matchedlines := [];
-  ToPQ(datarec, [ "5  #construct descendants" ]);
-  nodescendants := not IsEmpty(datarec.matchedlines);
-  PQ_UNBIND( datarec, ["matchlist", "matchedlines"] );
-  if nodescendants then
-    return [];
-  fi;
-  ToPQ(datarec, [ datarec.des.ClassBound, " #class bound" ]);
-
-  #Construct all descendants?
-  if not IsBound(datarec.des.StepSize) then
-    ToPQ(datarec, [ "1  #do construct all descendants" ]);
-    #Set an order bound for descendants?
-    if datarec.des.OrderBound <> 0 then
-      ToPQ(datarec, [ "1  #do set an order bound" ]);
-      ToPQ(datarec, [ datarec.des.OrderBound, " #order bound" ]);
-    else
-      ToPQ(datarec, [ "0  #do not set an order bound" ]);
+        # Constant step size?
+      elif IsInt(datarec.des.StepSize) then
+        ToPQ(datarec, [ "1  #set constant step size" ]);
+        ToPQ(datarec, [ datarec.des.StepSize, "  #step size" ]);
+      else
+        ToPQ(datarec, [ "0  #set variable step size" ]);
+        ToPQ(datarec, [ JoinStringsWithSeparator(
+                            List(datarec.des.StepSize, String), " "),
+                         "  #step sizes" ]);
+      fi;
     fi;
+
   else
-    ToPQ(datarec, [ "0  #do not construct all descendants" ]);
-    if expectedNsteps = 1 then
-      # Input step size
-      ToPQ(datarec, [ "1  #step size" ]);
-
-      # Constant step size?
-    elif IsInt(datarec.des.StepSize) then
-      ToPQ(datarec, [ "1  #set constant step size" ]);
-      ToPQ(datarec, [ datarec.des.StepSize, "  #step size" ]);
-    else
-      ToPQ(datarec, [ "0  #set variable step size" ]);
-      ToPQ(datarec, [ JoinStringsWithSeparator(
-                          List(datarec.des.StepSize, String), " "),
-                       "  #step sizes" ]);
-    fi;
+    PQ_MENU(datarec, "ApG");
+    ToPQ(datarec, [ "5  #single stage" ]);
+    ToPQ(datarec, [VALUE_PQ_OPTION("StepSize", datarec.des), " #step size"]);
   fi;
   ToPQ(datarec, [ PQ_BOOL(VALUE_PQ_OPTION("PcgsAutomorphisms", false, datarec)),
                    "compute pcgs gen. seq. for auts." ]);
@@ -2657,20 +2672,26 @@ local nodescendants, class, firstStep, expectedNsteps, optrec, line, ngroups,
   else
     ToPQ(datarec, [ "1  #default output" ]);
   fi;
-  if not IsBound(datarec.ndescendants) then
-    datarec.ndescendants := [];
-  fi;
-  totngroups := 0;
-  for line in datarec.matchedlines do
-    line := SplitString(line, "", " \n");
-    ngroups := Int( line[1] );
-    cls := SplitString( line[ Length(line) ], "", "_" );
-    cls := Int( cls[2]{[6 .. Length( cls[2] )]} );
-    datarec.ndescendants[cls] := [ngroups, line[2] = "capable"];
-    totngroups := totngroups + ngroups;
-  od;
-  PQ_UNBIND(datarec, ["matchlist", "matchedlines"]);
-  return totngroups;
+  if onestage then
+    ToPQ(datarec, [ VALUE_PQ_OPTION("Filename", "onestage", datarec.des),
+                      " #output filename" ]);
+    Unbind(datarec.des.onestage);
+  else
+    if not IsBound(datarec.ndescendants) then
+      datarec.ndescendants := [];
+    fi;
+    totngroups := 0;
+    for line in datarec.matchedlines do
+      line := SplitString(line, "", " \n");
+      ngroups := Int( line[1] );
+      cls := SplitString( line[ Length(line) ], "", "_" );
+      cls := Int( cls[2]{[6 .. Length( cls[2] )]} );
+      datarec.ndescendants[cls] := [ngroups, line[2] = "capable"];
+      totngroups := totngroups + ngroups;
+    od;
+    PQ_UNBIND(datarec, ["matchlist", "matchedlines"]);
+    return totngroups;
+  fi; 
 end );
 
 #############################################################################
@@ -2680,14 +2701,12 @@ end );
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
 ##  binary to construct descendants prescribed by <options>, and  return  the
-##  number of descendants constructed. The options possible are the  same  as
-##  those      listed      for      the      interactive      `PqDescendants'
-##  (see~"PqDescendants!interactive")   function,    namely:    `ClassBound',
-##  `Relators',      `OrderBound',      `StepSize',      `PcgsAutomorphisms',
+##  number of descendants constructed. The options possible are `ClassBound',
+##  `OrderBound',              `StepSize',               `PcgsAutomorphisms',
 ##  `RankInitialSegmentSubgroups',  `SpaceEfficient',   `CapableDescendants',
-##  `AllDescendants',  `Exponent',  `Metabelian',   `GroupName',   `SubList',
-##  `BasicAlgorithm',  `CustomiseOutput'.  (Detailed  descriptions  of  these
-##  options may be found in Chapter~"ANUPQ Options".)
+##  `AllDescendants',     `Exponent',     `Metabelian',     `BasicAlgorithm',
+##  `CustomiseOutput'. (Detailed descriptions of these options may  be  found
+##  in Chapter~"ANUPQ Options".)
 ##
 ##  `PqPGConstructDescendants' requires that the `pq' binary  has  previously
 ##  computed a pc presentation and a $p$-cover for  a  $p$-quotient  of  some
@@ -2737,33 +2756,28 @@ end );
 
 #############################################################################
 ##
-#F  PQ_APG_SINGLE_STAGE( <datarec> ) . . . . . . . . . .  A p-G menu option 5
-##
-#T  Not implemented.
-##  inputs data to the `pq' binary for option 5 of the
-##  Advanced $p$-Group Generation menu.
-##
-InstallGlobalFunction( PQ_APG_SINGLE_STAGE, function( datarec )
-end );
-
-#############################################################################
-##
 #F  PqAPGSingleStage( <i> ) . . . . . . . user version of A p-G menu option 5
 #F  PqAPGSingleStage()
 ##
-#T  Not implemented.
-##  for the <i>th or default interactive {\ANUPQ} process, inputs data
-##  to the `pq' binary
+##  for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
+##  binary to do a single stage of the descendants construction algorithm  as
+##  prescribed  by  <options>.   The   possible   options   are   `StepSize',
+##  `PcgsAutomorphisms',   `RankInitialSegmentSubgroups',   `SpaceEfficient',
+##  `CapableDescendants',   `AllDescendants',    `Exponent',    `Metabelian',
+##  `BasicAlgorithm' and `CustomiseOutput'. (Detailed descriptions  of  these
+##  options may be found in Chapter~"ANUPQ Options".)
 ##
-##  *Note:* For those  familiar  with  the  `pq'  binary, 
-##  `PqAPGSingleStage' performs option 5 of the
-##  Advanced $p$-Group Generation menu.
+##  *Note:*
+##  For those familiar with  the  `pq'  binary,  `PqAPGSingleStage'  performs
+##  option 5 of the Advanced $p$-Group Generation menu.
 ##
 InstallGlobalFunction( PqAPGSingleStage, function( arg )
-local datarec;
+local datarec, ngroups;
   ANUPQ_IOINDEX_ARG_CHK(arg);
   datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  PQ_APG_SINGLE_STAGE( datarec );
+  PQ_MENU(datarec, "ApG");
+  datarec.des.onestage := true;
+  PQ_PG_CONSTRUCT_DESCENDANTS(datarec);
 end );
 
 #############################################################################
