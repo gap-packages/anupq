@@ -144,6 +144,8 @@ name
                      # Print commutator matrix?
 0
                      # Automorphism group description of descendants?
+0
+                     # Automorphism group order of descendants?
 1
                   # Do you want algorithm trace information?
 0
