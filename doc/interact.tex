@@ -883,12 +883,19 @@ performs option 26 of the Advanced $p$-Quotient menu.
 
 *Main $p$-Group Generation menu commands*
 
-\>PqPGSupplyAutomorphisms( <i> ) F
-\>PqPGSupplyAutomorphisms() F
+\>PqPGSupplyAutomorphisms( <i>[, <mlist>] ) F
+\>PqPGSupplyAutomorphisms([<mlist>]) F
 
-for the <i>th or default interactive {\ANUPQ} process, supplies the  `pq'
-binary    with    the    automorphism    group    data     needed     for
-`ANUPQData.io[<i>].group'.
+for the <i>th or default interactive {\ANUPQ} process,  supply  the  `pq'
+binary with the automorphism group data needed  for  the  group  of  that
+process    (for    process    <i>    the    group    is     stored     as
+`ANUPQData.io[<i>].group'). If  the  argument  <mlist>  is  omitted  then
+{\GAP} *must* be able to determine the automorphism group of the group of
+the process. Otherwise the automorphism data  is  provided  from  <mlist>
+which  should  be  a  list  of   matrices   with   non-negative   integer
+coefficients, where  each  matrix  must  have  the  same  dimensions;  in
+particular, the number of rows of each matrix must be  the  rank  of  the
+group of the process.
 
 *Note:*
 For  those  familiar  with  the  `pq'  binary,  `PqPGSupplyAutomorphisms'
@@ -946,12 +953,19 @@ performs option 5 of the main $p$-Group Generation menu.
 
 *Advanced $p$-Group Generation menu commands*
 
-\>PqAPGSupplyAutomorphisms( <i> ) F
-\>PqAPGSupplyAutomorphisms() F
+\>PqAPGSupplyAutomorphisms( <i>[, <mlist>] ) F
+\>PqAPGSupplyAutomorphisms([<mlist>]) F
 
-for the <i>th or default interactive {\ANUPQ} process, supplies the  `pq'
-binary    with    the    automorphism    group    data     needed     for
-`ANUPQData.io[<i>].group'.
+for the <i>th or default interactive {\ANUPQ} process,  supply  the  `pq'
+binary with the automorphism group data needed  for  the  group  of  that
+process    (for    process    <i>    the    group    is     stored     as
+`ANUPQData.io[<i>].group'). If  the  argument  <mlist>  is  omitted  then
+{\GAP} *must* be able to determine the automorphism group of the group of
+the process. Otherwise the automorphism data  is  provided  from  <mlist>
+which  should  be  a  list  of   matrices   with   non-negative   integer
+coefficients, where  each  matrix  must  have  the  same  dimensions;  in
+particular, the number of rows of each matrix must be  the  rank  of  the
+group of the process.
 
 *Note:*
 For those  familiar  with  the  `pq'  binary,  `PqAPGSupplyAutomorphisms'
