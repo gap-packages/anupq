@@ -214,6 +214,18 @@ DeclareGlobalFunction( "PqComputePCover" );
 
 #############################################################################
 ##
+#F  PQ_EVALUATE_IDENTITIES(<datarec>) . evaluate Identities option identities
+##
+DeclareGlobalFunction( "PQ_EVALUATE_IDENTITIES" );
+
+#############################################################################
+##
+#F  PQ_FINISH_NEXT_CLASS( <datarec> ) . . .  take the p-cover to a next class
+##
+DeclareGlobalFunction( "PQ_FINISH_NEXT_CLASS" );
+
+#############################################################################
+##
 #F  PQ_COLLECT( <datarec>, <word> ) . . . . . . . . . . . A p-Q menu option 1
 ##
 DeclareGlobalFunction( "PQ_COLLECT" );

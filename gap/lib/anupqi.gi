@@ -136,8 +136,7 @@ local ioIndex, datarec, mlist, rank, nexpts;
     mlist := args[ Length(args) ];
     args := args{[1 .. Length(args) - 1]};
   fi;
-  ANUPQ_IOINDEX_ARG_CHK(args);
-  ioIndex := ANUPQ_IOINDEX(args);
+  ioIndex := CallFuncList(PqProcessIndex, args);
   if not IsBound(mlist) then
     return [ioIndex];
   elif not( IsList(mlist) and ForAll(mlist, IsMatrix) and
@@ -172,11 +171,14 @@ end );
 ##  `"pQ"' (main $p$-Quotient menu) or `"SP' (Standard Presentation menu).
 ##
 InstallGlobalFunction( PQ_PC_PRESENTATION, function( datarec, menu )
-local gens, rels, p, pcgs, len, strp, i, j, Rel, line;
+local gens, rels, p, identities, pcgs, len, strp, i, j, Rel, line;
 
   p := VALUE_PQ_OPTION("Prime", fail, datarec); # "Prime" is a `global' option
 
   PQ_MENU(datarec, menu);
+
+  identities := menu = "pQ" and
+                VALUE_PQ_OPTION("Identities", [], datarec) <> [];
 
   # Option 1 of p-Quotient/Standard Presentation Menu: defining the group
   ToPQk(datarec, ["1  #define group"]);
@@ -186,7 +188,12 @@ local gens, rels, p, pcgs, len, strp, i, j, Rel, line;
   fi;
   ToPQk(datarec, ["name ",     datarec.GroupName]);
   ToPQk(datarec, ["prime ",    p]);
-  ToPQk(datarec, ["class ",    VALUE_PQ_OPTION("ClassBound", 63, datarec)]);
+  if identities then
+    datarec.prevngens := 0;
+    ToPQk(datarec, ["class ",  1]);
+  else
+    ToPQk(datarec, ["class ",  VALUE_PQ_OPTION("ClassBound", 63, datarec)]);
+  fi;
   ToPQk(datarec, ["exponent ", VALUE_PQ_OPTION("Exponent", 0, datarec)]);
                                              # "Exponent" is a `global' option
   if VALUE_PQ_OPTION( "Metabelian", false, datarec ) = true then
@@ -254,6 +261,14 @@ local gens, rels, p, pcgs, len, strp, i, j, Rel, line;
   datarec.match := true;
   ToPQ(datarec, [ rels ]);
   PQ_SET_GRP_DATA(datarec);
+  if identities and datarec.ngens[1] <> 0 then
+    PQ_EVALUATE_IDENTITIES(datarec);
+    VALUE_PQ_OPTION("ClassBound", 63, datarec);
+    while datarec.class < datarec.ClassBound and 
+          datarec.prevngens <> datarec.ngens[ datarec.class ] do
+      PQ_NEXT_CLASS(datarec);
+    od;
+  fi;
 end );
 
 #############################################################################
@@ -284,8 +299,7 @@ end );
 ##
 InstallGlobalFunction( PqPcPresentation, function( arg )
 local datarec;
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
+  datarec := CallFuncList(ANUPQDataRecord, arg);
   PQ_PC_PRESENTATION( datarec, "pQ" );
 end );
 
@@ -379,8 +393,7 @@ local datarec, filename;
   fi;
   filename := PQ_CHK_PATH( arg[Length(arg)], "w" );
   arg := arg{[1..Length(arg) - 1]};
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
+  datarec := CallFuncList(ANUPQDataRecord, arg);
   PQ_SAVE_PC_PRESENTATION( datarec, filename );
 end );
 
@@ -421,8 +434,7 @@ local datarec, filename;
   fi;
   filename := PQ_CHK_PATH( arg[Length(arg)], "r" );
   arg := arg{[1..Length(arg) - 1]};
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
+  datarec := CallFuncList(ANUPQDataRecord, arg);
   PQ_RESTORE_PC_PRESENTATION( datarec, filename );
 end );
 
@@ -501,6 +513,9 @@ local line, classpos;
   fi;
   if datarec.class > 0 then
     datarec.ngens[ datarec.class ] := datarec.forder[2];
+    #The `pq' binary reduces the class by 1 
+    #if the no. of gen'rs doesn't increase
+    Unbind( datarec.ngens[ datarec.class + 1 ] );
   fi;
 
   if not IsBound(datarec.inPQ_DATA) and not IsDenseList(datarec.ngens) then
@@ -578,8 +593,7 @@ end );
 ##
 InstallGlobalFunction( PQ_DATA_CHK, function( args )
 local datarec;
-  ANUPQ_IOINDEX_ARG_CHK(args);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(args) ];
+  datarec := CallFuncList(ANUPQDataRecord, args);
   if not IsBound(datarec.ngens) or IsEmpty(datarec.ngens) or 
      not IsDenseList(datarec.ngens) then
     PQ_DATA( datarec );
@@ -723,8 +737,7 @@ end );
 ##
 InstallGlobalFunction( PqDisplayPcPresentation, function( arg )
 local datarec;
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
+  datarec := CallFuncList(ANUPQDataRecord, arg);
   PQ_GRP_EXISTS_CHK( datarec );
   PQ_DISPLAY_PRESENTATION( datarec );
 end );
@@ -767,9 +780,7 @@ local datarec, lev;
   if not(lev in [0..3]) then
     Error( "argument <lev> should be an integer in [0 .. 3]\n" );
   fi;
-  arg := arg{[1 .. Length(arg) - 1]};
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX( arg{[1..Length(arg) - 1]} ) ];
+  datarec := CallFuncList(ANUPQDataRecord, arg{[1..Length(arg) - 1]});
   PQ_SET_OUTPUT_LEVEL( datarec, lev);
 end );
 
@@ -787,12 +798,20 @@ InstallGlobalFunction( PQ_NEXT_CLASS, function( datarec )
 local line;
   PQ_MENU(datarec, "pQ");
   PQ_UNBIND(datarec, ["pQuotient", "pQepi", "pCover"]);
-  datarec.match := true;
-  ToPQ(datarec, [ "6  #calculate next class" ]);
-  if IsMatchingSublist(datarec.line, "Input queue factor:") then
-    ToPQ(datarec, [ VALUE_PQ_OPTION("QueueFactor", 15), " #queue factor"]);
+  if VALUE_PQ_OPTION("Identities", [], datarec) <> [] then
+    if datarec.class >= 1 then
+      datarec.prevngens := datarec.ngens[ datarec.class ];
+    fi;
+    PQ_P_COVER(datarec);
+    PQ_FINISH_NEXT_CLASS(datarec);
+  else
+    datarec.match := true;
+    ToPQ(datarec, [ "6  #calculate next class" ]);
+    if IsMatchingSublist(datarec.line, "Input queue factor:") then
+      ToPQ(datarec, [ VALUE_PQ_OPTION("QueueFactor", 15), " #queue factor"]);
+    fi;
+    PQ_SET_GRP_DATA(datarec);
   fi;
-  PQ_SET_GRP_DATA(datarec);
 end );
 
 #############################################################################
@@ -825,8 +844,7 @@ end );
 ##
 InstallGlobalFunction( PqNextClass, function( arg )
 local datarec;
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
+  datarec := CallFuncList(ANUPQDataRecord, arg);
   PQ_GRP_EXISTS_CHK( datarec );
   PQ_NEXT_CLASS( datarec );
 end );
@@ -871,10 +889,40 @@ end );
 ##
 InstallGlobalFunction( PqComputePCover, function( arg )
 local datarec;
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
+  datarec := CallFuncList(ANUPQDataRecord, arg);
   PQ_GRP_EXISTS_CHK( datarec );
   PQ_P_COVER( datarec );
+end );
+
+#############################################################################
+##
+#F  PQ_EVALUATE_IDENTITIES(<datarec>) . evaluate Identities option identities
+##
+InstallGlobalFunction( PQ_EVALUATE_IDENTITIES, function( datarec )
+local identity, procId;
+  procId := datarec.procId;
+  for identity in VALUE_PQ_OPTION("Identities", [], datarec) do
+    PQ_EVALUATE_IDENTITY(procId, identity);
+  od;
+  PQ_ELIMINATE_REDUNDANT_GENERATORS( datarec );
+  Info(InfoANUPQ, 1, "Class ", datarec.class, " with ",
+                     PqNrPcGenerators(procId), " generators." );
+end );
+
+#############################################################################
+##
+#F  PQ_FINISH_NEXT_CLASS( <datarec> ) . . .  take the p-cover to a next class
+##
+##  does the usual operations required after calculating the  <p>-cover  that
+##  brings the pcp back to a next class, except that it  also  slips  in  the
+##  evaluation of the identities of the `Identities' option.
+##
+InstallGlobalFunction( PQ_FINISH_NEXT_CLASS, function( datarec )
+  PushOptions( rec(nonuser := true) );
+  PQ_COLLECT_DEFINING_RELATIONS( datarec );
+  PQ_DO_EXPONENT_CHECKS( datarec, [1, datarec.class] );
+  PQ_EVALUATE_IDENTITIES( datarec );
+  PopOptions();
 end );
 
 #############################################################################
@@ -908,9 +956,7 @@ local datarec, word;
   if not IsString(word) then
     Error( "argument <word> should be a string e.g. \"x3*x2*x1\"\n" );
   fi;
-  args := args{[1..Length(args) - 1]};
-  ANUPQ_IOINDEX_ARG_CHK(args);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(args) ];
+  datarec := CallFuncList(ANUPQDataRecord, args{[1..Length(args) - 1]});
   return [datarec, word];
 end );
 
@@ -963,8 +1009,7 @@ local len, datarec;
     Error("expected 2 or 3 arguments\n");
   fi;
   #@need to add argument checking for a and b@
-  ANUPQ_IOINDEX_ARG_CHK(arg{[1..len - 2]});
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg{[1..len - 2]}) ];
+  datarec := CallFuncList(ANUPQDataRecord, arg{[1 .. len - 2]});
   PQ_SOLVE_EQUATION( datarec, arg[len - 1], arg[len] );
 end );
 
@@ -1013,9 +1058,7 @@ local len, words, pow, datarec;
   if not IsPosInt(pow) then
     Error( "argument <pow> must be a positive integer\n" );
   fi;
-  args := args{[1 .. len - 2]};
-  ANUPQ_IOINDEX_ARG_CHK(args);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(args) ];
+  datarec := CallFuncList(ANUPQDataRecord, args{[1 .. len - 2]});
   return [datarec, words, pow];
 end );
 
@@ -1068,8 +1111,7 @@ end );
 ##
 InstallGlobalFunction( PqSetupTablesForNextClass, function( arg )
 local datarec;
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
+  datarec := CallFuncList(ANUPQDataRecord, arg);
   PQ_SETUP_TABLES_FOR_NEXT_CLASS( datarec );
 end );
 
@@ -1103,9 +1145,7 @@ local weight, datarec;
     Error( "1 or 2 arguments expected\n");
   fi;
   weight := args[Length(args)];
-  args := args{[1..Length(args) - 1]};
-  ANUPQ_IOINDEX_ARG_CHK(args);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(args) ];
+  datarec := CallFuncList(ANUPQDataRecord, args{[1 .. Length(args) - 1]});
   if not IsBound(datarec.setupclass) or datarec.class <> datarec.setupclass then
     Error( "tables to start next class have not been set up.\n",
            "Please call `PqSetupTablesForNextClass' first\n" );
@@ -1261,8 +1301,7 @@ local len, datarec, weight, type;
   weight := arg[len - 1];
   type   := arg[len];
   arg := arg{[1 .. len - 2]};
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
+  datarec := CallFuncList(ANUPQDataRecord, arg);
   if not IsBound(datarec.setupclass) or datarec.class <> datarec.setupclass then
     Error( "tables to start next class have not been set up.\n",
            "Please call `PqSetupTablesForNextClass' first\n" );
@@ -1307,8 +1346,7 @@ end );
 ##
 InstallGlobalFunction( PqCollectDefiningRelations, function( arg )
 local datarec;
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
+  datarec := CallFuncList(ANUPQDataRecord, arg);
   PQ_COLLECT_DEFINING_RELATIONS( datarec );
 end );
 
@@ -1322,14 +1360,21 @@ end );
 InstallGlobalFunction( PQ_DO_EXPONENT_CHECKS, function( datarec, bnds )
   #@does default only at the moment@
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
+  datarec.match := "Group is complete";
   ToPQ(datarec, [ "10 #do exponent checks" ]);
-  if IsMatchingSublist(datarec.line, "Input exponent law") then
+  if IsBound(datarec.matchedline) and
+     IsMatchingSublist(datarec.matchedline, "Group is complete") then
+    PQ_UNBIND(datarec, ["match", "matchedline"]);
+    datarec.complete := true;
+    return;
+  elif IsMatchingSublist(datarec.line, "Input exponent law") then
     ToPQ(datarec, [ VALUE_PQ_OPTION("Exponent", 0, datarec),
                       "  #exponent" ]);
   fi;
   ToPQ(datarec, [ bnds[1], " #start weight" ]);
   ToPQ(datarec, [ bnds[2], " #end weight"   ]);
   ToPQ(datarec, [ 1,  "  #do default check" ]);
+  Unbind(datarec.match);
 end );
 
 #############################################################################
@@ -1382,8 +1427,7 @@ end );
 ##
 InstallGlobalFunction( PqEliminateRedundantGenerators, function( arg )
 local datarec;
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
+  datarec := CallFuncList(ANUPQDataRecord, arg);
   PQ_ELIMINATE_REDUNDANT_GENERATORS( datarec );
 end );
 
@@ -1417,8 +1461,7 @@ end );
 ##
 InstallGlobalFunction( PqRevertToPreviousClass, function( arg )
 local datarec;
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
+  datarec := CallFuncList(ANUPQDataRecord, arg);
   PQ_REVERT_TO_PREVIOUS_CLASS( datarec );
 end );
 
@@ -1499,8 +1542,7 @@ end );
 ##
 InstallGlobalFunction( PqSetMetabelian, function( arg )
 local datarec;
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
+  datarec := CallFuncList(ANUPQDataRecord, arg);
   PQ_SET_METABELIAN( datarec );
 end );
 
@@ -1544,8 +1586,7 @@ local len, c, b, a, datarec;
   b := arg[len - 1];
   a := arg[len];
   arg := arg{[1 .. len - 3]};
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
+  datarec := CallFuncList(ANUPQDataRecord, arg);
   if not IsBound(datarec.setupclass) or datarec.class <> datarec.setupclass then
     Error( "tables to start next class have not been set up.\n",
            "Please call `PqSetupTablesForNextClass' first\n" );
@@ -1584,8 +1625,7 @@ end );
 ##
 InstallGlobalFunction( PqCompact, function( arg )
 local datarec;
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
+  datarec := CallFuncList(ANUPQDataRecord, arg);
   PQ_COMPACT( datarec );
 end );
 
@@ -1619,8 +1659,7 @@ end );
 ##
 InstallGlobalFunction( PqEchelonise, function( arg )
 local datarec;
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
+  datarec := CallFuncList(ANUPQDataRecord, arg);
   PQ_ECHELONISE( datarec );
 end );
 
@@ -1687,8 +1726,7 @@ end );
 ##
 InstallGlobalFunction( PqExtendAutomorphisms, function( arg )
 local datarec;
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
+  datarec := CallFuncList(ANUPQDataRecord, arg);
   if not(IsBound(datarec.hasAuts) and datarec.hasAuts) then
     Error("huh! don't have any automorphisms to extend.\n",
           "Perhaps you wanted to use `PqSupplyAutomorphisms'\n");
@@ -1727,8 +1765,7 @@ local len, datarec, qfac;
   if not(len in [1, 2]) then
     Error("expected 1 or 2 arguments\n");
   fi;
-  ANUPQ_IOINDEX_ARG_CHK(arg{[1 .. len - 1]});
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg{[1 .. len - 1]}) ];
+  datarec := CallFuncList(ANUPQDataRecord, arg{[1 .. len - 1]});
   PQ_CLOSE_RELATIONS( datarec, arg[len] );
 end );
 
@@ -1924,8 +1961,7 @@ local filename, datarec;
   fi;
   filename := PQ_CHK_PATH( arg[Length(arg)], "w" );
   Unbind( arg[ Length(arg) ] );
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
+  datarec := CallFuncList(ANUPQDataRecord, arg);
   if not( IsBound(datarec.pCover) and datarec.pcoverclass = datarec.class or
           IsBound(datarec.pQuotient) ) then
     Error( "no p-quotient or p-cover has been computed\n" );
@@ -1957,8 +1993,7 @@ end );
 ##  performs menu item 26 of the Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqWriteCompactDescription, function( arg )
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  PQ_WRITE_COMPACT_DESCRIPTION( ANUPQData.io[ ANUPQ_IOINDEX(arg) ] );
+  PQ_WRITE_COMPACT_DESCRIPTION( CallFuncList(ANUPQDataRecord, arg) );
 end );
 
 #############################################################################
@@ -1987,8 +2022,7 @@ end );
 ##
 InstallGlobalFunction( PqEvaluateCertainFormulae, function( arg )
 local datarec;
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
+  datarec := CallFuncList(ANUPQDataRecord, arg);
   PQ_EVALUATE_CERTAIN_FORMULAE( datarec );
 end );
 
@@ -2018,8 +2052,7 @@ end );
 ##
 InstallGlobalFunction( PqEvaluateAction, function( arg )
 local datarec;
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
+  datarec := CallFuncList(ANUPQDataRecord, arg);
   PQ_EVALUATE_ACTION( datarec );
 end );
 
@@ -2049,8 +2082,7 @@ end );
 ##
 InstallGlobalFunction( PqEvaluateEngelIdentity, function( arg )
 local datarec;
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
+  datarec := CallFuncList(ANUPQDataRecord, arg);
   PQ_EVALUATE_ENGEL_IDENTITY( datarec );
 end );
 
@@ -2080,8 +2112,7 @@ end );
 ##
 InstallGlobalFunction( PqProcessRelationsFile, function( arg )
 local datarec;
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
+  datarec := CallFuncList(ANUPQDataRecord, arg);
   PQ_PROCESS_RELATIONS_FILE( datarec );
 end );
 
@@ -2111,8 +2142,7 @@ end );
 ##
 InstallGlobalFunction( PqSPComputePcpAndPCover, function( arg )
 local datarec;
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
+  datarec := CallFuncList(ANUPQDataRecord, arg);
   PQ_PC_PRESENTATION( datarec, "SP" );
 end );
 
@@ -2248,8 +2278,7 @@ local datarec, filename;
   fi;
   filename := PQ_CHK_PATH( arg[Length(arg)], "w" );
   arg := arg{[1..Length(arg) - 1]};
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
+  datarec := CallFuncList(ANUPQDataRecord, arg);
   PQ_SP_SAVE_PRESENTATION( datarec, filename );
 end );
 
@@ -2305,8 +2334,7 @@ local len, datarec, f1, f2;
   f1 := PQ_CHK_PATH( arg[len - 1], "r" );
   f2 := PQ_CHK_PATH( arg[len], "r" );
   arg := arg{[1..len - 2]};
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
+  datarec := CallFuncList(ANUPQDataRecord, arg);
   return PQ_SP_COMPARE_TWO_FILE_PRESENTATIONS( datarec, f1, f2 );
 end );
 
@@ -2338,8 +2366,7 @@ end );
 ##
 InstallGlobalFunction( PqSPIsomorphism, function( arg )
 local datarec;
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
+  datarec := CallFuncList(ANUPQDataRecord, arg);
   PQ_SP_ISOMORPHISM( datarec );
 end );
 
@@ -2419,8 +2446,7 @@ end );
 ##
 InstallGlobalFunction( PqPGExtendAutomorphisms, function( arg )
 local datarec;
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
+  datarec := CallFuncList(ANUPQDataRecord, arg);
   PQ_PG_EXTEND_AUTOMORPHISMS( datarec );
 end );
 
@@ -2483,8 +2509,7 @@ local len, datarec, cls, n;
     n   := arg[len];
     arg := arg{[1 .. len - 2]};
   fi;
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
+  datarec := CallFuncList(ANUPQDataRecord, arg);
   if len in [2, 3] then
     if not( IsBound(datarec.ndescendants) and 
             IsBound( datarec.ndescendants[cls] ) ) then
@@ -2722,8 +2747,7 @@ end );
 ##
 InstallGlobalFunction( PqPGConstructDescendants, function( arg )
 local datarec;
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
+  datarec := CallFuncList(ANUPQDataRecord, arg);
   return PQ_PG_CONSTRUCT_DESCENDANTS( datarec );
 end );
 
@@ -2777,8 +2801,7 @@ end );
 ##
 InstallGlobalFunction( PqAPGSingleStage, function( arg )
 local datarec, ngroups;
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
+  datarec := CallFuncList(ANUPQDataRecord, arg);
   PQ_MENU(datarec, "ApG");
   datarec.des.onestage := true;
   PQ_PG_CONSTRUCT_DESCENDANTS(datarec);
@@ -2825,8 +2848,7 @@ local len, datarec;
   if not(len in [2, 3] or ForAll(arg, IsPosInt)) then
     Error("expected 2 or 3 positive integer arguments\n");
   fi;
-  ANUPQ_IOINDEX_ARG_CHK(arg{[1 .. len - 2]});
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg{[1 .. len - 2]}) ];
+  datarec := CallFuncList(ANUPQDataRecord, arg{[1 .. len - 2]});
   return PQ_APG_DEGREE( datarec, arg[len - 1], arg[len] );
 end );
 
@@ -2867,8 +2889,7 @@ end );
 ##
 InstallGlobalFunction( PqAPGPermutations, function( arg )
 local datarec;
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
+  datarec := CallFuncList(ANUPQDataRecord, arg);
   PQ_APG_PERMUTATIONS( datarec );
 end );
 
@@ -2935,8 +2956,7 @@ end );
 ##
 InstallGlobalFunction( PqAPGOrbits, function( arg )
 local datarec, norbits;
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
+  datarec := CallFuncList(ANUPQDataRecord, arg);
   norbits := PQ_APG_ORBITS( datarec );
   if norbits <> "" then
     return norbits;
@@ -3004,8 +3024,7 @@ end );
 ##
 InstallGlobalFunction( PqAPGOrbitRepresentatives, function( arg )
 local datarec;
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
+  datarec := CallFuncList(ANUPQDataRecord, arg);
   PQ_APG_ORBIT_REPRESENTATIVES( datarec );
 end );
 
@@ -3033,8 +3052,7 @@ end );
 ##
 InstallGlobalFunction( PqAPGOrbitRepresentative, function( arg )
 local datarec;
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
+  datarec := CallFuncList(ANUPQDataRecord, arg);
   PQ_APG_ORBIT_REPRESENTATIVE( datarec );
 end );
 
@@ -3062,8 +3080,7 @@ end );
 ##
 InstallGlobalFunction( PqAPGStandardMatrixLabel, function( arg )
 local datarec;
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
+  datarec := CallFuncList(ANUPQDataRecord, arg);
   PQ_APG_STANDARD_MATRIX_LABEL( datarec );
 end );
 
@@ -3091,8 +3108,7 @@ end );
 ##
 InstallGlobalFunction( PqAPGMatrixOfLabel, function( arg )
 local datarec;
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
+  datarec := CallFuncList(ANUPQDataRecord, arg);
   PQ_APG_MATRIX_OF_LABEL( datarec );
 end );
 
@@ -3120,8 +3136,7 @@ end );
 ##
 InstallGlobalFunction( PqAPGImageOfAllowableSubgroup, function( arg )
 local datarec;
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
+  datarec := CallFuncList(ANUPQDataRecord, arg);
   PQ_APG_IMAGE_OF_ALLOWABLE_SUBGROUP( datarec );
 end );
 
@@ -3149,8 +3164,7 @@ end );
 ##
 InstallGlobalFunction( PqAPGRankClosureOfInitialSegment, function( arg )
 local datarec;
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
+  datarec := CallFuncList(ANUPQDataRecord, arg);
   PQ_APG_RANK_CLOSURE_OF_INITIAL_SEGMENT( datarec );
 end );
 
@@ -3178,8 +3192,7 @@ end );
 ##
 InstallGlobalFunction( PqAPGOrbitRepresentativeOfLabel, function( arg )
 local datarec;
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
+  datarec := CallFuncList(ANUPQDataRecord, arg);
   PQ_APG_ORBIT_REPRESENTATIVE_OF_LABEL( datarec );
 end );
 
@@ -3207,8 +3220,7 @@ end );
 ##
 InstallGlobalFunction( PqAPGWriteCompactDescription, function( arg )
 local datarec;
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
+  datarec := CallFuncList(ANUPQDataRecord, arg);
   PQ_APG_WRITE_COMPACT_DESCRIPTION( datarec );
 end );
 
@@ -3236,8 +3248,7 @@ end );
 ##
 InstallGlobalFunction( PqAPGAutomorphismClasses, function( arg )
 local datarec;
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
+  datarec := CallFuncList(ANUPQDataRecord, arg);
   PQ_APG_AUTOMORPHISM_CLASSES( datarec );
 end );
 
