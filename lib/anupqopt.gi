@@ -412,6 +412,7 @@ local optname, out;
     else
       VALUE_PQ_OPTION("Prime", fail, datarec);
     fi;
+    VALUE_PQ_OPTION("ClassBound", 63, datarec);
   elif basefn = "StandardPresentation" then
     if VALUE_PQ_OPTION("Prime", datarec) = fail and
        VALUE_PQ_OPTION("pQuotient", datarec) = fail then
