@@ -629,6 +629,16 @@ runs the UNIX command `grep <string>'  over  the  {\ANUPQ}  examples  and
 returns the list of examples for which  there  is  a  match.  The  actual
 matches are `Info'-ed at `InfoANUPQ' level 2.
 
+\>ToPQLog([ <filename> ]) F
+
+With string argument <filename>,  `ToPQLog'  opens  the  file  with  name
+<filename> for logging; all commands written to the `pq' binary (that are
+`Info'-ed behind a ```ToPQ> ''' prompt at `InfoANUPQ' level 4)  are  then
+also written to that  file  (but  without  prompts).  With  no  argument,
+`ToPQLog' stops logging to whatever file was being logged to. If  a  file
+was already being logged to, that file is closed and the file  with  name
+<filename> is opened for logging.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Attributes and a Property for fp and pc p-groups}
 
