@@ -132,15 +132,18 @@ sub check {
   # run pq over test file and clean out system-dependent stuff
   system("( cd $tmpdir; ".
          "  $pq $opts< $tstdir/$file ".
-         "  | grep -v seconds | grep -v '#I --' > $tmpdir/tmpfile )");
-  my $length = `wc -l $tmpdir/tmpfile` - 2;
-  system("tail -n $length $tmpdir/tmpfile > $tmpdir/$outfile");
-  # now there should be no differences with our master copy
-  my $diff = `diff $tstdir/out/$outfile $tmpdir/$outfile`;
-  if ($diff =~ /^\s*$/) {
+         "  | grep -v seconds | grep -v '#I --' > $outfile )");
+
+  # now the only differences with the master copy should be due to pq's banner
+  my @diff = `diff $tstdir/out/$outfile $tmpdir/$outfile`;
+  if ($diff[0] =~ /^0a1,2/) {
+    @diff = splice(@diff, 3); #remove first three difference lines
+  } 
+
+  if (@diff == 0) {
     print " OK.\n";
   } else {
-    #print " differences:\n$diff";
+    #print " differences:\n @diff";
     if ( $file =~ /3/ ) {
       if ($ENV{ANUPQ_GAP_EXEC} ne "") {
         die " Please check the ANUPQ package installation instructions.\n"
@@ -152,7 +155,6 @@ sub check {
            ." is not a valid path for GAP.\n";
       }
     } else {
-      @diff = `diff $tstdir/out/$outfile $tmpdir/$outfile`;
       if ( $file =~ /4/ && @diff == 10 && 
 	   !(grep { !/^\d+d\d+$/ && !/^<.*automorphism group/ } @diff) ) {
 	#differences due to not compiling with gmp
