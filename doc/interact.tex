@@ -1015,7 +1015,8 @@ directs the `pq' binary to  display  the  standard  presentation  of  the
 $p$-quotient. To set the amount of information this command displays  you
 may wish to call `PqSPSetPrintLevel' first (see~"PqSPSetPrintLevel"),  or
 equivalently include the option `OutputLevel' with a value <lev>  in  the
-integer range `[0..3]'.
+integer range `[0..2]'. (Actually, `<lev> = 3' is allowed, but  the  `pq'
+binary quietly sets it back to `2'.)
 
 *Note:*
 For  those  familiar  with  the  `pq'  binary,  `PqSPDisplayPresentation'
