@@ -53,6 +53,7 @@ C infra.tex 3. Infrastructure
 S 3.1. Loading the ANUPQ Package
 I 3.1. banner
 I 3.1. banner!suppression
+I 3.1. option pkgbanner
 S 3.2. The ANUPQData Record
 F 3.2. ANUPQData
 F 3.2. ANUPQDirectoryTemporary
