@@ -544,6 +544,18 @@ three generators, e.g. `"x3*x2*x1"'.
 *Note:* For those familiar with the  `pq'  binary,  `PqCollect'  performs
 option 1 of the Advanced $p$-Quotient menu.
 
+\>PqAPQDisplayPresentation( <i> ) F
+\>PqAPQDisplayPresentation() F
+
+for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+binary to display the presentation of the $p$-quotient. To set the amount
+of  information  this   command   displays   you   may   wish   to   call
+`PqAPQSetPrintLevel' first (see~"PqAPQSetPrintLevel").
+
+*Note:*
+For those  familiar  with  the  `pq'  binary,  `PqAPQDisplayPresentation'
+performs option 4 of the Advanced $p$-Quotient menu.
+
 \>PqAPQSetPrintLevel( <i>, <lev> ) F
 \>PqAPQSetPrintLevel( <lev> ) F
 
@@ -553,6 +565,30 @@ menu.
 
 *Note:* For those familiar with  the  `pq'  binary,  `PqAPQSetPrintLevel'
 performs option 5 of the Advanced $p$-Quotient menu.
+
+\>PqSupplyAutomorphisms( <i>, <mlist> ) F
+\>PqSupplyAutomorphisms( <mlist> ) F
+
+for the <i>th or  default  interactive  {\ANUPQ}  process,  supplies  the
+automorphism  data  provided  by  the  list  <mlist>  of  matrices   with
+non-negative integer coefficients. Each matrix in <mlist> must  have  the
+same dimensions; in particular, the number of rows of each matrix must be
+the rank of the $p$-quotient of the group associated with the interactive
+{\ANUPQ} process.
+
+*Note:* 
+For those familiar with the  `pq'  binary,  `PqSupplyAutomorphisms'  uses
+option 18 of the Advanced $p$-Quotient menu.
+
+\>PqExtendAutomorphisms( <i> ) F
+\>PqExtendAutomorphisms() F
+
+for the <i>th or default interactive {\ANUPQ} process, inputs data to the
+`pq' binary to extend previously-supplied automorphisms.
+
+*Note:*
+For those familiar with the  `pq'  binary,  `PqExtendAutomorphisms'  uses
+option 18 of the Advanced $p$-Quotient menu.
 
 \>PqWritePcPresentation( <i>, <outfile> ) F
 \>PqWritePcPresentation( <outfile> ) F
@@ -571,6 +607,119 @@ presentation has not been previously computed by the  `pq'  binary,  then
 
 *Note:* For those familiar with the `pq' binary,  `PqPcWritePresentation'
 performs option 25 of the advanced $p$-Quotient menu.
+
+*Main $p$-Group Generation menu commands*
+
+\>PqPGSupplyAutomorphisms( <i> ) F
+\>PqPGSupplyAutomorphisms() F
+
+for the <i>th or default interactive {\ANUPQ} process, supplies the  `pq'
+binary    with    the    automorphism    group    data     needed     for
+`ANUPQData.io[<i>].group'.
+
+*Note:*
+For  those  familiar  with  the  `pq'  binary,  `PqPGSupplyAutomorphisms'
+performs option 1 of the main $p$-Group Generation menu.
+
+\>PqPGExtendAutomorphisms( <i> ) F
+\>PqPGExtendAutomorphisms() F
+
+for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+binary to compute the extensions of the automorphisms defined by  calling
+`PqPGSupplyAutomorphisms' (see~"PqPGSupplyAutomorphisms"). You  may  wish
+to set the `InfoLevel' of `InfoANUPQ' to 2 (or more) in order to see  the
+output from the `pq' (see~"InfoANUPQ").
+
+*Note:*    
+For  those  familiar  with  the  `pq'  binary,  `PqPGExtendAutomorphisms'
+performs option 2 of the main $p$-Group Generation menu. 
+
+\>PqPGRestoreGroupFromFile( <i>, <cls>, <n> ) F
+\>PqPGRestoreGroupFromFile( <cls>, <n> ) F
+
+for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+binary to restore group <n> of class <cls> from a temporary  file,  where
+<cls> and <n> are positive integers.
+
+*Note:* 
+For those  familiar  with  the  `pq'  binary,  `PqPGRestoreGroupFromFile'
+performs option 3 of the main $p$-Group Generation menu.
+
+\>PqPGDisplayPresentation( <i> ) F
+\>PqPGDisplayPresentation() F
+
+for the <i>th or default interactive {\ANUPQ} process, inputs data to the
+`pq' binary for the <i>th or default interactive {\ANUPQ} process, inputs
+data to the `pq' binary for the <i>th  or  default  interactive  {\ANUPQ}
+process, directs the `pq' binary to display the presentation of  a  group
+previously         selected         by         `PqPGRestoreGroupFromFile'
+(see~"PqPGRestoreGroupFromFile").
+
+*Note:*
+For  those  familiar  with  the  `pq'  binary,  `PqPGDisplayPresentation'
+performs option 4 of the main $p$-Group Generation menu.
+
+\>PqPGConstructDescendants( <i> : <options> ) F
+\>PqPGConstructDescendants( : <options> ) F
+
+for the <i>th or default interactive {\ANUPQ} process, inputs data  given
+by <options> to the `pq' binary to  construct  descendants.  The  options
+possible are all those given  for  `PqDescendants'  (see~"PqDescendants")
+except for `SubList' and `SetupFile'.
+
+*Note:* 
+For those  familiar  with  the  `pq'  binary,  `PqPGConstructDescendants'
+performs option 5 of the main $p$-Group Generation menu.
+
+*Advanced $p$-Group Generation menu commands*
+
+\>PqAPGSupplyAutomorphisms( <i> ) F
+\>PqAPGSupplyAutomorphisms() F
+
+for the <i>th or default interactive {\ANUPQ} process, supplies the  `pq'
+binary with the automorphism group  data  needed  for  `<datarec>.group'.
+
+*Note:*
+For those  familiar  with  the  `pq'  binary,  `PqAPGSupplyAutomorphisms'
+performs option 1 of the Advanced $p$-Group Generation menu.
+
+\>PqAPGExtendAutomorphisms( <i> ) F
+\>PqAPGExtendAutomorphisms() F
+
+for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+binary to compute the extensions of the automorphisms defined by  calling
+`PqAPGSupplyAutomorphisms' (see~"PqAPGSupplyAutomorphisms"). You may wish
+to set the `InfoLevel' of `InfoANUPQ' to 2 (or more) in order to see  the
+output from the `pq' (see~"InfoANUPQ").
+
+*Note:*
+For  those  familiar  with  the  `pq'  binary, `PqAPGExtendAutomorphisms'
+performs option 2 of the Advanced $p$-Group Generation menu.
+
+\>PqAPGRestoreGroupFromFile(<i>, <cls>, <n>) F
+\>PqAPGRestoreGroupFromFile( <cls>, <n> ) F
+
+for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+binary to restore group <n> of class <cls> from a temporary  file,  where
+<cls> and <n> are positive integers.
+
+*Note:*
+For those familiar  with  the  `pq'  binary,  `PqAPGRestoreGroupFromFile'
+performs option 3 of the Advanced $p$-Group Generation menu.
+
+\>PqAPGDisplayPresentation( <i> ) F
+\>PqAPGDisplayPresentation() F
+
+for the <i>th or default interactive {\ANUPQ} process, inputs data to the
+`pq' binary for the <i>th or default interactive {\ANUPQ} process, inputs
+data to the `pq' binary for the <i>th  or  default  interactive  {\ANUPQ}
+process, directs the `pq' binary to display the presentation of  a  group
+previously        selected         by         `PqAPGRestoreGroupFromFile'
+(see~"PqAPGRestoreGroupFromFile").
+
+*Note:*
+For those  familiar  with  the  `pq'  binary,  `PqAPGDisplayPresentation'
+performs option 4 of the Advanced $p$-Group Generation menu.
 
 *Standard Presentation menu commands*
 
@@ -601,6 +750,19 @@ been previously computed a class 1 $p$-quotient is computed.
 *Note:* For those familiar with  the  `pq'  binary,  `PqSPPcPresentation'
 performs option 2 of the Standard Presentation menu.
 
+\>PqSPDisplayPresentation( <i> ) F
+\>PqSPDisplayPresentation() F
+
+for the <i>th or default interactive {\ANUPQ} process, inputs data to the
+`pq' binary for  the  <i>th  or  default  interactive  {\ANUPQ}  process,
+directs the `pq' binary to  display  the  standard  presentation  of  the
+$p$-quotient. To set the amount of information this command displays  you
+may wish to call `PqSPSetPrintLevel' first (see~"PqSPSetPrintLevel").
+
+*Note:*
+For  those  familiar  with  the  `pq'  binary,  `PqSPDisplayPresentation'
+performs option 4 of the Standard Presentation menu.
+
 \>PqSPSetPrintLevel( <i>, <lev> ) F
 \>PqSPSetPrintLevel( <lev> ) F
 
@@ -621,58 +783,6 @@ presentation.
 
 *Note:* For  those  familiar  with  the  `pq'  binary,  `PqSPIsomorphism'
 performs option 8 of the Standard Presentation menu.
-
-\>PqSPSupplyAutomorphisms( <i>, <mlist> ) F
-\>PqSPSupplyAutomorphisms( <mlist> ) F
-
-for the <i>th or  default  interactive  {\ANUPQ}  process,  supplies  the
-automorphism  data  provided  by  the  list  <mlist>  of  matrices   with
-non-negative integer coefficients. Each matrix in <mlist> must  have  the
-same dimensions; in particular, the number of rows of each matrix must be
-the rank of the $p$-quotient of the group associated with the interactive
-{\ANUPQ} process.
-
-*Note:* 
-For those familiar with the `pq' binary,  `PqSPSupplyAutomorphisms'  uses
-option 18 of the Advanced $p$-Quotient menu.
-
-\>PqSPExtendAutomorphisms( <i> ) F
-\>PqSPExtendAutomorphisms() F
-
-for the <i>th or default interactive {\ANUPQ} process, inputs data to the
-`pq' binary to extend previously-supplied automorphisms.
-
-*Note:*
-For those familiar with the `pq' binary,  `PqSPExtendAutomorphisms'  uses
-option 18 of the Advanced $p$-Quotient menu.
-
-*Main $p$-Group Generation menu commands*
-
-\>PqPGSupplyAutomorphisms( <i> ) F
-\>PqPGSupplyAutomorphisms() F
-
-for the <i>th or default interactive {\ANUPQ} process, supplies the  `pq'
-binary    with    the    automorphism    group    data     needed     for
-`ANUPQData.io[<i>].group'.
-
-*Note:*
-For  those  familiar  with  the  `pq'  binary,  `PqPGSupplyAutomorphisms'
-performs option 1 of the main $p$-Group Generation menu.
-
-\>PqPGConstructDescendants( <i> : <options> ) F
-\>PqPGConstructDescendants( : <options> ) F
-
-for the <i>th or default interactive {\ANUPQ} process, inputs data  given
-by <options> to the `pq' binary to  construct  descendants.  The  options
-possible are all those given  for  `PqDescendants'  (see~"PqDescendants")
-except for `SubList' and `SetupFile'.
-
-*Note:* 
-For those  familiar  with  the  `pq'  binary,  `PqPGConstructDescendants'
-performs option 5 of the main $p$-Group Generation menu.
-
-%*Advanced $p$-Group Generation menu commands*
-%none done yet
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Primitive Interactive ANUPQ Process Read/Write Functions}
