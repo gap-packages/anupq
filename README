@@ -70,10 +70,10 @@ http://wwwmaths.anu.edu.au/research.groups/algebra/GAP/www/Info4/share.html
                       Installing the ANUPQ package
                       ----------------------------
 
-To install the ANUPQ package, move the file `anupq.zoo'  into  the  `pkg'
-directory in which you plan to install ANUPQ. Usually, this will  be  the
-directory `pkg' in the hierarchy of your version of GAP 4.  (However,  it
-is also possible to keep an additional `pkg' directory  in  your  private
+To install the ANUPQ package, move the file  `anupq-<XXX>.zoo'  into  the
+`pkg' directory in which you plan to install ANUPQ. Usually, this will be
+the directory `pkg' in the hierarchy of your version of GAP 4.  (However,
+it is also possible to keep an additional `pkg' directory in your private
 directories, see section "ref:Installing  GAP  Packages"  of  the  GAP  4
 reference manual for details on how to do this.)
 
@@ -140,7 +140,7 @@ An abbreviation of the target list is as follows:
    do 'make unknown | more' to see these targets again via more
 
 Let's suppose that the `linux-iX86-gcc2-gmp' target does not satisfy your
-requirements; let's suppose your system is Solaris 2.8 (i.e  SunOS  5.8),
+requirements; further suppose your system is Solaris 2.8 (i.e SunOS 5.8),
 you have `gmp' but its include  and  library  directories  are  somewhere
 else, and that `gap4' is the command used to initiate  GAP  4.  Then  the
 following `make' call might be correct in this case:
@@ -233,7 +233,7 @@ If you encounter problems with the `pq' binary, please contact the C code
 author: Eamonn O'Brien <obrien@math.auckland.ac.nz>.
 
 If you encounter problems at the GAP level, please  contact  one  of  the
-ANUPQ package  authors:  Greg  Gamble  <gregg@csee.uq.edu.au>  or  Werner
+ANUPQ package  authors:  Greg  Gamble  <gregg@itee.uq.edu.au>  or  Werner
 Nickel <nickel@mathematik.tu-darmstadt.de>.
 
 When sending a bug report, remember we will need to be able to  reproduce
@@ -252,7 +252,7 @@ the problem; so please include:
    standalone `pq', begin with a #).
 
   - Greg Gamble 
-    e-mail: gregg@csee.uq.edu.au
-    www:    http://www.csee.uq.edu.au/~gregg
-  -- 9 October, 2001.
+    e-mail: gregg@itee.uq.edu.au
+    www:    http://www.itee.uq.edu.au/~gregg
+  -- 9 October, 2001; 18 February, 2002.
 
