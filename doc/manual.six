@@ -79,6 +79,8 @@ F 5.4. PqSavePcPresentation
 F 5.4. PqSavePcPresentation
 F 5.4. PqRestorePcPresentation
 F 5.4. PqRestorePcPresentation
+F 5.4. PqCurrentGroup
+F 5.4. PqCurrentGroup
 F 5.4. PqDisplayPcPresentation
 F 5.4. PqDisplayPcPresentation
 F 5.4. PqSetPrintLevel
@@ -141,10 +143,8 @@ F 5.4. PqCommutatorDefiningGenerators
 F 5.4. PqCommutatorDefiningGenerators
 F 5.4. PqWritePcPresentation
 F 5.4. PqWritePcPresentation
-F 5.4. PqEvaluateCertainFormulae
-F 5.4. PqEvaluateCertainFormulae
-F 5.4. PqEvaluateAction
-F 5.4. PqEvaluateAction
+F 5.4. PqWriteCompactDescription
+F 5.4. PqWriteCompactDescription
 F 5.4. PqPGSupplyAutomorphisms
 F 5.4. PqPGSupplyAutomorphisms
 F 5.4. PqPGExtendAutomorphisms
