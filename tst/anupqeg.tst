@@ -4,7 +4,7 @@
 ##
 ##  Tests all but one of the ANUPQ examples.
 ##  Execute this file with `ReadTest( "anupqeg.tst" );'.
-##  This is a *big* test, taking some 40 minutes on a *fast* (1GHz) machine.
+##  This is a *big* test, taking some 40 minutes on a 1GHz machine.
 ##  The number of GAPstones returned at the end do not mean much as  they  do
 ##  not measure the time spent by the `pq' binary.
 ##
@@ -58139,13 +58139,19 @@ gap> des := PqDescendants( Q : StepSize := 1 );
   <pc group of size 27 with 3 generators>, 
   <pc group of size 27 with 3 generators> ]
 gap> S := PqSupplementInnerAutomorphisms( des[3] );
-<group with 2 generators>
-gap> Size( S );
-18
-gap> A := AutomorphismGroup( des[3] );
-<group of size 54 with 4 generators>
-gap> Size( A );
-54
+rec( agAutos := [  ], agOrder := [ 3, 2, 2, 2 ], 
+  glAutos := [ Pcgs([ f1, f2, f3 ]) -> [ f1*f2^2, f2, f3 ], 
+      Pcgs([ f1, f2, f3 ]) -> [ f1^2, f2, f3^2 ], 
+      Pcgs([ f1, f2, f3 ]) -> [ f1^2, f2, f3^2 ] ] )
+gap> A := AutomorphismGroupPGroup( des[3] );
+rec( glAutos := [  ], glOrder := 1, 
+  agAutos := [ Pcgs([ f1, f2, f3 ]) -> [ f1^2, f2, f3^2 ], 
+      Pcgs([ f1, f2, f3 ]) -> [ f1*f2^2, f2, f3 ], 
+      Pcgs([ f1, f2, f3 ]) -> [ f1*f3, f2, f3 ], 
+      Pcgs([ f1, f2, f3 ]) -> [ f1, f2*f3, f3 ] ], agOrder := [ 2, 3, 3, 3 ], 
+  one := IdentityMapping( <pc group of size 27 with 3 generators> ), 
+  group := <pc group of size 27 with 3 generators>, size := 54, 
+  glOper := [  ] )
 gap> # Executing interactive variant of example: "PqSupplementInnerAutomorphisms"
 gap> ##Example: "PqSupplementInnerAutomorphisms" . . . based on manual example
 gap> ##Illustrates `PqSupplementInnerAutomorphisms' usage
@@ -58159,13 +58165,19 @@ gap> des := PqDescendants( procId : StepSize := 1 );
   <pc group of size 27 with 3 generators>, 
   <pc group of size 27 with 3 generators> ]
 gap> S := PqSupplementInnerAutomorphisms( des[3] );
-<group with 2 generators>
-gap> Size( S );
-18
-gap> A := AutomorphismGroup( des[3] );
-<group of size 54 with 4 generators>
-gap> Size( A );
-54
+rec( agAutos := [  ], agOrder := [ 3, 2, 2, 2 ], 
+  glAutos := [ Pcgs([ f1, f2, f3 ]) -> [ f1*f2^2, f2, f3 ], 
+      Pcgs([ f1, f2, f3 ]) -> [ f1^2, f2, f3^2 ], 
+      Pcgs([ f1, f2, f3 ]) -> [ f1^2, f2, f3^2 ] ] )
+gap> A := AutomorphismGroupPGroup( des[3] );
+rec( glAutos := [  ], glOrder := 1, 
+  agAutos := [ Pcgs([ f1, f2, f3 ]) -> [ f1^2, f2, f3^2 ], 
+      Pcgs([ f1, f2, f3 ]) -> [ f1*f2^2, f2, f3 ], 
+      Pcgs([ f1, f2, f3 ]) -> [ f1*f3, f2, f3 ], 
+      Pcgs([ f1, f2, f3 ]) -> [ f1, f2*f3, f3 ] ], agOrder := [ 2, 3, 3, 3 ], 
+  one := IdentityMapping( <pc group of size 27 with 3 generators> ), 
+  group := <pc group of size 27 with 3 generators>, size := 54, 
+  glOper := [  ] )
 gap> ##Example: "R2-5-i" . . . based on: examples/R2-5
 gap> ##Construction of R(2,5)
 gap> F := FreeGroup("a", "b");
