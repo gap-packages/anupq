@@ -185,15 +185,16 @@ end);
 ##
 #F  PQ_BOOL( <optval> ) . .  convert a GAP boolean to a `pq' (i.e. C) boolean
 ##    
-##  returns 1 if <optval> is `true' or 0 otherwise (i.e.  0  is  returned  if
-##  <optval> is `false' or `fail'; we assume, but do not check that  <optval>
-##  is boolean ... `VALUE_PQ_OPTION' should already have done that).
+##  returns `"1 #do "' if <optval> is `true' or `"0  #do  not  "'  otherwise,
+##  i.e. a string C boolean with the beginnings of a comment (we assume  that
+##  <optval> is boolean ... `VALUE_PQ_OPTION'  should  already  have  checked
+##  that).
 ##
 InstallGlobalFunction( PQ_BOOL, function( optval )
   if optval = true then
-    return 1;
+    return "1  #do ";
   fi;
-  return 0;
+  return "0  #do not ";
 end);
   
 #############################################################################
