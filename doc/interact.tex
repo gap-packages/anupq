@@ -601,7 +601,8 @@ performs option 6 of the Advanced $p$-Quotient menu.
 \>PqAddTails( <weight> ) F
 
 for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
-binary to add tails of weight <weight>, where <weight> is an integer.
+binary to add tails of weight <weight>, where <weight> is a  non-negative
+integer (a <weight> of `0' means all weights).
 
 *Note:*
 For those familiar with the `pq' binary, `PqAddTails' uses  option  7  of
@@ -611,7 +612,8 @@ the Advanced $p$-Quotient menu.
 \>PqComputeTails( <weight> ) F
 
 for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
-binary to compute tails of weight <weight>, where <weight> is an integer.
+binary  to  compute  tails  of  weight  <weight>,  where  <weight>  is  a
+non-negative integer (a <weight> of `0' means all weights).
 
 *Note:*
 For those familiar with the `pq' binary, `PqComputeTails' uses  option  7
@@ -621,8 +623,8 @@ of the Advanced $p$-Quotient menu.
 \>PqTails( <weight> ) F
 
 for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
-binary to compute and add tails of weight <weight>, where <weight> is  an
-integer.
+binary to compute and add tails of weight <weight>, where <weight>  is  a
+non-negative integer (a <weight> of `0' means all weights).
 
 *Note:*
 For those familiar with the `pq' binary, `PqTails' uses option 7  of  the
@@ -634,7 +636,8 @@ Advanced $p$-Quotient menu.
 for the <i>th or default interactive  {\ANUPQ}  process,  do  consistency
 checks of type <type> for weight <weight>; <type> should be an integer in
 `[0,1,2,3]' (`0' means do  *all*  checks),  and  <weight>  should  be  an
-integer in `[0 .. <class>]' where <class> is the maximum class.
+integer in `[0 .. <class>]' where <class> is the maximum class (`0' means
+all weights).
 
 *Note:*
 For those familiar with the `pq' binary, `PqDoConsistencyChecks' performs
@@ -671,11 +674,65 @@ binary to eliminate redundant generators.
 For those familiar with the `pq' binary, `PqEliminateRedundantGenerators'
 performs option 11 of the Advanced $p$-Quotient menu.
 
+\>PqRevertToPreviousClass( <i> ) F
+\>PqRevertToPreviousClass() F
+
+for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+binary to abandon the current class and revert to the previous class.
+
+*Note:*
+For  those  familiar  with  the  `pq'  binary,  `PqRevertToPreviousClass'
+performs option 12 of the Advanced $p$-Quotient menu.
+
+\>PqSetMaximalOccurrences( <i>, <weights> ) F
+\>PqSetMaximalOccurrences( <weights> ) F
+
+for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+binary to set maximal occurrences; <weights> must be a list of  equal  in
+number to the number of generators of weight 1 of the $p$-quotient  which
+must have been previously computed.
+
+*Note:* 
+For  those  familiar  with  the  `pq'  binary,  `PqSetMaximalOccurrences'
+performs option 13 of the Advanced $p$-Quotient menu.
+
+\>PqSetMetabelian( <i> ) F
+\>PqSetMetabelian() F
+
+for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+binary to enforce metabelian-ness.
+
+*Note:* 
+For those familiar  with  the  `pq'  binary,  `PqSetMetabelian'  performs
+option 14 of the Advanced $p$-Quotient menu.
+
+\>PqDoConsistencyCheck(<i>, <c>, <b>, <a>) F
+\>PqDoConsistencyCheck( <c>, <b>, <a> ) F
+
+for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+binary to do a consistency check; the generator  indices  <c>,  <b>,  <a>
+should be non-increasing positive integers, i.e.~$<c> \ge <b> \ge <a>$.
+
+*Note:*
+For those familiar with the `pq' binary, `PqDoConsistencyCheck'  performs
+option 15 of the Advanced $p$-Quotient menu.
+
+\>PqCompact( <i> ) F
+\>PqCompact() F
+
+for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+binary to do a compaction.
+
+*Note:*
+For those familiar with the `pq' binary, `PqCompact' performs  option  16
+of the Advanced $p$-Quotient menu.
+
 \>PqEchelonise( <i> ) F
 \>PqEchelonise() F
 
 for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
-binary to echelonise.
+binary to echelonise relation. A call to `PqCollect' (see~"PqCollect") or
+`PqCommutator' needs to be performed prior to using this command.
 
 *Note:*
 For those familiar with the `pq' binary, `PqEchelonise'  performs  option
@@ -715,6 +772,49 @@ binary to apply automorphisms; <qfac> is the queue factor e.g. `15'.
 For those familiar with  the  `pq'  binary,  `PqCloseRelations'  performs
 option 19 of the Advanced $p$-Quotient menu.
 
+\>PqPrintStructure( <i>, <m>, <n> ) F
+\>PqPrintStructure( <m>, <n> ) F
+
+for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+binary to print the structure for the pcp generators numbered from <m> to
+<n>.
+
+*Note:* 
+For those familiar with  the  `pq'  binary,  `PqPrintStructure'  performs
+option 20 of the Advanced $p$-Quotient menu.
+
+\>PqDisplayAutomorphisms( <i>, <m>, <n> ) F
+\>PqDisplayAutomorphisms( <m>, <n> ) F
+
+for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+binary to display automorphisms for the generators numbered from  <m>  to
+<n>.
+
+*Note:* 
+For  those  familiar  with  the  `pq'  binary,   `PqDisplayAutomorphisms'
+performs option 21 of the Advanced $p$-Quotient menu.
+
+\>PqCollectDefiningGenerators(<i>, <word>) F
+\>PqCollectDefiningGenerators( <word> ) F
+
+for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+binary to do a collection on <word> a string representing the product  of
+three generators, e.g. `"x3*x2*x1"'.
+
+*Note:*
+For those familiar with the  `pq'  binary,  `PqCollectDefiningGenerators'
+performs option 23 of the Advanced $p$-Quotient menu.
+
+\>PqCommutatorDefiningGenerators( <i> ) F
+\>PqCommutatorDefiningGenerators() F
+
+for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+binary to compute the commutator of the defining generators.
+
+*Note:*
+For those familiar with the `pq' binary, `PqCommutatorDefiningGenerators'
+performs option 24 of the Advanced $p$-Quotient menu.
+
 \>PqWritePcPresentation( <i>, <outfile> ) F
 \>PqWritePcPresentation( <outfile> ) F
 
@@ -732,6 +832,26 @@ presentation has not been previously computed by the  `pq'  binary,  then
 
 *Note:* For those familiar with the `pq' binary,  `PqPcWritePresentation'
 performs option 25 of the advanced $p$-Quotient menu.
+
+\>PqEvaluateCertainFormulae( <i> ) F
+\>PqEvaluateCertainFormulae() F
+
+for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+binary to evaluate certain formulae.
+
+*Note:* 
+For those familiar  with  the  `pq'  binary,  `PqEvaluateCertainFormulae'
+performs option 27 of the Advanced $p$-Quotient menu.
+
+\>PqEvaluateAction( <i> ) F
+\>PqEvaluateAction() F
+
+for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+binary to evaluate the action.
+
+*Note:* 
+For those familiar with  the  `pq'  binary,  `PqEvaluateAction'  performs
+option 28 of the Advanced $p$-Quotient menu.
 
 *Main $p$-Group Generation menu commands*
 
