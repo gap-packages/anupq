@@ -124,6 +124,12 @@ DeclareGlobalFunction( "PQ_COLLECT" );
 
 #############################################################################
 ##
+#F  PQ_CHK_COLLECT_COMMAND_ARGS( <args> ) . . check args for a collect cmd ok
+##
+DeclareGlobalFunction( "PQ_CHK_COLLECT_COMMAND_ARGS" );
+
+#############################################################################
+##
 #F  PqCollect( <i>, <word> ) . . . . . .  user version of A p-Q menu option 1
 #F  PqCollect( <word> )
 ##
@@ -269,66 +275,72 @@ DeclareGlobalFunction( "PqEliminateRedundantGenerators" );
 
 #############################################################################
 ##
-#F PQ_REVERT_TO_PREVIOUS_CLASS( <datarec> ) . . . . . .  A p-Q menu option 12
+#F  PQ_REVERT_TO_PREVIOUS_CLASS( <datarec> ) . . . . . . A p-Q menu option 12
 ##
 DeclareGlobalFunction( "PQ_REVERT_TO_PREVIOUS_CLASS" );
 
 #############################################################################
 ##
-#F PqRevertToPreviousClass( <i> ) . . .  user version of A p-Q menu option 12
-#F PqRevertToPreviousClass()
+#F  PqRevertToPreviousClass( <i> ) . . . user version of A p-Q menu option 12
+#F  PqRevertToPreviousClass()
 ##
 DeclareGlobalFunction( "PqRevertToPreviousClass" );
 
 #############################################################################
 ##
-#F PQ_SET_MAXIMAL_OCCURRENCES( <datarec> ) . . . . . . . A p-Q menu option 13
+#F  PQ_SET_MAXIMAL_OCCURRENCES( <datarec>, <weights> ) . . A p-Q menu opt. 13
 ##
 DeclareGlobalFunction( "PQ_SET_MAXIMAL_OCCURRENCES" );
 
 #############################################################################
 ##
-#F PqSetMaximalOccurrences( <i> ) . . .  user version of A p-Q menu option 13
-#F PqSetMaximalOccurrences()
+#F  PQ_PQUOTIENT_CHK( <datarec> ) . . . .  check p-quotient has been computed
+##
+DeclareGlobalFunction( "PQ_PQUOTIENT_CHK" );
+
+#############################################################################
+##
+#F  PqSetMaximalOccurrences( <i>, <weights> ) . user ver of A p-Q menu opt 13
+#F  PqSetMaximalOccurrences( <weights> )
 ##
 DeclareGlobalFunction( "PqSetMaximalOccurrences" );
 
 #############################################################################
 ##
-#F PQ_SET_METABELIAN( <datarec> ) . . . . . . . . . . .  A p-Q menu option 14
+#F  PQ_SET_METABELIAN( <datarec> ) . . . . . . . . . . . A p-Q menu option 14
 ##
 DeclareGlobalFunction( "PQ_SET_METABELIAN" );
 
 #############################################################################
 ##
-#F PqSetMetabelian( <i> ) . . . . . . .  user version of A p-Q menu option 14
-#F PqSetMetabelian()
+#F  PqSetMetabelian( <i> ) . . . . . . . user version of A p-Q menu option 14
+#F  PqSetMetabelian()
 ##
 DeclareGlobalFunction( "PqSetMetabelian" );
 
 #############################################################################
 ##
-#F PQ_DO_CONSISTENCY_CHECK( <datarec> ) . . . . . . . .  A p-Q menu option 15
+#F  PQ_DO_CONSISTENCY_CHECK( <datarec>, <c>, <b>, <a> ) . A p-Q menu option 15
 ##
 DeclareGlobalFunction( "PQ_DO_CONSISTENCY_CHECK" );
 
 #############################################################################
 ##
-#F PqDoConsistencyCheck( <i> ) . . . . . user version of A p-Q menu option 15
-#F PqDoConsistencyCheck()
+#F  PqDoConsistencyCheck(<i>, <c>, <b>, <a>) .  user ver of A p-Q menu opt 15
+#F  PqDoConsistencyCheck( <c>, <b>, <a> )
 ##
 DeclareGlobalFunction( "PqDoConsistencyCheck" );
 
 #############################################################################
 ##
-#F PQ_COMPACT( <datarec> ) . . . . . . . . . . . . . . . A p-Q menu option 16
+#F  PQ_COMPACT( <datarec> ) . . . . . . . . . . . . . .  A p-Q menu option 16
 ##
 DeclareGlobalFunction( "PQ_COMPACT" );
 
 #############################################################################
 ##
-#F PqCompact( <i> ) . . . . . . . . . .  user version of A p-Q menu option 16
-#F PqCompact()
+#F  PqCompact( <i> ) . . . . . . . . . . user version of A p-Q menu option 16
+#F  PqCompact()
 ##
 DeclareGlobalFunction( "PqCompact" );
 
@@ -380,53 +392,59 @@ DeclareGlobalFunction( "PqApplyAutomorphisms" );
 
 #############################################################################
 ##
-#F PQ_PRINT_STRUCTURE( <datarec> ) . . . . . . . . . . . A p-Q menu option 20
+#F  PQ_PRINT_STRUCTURE( <datarec>, <m>, <n> ) . . . . .  A p-Q menu option 20
 ##
 DeclareGlobalFunction( "PQ_PRINT_STRUCTURE" );
 
 #############################################################################
 ##
-#F PqPrintStructure( <i> ) . . . . . . . user version of A p-Q menu option 20
-#F PqPrintStructure()
+#F  PQ_CHK_DISPLAY_COMMAND_ARGS( <args> ) . . check args for a display cmd ok
+##
+DeclareGlobalFunction( "PQ_CHK_DISPLAY_COMMAND_ARGS" );
+
+#############################################################################
+##
+#F  PqPrintStructure( <i>, <m>, <n> ) .  user version of A p-Q menu option 20
+#F  PqPrintStructure( <m>, <n> )
 ##
 DeclareGlobalFunction( "PqPrintStructure" );
 
 #############################################################################
 ##
-#F PQ_DISPLAY_AUTOMORPHISMS( <datarec> ) . . . . . . . . A p-Q menu option 21
+#F  PQ_DISPLAY_AUTOMORPHISMS( <datarec>, <m>, <n> ) . .  A p-Q menu option 21
 ##
 DeclareGlobalFunction( "PQ_DISPLAY_AUTOMORPHISMS" );
 
 #############################################################################
 ##
-#F PqDisplayAutomorphisms( <i> ) . . . . user version of A p-Q menu option 21
-#F PqDisplayAutomorphisms()
+#F  PqDisplayAutomorphisms( <i>, <m>, <n> ) . . user ver of A p-Q menu opt 21
+#F  PqDisplayAutomorphisms( <m>, <n> )
 ##
 DeclareGlobalFunction( "PqDisplayAutomorphisms" );
 
 #############################################################################
 ##
-#F PQ_COLLECT_DEFINING_GENERATORS( <datarec> ) . . . . . A p-Q menu option 23
+#F  PQ_COLLECT_DEFINING_GENERATORS( <datarec>, <word> ) . . A p-Q menu opt 23
 ##
 DeclareGlobalFunction( "PQ_COLLECT_DEFINING_GENERATORS" );
 
 #############################################################################
 ##
-#F PqCollectDefiningGenerators( <i> ) .  user version of A p-Q menu option 23
-#F PqCollectDefiningGenerators()
+#F  PqCollectDefiningGenerators(<i>, <word>) .  user ver of A p-Q menu opt 23
+#F  PqCollectDefiningGenerators( <word> )
 ##
 DeclareGlobalFunction( "PqCollectDefiningGenerators" );
 
 #############################################################################
 ##
-#F PQ_COMMUTATOR_DEFINING_GENERATORS( <datarec> ) . . .  A p-Q menu option 24
+#F  PQ_COMMUTATOR_DEFINING_GENERATORS( <datarec> ) . . . A p-Q menu option 24
 ##
 DeclareGlobalFunction( "PQ_COMMUTATOR_DEFINING_GENERATORS" );
 
 #############################################################################
 ##
-#F PqCommutatorDefiningGenerators( <i> ) user version of A p-Q menu option 24
-#F PqCommutatorDefiningGenerators()
+#F  PqCommutatorDefiningGenerators( <i> ) .  user ver of A p-Q menu option 24
+#F  PqCommutatorDefiningGenerators()
 ##
 DeclareGlobalFunction( "PqCommutatorDefiningGenerators" );
 
@@ -451,27 +469,27 @@ DeclareGlobalFunction( "PqWritePcPresentation" );
 
 #############################################################################
 ##
-#F PQ_EVALUATE_CERTAIN_FORMULAE( <datarec> ) . . . . . . A p-Q menu option 27
+#F  PQ_EVALUATE_CERTAIN_FORMULAE( <datarec> ) . . . . .  A p-Q menu option 27
 ##
 DeclareGlobalFunction( "PQ_EVALUATE_CERTAIN_FORMULAE" );
 
 #############################################################################
 ##
-#F PqEvaluateCertainFormulae( <i> ) . .  user version of A p-Q menu option 27
-#F PqEvaluateCertainFormulae()
+#F  PqEvaluateCertainFormulae( <i> ) . . user version of A p-Q menu option 27
+#F  PqEvaluateCertainFormulae()
 ##
 DeclareGlobalFunction( "PqEvaluateCertainFormulae" );
 
 #############################################################################
 ##
-#F PQ_EVALUATE_ACTION( <datarec> ) . . . . . . . . . . . A p-Q menu option 28
+#F  PQ_EVALUATE_ACTION( <datarec> ) . . . . . . . . . .  A p-Q menu option 28
 ##
 DeclareGlobalFunction( "PQ_EVALUATE_ACTION" );
 
 #############################################################################
 ##
-#F PqEvaluateAction( <i> ) . . . . . . . user version of A p-Q menu option 28
-#F PqEvaluateAction()
+#F  PqEvaluateAction( <i> ) . . . . . .  user version of A p-Q menu option 28
+#F  PqEvaluateAction()
 ##
 DeclareGlobalFunction( "PqEvaluateAction" );
 

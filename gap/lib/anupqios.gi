@@ -332,7 +332,7 @@ end);
 InstallGlobalFunction(IS_PQ_REQUEST, function(line)
 local len;
   len := Length(line);
-  return 1 < len  and line{[1 .. 3]} = "GAP" and line{[len - 1 .. len]} = "!\n";
+  return 2 < len  and line{[1 .. 3]} = "GAP" and line{[len - 1 .. len]} = "!\n";
 end);
 
 #############################################################################

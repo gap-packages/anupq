@@ -424,6 +424,28 @@ end );
 
 #############################################################################
 ##
+#F  PQ_CHK_COLLECT_COMMAND_ARGS( <args> ) . . check args for a collect cmd ok
+##
+##  returns a list of valid arguments for  a  low-level  collect  command  or
+##  generates an error.
+##
+InstallGlobalFunction( PQ_CHK_COLLECT_COMMAND_ARGS, function( args )
+local datarec, word;
+  if IsEmpty(args) or 2 < Length(args) then
+    Error( "1 or 2 arguments expected\n");
+  fi;
+  word := args[Length(args)];
+  if not IsString(word) then
+    Error( "argument <word> should be a string e.g. \"x3*x2*x1\"\n" );
+  fi;
+  args := args{[1..Length(args) - 1]};
+  ANUPQ_IOINDEX_ARG_CHK(args);
+  datarec := ANUPQData.io[ ANUPQ_IOINDEX(args) ];
+  return [datarec, word];
+end );
+
+#############################################################################
+##
 #F  PqCollect( <i>, <word> ) . . . . . .  user version of A p-Q menu option 1
 #F  PqCollect( <word> )
 ##
@@ -435,18 +457,7 @@ end );
 ##  option 1 of the Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqCollect, function( arg )
-local datarec, word;
-  if IsEmpty(arg) or 2 < Length(arg) then
-    Error( "1 or 2 arguments expected\n");
-  fi;
-  word := arg[Length(arg)];
-  if not IsString(word) then
-    Error( "argument <word> should be a string e.g. \"x3*x2*x1\"\n" );
-  fi;
-  arg := arg{[1..Length(arg) - 1]};
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  PQ_COLLECT( datarec, word );
+  CallFuncList( PQ_COLLECT, PQ_CHK_COLLECT_COMMAND_ARGS(arg) );
 end );
 
 #############################################################################
@@ -462,11 +473,11 @@ InstallGlobalFunction( PQ_SOLVE_EQUATION, function( datarec, a, b )
   FLUSH_PQ_STREAM_UNTIL(
       datarec.stream, 4, 2, PQ_READ_NEXT_LINE,
       line -> 0 < Length(line) and line[Length(line)] = '\n');
-  ToPQk(datarec, [ a, ";  #word to be collected" ]);
+  ToPQk(datarec, [ a, ";  #word a" ]);
   FLUSH_PQ_STREAM_UNTIL(
       datarec.stream, 4, 2, PQ_READ_NEXT_LINE,
       line -> 0 < Length(line) and line[Length(line)] = '\n');
-  ToPQ(datarec, [ b, ";  #word to be collected" ]);
+  ToPQ(datarec, [ b, ";  #word b" ]);
 end );
 
 #############################################################################
@@ -655,7 +666,8 @@ end );
 #F  PqAddTails( <weight> )
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
-##  binary to add tails of weight <weight>, where <weight> is an integer.
+##  binary to add tails of weight <weight>, where <weight> is a  non-negative
+##  integer (a <weight> of `0' means all weights).
 ##
 ##  *Note:*
 ##  For those familiar with the `pq' binary, `PqAddTails' uses  option  7  of
@@ -671,7 +683,8 @@ end );
 #F  PqComputeTails( <weight> )
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
-##  binary to compute tails of weight <weight>, where <weight> is an integer.
+##  binary  to  compute  tails  of  weight  <weight>,  where  <weight>  is  a
+##  non-negative integer (a <weight> of `0' means all weights).
 ##
 ##  *Note:*
 ##  For those familiar with the `pq' binary, `PqComputeTails' uses  option  7
@@ -687,8 +700,8 @@ end );
 #F  PqTails( <weight> )
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
-##  binary to compute and add tails of weight <weight>, where <weight> is  an
-##  integer.
+##  binary to compute and add tails of weight <weight>, where <weight>  is  a
+##  non-negative integer (a <weight> of `0' means all weights).
 ##
 ##  *Note:*
 ##  For those familiar with the `pq' binary, `PqTails' uses option 7  of  the
@@ -721,7 +734,8 @@ end );
 ##  for the <i>th or default interactive  {\ANUPQ}  process,  do  consistency
 ##  checks of type <type> for weight <weight>; <type> should be an integer in
 ##  `[0,1,2,3]' (`0' means do  *all*  checks),  and  <weight>  should  be  an
-##  integer in `[0 .. <class>]' where <class> is the maximum class.
+##  integer in `[0 .. <class>]' where <class> is the maximum class (`0' means
+##  all weights).
 ##
 ##  *Note:*
 ##  For those familiar with the `pq' binary, `PqDoConsistencyChecks' performs
@@ -745,7 +759,7 @@ local len, datarec, weight, type;
   arg := arg{[1 .. len - 2]};
   ANUPQ_IOINDEX_ARG_CHK(arg);
   datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  PQ_DO_CONSISTENCY_CHECKS( datarec );
+  PQ_DO_CONSISTENCY_CHECKS( datarec, weight, type );
 end );
 
 #############################################################################
@@ -788,11 +802,10 @@ end );
 ##
 InstallGlobalFunction( PQ_DO_EXPONENT_CHECKS, function( datarec, w1, w2 )
   #@does default only at the moment@
-  if not IsBound(datarec.Exponent) or datarec.Exponent = 0 then
-    Error( "no exponent law set\n" );
-  fi;
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
   ToPQ(datarec, [ "10  #do exponent checks" ]);
+  ToPQ(datarec, [ VALUE_PQ_OPTION("Exponent", 0, datarec),
+                      "  #exponent law" ]);
   ToPQ(datarec, [ w1, "  #start weight"     ]);
   ToPQ(datarec, [ w2, "  #end weight"       ]);
   ToPQ(datarec, [ 1,  "  #do default check" ]);
@@ -863,8 +876,8 @@ end );
 ##
 #F  PQ_REVERT_TO_PREVIOUS_CLASS( <datarec> ) . . . . . . A p-Q menu option 12
 ##
-##  inputs data to the `pq' binary for option 12 of the
-##  Advanced $p$-Quotient menu.
+##  inputs data to the `pq' binary for option 12 of the Advanced $p$-Quotient
+##  menu, to abandon the current class and revert to the previous class.
 ##
 InstallGlobalFunction( PQ_REVERT_TO_PREVIOUS_CLASS, function( datarec )
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
@@ -876,12 +889,12 @@ end );
 #F  PqRevertToPreviousClass( <i> ) . . . user version of A p-Q menu option 12
 #F  PqRevertToPreviousClass()
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, inputs data
-##  to the `pq' binary
+##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+##  binary to abandon the current class and revert to the previous class.
 ##
-##  *Note:* For those  familiar  with  the  `pq'  binary, 
-##  `PqRevertToPreviousClass' performs option 12 of the
-##  Advanced $p$-Quotient menu.
+##  *Note:*
+##  For  those  familiar  with  the  `pq'  binary,  `PqRevertToPreviousClass'
+##  performs option 12 of the Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqRevertToPreviousClass, function( arg )
 local datarec;
@@ -898,12 +911,6 @@ end );
 ##  Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PQ_SET_MAXIMAL_OCCURRENCES, function( datarec, weights )
-local ngens;
-  ngens := Length( GeneratorsOfGroup( datarec.pQuotient ) );
-  if ngens <> Length(weights) then
-    Error( "no. of weights must be equal to the no. of generators of ",
-           "weight 1 (", ngens, ")\n" );
-  fi;
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
   ToPQ(datarec, [ "13  #set maximal occurrences" ]);
   ToPQ(datarec, [ JoinStringsWithSeparator( List(weights, String), " " ),
@@ -912,29 +919,56 @@ end );
 
 #############################################################################
 ##
-#F  PqSetMaximalOccurrences( <i> ) . . . user version of A p-Q menu option 13
-#F  PqSetMaximalOccurrences()
+#F  PQ_PQUOTIENT_CHK( <datarec> ) . . . .  check p-quotient has been computed
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, inputs data
-##  to the `pq' binary
+##  returns the number of generators of `<datarec>.pQuotient' if it has  been
+##  computed or otherwise generates an error.
 ##
-##  *Note:* For those  familiar  with  the  `pq'  binary, 
-##  `PqSetMaximalOccurrences' performs option 13 of the
-##  Advanced $p$-Quotient menu.
+InstallGlobalFunction( PQ_PQUOTIENT_CHK, function( datarec )
+  if not IsBound( datarec.pQuotient ) then
+    Error( "huh! p-Quotient hasn't been generated\n" );
+  fi;
+  return Length( GeneratorsOfGroup( datarec.pQuotient ) );
+end );
+
+#############################################################################
+##
+#F  PqSetMaximalOccurrences( <i>, <weights> ) . user ver of A p-Q menu opt 13
+#F  PqSetMaximalOccurrences( <weights> )
+##
+##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+##  binary to set maximal occurrences; <weights> must be a list of  equal  in
+##  number to the number of generators of weight 1 of the $p$-quotient  which
+##  must have been previously computed.
+##
+##  *Note:*
+##  For  those  familiar  with  the  `pq'  binary,  `PqSetMaximalOccurrences'
+##  performs option 13 of the Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqSetMaximalOccurrences, function( arg )
-local datarec;
+local len, ngens, weights, datarec;
+  len := Length(arg);
+  if not(len in [1, 2]) then
+    Error( "expected 1 or 2 arguments\n");
+  fi;
+  weights := arg[len];
+  arg := arg{[1 .. len - 1]};
   ANUPQ_IOINDEX_ARG_CHK(arg);
   datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  PQ_SET_MAXIMAL_OCCURRENCES( datarec );
+  ngens := PQ_PQUOTIENT_CHK( datarec );
+  if ngens <> Length(weights) then
+    Error( "no. of weights must be equal to the no. of generators of ",
+           "weight 1 (", ngens, ")\n" );
+  fi;
+  PQ_SET_MAXIMAL_OCCURRENCES( datarec, weights );
 end );
 
 #############################################################################
 ##
 #F  PQ_SET_METABELIAN( <datarec> ) . . . . . . . . . . . A p-Q menu option 14
 ##
-##  inputs data to the `pq' binary for option 14 of the
-##  Advanced $p$-Quotient menu.
+##  inputs data to the `pq' binary for option 14 of the Advanced $p$-Quotient
+##  menu, to set the metabelian flag.
 ##
 InstallGlobalFunction( PQ_SET_METABELIAN, function( datarec )
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
@@ -946,12 +980,12 @@ end );
 #F  PqSetMetabelian( <i> ) . . . . . . . user version of A p-Q menu option 14
 #F  PqSetMetabelian()
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, inputs data
-##  to the `pq' binary
+##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+##  binary to enforce metabelian-ness.
 ##
-##  *Note:* For those  familiar  with  the  `pq'  binary, 
-##  `PqSetMetabelian' performs option 14 of the
-##  Advanced $p$-Quotient menu.
+##  *Note:* 
+##  For those familiar  with  the  `pq'  binary,  `PqSetMetabelian'  performs
+##  option 14 of the Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqSetMetabelian, function( arg )
 local datarec;
@@ -964,14 +998,10 @@ end );
 ##
 #F  PQ_DO_CONSISTENCY_CHECK( <datarec>, <c>, <b>, <a> ) . A p-Q menu option 15
 ##
-##  inputs data to the `pq' binary for option 15 of the
-##  Advanced $p$-Quotient menu.
+##  inputs data to the `pq' binary for option 15 of the Advanced $p$-Quotient
+##  menu, to do a consistency check.
 ##
 InstallGlobalFunction( PQ_DO_CONSISTENCY_CHECK, function( datarec, c, b, a )
-  if not ForAll([c, b, a], IsPosInt) or c < b or b < a then
-    Error( "generator indices must be non-increasing positive integers\n" );
-  fi;
-  #@more checking required here@
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
   ToPQ(datarec, [ "15  #do individual consistency check" ]);
   ToPQ(datarec, [ c, " ", b, " ", a, "  #generator indices"]);
@@ -979,29 +1009,42 @@ end );
 
 #############################################################################
 ##
-#F  PqDoConsistencyCheck( <i> ) . . . .  user version of A p-Q menu option 15
-#F  PqDoConsistencyCheck()
+#F  PqDoConsistencyCheck(<i>, <c>, <b>, <a>) .  user ver of A p-Q menu opt 15
+#F  PqDoConsistencyCheck( <c>, <b>, <a> )
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, inputs data
-##  to the `pq' binary
+##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+##  binary to do a consistency check; the generator  indices  <c>,  <b>,  <a>
+##  should be non-increasing positive integers, i.e.~$<c> \ge <b> \ge <a>$.
 ##
-##  *Note:* For those  familiar  with  the  `pq'  binary, 
-##  `PqDoConsistencyCheck' performs option 15 of the
-##  Advanced $p$-Quotient menu.
+##  *Note:* 
+##  For those familiar with the `pq' binary, `PqDoConsistencyCheck'  performs
+##  option 15 of the Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqDoConsistencyCheck, function( arg )
-local datarec;
+local len, c, b, a, datarec;
+  len := Length(arg);
+  if not(len in [3, 4]) then
+    Error( "expected 3 or 4 arguments\n" );
+  fi;
+  c := arg[len - 2];
+  b := arg[len - 1];
+  a := arg[len];
+  if not ForAll([c, b, a], IsPosInt) or c < b or b < a then
+    Error( "generator indices must be non-increasing positive integers\n" );
+  fi;
+  #@more checking required here@
+  arg := arg{[1 .. len - 3]};
   ANUPQ_IOINDEX_ARG_CHK(arg);
   datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  PQ_DO_CONSISTENCY_CHECK( datarec );
+  PQ_DO_CONSISTENCY_CHECK( datarec, a, b, c );
 end );
 
 #############################################################################
 ##
 #F  PQ_COMPACT( <datarec> ) . . . . . . . . . . . . . .  A p-Q menu option 16
 ##
-##  inputs data to the `pq' binary for option 16 of the
-##  Advanced $p$-Quotient menu.
+##  inputs data to the `pq' binary for option 16 of the Advanced $p$-Quotient
+##  menu, to do a compaction.
 ##
 InstallGlobalFunction( PQ_COMPACT, function( datarec )
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
@@ -1013,12 +1056,12 @@ end );
 #F  PqCompact( <i> ) . . . . . . . . . . user version of A p-Q menu option 16
 #F  PqCompact()
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, inputs data
-##  to the `pq' binary
+##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+##  binary to do a compaction.
 ##
-##  *Note:* For those  familiar  with  the  `pq'  binary, 
-##  `PqCompact' performs option 16 of the
-##  Advanced $p$-Quotient menu.
+##  *Note:*
+##  For those familiar with the `pq' binary, `PqCompact' performs  option  16
+##  of the Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqCompact, function( arg )
 local datarec;
@@ -1046,7 +1089,8 @@ end );
 #F  PqEchelonise()
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
-##  binary to echelonise.
+##  binary to echelonise relation. A call to `PqCollect' (see~"PqCollect") or
+##  `PqCommutator' needs to be performed prior to using this command.
 ##
 ##  *Note:*
 ##  For those familiar with the `pq' binary, `PqEchelonise'  performs  option
@@ -1191,113 +1235,145 @@ end );
 InstallGlobalFunction( PqApplyAutomorphisms, function( arg )
 local len, datarec, qfac;
   len := Length(arg);
-  if not(len in [1,2]) then
+  if not(len in [1, 2]) then
     Error("expected 1 or 2 arguments\n");
   fi;
-  ANUPQ_IOINDEX_ARG_CHK(arg{[1 .. len -1]});
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg{[1 .. len -1]}) ];
+  ANUPQ_IOINDEX_ARG_CHK(arg{[1 .. len - 1]});
+  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg{[1 .. len - 1]}) ];
   PQ_CLOSE_RELATIONS( datarec, arg[len] );
 end );
 
 #############################################################################
 ##
-#F  PQ_PRINT_STRUCTURE( <datarec> ) . . . . . . . . . .  A p-Q menu option 20
+#F  PQ_PRINT_STRUCTURE( <datarec>, <m>, <n> ) . . . . .  A p-Q menu option 20
 ##
-##  inputs data to the `pq' binary for option 20 of the
-##  Advanced $p$-Quotient menu.
+##  inputs data to the `pq' binary for option 20 of the Advanced $p$-Quotient
+##  menu, to print the structure for the pcp generators numbered from <m>  to
+##  <n>.
 ##
-InstallGlobalFunction( PQ_PRINT_STRUCTURE, function( datarec )
+InstallGlobalFunction( PQ_PRINT_STRUCTURE, function( datarec, m, n )
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
   ToPQ(datarec, [ "20  #print structure" ]);
+  ToPQ(datarec, [ m, "  #no. of first generator" ]);
+  ToPQ(datarec, [ n, "  #no. of last generator"  ]);
 end );
 
 #############################################################################
 ##
-#F  PqPrintStructure( <i> ) . . . . . .  user version of A p-Q menu option 20
-#F  PqPrintStructure()
+#F  PQ_CHK_DISPLAY_COMMAND_ARGS( <args> ) . . check args for a display cmd ok
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, inputs data
-##  to the `pq' binary
+##  returns a list of valid arguments for  a  low-level  display  command  or
+##  generates an error.
 ##
-##  *Note:* For those  familiar  with  the  `pq'  binary, 
-##  `PqPrintStructure' performs option 20 of the
-##  Advanced $p$-Quotient menu.
+InstallGlobalFunction( PQ_CHK_DISPLAY_COMMAND_ARGS, function( args )
+local len, ngens, m, n, datarec;
+  len := Length(args);
+  if not(len in [2, 3]) then
+    Error( "expected 2 or 3 arguments\n");
+  fi;
+  m := args[len - 1];
+  n := args[len];
+  args := args{[1 .. len - 2]};
+  ANUPQ_IOINDEX_ARG_CHK(args);
+  datarec := ANUPQData.io[ ANUPQ_IOINDEX(args) ];
+  ngens := PQ_PQUOTIENT_CHK( datarec );
+  if not ForAll([m, n], IsPosInt) or m > ngens or m > n then
+    Error( "<m> and <n> must satisfy: 1 <= <m> <= <n> <= ",
+           "no. of pcp generators\n" );
+  fi;
+  return [datarec, m, n];
+end );
+
+#############################################################################
+##
+#F  PqPrintStructure( <i>, <m>, <n> ) .  user version of A p-Q menu option 20
+#F  PqPrintStructure( <m>, <n> )
+##
+##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+##  binary to print the structure for the pcp generators numbered from <m> to
+##  <n>.
+##
+##  *Note:*
+##  For those familiar with  the  `pq'  binary,  `PqPrintStructure'  performs
+##  option 20 of the Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqPrintStructure, function( arg )
-local datarec;
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  PQ_PRINT_STRUCTURE( datarec );
+  CallFuncList( PQ_PRINT_STRUCTURE, PQ_CHK_DISPLAY_COMMAND_ARGS(arg) );
 end );
 
 #############################################################################
 ##
-#F  PQ_DISPLAY_AUTOMORPHISMS( <datarec> ) . . . . . . .  A p-Q menu option 21
+#F  PQ_DISPLAY_AUTOMORPHISMS( <datarec>, <m>, <n> ) . .  A p-Q menu option 21
 ##
-##  inputs data to the `pq' binary for option 21 of the
-##  Advanced $p$-Quotient menu.
+##  inputs data to the `pq' binary for option 21 of the Advanced $p$-Quotient
+##  menu, to display automorphisms for the generators numbered  from  <m>  to
+##  <n>.
 ##
-InstallGlobalFunction( PQ_DISPLAY_AUTOMORPHISMS, function( datarec )
+InstallGlobalFunction( PQ_DISPLAY_AUTOMORPHISMS, function( datarec, m, n )
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
   ToPQ(datarec, [ "21  #display automorphisms" ]);
+  ToPQ(datarec, [ m, "  #no. of first generator" ]);
+  ToPQ(datarec, [ n, "  #no. of last generator"  ]);
 end );
 
 #############################################################################
 ##
-#F  PqDisplayAutomorphisms( <i> ) . . .  user version of A p-Q menu option 21
-#F  PqDisplayAutomorphisms()
+#F  PqDisplayAutomorphisms( <i>, <m>, <n> ) . . user ver of A p-Q menu opt 21
+#F  PqDisplayAutomorphisms( <m>, <n> )
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, inputs data
-##  to the `pq' binary
+##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+##  binary to display automorphisms for the generators numbered from  <m>  to
+##  <n>.
 ##
-##  *Note:* For those  familiar  with  the  `pq'  binary, 
-##  `PqDisplayAutomorphisms' performs option 21 of the
-##  Advanced $p$-Quotient menu.
+##  *Note:*
+##  For  those  familiar  with  the  `pq'  binary,   `PqDisplayAutomorphisms'
+##  performs option 21 of the Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqDisplayAutomorphisms, function( arg )
-local datarec;
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  PQ_DISPLAY_AUTOMORPHISMS( datarec );
+  CallFuncList( PQ_DISPLAY_AUTOMORPHISMS, PQ_CHK_DISPLAY_COMMAND_ARGS(arg) );
 end );
 
 #############################################################################
 ##
-#F  PQ_COLLECT_DEFINING_GENERATORS( <datarec> ) . . . .  A p-Q menu option 23
+#F  PQ_COLLECT_DEFINING_GENERATORS( <datarec>, <word> ) . . A p-Q menu opt 23
 ##
-##  inputs data to the `pq' binary for option 23 of the
-##  Advanced $p$-Quotient menu.
+##  inputs data to the `pq' binary for option 23 of the Advanced $p$-Quotient
+##  menu, to collect defining generators for <word> a string representing the
+##  product of three generators, e.g. `"x3*x2*x1"'.
 ##
-InstallGlobalFunction( PQ_COLLECT_DEFINING_GENERATORS, function( datarec )
+InstallGlobalFunction( PQ_COLLECT_DEFINING_GENERATORS, function( datarec, word )
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
-  ToPQ(datarec, [ "23  #collect defining generators" ]);
+  ToPQk(datarec, [ "23  #collect defining generators" ]);
+  FLUSH_PQ_STREAM_UNTIL(
+      datarec.stream, 4, 2, PQ_READ_NEXT_LINE,
+      line -> 0 < Length(line) and line[Length(line)] = '\n');
+  ToPQ(datarec, [ word, ";  #word to be collected" ]);
 end );
 
 #############################################################################
 ##
-#F  PqCollectDefiningGenerators( <i> ) . user version of A p-Q menu option 23
-#F  PqCollectDefiningGenerators()
+#F  PqCollectDefiningGenerators(<i>, <word>) .  user ver of A p-Q menu opt 23
+#F  PqCollectDefiningGenerators( <word> )
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, inputs data
-##  to the `pq' binary
+##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+##  binary to do a collection on <word> a string representing the product  of
+##  three generators, e.g. `"x3*x2*x1"'.
 ##
-##  *Note:* For those  familiar  with  the  `pq'  binary, 
-##  `PqCollectDefiningGenerators' performs option 23 of the
-##  Advanced $p$-Quotient menu.
+##  *Note:*
+##  For those familiar with the  `pq'  binary,  `PqCollectDefiningGenerators'
+##  performs option 23 of the Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqCollectDefiningGenerators, function( arg )
-local datarec;
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  PQ_COLLECT_DEFINING_GENERATORS( datarec );
+  CallFuncList( PQ_COLLECT_DEFINING_GENERATORS, 
+                PQ_CHK_COLLECT_COMMAND_ARGS(arg) );
 end );
 
 #############################################################################
 ##
 #F  PQ_COMMUTATOR_DEFINING_GENERATORS( <datarec> ) . . . A p-Q menu option 24
 ##
-##  inputs data to the `pq' binary for option 24 of the
-##  Advanced $p$-Quotient menu.
+##  inputs data to the `pq' binary for option 24 of the Advanced $p$-Quotient
+##  menu, to compute the commutator of the defining generators.
 ##
 InstallGlobalFunction( PQ_COMMUTATOR_DEFINING_GENERATORS, function( datarec )
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
@@ -1306,15 +1382,15 @@ end );
 
 #############################################################################
 ##
-#F  PqCommutatorDefiningGenerators( <i> )  user version of A p-Q menu option 24
+#F  PqCommutatorDefiningGenerators( <i> ) .  user ver of A p-Q menu option 24
 #F  PqCommutatorDefiningGenerators()
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, inputs data
-##  to the `pq' binary
+##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+##  binary to compute the commutator of the defining generators.
 ##
-##  *Note:* For those  familiar  with  the  `pq'  binary, 
-##  `PqCommutatorDefiningGenerators' performs option 24 of the
-##  Advanced $p$-Quotient menu.
+##  *Note:*
+##  For those familiar with the `pq' binary, `PqCommutatorDefiningGenerators'
+##  performs option 24 of the Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqCommutatorDefiningGenerators, function( arg )
 local datarec;
@@ -1407,8 +1483,8 @@ end );
 ##
 #F  PQ_EVALUATE_CERTAIN_FORMULAE( <datarec> ) . . . . .  A p-Q menu option 27
 ##
-##  inputs data to the `pq' binary for option 27 of the
-##  Advanced $p$-Quotient menu.
+##  inputs data to the `pq' binary for option 27 of the Advanced $p$-Quotient
+##  menu, to evaluate certain formulae.
 ##
 InstallGlobalFunction( PQ_EVALUATE_CERTAIN_FORMULAE, function( datarec )
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
@@ -1420,12 +1496,12 @@ end );
 #F  PqEvaluateCertainFormulae( <i> ) . . user version of A p-Q menu option 27
 #F  PqEvaluateCertainFormulae()
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, inputs data
-##  to the `pq' binary
+##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+##  binary to evaluate certain formulae.
 ##
-##  *Note:* For those  familiar  with  the  `pq'  binary, 
-##  `PqEvaluateCertainFormulae' performs option 27 of the
-##  Advanced $p$-Quotient menu.
+##  *Note:*
+##  For those familiar  with  the  `pq'  binary,  `PqEvaluateCertainFormulae'
+##  performs option 27 of the Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqEvaluateCertainFormulae, function( arg )
 local datarec;
@@ -1438,8 +1514,8 @@ end );
 ##
 #F  PQ_EVALUATE_ACTION( <datarec> ) . . . . . . . . . .  A p-Q menu option 28
 ##
-##  inputs data to the `pq' binary for option 28 of the
-##  Advanced $p$-Quotient menu.
+##  inputs data to the `pq' binary for option 28 of the Advanced $p$-Quotient
+##  menu, to evaluate the action.
 ##
 InstallGlobalFunction( PQ_EVALUATE_ACTION, function( datarec )
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
@@ -1451,12 +1527,12 @@ end );
 #F  PqEvaluateAction( <i> ) . . . . . .  user version of A p-Q menu option 28
 #F  PqEvaluateAction()
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, inputs data
-##  to the `pq' binary
+##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+##  binary to evaluate the action.
 ##
-##  *Note:* For those  familiar  with  the  `pq'  binary, 
-##  `PqEvaluateAction' performs option 28 of the
-##  Advanced $p$-Quotient menu.
+##  *Note:*
+##  For those familiar with  the  `pq'  binary,  `PqEvaluateAction'  performs
+##  option 28 of the Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqEvaluateAction, function( arg )
 local datarec;
