@@ -222,7 +222,7 @@ InstallGlobalFunction( PqWithIdentity, function( G, p, Cl, identity )
 
         class := class + 1;
         
-        Info(InfoANUPQ, 2, "Class ", class, " with ",
+        Info(InfoANUPQ, 1, "Class ", class, " with ",
                            PqNrPcGenerators(proc), " generators." );
     od;
 
@@ -264,7 +264,7 @@ InstallGlobalFunction( PQ_EVALUATE_IDENTITY, function( proc, identity )
           PqEchelonise( proc );
 #         PqSetOutputLevel( proc, 0 );
         fi;
-        Info( InfoANUPQ, 2, "Instance: ", data.instances[ i ] ); 
+        Info( InfoANUPQ, 3, "Instance: ", data.instances[ i ] ); 
         return;
       fi;
     

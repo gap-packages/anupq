@@ -433,7 +433,8 @@ end);
 ##
 InstallGlobalFunction(FILTER_PQ_STREAM_UNTIL_PROMPT, function( datarec )
 local match, filter, lowlev, ctimelev;
-  filter := ["Exiting", "pq,", "Now enter", "Presentation listing images"];
+  filter := ["Exiting", "pq,", "Now enter", 
+             "Presentation listing images", "(use generators x1,x2"];
   if IsBound(datarec.match) then
     if datarec.match = true then
       match := ["Group:", "Group completed"];
