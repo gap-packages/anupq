@@ -2851,9 +2851,9 @@ local nodescendants, class, firstStep, expectedNsteps, optrec, line, ngroups,
   ToPQ_BOOL(datarec, VALUE_PQ_OPTION("BasicAlgorithm", false, datarec.des),
                      "use default algorithm");
   if not datarec.des.BasicAlgorithm then
-    ToPQ(datarec, VALUE_PQ_OPTION(
-                      "RankInitialSegmentSubgroups", 0, datarec.des),
-                      "  #rank of initial segment subgrp");
+    ToPQ(datarec, [ VALUE_PQ_OPTION(
+                        "RankInitialSegmentSubgroups", 0, datarec.des) ],
+                  [ "  #rank of initial segment subgrp" ]);
     if datarec.PcgsAutomorphisms then
       ToPQ_BOOL(datarec, datarec.des.SpaceEfficient, "be space efficient");
     fi;
