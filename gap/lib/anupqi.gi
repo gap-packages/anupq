@@ -2372,7 +2372,7 @@ end );
 ##  descendants, using option 5 of the main $p$-Group Generation menu.
 ##
 InstallGlobalFunction( PQ_PG_CONSTRUCT_DESCENDANTS, function( datarec )
-local class, firstStep, expectedNsteps, optrec;
+local nodescendants, class, firstStep, expectedNsteps, optrec;
 
   datarec.des := rec();
   # deal with the easy answer
@@ -2423,7 +2423,14 @@ local class, firstStep, expectedNsteps, optrec;
   fi;
 
   PQ_MENU(datarec, "pG");
+  datarec.matchlist := [" is an invalid starting group"];
+  datarec.matchedlines := [];
   ToPQ(datarec, [ "5  #construct descendants" ]);
+  nodescendants := not IsEmpty(datarec.matchedlines);
+  PQ_UNBIND( datarec, ["matchlist", "matchedlines"] );
+  if nodescendants then
+    return [];
+  fi;
   ToPQ(datarec, [ datarec.des.ClassBound, " #class bound" ]);
 
   #Construct all descendants?
