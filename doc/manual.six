@@ -107,6 +107,7 @@ I 5.3. option Relators
 I 5.3. option Metabelian
 I 5.3. option GroupName
 I 5.3. option OutputLevel
+I 5.3. option RedoPcp
 F 5.3. PqEpimorphism!interactive
 F 5.3. PqEpimorphism!interactive
 F 5.3. PqPCover!interactive
@@ -281,6 +282,7 @@ F 6.1. option Relators
 F 6.1. option Metabelian
 F 6.1. option GroupName
 F 6.1. option OutputLevel
+F 6.1. option RedoPcp
 F 6.1. option SetupFile
 F 6.1. option PqWorkspace
 F 6.1. option PcgsAutomorphisms

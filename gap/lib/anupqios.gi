@@ -110,7 +110,7 @@ local opts, iorec, G, workspace, optname;
   fi;
   iorec.calltype := "interactive";
   for optname in ANUPQGlobalOptions do
-    SET_GLOBAL_PQ_OPTION(optname, iorec);
+    VALUE_PQ_OPTION(optname, iorec);
   od;
 
   Add( ANUPQData.io, iorec );
@@ -651,30 +651,20 @@ end);
 
 #############################################################################
 ##
-#F  ANUPQ_ARG_CHK(<len>,<funcname>,<arg1>,<arg1type>,<arg1err>,<args>,<opts>)
+#F  ANUPQ_ARG_CHK(<len>, <funcname>, <args>) .  check args of int/non-int fns
 ##
 ##  This checks the  argument  list  <args>  for  functions  that  have  both
 ##  interactive and non-interactive versions; <len> is the length  of  <args>
 ##  for the non-interactive  version  of  the  function,  <funcname>  is  the
 ##  generic name of the function and is used  for  determining  the  list  of
 ##  options for the function when they  are  passed  in  one  of  the  {\GAP}
-##  3-compatible ways only available non-interactively,  `<datarec>.(<arg1>)'
-##  is where, non-interactively, the  first  argument  of  <args>  should  be
-##  stored (and where interactively the corresponding variable  is  *already*
-##  stored), <arg1type> is the type of the first argument when  the  function
-##  is called non-interactively, <arg1err> is the error  message  given  when
-##  non-interactively the first argument  is  not  of  type  <arg1type>,  and
-##  <args>  is  the  list  of  arguments  passed  to  the  called   function.
-##  `ANUPQ_ARG_CHK' returns <datarec> which  is  either  `ANUPQData'  in  the
-##  non-interactive  case  or  `ANUPQData.io[<i>]'  for  some  <i>   in   the
-##  interactive  case,  after   setting   <datarec>.calltype'   to   one   of
-##  `"interactive"', `"non-interactive"' or `"GAP3compatible"'.  When  called
-##  with options (i.e. not in the `"GAP3compatible"' way) it is checked  that
-##  each option name (string) in the list <opts> is supplied (these represent
-##  the minimal list of options the user must supply).
+##  3-compatible  ways  only  available  non-interactively.   `ANUPQ_ARG_CHK'
+##  returns <datarec> which is either `ANUPQData.ni' in  the  non-interactive
+##  case or `ANUPQData.io[<i>]' for some <i> in the interactive  case,  after
+##  setting    <datarec>.calltype'     to     one     of     `"interactive"',
+##  `"non-interactive"' or `"GAP3compatible"'.
 ##
-InstallGlobalFunction(ANUPQ_ARG_CHK, 
-function(len, funcname, arg1, arg1type, arg1err, args, opts)
+InstallGlobalFunction(ANUPQ_ARG_CHK, function(len, funcname, args)
 local interactive, ioArgs, datarec, optrec, optname, optnames;
   interactive := Length(args) < len or IsInt( args[1] );
   if interactive then
@@ -682,27 +672,35 @@ local interactive, ioArgs, datarec, optrec, optname, optnames;
     ANUPQ_IOINDEX_ARG_CHK(ioArgs);
     datarec := ANUPQData.io[ ANUPQ_IOINDEX(ioArgs) ];
     datarec.outfname := ANUPQData.outfile; # not always needed
-    for optname in opts do
-      VALUE_PQ_OPTION(optname, fail, datarec);
-    od;
     #datarec.calltype := "interactive";    # PqStart sets this
+    if not IsBound(datarec.group) then
+      Error( "huh! Interactive process has no group\n" );
+    elif funcname = "PqDescendants" then
+      if not IsPcGroup( datarec.group ) then
+        Error( "group of process must be a pc group\n" );
+      fi;
+    else # if funcname = "Pq" check for Prime, ClassBound
+      PQ_OPTION_CHECK( funcname, datarec );
+    fi;
   elif Length(args) = len then
-    for optname in opts do
-      VALUE_PQ_OPTION(optname, fail);
-    od;
-    if not arg1type( args[1] ) then
-      Error( "first argument <args[1]> must be ", arg1err, ".\n" );
+    if not IsPcGroup( args[1] ) then
+      if funcname = "PqDescendants" then
+        Error( "first argument <args[1]> must be a pc group\n" );
+      elif not IsFpGroup( args[1] ) then
+        Error( "first argument <args[1]> must be a pc group or an fp group\n" );
+      fi;
     fi;
     ANUPQData.ni := PQ_START( VALUE_PQ_OPTION( "PqWorkspace", 10000000 ),
                               VALUE_PQ_OPTION( "SetupFile" ) );
     datarec := ANUPQData.ni;
-    datarec.(arg1) := args[1];
+    datarec.group := args[1];
+    datarec.calltype := "non-interactive";
+    PQ_OPTION_CHECK( funcname, datarec ); # Check for Prime, ClassBound if nec.
     if IsBound( datarec.setupfile ) then
       datarec.outfname := "PQ_OUTPUT";
     else
       datarec.outfname := ANUPQData.outfile; # not always needed
     fi;
-    datarec.calltype := "non-interactive";
   else
     # GAP 3 way of passing options is supported in non-interactive use
     if IsRecord(args[len + 1]) then

@@ -15,7 +15,7 @@ Revision.anupqprop_gd :=
 
 #############################################################################
 ##
-#F  SET_PQ_PROPS_AND_ATTRS( <G>, <fpG> )
+#F  SET_PQ_PROPS_AND_ATTRS( <G>, <func> )
 ##
 DeclareGlobalFunction( "SET_PQ_PROPS_AND_ATTRS" );
 
@@ -23,11 +23,11 @@ DeclareGlobalFunction( "SET_PQ_PROPS_AND_ATTRS" );
 ##
 #D  Declare properties and  attributes
 ##    
-DeclareProperty( "IsCapable", IsPGroup );
+DeclareProperty( "IsCapable", IsGroup );
 
-DeclareAttribute( "NuclearRank", IsPGroup );
+DeclareAttribute( "NuclearRank", IsGroup );
 
-DeclareAttribute( "MultiplicatorRank", IsPGroup );
+DeclareAttribute( "MultiplicatorRank", IsGroup );
 
 DeclareAttribute( "ANUPQIdentity", IsGroup );
 

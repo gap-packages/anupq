@@ -172,43 +172,24 @@ end );
 ##  `"pQ"' (main $p$-Quotient menu) or `"SP' (Standard Presentation menu).
 ##
 InstallGlobalFunction( PQ_PC_PRESENTATION, function( datarec, menu )
-local gens, rels, pcp, p, pcgs, len, strp, i, j, Rel, line;
+local gens, rels, p, pcgs, len, strp, i, j, Rel, line;
 
-  pcp := Concatenation( menu, "pcp");
-  if datarec.calltype = "interactive" and IsBound(datarec.(pcp)) and
-     ForAll( REC_NAMES( datarec.(pcp) ), 
-             optname -> ValueOption(optname) 
-                        in [fail, datarec.(pcp).(optname)] ) then
-     # only do it in the interactive case if it hasn't already been done
-     # by checking whether options stored in `<datarec>.(<pcp>)' differ 
-     # from those of a previous call ... if a check of an option value 
-     # returns `fail' it is assumed the user intended the previous value
-     # stored in `<datarec>.(<pcp>)' (this is potentially problematic for 
-     # boolean options, to reverse a previous `true', `false' must be
-     # explicitly set for the option on the subsequent function call)
-        
-     Info(InfoANUPQ, 1, "Using previously computed (", menu, 
-                        ") pc presentation.");
-     return;
-  fi;
-  datarec.(pcp) := rec(); # options processed are stored here
   p := VALUE_PQ_OPTION("Prime", fail, datarec); # "Prime" is a `global' option
-  VALUE_PQ_OPTION("ClassBound", fail, datarec.(pcp));
 
   PQ_MENU(datarec, menu);
 
   # Option 1 of p-Quotient/Standard Presentation Menu: defining the group
   ToPQk(datarec, ["1  #define group"]);
-  if VALUE_PQ_OPTION("GroupName", "<grp>", datarec.(pcp)) = "<grp>" and
+  if VALUE_PQ_OPTION("GroupName", "<grp>", datarec) = "<grp>" and
      IsBound(datarec.group) and IsBound(datarec.group!.Name) then
-    datarec.(pcp).GroupName := datarec.group!.Name;
+    datarec.GroupName := datarec.group!.Name;
   fi;
-  ToPQk(datarec, ["name ",     datarec.(pcp).GroupName]);
+  ToPQk(datarec, ["name ",     datarec.GroupName]);
   ToPQk(datarec, ["prime ",    p]);
-  ToPQk(datarec, ["class ",    datarec.(pcp).ClassBound]);
+  ToPQk(datarec, ["class ",    VALUE_PQ_OPTION("ClassBound", 63, datarec)]);
   ToPQk(datarec, ["exponent ", VALUE_PQ_OPTION("Exponent", 0, datarec)]);
                                              # "Exponent" is a `global' option
-  if VALUE_PQ_OPTION( "Metabelian", false, datarec.(pcp) ) = true then
+  if VALUE_PQ_OPTION( "Metabelian", false, datarec ) = true then
     ToPQk(datarec, [ "metabelian" ]);
   fi;
   ToPQk(datarec, ["output ", VALUE_PQ_OPTION("OutputLevel", 0, datarec)]);
@@ -415,7 +396,6 @@ InstallGlobalFunction( PQ_RESTORE_PC_PRESENTATION, function( datarec, filename )
   ToPQ(datarec, [ "3  #restore pc presentation from file" ]);
   datarec.match := true;
   ToPQ(datarec, [ filename, "  #filename" ]);
-  datarec.pQpcp := rec(); # Just so it's bound
   PQ_SET_GRP_DATA(datarec);
 end );
 
@@ -501,8 +481,8 @@ local line;
     PopOptions();
   fi;
   line := SplitString(datarec.matchedline, "", ":,. ^\n");
-  datarec.incomplete := line[3] = "to"; #currently we don't use this info.!
-  if datarec.incomplete then
+  datarec.complete := line[3] <> "to";
+  if not datarec.complete then
     # Only the ``incomplete'' form of datarec.matchedline gives the name
     datarec.name := line[2];
   #elif not IsBound(datarec.name) then #do we need to bother?
@@ -802,6 +782,7 @@ end );
 InstallGlobalFunction( PQ_NEXT_CLASS, function( datarec )
 local line;
   PQ_MENU(datarec, "pQ");
+  PQ_UNBIND(datarec, ["pQuotient", "pQepi", "pCover"]);
   datarec.match := true;
   ToPQ(datarec, [ "6  #calculate next class" ]);
   if IsMatchingSublist(datarec.line, "Input queue factor:") then
@@ -856,6 +837,7 @@ end );
 InstallGlobalFunction( PQ_P_COVER, function( datarec )
 local savefile;
   PQ_MENU(datarec, "pQ");
+  Unbind( datarec.pCover );
   datarec.match := true;
   ToPQ(datarec, [ "7  #compute p-cover" ]);
   PQ_SET_GRP_DATA(datarec);
@@ -1364,7 +1346,7 @@ end );
 InstallGlobalFunction( PqDoExponentChecks, function( arg )
 local datarec;
   datarec := PQ_DATA_CHK(arg);
-  PQ_DO_EXPONENT_CHECKS( datarec, PQ_BOUNDS(datarec, datarec.class + 1) );
+  PQ_DO_EXPONENT_CHECKS( datarec, PQ_BOUNDS(datarec, datarec.class) );
 end );
 
 #############################################################################
@@ -1939,10 +1921,9 @@ local filename, datarec;
   Unbind( arg[ Length(arg) ] );
   ANUPQ_IOINDEX_ARG_CHK(arg);
   datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  if not IsBound(datarec.pQpcp) then
-    Info(InfoANUPQ, 1, "pq had not previously computed a pc presentation");
-    Info(InfoANUPQ, 1, "... remedying that now.");
-    PQ_PC_PRESENTATION( datarec, "pQ" );
+  if not( IsBound(datarec.pCover) and datarec.pcoverclass = datarec.class or
+          IsBound(datarec.pQuotient) ) then
+    Error( "no p-quotient or p-cover has been computed\n" );
   fi;
   PQ_WRITE_PC_PRESENTATION( datarec, filename );
 end );

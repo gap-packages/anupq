@@ -14,6 +14,21 @@
 #Y  Copyright 1992-1994,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.16  2001/09/29 22:04:19  gap
+#H  `Pq', `PqEpimorphism', `PqPCover', `[Pq]StandardPresentation[Epimorphism]'
+#H  now accept either an fp group or a pc group, and for each `ClassBound'
+#H  defaults to 63 if not supplied except in the following case.
+#H  If the group <F> supplied to `PqPCover' is a p-group and knows it is and
+#H  `HasPrimePGroup(<F>)' is `true', `Prime' defaults to `PrimePGroup(<F>)' if
+#H  not supplied, and if `HasPClassPGroup(<F>)' is `true' then `ClassBound'
+#H  defaults to `PClassPGroup(<F>)' if not supplied or to 63 otherwise.
+#H  The attributes and property `MultiplicatorRank', `NuclearRank' and
+#H  `IsCapable' don't rely on the method to check that the group is a p-group
+#H  and emit an error if `HasIsPGroup(<G>) and IsPGroup(<G>)' is `false' (the
+#H  user must make sure the group knows it is a p-group first, except that
+#H  `Pq', `PqEpimorphism', `PqPCover' ensure the group or image of the
+#H  epimorphism have the property set). - GG
+#H
 #H  Revision 1.15  2001/09/25 15:23:15  gap
 #H  Changed `PqPCover' to `PqComputePCover' to free up the name for another
 #H  function that returns the p-cover of a group.
@@ -521,8 +536,7 @@ end );
 InstallGlobalFunction( PQ_DESCENDANTS, function( args )
     local   datarec,  G,  pd,  desc;
 
-    datarec := ANUPQ_ARG_CHK(1, "PqDescendants", "group", IsPcGroup, 
-                             "a pc group", args, []);
+    datarec := ANUPQ_ARG_CHK(1, "PqDescendants", args);
     if datarec.calltype = "GAP3compatible" then
         # ANUPQ_ARG_CHK calls PQ_DESCENDANTS itself in this case
         # (so datarec.descendants has already been computed)

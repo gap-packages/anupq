@@ -47,7 +47,8 @@ InstallValue( ANUPQoptions,
                             "Relators", 
                             "GroupName", 
                             "SetupFile",
-                            "PqWorkspace" ],
+                            "PqWorkspace",
+                            "RedoPcp" ],
 
                    # options for `PqDescendants'
                    PqDescendants
@@ -147,7 +148,8 @@ InstallValue( ANUPQoptionChecks,
                    Bounds := x -> IsSet(x) and 2 = Length(x) and 
                                   ForAll(x, IsPosInt),
                    QueueFactor := IsPosInt,
-                   OutputFile := IsString
+                   OutputFile := IsString,
+                   RedoPcp := IsBool
                    )
              );
 
@@ -182,7 +184,8 @@ InstallValue( ANUPQoptionTypes,
                    CustomiseOutput := "record",
                    Bounds := "pair of increasing positive integers",
                    QueueFactor := "positive integer",
-                   OutputFile := "string"
+                   OutputFile := "string",
+                   RedoPcp := "boolean"
                    )
              );
 
@@ -228,10 +231,7 @@ local optname, optval, len;
     Error("\"", optname, "\" value must be a ", 
           ANUPQoptionTypes.(optname), "\n");
   fi;
-  if (optval <> fail) and (2 <= len) and IsRecord(arg[len]) and 
-     not( IsBound( arg[len].calltype ) and 
-          (arg[len].calltype = "interactive") and
-          optname in ANUPQGlobalOptions ) then
+  if (optval <> fail) and (2 <= len) and IsRecord(arg[len]) then
     arg[len].(optname) := optval;
   fi;
   return optval;
@@ -239,23 +239,45 @@ end);
   
 #############################################################################
 ##
-#F  SET_GLOBAL_PQ_OPTION(<optname>,<datarec>) .  set global option in PqStart
+#F  PQ_OPTION_CHECK(<basefn>,<datarec>) . check optns present/setable if nec.
 ##
-##  If  <optname>  is  passed  as  an   option   and   it   is   valid   then
-##  `<datarec>.(<optname>)' is set. This is only called by `PqStart'.
+##  If `<basefn> = "Pq"' (i.e. this check is  carried  out  if  the  function
+##  called is `Pq', `PqEpimorphism' or  `PqPCover')  check  that  the  option
+##  `Prime' has been  passed  or,  in  a  special  `PqPCover'  case,  can  be
+##  determined from the `<datarec>.group'  which  must  be  present.  In  the
+##  special `PqPCover' case, the options `Prime' and `ClassBound'  determined
+##  are saved in <datarec>. If `Prime' is not supplied in the cases where  it
+##  needs to be, an error is emitted.
 ##
-InstallGlobalFunction(SET_GLOBAL_PQ_OPTION, function(optname, datarec)
-local optval;
-  optval := ValueOption(optname);
-  if optval <> fail then
-    if not ANUPQoptionChecks.(optname)(optval) then
-      Error("\"", optname, "\" value must be a ", 
-            ANUPQoptionTypes.(optname), "\n");
+InstallGlobalFunction(PQ_OPTION_CHECK, function(basefn, datarec)
+local optname, out;
+  if basefn = "Pq" then
+    if datarec.calltype = "interactive" then
+      if VALUE_PQ_OPTION("RedoPcp", false) then
+        PQ_UNBIND(datarec, ["Prime",  "ClassBound", "Exponent", "Metabelian",
+                            "pCover", "pQuotient",  "pQepi"] );
+      fi;
     fi;
-    datarec.(optname) := optval;
+    if ValueOption("PqEpiOrPCover") = "pCover" and
+       HasIsPGroup(datarec.group) and IsPGroup(datarec.group) then
+      if VALUE_PQ_OPTION("Prime", datarec) = fail then
+        if not HasPrimePGroup(datarec.group) then
+          Error( "supplied group is not known to be a p-group or p unknown.\n",
+                 "Option `Prime' must be supplied" );
+        else
+          datarec.Prime := PrimePGroup(datarec.group);
+        fi;
+      fi;
+      if VALUE_PQ_OPTION("ClassBound", datarec) = fail and
+         HasPClassPGroup(datarec.group) then
+        datarec.ClassBound := PClassPGroup(datarec.group);
+      fi;
+    else
+      VALUE_PQ_OPTION("Prime", fail, datarec);
+    fi;
   fi;
 end);
-  
+
 #############################################################################
 ##
 #F  PQ_BOOL( <optval> ) . .  convert a GAP boolean to a `pq' (i.e. C) boolean

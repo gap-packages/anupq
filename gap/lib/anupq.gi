@@ -10,6 +10,21 @@
 #Y  Copyright 1992-1994,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.25  2001/09/29 22:04:19  gap
+#H  `Pq', `PqEpimorphism', `PqPCover', `[Pq]StandardPresentation[Epimorphism]'
+#H  now accept either an fp group or a pc group, and for each `ClassBound'
+#H  defaults to 63 if not supplied except in the following case.
+#H  If the group <F> supplied to `PqPCover' is a p-group and knows it is and
+#H  `HasPrimePGroup(<F>)' is `true', `Prime' defaults to `PrimePGroup(<F>)' if
+#H  not supplied, and if `HasPClassPGroup(<F>)' is `true' then `ClassBound'
+#H  defaults to `PClassPGroup(<F>)' if not supplied or to 63 otherwise.
+#H  The attributes and property `MultiplicatorRank', `NuclearRank' and
+#H  `IsCapable' don't rely on the method to check that the group is a p-group
+#H  and emit an error if `HasIsPGroup(<G>) and IsPGroup(<G>)' is `false' (the
+#H  user must make sure the group knows it is a p-group first, except that
+#H  `Pq', `PqEpimorphism', `PqPCover' ensure the group or image of the
+#H  epimorphism have the property set). - GG
+#H
 #H  Revision 1.24  2001/09/26 19:38:48  gap
 #H  Added `PqPCover' (a version that returns a pc group). Also simplified
 #H  `IsCapable' etc. to not need `RedispatchOnCondition'. Some internal
@@ -456,7 +471,8 @@ InstallGlobalFunction( PQ_GROUP_FROM_PCP, function( datarec, out )
     HideGlobalVariables( "F", "MapImages" );
     Read( datarec.outfname );
     if out = "pCover" then
-      datarec.pCover := ValueGlobal( "F" );;
+      datarec.pCover := ValueGlobal( "F" );
+      IsPGroup( datarec.pCover );
     else
       datarec.pQepi := GroupHomomorphismByImages( 
                            datarec.group,
@@ -466,6 +482,7 @@ InstallGlobalFunction( PQ_GROUP_FROM_PCP, function( datarec, out )
                            );
       SetFeatureObj( datarec.pQepi, IsSurjective, true );
       datarec.pQuotient := Image( datarec.pQepi );
+      IsPGroup( datarec.pQuotient );
     fi;
     UnhideGlobalVariables( "F", "MapImages" );
 end );
@@ -475,23 +492,39 @@ end );
 #F  PQ_EPI_OR_PCOVER(<args>:<options>) .  p-quotient, its epi. or its p-cover
 ##
 InstallGlobalFunction( PQ_EPI_OR_PCOVER, function( args )
-    local   datarec, out;
+    local   datarec, out, AtClass;
 
     out := ValueOption("PqEpiOrPCover");
-    datarec := ANUPQ_ARG_CHK(1, "Pq", "group", IsFpGroup, 
-                             "an fp group", args, ["Prime", "ClassBound"]);
+    datarec := ANUPQ_ARG_CHK(1, "Pq", args);
     datarec.filter := ["Output file in", "Group presentation"];
-    if datarec.calltype = "interactive" then      
-        if IsBound( datarec.(out) ) then
-            return datarec.(out); # it's already been computed
-        fi;
-    elif datarec.calltype = "GAP3compatible" then
+    if datarec.calltype = "GAP3compatible" then
         # ANUPQ_ARG_CHK calls PQ_EPI_OR_PCOVER itself in this case
         # (so datarec.(out) has already been computed)
         return datarec.(out);
-    fi;
+    elif datarec.calltype = "interactive" and IsBound( datarec.(out) ) then
+        AtClass := function()
+          return IsBound(datarec.complete) and datarec.complete or
+                 IsBound(datarec.class) and datarec.class = datarec.ClassBound;
+        end;
 
-    PQ_PC_PRESENTATION(datarec, "pQ");
+        if IsBound(datarec.pcoverclass) and 
+           datarec.pcoverclass = datarec.class and not AtClass() then
+            # ``reduce'' the p-cover to a p-class
+            PQ_COLLECT_DEFINING_RELATIONS( datarec );
+            PQ_DO_EXPONENT_CHECKS( datarec, [1, datarec.class] );
+            PQ_ELIMINATE_REDUNDANT_GENERATORS( datarec );
+        fi;
+        while not AtClass() do
+            PQ_NEXT_CLASS( datarec );
+        od;
+        # the following if is not executed if the while-loop is 
+        # executed at least once
+        if IsBound( datarec.(out) ) then
+            return datarec.(out); # it had already been computed
+        fi;
+    else
+        PQ_PC_PRESENTATION(datarec, "pQ");
+    fi;
 
     if out = "pCover" then
       PQ_P_COVER( datarec );

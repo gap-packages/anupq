@@ -91,10 +91,10 @@ DeclareGlobalFunction( "VALUE_PQ_OPTION" );
   
 #############################################################################
 ##
-#F  SET_GLOBAL_PQ_OPTION(<optname>,<datarec>) .  set global option in PqStart
+#F  PQ_OPTION_CHECK(<basefn>,<datarec>) . check optns present/setable if nec.
 ##
-DeclareGlobalFunction( "SET_GLOBAL_PQ_OPTION" );
-
+DeclareGlobalFunction( "PQ_OPTION_CHECK" );
+  
 #############################################################################
 ##
 #F  PQ_BOOL( <optval> ) . .  convert a GAP boolean to a `pq' (i.e. C) boolean

@@ -150,15 +150,16 @@ who to email it to.
 \>Pq( <i> : <options> )!{interactive} F
 \>Pq( : <options> )!{interactive} F
 
-return, for  the  finitely  presented  group  of  the  <i>th  or  default
-interactive {\ANUPQ} process (let us call it <F>),  the  $p$-quotient  of
-<F> specified by <options>, as a pc group; <F> must previously have  been
-given (as first argument) to `PqStart' to start the interactive  {\ANUPQ}
-process (see~"PqStart"). Following the colon <options> is a selection  of
-the options listed for  the  non-interactive  `Pq'  function  (see~"Pq"),
+return, for the fp or pc  group  of  the  <i>th  or  default  interactive
+{\ANUPQ} process (let us call it <F>), the $p$-quotient of <F>  specified
+by <options>, as a pc group; <F> must  previously  have  been  given  (as
+first argument) to `PqStart' to start the  interactive  {\ANUPQ}  process
+(see~"PqStart"). Following the colon <options>  is  a  selection  of  the
+options  listed  for  the  non-interactive  `Pq'   function   (see~"Pq"),
 separated by commas like  record  components  (see  Section~"ref:function
 call with options" in the  {\GAP}  Reference  Manual),  except  that  the
 options `SetupFile' or `PqWorkspace' are ignored by the interactive  `Pq'
+and `RedoPcp' is an  option  only  recognised  by  the  interactive  `Pq'
 i.e.~the  following  options  are  recognised  by  the  interactive  `Pq'
 function:
 
@@ -185,29 +186,49 @@ function:
 \atindex{option OutputLevel}{@option \noexpand`OutputLevel'}
 \item{}`OutputLevel := <n>'
 
+\atindex{option RedoPcp}{@option \noexpand`RedoPcp'}
+\item{}`RedoPcp'
+
 \endlist
 
 Detailed descriptions of the above options may be found in Chapter~"ANUPQ
 options".
 
-As a minimum the `Pq' function *must* have values  for  the  `Prime'  and
-`ClassBound' options, though `Prime' need not be passed again in the case
-it  has  previously  been  provided  to  `PqStart'  (see~"PqStart")  when
-starting the interactive process. A pc presentation is only  computed  if
-one has not previously been computed with the same set of options (that's
-a partial lie, see the following note for the truth).
+As a minimum the `Pq' function  *must*  have  a  value  for  the  `Prime'
+option, though `Prime' need not be  passed  again  in  the  case  it  has
+previously been provided, e.g. to `PqStart' (see~"PqStart") when starting
+the interactive process.
 
-*Notes:*
-If a pc  presentation  has  previously  been  computed  any  options  not
-supplied are assumed to have  the  values  of  the  previous  call  to  a
-function that computed a pc presentation, i.e.~it is  ok  to  provide  no
-options if a pc presentation has already been computed. Take care though,
-if on a previous function call that computed a pc  presentation  you  set
-`Metabelian', for example, but on a subsequent  call  to  `Pq'  you  wish
-`Metabelian' to be `false', then you must explicitly set  `Metabelian  :=
-false' in the `Pq' call (the usual default of `false' is  over-ridden  by
-the previous value provided), or  alternatively  call  `PqPcPresentation'
-(see~"PqPcPresentation"), which never avoids re-doing the computation.
+The behaviour of the interactive `Pq' function  depends  on  the  current
+state of the pc presentation stored by the `pq' binary:
+
+\beginlist%ordered
+
+\item{1.}
+If no pc presentation has yet been computed (the case  immediately  after
+the `PqStart' call initiating the process) then the quotient group of the
+input group of the process of largest lower exponent-<p> class bounded by
+the  value  of  the  `ClassBound'  option  (see~"option  ClassBound")  is
+returned.
+
+\item{2.}
+If the current pc  presentation  of  the  process  was  determined  by  a
+previous call to `Pq' or `PqEpimorphism', and  the  current  call  has  a
+larger value `ClassBound' then the  class  is  extended  as  much  as  is
+possible and the quotient group of the input group of the process of  the
+new lower exponent-<p> class is returned.
+
+\item{3.}
+If the current pc  presentation  of  the  process  was  determined  by  a
+previous call to `PqPCover'  then  a  consistent  pc  presentation  of  a
+quotient for the current class is determined before proceeding as in 2.
+
+\item{4.}
+If the `RedoPcp' option  is  supplied  the  current  pc  presentation  is
+scrapped, all options must be re-supplied (in particular, `Prime'  *must*
+be supplied) and then the `Pq' function proceeds as in 1.
+
+\endlist
 
 See Section~"Attributes and a Property for fp and pc  p-groups"  for  the
 attributes   and   property   `NuclearRank',   `MultiplicatorRank'    and
@@ -238,18 +259,16 @@ gap> Pq(: Prime := 2, ClassBound := 3, OutputLevel := 1 );
 \>PqEpimorphism( <i> : <options> )!{interactive} F
 \>PqEpimorphism( : <options> )!{interactive} F
 
-return, for  the  finitely  presented  group  of  the  <i>th  or  default
-interactive {\ANUPQ} process (let us call it <F>),  an  epimorphism  from
-<F> onto the  $p$-quotient  of  <F>  specified  by  <options>;  <F>  must
-previously have been given (as first argument) to `PqStart' to start  the
-interactive  {\ANUPQ}  process  (see~"PqStart").  Following   the   colon
-<options> is a selection of the options given for  the  interactive  `Pq'
-function  (see~"Pq!interactive"),  separated  by   commas   like   record
-components (see Section~"ref:function call with options"  in  the  {\GAP}
-Reference Manual). As a minimum the `Pq' function *must* have values  for
-the `Prime' and `ClassBound' options, though `Prime' need not  be  passed
-again  in  the  case  it  has  previously  been  provided  to   `PqStart'
-(see~"PqStart") when starting the interactive process.
+return, for the fp or pc  group  of  the  <i>th  or  default  interactive
+{\ANUPQ} process (let us call it <F>), an epimorphism from <F>  onto  the
+$p$-quotient of <F> specified by <options>; <F> must previously have been
+given (as first argument) to `PqStart' to start the interactive  {\ANUPQ}
+process (see~"PqStart"). Since the underlying interactions with the  `pq'
+binary effected by the interactive `PqEpimorphism' are identical to those
+effected  by  the  interactive  `Pq',  everything  said   regarding   the
+requirements   and   behaviour   of   the   interactive   `Pq'   function
+(see~"Pq!interactive")   is   also   the   case   for   the   interactive
+`PqEpimorphism'.
 
 *Note:*
 See Section~"Attributes and a Property for fp and pc  p-groups"  for  the
@@ -260,16 +279,46 @@ returned by `PqEpimorphism'.
 \>PqPCover( <i> : <options> )!{interactive} F
 \>PqPCover( : <options> )!{interactive} F
 
-return, for  the  finitely  presented  group  of  the  <i>th  or  default
-interactive {\ANUPQ} process (let us call it <F>), the $p$-covering group
-of the $p$-quotient of  <F>  specified  by  <options>,  as  a  pc  group,
-i.e.~the group  returned  by  `PqPCover(  <i>  :  <options>  );'  is  the
-$p$-covering group of the $p$-quotient `Pq( <i> : <options> )'. Thus  the
-arguments and options that the interactive `PqPCover' accepts are exactly
-those expected for the interactive  `Pq'  (see~"Pq!interactive"),  except
-that if the $p$-quotient  `Pq(  <i>  :  <options>  )'  has  already  been
-computed, the $p$-cover of that $p$-quotient is returned irrespective  of
-any options that may have been supplied.
+return, for the fp or pc  group  of  the  <i>th  or  default  interactive
+{\ANUPQ} process, the $p$-covering group of the $p$-quotient $p$-quotient
+`Pq(<i> : <options>)' or `Pq(: <options>)', modulo the following:
+
+\beginlist%ordered
+
+\item{1.}
+If no pc presentation has yet been computed (the case  immediately  after
+the `PqStart' call initiating the process)  and  the  group  <F>  of  the
+process is already a $p$-group, in the sense that  `HasIsPGroup(<F>)  and
+IsPGroup(<F>)' is `true', then
+
+\endlist
+\beginitems
+
+`Prime'& 
+defaults to `PrimePGroup(<F>)', if not supplied and  `HasPrimePGroup(<F>)
+= true'; and
+
+`ClassBound'&
+defaults to `PrimePGroup(<F>)' if `HasPClassPGroup(<F>) =  true'  if  not
+supplied, or to the usual default of 63, otherwise.
+
+\enditems
+\beginlist%ordered{1}{2}
+
+\item{2.}
+If a pc presentation has been computed and none of <options> is `RedoPcp'
+or if no pc presentation has yet been computed but 1. does not apply then
+`PqPCover(<i> : <options>);' is equivalent to:
+
+\){\kernttindent}Pq(<i> : <options>);
+\){\kernttindent}PqPCover(<i>);
+
+\item{3.}
+If the `RedoPcp' option  is  supplied  the  current  pc  presentation  is
+scrapped, and `PqPCover'  proceeds  as  in  1.  or  2.  but  without  the
+`RedoPcp' option.
+
+\endlist
 
 \index{automorphisms!of $p$-groups}
 \>PqStandardPresentation( <i>, <p> : <options> )!{interactive} F
@@ -281,16 +330,16 @@ any options that may have been supplied.
 \>StandardPresentation( <i>, <Q> : <options> )!{interactive} M
 \>StandardPresentation( <Q> : <options> )!{interactive} M
 
-For the finitely presented group <F> of the <i>th or default  interactive
-{\ANUPQ} process and either a prime  <p>  or  a  pc  <p>-group  <Q>,  the
-functions return the <p>-quotient of <F> specified by the  last  argument
-and <options>, as an fp group which  has  a  standard  presentation.  The
-group <F> must have been given (as first argument) to `PqStart' to  start
-the interactive {\ANUPQ} process (see~"PqStart"). If the user supplies  a
-pc group <Q> which must be a $p$-quotient of <F>, the package  {\AutPGrp}
-is called automatically to compute the  automorphism  group  of  <Q>;  an
-error will occur that asks the user to install the package {\AutPGrp}  if
-the automorphism group cannot be computed.
+For the fp or pc group <F> of the <i>th or default  interactive  {\ANUPQ}
+process and either a prime <p> or  a  pc  <p>-group  <Q>,  the  functions
+return the <p>-quotient  of  <F>  specified  by  the  last  argument  and
+<options>, as an fp group which has a standard  presentation.  The  group
+<F> must have been given (as first argument) to `PqStart'  to  start  the
+interactive {\ANUPQ} process (see~"PqStart"). If the user supplies  a  pc
+group <Q> which must be a $p$-quotient of <F>, the package {\AutPGrp}  is
+called automatically to compute the automorphism group of <Q>;  an  error
+will occur that asks the user to install the package  {\AutPGrp}  if  the
+automorphism group cannot be computed.
 
 Following the colon, <options> is a selection of  the  options  from  the
 following list, separated by commas like record components; this list  is
@@ -362,8 +411,8 @@ gap> StandardPresentation( 2, K : ClassBound := 14 );
 Each of the above functions accepts the same arguments and options as the
 interactive           form           of            `StandardPresentation'
 (see~"StandardPresentation!interactive") and returns an epimorphism  from
-the finitely presented group <F> of  the  <i>th  or  default  interactive
-{\ANUPQ} process onto the finitely presented group given  by  a  standard
+the fp or pc group <F> of  the  <i>th  or  default  interactive  {\ANUPQ}
+process  onto  the  finitely  presented  group  given   by   a   standard
 presentation, i.e.~if <S> is the standard presentation computed  for  the
 $p$-quotient     of     <F>      by      `StandardPresentation'      then
 `EpimorphismStandardPresentation' returns the epimorphism from <F> to the

@@ -185,27 +185,15 @@ always `ANUPQData.outfile', except when option `SetupFile' is used with a
 non-interactive  function,  in  which   case   `outfname'   is   set   to
 `"PQ_OUTPUT"';
 
-\quad`pQpcp' & if bound, this field is a record  containing  the  options
-used the last time the `pq' computed a pc presentation for a $p$-quotient
-of `group' i.e.~if it is bound then there has been such  a  call  (it  is
-used mainly to avoid re-computing a  pc  presentation  that's  been  done
-already, by functions that require that a pc presentation is known to the
-`pq' binary);
-
-\quad`pQuotient'   &   is   set   to   the   value   returned   by   `Pq'
-(see~"Pq!interactive") when called interactively, for  process  <i>  (the
+\quad`pQuotient' & is set to the value returned by `Pq'  (see~"Pq")  (the
 field `pQepi' is also set at the same time);
 
 \quad`pQepi'  &  is  set  to  the  value  returned   by   `PqEpimorphism'
-(see~"PqEpimorphism!interactive") when called interactively, for  process
-<i> (the field `pQuotient' is also set at the same time);
+(see~"PqEpimorphism") (the field `pQuotient' is  also  set  at  the  same
+time);
 
-\quad`SPpcp' & if bound, this field is a record  containing  the  options
-used the last time the `pq' computed a pc presentation for a $p$-quotient
-of `group' i.e.~if it is bound then there has been such  a  call  (it  is
-used mainly to avoid re-computing a  pc  presentation  that's  been  done
-already, by functions that require that a pc presentation is known to the
-`pq' binary);
+\quad`pCover'  &  is  set   to   the   value   returned   by   `PqPCover'
+(see~"PqPCover");
 
 \quad`SP' & is set to the value returned by  `PqStandardPresentation'  or
 `StandardPresentation'  (see~"PqStandardPresentation!interactive")   when
@@ -466,7 +454,10 @@ call (see~"EpimorphismPqStandardPresentation"); or
 If <G> is not one of the above and the  attribute  or  property  has  not
 otherwise been set for <G>, then `PqStandardPresentation'  is  called  to
 set all three  of  `NuclearRank',  `MultiplicatorRank'  and  `IsCapable',
-before returning the value of the attribute or property actually called.
+before returning the value of the attribute or property actually  called.
+Such a group <G> must know in advance that it is a $p$-group; this is the
+case for the groups returned by the functions `Pq'  and  `PqPCover',  and
+the image group of the epimorphism returned by `PqEpimorphism'.
 
 *Note:* For <G> such that `HasNuclearRank(<G>) = true',  `IsCapable(<G>)'
 is equivalent to (the truth or falsity of) `NuclearRank( <G> ) = 0'.

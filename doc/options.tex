@@ -26,9 +26,10 @@ package:
 gap> AllANUPQoptions();
 [ "AllDescendants", "BasicAlgorithm", "Bounds", "CapableDescendants", 
   "ClassBound", "CustomiseOutput", "Exponent", "GroupName", "Metabelian", 
-  "OrderBound", "OutputLevel", "PcgsAutomorphisms", "PqWorkspace", "Prime", 
-  "QueueFactor", "RankInitialSegmentSubgroups", "Relators", "SetupFile", 
-  "SpaceEfficient", "StandardPresentationFile", "StepSize", "SubList" ]
+  "OrderBound", "OutputLevel", "PcgsAutomorphisms", "PqWorkspace", 
+  "Prime", "QueueFactor", "RankInitialSegmentSubgroups", "RedoPcp", 
+  "Relators", "SetupFile", "SpaceEfficient", "StandardPresentationFile", 
+  "StepSize", "SubList" ]
 \endexample
 
 The following global variable gives a  partial  breakdown  of  where  the
@@ -70,9 +71,15 @@ gap> ?>
 \>`Prime := <p>'{option Prime}@{option `Prime'|indexit}&
 Specifies that the $p$-quotient for the prime  <p>  should  be  computed.
 
-\>`ClassBound := <n>'{option ClassBound}@{option `ClassBound'|indexit}&
+\>`ClassBound := <n>'{option  ClassBound}@{option  `ClassBound'|indexit}&
 Specifies that the $p$-quotient to be  computed  has  lower  exponent-$p$
-class at most <n>.
+class at most <n>. If this option is omitted a default of  63  (which  is
+the  maximum  possible  for  the  `pq'  binary)  is  taken,  except   for
+`PqDescendants' (see~"PqDescendants") and in a special case of `PqPCover'
+(see~"PqPCover"). Let <F> be the argument (or start group of the  process
+in the interactive case) for the function; then for  `PqDescendants'  the
+default  is  `PClassPGroup(<F>)  +  1',  and  for  the  special  case  of
+`PqPCover' the default is `PClassPGroup(<F>)'.
 
 \>`Exponent := <n>'{option Exponent}@{option `Exponent'|indexit}&
 Specifies that the $p$-quotient to  be  computed  has  exponent  <n>.  By
@@ -116,6 +123,13 @@ and is the default; `OutputLevel := 1' displays (usually)  slightly  more
 output and `OutputLevel's of 2 and 3 are two levels of verbose output. To
 see these messages from the `pq' binary, the `InfoANUPQ'  level  must  be
 set to at least 1 (see~"InfoANUPQ").
+
+\>`RedoPcp'{option RedoPcp}@{option `RedoPcp'|indexit}&
+Specifies that the current pc presentation (for an  interactive  process)
+stored by the `pq' binary be  scrapped  and  clears  the  current  values
+stored for the options `Prime', `ClassBound', `Exponent' and `Metabelian'
+and also clears the `pQuotient', `pQepi' and `pCover' fields of the  data
+record of the process.
 
 \>`SetupFile := <filename>'{option SetupFile}@{option `SetupFile'|indexit}&
 Non-interactively, this option directs that `pq' should not be called and

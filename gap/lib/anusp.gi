@@ -10,6 +10,21 @@
 #Y  Copyright 1993-2001,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.14  2001/09/29 22:04:19  gap
+#H  `Pq', `PqEpimorphism', `PqPCover', `[Pq]StandardPresentation[Epimorphism]'
+#H  now accept either an fp group or a pc group, and for each `ClassBound'
+#H  defaults to 63 if not supplied except in the following case.
+#H  If the group <F> supplied to `PqPCover' is a p-group and knows it is and
+#H  `HasPrimePGroup(<F>)' is `true', `Prime' defaults to `PrimePGroup(<F>)' if
+#H  not supplied, and if `HasPClassPGroup(<F>)' is `true' then `ClassBound'
+#H  defaults to `PClassPGroup(<F>)' if not supplied or to 63 otherwise.
+#H  The attributes and property `MultiplicatorRank', `NuclearRank' and
+#H  `IsCapable' don't rely on the method to check that the group is a p-group
+#H  and emit an error if `HasIsPGroup(<G>) and IsPGroup(<G>)' is `false' (the
+#H  user must make sure the group knows it is a p-group first, except that
+#H  `Pq', `PqEpimorphism', `PqPCover' ensure the group or image of the
+#H  epimorphism have the property set). - GG
+#H
 #H  Revision 1.13  2001/09/19 14:40:58  gap
 #H  Bugfix for `PqWeight'. Various improvements. Got rid of `share'. - GG
 #H
@@ -287,19 +302,15 @@ InstallValue( ANUSPGlobalVariables,
 
 #############################################################################
 ##
-#F  PqFpGroupPcGroup( <G> )
+#F  PqFpGroupPcGroup( <G> ) . . . . . .  corresponding fp group of a pc group
 ##
-InstallGlobalFunction( PqFpGroupPcGroup, function( G )
-    local   r;
-
-    r := FpGroupPcGroupSQ( G );
-
-    return r.group / r.relators;
-end );
+InstallGlobalFunction( PqFpGroupPcGroup, 
+    G -> Image( IsomorphismFpGroup( G ) )
+);
 
 #############################################################################
 ##
-#M  FpGroupPcGroup( <F>, <G> ... )
+#M  FpGroupPcGroup( <G> ) . . . . . . .  corresponding fp group of a pc group
 ##
 InstallMethod( FpGroupPcGroup, "pc group", [IsPcGroup], 0, PqFpGroupPcGroup );
 
@@ -312,8 +323,7 @@ function( args )
     local   datarec, p_or_Q, rank, p, Q, automorphisms, generators, x,
             images, i, r, j, aut, result, desc, k;
 
-    datarec := ANUPQ_ARG_CHK(2, "StandardPresentation", "group", 
-                             IsFpGroup,  "an fp group", args, []);
+    datarec := ANUPQ_ARG_CHK(2, "StandardPresentation", args);
     p_or_Q := args[ Length(args) ];
     if IsInt(p_or_Q)  then
     	p := p_or_Q;

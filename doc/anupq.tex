@@ -48,14 +48,13 @@ happen to be reading about that particular function via on-line help.
 
 \>Pq( <F> : <options> ) F
 
-returns for the finitely presented group <F>,  the  $p$-quotient  of  <F>
-specified by <options>, as a pc group. Following the colon, <options>  is
-a selection of the options from the following list, separated  by  commas
-like record components (see Section~"ref:function call with  options"  in
-the {\GAP} Reference Manual). As a minimum the user *must* supply  values
-for the `Prime' and `ClassBound'  options.  Below  we  list  the  options
-recognised  by   `Pq'   (see   Chapter~"ANUPQ   options"   for   detailed
-descriptions).
+returns for the fp or pc group <F>, the $p$-quotient of <F> specified  by
+<options>, as a pc group. Following the colon, <options> is  a  selection
+of the options from the following list, separated by commas  like  record
+components (see Section~"ref:function call with options"  in  the  {\GAP}
+Reference Manual). As a minimum the user *must* supply a  value  for  the
+`Prime' option. Below  we  list  the  options  recognised  by  `Pq'  (see
+Chapter~"ANUPQ options" for detailed descriptions).
 
 \beginlist%unordered
 
@@ -197,13 +196,13 @@ The above examples can be run  from  {\GAP}  via  `PqExample( "Pq-ni" );'
 
 \>PqEpimorphism( <F> : <options> ) F
 
-returns for the finitely presented group <F> an epimorphism from <F> onto
-the $p$-quotient of <F> specified by <options>;  the  possible  <options>
-and *required* <options> (`"Prime"' and `"ClassBound"') are as  for  `Pq'
-(see~"Pq"). `PqEpimorphism' only differs from `Pq' in  what  it  outputs;
-everything about what must/may be passed as input to  `PqEpimorphism'  is
-the same as for `Pq'. The same alternative methods of passing options  to
-the non-interactive `Pq' function are available  to  the  non-interactive
+returns for the fp or pc group <F>  an  epimorphism  from  <F>  onto  the
+$p$-quotient  of  <F>  specified  by  <options>;  the  possible   options
+<options> and *required* option (`"Prime"') are as for  `Pq'  (see~"Pq").
+`PqEpimorphism' only differs from `Pq' in  what  it  outputs;  everything
+about what must/may be passed as input to `PqEpimorphism' is the same  as
+for `Pq'.  The  same  alternative  methods  of  passing  options  to  the
+non-interactive  `Pq'  function  are  available  to  the  non-interactive
 version of `PqEpimorphism'.
 
 \beginexample
@@ -230,14 +229,30 @@ returned by `PqEpimorphism'.
 
 \>PqPCover( <F> : <options> ) F
 
-returns for the finitely presented group <F>, the $p$-covering  group  of
-the $p$-quotient of <F> specified by <options>, as a pc  group,  i.e.~the
+returns for the fp or  pc  group  <F>,  the  $p$-covering  group  of  the
+$p$-quotient of <F> specified by  <options>,  as  a  pc  group,  i.e.~the
 $p$-covering group of the $p$-quotient `Pq( <F> : <options> )'. Thus  the
 options that `PqPCover' accepts are exactly those expected for `Pq'  (and
-hence as a minimum the user *must* supply  values  for  the  `Prime'  and
-`ClassBound' options; see~"Pq" for more details).  The  same  alternative
-methods of passing options  to  the  non-interactive  `Pq'  function  are
-available to the non-interactive version of `PqPCover'.
+hence as a minimum the user *must* supply a value for the `Prime' option;
+see~"Pq" for more details), except in the following special case.
+
+If <F> is already a $p$-group, in the sense  that  `HasIsPGroup(<F>)  and
+IsPGroup(<F>)' is `true', then
+
+\beginitems
+
+`Prime'& 
+defaults to `PrimePGroup(<F>)', if not supplied and  `HasPrimePGroup(<F>)
+= true'; and
+
+`ClassBound'&
+defaults to `PrimePGroup(<F>)' if `HasPClassPGroup(<F>) =  true'  if  not
+supplied, or to the usual default of 63, otherwise.
+
+\enditems
+
+The same alternative methods of passing options  to  the  non-interactive
+`Pq' function are available to the non-interactive version of `PqPCover'.
 
 We now give a few examples of the use of `PqPCover'. These  examples  are
 just the same as the ones we gave for `Pq'  (see~"Pq"),  except  that  in
@@ -301,11 +316,11 @@ gap> PqPCover( F : Prime := 5, ClassBound := 5, Metabelian, Relators := rels);
 \>StandardPresentation( <F>, <p> : <options> ) M
 \>StandardPresentation( <F>, <Q> : <options> ) M
 
-Here <F> is a finitely presented group and the second argument is  either
-a prime <p> or a pc <p>-group <Q>. If the user supplies a pc group <Q> as
-second argument which is a $p$-quotient of <F>, the package {\AutPGrp} is
-called automatically to compute the automorphism group of <Q>;  an  error
-will occur that asks the user to install the package  {\AutPGrp}  if  the
+Here <F> is an fp or pc group and the second argument is either  a  prime
+<p> or a pc <p>-group <Q>. If the user supplies a pc group <Q> as  second
+argument which is a $p$-quotient of <F>, the package {\AutPGrp} is called
+automatically to compute the automorphism group of  <Q>;  an  error  will
+occur that asks the  user  to  install  the  package  {\AutPGrp}  if  the
 automorphism  group  cannot  be  computed.  The  functions   return   the
 <p>-quotient of <F>, specified by the second argument and  <options>,  as
 an fp group which has a standard presentation.
@@ -413,9 +428,9 @@ Package".)
 
 Each of the above functions accepts the same arguments and options as the
 function `StandardPresentation' (see~"StandardPresentation") and  returns
-an epimorphism from the finitely presented group <F>  onto  the  finitely
-presented group given by a standard  presentation,  i.e.~if  <S>  is  the
-standard  presentation  computed  for  the   $p$-quotient   of   <F>   by
+an epimorphism from the fp or pc group <F> onto  the  finitely  presented
+group given by a standard  presentation,  i.e.~if  <S>  is  the  standard
+presentation    computed    for    the    $p$-quotient    of    <F>    by
 `StandardPresentation' then `EpimorphismStandardPresentation' returns the
 epimorphism from <F> to the group with presentation <S>.
 

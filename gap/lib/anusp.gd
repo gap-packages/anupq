@@ -36,7 +36,7 @@ DeclareGlobalVariable( "ANUSPGlobalVariables",
 
 #############################################################################
 ##
-#F  PqFpGroupPcGroup( <G> )
+#F  PqFpGroupPcGroup( <G> ) . . . . . .  corresponding fp group of a pc group
 #O  FpGroupPcGroup( <G> )
 ##
 DeclareGlobalFunction( "PqFpGroupPcGroup" );
