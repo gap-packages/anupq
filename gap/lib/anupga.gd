@@ -30,12 +30,6 @@ DeclareGlobalFunction( "ANUPQextractArgs" );
 
 #############################################################################
 ##
-#F  ANUPQinstructions( <pqi>, <param>, <p> )  . . . . . .  construct PQ input
-##
-DeclareGlobalFunction( "ANUPQinstructions" );
-
-#############################################################################
-##
 #F  ANUPQauto( <G>, <gens>, <imgs> )  . . . . . . . .  construct automorphism
 ##
 DeclareGlobalFunction( "ANUPQauto" );
