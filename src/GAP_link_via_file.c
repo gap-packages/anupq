@@ -10,6 +10,9 @@
 *Y  Copyright 1995-1997,  School of Mathematical Sciences, ANU,     Australia
 **
 *H  $Log$
+*H  Revision 1.11  2001/12/21 11:50:01  gap
+*H  Missing semicolon in last commit, added. - GG
+*H
 *H  Revision 1.10  2001/12/21 11:32:04  gap
 *H  Fixed a non-incompatibility with GAP 4.2 when not pq communicates calls
 *H  GAP without using an iostream. - GG
@@ -102,7 +105,7 @@ void start_GAP_file ( GAP_input, auts, pga, pcp )
    if (!GAP4iostream) { /* this is necessary for GAP 4.2 compatibility    */
      fprintf( *GAP_input, "if not IsBound( PcGroupFpGroupNC ) then\n" );
      fprintf( *GAP_input, "    PcGroupFpGroupNC := PcGroupFpGroup;\n" );
-     fprintf( *GAP_input, "fi\n" );
+     fprintf( *GAP_input, "fi;\n" );
    }
 
    GAP_presentation (*GAP_input, pcp, 1);
