@@ -732,27 +732,27 @@ DeclareGlobalFunction( "PqAPGSingleStage" );
 
 #############################################################################
 ##
-#F PQ_APG_DEGREE( <datarec> ) . . . . . . . . . . . . . . A p-G menu option 6
+#F  PQ_APG_DEGREE( <datarec>, <step>, <rank> ) . . . . .  A p-G menu option 6
 ##
 DeclareGlobalFunction( "PQ_APG_DEGREE" );
 
 #############################################################################
 ##
-#F PqAPGDegree( <i> ) . . . . . . . . . . user version of A p-G menu option 6
-#F PqAPGDegree()
+#F  PqAPGDegree(<i>,<step>,<rank>[: Exponent := <n>]) . u ver A p-G menu op 6
+#F  PqAPGDegree( <step>, <rank> [: Exponent := <n> ])
 ##
 DeclareGlobalFunction( "PqAPGDegree" );
 
 #############################################################################
 ##
-#F PQ_APG_PERMUTATIONS( <datarec> ) . . . . . . . . . . . A p-G menu option 7
+#F  PQ_APG_PERMUTATIONS( <datarec> ) . . . . . . . . . .  A p-G menu option 7
 ##
 DeclareGlobalFunction( "PQ_APG_PERMUTATIONS" );
 
 #############################################################################
 ##
-#F PqAPGPermutations( <i> ) . . . . . . . user version of A p-G menu option 7
-#F PqAPGPermutations()
+#F  PqAPGPermutations( <i> : <options> ) . user version of A p-G menu optn. 7
+#F  PqAPGPermutations( : <options> )
 ##
 DeclareGlobalFunction( "PqAPGPermutations" );
 

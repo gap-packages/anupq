@@ -451,9 +451,10 @@ local match, filter, lowlev, ctimelev;
                 s -> PositionSublist(datarec.line, s) <> fail) then
       Info( InfoANUPQ, ctimelev, Chomp(datarec.line) );
     elif datarec.line = "\n" or
-         ForAny( filter, s -> IsMatchingSublist(datarec.line, s) ) or
-         PositionSublist(datarec.line, "groups saved on file") <> fail then
+         ForAny( filter, s -> IsMatchingSublist(datarec.line, s) ) then
       Info( InfoANUPQ, 5,        Chomp(datarec.line) );
+    elif PositionSublist(datarec.line, " saved on file") <> fail then
+      Info( InfoANUPQ, ctimelev, Chomp(datarec.line) );
     else
       Info( InfoANUPQ, lowlev,   Chomp(datarec.line) );
     fi;

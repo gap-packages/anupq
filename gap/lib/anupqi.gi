@@ -471,7 +471,7 @@ end );
 ##  is called to ensure `<datarec>.ngens' is complete.
 ##
 InstallGlobalFunction( PQ_SET_GRP_DATA, function( datarec )
-local line;
+local line, classpos;
   # Either datarec.matchedline is of one of the following forms:
   # Group: <grp> to lower exponent-<p> central class <c> has order <p>^<n>
   # Group completed. Lower exponent-<p> central class = <c>, Order = <p>^<n>
@@ -488,8 +488,13 @@ local line;
   #elif not IsBound(datarec.name) then #do we need to bother?
   #  datarec.name := "<grp>";
   fi;
-  datarec.class  := Int( line[8] );
-  datarec.forder := List( line{[11,12]}, Int);
+  if Length( line[3] ) > 1 and line[3][1] = '#' then
+    classpos := 9;
+  else
+    classpos := 8;
+  fi;
+  datarec.class  := Int( line[classpos] );
+  datarec.forder := List( line{[classpos + 3, classpos + 4]}, Int);
   PQ_UNBIND(datarec, ["match", "matchedline"]);
   # First see if we can update datarec.ngens cheaply
   if not IsBound(datarec.ngens) then
@@ -842,6 +847,7 @@ local savefile;
   ToPQ(datarec, [ "7  #compute p-cover" ]);
   PQ_SET_GRP_DATA(datarec);
   datarec.pcoverclass := datarec.class;
+  Unbind(datarec.capable);
 end );
 
 #############################################################################
@@ -2433,6 +2439,10 @@ InstallGlobalFunction( PQ_PG_RESTORE_GROUP, function( datarec, cls, n )
   ToPQ(datarec, [ "3  #restore group from file" ]);
   ToPQ(datarec, [ datarec.GroupName, "_class", cls, "  #filename" ]);
   ToPQ(datarec, [ n, "  #no. of group" ]);
+  datarec.match := true;
+  PQ_SET_GRP_DATA(datarec);
+  datarec.capable := datarec.class > cls;
+  datarec.pcoverclass := datarec.class;
 end );
 
 #############################################################################
@@ -2450,14 +2460,23 @@ end );
 ##
 InstallGlobalFunction( PqPGRestoreGroupFromFile, function( arg )
 local len, datarec, cls, n;
-  if not(Length(arg) in [2, 3]) or not(ForAll(arg, IsPosInt)) then
-    #@should also check <cls> and <n> arg are feasible@
+  len := Length(arg);
+  if not(len in [2, 3]) or not(ForAll(arg, IsPosInt)) then
     Error("expected 2 or 3 positive integer arguments\n");
   fi;
+  cls := arg[len - 1];
+  n   := arg[len];
+  arg := arg{[1 .. len - 2]};
   ANUPQ_IOINDEX_ARG_CHK(arg);
   datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  len := Length(arg);
-  PQ_PG_RESTORE_GROUP( datarec, arg[len - 1], arg[len] );
+  if not( IsBound(datarec.ndescendants) and 
+          IsBound( datarec.ndescendants[cls] ) ) then
+    Error( "descendants for class ", cls, " have not been constructed\n" );
+  elif datarec.ndescendants[cls][1] < n then
+    Error( "there is no group ", n, " saved (<n> must be < ",
+           datarec.ndescendants[cls][1], ")\n" );
+  fi;
+  PQ_PG_RESTORE_GROUP( datarec, cls, n );
 end );
 
 #############################################################################
@@ -2468,7 +2487,7 @@ end );
 ##  descendants, using option 5 of the main $p$-Group Generation menu.
 ##
 InstallGlobalFunction( PQ_PG_CONSTRUCT_DESCENDANTS, function( datarec )
-local nodescendants, class, firstStep, expectedNsteps, optrec;
+local nodescendants, class, firstStep, expectedNsteps, optrec, line, ngroups;
 
   datarec.des := rec();
   # deal with the easy answer
@@ -2481,14 +2500,24 @@ local nodescendants, class, firstStep, expectedNsteps, optrec;
 
   # We do these here to ensure an error doesn't occur mid-input of the menu
   # item data 
+  if IsBound(datarec.capable) then
+    #group has come from a `PqRestoreGroupFromFile' command
+    if not datarec.capable then
+      Info(InfoWarning + InfoANUPQ, 1, "group restored from file is incapable");
+      return [];
+    fi;
+  fi;
   if not IsBound(datarec.pcoverclass) or 
      datarec.pcoverclass <> datarec.class then
     Error("the p-cover of the last p-quotient has not yet been computed!\n");
   fi;
-  VALUE_PQ_OPTION("ClassBound", datarec.pcoverclass, datarec.des);
   VALUE_PQ_OPTION("CustomiseOutput", false, datarec.des);
 
   # sanity checks
+  if VALUE_PQ_OPTION("ClassBound", datarec.pcoverclass, datarec.des)
+     < datarec.pcoverclass then
+    Error("option `ClassBound' must be at least ", datarec.pcoverclass, "\n");
+  fi;
   if     VALUE_PQ_OPTION("SpaceEfficient", false, datarec.des) and 
      not VALUE_PQ_OPTION("PcgsAutomorphisms", false, datarec) then
     Info(InfoWarning + InfoANUPQ, 1,
@@ -2582,6 +2611,8 @@ local nodescendants, class, firstStep, expectedNsteps, optrec;
                                              false, datarec.des) ),
                     "enforce metabelian law" ]);
   fi;
+  datarec.matchlist := [ "group saved on file", "groups saved on file" ];
+  datarec.matchedlines := [];
   if IsRecord(datarec.des.CustomiseOutput) and
      not IsEmpty( Intersection( RecNames(datarec.des.CustomiseOutput),
                                 ["perm", "orbit", "group", "autgroup", "trace"]
@@ -2609,6 +2640,15 @@ local nodescendants, class, firstStep, expectedNsteps, optrec;
   else
     ToPQ(datarec, [ "1  #default output" ]);
   fi;
+  line := SplitString(datarec.matchedlines[ Length(datarec.matchedlines) ],
+                      "", " \n");
+  ngroups := Int( line[1] );
+  if not IsBound(datarec.ndescendants) then
+    datarec.ndescendants := [];
+  fi;
+  datarec.ndescendants[ datarec.class ] := [ngroups, line[2] = "capable"];
+  PQ_UNBIND(datarec, ["matchlist", "matchedlines"]);
+  return ngroups;
 end );
 
 #############################################################################
@@ -2616,20 +2656,30 @@ end );
 #F  PqPGConstructDescendants( <i> : <options> ) . user ver. of p-G menu op. 5
 #F  PqPGConstructDescendants( : <options> )
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, inputs data  given
-##  by <options> to the `pq' binary to  construct  descendants.  The  options
-##  possible are all those given  for  `PqDescendants'  (see~"PqDescendants")
-##  except for `Relators', `SubList', `SetupFile' and `PqWorkspace'.
+##  for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
+##  binary to construct descendants prescribed by <options>, and  return  the
+##  number of descendants constructed. The options possible are the  same  as
+##  those      listed      for      the      interactive      `PqDescendants'
+##  (see~"PqDescendants!interactive")   function,    namely:    `ClassBound',
+##  `Relators',      `OrderBound',      `StepSize',      `PcgsAutomorphisms',
+##  `RankInitialSegmentSubgroups',  `SpaceEfficient',   `CapableDescendants',
+##  `AllDescendants',  `Exponent',  `Metabelian',   `GroupName',   `SubList',
+##  `BasicAlgorithm',  `CustomiseOutput'.  (Detailed  descriptions  of  these
+##  options may be found in Chapter~"ANUPQ Options".)
+##
+##  `PqPGConstructDescendants' requires that the `pq' binary  has  previously
+##  computed a pc presentation and a $p$-cover for  a  $p$-quotient  of  some
+##  class of the group of the process.
 ##
 ##  *Note:* 
 ##  For those  familiar  with  the  `pq'  binary,  `PqPGConstructDescendants'
-##  performs option 5 of the main $p$-Group Generation menu.
+##  performs menu item 5 of the main $p$-Group Generation menu.
 ##
 InstallGlobalFunction( PqPGConstructDescendants, function( arg )
 local datarec;
   ANUPQ_IOINDEX_ARG_CHK(arg);
   datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  PQ_PG_CONSTRUCT_DESCENDANTS( datarec );
+  return PQ_PG_CONSTRUCT_DESCENDANTS( datarec );
 end );
 
 #############################################################################
@@ -2664,6 +2714,7 @@ end );
 ##
 #F  PQ_APG_SINGLE_STAGE( <datarec> ) . . . . . . . . . .  A p-G menu option 5
 ##
+#T  Not implemented.
 ##  inputs data to the `pq' binary for option 5 of the
 ##  Advanced $p$-Group Generation menu.
 ##
@@ -2675,6 +2726,7 @@ end );
 #F  PqAPGSingleStage( <i> ) . . . . . . . user version of A p-G menu option 5
 #F  PqAPGSingleStage()
 ##
+#T  Not implemented.
 ##  for the <i>th or default interactive {\ANUPQ} process, inputs data
 ##  to the `pq' binary
 ##
@@ -2691,54 +2743,84 @@ end );
 
 #############################################################################
 ##
-#F  PQ_APG_DEGREE( <datarec> ) . . . . . . . . . . . . .  A p-G menu option 6
+#F  PQ_APG_DEGREE( <datarec>, <step>, <rank> ) . . . . .  A p-G menu option 6
 ##
-##  inputs data to the `pq' binary for option 6 of the
-##  Advanced $p$-Group Generation menu.
+##  inputs data to the `pq' binary for option 6  of  the  Advanced  $p$-Group
+##  Generation menu, to compute definition sets and find the degree.
 ##
-InstallGlobalFunction( PQ_APG_DEGREE, function( datarec )
+InstallGlobalFunction( PQ_APG_DEGREE, function( datarec, step, rank )
+local expt, line;
+  expt := VALUE_PQ_OPTION("Exponent", 0, datarec);
+  PQ_MENU(datarec, "ApG");
+  ToPQ(datarec, [ "6  #compute defn sets and find degree" ]);
+  ToPQ(datarec, [ step, " #step size" ]);
+  ToPQ(datarec, [ rank, " #rank of initial segment subgroup" ]);
+  datarec.match := "Degree of permutation group";
+  ToPQ(datarec, [ expt, " #exponent" ]);
+  line := SplitString(datarec.matchedline, "", " \n");
+  Unbind(datarec.match);
+  return Int( line[6] );
 end );
 
 #############################################################################
 ##
-#F  PqAPGDegree( <i> ) . . . . . . . . .  user version of A p-G menu option 6
-#F  PqAPGDegree()
+#F  PqAPGDegree(<i>,<step>,<rank>[: Exponent := <n>]) . u ver A p-G menu op 6
+#F  PqAPGDegree( <step>, <rank> [: Exponent := <n> ])
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, inputs data
-##  to the `pq' binary
+##  for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
+##  binary  to  compute  definition  sets  and  return  the  degree  of   the
+##  permutation group. Here the step-size <step> and the rank <rank>  of  the
+##  initial segment subgroup are positive integers. See~"option Exponent" for
+##  the one recognised option `Exponent'.
 ##
-##  *Note:* For those  familiar  with  the  `pq'  binary, 
-##  `PqAPGDegree' performs option 6 of the
-##  Advanced $p$-Group Generation menu.
+##  *Note:* For those familiar with the `pq' binary,  `PqAPGDegree'  performs
+##  menu item 6 of the Advanced $p$-Group Generation menu.
 ##
 InstallGlobalFunction( PqAPGDegree, function( arg )
-local datarec;
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  PQ_APG_DEGREE( datarec );
+local len, datarec;
+  len := Length(arg);
+  if not(len in [2, 3] or ForAll(arg, IsPosInt)) then
+    Error("expected 2 or 3 positive integer arguments\n");
+  fi;
+  ANUPQ_IOINDEX_ARG_CHK(arg{[1 .. len - 2]});
+  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg{[1 .. len - 2]}) ];
+  return PQ_APG_DEGREE( datarec, arg[len - 1], arg[len] );
 end );
 
 #############################################################################
 ##
 #F  PQ_APG_PERMUTATIONS( <datarec> ) . . . . . . . . . .  A p-G menu option 7
 ##
-##  inputs data to the `pq' binary for option 7 of the
-##  Advanced $p$-Group Generation menu.
+##  inputs data to the `pq' binary for option 7  of  the  Advanced  $p$-Group
+##  Generation menu, to compute permutations of subgroups.
 ##
 InstallGlobalFunction( PQ_APG_PERMUTATIONS, function( datarec )
+local pcgsauts, efficient, printauts, printperms;
+  pcgsauts  := VALUE_PQ_OPTION("PcgsAutomorphisms", false, datarec);
+  efficient := VALUE_PQ_OPTION("SpaceEfficient", false, datarec.des);
+  printauts := VALUE_PQ_OPTION("PrintAutomorphisms", false);
+  printperms := VALUE_PQ_OPTION("PrintPermutations", false);
+  PQ_MENU(datarec, "ApG");
+  ToPQ(datarec, [ "7  #compute permutations" ]);
+  ToPQ(datarec, [ PQ_BOOL(pcgsauts),   "compute pcgs gen. seq. for auts." ]);
+  ToPQ(datarec, [ PQ_BOOL(efficient),  "be space efficient" ]);
+  ToPQ(datarec, [ PQ_BOOL(printauts),  "print automorphism matrices" ]);
+  ToPQ(datarec, [ PQ_BOOL(printperms), "print permutations" ]);
 end );
 
 #############################################################################
 ##
-#F  PqAPGPermutations( <i> ) . . . . . .  user version of A p-G menu option 7
-#F  PqAPGPermutations()
+#F  PqAPGPermutations( <i> : <options> ) . user version of A p-G menu optn. 7
+#F  PqAPGPermutations( : <options> )
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, inputs data
-##  to the `pq' binary
+##  for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
+##  binary to compute permutations of subgroups. Here the  options  <options>
+##  recognised       are        `PcgsAutomorphisms',        `SpaceEfficient',
+##  `PrintAutomorphisms' and `PrintPermutations' (see Chapter~"ANUPQ Options"
+##  for details).
 ##
-##  *Note:* For those  familiar  with  the  `pq'  binary, 
-##  `PqAPGPermutations' performs option 7 of the
-##  Advanced $p$-Group Generation menu.
+##  *Note:* For those familiar  with  the  `pq'  binary,  `PqAPGPermutations'
+##  performs menu item 7 of the Advanced $p$-Group Generation menu.
 ##
 InstallGlobalFunction( PqAPGPermutations, function( arg )
 local datarec;
@@ -2755,25 +2837,61 @@ end );
 ##  Advanced $p$-Group Generation menu.
 ##
 InstallGlobalFunction( PQ_APG_ORBITS, function( datarec )
+local pcgsauts, efficient, summary, listing, line, norbits;
+  pcgsauts  := VALUE_PQ_OPTION("PcgsAutomorphisms", false, datarec);
+  efficient := VALUE_PQ_OPTION("SpaceEfficient", false, datarec.des);
+  summary   := VALUE_PQ_OPTION("OrbitsSummary", false);
+  listing   := VALUE_PQ_OPTION("OrbitsListing", false);
+  PQ_MENU(datarec, "ApG");
+  ToPQ(datarec, [ "8  #compute orbits" ]);
+  ToPQ(datarec, [ PQ_BOOL(pcgsauts),   "compute pcgs gen. seq. for auts." ]);
+  ToPQ(datarec, [ PQ_BOOL(efficient),  "be space efficient" ]);
+  ToPQ(datarec, [ PQ_BOOL(summary),    "print an orbit summary" ]);
+  if summary then
+    datarec.match := "Number of orbits is";
+  elif listing then
+    datarec.match := "Orbit ";
+  fi;
+  ToPQ(datarec, [ PQ_BOOL(listing),    "print a complete orbit listing" ]);
+  if summary or listing then
+    line := SplitString(datarec.matchedline, "", " \n");
+    if summary then
+      norbits := Int( line[5] );
+    else
+      norbits := Int( line[2] );
+    fi;
+    Unbind(datarec.match);
+  else
+    norbits := "";
+  fi;
+  return norbits;
 end );
 
 #############################################################################
 ##
-#F  PqAPGOrbits( <i> ) . . . . . . . . .  user version of A p-G menu option 8
-#F  PqAPGOrbits()
+#F  PqAPGOrbits( <i> : <options> ) . . .  user version of A p-G menu option 8
+#F  PqAPGOrbits( : <options> )
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, inputs data
-##  to the `pq' binary
+##  for the <i>th or default interactive {\ANUPQ} process, inputs data to the
+##  `pq' binary for the <i>th or default interactive {\ANUPQ} process, direct
+##  the `pq' binary to compute the orbit action of  the  automorphism  group,
+##  and return the number of orbits,  if  either  a  summary  or  a  complete
+##  listing (or both) of orbit information was requested.  Here  the  options
+##  <options>   recognised   are    `PcgsAutomorphisms',    `SpaceEfficient',
+##  `OrbitsSummary' and  `OrbitsListing'  (see  Chapter~"ANUPQ  Options"  for
+##  details).
 ##
-##  *Note:* For those  familiar  with  the  `pq'  binary, 
-##  `PqAPGOrbits' performs option 8 of the
-##  Advanced $p$-Group Generation menu.
+##  *Note:* For those familiar with the `pq' binary,  `PqAPGOrbits'  performs
+##  menu item 8 of the Advanced $p$-Group Generation menu.
 ##
 InstallGlobalFunction( PqAPGOrbits, function( arg )
-local datarec;
+local datarec, norbits;
   ANUPQ_IOINDEX_ARG_CHK(arg);
   datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  PQ_APG_ORBITS( datarec );
+  norbits := PQ_APG_ORBITS( datarec );
+  if norbits <> "" then
+    return norbits;
+  fi;
 end );
 
 #############################################################################

@@ -86,7 +86,11 @@ InstallValue( ANUPQoptions,
                    # miscellaneous options
                    other
                        := [ "QueueFactor", 
-                            "Bounds" ]
+                            "Bounds",
+                            "PrintAutomorphisms",
+                            "PrintPermutations",
+                            "OrbitsSummary",
+                            "OrbitsListing" ]
                   )
              );
 
@@ -149,7 +153,11 @@ InstallValue( ANUPQoptionChecks,
                                   ForAll(x, IsPosInt),
                    QueueFactor := IsPosInt,
                    OutputFile := IsString,
-                   RedoPcp := IsBool
+                   RedoPcp := IsBool,
+                   PrintAutomorphisms := IsBool,
+                   PrintPermutations := IsBool,
+                   OrbitsSummary := IsBool,
+                   OrbitsListing := IsBool
                    )
              );
 
@@ -185,7 +193,11 @@ InstallValue( ANUPQoptionTypes,
                    Bounds := "pair of increasing positive integers",
                    QueueFactor := "positive integer",
                    OutputFile := "string",
-                   RedoPcp := "boolean"
+                   RedoPcp := "boolean",
+                   PrintAutomorphisms := "boolean",
+                   PrintPermutations := "boolean",
+                   OrbitsSummary := "boolean",
+                   OrbitsListing := "boolean"
                    )
              );
 
