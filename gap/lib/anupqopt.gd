@@ -103,9 +103,9 @@ DeclareGlobalFunction( "PQ_BOOL" );
   
 #############################################################################
 ##
-#F  PQ_DO_TAILORED_OUTPUT(<datarec>, <subopt>, <suboptstring>, <suppstrings>)
+#F  PQ_CUSTOMISE_OUTPUT(<datarec>, <subopt>, <suboptstring>, <suppstrings>)
 ##    
-DeclareGlobalFunction( "PQ_DO_TAILORED_OUTPUT" );
+DeclareGlobalFunction( "PQ_CUSTOMISE_OUTPUT" );
 
 #############################################################################
 ##

@@ -2394,7 +2394,7 @@ local nodescendants, class, firstStep, expectedNsteps, optrec;
     Error("the p-cover of the last p-quotient has not yet been computed!\n");
   fi;
   VALUE_PQ_OPTION("ClassBound", datarec.pcoverclass, datarec.des);
-  VALUE_PQ_OPTION("TailorOutput", false, datarec.des);
+  VALUE_PQ_OPTION("CustomiseOutput", false, datarec.des);
 
   # sanity checks
   if     VALUE_PQ_OPTION("SpaceEfficient", false, datarec.des) and 
@@ -2490,30 +2490,30 @@ local nodescendants, class, firstStep, expectedNsteps, optrec;
                                              false, datarec.des) ),
                     "enforce metabelian law" ]);
   fi;
-  if IsRecord(datarec.des.TailorOutput) and
-     not IsEmpty( Intersection( RecNames(datarec.des.TailorOutput),
+  if IsRecord(datarec.des.CustomiseOutput) and
+     not IsEmpty( Intersection( RecNames(datarec.des.CustomiseOutput),
                                 ["perm", "orbit", "group", "autgroup", "trace"]
                                 ) ) then
-    ToPQ(datarec, [ "0  #tailor output" ]);
-    PQ_DO_TAILORED_OUTPUT( datarec, "perm", "perm. grp output",
-                           ["print degree",
-                            "print extended auts",
-                            "print aut. matrices",
-                            "print permutations"] );
-    PQ_DO_TAILORED_OUTPUT( datarec, "orbit", "orbit output",
-                           ["print orbit summary",
-                            "print complete orbit listing"] );
-    PQ_DO_TAILORED_OUTPUT( datarec, "group", "group output",
-                           ["print allowable subgp standard matrix",
-                            "print pres'n of reduced p-covers",
-                            "print pres'n of immediate descendants",
-                            "print nuclear rank of descendants",
-                            "print p-mult'r rank of descendants"] );
-    PQ_DO_TAILORED_OUTPUT( datarec, "autgroup", "aut. grp output",
-                           ["print commutator matrix",
-                            "print aut. grp descriptions of descendants",
-                            "print aut. grp orders of descendants"] );
-    PQ_DO_TAILORED_OUTPUT( datarec, "trace", "provide algorithm trace", [] );
+    ToPQ(datarec, [ "0  #customise output" ]);
+    PQ_CUSTOMISE_OUTPUT( datarec, "perm", "perm. grp output",
+                         ["print degree",
+                          "print extended auts",
+                          "print aut. matrices",
+                          "print permutations"] );
+    PQ_CUSTOMISE_OUTPUT( datarec, "orbit", "orbit output",
+                         ["print orbit summary",
+                          "print complete orbit listing"] );
+    PQ_CUSTOMISE_OUTPUT( datarec, "group", "group output",
+                         ["print allowable subgp standard matrix",
+                          "print pres'n of reduced p-covers",
+                          "print pres'n of immediate descendants",
+                          "print nuclear rank of descendants",
+                          "print p-mult'r rank of descendants"] );
+    PQ_CUSTOMISE_OUTPUT( datarec, "autgroup", "aut. grp output",
+                         ["print commutator matrix",
+                          "print aut. grp descriptions of descendants",
+                          "print aut. grp orders of descendants"] );
+    PQ_CUSTOMISE_OUTPUT( datarec, "trace", "provide algorithm trace", [] );
   else
     ToPQ(datarec, [ "1  #default output" ]);
   fi;

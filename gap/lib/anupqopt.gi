@@ -66,7 +66,7 @@ InstallValue( ANUPQoptions,
                             "Metabelian", 
                             "SubList", 
                             "BasicAlgorithm",
-                            "TailorOutput",
+                            "CustomiseOutput",
                             "SetupFile" ],
 
                    # options for `[Epimorphism][Pq]StandardPresentation'
@@ -143,7 +143,7 @@ InstallValue( ANUPQoptionChecks,
                    SubList := x -> IsPosInt(x) or
                                    (IsSet(x) and ForAll(x, IsInt)
                                     and IsPosInt(x[1])),
-                   TailorOutput := IsRecord,
+                   CustomiseOutput := IsRecord,
                    Bounds := x -> IsSet(x) and 2 = Length(x) and 
                                   ForAll(x, IsPosInt),
                    QueueFactor := IsPosInt,
@@ -179,7 +179,7 @@ InstallValue( ANUPQoptionTypes,
                    AllDescendants := "boolean",
                    SubList 
                        := "pos've integer or increasing pos've integer list",
-                   TailorOutput := "record",
+                   CustomiseOutput := "record",
                    Bounds := "pair of increasing positive integers",
                    QueueFactor := "positive integer",
                    OutputFile := "string"
@@ -274,19 +274,19 @@ end);
   
 #############################################################################
 ##
-#F  PQ_DO_TAILORED_OUTPUT(<datarec>, <subopt>, <suboptstring>, <suppstrings>)
+#F  PQ_CUSTOMISE_OUTPUT(<datarec>, <subopt>, <suboptstring>, <suppstrings>)
 ##    
 ##  writes the requires output to the `pq' binary for the sub-option <subopt>
-##  of the option `TailorOutput', the value of that option having  previously
-##  been stored in `<datarec>.des.TailorOutput'; <suboptstring>  is  part  of
-##  the  comment  written  to  the  `pq'  binary  for  the   sub-option   and
+##  of  the  option  `CustomiseOutput',  the  value  of  that  option  having
+##  previously been stored in `<datarec>.des.CustomiseOutput'; <suboptstring>
+##  is part of the comment written to the `pq' binary for the sub-option  and
 ##  <suppstrings> is a list of such comments for the supplementary  questions
 ##  asked by the `pq' binary for the sub-option <subopt>.
 ##
-InstallGlobalFunction( PQ_DO_TAILORED_OUTPUT, 
+InstallGlobalFunction( PQ_CUSTOMISE_OUTPUT, 
 function(datarec, subopt, suboptstring, suppstrings)
 local optrec, isOptionSet, i;
-  optrec := datarec.des.TailorOutput;
+  optrec := datarec.des.CustomiseOutput;
   if IsEmpty(suppstrings) then
     isOptionSet := IsBound( optrec.(subopt) ) and optrec.(subopt) in [1, true];
     ToPQ(datarec, [ PQ_BOOL( isOptionSet ), suboptstring ]);
