@@ -61,7 +61,7 @@ To use the {\ANUPQ} package, as with  any  {\GAP}  package,  it  must  be
 requested explicitly. This is done by calling
 
 \beginexample
-gap> RequirePackage("anupq");
+gap> RequirePackage( "anupq" );
 #I    Loading the ANUPQ (ANU p-Quotient) package
 #I    C code by  Eamonn O'Brien <obrien@math.auckland.ac.nz>
 #I                ANU pq binary version: 1.5
@@ -93,15 +93,8 @@ in the {\GAP} Reference Manual.
 If {\GAP} cannot find a working `pq' binary, the call to `RequirePackage'
 will return `fail'.
 
-If you know you have a working `pq'  program,  as  well  as  a  correctly
-installed {\ANUPQ}  package,  it  is  possible  to  suppress  the  `Info'
-messages by temporarily setting the `InfoLevel' of  `InfoWarning'  to  0,
-and a duplicated semicolon will suppress the `true' result:
-
-\beginexample
-gap> SetInfoLevel(InfoWarning, 0); RequirePackage( "anupq" );;
-gap> SetInfoLevel(InfoWarning, 1);
-\endexample
+Since {\ANUPQ}'s banner is `Info'-ed at `InfoWarning' level  1,  it  will
+not be observed if the `InfoLevel' of `InfoWarning' is 0.
 
 \index{banner!suppression}
 The banner is also suppressed if the global {\GAP}  variable  `QUIET'  is
@@ -109,8 +102,8 @@ The banner is also suppressed if the global {\GAP}  variable  `QUIET'  is
 invoked with the `-q' or `-b' command line  switches,  respectively).  If
 you want to load the  {\ANUPQ}  package  by  default,  you  can  put  the
 `RequirePackage' command into your `.gaprc'  file  (see  Section~"ref:The
-.gaprc file" in the {\GAP} Reference Manual).  The  novice  user  of  the
-{\ANUPQ} package should probably also append the line
+.gaprc file" in the {\GAP} Reference Manual). By the way, the novice user
+of the {\ANUPQ} package should probably also append the line
 
 \begintt
 ANUPQWarnOfOtherOptions := true;
@@ -118,6 +111,25 @@ ANUPQWarnOfOtherOptions := true;
 
 to their `.gaprc' file, somewhere after the  `RequirePackage( "anupq" );'
 command (see~"ANUPQWarnOfOtherOptions").
+
+\atindex{option pkgbanner}{@option \noexpand`pkgbanner'}
+Yet one more way of suppressing {\ANUPQ}'s banner is to supply the option
+`pkgbanner' with value `"none"' to the `RequirePackage' command:
+
+\beginexample
+gap> RequirePackage( "anupq" : pkgbanner := "none" );
+true
+\endexample
+
+Finally, the full banner  is  replaced  by  a  ``short''  1-line  loading
+message (`Info'-ed at `InfoWarning' level 1) if, instead, `pkgbanner' has
+the value `"short"':
+
+\begintt
+gap> RequirePackage( "anupq" : pkgbanner := "short" );
+#I  Loading ANUPQ Package Version 1.1
+true
+\endtt
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{The ANUPQData Record}

@@ -70,6 +70,13 @@ ANUPQWarnOfOtherOptions := false;
 ##
 if not QUIET and BANNER then
 
+ANUPQData.banner := ValueOption("pkgbanner");
+if ANUPQData.banner = "short" then
+
+Info(InfoWarning,1,"Loading ANUPQ Package Version ", PACKAGES_VERSIONS.anupq);
+
+elif ANUPQData.banner <> "none" then
+
 Info(InfoWarning,1,"  Loading the ANUPQ (ANU p-Quotient) package");
 Info(InfoWarning,1,"  C code by  Eamonn O'Brien <obrien@math.auckland.ac.nz>");
 Info(InfoWarning,1,"              ANU pq binary version: ", ANUPQData.version);
@@ -79,6 +86,9 @@ Info(InfoWarning,1,"              ANUPQ package version: ",
                                     PACKAGES_VERSIONS.anupq);
 Info(InfoWarning,1,"");
 Info(InfoWarning,1,"              For help, type: ?ANUPQ");
+
+fi;
+Unbind(ANUPQData.banner);
 
 fi;
 
