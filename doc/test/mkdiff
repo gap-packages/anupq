@@ -1,7 +1,7 @@
 #!/bin/sh
 #############################################################################
 ##
-#W  mkdiff         Differences of the manual examples          Volkmar Felsch
+#W  mkdiff      Differences of examples (package manual)       Volkmar Felsch
 ##
 #H  $Id$
 ##
@@ -30,7 +30,7 @@ mkdiff="../../../../doc/test/mkdiff.sh"
 
 #############################################################################
 ##
-##  Run the test for eacxh of the documentation files.
+##  Run the test for each of the documentation files.
 ##
 $mkdiff $*
 

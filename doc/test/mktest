@@ -10,22 +10,23 @@
 ##  mktest [-f] [-i] [-o] [-d] [-c]
 ##
 ##  This procedure runs an automatic test of all examples given in the ANUPQ
-##  documentation files (whose file names are listed below).
+##  documentation files.
 ##
 ##  More precisely: Let 'file.tex' be one of these files. Then the test
 ##  function runs all examples given in that file and constructs (in the
-##  current directory) a new version 'file.tst' of the given file  which is
+##  current directory) a new version 'file.tst' of the given file which is
 ##  up-to-date with respect to the output of the examples.
 ##
 ##  The options have the following meaning:
 ##
-##  If '-f' is specified run a full test (including any 'no test' examples).
+##  If '-f' is specified run a full test (including the 'no test' examples if
+##  there are any).
 ##
 ##  If '-i' is specified save the input file for the examples in a file
-##  'file.input'.
+##  'file.in'.
 ##
 ##  If '-o' is specified save the ouput file of the examples in a file
-##  'file.output'.
+##  'file.out'.
 ##
 ##  If '-d' is specified save the differences between the old and the new
 ##  manual file in a file 'file.dif'.
