@@ -32,7 +32,9 @@ gap> examples := AllPqExamples();
   "G3-SP-Rel-i", "G5-SP-Rel-i", "G5-SP-a-Rel-i", "IsIsomorphicPGroup-ni", 
   "Nott-APG-Rel-i", "Nott-PG-Rel-i", "Nott-SP-Rel-i", "Pq", "Pq-ni", 
   "PqDescendants-1", "PqDescendants-1-i", "PqDescendants-2", 
-  "PqDescendants-3", "PqEpimorphism", "PqPCover", 
+  "PqDescendants-3", "PqDescendants-treetraverse-i", 
+  "PqDescendantsTreeCoclassOne-16-i", "PqDescendantsTreeCoclassOne-25-i", 
+  "PqDescendantsTreeCoclassOne-9-i", "PqEpimorphism", "PqPCover", 
   "PqSupplementInnerAutomorphisms", "R2-5-i", "R2-5-x-i", 
   "StandardPresentation", "StandardPresentation-i", "gp-256-SP-Rel-i" ]
 gap> examples := Difference(examples, ["EpimorphismStandardPresentation-i"]);
@@ -55,11 +57,13 @@ gap> examples := Difference(examples, ["EpimorphismStandardPresentation-i"]);
   "G2-SP-Rel-i", "G3-SP-Rel-i", "G5-SP-Rel-i", "G5-SP-a-Rel-i", 
   "IsIsomorphicPGroup-ni", "Nott-APG-Rel-i", "Nott-PG-Rel-i", "Nott-SP-Rel-i",
   "Pq", "Pq-ni", "PqDescendants-1", "PqDescendants-1-i", "PqDescendants-2", 
-  "PqDescendants-3", "PqEpimorphism", "PqPCover", 
+  "PqDescendants-3", "PqDescendants-treetraverse-i", 
+  "PqDescendantsTreeCoclassOne-16-i", "PqDescendantsTreeCoclassOne-25-i", 
+  "PqDescendantsTreeCoclassOne-9-i", "PqEpimorphism", "PqPCover", 
   "PqSupplementInnerAutomorphisms", "R2-5-i", "R2-5-x-i", 
   "StandardPresentation", "StandardPresentation-i", "gp-256-SP-Rel-i" ]
 gap> nexamples := Length( examples );
-92
+96
 gap> ##Example: "11gp-3-Engel-Id" . . . 3-Engel group for prime 11
 gap> ##Non-trivial example of using the `Identities' option
 gap> F := FreeGroup("a", "b"); a := F.1; b := F.2;
@@ -44200,6 +44204,19 @@ gap> PqSPStandardPresentation(procId, [ [[0,1],
 >                            ClassBound := 10,
 >                            PcgsAutomorphisms);
 #I  Starting group has order 2^2; its automorphism group order is 6 
+#I  Non-standard label is 1
+#I  Required step size is 3
+#I  Relative step size is 1
+#I  Rank of characteristic subgroup is 1
+#I  The non-standard subgroup 1 has orbit representative 1
+#I  The standard automorphism is:
+#I  1 ---> 1 0 
+#I  2 ---> 0 1 
+#I  Non-standard label is 1
+#I  Required step size is 3
+#I  Relative step size is 3
+#I  Rank of characteristic subgroup is 3
+#I  The non-standard subgroup 1 has orbit representative 1
 #I  The standard presentation for the class 2 2-quotient is
 #I  Group: <grp> #1;3 to lower exponent-2 central class 2 has order 2^5
 #I  Non-trivial powers:
@@ -44208,6 +44225,30 @@ gap> PqSPStandardPresentation(procId, [ [[0,1],
 #I  Non-trivial commutators:
 #I  [ .2, .1 ] = .3
 #I  Subset of automorphism group to check has order bound 96
+#I  The standard automorphism is:
+#I  1 ---> 1 0 0 0 0 
+#I  2 ---> 0 1 0 0 0 
+#I  Non-standard label is 3
+#I  Required step size is 2
+#I  Relative step size is 1
+#I  Rank of characteristic subgroup is 2
+#I  The non-standard subgroup 3 has orbit representative 1
+#I  The standard automorphism is:
+#I  1 ---> 0 1 0 0 0 
+#I  2 ---> 1 1 0 0 0 
+#I  Non-standard label is 1
+#I  Required step size is 2
+#I  Relative step size is 2
+#I  Rank of characteristic subgroup is 2
+#I  The non-standard subgroup 1 has orbit representative 1
+#I  The standard automorphism is:
+#I  1 ---> 1 0 0 0 0 
+#I  2 ---> 0 1 0 0 0 
+#I  Non-standard label is 6
+#I  Required step size is 2
+#I  Relative step size is 2
+#I  Rank of characteristic subgroup is 4
+#I  The non-standard subgroup 6 has orbit representative 1
 #I  The standard presentation for the class 3 2-quotient is
 #I  Group: G #1;2 to lower exponent-2 central class 3 has order 2^7
 #I  Non-trivial powers:
@@ -44220,6 +44261,38 @@ gap> PqSPStandardPresentation(procId, [ [[0,1],
 #I  [ .4, .2 ] = .7
 #I  [ .5, .1 ] = .6 .7
 #I  Subset of automorphism group to check has order bound 32
+#I  The standard automorphism is:
+#I  1 ---> 1 1 1 0 0 0 0 
+#I  2 ---> 0 1 1 1 0 0 0 
+#I  Non-standard label is 1
+#I  Required step size is 1
+#I  Relative step size is 1
+#I  Rank of characteristic subgroup is 1
+#I  The non-standard subgroup 1 has orbit representative 1
+#I  The standard automorphism is:
+#I  1 ---> 1 0 0 0 0 0 0 
+#I  2 ---> 0 1 0 0 0 0 0 
+#I  Non-standard label is 2
+#I  Required step size is 1
+#I  Relative step size is 1
+#I  Rank of characteristic subgroup is 2
+#I  The non-standard subgroup 2 has orbit representative 1
+#I  The standard automorphism is:
+#I  1 ---> 1 0 0 0 0 0 0 
+#I  2 ---> 0 1 0 1 0 0 0 
+#I  Non-standard label is 1
+#I  Required step size is 1
+#I  Relative step size is 1
+#I  Rank of characteristic subgroup is 2
+#I  The non-standard subgroup 1 has orbit representative 1
+#I  The standard automorphism is:
+#I  1 ---> 1 0 0 0 0 0 0 
+#I  2 ---> 0 1 0 0 0 0 0 
+#I  Non-standard label is 1
+#I  Required step size is 1
+#I  Relative step size is 1
+#I  Rank of characteristic subgroup is 2
+#I  The non-standard subgroup 1 has orbit representative 1
 #I  The standard presentation for the class 4 2-quotient is
 #I  Group: G #1;1 to lower exponent-2 central class 4 has order 2^8
 #I  Non-trivial powers:
@@ -44235,6 +44308,46 @@ gap> PqSPStandardPresentation(procId, [ [[0,1],
 #I  [ .6, .1 ] = .8
 #I  [ .7, .1 ] = .8
 #I  Subset of automorphism group to check has order bound 32
+#I  The standard automorphism is:
+#I  1 ---> 1 0 0 0 0 0 0 0 
+#I  2 ---> 0 1 0 0 0 0 0 0 
+#I  Non-standard label is 1
+#I  Required step size is 2
+#I  Relative step size is 1
+#I  Rank of characteristic subgroup is 1
+#I  The non-standard subgroup 1 has orbit representative 1
+#I  The standard automorphism is:
+#I  1 ---> 1 0 0 0 0 0 0 0 
+#I  2 ---> 0 1 0 0 0 0 0 0 
+#I  Non-standard label is 1
+#I  Required step size is 2
+#I  Relative step size is 2
+#I  Rank of characteristic subgroup is 2
+#I  The non-standard subgroup 1 has orbit representative 1
+#I  The standard automorphism is:
+#I  1 ---> 1 0 0 0 0 0 0 0 
+#I  2 ---> 0 1 0 0 0 0 0 0 
+#I  Non-standard label is 1
+#I  Required step size is 2
+#I  Relative step size is 2
+#I  Rank of characteristic subgroup is 3
+#I  The non-standard subgroup 1 has orbit representative 1
+#I  The standard automorphism is:
+#I  1 ---> 1 0 0 0 0 0 0 0 
+#I  2 ---> 0 1 0 0 0 0 0 0 
+#I  Non-standard label is 1
+#I  Required step size is 2
+#I  Relative step size is 2
+#I  Rank of characteristic subgroup is 3
+#I  The non-standard subgroup 1 has orbit representative 1
+#I  The standard automorphism is:
+#I  1 ---> 1 0 0 0 0 0 0 0 
+#I  2 ---> 0 1 0 0 0 0 0 0 
+#I  Non-standard label is 1
+#I  Required step size is 2
+#I  Relative step size is 2
+#I  Rank of characteristic subgroup is 3
+#I  The non-standard subgroup 1 has orbit representative 1
 #I  The standard presentation for the class 5 2-quotient is
 #I  Group: G #1;2 to lower exponent-2 central class 5 has order 2^10
 #I  Non-trivial powers:
@@ -44261,6 +44374,46 @@ gap> PqSPStandardPresentation(procId, [ [[0,1],
 #I  [ .8, .1 ] = .9
 #I  [ .8, .2 ] = .10
 #I  Subset of automorphism group to check has order bound 256
+#I  The standard automorphism is:
+#I  1 ---> 1 0 0 0 0 0 0 0 0 0 
+#I  2 ---> 0 1 0 0 0 0 0 0 0 0 
+#I  Non-standard label is 1
+#I  Required step size is 2
+#I  Relative step size is 1
+#I  Rank of characteristic subgroup is 1
+#I  The non-standard subgroup 1 has orbit representative 1
+#I  The standard automorphism is:
+#I  1 ---> 1 0 0 0 0 0 0 0 0 0 
+#I  2 ---> 0 1 0 0 0 0 0 0 0 0 
+#I  Non-standard label is 1
+#I  Required step size is 2
+#I  Relative step size is 2
+#I  Rank of characteristic subgroup is 2
+#I  The non-standard subgroup 1 has orbit representative 1
+#I  The standard automorphism is:
+#I  1 ---> 1 0 0 0 0 0 0 0 0 0 
+#I  2 ---> 0 1 0 0 0 0 0 0 0 0 
+#I  Non-standard label is 1
+#I  Required step size is 2
+#I  Relative step size is 2
+#I  Rank of characteristic subgroup is 3
+#I  The non-standard subgroup 1 has orbit representative 1
+#I  The standard automorphism is:
+#I  1 ---> 1 0 0 0 0 0 0 0 0 0 
+#I  2 ---> 0 1 0 0 0 0 0 0 0 0 
+#I  Non-standard label is 4
+#I  Required step size is 2
+#I  Relative step size is 2
+#I  Rank of characteristic subgroup is 3
+#I  The non-standard subgroup 4 has orbit representative 1
+#I  The standard automorphism is:
+#I  1 ---> 1 0 0 0 1 0 0 0 0 0 
+#I  2 ---> 0 1 0 0 0 0 0 0 0 0 
+#I  Non-standard label is 1
+#I  Required step size is 2
+#I  Relative step size is 2
+#I  Rank of characteristic subgroup is 3
+#I  The non-standard subgroup 1 has orbit representative 1
 #I  The standard presentation for the class 6 2-quotient is
 #I  Group: G #1;2 to lower exponent-2 central class 6 has order 2^12
 #I  Non-trivial powers:
@@ -44292,6 +44445,46 @@ gap> PqSPStandardPresentation(procId, [ [[0,1],
 #I  [ .9, .1 ] = .11
 #I  [ .10, .1 ] = .12
 #I  Subset of automorphism group to check has order bound 256
+#I  The standard automorphism is:
+#I  1 ---> 1 0 0 0 0 0 0 0 0 0 0 0 
+#I  2 ---> 0 1 0 0 0 0 0 0 0 0 0 0 
+#I  Non-standard label is 1
+#I  Required step size is 2
+#I  Relative step size is 1
+#I  Rank of characteristic subgroup is 1
+#I  The non-standard subgroup 1 has orbit representative 1
+#I  The standard automorphism is:
+#I  1 ---> 1 0 0 0 0 0 0 0 0 0 0 0 
+#I  2 ---> 0 1 0 0 0 0 0 0 0 0 0 0 
+#I  Non-standard label is 1
+#I  Required step size is 2
+#I  Relative step size is 2
+#I  Rank of characteristic subgroup is 2
+#I  The non-standard subgroup 1 has orbit representative 1
+#I  The standard automorphism is:
+#I  1 ---> 1 0 0 0 0 0 0 0 0 0 0 0 
+#I  2 ---> 0 1 0 0 0 0 0 0 0 0 0 0 
+#I  Non-standard label is 1
+#I  Required step size is 2
+#I  Relative step size is 2
+#I  Rank of characteristic subgroup is 3
+#I  The non-standard subgroup 1 has orbit representative 1
+#I  The standard automorphism is:
+#I  1 ---> 1 0 0 0 0 0 0 0 0 0 0 0 
+#I  2 ---> 0 1 0 0 0 0 0 0 0 0 0 0 
+#I  Non-standard label is 1
+#I  Required step size is 2
+#I  Relative step size is 2
+#I  Rank of characteristic subgroup is 3
+#I  The non-standard subgroup 1 has orbit representative 1
+#I  The standard automorphism is:
+#I  1 ---> 1 0 0 0 0 0 0 0 0 0 0 0 
+#I  2 ---> 0 1 0 0 0 0 0 0 0 0 0 0 
+#I  Non-standard label is 1
+#I  Required step size is 2
+#I  Relative step size is 2
+#I  Rank of characteristic subgroup is 3
+#I  The non-standard subgroup 1 has orbit representative 1
 #I  The standard presentation for the class 7 2-quotient is
 #I  Group: G #1;2 to lower exponent-2 central class 7 has order 2^14
 #I  Non-trivial powers:
@@ -44339,6 +44532,46 @@ gap> PqSPStandardPresentation(procId, [ [[0,1],
 #I  [ .12, .1 ] = .13
 #I  [ .12, .2 ] = .14
 #I  Subset of automorphism group to check has order bound 512
+#I  The standard automorphism is:
+#I  1 ---> 1 0 0 0 0 0 0 0 0 0 0 0 0 0 
+#I  2 ---> 0 1 0 0 0 0 0 0 0 0 0 0 0 0 
+#I  Non-standard label is 1
+#I  Required step size is 2
+#I  Relative step size is 1
+#I  Rank of characteristic subgroup is 1
+#I  The non-standard subgroup 1 has orbit representative 1
+#I  The standard automorphism is:
+#I  1 ---> 1 0 0 0 0 0 0 0 0 0 0 0 0 0 
+#I  2 ---> 0 1 0 0 0 0 0 0 0 0 0 0 0 0 
+#I  Non-standard label is 1
+#I  Required step size is 2
+#I  Relative step size is 2
+#I  Rank of characteristic subgroup is 2
+#I  The non-standard subgroup 1 has orbit representative 1
+#I  The standard automorphism is:
+#I  1 ---> 1 0 0 0 0 0 0 0 0 0 0 0 0 0 
+#I  2 ---> 0 1 0 0 0 0 0 0 0 0 0 0 0 0 
+#I  Non-standard label is 4
+#I  Required step size is 2
+#I  Relative step size is 2
+#I  Rank of characteristic subgroup is 3
+#I  The non-standard subgroup 4 has orbit representative 1
+#I  The standard automorphism is:
+#I  1 ---> 1 0 0 0 0 0 0 0 0 0 0 0 0 0 
+#I  2 ---> 0 1 0 0 0 0 0 0 0 0 1 1 0 0 
+#I  Non-standard label is 1
+#I  Required step size is 2
+#I  Relative step size is 2
+#I  Rank of characteristic subgroup is 3
+#I  The non-standard subgroup 1 has orbit representative 1
+#I  The standard automorphism is:
+#I  1 ---> 1 0 0 0 0 0 0 0 0 0 0 0 0 0 
+#I  2 ---> 0 1 0 0 0 0 0 0 0 0 0 0 0 0 
+#I  Non-standard label is 1
+#I  Required step size is 2
+#I  Relative step size is 2
+#I  Rank of characteristic subgroup is 3
+#I  The non-standard subgroup 1 has orbit representative 1
 #I  The standard presentation for the class 8 2-quotient is
 #I  Group: G #1;2 to lower exponent-2 central class 8 has order 2^16
 #I  Non-trivial powers:
@@ -44395,6 +44628,54 @@ gap> PqSPStandardPresentation(procId, [ [[0,1],
 #I  [ .13, .1 ] = .15
 #I  [ .14, .1 ] = .16
 #I  Subset of automorphism group to check has order bound 512
+#I  The standard automorphism is:
+#I  1 ---> 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+#I  2 ---> 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+#I  Non-standard label is 1
+#I  Required step size is 3
+#I  Relative step size is 1
+#I  Rank of characteristic subgroup is 1
+#I  The non-standard subgroup 1 has orbit representative 1
+#I  The standard automorphism is:
+#I  1 ---> 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+#I  2 ---> 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+#I  Non-standard label is 1
+#I  Required step size is 3
+#I  Relative step size is 2
+#I  Rank of characteristic subgroup is 2
+#I  The non-standard subgroup 1 has orbit representative 1
+#I  The standard automorphism is:
+#I  1 ---> 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+#I  2 ---> 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+#I  Non-standard label is 1
+#I  Required step size is 3
+#I  Relative step size is 3
+#I  Rank of characteristic subgroup is 3
+#I  The non-standard subgroup 1 has orbit representative 1
+#I  The standard automorphism is:
+#I  1 ---> 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+#I  2 ---> 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+#I  Non-standard label is 1
+#I  Required step size is 3
+#I  Relative step size is 3
+#I  Rank of characteristic subgroup is 4
+#I  The non-standard subgroup 1 has orbit representative 1
+#I  The standard automorphism is:
+#I  1 ---> 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+#I  2 ---> 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+#I  Non-standard label is 1
+#I  Required step size is 3
+#I  Relative step size is 3
+#I  Rank of characteristic subgroup is 4
+#I  The non-standard subgroup 1 has orbit representative 1
+#I  The standard automorphism is:
+#I  1 ---> 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+#I  2 ---> 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+#I  Non-standard label is 1
+#I  Required step size is 3
+#I  Relative step size is 3
+#I  Rank of characteristic subgroup is 4
+#I  The non-standard subgroup 1 has orbit representative 1
 #I  The standard presentation for the class 9 2-quotient is
 #I  Group: G #1;3 to lower exponent-2 central class 9 has order 2^19
 #I  Non-trivial powers:
@@ -44474,6 +44755,54 @@ gap> PqSPStandardPresentation(procId, [ [[0,1],
 #I  [ .16, .1 ] = .18
 #I  [ .16, .2 ] = .19
 #I  Subset of automorphism group to check has order bound 8192
+#I  The standard automorphism is:
+#I  1 ---> 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+#I  2 ---> 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+#I  Non-standard label is 1
+#I  Required step size is 3
+#I  Relative step size is 1
+#I  Rank of characteristic subgroup is 1
+#I  The non-standard subgroup 1 has orbit representative 1
+#I  The standard automorphism is:
+#I  1 ---> 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+#I  2 ---> 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+#I  Non-standard label is 1
+#I  Required step size is 3
+#I  Relative step size is 2
+#I  Rank of characteristic subgroup is 2
+#I  The non-standard subgroup 1 has orbit representative 1
+#I  The standard automorphism is:
+#I  1 ---> 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+#I  2 ---> 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+#I  Non-standard label is 1
+#I  Required step size is 3
+#I  Relative step size is 3
+#I  Rank of characteristic subgroup is 3
+#I  The non-standard subgroup 1 has orbit representative 1
+#I  The standard automorphism is:
+#I  1 ---> 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+#I  2 ---> 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+#I  Non-standard label is 5
+#I  Required step size is 3
+#I  Relative step size is 3
+#I  Rank of characteristic subgroup is 4
+#I  The non-standard subgroup 5 has orbit representative 1
+#I  The standard automorphism is:
+#I  1 ---> 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+#I  2 ---> 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 
+#I  Non-standard label is 4
+#I  Required step size is 3
+#I  Relative step size is 3
+#I  Rank of characteristic subgroup is 4
+#I  The non-standard subgroup 4 has orbit representative 1
+#I  The standard automorphism is:
+#I  1 ---> 1 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 
+#I  2 ---> 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+#I  Non-standard label is 1
+#I  Required step size is 3
+#I  Relative step size is 3
+#I  Rank of characteristic subgroup is 4
+#I  The non-standard subgroup 1 has orbit representative 1
 #I  The standard presentation for the class 10 2-quotient is
 #I  Group: G #1;3 to lower exponent-2 central class 10 has order 2^22
 #I  Non-trivial powers:
@@ -44564,6 +44893,11 @@ gap> PqSPStandardPresentation(procId, [ [[0,1],
 #I  [ .18, .1 ] = .21
 #I  [ .19, .1 ] = .22
 #I  Subset of automorphism group to check has order bound 8192
+#I  The standard automorphism is:
+#I  1 ---> 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+#I  0 
+#I  2 ---> 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+#I  0 
 gap> ##Example: "2gp-SP-d-Rel-i" . . . based on: isom/red1.com
 gap> F := FreeGroup("a", "b", "c", "d");
 <free group on the generators [ a, b, c, d ]>
@@ -47591,6 +47925,10111 @@ gap> List(des, d -> Length( DerivedSeries( d ) ) );
 [ 3, 3, 3 ]
 gap> List(des, d -> Maximum( List( Elements(d), Order ) ) );
 [ 5, 5, 5 ]
+gap> ##Example: "PqDescendants-treetraverse-i" . . . based on manual example
+gap> ##(demonstrates how one may use the p-group generation machinery to
+gap> ## traverse a descendants tree, by exploring the 3-groups of rank 2
+gap> ## and 3-coclass 1 up to 3-class 5.)
+gap> G := ElementaryAbelianGroup( 9 );
+<pc group of size 9 with 2 generators>
+gap> procId := PqStart( G );
+5
+gap> #
+gap> #  Below, we use the option StepSize in order to construct descendants
+gap> #  of coclass 1. This is equivalent to setting the StepSize to 1 in
+gap> #  each descendant calculation.
+gap> #
+gap> #  The elementary abelian group of order 9 has 3 descendants of
+gap> #  3-class 2 and 3-coclass 1, as the result of the next command
+gap> #  shows. 
+gap> #
+gap> PqDescendants( procId : StepSize := 1 );
+[ <pc group of size 27 with 3 generators>, 
+  <pc group of size 27 with 3 generators>, 
+  <pc group of size 27 with 3 generators> ]
+gap> #
+gap> #  Now we will compute the descendants of coclass 1 for each of the
+gap> #  groups above. Then we will compute the descendants  of coclass 1
+gap> #  of each descendant and so  on.  Note  that the  pq program keeps
+gap> #  one file for each class at a time.  For example, the descendants
+gap> #  calculation for  the  second  group  of class  2  overwrites the
+gap> #  descendant file  obtained  from  the  first  group  of  class 2.
+gap> #  Hence,  we have to traverse the descendants tree  in depth first
+gap> #  order.
+gap> #
+gap> PqPGSetDescendantToPcp( procId, 2, 1 );
+gap> PqPGExtendAutomorphisms( procId );
+gap> PqPGConstructDescendants( procId : StepSize := 1 );
+2
+gap> PqPGSetDescendantToPcp( procId, 3, 1 );
+gap> PqPGExtendAutomorphisms( procId );
+gap> PqPGConstructDescendants( procId : StepSize := 1 );
+2
+gap> PqPGSetDescendantToPcp( procId, 4, 1 );
+gap> PqPGExtendAutomorphisms( procId );
+gap> PqPGConstructDescendants( procId : StepSize := 1 );
+2
+gap> #
+gap> #  At this point we stop traversing the ``left most'' branch of the
+gap> #  descendants tree and move upwards.
+gap> #
+gap> PqPGSetDescendantToPcp( procId, 4, 2 );
+gap> PqPGExtendAutomorphisms( procId );
+gap> PqPGConstructDescendants( procId : StepSize := 1 );
+#I  group restored from file is incapable
+0
+gap> PqPGSetDescendantToPcp( procId, 3, 2 );
+gap> PqPGExtendAutomorphisms( procId );
+gap> PqPGConstructDescendants( procId : StepSize := 1 );
+#I  group restored from file is incapable
+0
+gap> #  
+gap> #  The computations above indicate that the descendants subtree under
+gap> #  the first descendant of the elementary abelian group of order 9
+gap> #  will have only one path of infinite length.
+gap> #
+gap> PqPGSetDescendantToPcp( procId, 2, 2 );
+gap> PqPGExtendAutomorphisms( procId );
+gap> PqPGConstructDescendants( procId : StepSize := 1 );
+4
+gap> #
+gap> #  We get four descendants here, three of which will turn out to be
+gap> #  incapable, i.e., they have no descendants and are terminal nodes
+gap> #  in the descendants tree.
+gap> #
+gap> PqPGSetDescendantToPcp( procId, 2, 3 );
+gap> PqPGExtendAutomorphisms( procId );
+gap> PqPGConstructDescendants( procId : StepSize := 1 );
+#I  group restored from file is incapable
+0
+gap> #
+gap> #  The third descendant of class three is incapable.  Let us return
+gap> #  to the second descendant of class 2.
+gap> #
+gap> PqPGSetDescendantToPcp( procId, 2, 2 );
+gap> PqPGExtendAutomorphisms( procId );
+gap> PqPGConstructDescendants( procId : StepSize := 1 );
+4
+gap> PqPGSetDescendantToPcp( procId, 3, 1 );
+gap> PqPGExtendAutomorphisms( procId );
+gap> PqPGConstructDescendants( procId : StepSize := 1 );
+#I  group restored from file is incapable
+0
+gap> PqPGSetDescendantToPcp( procId, 3, 2 );
+gap> PqPGExtendAutomorphisms( procId );
+gap> PqPGConstructDescendants( procId : StepSize := 1 );
+#I  group restored from file is incapable
+0
+gap> #
+gap> #  We skip the third descendant for the moment ... 
+gap> #
+gap> PqPGSetDescendantToPcp( procId, 3, 4 );
+gap> PqPGExtendAutomorphisms( procId );
+gap> PqPGConstructDescendants( procId : StepSize := 1 );
+#I  group restored from file is incapable
+0
+gap> #
+gap> #  ... and look at it now.
+gap> #
+gap> PqPGSetDescendantToPcp( procId, 3, 3 );
+gap> PqPGExtendAutomorphisms( procId );
+gap> PqPGConstructDescendants( procId : StepSize := 1 );
+6
+gap> #
+gap> #  In this branch of the descendant tree we get 6 descendants of class
+gap> #  three.  Of those 5 will turn out to be incapable and one will have
+gap> #  7 descendants.
+gap> #
+gap> PqPGSetDescendantToPcp( procId, 4, 1 );
+gap> PqPGExtendAutomorphisms( procId );
+gap> PqPGConstructDescendants( procId : StepSize := 1 );
+#I  group restored from file is incapable
+0
+gap> PqPGSetDescendantToPcp( procId, 4, 2 );
+gap> PqPGExtendAutomorphisms( procId );
+gap> PqPGConstructDescendants( procId : StepSize := 1 );
+7
+gap> PqPGSetDescendantToPcp( procId, 4, 3 );
+gap> PqPGExtendAutomorphisms( procId );
+gap> PqPGConstructDescendants( procId : StepSize := 1 );
+#I  group restored from file is incapable
+0
+gap> ##Example: "PqDescendantsTreeCoclassOne-16-i" . based on manual example
+gap> ##(demonstrates usage of `PqDescendantsTreeCoclassOne', by generating
+gap> ## all descendants of the elementary abelian group of order 16 of
+gap> ## 2-coclass 1 up to 2-class 15. Most effective in XGAP.)
+gap> G := ElementaryAbelianGroup( 16 );
+<pc group of size 16 with 4 generators>
+gap> procId := PqStart( G );
+6
+gap> PqDescendantsTreeCoclassOne( procId : TreeDepth := 15, 
+>                                       CapableDescendants );
+#I  Number of descendants of group #1;1 to class 2: 1
+#I  Number of descendants of group #1;1 #1;1 to class 3: 1
+#I  Number of descendants of group #1;1 #1;1 #1;1 to class 4: 1
+#I  Number of descendants of group #1;1 #1;1 #1;1 #1;1 to class 5: 1
+#I  Number of descendants of group #1;1 #1;1 #1;1 #1;1 #1;1 to class 6: 1
+#I  Number of descendants of group #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 to class 7: 1
+#I  Number of descendants of group #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 to class\
+ 8: 1
+#I  Number of descendants of group #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 to \
+class 9: 1
+#I  Number of descendants of group #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;\
+1 to class 10: 1
+#I  Number of descendants of group #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;\
+1 #1;1 to class 11: 1
+#I  Number of descendants of group #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;\
+1 #1;1 #1;1 to class 12: 1
+#I  Number of descendants of group #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;\
+1 #1;1 #1;1 #1;1 to class 13: 1
+#I  Number of descendants of group #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;\
+1 #1;1 #1;1 #1;1 #1;1 to class 14: 1
+#I  Number of descendants of group #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;\
+1 #1;1 #1;1 #1;1 #1;1 #1;1 to class 15: 1
+#I  Number of descendants of group #2;1 to class 2: 1
+#I  Number of descendants of group #1;1 #1;1 to class 3: 1
+#I  Number of descendants of group #1;1 #1;1 #1;1 to class 4: 1
+#I  Number of descendants of group #1;1 #1;1 #1;1 #1;1 to class 5: 1
+#I  Number of descendants of group #1;1 #1;1 #1;1 #1;1 #1;1 to class 6: 1
+#I  Number of descendants of group #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 to class 7: 1
+#I  Number of descendants of group #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 to class\
+ 8: 1
+#I  Number of descendants of group #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 to \
+class 9: 1
+#I  Number of descendants of group #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;\
+1 to class 10: 1
+#I  Number of descendants of group #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;\
+1 #1;1 to class 11: 1
+#I  Number of descendants of group #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;\
+1 #1;1 #1;1 to class 12: 1
+#I  Number of descendants of group #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;\
+1 #1;1 #1;1 #1;1 to class 13: 1
+#I  Number of descendants of group #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;\
+1 #1;1 #1;1 #1;1 #1;1 to class 14: 1
+#I  Number of descendants of group #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;\
+1 #1;1 #1;1 #1;1 #1;1 #1;1 to class 15: 1
+gap> ##Example: "PqDescendantsTreeCoclassOne-25-i" . based on manual example
+gap> ##(demonstrates usage of `PqDescendantsTreeCoclassOne', by generating
+gap> ## all descendants of the elementary abelian group of order 25 of
+gap> ## 5-coclass 1 up to 5-class 15. Most effective in XGAP.)
+gap> G := ElementaryAbelianGroup( 25 );
+<pc group of size 25 with 2 generators>
+gap> procId := PqStart( G );
+7
+gap> PqDescendantsTreeCoclassOne( procId : TreeDepth := 15 );
+#I  Number of descendants of group #1;1 to class 2: 2
+#I  Number of descendants of group #1;1 #1;1 to class 3: 2
+#I  Number of descendants of group #1;1 #1;1 #1;1 to class 4: 2
+#I  Number of descendants of group #1;1 #1;1 #1;1 #1;1 to class 5: 2
+#I  Number of descendants of group #1;1 #1;1 #1;1 #1;1 #1;1 to class 6: 2
+#I  Number of descendants of group #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 to class 7: 2
+#I  Number of descendants of group #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 to class\
+ 8: 2
+#I  Number of descendants of group #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 to \
+class 9: 2
+#I  Number of descendants of group #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;\
+1 to class 10: 2
+#I  Number of descendants of group #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;\
+1 #1;1 to class 11: 2
+#I  Number of descendants of group #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;\
+1 #1;1 #1;1 to class 12: 2
+#I  Number of descendants of group #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;\
+1 #1;1 #1;1 #1;1 to class 13: 2
+#I  Number of descendants of group #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;\
+1 #1;1 #1;1 #1;1 #1;1 to class 14: 2
+#I  Number of descendants of group #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;\
+1 #1;1 #1;1 #1;1 #1;1 #1;1 to class 15: 2
+#I  group restored from file is incapable
+#I  Number of descendants of group #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;\
+1 #1;1 #1;1 #1;1 #1;1 #2;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;\
+1 #1;1 #1;1 #1;1 #2;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;\
+1 #1;1 #1;1 #2;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;\
+1 #1;1 #2;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;\
+1 #2;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #2;\
+1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #2;1 to \
+class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #1;1 #1;1 #1;1 #1;1 #1;1 #1;1 #2;1 to class\
+ 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #1;1 #1;1 #1;1 #1;1 #1;1 #2;1 to class 7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #1;1 #1;1 #1;1 #1;1 #2;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #1;1 #1;1 #1;1 #2;1 to class 5: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #1;1 #1;1 #2;1 to class 4: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #1;1 #2;1 to class 3: 0
+#I  Number of descendants of group #2;1 to class 2: 4
+#I  Number of descendants of group #2;1 #1;1 to class 3: 9
+#I  Number of descendants of group #2;1 #1;1 #1;1 to class 4: 21
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #1;1 to class 5: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #2;1 to class 5: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #3;1 to class 5: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #4;1 to class 5: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 to class 5: 12
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #1;1 to class 6: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 to class 6: 14
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #1;1 to class 7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #2;1 to class 7: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 to class 7: 
+12
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #1;1 to class\
+ 8: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 to class\
+ 8: 18
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #1;1 to \
+class 9: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 to \
+class 9: 12
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #1;\
+1 to class 10: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 to class 10: 14
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #1;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #2;1 to class 11: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 to class 11: 12
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #1;1 to class 12: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 to class 12: 18
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #1;1 to class 13: 12
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #1;1 #1;1 to class 14: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #1;1 #2;1 to class 14: 14
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #1;1 #2;1 #1;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #1;1 #2;1 #2;1 to class 15: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #1;1 #2;1 #3;1 to class 15: 12
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #1;1 #2;1 #4;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #1;1 #2;1 #5;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #1;1 #2;1 #6;1 to class 15: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #1;1 #2;1 #7;1 to class 15: 17
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #1;1 #2;1 #8;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #1;1 #2;1 #9;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #1;1 #2;1 #10;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #1;1 #2;1 #11;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #1;1 #2;1 #12;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #1;1 #2;1 #13;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #1;1 #2;1 #14;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #1;1 #3;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #1;1 #4;1 to class 14: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #1;1 #5;1 to class 14: 18
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #1;1 #5;1 #1;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #1;1 #5;1 #2;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #1;1 #5;1 #3;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #1;1 #5;1 #4;1 to class 15: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #1;1 #5;1 #5;1 to class 15: 49
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #1;1 #5;1 #6;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #1;1 #5;1 #7;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #1;1 #5;1 #8;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #1;1 #5;1 #9;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #1;1 #5;1 #10;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #1;1 #5;1 #11;1 to class 15: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #1;1 #5;1 #12;1 to class 15: 26
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #1;1 #5;1 #13;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #1;1 #5;1 #14;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #1;1 #5;1 #15;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #1;1 #5;1 #16;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #1;1 #5;1 #17;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #1;1 #5;1 #18;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #1;1 #6;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #1;1 #7;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #1;1 #8;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #1;1 #9;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #1;1 #10;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #1;1 #11;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #1;1 #12;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #2;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #3;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #4;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #5;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #6;1 to class 13: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 to class 13: 17
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #1;1 to class 14: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #2;1 to class 14: 49
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #2;1 #1;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #2;1 #2;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #2;1 #3;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #2;1 #4;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #2;1 #5;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #2;1 #6;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #2;1 #7;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #2;1 #8;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #2;1 #9;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #2;1 #10;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #2;1 #11;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #2;1 #12;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #2;1 #13;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #2;1 #14;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #2;1 #15;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #2;1 #16;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #2;1 #17;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #2;1 #18;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #2;1 #19;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #2;1 #20;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #2;1 #21;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #2;1 #22;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #2;1 #23;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #2;1 #24;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #2;1 #25;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #2;1 #26;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #2;1 #27;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #2;1 #28;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #2;1 #29;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #2;1 #30;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #2;1 #31;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #2;1 #32;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #2;1 #33;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #2;1 #34;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #2;1 #35;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #2;1 #36;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #2;1 #37;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #2;1 #38;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #2;1 #39;1 to class 15: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #2;1 #40;1 to class 15: 29
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #2;1 #41;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #2;1 #42;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #2;1 #43;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #2;1 #44;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #2;1 #45;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #2;1 #46;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #2;1 #47;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #2;1 #48;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #2;1 #49;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #3;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #4;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #5;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #6;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #7;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #8;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #9;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #10;1 to class 14: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #11;1 to class 14: 37
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #11;1 #1;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #11;1 #2;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #11;1 #3;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #11;1 #4;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #11;1 #5;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #11;1 #6;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #11;1 #7;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #11;1 #8;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #11;1 #9;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #11;1 #10;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #11;1 #11;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #11;1 #12;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #11;1 #13;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #11;1 #14;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #11;1 #15;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #11;1 #16;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #11;1 #17;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #11;1 #18;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #11;1 #19;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #11;1 #20;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #11;1 #21;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #11;1 #22;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #11;1 #23;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #11;1 #24;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #11;1 #25;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #11;1 #26;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #11;1 #27;1 to class 15: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #11;1 #28;1 to class 15: 8
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #11;1 #29;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #11;1 #30;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #11;1 #31;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #11;1 #32;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #11;1 #33;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #11;1 #34;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #11;1 #35;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #11;1 #36;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #11;1 #37;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #12;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #13;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #14;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #15;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #16;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #7;1 #17;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #8;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #9;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #10;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #11;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #12;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #13;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #14;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #15;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #16;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #17;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #2;1 #18;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #3;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #4;1 to class 12: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 to class 12: 20
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #1;1 to class 13: 26
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #1;1 #1;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #1;1 #2;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #1;1 #3;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #1;1 #4;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #1;1 #5;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #1;1 #6;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #1;1 #7;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #1;1 #8;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #1;1 #9;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #1;1 #10;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #1;1 #11;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #1;1 #12;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #1;1 #13;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #1;1 #14;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #1;1 #15;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #1;1 #16;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #1;1 #17;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #1;1 #18;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #1;1 #19;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #1;1 #20;1 to class 14: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #1;1 #21;1 to class 14: 9
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #1;1 #21;1 #1;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #1;1 #21;1 #2;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #1;1 #21;1 #3;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #1;1 #21;1 #4;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #1;1 #21;1 #5;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #1;1 #21;1 #6;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #1;1 #21;1 #7;1 to class 15: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #1;1 #21;1 #8;1 to class 15: 16
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #1;1 #21;1 #9;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #1;1 #22;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #1;1 #23;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #1;1 #24;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #1;1 #25;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #1;1 #26;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #2;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #3;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #4;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #5;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #6;1 to class 13: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 to class 13: 49
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #1;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #2;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #3;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #4;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #5;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #6;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #7;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #8;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #9;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #10;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #11;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #12;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #13;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #14;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #15;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #16;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #17;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #18;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #19;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #20;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #21;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #22;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #23;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #24;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #25;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #26;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #27;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #28;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #29;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #30;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #31;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #32;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #33;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #34;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #35;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #36;1 to class 14: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #37;1 to class 14: 29
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #37;1 #1;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #37;1 #2;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #37;1 #3;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #37;1 #4;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #37;1 #5;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #37;1 #6;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #37;1 #7;1 to class 15: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #37;1 #8;1 to class 15: 29
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #37;1 #9;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #37;1 #10;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #37;1 #11;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #37;1 #12;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #37;1 #13;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #37;1 #14;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #37;1 #15;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #37;1 #16;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #37;1 #17;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #37;1 #18;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #37;1 #19;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #37;1 #20;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #37;1 #21;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #37;1 #22;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #37;1 #23;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #37;1 #24;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #37;1 #25;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #37;1 #26;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #37;1 #27;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #37;1 #28;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #37;1 #29;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #38;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #39;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #40;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #41;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #42;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #43;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #44;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #45;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #46;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #47;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #48;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #7;1 #49;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #8;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #9;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #10;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #11;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #12;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #13;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #14;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #15;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #16;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #17;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #18;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #19;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #5;1 #20;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #6;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #7;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #8;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #9;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #10;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #11;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #3;1 #12;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #4;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #5;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #6;1 to class 11: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 to class 11: 17
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #1;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #2;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #3;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #4;1 to class 12: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 to class 12: 49
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #1;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #2;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #3;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #4;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #5;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #6;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #7;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #8;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #9;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #10;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #11;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #12;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #13;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #14;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #15;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #16;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #17;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #18;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #19;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #20;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #21;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #22;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #23;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #24;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #25;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #26;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #27;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #28;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #29;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #30;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #31;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #32;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #33;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #34;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #35;1 to class 13: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #36;1 to class 13: 29
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #36;1 #1;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #36;1 #2;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #36;1 #3;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #36;1 #4;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #36;1 #5;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #36;1 #6;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #36;1 #7;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #36;1 #8;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #36;1 #9;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #36;1 #10;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #36;1 #11;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #36;1 #12;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #36;1 #13;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #36;1 #14;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #36;1 #15;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #36;1 #16;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #36;1 #17;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #36;1 #18;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #36;1 #19;1 to class 14: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #36;1 #20;1 to class 14: 29
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #36;1 #20;1 #1;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #36;1 #20;1 #2;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #36;1 #20;1 #3;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #36;1 #20;1 #4;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #36;1 #20;1 #5;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #36;1 #20;1 #6;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #36;1 #20;1 #7;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #36;1 #20;1 #8;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #36;1 #20;1 #9;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #36;1 #20;1 #10;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #36;1 #20;1 #11;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #36;1 #20;1 #12;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #36;1 #20;1 #13;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #36;1 #20;1 #14;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #36;1 #20;1 #15;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #36;1 #20;1 #16;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #36;1 #20;1 #17;1 to class 15: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #36;1 #20;1 #18;1 to class 15: 145
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #36;1 #20;1 #19;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #36;1 #20;1 #20;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #36;1 #20;1 #21;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #36;1 #20;1 #22;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #36;1 #20;1 #23;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #36;1 #20;1 #24;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #36;1 #20;1 #25;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #36;1 #20;1 #26;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #36;1 #20;1 #27;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #36;1 #20;1 #28;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #36;1 #20;1 #29;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #36;1 #21;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #36;1 #22;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #36;1 #23;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #36;1 #24;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #36;1 #25;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #36;1 #26;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #36;1 #27;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #36;1 #28;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #36;1 #29;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #37;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #38;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #39;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #40;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #41;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #42;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #43;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #44;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #45;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #46;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #47;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #48;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #5;1 #49;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #6;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #7;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #8;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #9;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #10;1 to class 12: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #11;1 to class 12: 39
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #11;1 #1;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #11;1 #2;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #11;1 #3;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #11;1 #4;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #11;1 #5;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #11;1 #6;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #11;1 #7;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #11;1 #8;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #11;1 #9;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #11;1 #10;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #11;1 #11;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #11;1 #12;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #11;1 #13;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #11;1 #14;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #11;1 #15;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #11;1 #16;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #11;1 #17;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #11;1 #18;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #11;1 #19;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #11;1 #20;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #11;1 #21;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #11;1 #22;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #11;1 #23;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #11;1 #24;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #11;1 #25;1 to class 13: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #11;1 #26;1 to class 13: 8
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #11;1 #26;1 #1;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #11;1 #26;1 #2;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #11;1 #26;1 #3;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #11;1 #26;1 #4;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #11;1 #26;1 #5;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #11;1 #26;1 #6;1 to class 14: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #11;1 #26;1 #7;1 to class 14: 15
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #11;1 #26;1 #7;1 #1;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #11;1 #26;1 #7;1 #2;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #11;1 #26;1 #7;1 #3;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #11;1 #26;1 #7;1 #4;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #11;1 #26;1 #7;1 #5;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #11;1 #26;1 #7;1 #6;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #11;1 #26;1 #7;1 #7;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #11;1 #26;1 #7;1 #8;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #11;1 #26;1 #7;1 #9;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #11;1 #26;1 #7;1 #10;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #11;1 #26;1 #7;1 #11;1 to class 15: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #11;1 #26;1 #7;1 #12;1 to class 15: 37
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #11;1 #26;1 #7;1 #13;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #11;1 #26;1 #7;1 #14;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #11;1 #26;1 #7;1 #15;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #11;1 #26;1 #8;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #11;1 #27;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #11;1 #28;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #11;1 #29;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #11;1 #30;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #11;1 #31;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #11;1 #32;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #11;1 #33;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #11;1 #34;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #11;1 #35;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #11;1 #36;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #11;1 #37;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #11;1 #38;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #11;1 #39;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #12;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #13;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #14;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #15;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #16;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #7;1 #17;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #8;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #9;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #10;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #11;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #12;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #13;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #2;\
+1 #14;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #3;\
+1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #4;\
+1 to class 10: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 to class 10: 18
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #1;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #2;1 to class 11: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 to class 11: 49
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #1;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #2;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #3;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #4;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #5;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #6;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #7;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #8;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #9;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #10;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #11;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #12;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #13;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #14;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #15;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #16;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #17;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #18;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #19;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #20;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #21;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #22;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #23;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #24;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #25;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #26;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #27;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #28;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #29;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #30;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #31;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #32;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #33;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #34;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #35;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #36;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #37;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #38;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #39;1 to class 12: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 to class 12: 29
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #1;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #2;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #3;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #4;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #5;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #6;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #7;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #8;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #9;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #10;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #11;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #12;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #13;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #14;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #15;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #16;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #17;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #18;1 to class 13: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 to class 13: 29
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #1;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #2;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #3;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #4;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #5;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #6;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #7;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #8;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #9;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #10;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #11;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #12;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #13;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #14;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #15;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #16;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #17;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #18;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #19;1 to class 14: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 to class 14: 145
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #1;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #2;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #3;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #4;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #5;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #6;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #7;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #8;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #9;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #10;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #11;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #12;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #13;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #14;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #15;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #16;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #17;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #18;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #19;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #20;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #21;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #22;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #23;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #24;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #25;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #26;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #27;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #28;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #29;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #30;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #31;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #32;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #33;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #34;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #35;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #36;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #37;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #38;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #39;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #40;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #41;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #42;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #43;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #44;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #45;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #46;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #47;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #48;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #49;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #50;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #51;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #52;1 to class 15: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #53;1 to class 15: 29
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #54;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #55;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #56;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #57;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #58;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #59;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #60;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #61;1 to class 15: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #62;1 to class 15: 29
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #63;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #64;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #65;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #66;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #67;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #68;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #69;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #70;1 to class 15: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #71;1 to class 15: 29
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #72;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #73;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #74;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #75;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #76;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #77;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #78;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #79;1 to class 15: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #80;1 to class 15: 29
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #81;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #82;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #83;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #84;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #85;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #86;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #87;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #88;1 to class 15: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #89;1 to class 15: 29
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #90;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #91;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #92;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #93;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #94;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #95;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #96;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #97;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #98;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #99;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #100;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #101;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #102;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #103;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #104;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #105;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #106;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #107;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #108;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #109;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #110;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #111;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #112;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #113;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #114;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #115;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #116;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #117;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #118;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #119;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #120;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #121;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #122;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #123;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #124;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #125;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #126;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #127;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #128;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #129;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #130;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #131;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #132;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #133;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #134;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #135;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #136;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #137;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #138;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #139;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #140;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #141;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #142;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #143;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #144;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #20;1 #145;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #21;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #22;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #23;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #24;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #25;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #26;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #27;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #28;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #19;1 #29;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #20;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #21;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #22;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #23;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #24;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #25;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #26;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #27;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #28;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #40;1 #29;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #41;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #42;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #43;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #44;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #45;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #46;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #47;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #48;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #3;1 #49;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #4;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #5;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #6;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #7;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #8;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #9;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #10;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #11;1 to class 11: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 to class 11: 26
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #1;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #2;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #3;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #4;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #5;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #6;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #7;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #8;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #9;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #10;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #11;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #12;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #13;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #14;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #15;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #16;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #17;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #18;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #19;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #20;1 to class 12: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #21;1 to class 12: 11
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #21;1 #1;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #21;1 #2;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #21;1 #3;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #21;1 #4;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #21;1 #5;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #21;1 #6;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #21;1 #7;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #21;1 #8;1 to class 13: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #21;1 #9;1 to class 13: 16
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #21;1 #9;1 #1;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #21;1 #9;1 #2;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #21;1 #9;1 #3;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #21;1 #9;1 #4;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #21;1 #9;1 #5;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #21;1 #9;1 #6;1 to class 14: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #21;1 #9;1 #7;1 to class 14: 38
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #21;1 #9;1 #7;1 #1;1 to class 15: 16
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #21;1 #9;1 #7;1 #2;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #21;1 #9;1 #7;1 #3;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #21;1 #9;1 #7;1 #4;1 to class 15: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #21;1 #9;1 #7;1 #5;1 to class 15: 29
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #21;1 #9;1 #7;1 #6;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #21;1 #9;1 #7;1 #7;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #21;1 #9;1 #7;1 #8;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #21;1 #9;1 #7;1 #9;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #21;1 #9;1 #7;1 #10;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #21;1 #9;1 #7;1 #11;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #21;1 #9;1 #7;1 #12;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #21;1 #9;1 #7;1 #13;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #21;1 #9;1 #7;1 #14;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #21;1 #9;1 #7;1 #15;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #21;1 #9;1 #7;1 #16;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #21;1 #9;1 #7;1 #17;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #21;1 #9;1 #7;1 #18;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #21;1 #9;1 #7;1 #19;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #21;1 #9;1 #7;1 #20;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #21;1 #9;1 #7;1 #21;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #21;1 #9;1 #7;1 #22;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #21;1 #9;1 #7;1 #23;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #21;1 #9;1 #7;1 #24;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #21;1 #9;1 #7;1 #25;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #21;1 #9;1 #7;1 #26;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #21;1 #9;1 #7;1 #27;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #21;1 #9;1 #7;1 #28;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #21;1 #9;1 #7;1 #29;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #21;1 #9;1 #7;1 #30;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #21;1 #9;1 #7;1 #31;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #21;1 #9;1 #7;1 #32;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #21;1 #9;1 #7;1 #33;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #21;1 #9;1 #7;1 #34;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #21;1 #9;1 #7;1 #35;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #21;1 #9;1 #7;1 #36;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #21;1 #9;1 #7;1 #37;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #21;1 #9;1 #7;1 #38;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #21;1 #9;1 #8;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #21;1 #9;1 #9;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #21;1 #9;1 #10;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #21;1 #9;1 #11;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #21;1 #9;1 #12;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #21;1 #9;1 #13;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #21;1 #9;1 #14;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #21;1 #9;1 #15;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #21;1 #9;1 #16;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #21;1 #10;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #21;1 #11;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #22;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #23;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #24;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #25;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #12;1 #26;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #13;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #14;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #15;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #16;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #17;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #5;\
+1 #18;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #6;\
+1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #7;\
+1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #8;\
+1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #9;\
+1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #10\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #11\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #2;1 #12\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #3;1 to \
+class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #4;1 to \
+class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #5;1 to \
+class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #6;1 to \
+class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #7;1 to \
+class 9: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 to \
+class 9: 17
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #1;\
+1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #2;\
+1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #3;\
+1 to class 10: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 to class 10: 49
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #1;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #2;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #3;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #4;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #5;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #6;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #7;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #8;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #9;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #10;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #11;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #12;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #13;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #14;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #15;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #16;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #17;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #18;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #19;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #20;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #21;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #22;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #23;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #24;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #25;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #26;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #27;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #28;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #29;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #30;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #31;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #32;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #33;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #34;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #35;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #36;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #37;1 to class 11: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 to class 11: 29
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #1;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #2;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #3;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #4;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #5;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #6;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #7;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #8;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #9;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #10;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #11;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #12;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #13;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #14;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #15;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #16;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #17;1 to class 12: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 to class 12: 29
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #1;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #2;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #3;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #4;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #5;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #6;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #7;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #8;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #9;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #10;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #11;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #12;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #13;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #14;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #15;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #16;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #17;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #18;1 to class 13: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 to class 13: 145
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #1;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #2;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #3;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #4;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #5;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #6;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #7;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #8;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #9;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #10;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #11;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #12;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #13;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #14;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #15;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #16;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #17;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #18;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #19;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #20;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #21;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #22;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #23;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #24;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #25;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #26;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #27;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #28;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #29;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #30;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #31;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #32;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #33;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #34;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #35;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #36;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #37;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #38;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #39;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #40;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #41;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #42;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #43;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #44;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #45;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #46;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #47;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #48;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #49;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #50;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #51;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #52;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #53;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #54;1 to class 14: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #55;1 to class 14: 29
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #55;1 #1;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #55;1 #2;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #55;1 #3;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #55;1 #4;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #55;1 #5;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #55;1 #6;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #55;1 #7;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #55;1 #8;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #55;1 #9;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #55;1 #10;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #55;1 #11;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #55;1 #12;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #55;1 #13;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #55;1 #14;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #55;1 #15;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #55;1 #16;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #55;1 #17;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #55;1 #18;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #55;1 #19;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #55;1 #20;1 to class 15: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #55;1 #21;1 to class 15: 29
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #55;1 #22;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #55;1 #23;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #55;1 #24;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #55;1 #25;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #55;1 #26;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #55;1 #27;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #55;1 #28;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #55;1 #29;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #56;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #57;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #58;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #59;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #60;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #61;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #62;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #63;1 to class 14: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #64;1 to class 14: 29
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #64;1 #1;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #64;1 #2;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #64;1 #3;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #64;1 #4;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #64;1 #5;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #64;1 #6;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #64;1 #7;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #64;1 #8;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #64;1 #9;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #64;1 #10;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #64;1 #11;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #64;1 #12;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #64;1 #13;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #64;1 #14;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #64;1 #15;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #64;1 #16;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #64;1 #17;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #64;1 #18;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #64;1 #19;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #64;1 #20;1 to class 15: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #64;1 #21;1 to class 15: 29
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #64;1 #22;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #64;1 #23;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #64;1 #24;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #64;1 #25;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #64;1 #26;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #64;1 #27;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #64;1 #28;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #64;1 #29;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #65;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #66;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #67;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #68;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #69;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #70;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #71;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #72;1 to class 14: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #73;1 to class 14: 29
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #73;1 #1;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #73;1 #2;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #73;1 #3;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #73;1 #4;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #73;1 #5;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #73;1 #6;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #73;1 #7;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #73;1 #8;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #73;1 #9;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #73;1 #10;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #73;1 #11;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #73;1 #12;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #73;1 #13;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #73;1 #14;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #73;1 #15;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #73;1 #16;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #73;1 #17;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #73;1 #18;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #73;1 #19;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #73;1 #20;1 to class 15: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #73;1 #21;1 to class 15: 29
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #73;1 #22;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #73;1 #23;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #73;1 #24;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #73;1 #25;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #73;1 #26;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #73;1 #27;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #73;1 #28;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #73;1 #29;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #74;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #75;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #76;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #77;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #78;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #79;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #80;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #81;1 to class 14: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #82;1 to class 14: 29
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #82;1 #1;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #82;1 #2;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #82;1 #3;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #82;1 #4;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #82;1 #5;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #82;1 #6;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #82;1 #7;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #82;1 #8;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #82;1 #9;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #82;1 #10;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #82;1 #11;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #82;1 #12;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #82;1 #13;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #82;1 #14;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #82;1 #15;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #82;1 #16;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #82;1 #17;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #82;1 #18;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #82;1 #19;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #82;1 #20;1 to class 15: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #82;1 #21;1 to class 15: 29
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #82;1 #22;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #82;1 #23;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #82;1 #24;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #82;1 #25;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #82;1 #26;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #82;1 #27;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #82;1 #28;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #82;1 #29;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #83;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #84;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #85;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #86;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #87;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #88;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #89;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #90;1 to class 14: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #91;1 to class 14: 29
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #91;1 #1;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #91;1 #2;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #91;1 #3;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #91;1 #4;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #91;1 #5;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #91;1 #6;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #91;1 #7;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #91;1 #8;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #91;1 #9;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #91;1 #10;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #91;1 #11;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #91;1 #12;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #91;1 #13;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #91;1 #14;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #91;1 #15;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #91;1 #16;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #91;1 #17;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #91;1 #18;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #91;1 #19;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #91;1 #20;1 to class 15: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #91;1 #21;1 to class 15: 29
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #91;1 #22;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #91;1 #23;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #91;1 #24;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #91;1 #25;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #91;1 #26;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #91;1 #27;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #91;1 #28;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #91;1 #29;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #92;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #93;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #94;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #95;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #96;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #97;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #98;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #99;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #100;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #101;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #102;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #103;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #104;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #105;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #106;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #107;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #108;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #109;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #110;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #111;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #112;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #113;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #114;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #115;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #116;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #117;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #118;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #119;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #120;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #121;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #122;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #123;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #124;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #125;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #126;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #127;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #128;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #129;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #130;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #131;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #132;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #133;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #134;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #135;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #136;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #137;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #138;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #139;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #140;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #141;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #142;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #143;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #144;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #19;1 #145;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #20;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #21;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #22;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #23;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #24;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #25;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #26;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #27;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #28;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #18;1 #29;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #19;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #20;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #21;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #22;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #23;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #24;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #25;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #26;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #27;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #28;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #38;1 #29;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #39;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #40;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #41;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #42;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #43;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #44;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #45;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #46;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #47;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #48;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #4;\
+1 #49;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #5;\
+1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #6;\
+1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #7;\
+1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #8;\
+1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #9;\
+1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #10\
+;1 to class 10: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 to class 10: 37
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #1;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #2;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #3;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #4;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #5;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #6;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #7;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #8;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #9;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #10;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #11;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #12;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #13;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #14;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #15;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #16;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #17;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #18;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #19;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #20;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #21;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #22;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #23;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #24;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #25;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #26;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #27;1 to class 11: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 to class 11: 8
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #1;1 to class 12: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 to class 12: 17
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 to class 13: 37
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #1;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #2;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #3;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #4;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #5;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #6;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #7;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #8;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #9;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #10;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #11;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #12;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #13;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #14;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #15;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #16;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #17;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #18;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #19;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #20;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #21;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #22;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #23;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #24;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #25;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #26;1 to class 14: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #27;1 to class 14: 29
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #27;1 #1;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #27;1 #2;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #27;1 #3;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #27;1 #4;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #27;1 #5;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #27;1 #6;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #27;1 #7;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #27;1 #8;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #27;1 #9;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #27;1 #10;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #27;1 #11;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #27;1 #12;1 to class 15: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #27;1 #13;1 to class 15: 29
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #27;1 #14;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #27;1 #15;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #27;1 #16;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #27;1 #17;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #27;1 #18;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #27;1 #19;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #27;1 #20;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #27;1 #21;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #27;1 #22;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #27;1 #23;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #27;1 #24;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #27;1 #25;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #27;1 #26;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #27;1 #27;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #27;1 #28;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #27;1 #29;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #28;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #29;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #30;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #31;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #32;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #33;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #34;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #35;1 to class 14: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #36;1 to class 14: 27
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #36;1 #1;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #36;1 #2;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #36;1 #3;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #36;1 #4;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #36;1 #5;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #36;1 #6;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #36;1 #7;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #36;1 #8;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #36;1 #9;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #36;1 #10;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #36;1 #11;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #36;1 #12;1 to class 15: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #36;1 #13;1 to class 15: 8
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #36;1 #14;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #36;1 #15;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #36;1 #16;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #36;1 #17;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #36;1 #18;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #36;1 #19;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #36;1 #20;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #36;1 #21;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #36;1 #22;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #36;1 #23;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #36;1 #24;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #36;1 #25;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #36;1 #26;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #36;1 #27;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #1;1 #37;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #2;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #3;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #4;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #5;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #6;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #7;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #8;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #9;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #10;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #11;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #12;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #13;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #14;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #15;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #16;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #2;1 #17;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #3;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #4;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #5;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #6;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #7;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #28;1 #8;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #29;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #30;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #31;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #32;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #33;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #34;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #35;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #36;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #11\
+;1 #37;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #12\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #13\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #14\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #15\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #16\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #8;1 #17\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #9;1 to \
+class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #10;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #11;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #12;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #13;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #14;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #15;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #16;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #17;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #2;1 #18;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #3;1 to class\
+ 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #4;1 to class\
+ 8: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 to class\
+ 8: 20
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #1;1 to \
+class 9: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 to \
+class 9: 49
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #1;\
+1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #2;\
+1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #3;\
+1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #4;\
+1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #5;\
+1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #6;\
+1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #7;\
+1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #8;\
+1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #9;\
+1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #10\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #11\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #12\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #13\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #14\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #15\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #16\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #17\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #18\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #19\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #20\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #21\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #22\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #23\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #24\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #25\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #26\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #27\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #28\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #29\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #30\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #31\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #32\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #33\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #34\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #35\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #36\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #37\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #38\
+;1 to class 10: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 to class 10: 29
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #1;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #2;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #3;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #4;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #5;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #6;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #7;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #8;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #9;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #10;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #11;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #12;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #13;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #14;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #15;1 to class 11: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 to class 11: 29
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #1;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #2;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #3;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #4;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #5;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #6;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #7;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #8;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #9;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #10;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #11;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #12;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #13;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #14;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #15;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #16;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #17;1 to class 12: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 to class 12: 125
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #1;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #2;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #3;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #4;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #5;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #6;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #7;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #8;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #9;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #10;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #11;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #12;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #13;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #14;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #15;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #16;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #17;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #18;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #19;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #20;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #21;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #22;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #23;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #24;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #25;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #26;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #27;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #28;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #29;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #30;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #31;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #32;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #33;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #34;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #35;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #36;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #37;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #38;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #39;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #40;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #41;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #42;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #43;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #44;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #45;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #46;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #47;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #48;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #49;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #50;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #51;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #52;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #53;1 to class 13: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 to class 13: 125
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #1;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #2;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #3;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #4;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #5;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #6;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #7;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #8;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #9;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #10;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #11;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #12;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #13;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #14;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #15;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #16;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #17;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #18;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #19;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #20;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #21;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #22;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #23;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #24;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #25;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #26;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #27;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #28;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #29;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #30;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #31;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #32;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #33;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #34;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #35;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #36;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #37;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #38;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #39;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #40;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #41;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #42;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #43;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #44;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #45;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #46;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #47;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #48;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #49;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #50;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #51;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #52;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #53;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #54;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #55;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #56;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #57;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #58;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #59;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #60;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #61;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #62;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #63;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #64;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #65;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #66;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #67;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #68;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #69;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #70;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #71;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #72;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #73;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #74;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #75;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #76;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #77;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #78;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #79;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #80;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #81;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #82;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #83;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #84;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #85;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #86;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #87;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #88;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #89;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #90;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #91;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #92;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #93;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #94;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #95;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #96;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #97;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #98;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #99;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #100;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #101;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #102;1 to class 14: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 to class 14: 125
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #1;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #2;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #3;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #4;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #5;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #6;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #7;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #8;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #9;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #10;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #11;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #12;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #13;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #14;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #15;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #16;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #17;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #18;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #19;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #20;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #21;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #22;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #23;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #24;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #25;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #26;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #27;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #28;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #29;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #30;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #31;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #32;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #33;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #34;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #35;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #36;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #37;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #38;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #39;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #40;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #41;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #42;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #43;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #44;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #45;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #46;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #47;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #48;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #49;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #50;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #51;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #52;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #53;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #54;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #55;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #56;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #57;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #58;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #59;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #60;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #61;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #62;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #63;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #64;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #65;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #66;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #67;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #68;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #69;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #70;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #71;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #72;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #73;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #74;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #75;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #76;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #77;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #78;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #79;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #80;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #81;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #82;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #83;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #84;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #85;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #86;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #87;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #88;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #89;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #90;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #91;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #92;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #93;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #94;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #95;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #96;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #97;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #98;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #99;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #100;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #101;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #102;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #103;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #104;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #105;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #106;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #107;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #108;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #109;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #110;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #111;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #112;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #113;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #114;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #115;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #116;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #117;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #118;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #119;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #120;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #121;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #122;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #123;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #124;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #103;1 #125;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #104;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #105;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #106;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #107;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #108;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #109;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #110;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #111;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #112;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #113;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #114;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #115;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #116;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #117;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #118;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #119;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #120;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #121;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #122;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #123;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #124;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #54;1 #125;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #55;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #56;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #57;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #58;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #59;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #60;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #61;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #62;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #63;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #64;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #65;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #66;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #67;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #68;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #69;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #70;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #71;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #72;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #73;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #74;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #75;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #76;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #77;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #78;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #79;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #80;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #81;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #82;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #83;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #84;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #85;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #86;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #87;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #88;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #89;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #90;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #91;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #92;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #93;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #94;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #95;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #96;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #97;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #98;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #99;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #100;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #101;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #102;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #103;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #104;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #105;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #106;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #107;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #108;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #109;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #110;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #111;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #112;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #113;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #114;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #115;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #116;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #117;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #118;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #119;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #120;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #121;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #122;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #123;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #124;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #18;1 #125;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #19;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #20;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #21;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #22;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #23;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #24;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #25;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #26;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #27;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #28;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #16;1 #29;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #17;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #18;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #19;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #20;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #21;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #22;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #23;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #24;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #25;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #26;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #27;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #28;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #39\
+;1 #29;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #40\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #41\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #42\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #43\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #44\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #45\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #46\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #47\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #48\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #2;1 #49\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #3;1 to \
+class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #4;1 to \
+class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #5;1 to \
+class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #6;1 to \
+class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #7;1 to \
+class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #8;1 to \
+class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #9;1 to \
+class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #10;1 to\
+ class 9: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 to\
+ class 9: 26
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #1\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #3\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #4\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #5\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #6\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #7\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #8\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #9\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #1\
+0;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #1\
+1;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #1\
+2;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #1\
+3;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #1\
+4;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #1\
+5;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #1\
+6;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #1\
+7;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #1\
+8;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #1\
+9;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+0;1 to class 10: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 to class 10: 9
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #1;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #2;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #3;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #4;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #5;1 to class 11: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 to class 11: 16
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #1;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #2;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #3;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #4;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #5;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #6;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #7;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #8;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #9;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #10;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #11;1 to class 12: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 to class 12: 35
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #1;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #2;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #3;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #4;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #5;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #6;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #7;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #8;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #9;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #10;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #11;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #12;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #13;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #14;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #15;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #16;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #17;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #18;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #19;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #20;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #21;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #22;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #23;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #24;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #25;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #26;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #27;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #28;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #29;1 to class 13: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 to class 13: 40
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #1;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #2;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #3;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #4;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #5;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #6;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #7;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #8;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #9;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #10;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #11;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #12;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #13;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #14;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #15;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #16;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #17;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #18;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #19;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #20;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #21;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #22;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #23;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #24;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #25;1 to class 14: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #26;1 to class 14: 33
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #26;1 #1;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #26;1 #2;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #26;1 #3;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #26;1 #4;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #26;1 #5;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #26;1 #6;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #26;1 #7;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #26;1 #8;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #26;1 #9;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #26;1 #10;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #26;1 #11;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #26;1 #12;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #26;1 #13;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #26;1 #14;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #26;1 #15;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #26;1 #16;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #26;1 #17;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #26;1 #18;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #26;1 #19;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #26;1 #20;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #26;1 #21;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #26;1 #22;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #26;1 #23;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #26;1 #24;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #26;1 #25;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #26;1 #26;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #26;1 #27;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #26;1 #28;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #26;1 #29;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #26;1 #30;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #26;1 #31;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #26;1 #32;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #26;1 #33;1 to class 15: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #27;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #28;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #29;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #30;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #31;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #32;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #33;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #34;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #35;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #36;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #37;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #38;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #39;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #30;1 #40;1 to class 14: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #31;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #32;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #33;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #34;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #12;1 #35;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #13;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #14;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #15;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #6;1 #16;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #7;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #8;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+1;1 #9;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+2;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+3;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+4;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+5;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #11;1 #2\
+6;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #12;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #13;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #14;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #15;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #16;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #17;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #18;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #19;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #5;1 #20;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #6;1 to class\
+ 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #7;1 to class\
+ 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #8;1 to class\
+ 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #9;1 to class\
+ 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #10;1 to clas\
+s 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #11;1 to clas\
+s 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #3;1 #12;1 to clas\
+s 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #4;1 to class 7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #5;1 to class 7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #6;1 to class 7: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 to class 7: 
+17
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #1;1 to class\
+ 8: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 to class\
+ 8: 39
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #1;1 to \
+class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #2;1 to \
+class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #3;1 to \
+class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #4;1 to \
+class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #5;1 to \
+class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #6;1 to \
+class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #7;1 to \
+class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #8;1 to \
+class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #9;1 to \
+class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #10;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #11;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #12;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #13;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #14;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #15;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #16;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #17;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #18;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #19;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #20;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #21;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #22;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #23;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #24;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #25;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #26;1 to\
+ class 9: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 to\
+ class 9: 8
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #1\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #2\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #3\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #4\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #5\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #6\
+;1 to class 10: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 to class 10: 15
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #1;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #2;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #3;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #4;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #5;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #6;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #7;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #8;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #9;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #10;1 to class 11: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 to class 11: 37
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #1;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #2;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #3;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #4;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #5;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #6;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #7;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #8;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #9;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #10;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #11;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #12;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #13;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #14;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #15;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #16;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #17;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #18;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #19;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #20;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #21;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #22;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #23;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #24;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #25;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #26;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #27;1 to class 12: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #28;1 to class 12: 25
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #28;1 #1;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #28;1 #2;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #28;1 #3;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #28;1 #4;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #28;1 #5;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #28;1 #6;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #28;1 #7;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #28;1 #8;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #28;1 #9;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #28;1 #10;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #28;1 #11;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #28;1 #12;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #28;1 #13;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #28;1 #14;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #28;1 #15;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #28;1 #16;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #28;1 #17;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #28;1 #18;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #28;1 #19;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #28;1 #20;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #28;1 #21;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #28;1 #22;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #28;1 #23;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #28;1 #24;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #28;1 #25;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #29;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #30;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #31;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #32;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #33;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #34;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #35;1 to class 12: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #36;1 to class 12: 25
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #36;1 #1;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #36;1 #2;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #36;1 #3;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #36;1 #4;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #36;1 #5;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #36;1 #6;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #36;1 #7;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #36;1 #8;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #36;1 #9;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #36;1 #10;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #36;1 #11;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #36;1 #12;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #36;1 #13;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #36;1 #14;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #36;1 #15;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #36;1 #16;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #36;1 #17;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #36;1 #18;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #36;1 #19;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #36;1 #20;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #36;1 #21;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #36;1 #22;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #36;1 #23;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #36;1 #24;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #36;1 #25;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #11;1 #37;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #12;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #13;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #14;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #7\
+;1 #15;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #27;1 #8\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #28;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #29;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #30;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #31;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #32;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #33;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #34;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #35;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #36;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #37;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #38;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #2;1 #39;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #3;1 to class\
+ 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #4;1 to class\
+ 8: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 to class\
+ 8: 49
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #1;1 to \
+class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #2;1 to \
+class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #3;1 to \
+class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #4;1 to \
+class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #5;1 to \
+class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #6;1 to \
+class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #7;1 to \
+class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #8;1 to \
+class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #9;1 to \
+class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #10;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #11;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #12;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #13;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #14;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #15;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #16;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #17;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #18;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #19;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #20;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #21;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #22;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #23;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #24;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #25;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #26;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #27;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #28;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #29;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #30;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #31;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #32;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #33;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #34;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #35;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #36;1 to\
+ class 9: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 to\
+ class 9: 29
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #1\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #2\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #3\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #4\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #5\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #6\
+;1 to class 10: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 to class 10: 29
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #1;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #2;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #3;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #4;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #5;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #6;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #7;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #8;1 to class 11: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 to class 11: 125
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 to class 12: 125
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #1;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #2;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #3;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #4;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #5;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #6;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #7;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #8;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #9;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #10;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #11;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #12;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #13;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #14;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #15;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #16;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #17;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #18;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #19;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #20;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #21;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #22;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #23;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #24;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #25;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #26;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #27;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #28;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #29;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #30;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #31;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #32;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #33;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #34;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #35;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #36;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #37;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #38;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #39;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #40;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #41;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #42;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #43;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #44;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #45;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #46;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #47;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #48;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #49;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #50;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #51;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #52;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #53;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #54;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #55;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #56;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #57;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #58;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #59;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #60;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #61;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #62;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #63;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #64;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #65;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #66;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #67;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #68;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #69;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #70;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #71;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #72;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #73;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #74;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #75;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #76;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #77;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #78;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #79;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #80;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #81;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #82;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #83;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #84;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #85;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #86;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #87;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #88;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #89;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #90;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #91;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #92;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #93;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #94;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #95;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #96;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #97;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #98;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #99;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #100;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #101;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #102;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #103;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #104;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #105;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #106;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #107;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #108;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #109;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #110;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #111;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #112;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #113;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #114;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #115;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #116;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #117;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #118;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #119;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #120;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #121;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #122;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #123;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #124;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #1;1 #125;1 to class 13: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #2;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #3;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #4;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #5;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #6;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #7;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #8;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #9;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #10;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #11;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #12;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #13;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #14;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #15;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #16;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #17;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #18;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #19;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #20;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #21;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #22;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #23;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #24;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #25;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #26;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #27;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #28;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #29;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #30;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #31;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #32;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #33;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #34;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #35;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #36;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #37;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #38;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #39;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #40;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #41;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #42;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #43;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #44;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #45;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #46;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #47;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #48;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #49;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #50;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #51;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #52;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #53;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #54;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #55;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #56;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #57;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #58;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #59;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #60;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #61;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #62;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #63;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #64;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #65;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #66;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #67;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #68;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #69;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #70;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #71;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #72;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #73;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #74;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #75;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #76;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #77;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #78;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #79;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #80;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #81;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #82;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #83;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #84;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #85;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #86;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #87;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #88;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #89;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #90;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #91;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #92;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #93;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #94;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #95;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #96;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #97;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #98;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #99;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #100;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #101;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #102;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #103;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #104;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #105;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #106;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #107;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #108;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #109;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #110;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #111;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #112;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #113;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #114;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #115;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #116;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #117;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #118;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #119;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #120;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #121;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #122;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #123;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #124;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #9;1 #125;1 to class 12: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #10;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #11;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #12;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #13;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #14;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #15;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #16;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #17;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #18;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #19;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #20;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #21;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #22;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #23;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #24;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #25;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #26;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #27;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #28;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #7\
+;1 #29;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #8\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #9\
+;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #1\
+0;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #1\
+1;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #1\
+2;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #1\
+3;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #1\
+4;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #1\
+5;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #1\
+6;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #1\
+7;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #1\
+8;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #1\
+9;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #2\
+0;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #2\
+1;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #2\
+2;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #2\
+3;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #2\
+4;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #2\
+5;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #2\
+6;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #2\
+7;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #2\
+8;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #37;1 #2\
+9;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #38;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #39;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #40;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #41;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #42;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #43;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #44;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #45;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #46;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #47;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #48;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #5;1 #49;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #6;1 to class\
+ 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #7;1 to class\
+ 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #8;1 to class\
+ 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #9;1 to class\
+ 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #10;1 to clas\
+s 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #11;1 to clas\
+s 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #12;1 to clas\
+s 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #13;1 to clas\
+s 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #14;1 to clas\
+s 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #15;1 to clas\
+s 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #16;1 to clas\
+s 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #7;1 #17;1 to clas\
+s 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #8;1 to class 7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #9;1 to class 7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #10;1 to class 7: 
+0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #11;1 to class 7: 
+0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #12;1 to class 7: 
+0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #13;1 to class 7: 
+0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #2;1 #14;1 to class 7: 
+0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #3;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #4;1 to class 6: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 to class 6: 18
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #1;1 to class 7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #2;1 to class 7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #3;1 to class 7: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 to class 7: 
+49
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #1;1 to class\
+ 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #2;1 to class\
+ 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #3;1 to class\
+ 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #4;1 to class\
+ 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #5;1 to class\
+ 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #6;1 to class\
+ 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #7;1 to class\
+ 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #8;1 to class\
+ 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #9;1 to class\
+ 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #10;1 to clas\
+s 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #11;1 to clas\
+s 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #12;1 to clas\
+s 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #13;1 to clas\
+s 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #14;1 to clas\
+s 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #15;1 to clas\
+s 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #16;1 to clas\
+s 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #17;1 to clas\
+s 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #18;1 to clas\
+s 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #19;1 to clas\
+s 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #20;1 to clas\
+s 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #21;1 to clas\
+s 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #22;1 to clas\
+s 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #23;1 to clas\
+s 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #24;1 to clas\
+s 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #25;1 to clas\
+s 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #26;1 to clas\
+s 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #27;1 to clas\
+s 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #28;1 to clas\
+s 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #29;1 to clas\
+s 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #30;1 to clas\
+s 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #31;1 to clas\
+s 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #32;1 to clas\
+s 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #33;1 to clas\
+s 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #34;1 to clas\
+s 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #35;1 to clas\
+s 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #36;1 to clas\
+s 8: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 to clas\
+s 8: 29
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #1;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #2;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #3;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #4;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #5;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #6;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #7;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #8;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #9;1 to\
+ class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #10;1 t\
+o class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #11;1 t\
+o class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #12;1 t\
+o class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #13;1 t\
+o class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #14;1 t\
+o class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #15;1 t\
+o class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #16;1 t\
+o class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #17;1 t\
+o class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #18;1 t\
+o class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #19;1 t\
+o class 9: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 t\
+o class 9: 29
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+1;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+2;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+3;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+4;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+5;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+6;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+7;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+8;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+9;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+10;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+11;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+12;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+13;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+14;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+15;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+16;1 to class 10: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 to class 10: 125
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #1;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #2;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #3;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #4;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #5;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #6;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #7;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #8;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #9;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #10;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #11;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #12;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #13;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #14;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #15;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #16;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #17;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #18;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #19;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #20;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #21;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #22;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #23;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #24;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #25;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #26;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #27;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #28;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #29;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #30;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #31;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #32;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #33;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #34;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #35;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #36;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #37;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #38;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #39;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #40;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #41;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #42;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #43;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #44;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #45;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #46;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #47;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #48;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #49;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #50;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #51;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #52;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #53;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #54;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #55;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #56;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #57;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #58;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #59;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #60;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #61;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #62;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #63;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #64;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #65;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #66;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #67;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #68;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #69;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #70;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #71;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #72;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #73;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #74;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #75;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #76;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #77;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #78;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #79;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #80;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #81;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #82;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #83;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #84;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #85;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #86;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #87;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #88;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #89;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #90;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #91;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #92;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #93;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #94;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #95;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #96;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #97;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #98;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #99;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #100;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #101;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #102;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #103;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #104;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #105;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #106;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #107;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #108;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #109;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #110;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #111;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #112;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #113;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #114;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #115;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #116;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #117;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #118;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #119;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #120;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #121;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #122;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #123;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #124;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+17;1 #125;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+18;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+19;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+20;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+21;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+22;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+23;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+24;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+25;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+26;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+27;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+28;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #20;1 #\
+29;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #21;1 t\
+o class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #22;1 t\
+o class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #23;1 t\
+o class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #24;1 t\
+o class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #25;1 t\
+o class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #26;1 t\
+o class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #27;1 t\
+o class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #28;1 t\
+o class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #37;1 #29;1 t\
+o class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #38;1 to clas\
+s 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #39;1 to clas\
+s 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #40;1 to clas\
+s 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #41;1 to clas\
+s 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #42;1 to clas\
+s 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #43;1 to clas\
+s 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #44;1 to clas\
+s 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #45;1 to clas\
+s 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #46;1 to clas\
+s 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #47;1 to clas\
+s 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #48;1 to clas\
+s 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #4;1 #49;1 to clas\
+s 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #5;1 to class 7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #6;1 to class 7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #7;1 to class 7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #8;1 to class 7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #9;1 to class 7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #10;1 to class 7: 
+0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #11;1 to class 7: 
+0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 to class 7: 
+26
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #1;1 to clas\
+s 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #2;1 to clas\
+s 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #3;1 to clas\
+s 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #4;1 to clas\
+s 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #5;1 to clas\
+s 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #6;1 to clas\
+s 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #7;1 to clas\
+s 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #8;1 to clas\
+s 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #9;1 to clas\
+s 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #10;1 to cla\
+ss 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #11;1 to cla\
+ss 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #12;1 to cla\
+ss 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #13;1 to cla\
+ss 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #14;1 to cla\
+ss 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #15;1 to cla\
+ss 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #16;1 to cla\
+ss 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #17;1 to cla\
+ss 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #18;1 to cla\
+ss 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #19;1 to cla\
+ss 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #20;1 to cla\
+ss 8: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #21;1 to cla\
+ss 8: 11
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #21;1 #1;1 t\
+o class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #21;1 #2;1 t\
+o class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #21;1 #3;1 t\
+o class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #21;1 #4;1 t\
+o class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #21;1 #5;1 t\
+o class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #21;1 #6;1 t\
+o class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #21;1 #7;1 t\
+o class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #21;1 #8;1 t\
+o class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #21;1 #9;1 t\
+o class 9: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #21;1 #10;1 \
+to class 9: 16
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #21;1 #10;1 \
+#1;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #21;1 #10;1 \
+#2;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #21;1 #10;1 \
+#3;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #21;1 #10;1 \
+#4;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #21;1 #10;1 \
+#5;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #21;1 #10;1 \
+#6;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #21;1 #10;1 \
+#7;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #21;1 #10;1 \
+#8;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #21;1 #10;1 \
+#9;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #21;1 #10;1 \
+#10;1 to class 10: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #21;1 #10;1 \
+#11;1 to class 10: 33
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #21;1 #10;1 \
+#11;1 #1;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #21;1 #10;1 \
+#11;1 #2;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #21;1 #10;1 \
+#11;1 #3;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #21;1 #10;1 \
+#11;1 #4;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #21;1 #10;1 \
+#11;1 #5;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #21;1 #10;1 \
+#11;1 #6;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #21;1 #10;1 \
+#11;1 #7;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #21;1 #10;1 \
+#11;1 #8;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #21;1 #10;1 \
+#11;1 #9;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #21;1 #10;1 \
+#11;1 #10;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #21;1 #10;1 \
+#11;1 #11;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #21;1 #10;1 \
+#11;1 #12;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #21;1 #10;1 \
+#11;1 #13;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #21;1 #10;1 \
+#11;1 #14;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #21;1 #10;1 \
+#11;1 #15;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #21;1 #10;1 \
+#11;1 #16;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #21;1 #10;1 \
+#11;1 #17;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #21;1 #10;1 \
+#11;1 #18;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #21;1 #10;1 \
+#11;1 #19;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #21;1 #10;1 \
+#11;1 #20;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #21;1 #10;1 \
+#11;1 #21;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #21;1 #10;1 \
+#11;1 #22;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #21;1 #10;1 \
+#11;1 #23;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #21;1 #10;1 \
+#11;1 #24;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #21;1 #10;1 \
+#11;1 #25;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #21;1 #10;1 \
+#11;1 #26;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #21;1 #10;1 \
+#11;1 #27;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #21;1 #10;1 \
+#11;1 #28;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #21;1 #10;1 \
+#11;1 #29;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #21;1 #10;1 \
+#11;1 #30;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #21;1 #10;1 \
+#11;1 #31;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #21;1 #10;1 \
+#11;1 #32;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #21;1 #10;1 \
+#11;1 #33;1 to class 11: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #21;1 #10;1 \
+#12;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #21;1 #10;1 \
+#13;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #21;1 #10;1 \
+#14;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #21;1 #10;1 \
+#15;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #21;1 #10;1 \
+#16;1 to class 10: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #21;1 #11;1 \
+to class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #22;1 to cla\
+ss 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #23;1 to cla\
+ss 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #24;1 to cla\
+ss 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #25;1 to cla\
+ss 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #12;1 #26;1 to cla\
+ss 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #13;1 to class 7: 
+0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #14;1 to class 7: 
+0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #15;1 to class 7: 
+0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #16;1 to class 7: 
+0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #17;1 to class 7: 
+0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #5;1 #18;1 to class 7: 
+0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #6;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #7;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #8;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #9;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #10;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #11;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #5;1 #12;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #6;1 to class 5: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #7;1 to class 5: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #8;1 to class 5: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #9;1 to class 5: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #10;1 to class 5: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 to class 5: 17
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #1;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #2;1 to class 6: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 to class 6: 49
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #1;1 to class 7: 
+0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #2;1 to class 7: 
+0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #3;1 to class 7: 
+0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #4;1 to class 7: 
+0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #5;1 to class 7: 
+0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #6;1 to class 7: 
+0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #7;1 to class 7: 
+0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #8;1 to class 7: 
+0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #9;1 to class 7: 
+0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #10;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #11;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #12;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #13;1 to class 
+7: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #14;1 to class 
+7: 29
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #14;1 #1;1 to cla\
+ss 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #14;1 #2;1 to cla\
+ss 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #14;1 #3;1 to cla\
+ss 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #14;1 #4;1 to cla\
+ss 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #14;1 #5;1 to cla\
+ss 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #14;1 #6;1 to cla\
+ss 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #14;1 #7;1 to cla\
+ss 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #14;1 #8;1 to cla\
+ss 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #14;1 #9;1 to cla\
+ss 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #14;1 #10;1 to cl\
+ass 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #14;1 #11;1 to cl\
+ass 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #14;1 #12;1 to cl\
+ass 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #14;1 #13;1 to cl\
+ass 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #14;1 #14;1 to cl\
+ass 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #14;1 #15;1 to cl\
+ass 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #14;1 #16;1 to cl\
+ass 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #14;1 #17;1 to cl\
+ass 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #14;1 #18;1 to cl\
+ass 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #14;1 #19;1 to cl\
+ass 8: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #14;1 #20;1 to cl\
+ass 8: 25
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #14;1 #20;1 #1;1 \
+to class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #14;1 #20;1 #2;1 \
+to class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #14;1 #20;1 #3;1 \
+to class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #14;1 #20;1 #4;1 \
+to class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #14;1 #20;1 #5;1 \
+to class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #14;1 #20;1 #6;1 \
+to class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #14;1 #20;1 #7;1 \
+to class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #14;1 #20;1 #8;1 \
+to class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #14;1 #20;1 #9;1 \
+to class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #14;1 #20;1 #10;1\
+ to class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #14;1 #20;1 #11;1\
+ to class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #14;1 #20;1 #12;1\
+ to class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #14;1 #20;1 #13;1\
+ to class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #14;1 #20;1 #14;1\
+ to class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #14;1 #20;1 #15;1\
+ to class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #14;1 #20;1 #16;1\
+ to class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #14;1 #20;1 #17;1\
+ to class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #14;1 #20;1 #18;1\
+ to class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #14;1 #20;1 #19;1\
+ to class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #14;1 #20;1 #20;1\
+ to class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #14;1 #20;1 #21;1\
+ to class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #14;1 #20;1 #22;1\
+ to class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #14;1 #20;1 #23;1\
+ to class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #14;1 #20;1 #24;1\
+ to class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #14;1 #20;1 #25;1\
+ to class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #14;1 #21;1 to cl\
+ass 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #14;1 #22;1 to cl\
+ass 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #14;1 #23;1 to cl\
+ass 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #14;1 #24;1 to cl\
+ass 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #14;1 #25;1 to cl\
+ass 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #14;1 #26;1 to cl\
+ass 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #14;1 #27;1 to cl\
+ass 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #14;1 #28;1 to cl\
+ass 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #14;1 #29;1 to cl\
+ass 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #15;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #16;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #17;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #18;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #19;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #20;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #21;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #22;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #23;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #24;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #25;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #26;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #27;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #28;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #29;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #30;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #31;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #32;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #33;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #34;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #35;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #36;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #37;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #38;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #39;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #40;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #41;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #42;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #43;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #44;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #45;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #46;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #47;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #48;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #3;1 #49;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #4;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #5;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #6;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #7;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #8;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #9;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #10;1 to class 6: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #11;1 to class 6: 37
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #11;1 #1;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #11;1 #2;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #11;1 #3;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #11;1 #4;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #11;1 #5;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #11;1 #6;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #11;1 #7;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #11;1 #8;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #11;1 #9;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #11;1 #10;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #11;1 #11;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #11;1 #12;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #11;1 #13;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #11;1 #14;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #11;1 #15;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #11;1 #16;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #11;1 #17;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #11;1 #18;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #11;1 #19;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #11;1 #20;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #11;1 #21;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #11;1 #22;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #11;1 #23;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #11;1 #24;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #11;1 #25;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #11;1 #26;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #11;1 #27;1 to class 
+7: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #11;1 #28;1 to class 
+7: 8
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #11;1 #28;1 #1;1 to cl\
+ass 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #11;1 #28;1 #2;1 to cl\
+ass 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #11;1 #28;1 #3;1 to cl\
+ass 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #11;1 #28;1 #4;1 to cl\
+ass 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #11;1 #28;1 #5;1 to cl\
+ass 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #11;1 #28;1 #6;1 to cl\
+ass 8: 0
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #11;1 #28;1 #7;1 to cl\
+ass 8: 15
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #11;1 #28;1 #7;1 #1;1 \
+to class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #11;1 #28;1 #7;1 #2;1 \
+to class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #11;1 #28;1 #7;1 #3;1 \
+to class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #11;1 #28;1 #7;1 #4;1 \
+to class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #11;1 #28;1 #7;1 #5;1 \
+to class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #11;1 #28;1 #7;1 #6;1 \
+to class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #11;1 #28;1 #7;1 #7;1 \
+to class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #11;1 #28;1 #7;1 #8;1 \
+to class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #11;1 #28;1 #7;1 #9;1 \
+to class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #11;1 #28;1 #7;1 #10;1\
+ to class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #11;1 #28;1 #7;1 #11;1\
+ to class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #11;1 #28;1 #7;1 #12;1\
+ to class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #11;1 #28;1 #7;1 #13;1\
+ to class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #11;1 #28;1 #7;1 #14;1\
+ to class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #11;1 #28;1 #7;1 #15;1\
+ to class 9: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #11;1 #28;1 #8;1 to cl\
+ass 8: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #11;1 #29;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #11;1 #30;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #11;1 #31;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #11;1 #32;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #11;1 #33;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #11;1 #34;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #11;1 #35;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #11;1 #36;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #11;1 #37;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #12;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #13;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #14;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #15;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #16;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #11;1 #17;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #12;1 to class 5: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #13;1 to class 5: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #14;1 to class 5: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #15;1 to class 5: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #16;1 to class 5: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #17;1 to class 5: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #18;1 to class 5: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #19;1 to class 5: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #20;1 to class 5: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #1;1 #21;1 to class 5: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #2;1 to class 4: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #3;1 to class 4: 0
+#I  Number of descendants of group #2;1 #1;1 #4;1 to class 4: 18
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #1;1 to class 5: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #2;1 to class 5: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #3;1 to class 5: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #4;1 to class 5: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #5;1 to class 5: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #6;1 to class 5: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #7;1 to class 5: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #8;1 to class 5: 0
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 to class 5: 70
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #1;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #2;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #3;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #4;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #5;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #6;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #7;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #8;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #9;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #10;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #11;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #12;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #13;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #14;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #15;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #16;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #17;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #18;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #19;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #20;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #21;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #22;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #23;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #24;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #25;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #26;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #27;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #28;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #29;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #30;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #31;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #32;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #33;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #34;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #35;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #36;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #37;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #38;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #39;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #40;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #41;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #42;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #43;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #44;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #45;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #46;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #47;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #48;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #49;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #50;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #51;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #52;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #53;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #54;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #55;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #56;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #57;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #58;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #59;1 to class 6: 0
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #60;1 to class 6: 33
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #60;1 #1;1 to class 7: 
+0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #60;1 #2;1 to class 7: 
+0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #60;1 #3;1 to class 7: 
+0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #60;1 #4;1 to class 7: 
+0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #60;1 #5;1 to class 7: 
+0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #60;1 #6;1 to class 7: 
+0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #60;1 #7;1 to class 7: 
+0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #60;1 #8;1 to class 7: 
+0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #60;1 #9;1 to class 7: 
+0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #60;1 #10;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #60;1 #11;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #60;1 #12;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #60;1 #13;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #60;1 #14;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #60;1 #15;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #60;1 #16;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #60;1 #17;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #60;1 #18;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #60;1 #19;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #60;1 #20;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #60;1 #21;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #60;1 #22;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #60;1 #23;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #60;1 #24;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #60;1 #25;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #60;1 #26;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #60;1 #27;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #60;1 #28;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #60;1 #29;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #60;1 #30;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #60;1 #31;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #60;1 #32;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #60;1 #33;1 to class 
+7: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #61;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #62;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #63;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #64;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #65;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #66;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #67;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #68;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #69;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #9;1 #70;1 to class 6: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #10;1 to class 5: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #11;1 to class 5: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #12;1 to class 5: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #13;1 to class 5: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #14;1 to class 5: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #15;1 to class 5: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #16;1 to class 5: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #17;1 to class 5: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #4;1 #18;1 to class 5: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #5;1 to class 4: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #6;1 to class 4: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #7;1 to class 4: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #8;1 to class 4: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 #9;1 to class 4: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #2;1 to class 3: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #3;1 to class 3: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #4;1 to class 3: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #3;1 to class 2: 0
+gap> ##Example: "PqDescendantsTreeCoclassOne-9-i" . based on manual example
+gap> ##(demonstrates how one may use `PqDescendantsTreeCoclassOne' to
+gap> ## develop a descendants tree, by generating the 3-groups of rank 2
+gap> ## and 3-coclass 1 up to 3-class 5. Most effective in XGAP.)
+gap> G := ElementaryAbelianGroup( 9 );
+<pc group of size 9 with 2 generators>
+gap> procId := PqStart( G );
+8
+gap> PqDescendantsTreeCoclassOne( procId : TreeDepth := 5 );
+#I  Number of descendants of group #1;1 to class 2: 2
+#I  Number of descendants of group #1;1 #1;1 to class 3: 2
+#I  Number of descendants of group #1;1 #1;1 #1;1 to class 4: 2
+#I  Number of descendants of group #1;1 #1;1 #1;1 #1;1 to class 5: 2
+#I  group restored from file is incapable
+#I  Number of descendants of group #1;1 #1;1 #1;1 #2;1 to class 5: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #1;1 #1;1 #2;1 to class 4: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #1;1 #2;1 to class 3: 0
+#I  Number of descendants of group #2;1 to class 2: 4
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #1;1 to class 3: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #2;1 to class 3: 0
+#I  Number of descendants of group #2;1 #3;1 to class 3: 6
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #3;1 #1;1 to class 4: 0
+#I  Number of descendants of group #2;1 #3;1 #2;1 to class 4: 7
+#I  Number of descendants of group #2;1 #3;1 #2;1 #1;1 to class 5: 6
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #3;1 #2;1 #2;1 to class 5: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #3;1 #2;1 #3;1 to class 5: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #3;1 #2;1 #4;1 to class 5: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #3;1 #2;1 #5;1 to class 5: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #3;1 #2;1 #6;1 to class 5: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #3;1 #2;1 #7;1 to class 5: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #3;1 #3;1 to class 4: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #3;1 #4;1 to class 4: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #3;1 #5;1 to class 4: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #3;1 #6;1 to class 4: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #2;1 #4;1 to class 3: 0
+#I  group restored from file is incapable
+#I  Number of descendants of group #3;1 to class 2: 0
 gap> ##Example: "PqEpimorphism" . . . based on `PqEpimorphism' manual example
 gap> F := FreeGroup (2, "F");
 <free group on the generators [ F1, F2 ]>
@@ -47603,7 +58042,7 @@ gap> ##Example: "PqEpimorphism" . . . based on `PqEpimorphism' manual example
 gap> F := FreeGroup (2, "F");
 <free group on the generators [ F1, F2 ]>
 gap> procId := PqStart( F );
-5
+9
 gap> phi := PqEpimorphism( procId : Prime := 5, ClassBound := 2 );
 [ F1, F2 ] -> [ f1, f2 ]
 gap> Image( phi );
@@ -47651,7 +58090,7 @@ gap> F := FreeGroup("a", "b"); a := F.1; b := F.2;
 a
 b
 gap> procId1 := PqStart( F );
-6
+10
 gap> PqPCover( procId1 : Prime := 2, ClassBound := 3 );
 <pc group of size 262144 with 18 generators>
 gap> 
@@ -47659,7 +58098,7 @@ gap> # Now let's get a p-cover of a p-quotient of an fp group
 gap> G := F / [a^4, b^4];
 <fp group on the generators [ a, b ]>
 gap> procId2 := PqStart( G );
-7
+11
 gap> PqPCover( procId2 : Prime := 2, ClassBound := 3 );
 <pc group of size 16384 with 14 generators>
 gap> 
@@ -47676,7 +58115,7 @@ gap> R := [ a^25, Comm(Comm(b, a), a), b^5 ];
 gap> H := F / R;
 <fp group on the generators [ a, b ]>
 gap> procId3 := PqStart( H );
-8
+12
 gap> PqPCover( procId3 : Prime := 5, ClassBound := 5, Metabelian );
 <pc group of size 48828125 with 11 generators>
 gap> 
@@ -47686,10 +58125,11 @@ gap> F := FreeGroup("a", "b");
 gap> rels := [ "a^25", "[b, a, a]", "b^5" ];
 [ "a^25", "[b, a, a]", "b^5" ]
 gap> procId4 := PqStart( F );
-9
+13
 gap> PqPCover( procId4 : Prime := 5, ClassBound := 5, Metabelian, 
 >               Relators := rels );
 <pc group of size 48828125 with 11 generators>
+gap> PqQuitAll();
 gap> ##Example: "PqSupplementInnerAutomorphisms" . . . based on manual example
 gap> ##Illustrates `PqSupplementInnerAutomorphisms' usage
 gap> Q := Pq( FreeGroup(2) : Prime := 3, ClassBound := 1 );
@@ -47710,7 +58150,7 @@ gap> # Executing interactive variant of example: "PqSupplementInnerAutomorphisms
 gap> ##Example: "PqSupplementInnerAutomorphisms" . . . based on manual example
 gap> ##Illustrates `PqSupplementInnerAutomorphisms' usage
 gap> procId := PqStart( FreeGroup(2) );
-10
+1
 gap> Q := Pq( procId : Prime := 3, ClassBound := 1 );
 <pc group of size 9 with 2 generators>
 gap> PqSetPQuotientToGroup( procId );
@@ -47731,7 +58171,7 @@ gap> ##Construction of R(2,5)
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> procId := PqStart(F : Prime := 5, Exponent := 5);
-11
+2
 gap> PqPcPresentation(procId : ClassBound := 1, 
 >                           OutputLevel := 1);
 #I  Lower exponent-5 central series for <grp>
@@ -47765,7 +58205,7 @@ gap> ##need to be considered when doing the exponent law checks
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> procId := PqStart(F : Prime := 5, Exponent := 5);
-12
+3
 gap> PqPcPresentation(procId : ClassBound := 6, 
 >                           OutputLevel := 1);
 #I  Lower exponent-5 central series for <grp>
@@ -47876,7 +58316,7 @@ b
 gap> G := F / [a^25, Comm(Comm(b, a), a), b^5];
 <fp group on the generators [ a, b ]>
 gap> procId1 := PqStart( G );
-13
+4
 gap> S := StandardPresentation( procId1 : Prime := 5, ClassBound := 10 );
 <fp group on the generators [ f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, 
   f12, f13, f14, f15, f16, f17, f18, f19, f20, f21, f22, f23, f24, f25, f26 ]>
@@ -47890,7 +58330,7 @@ gap> H := F / [ a^625, Comm(Comm(Comm(Comm(b, a), a), a), a)/Comm(b, a)^5,
 >            Comm(Comm(b, a), b), b^625 ];
 <fp group on the generators [ a, b ]>
 gap> procId2 := PqStart( H );
-14
+5
 gap> StandardPresentation( procId2 : Prime := 5, ClassBound := 15, 
 >                           Metabelian );
 <fp group on the generators [ f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, 
@@ -47907,12 +58347,11 @@ gap> G4 := F4 / [ b^4, b^2 / Comm(Comm (b, a), a), d^16,
 >              a^16 / (c * d), b^8 / (d * c^4) ];
 <fp group on the generators [ a, b, c, d ]>
 gap> procId3 := PqStart( G4 );
-15
+6
 gap> K := Pq( procId3 : Prime := 2, ClassBound := 1 );
 <pc group of size 4 with 2 generators>
 gap> StandardPresentation( procId3 : pQuotient := K, ClassBound := 14 );
 <fp group with 53 generators>
-gap> PqQuitAll();
 gap> ##Example: "StandardPresentation-i" . . . based on manual example
 gap> ##(demonstrates `StandardPresentation' interactive usage)
 gap> F4 := FreeGroup( "a", "b", "c", "d" );
@@ -47926,7 +58365,7 @@ gap> G4 := F4 / [ b^4, b^2 / Comm(Comm (b, a), a), d^16,
 >              a^16 / (c * d), b^8 / (d * c^4) ];
 <fp group on the generators [ a, b, c, d ]>
 gap> procId := PqStart( G4 );
-1
+7
 gap> Pq( procId : Prime := 2, ClassBound := 1 );
 <pc group of size 4 with 2 generators>
 gap> # the computed p-quotient is ``remembered'' and supplies the
@@ -47954,7 +58393,7 @@ gap> rels := ["a^4 * [b, a, a, a, a, a]^-1",
   "b * a^2 * b^-1 * a^-2 * [b, a, a, a, a, a]^-1", 
   "b^2 * [b, a, a, a, a, a]^-1" ]
 gap> procId := PqStart(F : Prime := 2, Relators := rels);
-2
+8
 gap> PqSPComputePcpAndPCover(procId : ClassBound := 1);
 gap> PqSPStandardPresentation(procId, [ [[0,1],
 >                                     [1,1]],
