@@ -17,9 +17,13 @@ fi;
 ANUPQPackageVersion := function()
   local versionfile, stream, version;
   versionfile := Filename( DirectoriesPackageLibrary("anupq", ""), "VERSION" );
-  stream := InputTextFile( versionfile );
-  version := ReadAll(stream);
-  CloseStream(stream);
+  if IsBound(StringFile) then
+    version := StringFile( versionfile );
+  else
+    stream := InputTextFile( versionfile );
+    version := ReadAll(stream);
+    CloseStream(stream);
+  fi;
   return version{[1..Length(version) - 1]};
 end;
 
