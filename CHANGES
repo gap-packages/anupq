@@ -1,0 +1,44 @@
+In this file we record the changes since the first GAP 4 release of
+the ANUPQ package.
+
+Version 1.2:
+   A number of bugs to do with the input of generators/relations were
+   identified by Robert Morse (thanks Robert):
+   o PQ_GROUP_FROM_PCP (lib/anupq.gi line 531):
+       `GroupHomomorphismByImages' replaced by `GroupHomomorphismByImagesNC'
+       Reason: The check was unnecessary and slowed things down enormously.
+   o PQ_PC_PRESENTATION (lib/anupq.g):
+       - datarec.gens, datarec.rels: previously `String' was applied to
+         the generators/relators provided and then stored in datarec.gens,
+         datarec.rels; this can be enormously costly. Now, no processing
+         is done when GAP already has them in another form (for pc groups,
+         however, the relators are calculated as before and stored as
+         strings, in datec.rels). The conversion to String is now only done
+         at the point of transmission to the pq program, and done in `ToPQk'.
+       - datarec.gens: an Error is now emitted if the number of defining gen'rs
+         is larger than 511 (the limit imposed by the pq program, see MAXGENS
+         in `include/runtime.h').
+   o ToPQk (lib/anupqios.gi):
+       When `ToPQk' is called with `cmd' equal to "gens" or "rels", cmd is
+       treated as the field of `datarec' so that the transmission of generators
+       and relators to the pq program can be treated specially, to improve 
+       efficiency. The data is still split into ``nice'' lines of length < 69
+       characters, but care is taken to avoid infinite loops when there are
+       no nice places to break the lines.
+
+Version 1.1:
+  First GAP 4 release (GAP 4.2 compatible). Updates the GAP 3 release
+  (Version 1.0). Basically, Version 1.0 and 1.1 are incompatible, being
+  for different versions of GAP, but as much as was feasible of the original 
+  was retained. Principal differences are: 
+   o the key commands all take one argument, with any of the previous 
+     arguments being input as options; the GAP 3 way of inputting arguments is
+     still supported for Pq, PqEpimorphism, PqDescendants etc.;
+   o iostreams are used instead of files to communicate with the pq program;
+   o the source code has been modified to support a -G option that allows the
+     pq program to communicate with GAP via the iostream, rather than start
+     up a new GAP, when it needs GAP to compute stabilisers;
+   o the source code has also been modified to remove a few bugs;
+   o the functionality has been significantly increased.
+
+   - Greg Gamble -- 9 July, 2002. 
