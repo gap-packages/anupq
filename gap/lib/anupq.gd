@@ -59,6 +59,12 @@ DeclareGlobalFunction( "Pq" );
 
 #############################################################################
 ##
+#F  PQ_GET_PQUOTIENT( <datarec> ) . . . extract p-quotient from file into GAP
+##
+DeclareGlobalFunction( "PQ_GET_PQUOTIENT" );
+
+#############################################################################
+##
 #F  PQ_EPIMORPHISM( <args> : <options> ) . . . . . prime quotient epimorphism
 ##
 DeclareGlobalFunction( "PQ_EPIMORPHISM" );

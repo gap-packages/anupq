@@ -10,6 +10,14 @@
 #Y  Copyright 1992-1994,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.22  2001/08/30 21:21:16  gap
+#H  `PqCurrentGroup' is now useful and returns a pc group, not just data.
+#H  `PqEliminateRedundantGenerators' now updates the `ngens' and `forder'
+#H  fieldss of the data record, so that `PqFactoredOrder', `PqOrder',
+#H  `PqNrPcGenerators' and `PqWeight' are now accurate (as documented).
+#H  The amount of output of `StandardPresentation' is out of sync. with docs;
+#H  it can wait until I find the right adjustment formula. - GG
+#H
 #H  Revision 1.21  2001/08/30 01:34:24  gap
 #H  Found a nice level of output to give at `OutputLevel := 1' for `Pq'. - GG
 #H
@@ -432,6 +440,24 @@ end );
 
 #############################################################################
 ##
+#F  PQ_GET_PQUOTIENT( <datarec> ) . . . extract p-quotient from file into GAP
+##
+InstallGlobalFunction( PQ_GET_PQUOTIENT, function( datarec )
+    HideGlobalVariables( "F", "MapImages" );
+    Read( datarec.outfname );
+    datarec.pQuotient := ValueGlobal( "F" );
+    datarec.pQepi := GroupHomomorphismByImages( 
+                       datarec.group,
+                       datarec.pQuotient,
+                       GeneratorsOfGroup( datarec.group ),
+                       ValueGlobal( "MapImages" )
+                       );
+    SetFeatureObj( datarec.pQepi, IsSurjective, true );
+    UnhideGlobalVariables( "F", "MapImages" );
+end );
+
+#############################################################################
+##
 #F  PQ_EPIMORPHISM( <args> : <options> ) . . . . . prime quotient epimorphism
 ##
 InstallGlobalFunction( PQ_EPIMORPHISM, function( args )
@@ -454,28 +480,17 @@ InstallGlobalFunction( PQ_EPIMORPHISM, function( args )
 
     PushOptions( rec(nonuser := true) );
     PQ_WRITE_PC_PRESENTATION(datarec, datarec.outfname);
+    PopOptions();
     
     if datarec.calltype = "non-interactive" then
       PQ_COMPLETE_NONINTERACTIVE_FUNC_CALL(datarec);
       if IsBound( datarec.setupfile ) then
-        PopOptions();
         return true;
       fi;
     fi;
             
     # read group and images from file
-    HideGlobalVariables( "F", "MapImages" );
-    Read( datarec.outfname );
-    datarec.pQuotient := ValueGlobal( "F" );
-    datarec.pQepi := GroupHomomorphismByImages( 
-                       datarec.group,
-                       datarec.pQuotient,
-                       GeneratorsOfGroup( datarec.group ),
-                       ValueGlobal( "MapImages" )
-                       );
-    SetFeatureObj( datarec.pQepi, IsSurjective, true );
-    UnhideGlobalVariables( "F", "MapImages" );
-    PopOptions();
+    PQ_GET_PQUOTIENT( datarec );
     return datarec.pQepi;
 end );
 

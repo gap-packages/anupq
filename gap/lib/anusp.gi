@@ -10,6 +10,14 @@
 #Y  Copyright 1993-2001,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.11  2001/08/30 21:21:16  gap
+#H  `PqCurrentGroup' is now useful and returns a pc group, not just data.
+#H  `PqEliminateRedundantGenerators' now updates the `ngens' and `forder'
+#H  fieldss of the data record, so that `PqFactoredOrder', `PqOrder',
+#H  `PqNrPcGenerators' and `PqWeight' are now accurate (as documented).
+#H  The amount of output of `StandardPresentation' is out of sync. with docs;
+#H  it can wait until I find the right adjustment formula. - GG
+#H
 #H  Revision 1.10  2001/08/30 01:09:54  gap
 #H  - Make better use of InfoANUPQ, levels now mean:
 #H    1:non-(timing,memory usage) output from `pq' and general info.
@@ -345,7 +353,7 @@ function( args )
         p := PrimeOfPGroup( G );
     fi;
     
-    PushOptions(rec(nonuser := true));
+    #PushOptions(rec(nonuser := true));
     PQ_PC_PRESENTATION(datarec, "SP" : Prime := p, 
                                        ClassBound := PClassPGroup(G));
 
@@ -357,7 +365,7 @@ function( args )
     if datarec.calltype = "non-interactive" then
         PQ_COMPLETE_NONINTERACTIVE_FUNC_CALL(datarec);
         if IsBound( datarec.setupfile ) then
-            PopOptions();
+            #PopOptions();
             return true;
         fi;
     fi;
@@ -387,7 +395,7 @@ function( args )
                          datarec.SP, 
                          GeneratorsOfGroup(datarec.group),
                          desc.map{[x - k + 1..x]} );
-    PopOptions();
+    #PopOptions();
     return datarec.SPepi;
 end );
 

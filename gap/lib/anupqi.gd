@@ -155,13 +155,7 @@ DeclareGlobalFunction( "PqWeight" );
 
 #############################################################################
 ##
-#F  PQ_CURRENT_GROUP(<datarec>) .  uses p-Q menu opt 4 to set the current grp
-##
-DeclareGlobalFunction( "PQ_CURRENT_GROUP" );
-
-#############################################################################
-##
-#F  PqCurrentGroup( <i> ) . . .  using p-Q menu opt 4 returns the current grp
+#F  PqCurrentGroup( <i> ) . . . . extracts the current quotient as a pc group
 #F  PqCurrentGroup()
 ##
 DeclareGlobalFunction( "PqCurrentGroup" );

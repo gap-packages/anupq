@@ -245,7 +245,7 @@ local gens, rels, pcp, p, pcgs, len, strp, i, j, Rel, line;
     ToPQk(datarec, [ rels{[1 .. i]} ]);
     rels := Concatenation( "  ", rels{[i + 1 .. Length(rels)]} );
   od;
-  datarec.match := "Group:";
+  datarec.match := true;
   ToPQ(datarec, [ rels ]);
   PQ_SET_GRP_DATA(datarec);
 end );
@@ -382,7 +382,7 @@ end );
 InstallGlobalFunction( PQ_RESTORE_PC_PRESENTATION, function( datarec, filename )
   PQ_MENU(datarec, "pQ");
   ToPQ(datarec, [ "3  #restore pc presentation from file" ]);
-  datarec.match := "Group:";
+  datarec.match := true;
   ToPQ(datarec, [ filename, "  #filename" ]);
   datarec.pQpcp := rec(); # Just so it's bound
   PQ_SET_GRP_DATA(datarec);
@@ -451,7 +451,7 @@ end );
 ##
 ##  If `<datarec>.matchedline' is not  set  the  `pq'  binary  is  called  to
 ##  display the presentation; usually  `<datarec>.matchedline'  is  set  when
-##  filtering `pq' output for lines starting with `"Group:"' (the  value  set
+##  filtering `pq' output for lines starting with `"Group"' (the  value  set
 ##  for `<datarec>.match'), but no such  lines  occur  when  computing  a  pc
 ##  presentation with the `OutputLevel' option set to 0, or when restoring  a
 ##  pc presentation, or when computing tails etc. From this line  the  fields
@@ -463,13 +463,22 @@ end );
 ##
 InstallGlobalFunction( PQ_SET_GRP_DATA, function( datarec )
 local line;
+  # Either datarec.matchedline is of one of the following forms:
+  # Group: <grp> to lower exponent-<p> central class <c> has order <p>^<n>
+  # Group completed. Lower exponent-<p> central class = <c>, Order = <p>^<n>
   if not IsBound(datarec.matchedline) then
     PushOptions(rec(nonuser := true));
     ToPQ(datarec, [ "4  #display presentation" ]);
     PopOptions();
   fi;
-  line := SplitString(datarec.matchedline, "", ": ^\n");
-  datarec.name   := line[2];
+  line := SplitString(datarec.matchedline, "", ":,. ^\n");
+  datarec.incomplete := line[3] = "to"; #currently we don't use this info.!
+  if datarec.incomplete then
+    # Only the ``incomplete'' form of datarec.matchedline gives the name
+    datarec.name := line[2];
+  #elif not IsBound(datarec.name) then #do we need to bother?
+  #  datarec.name := "<grp>";
+  fi;
   datarec.class  := Int( line[8] );
   datarec.forder := List( line{[11,12]}, Int);
   PQ_UNBIND(datarec, ["match", "matchedline"]);
@@ -477,7 +486,9 @@ local line;
   if not IsBound(datarec.ngens) then
     datarec.ngens := [];
   fi;
-  datarec.ngens[ datarec.class ] := datarec.forder[2];
+  if datarec.class > 0 then
+    datarec.ngens[ datarec.class ] := datarec.forder[2];
+  fi;
 
   if not IsBound(datarec.inPQ_DATA) and not IsDenseList(datarec.ngens) then
     # It wasn't possible to update datarec.ngens cheaply
@@ -516,7 +527,7 @@ local menu, lev, ngen, i, line, class;
     lev := datarec.OutputLevel;
     PQ_SET_OUTPUT_LEVEL( datarec, 3 );
   fi;
-  datarec.matchlist := ["Group:", "Class", " is defined on "];
+  datarec.matchlist := ["Group", "Class", " is defined on "];
   datarec.matchedlines := [];
   ToPQ(datarec, [ "4  #display presentation" ]);
   datarec.matchedline := datarec.matchedlines[1];
@@ -652,50 +663,22 @@ end );
 
 #############################################################################
 ##
-#F  PQ_CURRENT_GROUP(<datarec>) .  uses p-Q menu opt 4 to set the current grp
-##
-##  sets the details of the current group in `<datarec>.pQ.currGrp'.
-##
-InstallGlobalFunction( PQ_CURRENT_GROUP, function( datarec )
-local lev, line;
-  datarec.match := "Group:";
-  PQ_MENU(datarec, "pQ");
-  if not IsBound(datarec.pQ) then
-    datarec.pQ := rec();
-  fi;
-  if IsBound(datarec.OutputLevel) then
-    lev := datarec.OutputLevel;
-    ToPQ(datarec, [ "5  #set print level" ]);
-    ToPQ(datarec, [ "0  #minimal print level" ]);
-  fi;
-  datarec.pQ.currGrp := rec();
-  PQ_SET_GRP_DATA(datarec.pQ.currGrp);
-  if IsBound(lev) then
-    ToPQ(datarec, [ "5  #set print level" ]);
-    ToPQ(datarec, [ lev, "  #print level" ]);
-  fi;
-end );
-
-#############################################################################
-##
-#F  PqCurrentGroup( <i> ) . . .  using p-Q menu opt 4 returns the current grp
+#F  PqCurrentGroup( <i> ) . . . . extracts the current quotient as a pc group
 #F  PqCurrentGroup()
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, returns  a  record
-##  with fields `name', `class' and `order' which are respectively  the  name
-##  (known to the `pq' binary, which is by default `"G"'), the class and  the
-##  order of the current group.
+##  for the <i>th  or  default  interactive  {\ANUPQ}  process,  returns  the
+##  current lower exponent $p$-class quotient of the group of the process  as
+##  a pc group.
 ##
 InstallGlobalFunction( PqCurrentGroup, function( arg )
 local datarec;
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  if not IsBound(datarec.pQpcp) then
-    Error( "pq binary must have a pcp, call `PqPcPresentation' or\n",
-           "`PqRestorePcPresentation' first\n" );
-  fi;
-  PQ_CURRENT_GROUP( datarec );
-  return datarec.pQ.currGrp;
+  datarec := PQ_DATA_CHK(arg);
+  datarec.outfname := ANUPQData.outfile;
+  PushOptions( rec(nonuser := true) );
+  PQ_WRITE_PC_PRESENTATION(datarec, datarec.outfname);
+  PopOptions();
+  PQ_GET_PQUOTIENT( datarec );
+  return datarec.pQuotient;
 end );
 
 #############################################################################
@@ -782,7 +765,7 @@ end );
 InstallGlobalFunction( PQ_NEXT_CLASS, function( datarec )
 local line;
   PQ_MENU(datarec, "pQ");
-  datarec.match := "Group:";
+  datarec.match := true;
   ToPQ(datarec, [ "6  #calculate next class" ]);
   if IsMatchingSublist(datarec.line, "Input queue factor:") then
     ToPQ(datarec, [ VALUE_PQ_OPTION("QueueFactor", 15), " #queue factor"]);
@@ -824,7 +807,7 @@ end );
 InstallGlobalFunction( PQ_P_COVER, function( datarec )
 local savefile;
   PQ_MENU(datarec, "pQ");
-  datarec.match := "Group:";
+  datarec.match := true;
   ToPQ(datarec, [ "7  #compute p-cover" ]);
   PQ_SET_GRP_DATA(datarec);
   datarec.pcoverclass := datarec.class;
@@ -1019,7 +1002,7 @@ end );
 InstallGlobalFunction( PQ_SETUP_TABLES_FOR_NEXT_CLASS, function( datarec )
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
   ToPQ(datarec, [ "6  #set up tables for next class" ]);
-  datarec.match := "Group:";
+  datarec.match := true;
   PQ_SET_GRP_DATA(datarec); #Just to be sure it's up-to-date
   datarec.setupclass := datarec.class + 1;
 end );
@@ -1059,7 +1042,7 @@ local intwhich;
   ToPQ(datarec, [ weight,   " #weight of tails" ]);
   ToPQ(datarec, [ intwhich, "  #", which ]);
   if intwhich <= 1 then
-    datarec.match := "Group:";
+    datarec.match := true;
     PQ_SET_GRP_DATA(datarec);
   fi;
 end );
@@ -1268,6 +1251,8 @@ end );
 InstallGlobalFunction( PQ_ELIMINATE_REDUNDANT_GENERATORS, function( datarec )
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
   ToPQ(datarec, [ "11 #eliminate redundant generators" ]);
+  datarec.match := true;
+  PQ_SET_GRP_DATA(datarec);
 end );
 
 #############################################################################

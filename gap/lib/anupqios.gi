@@ -414,8 +414,15 @@ end);
 ##  otherwise.
 ##
 InstallGlobalFunction(FILTER_PQ_STREAM_UNTIL_PROMPT, function( datarec )
-local filter, lowlev, ctimelev;
+local match, filter, lowlev, ctimelev;
   filter := ["Exiting", "pq,", "Now enter", "Presentation listing images"];
+  if IsBound(datarec.match) then
+    if datarec.match = true then
+      match := ["Group:", "Group completed"];
+    else
+      match := [datarec.match];
+    fi;
+  fi;
   if IsBound(datarec.filter) then
     Append(filter, datarec.filter);
   fi;
@@ -441,8 +448,8 @@ local filter, lowlev, ctimelev;
     else
       Info( InfoANUPQ, lowlev,   Chomp(datarec.line) );
     fi;
-    if IsBound(datarec.match) then
-      if IsMatchingSublist(datarec.line, datarec.match) then
+    if IsBound(match) then
+      if ForAny( match, s -> IsMatchingSublist(datarec.line, s) ) then
         datarec.matchedline := datarec.line;
       fi;
     elif IsBound(datarec.matchlist) and 
