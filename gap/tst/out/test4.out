@@ -44,7 +44,7 @@ Non-trivial powers:
 
 Non-trivial commutators:
 [ .2, .1 ] = .3
-Its automorphism group has order 2000
+Subset of automorphism group to check has order bound 2000
 
 The standard presentation for the class 3 5-quotient is
 
@@ -57,7 +57,7 @@ Non-trivial commutators:
 [ .2, .1 ] = .3
 [ .3, .1 ] = .5
 [ .3, .2 ] = .5
-Its automorphism group has order 2000
+Subset of automorphism group to check has order bound 2000
 
 The standard presentation for the class 4 5-quotient is
 
@@ -72,7 +72,7 @@ Non-trivial commutators:
 [ .3, .2 ] = .5
 [ .5, .1 ] = .6
 [ .5, .2 ] = .6
-Its automorphism group has order 10000
+Subset of automorphism group to check has order bound 10000
 
 The standard presentation for the class 5 5-quotient is
 
@@ -89,7 +89,7 @@ Non-trivial commutators:
 [ .5, .2 ] = .6
 [ .6, .1 ] = .7
 [ .6, .2 ] = .7
-Its automorphism group has order 50000
+Subset of automorphism group to check has order bound 50000
 
 Select option: 0 
 Exiting from ANU p-Quotient Program
