@@ -101,6 +101,10 @@ F 5.4. PqSPSetPrintLevel
 F 5.4. PqSPSetPrintLevel
 F 5.4. PqSPIsomorphism
 F 5.4. PqSPIsomorphism
+F 5.4. PqSPSupplyAutomorphisms
+F 5.4. PqSPSupplyAutomorphisms
+F 5.4. PqSPExtendAutomorphisms
+F 5.4. PqSPExtendAutomorphisms
 F 5.4. PqPGSupplyAutomorphisms
 F 5.4. PqPGSupplyAutomorphisms
 F 5.4. PqPGConstructDescendants

@@ -512,7 +512,7 @@ performs option 5 of the main $p$-Quotient menu.
 \>PqNextClass() F
 
 for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
-to calculate the next class of `<datarec>.group'. 
+to calculate the next class of `ANUPQData.io[<i>].group'. 
 
 *Note:* For those familiar with the `pq' binary,  `PqNextClass'  performs
 option 6 of the main $p$-Quotient menu.
@@ -521,7 +521,7 @@ option 6 of the main $p$-Quotient menu.
 \>PqPCover() F
 
 for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
-to compute the $p$-covering group of `<datarec>.group'.
+to compute the $p$-covering group of `ANUPQData.io[<i>].group'.
 
 *Note:* For those familiar with  the  `pq'  binary,  `PqPCover'  performs
 option 7 of the main $p$-Quotient menu.
@@ -613,13 +613,38 @@ presentation.
 *Note:* For  those  familiar  with  the  `pq'  binary,  `PqSPIsomorphism'
 performs option 8 of the Standard Presentation menu.
 
+\>PqSPSupplyAutomorphisms( <i>, <mlist> ) F
+\>PqSPSupplyAutomorphisms( <mlist> ) F
+
+for the <i>th or  default  interactive  {\ANUPQ}  process,  supplies  the
+automorphism  data  provided  by  the  list  <mlist>  of  matrices   with
+non-negative integer coefficients. Each matrix in <mlist> must  have  the
+same dimensions; in particular, the number of rows of each matrix must be
+the rank of the $p$-quotient of the group associated with the interactive
+{\ANUPQ} process.
+
+*Note:* 
+For those familiar with the `pq' binary,  `PqSPSupplyAutomorphisms'  uses
+option 18 of the Advanced $p$-Quotient menu.
+
+\>PqSPExtendAutomorphisms( <i> ) F
+\>PqSPExtendAutomorphisms() F
+
+for the <i>th or default interactive {\ANUPQ} process, inputs data to the
+`pq' binary to extend previously-supplied automorphisms.
+
+*Note:*
+For those familiar with the `pq' binary,  `PqSPExtendAutomorphisms'  uses
+option 18 of the Advanced $p$-Quotient menu.
+
 *Main $p$-Group Generation menu commands*
 
 \>PqPGSupplyAutomorphisms( <i> ) F
 \>PqPGSupplyAutomorphisms() F
 
 for the <i>th or default interactive {\ANUPQ} process, supplies the  `pq'
-binary with the automorphism group data needed for `<datarec>.group'.
+binary    with    the    automorphism    group    data     needed     for
+`ANUPQData.io[<i>].group'.
 
 *Note:*
 For  those  familiar  with  the  `pq'  binary,  `PqPGSupplyAutomorphisms'
