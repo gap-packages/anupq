@@ -464,6 +464,7 @@ gap> Size( Image(phi) );
 729
 \endexample
 
+\goodbreak%
 Typing: `PqExample( "EpimorphismStandardPresentation" );' runs the  above
 example in {\GAP} (see~"PqExample"). Note that `AssignGeneratorVariables'
 (see~"ref:AssignGeneratorVariables")  has  only  been   available   since
@@ -515,10 +516,11 @@ should  be  given,  separated  by  commas  like  record  components  (see
 Section~"ref:function call!with options" in the {\GAP} Reference Manual).
 See Chapter~"ANUPQ options" for detailed descriptions of the options.
 
-For  each descendant  <D>  a subgroup  of  automorphism group  of <D>  is
+For each descendant <D>, a subgroup of the automorphism group  of <D>  is
 computed which is  a supplement to the inner automorphisms  of <D> in the
 whole automorphism group  of <D>.  This subgroup can  be accessed via the
-function "PqSupplementInnerAutomorphisms".
+function                                 `PqSupplementInnerAutomorphisms'
+(see~"PqSupplementInnerAutomorphisms").
 
 \beginlist%unordered
 
@@ -668,7 +670,7 @@ three examples (see~"PqExample").
 This function returns  a subgroup of the automorphism  group of <D> which
 is  a supplement  to the  inner automorphism  group of  <D> in  the whole
 automorphism group.   The descendant <D>  must have been computed  by the
-function "PqDescendants".
+function `PqDescendants' (see~"PqDescendants").
 
 \beginexample
 gap>

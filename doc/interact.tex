@@ -44,12 +44,12 @@ On `quit'ting  {\GAP}, `PqQuitAll();'  is executed, which  terminates all
 active  interactive  {\ANUPQ} processes.   If  {\GAP}  is killed  without
 `quit'ting,  before all  interactive {\ANUPQ}  processes  are terminated,
 *zombie* processes  (still living *child* processes  whose *parents* have
-died), will result.  Since zombie processes do consume resources, in such
-an event,  the responsible  computer user should  seek out  and terminate
-those  zombie  processes  (e.g.~by  piping  the output  of  a  `ps'  with
-appropriate options,  usually `aux'  or `ef', to  `grep pq', to  find the
-process ids, and then using `kill';  try `man ps' and `man kill' if these
-hints are unhelpful).
+died), may result. Since zombie processes do consume resources,  in  such
+an event, the responsible computer user should  seek  out  and  terminate
+those zombie processes (e.g.~on  Linux:  `ps  x  |  grep  pq'  gives  you
+information on  the  `pq'  processes  corresponding  to  any  interactive
+{\ANUPQ} processes started in a {\GAP} session; you  can  then  do  `kill
+<N>' for each number <N> appearing in the first column of this output).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Starting and Stopping Interactive ANUPQ Processes}
@@ -65,11 +65,11 @@ process) and  returns an integer  <i> that can  be used to  identify that
 process.  The argument <G> should be an *fp group* or *pc group* that the
 user intends to manipulate  using interactive {\ANUPQ} functions.  If the
 function is  called without  specifying <G>,  a group can  be read  in by
-using the  function~"PqRestorePcPresentation".  If `PqStart'  is given an
-integer argument <workspace>, then the  `pq' program is started up with a
-workspace  (an  integer  array)  of  size <workspace>  (i.e.   $4  \times
-<workspace>$ bytes in a  32-bit environment); otherwise, the `pq' program
-sets a default workspace of $10000000$.
+using the function `PqRestorePcPresentation' (see~"PqRestorePcPresentation").
+If `PqStart' is given an integer  argument  <workspace>,  then  the  `pq'
+program is started up  with  a  workspace  (an  integer  array)  of  size
+<workspace> (i.e. $4 \times <workspace>$ bytes in a 32-bit  environment);
+otherwise, the `pq' program sets a default workspace of $10000000$.
 
 The  only  <options>  currently  recognised  by  `PqStart'  are  `Prime',
 `Exponent' and  `Relators'  (see  Chapter~"ANUPQ  options"  for  detailed
@@ -152,7 +152,7 @@ who to email it to.
 \>Pq( <i> : <options> )!{interactive} F
 \>Pq( : <options> )!{interactive} F
 
-return, for  the fp  or pc group,  let us  call it <F>,  of the  <i>th or
+return, for  the fp  or pc group (let us  call it <F>),  of the  <i>th or
 default interactive  {\ANUPQ} process, the $p$-quotient  of <F> specified
 by <options>,  as a  pc group;  <F> must previously  have been  given (as
 first argument)  to `PqStart' to  start the interactive  {\ANUPQ} process
@@ -264,7 +264,7 @@ gap> Pq(: Prime := 2, ClassBound := 3, OutputLevel := 1 );
 \>PqEpimorphism( <i> : <options> )!{interactive} F
 \>PqEpimorphism( : <options> )!{interactive} F
 
-return, for  the fp  or pc group,  let us  call it <F>,  of the  <i>th or
+return, for  the fp  or pc group (let us  call it <F>),  of the  <i>th or
 default interactive  {\ANUPQ} process, an  epimorphism from <F>  onto the
 $p$-quotient of <F> specified by <options>; <F> must previously have been
 given (as first argument) to  `PqStart' to start the interactive {\ANUPQ}
@@ -746,22 +746,22 @@ presentation is not consistent.
 \>PqFactoredOrder( <i> ) F
 \>PqFactoredOrder() F
 
-for the  <i>th or  default interactive {\ANUPQ}  process, returns  a pair
-`[<p>,<n>]'     where    <n>    is     the    number     of    generators
-(see~"PqNrPcGenerators")  in the  present  pc presentation  of the  group
-currently determined by the process.
-
-If this presentation is consistent, then $p^n$ is the order of the group.
-Otherwise (if tails have been added but the necessary consistency checks,
-relation  collections,  exponent   law  checks  and  redundant  generator
-eliminations have  not yet been  done), $p^n$ is  an upper bound  for the
-order of the group.
+for the <i>th or default interactive {\ANUPQ} process, return an  integer
+pair `[<p>, <n>]' where <p> is a prime  and  <n>  is  the  number  of  pc
+generators  (see~"PqNrPcGenerators")  in  the  pc  presentation  of   the
+quotient group currently determined by the process. If this  presentation
+is consistent, then $p^n$ is the order of the quotient  group.  Otherwise
+(if tails have been added but the necessary consistency checks,  relation
+collections, exponent law checks  and  redundant  generator  eliminations
+have not yet been done), $p^n$ is an upper bound for  the  order  of  the
+group.
 
 \>PqOrder( <i> ) F
 \>PqOrder() F
 
-for  the <i>th  or default  interactive {\ANUPQ}  process,  returns $p^n$
-where `[<p>,<n>]' is the pair as returned by "PqFactoredOrder".
+for the <i>th or default  interactive  {\ANUPQ}  process,  return  $p^n$
+where  `[<p>,  <n>]'  is  the  pair  as  returned  by   `PqFactoredOrder'
+(see~"PqFactoredOrder").
 
 \>PqPClass( <i> ) F
 \>PqPClass() F
@@ -852,9 +852,10 @@ options). The option `Prime'  is  required  unless  already  provided  to
 
 *Notes* 
 
-The pc  presentation is held by  the `pq' program.  In  contrast to "Pq",
-there   is   no    {\GAP}   pc   group   returned;   see~`PqCurrentGroup'
-("PqCurrentGroup") if you need the corresponding {\GAP} pc group.
+The pc presentation is held by the `pq'  program.  In  contrast  to  `Pq'
+(see~"Pq!interactive"),    no    {\GAP}    pc    group    is    returned;
+see~`PqCurrentGroup' ("PqCurrentGroup") if  you  need  the  corresponding
+{\GAP} pc group.
 
 `PqPcPresentation(<i>:  <options>);'  is  roughly   equivalent   to   the
 following sequence of low-level commands:
@@ -933,12 +934,13 @@ For those familiar with the `pq' program, `PqNextClass' performs menu item
 
 for the <i>th or default interactive {\ANUPQ} process, direct the `pq' to
 compute the $p$-covering group of `ANUPQData.io[<i>].group'.  In contrast
-to the  function~"PqPCover", this  function does not  return a  {\GAP} pc
-group.
+to the function  `PqPCover'  (see~"PqPCover"),  this  function  does  not
+return a {\GAP} pc group.
 
 *Notes*
 
 The single command: `PqComputePCover(<i>);' is equivalent to executing
+\goodbreak%
 
 \){\kernttindent}PqSetupTablesForNextClass(<i>);
 \){\kernttindent}PqTails(<i>, 0);
@@ -987,8 +989,8 @@ menu item 1 of the Advanced $p$-Quotient menu.
 
 for the  <i>th or default  interactive {\ANUPQ} process, direct  the `pq'
 program to solve $<a>  * <x> = <b>$ for <x>, where  <a> and <b> are words
-in the pc generators.  For  the representation of these words compare the
-description of the function~"PqCollect".
+in the pc generators. For the  representation  of  these  words  see  the
+description of the function `PqCollect' ("PqCollect").
 
 *Note:* 
 For those familiar  with  the  `pq'  program,  `PqSolveEquation'  performs
@@ -1139,12 +1141,12 @@ performs menu item 9 of the Advanced $p$-Quotient menu.
 \>PqCollectWordInDefiningGenerators( <i>, <word> ) F
 \>PqCollectWordInDefiningGenerators( <word> ) F
 
-for  the   <i>th  or  default  interactive  {\ANUPQ}   process,  takes  a
-user-defined word in the defining generators of the original presentation
-of the fp or pc group of  the process.  Each generator is mapped into the
-current pc presentation, and the resulting word is collected with respect
-to the current pc presentation.  The result of the collection is returned
-as a list of generator number, exponent pairs.
+for  the   <i>th  or  default  interactive  {\ANUPQ}   process,  take   a
+user-defined word <word> in  the  defining  generators  of  the  original
+presentation of the fp or pc group of  the  process.  Each  generator  is
+mapped into the current  pc  presentation,  and  the  resulting  word  is
+collected with respect to the current pc presentation. The result of  the
+collection is returned as a list of generator number, exponent pairs.
 
 The <word> argument may be input  in either of the two ways described for
 `PqCollect' (see~"PqCollect").
@@ -1156,13 +1158,14 @@ performs menu item 23 of the Advanced $p$-Quotient menu.
 \>PqCommutatorDefiningGenerators( <i>, <words>, <pow> ) F
 \>PqCommutatorDefiningGenerators( <words>, <pow> ) F
 
-for  the <i>th  or default  interactive  {\ANUPQ} process,  takes a  list
-<words> of user-defined words in  the defining generators of the original
-presentation of  the fp or  pc group of  the process.  Each  generator is
-mapped into the current pc presentation.  The list <words> is interpreted
-as a  left-normed commutator  and this is  collected with respect  to the
-current pc presentation.   The result of the collection  is returned as a
-list of generator number, exponent pairs.
+for the <i>th or  default  interactive  {\ANUPQ}  process,  take  a  list
+<words> of user-defined words in the defining generators of the  original
+presentation of the fp or pc group of the process, and an  integer  power
+<pow>. Each generator is mapped into the  current  pc  presentation.  The
+list <words> is interpreted as a left-normed  commutator  which  is  then
+raised  to  <pow>  and  collected  with  respect  to   the   current   pc
+presentation. The result of the collection  is  returned  as  a  list  of
+generator number, exponent pairs.
 
 \goodbreak%
 *Note*
@@ -1314,10 +1317,16 @@ item 17 of the Advanced $p$-Quotient menu.
 for  the  <i>th  or  default  interactive {\ANUPQ}  process,  supply  the
 automorphism  data  provided  by   the  list  <mlist>  of  matrices  with
 non-negative integer coefficients.  Each  matrix in <mlist> describes one
-automorphism in following way.  The rows of each matrix correspond to the
-pc generators  of weight  one.  Each  row is the  exponent vector  of the
-image  of the  corresponding weight  one generator  under  the respective
-automorphism.
+automorphism in the following way.
+
+\beginlist%unordered
+\item{--}The rows of each matrix  correspond  to  the  pc  generators  of
+weight one.
+
+\item{--}Each  row  is  the  exponent  vector  of  the   image   of   the
+corresponding weight one generator under the respective automorphism.
+
+\endlist
 
 *Note:* 
 For those familiar with the  `pq'  program,  `PqSupplyAutomorphisms'  uses
@@ -1609,11 +1618,11 @@ performs menu item 1 of the main $p$-Group Generation menu.
 \>PqPGExtendAutomorphisms( <i> ) F
 \>PqPGExtendAutomorphisms() F
 
-for the <i>th  or default interactive {\ANUPQ} process,  directs the `pq'
+for the <i>th  or default interactive {\ANUPQ} process,  direct  the `pq'
 program  to   compute  the  extensions   of  the  automorphisms   of  the
-$p$-quotient of  the previous  class to the  $p$-quotient of  the present
+$p$-quotient of  the previous  class to the  $p$-quotient of  the current
 class.  You may wish to set the `InfoLevel' of `InfoANUPQ' to 2 (or more)
-in order to see the output from the `pq' (see~"InfoANUPQ").
+in order to see the output from the `pq' program (see~"InfoANUPQ").
 
 *Note:*    
 For  those  familiar  with  the  `pq'  program,  `PqPGExtendAutomorphisms'
@@ -1660,11 +1669,19 @@ For those familiar with the  `pq'  binary,  `PqPGSetDescendantToPcp'  and
 `PqPGRestoreGroupFromFile' perform option  3  of  the  main  or  advanced
 $p$-Group Generation menu.
 
+\goodbreak%
 *Commands from the Advanced $p$-Group Generation menu*
 
-To see the following  functions  based  on  the  `pq'  program's  Advanced
-$p$-Group Generation menu in action,  try  `PqExample("Nott-APG-Rel-i");'
-in {\GAP}.
+The   functions   below   perform    the    component    algorithms    of
+`PqPGConstructDescendants' (see~"PqPGConstructDescendants"). You can  get
+some idea of their usage by  trying  `PqExample("Nott-APG-Rel-i");'.  You
+can get some idea of the  breakdown  of  `PqPGConstructDescendants'  into
+these   functions    by    comparing    the    previous    output    with
+`PqExample("Nott-PG-Rel-i");'. 
+
+These functions are intended for use only by ``experts''; please  contact
+the authors if you genuinely have a need for them and need any  amplified
+descriptions.
 
 \>PqAPGDegree( <i>, <step>, <rank> [: Exponent := <n> ]) F
 \>PqAPGDegree( <step>, <rank> [: Exponent := <n> ]) F

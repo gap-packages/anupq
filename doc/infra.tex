@@ -624,13 +624,11 @@ returned by the functions `Pq' and `PqPCover', and the image group of
 the epimorphism returned by `PqEpimorphism'.  Otherwise, if you know
 the group to be a $p$-group, then this can be set by typing 
 
-\begintt
-SetFeatureObj( <G>, ISPGroup, true );
-\endtt
+\){\kernttindent}SetFeatureObj( <G>, IsPGroup, true );
 
-or invoking IsPGroup( <G> ).  Note that for an fp group <G>, the
-latter might result in calling a coset enumeration which may not
-terminate in time.
+or by invoking `IsPGroup( <G> )'.  Note that for an fp group <G>, the
+latter may result in a coset enumeration which might not
+terminate in a reasonable time.
 
 *Note:* For <G> such that `HasNuclearRank(<G>) = true',  `IsCapable(<G>)'
 is equivalent to (the truth or falsity of) `NuclearRank( <G> ) = 0'.
