@@ -233,6 +233,16 @@ for `Pq'.  The  same  alternative  methods  of  passing  options  to  the
 non-interactive  `Pq'  function  are  available  to  the  non-interactive
 version of `PqEpimorphism'.
 
+*Notes:* `PqEpimorphism' may also be called  with  no  arguments  or  one
+integer  argument,  in  which  case  it  is  being   used   interactively
+(see~"PqEpimorphism!interactive"),  and  the  options   `SetupFile'   and
+`PqWorkspace' are ignored by the interactive `PqEpimorphism' function.
+
+See Section~"Attributes and a Property for fp and pc  p-groups"  for  the
+attributes   and   property   `NuclearRank',   `MultiplicatorRank'    and
+`IsCapable' which may be applied to the image group  of  the  epimorphism
+returned by `PqEpimorphism'.
+
 \beginexample
 gap> F := FreeGroup (2, "F");
 <free group on the generators [ F1, F2 ]>
@@ -244,16 +254,6 @@ gap> Image( phi );
 
 Typing: `PqExample( "PqEpimorphism" );' runs the above example in  {\GAP}
 (see~"PqExample").
-
-*Notes:* `PqEpimorphism' may also be called  with  no  arguments  or  one
-integer  argument,  in  which  case  it  is  being   used   interactively
-(see~"PqEpimorphism!interactive"),  and  the  options   `SetupFile'   and
-`PqWorkspace' are ignored by the interactive `PqEpimorphism' function.
-
-See Section~"Attributes and a Property for fp and pc  p-groups"  for  the
-attributes   and   property   `NuclearRank',   `MultiplicatorRank'    and
-`IsCapable' which may be applied to the image group  of  the  epimorphism
-returned by `PqEpimorphism'.
 
 \>PqPCover( <F> : <options> ) F
 
@@ -381,6 +381,29 @@ The options for `PqStandardPresentation' may also be passed  in  the  two
 alternative ways described for  `Pq'  (see~"Pq").  `StandardPresentation'
 does not provide these alternative ways of passing options.
 
+*Notes:*
+In contrast  to the  function `Pq' (see~"Pq")  which returns a  pc group,
+`PqStandardPresentation' or `StandardPresentation' returns an  fp  group.
+This is because the output is mainly used  for  isomorphism  testing  for
+which an fp group is enough. However, the presentation  is  a  polycyclic
+presentation and if you need to do  any  further  computation  with  this
+group (e.g.~to find the order) you can use the function  `PcGroupFpGroup'
+(see~"ref:PcGroupFpGroup" in the {\GAP} Reference Manual) to  form  a  pc
+group.
+
+If the user does not supply a <p>-quotient <Q> via the `pQuotient' option
+and the prime <p> is either supplied or <F> is a  pc  <p>-group,  then  a
+<p>-quotient <Q> is computed. If the user does supply a <p>-quotient  <Q>
+via the `pQuotient' option, the package {\AutPGrp} is called  to  compute
+the automorphism group of <Q>; an error will occur that asks the user  to
+install the package  {\AutPGrp}  if  the  automorphism  group  cannot  be
+computed.
+
+The  attributes  and  property  `NuclearRank',  `MultiplicatorRank'   and
+`IsCapable' are set for the group returned by `PqStandardPresentation' or
+`StandardPresentation' (see Section~"Attributes and a Property for fp and
+pc p-groups").
+
 We illustrate the method with the following examples.
 
 \beginexample
@@ -415,29 +438,6 @@ gap> StandardPresentation( G4 : pQuotient := K, ClassBound := 14 );
 
 Typing: `PqExample( "StandardPresentation" );' runs the above example  in
 {\GAP} (see~"PqExample").
-
-*Notes:*
-In contrast  to the  function `Pq' (see~"Pq")  which returns a  pc group,
-`PqStandardPresentation' or `StandardPresentation' returns an  fp  group.
-This is because the output is mainly used  for  isomorphism  testing  for
-which an fp group is enough. However, the presentation  is  a  polycyclic
-presentation and if you need to do  any  further  computation  with  this
-group (e.g.~to find the order) you can use the function  `PcGroupFpGroup'
-(see~"ref:PcGroupFpGroup" in the {\GAP} Reference Manual) to  form  a  pc
-group.
-
-If the user does not supply a <p>-quotient <Q> via the `pQuotient' option
-and the prime <p> is either supplied or <F> is a  pc  <p>-group,  then  a
-<p>-quotient <Q> is computed. If the user does supply a <p>-quotient  <Q>
-via the `pQuotient' option, the package {\AutPGrp} is called  to  compute
-the automorphism group of <Q>; an error will occur that asks the user  to
-install the package  {\AutPGrp}  if  the  automorphism  group  cannot  be
-computed.
-
-The  attributes  and  property  `NuclearRank',  `MultiplicatorRank'   and
-`IsCapable' are set for the group returned by `PqStandardPresentation' or
-`StandardPresentation' (see Section~"Attributes and a Property for fp and
-pc p-groups").
 
 \>EpimorphismPqStandardPresentation( <F> : <options> ) F
 \>EpimorphismStandardPresentation( <F> : <options> ) M
@@ -561,7 +561,7 @@ function                                 `PqSupplementInnerAutomorphisms'
 \item{}`OrderBound := <n>'
 
 \atindex{option StepSize}{@option \noexpand`StepSize'}
-\item{}`StepSize := <nOrlist>'
+\item{}`StepSize := <n>', `StepSize := <list>'
 
 \atindex{option RankInitialSegmentSubgroups}%
 {@option \noexpand`RankInitialSegmentSubgroups'}

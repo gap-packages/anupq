@@ -174,7 +174,7 @@ option (see~"option Exponent"), which is implemented at the C  level  and
 is highly optimised and so is much more efficient.
 
 \item{3.}
-The  number  of   instances  of  the  each  identity   tends  to  grow
+The  number  of   instances  of  each  identity   tends  to  grow
 combinatorially with the class. So *care* should be exercised in using
 the  `Identities'  option, by  including  other restrictions,  e.g.~by
 using the `ClassBound' option (see~"option ClassBound").
@@ -264,14 +264,15 @@ Sets the rank of the initial  segment  subgroup  chosen  to  be  <n>.  By
 default, this has value 0.
 
 \>`SpaceEfficient'{option SpaceEfficient}@{option `SpaceEfficient'|indexit}&
-Specifies that the `pq' program perform calculations more slowly but  with
-greater space efficiency. This flag is frequently necessary for groups of
-large Frattini quotient rank. The space saving occurs  because  only  one
-permutation is stored at any one time. This option is only  available  if
-the   `PcgsAutomorphisms'   flag   is   set   to   `true'    (see~"option
-PcgsAutomorphisms").  For  an   interactive   process,   `SpaceEfficient'
-defaults to a previously supplied value for the process.  Otherwise  (and
-non-interactively), `SpaceEfficient' is by default `false'.
+Specifies that the `pq'  program performs certain calculations of p-group
+generation more slowly  but with greater space efficiency.   This flag is
+frequently  necessary for groups  of large  Frattini quotient  rank.  The
+space saving  occurs because  only one permutation  is stored at  any one
+time. This  option is only  available if the `PcgsAutomorphisms'  flag is
+set  to  `true'  (see~"option  PcgsAutomorphisms").  For  an  interactive
+process, `SpaceEfficient' defaults to a previously supplied value for the
+process.   Otherwise  (and  non-interactively),  `SpaceEfficient'  is  by
+default `false'.
 
 
 \>`CapableDescendants'{option CapableDescendants}@{option `CapableDescendants'|indexit}&
@@ -297,10 +298,11 @@ Suppose that <L> is the list of descendants generated, then  for  a  list
 `<L>[<n>]'.
 
 \>`BasicAlgorithm'{option BasicAlgorithm}@{option `BasicAlgorithm'|indexit}&
-Specifies that an algorithm that the `pq' program  calls  its  ``default''
-algorithm be used. By default this  algorithm  is  *not*  used.  If  this
-option is supplied the settings of options `RankInitialSegmentSubgroups',
-`AllDescendants', `Exponent' and `Metabelian' are ignored.
+Specifies that an  algorithm that the `pq' program  calls its ``default''
+algorithm be  used for p-group  generation. By default this  algorithm is
+*not*  used.   If  this  option  is  supplied  the  settings  of  options
+`RankInitialSegmentSubgroups',     `AllDescendants',    `Exponent'    and
+`Metabelian' are ignored.
 
 \>`CustomiseOutput := <rec>'{option CustomiseOutput}%
 @{option `CustomiseOutput'|indexit}&
