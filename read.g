@@ -16,6 +16,7 @@ ReadPkg( "anupq", "gap/lib/anusp.gi" );
 ReadPkg( "anupq", "gap/lib/anupqopt.gi" );
 ReadPkg( "anupq", "gap/lib/anupqios.gi" );
 ReadPkg( "anupq", "gap/lib/anupqi.gi" );
+ReadPkg( "anupq", "gap/lib/anupqid.gi" );
 ReadPkg( "anupq", "gap/lib/anustab.gi" );
 if not IsBound( LOADED_PACKAGES.autpgrp ) then
     Info(InfoWarning + InfoANUPQ,1, "Package ``AutPGrp'' is not available.");

@@ -198,6 +198,18 @@ end);
 
 #############################################################################
 ##
+#F  ANUPQDataRecord([<i>]) . . . . . . . returns the data record of a process
+##
+InstallGlobalFunction(ANUPQDataRecord, function( arg )
+  if not IsEmpty(arg) and arg[1] = 0 and IsBound( ANUPQData.ni ) then
+    return ANUPQData.ni;
+  else
+    return ANUPQData.io[ CallFuncList(PqProcessIndex, arg) ];
+  fi;
+end);
+
+#############################################################################
+##
 #F  PqProcessIndex( <i> ) . . . . . . . . . . . User version of ANUPQ_IOINDEX
 #F  PqProcessIndex()
 ##

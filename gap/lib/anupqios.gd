@@ -54,6 +54,12 @@ DeclareGlobalFunction( "ANUPQ_IOINDEX_ARG_CHK" );
 
 #############################################################################
 ##
+#F  ANUPQDataRecord([<i>]) . . . . . . . returns the data record of a process
+##
+DeclareGlobalFunction( "ANUPQDataRecord" );
+
+#############################################################################
+##
 #F  PqProcessIndex( <i> ) . . . . . . . . . . . User version of ANUPQ_IOINDEX
 #F  PqProcessIndex()
 ##
