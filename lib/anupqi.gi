@@ -127,14 +127,17 @@ InstallGlobalFunction( PQ_AUT_INPUT, function( datarec, G )
         od;
     od;
 
-    ##  Finally, tell the standalone the number of soluble automorphisms and
-    ##  the relative order of each automorphism.
-    ToPQ(datarec, [ Length(autrec.agOrder) ], [ "  #number of soluble automorphisms" ]);
+    if ValueOption( "inhibit_orders" ) <> true then
+        ##  Finally, tell the standalone the number of soluble automorphisms
+        ##  and the relative order of each automorphism. 
+        ToPQ(datarec, [ Length(autrec.agOrder) ], 
+             [ "  #number of soluble automorphisms" ]);
     
-    for i in Reversed( [1..Length( autrec.agOrder )] ) do
-        ToPQ( datarec, [ autrec.agOrder[i] ], 
-              [ "  #order of ", i, "th ag automorphism" ] );
-    od;
+        for i in Reversed( [1..Length( autrec.agOrder )] ) do
+            ToPQ( datarec, [ autrec.agOrder[i] ], 
+                  [ "  #order of ", i, "th ag automorphism" ] );
+        od;
+    fi;
     
 
 end );
@@ -2419,7 +2422,7 @@ local datarec, savefile;
   ToPQ(datarec, [ VALUE_PQ_OPTION("ClassBound", 63)], [ "  #class bound" ]);
 
   if 1 = Length(arg) then
-    PQ_AUT_INPUT( datarec, datarec.pQuotient );
+    PQ_AUT_INPUT( datarec, datarec.pQuotient : inhibit_orders );
   else
     PQ_MANUAL_AUT_INPUT( datarec, arg[2] );
   fi;
