@@ -6,7 +6,7 @@ rels := ["b^4", "b^2 * [b, a, a]^-1", "b * (a^2 * b^-1 * a^2)^-1" ];
 procId := PqStart(F : Prime := 2, Relators := rels);
 #comment: set a different print level by supplying <OutputLevel>
 #add <OutputLevel> for <value> if set and ok
-#PqSPSetPrintLevel(procId, value);;
+#PqSetOutputLevel(procId, value);;
 PqSPPcPresentation(procId : ClassBound := 1);;
 #comment: set a different `ClassBound' by supplying <ClassBound>
 #comment: also save the presentation to a file by supplying <StandardPresentationFile>

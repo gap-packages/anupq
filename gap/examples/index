@@ -19,14 +19,17 @@ The following ANUPQ examples are available:
   general:
    "Pq"                   "Pq-ni"                "PqEpimorphism"        
   2-groups:
-   "2gp-Rel-i"            "2gp-a-Rel-i"          "B2-8-i"
-   "B4-4-i"               "B4-4-a-i"             "B5-4.g"
+   "2gp-Rel"              "2gp-Rel-i"            "2gp-a-Rel-i"
+   "B2-8-i"               "B4-4-i"               "B4-4-a-i"
+   "B5-4.g"
   3-groups:
-   "3gp-Rel-i"            "3gp-a-Rel-i"          "3gp-maxoccur-Rel-i"
+   "3gp-Rel-i"            "3gp-a-Rel"            "3gp-a-Rel-i"
+   "3gp-a-x-Rel-i"        "3gp-maxoccur-Rel-i"
   5-groups:
    "5gp-Rel-i"            "5gp-a-Rel-i"          "5gp-b-Rel-i"
-   "5gp-c-Rel-i"          "5gp-metabelian-Rel-i" "F2-5-i"
-   "B2-5-i"               "R2-5-i"
+   "5gp-c-Rel-i"          "5gp-metabelian-Rel-i" "5gp-maxoccur-Rel-i"
+   "F2-5-i"               "B2-5-i"               "R2-5-i"
+   "R2-5-x-i"
   7-groups:
    "7gp-Rel-i"
   11-groups:

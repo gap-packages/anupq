@@ -116,8 +116,8 @@ for class in [ 3 .. 13 ] do
 
     for w in [ class, class-1 .. 7 ] do
 
-        PqAddTails( w );   
-        PqAPQDisplayPresentation( procId );
+        PqAddTails( procId, w );   
+        PqDisplayPcPresentation( procId );
 
         if Relations[ w ] <> [] then
             # recalculate automorphisms
@@ -134,19 +134,19 @@ for class in [ 3 .. 13 ] do
         fi;   
         PqComputeTails( procId, w );
     od;
-    PqAPQDisplayPresentation( procId );
+    PqDisplayPcPresentation( procId );
 
     smallclass := Minimum( class, 6 );
     for w in [ smallclass, smallclass-1 .. 2 ] do
-        PqTails( w );
+        PqTails( procId, w );
     od;
     # recalculate automorphisms
     PqExtendAutomorphisms( procId );
     PqCollect( procId, "x5^4" );
     PqEchelonise( procId );
-    PqApplyAutomorphisms( 15 ); #queue factor = 15
+    PqApplyAutomorphisms( procId, 15 ); #queue factor = 15
     PqEliminateRedundantGenerators( procId );
-    PqAPQDisplayPresentation( procId );
+    PqDisplayPcPresentation( procId );
 od;
 
 #comment: save the presentation to a different file by supplying <OutputFile>
