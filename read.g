@@ -9,15 +9,15 @@
 ##
 #R  Read the install files.
 ##
-ReadPkg( "anupq", "gap/lib/anupqprop.gi" );
-ReadPkg( "anupq", "gap/lib/anupq.gi" );
-ReadPkg( "anupq", "gap/lib/anupga.gi" );
-ReadPkg( "anupq", "gap/lib/anusp.gi" );
-ReadPkg( "anupq", "gap/lib/anupqopt.gi" );
-ReadPkg( "anupq", "gap/lib/anupqios.gi" );
-ReadPkg( "anupq", "gap/lib/anupqi.gi" );
-ReadPkg( "anupq", "gap/lib/anupqid.gi" );
-ReadPkg( "anupq", "gap/lib/anustab.gi" );
+ReadPkg( "anupq", "lib/anupqprop.gi" );
+ReadPkg( "anupq", "lib/anupq.gi" );
+ReadPkg( "anupq", "lib/anupga.gi" );
+ReadPkg( "anupq", "lib/anusp.gi" );
+ReadPkg( "anupq", "lib/anupqopt.gi" );
+ReadPkg( "anupq", "lib/anupqios.gi" );
+ReadPkg( "anupq", "lib/anupqi.gi" );
+ReadPkg( "anupq", "lib/anupqid.gi" );
+ReadPkg( "anupq", "lib/anustab.gi" );
 if not IsBound( LOADED_PACKAGES.autpgrp ) then
     Info(InfoWarning + InfoANUPQ,1, "Package ``AutPGrp'' is not available.");
     Info(InfoWarning + InfoANUPQ,1, "You may run into trouble later if the pq");

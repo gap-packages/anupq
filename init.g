@@ -52,7 +52,7 @@ DeclarePackage( "anupq", ANUPQPackageVersion(),
   end );
 
 ##
-##  This is needed for `gap/lib/anustab.gi'
+##  This is needed for `lib/anustab.gi'
 ##
 if TestPackageAvailability( "autpgrp", "1.0" ) <> fail then
     RequirePackage( "autpgrp" );
@@ -62,19 +62,19 @@ fi;
 ##
 #R  Read the head file and declaration files.
 ##
-ReadPkg( "anupq", "gap/lib/anupqprop.gd" );
-ReadPkg( "anupq", "gap/lib/anupq.gd" );
-ReadPkg( "anupq", "gap/lib/anupga.gd" );
-ReadPkg( "anupq", "gap/lib/anusp.gd" );
-ReadPkg( "anupq", "gap/lib/anupqopt.gd" );
-ReadPkg( "anupq", "gap/lib/anupqios.gd" );
-ReadPkg( "anupq", "gap/lib/anupqi.gd" );
-ReadPkg( "anupq", "gap/lib/anupqid.gd" );
-ReadPkg( "anupq", "gap/lib/anustab.gd" );
+ReadPkg( "anupq", "lib/anupqprop.gd" );
+ReadPkg( "anupq", "lib/anupq.gd" );
+ReadPkg( "anupq", "lib/anupga.gd" );
+ReadPkg( "anupq", "lib/anusp.gd" );
+ReadPkg( "anupq", "lib/anupqopt.gd" );
+ReadPkg( "anupq", "lib/anupqios.gd" );
+ReadPkg( "anupq", "lib/anupqi.gd" );
+ReadPkg( "anupq", "lib/anupqid.gd" );
+ReadPkg( "anupq", "lib/anustab.gd" );
 if not CompareVersionNumbers( VERSION, "4.3" ) then
-    ReadPkg( "anupq", "gap/lib/anupq4r2cpt.gd" );
-    ReadPkg( "anupq", "gap/lib/anupq4r2cpt.gi" );
+    ReadPkg( "anupq", "lib/anupq4r2cpt.gd" );
+    ReadPkg( "anupq", "lib/anupq4r2cpt.gi" );
 fi;
-ReadPkg( "anupq", "gap/lib/anupqhead.g" );
+ReadPkg( "anupq", "lib/anupqhead.g" );
 
 #E  init.g . . . . . . . . . . . . . . . . . . . . . . . . . . . .  ends here

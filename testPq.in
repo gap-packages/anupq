@@ -2,7 +2,7 @@
 
 $pwd = `pwd`;
 chomp $pwd;
-$tstdir = "$pwd/gap/tst";
+$tstdir = "$pwd/tst";
 $i = "";
 $tmpdir = "/tmp/testPq";
 while ( (-d "$tmpdir$i") && !(-W "$tmpdir$i") ) { $i++ }
@@ -102,7 +102,7 @@ open( GAPIN, ">$tmpdir/gapinput");
 print GAPIN "SetInfoLevel(InfoWarning, 0); RequirePackage( \"anupq\" );;\n",
             "SetInfoLevel(InfoWarning, 1);\n",
             "SetInfoLevel(InfoANUPQ, 1);\n",
-            "ReadTest( \"gap/tst/anupga.tst\" );\n";
+            "ReadTest( \"tst/anupga.tst\" );\n";
 close GAPIN;
 system("$gap -b < $tmpdir/gapinput > $tmpdir/gapout");
 open(GAPOUT, "<$tmpdir/gapout");

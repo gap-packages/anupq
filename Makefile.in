@@ -346,24 +346,25 @@ OBJECTS=\
 #@ENDOBJ@
 
 ## this target creates a bin-directory ######################################
-## ... and also writes the value of $(GAP) to: gap/tst/GAP ##################
+## ... and also writes the value of $(GAP) to: tst/GAP ######################
 bindir:
 	if test ! -d bin;  then mkdir bin;  fi
 	if test ! -d bin/@GAPARCH@;  then mkdir bin/@GAPARCH@;  fi
-	echo $(GAP) > gap/tst/GAP
+	echo $(GAP) > tst/GAP
 
 ## do the linking and put the executable in the right place #################
 $(EFILE):  $(OBJECTS)
 	@( $(CC) -o $(EFILE) $(OBJECTS) $(LOPTS) $(LDLIBS); \
 	   echo ""; echo "moving pq to ../bin/@GAPARCH@"; echo ""; \
-	   mv $(EFILE) ../bin/@GAPARCH@ )
+	   mv $(EFILE) ../bin/@GAPARCH@; rm -f ../standalone/bin/pq; \
+	   ln -s ../../bin/@GAPARCH@/$(EFILE) ../standalone/bin/pq )
 
 ## clean me up ##############################################################
 clean:
 	(cd $(SRC) ; rm -f $(OBJECTS) core* $(EFILE); rm -rf ../bin)
 
 distclean: clean
-	rm -f Makefile testPq gap/tst/GAP
+	rm -f Makefile testPq tst/GAP
 
 ## create distribution .zoo file of package #################################
 src_dist:
@@ -375,7 +376,9 @@ GAP4remapdirs:
 	echo "directories already remapped for GAP4?!?"; fi
 	if test ! -d standalone-doc; then \
 	mv README doc; mv doc standalone-doc; \
-	(cd gap; mv README configure replace Makefile.in init.g read.g doc ..;)\
+	mkdir -p -m 755 standalone/bin; mv TEST examples isom standalone; \
+	(cd gap; mv README configure replace Makefile.in init.g read.g doc ..;\
+	 mv examples tst lib ..;)\
 	fi
 
 ## move directories from how GAP4 likes them to the generic layout ##########
@@ -383,7 +386,10 @@ restoredirs:
 	if test -d gap/doc; then echo "directories already restored?!?"; fi
 	if test ! -d gap/doc; then \
 	$(MAKE) -f Makefile clean; \
+	mkdir -p -m 755 gap; \
+	mv examples tst lib gap; \
 	mv README configure replace Makefile.in init.g read.g doc gap; \
+	(cd standalone; mv examples isom TEST ..) \
 	mv standalone-doc doc; mv doc/README .; \
 	fi
 

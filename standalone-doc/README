@@ -4,7 +4,7 @@
 #
 #     Version 1.5
 #
-#     June 2001
+#     June 2001, February 2002
 #
 ###############################################################################
 
@@ -128,13 +128,12 @@ J. Symbolic Comput. 9, 725-733.
 
    doc -- manual for the GAP4 share package that interfaces with pq
    standalone-doc -- documentation on use of the pq standalone program
-   examples -- a number of sample input files for the pq program
-   gap -- GAP library files 
+   standalone -- contains the pq standalone TEST, examples, isom directories
    include  -- C header files 
-   isom -- sample input files illustrating canonical presentation computations
-   magma -- a cshell file and a Magma library file 
    src -- C source files and a Makefile
-   TEST -- some log files + a test program to check correctness
+   lib -- GAP library files
+   tst -- GAP test files
+   examples -- GAP examples
 
    After doing `make restoredirs' in the anupq directory, the anupq sub-
    directories are remapped to the way they are in the distribution found at:
@@ -142,8 +141,11 @@ J. Symbolic Comput. 9, 725-733.
    http://www.math.auckland.ac.nz/~obrien
 
    namely the GAP4 doc directory, main directory README and a number of
-   other files there are moved to the directory doc, standalone-doc
-   is renamed doc and this README is moved to be in the main directory.
+   other files there are moved to the directory doc; standalone-doc
+   is renamed doc; the examples, lib and tst directories are moved into
+   the gap directory; the examples, isom and TEST subdirectories of
+   standalone are moved to be in the main directory; and this README is 
+   moved to be in the main directory.
 
    Doing `make GAP4remapdirs' establishes the directory structure above.
 
@@ -180,7 +182,7 @@ J. Symbolic Comput. 9, 725-733.
    -DRUN_TIME as a compiler flag in the Makefile.
 
 4. The README in the main directory explains how to install the
-   GAP4 share package ANU PQ together with the pq binary.
+   GAP4 package ANUPQ together with the pq binary.
 
    *Otherwise*, to create the pq binary --
    a. change to the src directory;
@@ -237,15 +239,15 @@ J. Symbolic Comput. 9, 725-733.
    remove such material.
 
 8. The link from pq to GAP assumes that you use GAP 3.4 or GAP4
-   *with* the *anupq package* installed.
+   *with* the *ANUPQ package* installed.
 
    If the binary for GAP 3.4 or GAP4 is called gap and is in your 
    default path, you need do no more; if it is not in your path, 
    you must set an environment variable ANUPQ_EXEC_GAP to 
    point to the GAP executable.
 
-9. The TEST directory contains a number of log files, with
-   extension .orig, together with a cshell file called TEST.
+9. The TEST subdirectory of standalone contains a number of log files, 
+   with extension .orig, together with a cshell file called TEST.
    This test program runs through a number of the examples 
    in the examples directory and compares the results generated with 
    those listed in the .orig files of this directory. If the 
