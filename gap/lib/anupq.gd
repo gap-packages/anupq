@@ -90,4 +90,10 @@ DeclareGlobalFunction( "PqAutomorphism" );
 ##
 DeclareGlobalFunction( "PqLeftNormComm" );
 
+#############################################################################
+##
+#F  PqGAPRelators( <group>, <rels> ) . . . . . . . . pq relators as GAP words
+##
+DeclareGlobalFunction( "PqGAPRelators" );
+
 #E  anupq.gd  . . . . . . . . . . . . . . . . . . . . . . . . . . . ends here 

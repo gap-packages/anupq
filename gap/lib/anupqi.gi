@@ -155,7 +155,11 @@ local gens, rels, pcp, p, pcgs, len, strp, i, j, Rel;
 
   if IsFpGroup(datarec.group) then
     gens := FreeGeneratorsOfFpGroup(datarec.group);
-    rels := Filtered( RelatorsOfFpGroup(datarec.group), rel -> not IsOne(rel) );
+    rels := VALUE_PQ_OPTION("Relators", datarec);
+    if rels = fail then
+      rels := Filtered( RelatorsOfFpGroup(datarec.group), 
+                        rel -> not IsOne(rel) );
+    fi;
   else
     pcgs := PcgsPCentralSeriesPGroup(datarec.group);
     len  := Length(pcgs);
@@ -196,7 +200,7 @@ local gens, rels, pcp, p, pcgs, len, strp, i, j, Rel;
   gens := JoinStringsWithSeparator( List(gens, String) );
   rels := JoinStringsWithSeparator( List(rels, String) );
   ToPQk(datarec, ["generators { ", gens, " }"]);
-  ToPQ (datarec, ["relations  { ", rels, " };"]);
+  ToPQ (datarec, ["relators   { ", rels, " };"]);
 end );
 
 #############################################################################
@@ -210,7 +214,7 @@ end );
 ##  as first argument when `PqStart' was called to initiate that process (for
 ##  process <i> the group is stored as `ANUPQData.io[<i>].group').
 ##
-##  The   possible   <options>   are   `Prime',   `ClassBound',   `Exponent',
+##  The possible <options> are `Prime', `ClassBound', `Relators', `Exponent',
 ##  `Metabelian' and `OutputLevel', which are as described for  the  function
 ##  `Pq' (see~"Pq"). The option `Prime' is required unless  already  provided
 ##  to `PqStart'. Also, option `ClassBound' *must* be supplied.
@@ -1590,6 +1594,7 @@ end );
 ##  $p$-Quotient menu).
 ##
 InstallGlobalFunction( PQ_WRITE_PC_PRESENTATION, function( datarec, filename )
+  PrintTo(filename, "");   #to ensure it's writable and empty
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
   ToPQ(datarec, [ "25 #set output file" ]);
   ToPQ(datarec, [ filename ]);
@@ -1796,7 +1801,7 @@ end );
 ##  as first argument when `PqStart' was called to initiate that process (for
 ##  process <i> the group is stored as `ANUPQData.io[<i>].group').
 ##
-##  The   possible   <options>   are   `Prime',   `ClassBound',   `Exponent',
+##  The possible <options> are `Prime', `ClassBound', `Relators', `Exponent',
 ##  `Metabelian' and `OutputLevel', which are as described for  the  function
 ##  `Pq' (see~"Pq"). The option `Prime' is required unless  already  provided
 ##  to `PqStart'. Also, option `ClassBound' *must* be supplied.

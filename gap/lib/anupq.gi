@@ -10,6 +10,13 @@
 #Y  Copyright 1992-1994,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.11  2001/08/02 17:27:08  gap
+#H  Fixed a bug I introduced earlier in the week. Noone at Oberwolfach is looking
+#H  at this ... otherwise they would have noticed. Added a `Relators' option so
+#H  that unexpanded (by GAP) relators may now be passed to the `pq' binary. A
+#H  function `PqGAPRelators' will convert the strings of a `Relators' option to
+#H  relators that GAP understands. - GG
+#H
 #H  Revision 1.10  2001/07/25 20:04:01  gap
 #H  Now treat all save/restore commands in a consistent way. All Standard
 #H  Presentation menu commands are now there. - GG
@@ -501,6 +508,62 @@ local comm, word;
     comm := Comm(comm, word);
   od;
   return comm;
+end );
+
+#############################################################################
+##
+#F  PqGAPRelators( <group>, <rels> ) . . . . . . . . pq relators as GAP words
+##
+##  returns, for a list <rels> of strings in the  string  representations  of
+##  the generators of the fp group <group> prepared as a list of relators for
+##  the `pq' binary, a list of words that {\GAP} understands.
+##
+##  *Note:*
+##  The `pq' binary does not use `/' to indicate multiplication by an inverse
+##  and uses square brackets to represent (left norm) commutators. Also, even
+##  though the `pq' binary accepts relations, all elements of  <rels>  *must*
+##  be in relator form, i.e.~a relation of form `<w1> = <w2>' must be written
+##  as `<w1>*(<w2>)^-1'.
+##
+##  Here is an example (that demonstrates its use, but with  not  necessarily
+##  appropriate relators for a $p$-quotient):
+##
+##  \beginexample
+##  gap> F := FreeGroup("a", "b");
+##  gap> PqGAPRelators(F, [ "a*b^2", "[a,b]^2*a", "([a,b,a,b,b]*a*b)^2*a" ]);
+##  [ a*b^2, a^-1*b^-1*a*b*a^-1*b^-1*a*b*a, b^-1*a^-1*b^-1*a^-1*b*a*b^-1*a*b*a^
+##      -1*b*a^-1*b^-1*a*b*a*b^-1*a^-1*b^-1*a^-1*b*a*b^-1*a*b^-1*a^-1*b*a^-1*b^
+##      -1*a*b*a*b*a^-1*b*a*b^-1*a*b*a^-1*b*a^-1*b^-1*a*b*a*b^-1*a^-1*b^-1*a^
+##      -1*b*a*b^-1*a*b^-1*a^-1*b*a^-1*b^-1*a*b*a*b^2*a*b*a ]
+##  \endexample
+##
+InstallGlobalFunction( PqGAPRelators, function( group, rels )
+local gens, relgens, diff, g;
+  gens := List( FreeGeneratorsOfFpGroup(group), String );
+  if not ForAll(rels, rel -> Position(rel, '/') = fail) then
+    Error( "pq binary does not understand `/' in relators\n" );
+  fi;
+  relgens := Set( Concatenation( 
+                      List( rels, rel -> Filtered(
+                                             SplitString(rel, "", "*[]()^, "),
+                                             str -> Int(str) = fail) ) ) );
+  diff := Difference(relgens, gens);
+  if not IsEmpty(diff) then
+    Error( "generators: ", diff, 
+           "\nare not among the generators of the group supplied\n" );
+  fi;
+  CallFuncList(HideGlobalVariables, gens);
+  for g in FreeGeneratorsOfFpGroup(group) do
+    ASS_GVAR(String(g), g);
+  od;
+  rels := List( rels, rel -> EvalString(
+                                 ReplacedString(
+                                     ReplacedString(rel, "]", "])"),
+                                     "[", "PqLeftNormComm(["
+                                     ) ) );
+  for g in gens do UNBIND_GLOBAL(g); od;
+  CallFuncList(UnhideGlobalVariables, gens);
+  return rels;
 end );
 
 #E  anupq.gi  . . . . . . . . . . . . . . . . . . . . . . . . . . . ends here 

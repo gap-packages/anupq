@@ -42,6 +42,7 @@ InstallValue( ANUPQoptions,
                             "Exponent", 
                             "Metabelian", 
                             "OutputLevel", 
+                            "Relators", 
                             "Verbose", 
                             "SetupFile",
                             "PqWorkspace" ],
@@ -50,6 +51,7 @@ InstallValue( ANUPQoptions,
                    PqDescendants
                        := [ "ClassBound", 
                             "OrderBound", 
+                            "Relators", 
                             "StepSize", 
                             "PcgsAutomorphisms", 
                             "RankInitialSegmentSubgroups", 
@@ -85,7 +87,7 @@ InstallValue( ANUPQoptions,
 ##  to any function  interacting  with  the  {\ANUPQ}  process  initiated  by
 ##  `PqStart'.
 ##
-InstallValue( ANUPQGlobalOptions, [ "Prime", "Exponent" ] );
+InstallValue( ANUPQGlobalOptions, [ "Prime", "Exponent", "Relators" ] );
 
 #############################################################################
 ##
@@ -102,6 +104,7 @@ InstallValue( ANUPQoptionChecks,
                    Exponent   := IsPosInt,
                    Metabelian := IsBool,
                    OutputLevel := x -> x in [0..3],
+                   Relators   := x -> IsList(x) and ForAll(x, IsString),
                    StandardPresentationFile := IsString,
                    Verbose    := IsBool,
                    SetupFile  := IsString,
@@ -133,6 +136,8 @@ InstallValue( ANUPQoptionTypes,
                    Exponent   := "positive integer",
                    Metabelian := "boolean",
                    OutputLevel := "integer in [0..3]",
+                   Relators   := "list of strings",
+                   StandardPresentationFile := "string",
                    Verbose    := "boolean",
                    SetupFile  := "string",
                    PqWorkspace := "positive integer",
