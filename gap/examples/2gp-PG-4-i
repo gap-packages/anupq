@@ -1,5 +1,5 @@
 #Example: "2gp-PG-4-i" . . . based on: examples/pga_4-2.com
-#Descendants of C2 x C2 x C2 x C2
+#All descendants of C2 x C2 x C2 x C2
 #vars: F, procId;
 #options: OutputLevel
 F := FreeGroup("a", "b", "c", "d");
@@ -19,6 +19,5 @@ PqPGSupplyAutomorphisms(procId, [ [[1,1,0,0],
                                    [0,1,0,0],
                                    [0,0,1,0]] ]);;
 PqPGConstructDescendants(procId : ClassBound := 4,
-                                  AllDescendants,
                                   OrderBound := 8,
                                   BasicAlgorithm);;

@@ -15,7 +15,6 @@ PqPGSupplyAutomorphisms(procId, [ [[0,1],
                                   [[0,1],
                                    [1,0]] ]);;
 PqPGConstructDescendants(procId : ClassBound := 3,
-                                  AllDescendants,
                                   PcgsAutomorphisms,
-                                  TailorOutput := rec(group := [,,1],
-                                                      autgroup := [,1]));;
+                                  CustomiseOutput := rec(group := [,,1],
+                                                         autgroup := [,1]));;
