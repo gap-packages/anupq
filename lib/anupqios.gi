@@ -538,7 +538,7 @@ local ok, line, i, j, closed, fragment, sepchars, words, filterones;
       i := i + 1;
     od;
     if i <= Length(words) then
-      Append(line, String(words[1]));
+      Append(line, String(words[i]));
       i := i + 1;
     fi;
     ok := true;

@@ -218,7 +218,7 @@ was released  (the testPq script checks for these).  The  output  you see
 should be something like the following:
 
   Made dir: /tmp/testPq
-  Testing installation of ANUPQ Package (version 1.4)
+  Testing installation of ANUPQ Package (version 1.5)
   
   The first two tests check that the pq C program compiled ok.
   Testing the pq binary ... OK.
@@ -226,14 +226,14 @@ should be something like the following:
   The pq C program compiled ok!
   
   The next tests check that you have the right version of GAP
-  for version 1.4 of the ANUPQ package and that GAP is finding
+  for version 1.5 of the ANUPQ package and that GAP is finding
   the right versions of the ANUPQ and AutPGrp packages.
   
   Checking GAP ...
    pq binary made with GAP set to: /usr/local/bin/gap
    Starting GAP to determine version and package availability ...
     GAP version (4.3fix4) ... OK.
-    GAP found ANUPQ package (version 1.4) ... good.
+    GAP found ANUPQ package (version 1.5) ... good.
     GAP found AutPGrp package (version 1.1) ... good.
    GAP is OK.
 
@@ -251,7 +251,7 @@ If you encounter problems with the `pq' binary, please contact the C code
 author: Eamonn O'Brien <obrien@math.auckland.ac.nz>.
 
 If you encounter problems at the GAP level, please  contact  one  of  the
-ANUPQ package  authors:  Greg  Gamble  <gregg@itee.uq.edu.au>  or  Werner
+ANUPQ package authors: Greg Gamble <gregg@math.rwth-aachen.de>  or Werner
 Nickel <nickel@mathematik.tu-darmstadt.de>.
 
 When sending a bug report, remember we will need to be able to  reproduce
@@ -270,7 +270,8 @@ the problem; so please include:
    standalone `pq', begin with a #).
 
   - Greg Gamble 
-    e-mail: gregg@itee.uq.edu.au (or gregg@math.rwth-aachen.de)
-    www:    http://www.itee.uq.edu.au/~gregg
-  -- 9 October, 2001; 18 February, 2002; 16 April, 2002; 3 November, 2002.
+    e-mail: gregg@math.rwth-aachen.de)
+    www:    http://www.math.rwth-aachen.de/~Greg.Gamble
+  -- 9 October, 2001; 18 February, 2002; 16 April, 2002; 
+     3 November, 2002; 13 April, 2003.
 

@@ -8,10 +8,10 @@
 SetPackageInfo( rec(
 
   PkgName := "ANUPQ",
-  Version := "1.4",
-  Date    := "18/12/2002",
+  Version := "1.5",
+  Date    := "13/04/2003",
   ArchiveURL 
-          := "http://www.math.rwth-aachen.de/~Greg.Gamble/ANUPQ/anupq-1.4",
+          := "http://www.math.rwth-aachen.de/~Greg.Gamble/ANUPQ/anupq-1.5",
   ArchiveFormats 
           := ".zoo",
 
@@ -33,15 +33,15 @@ SetPackageInfo( rec(
       FirstNames    := "Greg",
       IsAuthor      := true,
       IsMaintainer  := true,
-      Email         := "gregg@itee.uq.edu.au",
+      Email         := "gregg@math.rwth-aachen.de",
       WWWHome       := "http://www.math.rwth-aachen.de/~Greg.Gamble",
-      PostalAddress := Concatenation( [
+      PostalAddress := Concatenation(
                          "Greg Gamble\n",
                          "School of Mathematics and Statistics\n",
                          "Curtin University of Technology\n",
                          "GPO Box U 1987\n",
                          "Perth WA 6845\n",
-                         "Australia" ] ),
+                         "Australia" ),
       Place         := "Perth",
       Institution   := "Curtin University of Technology"
     ),
@@ -52,10 +52,10 @@ SetPackageInfo( rec(
       IsMaintainer  := true,
       Email         := "nickel@mathematik.tu-darmstadt.de",
       WWWHome       := "http://www.mathematik.tu-darmstadt.de/~nickel",
-      PostalAddress := Concatenation( [
+      PostalAddress := Concatenation(
                          "AG 2, Fachbereich Mathematik, TU Darmstadt\n",
                          "Schlossgartenstr. 7, 64289 Darmstadt\n",
-                         "Germany" ] ),
+                         "Germany" ),
       Place         := "Darmstadt",
       Institution   := "TU Darmstadt"
     ),
@@ -66,12 +66,12 @@ SetPackageInfo( rec(
       IsMaintainer  := false,
       Email         := "obrien@math.auckland.ac.nz",
       WWWHome       := "http://www.math.auckland.ac.nz/~obrien",
-      PostalAddress := Concatenation( [
+      PostalAddress := Concatenation(
                          "Department of Mathematics\n",
                          "University of Auckland\n",
                          "Private Bag 92019\n",
                          "Auckland\n",
-                         "New Zealand\n" ] ),
+                         "New Zealand\n" ),
       Place         := "Auckland",
       Institution   := "University of Auckland"
     )
@@ -137,7 +137,7 @@ SetPackageInfo( rec(
     BookName  := "ANUPQ",
     # format/extension can be one of .zoo, .tar.gz, .tar.bz2, -win.zip
     Archive   := 
-      "http://www.math.rwth-aachen.de/~Greg.Gamble/ANUPQ/anupq-1.4.zoo",
+      "http://www.math.rwth-aachen.de/~Greg.Gamble/ANUPQ/anupq-1.5.zoo",
     HTMLStart := "htm/chapters.htm",
     PDFFile   := "doc/manual.pdf",
     # the path to the .six file used by GAP's help system
@@ -162,7 +162,7 @@ SetPackageInfo( rec(
     # without these, the package will not load
     NeededOtherPackages := [],
     # without these the package will issue a warning while loading
-    SuggestedOtherPackages := [ [ "autpgrp", ">=1.0" ] ],
+    SuggestedOtherPackages := [ [ "autpgrp", ">=1.1" ] ],
     # needed external conditions (programs, operating system, ...)  provide 
     # just strings as text or
     # pairs [text, URL] where URL  provides further information
@@ -192,6 +192,20 @@ SetPackageInfo( rec(
 
       return true;
     end,
+
+  BannerString := Concatenation( 
+    "-------------------------------------------------------------\n",
+    "Loading ", ~.PackageDoc.BookName, " ", ~.Version, 
+    " (", ~.PackageDoc.LongTitle, " package)\n",
+    "C code by  ", ~.Persons[3].FirstNames, " ", ~.Persons[3].LastName,
+                  " <", ~.Persons[3].Email, ">\n",
+    "           (ANU pq binary version: 1.5)\n",
+    "GAP code by ", ~.Persons[2].FirstNames, " ", ~.Persons[2].LastName,
+                  " <", ~.Persons[2].Email, ">\n",
+    "        and   ", ~.Persons[1].FirstNames, " ", ~.Persons[1].LastName,
+                  "  <", ~.Persons[1].Email, ">\n\n",
+    "            For help, type: ?", ~.PackageDoc.BookName, "\n",
+    "-------------------------------------------------------------\n"),
 
 ##  Suggest here if the package should be *automatically loaded* when GAP is 
 ##  started.  This should usually be 'false'. Say 'true' only if your package 

@@ -68,7 +68,7 @@ ANUPQWarnOfOtherOptions := false;
 ##
 ##  Print a banner . . . . . .  using InfoWarning (so a user can turn it off)
 ##
-if not QUIET and BANNER then
+if not CompareVersionNumbers( VERSION, "4.4" ) and not QUIET and BANNER then
 
 ANUPQData.banner := ValueOption("pkgbanner");
 if ANUPQData.banner = "short" then
