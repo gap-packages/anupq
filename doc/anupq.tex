@@ -201,13 +201,17 @@ variables of the identity.  The return value of each of those
 functions is the identity evaluated on the arguments of the function.
 
 \beginexample
-gap> G := FreeGroup(2);                                                        
+gap> G := FreeGroup(2);
 <free group on the generators [ f1, f2 ]>
 gap> Burnside5 := x->x^5;
 function( x ) ... end
-gap> Engel3 := function( x,y ) return LeftNormedComm( [x,y,y,y] ); end;        
+gap> Engel3 := function( x,y ) return LeftNormedComm( [x,y,y,y] ); end;
 function( x, y ) ... end
 gap> Pq( G : Prime := 5, Identities := [ Burnside5, Engel3 ] );
+#I  Class 1 with 2 generators.
+#I  Class 2 with 3 generators.
+#I  Class 3 with 5 generators.
+#I  Class 3 with 5 generators.
 <pc group of size 3125 with 5 generators>
 \endexample
 
