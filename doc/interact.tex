@@ -152,9 +152,10 @@ argument  to  `PqStart'  to  start  the  interactive   {\ANUPQ}   process
 listed for the non-interactive `Pq' function (see~"Pq") should be  given,
 separated by commas like record components (see~"ref:function  call  with
 options"), except that  the  options  `SetupFile'  or  `PqWorkspace'  are
-ignored by the interactive `Pq'. A pc presentation is  only  computed  if
-one has not previously been computed and none of the options given in the
-call differ from previous values.
+ignored by the interactive `Pq'. As a minimum the user must supply values
+for the `Prime' and `ClassBound'  options.  A  pc  presentation  is  only
+computed if one has not previously been computed and none of the  options
+given in the call differ from previous values.
 
 *Note:*
 If a pc  presentation  has  previously  been  computed  any  options  not
@@ -223,7 +224,8 @@ process (see~"PqStart"). Behind the colon <options> a  selection  of  the
 options given for the non-interactive `Pq' function (see~"Pq") should  be
 given, separated by commas like record components (see~"ref:function call
 with options"), except that the options `SetupFile' or `PqWorkspace'  are
-ignored by the interactive `PqEpimorphism' function.
+ignored by the interactive `PqEpimorphism' function.  As  a  minimum  the
+user must supply values for the `Prime' and `ClassBound' options.
 
 \index{automorphisms!of $p$-groups}
 \>PqStandardPresentation( <i>, <p> : <options> )!{interactive} F

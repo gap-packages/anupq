@@ -53,11 +53,14 @@ returns for the finitely presented group <F>,  the  $p$-quotient  of  <F>
 specified by <options>, as a  pc-group.  Behind  the  colon  <options>  a
 selection of the  options  from  the  following  list  should  be  given,
 separated by commas like record components (see~"ref:function  call  with
-options"). `Pq' may also be called  with  no  arguments  or  one  integer
-argument,   in   which   case   it   is    being    used    interactively
+options"). As a minimum the user must supply values for the  `Prime'  and
+`ClassBound' options. `Pq' may also be called with no  arguments  or  one
+integer  argument,  in  which  case  it  is  being   used   interactively
 (see~"Pq!interactive");  the  same  options  may  be  used,  except  that
 `SetupFile'  and  `PqWorkspace'  are  ignored  by  the  interactive  `Pq'
-function.
+function. Section~"Hints and Warnings regarding the use of Options" gives
+some important hints and warnings regarding option usage; if you  haven't
+read this section, please take the time to read it now.
 
 \beginitems
 
@@ -73,7 +76,8 @@ Specifies that the $p$-quotient computed has exponent <n>. By default, no
 exponent law is enforced.
 
 `Metabelian' & 
-Specifies that the largest metabelian $p$-quotient be constructed.
+Specifies that the largest metabelian  $p$-quotient  be  constructed.  By
+default this restriction is not enforced.
 
 `OutputLevel := <n>' &
 Specifies the level of ``verbosity'' of the information output by the ANU
@@ -81,13 +85,15 @@ Specifies the level of ``verbosity'' of the information output by the ANU
 the range 0 to 3. `OutputLevel := 0' displays no output, `OutputLevel  :=
 1' displays minimal output (which  is  the  `pq'  binary's  default)  and
 `OutputLevel's for <n> greater than `1' give progressively  more  output.
+To see these messages from the `pq' binary, the `InfoANUPQ' level must be
+set to 2 (see~"InfoANUPQ").
 
 `SetupFile := <filename>' &
 Non-interactively, this option directs that `pq' should not be called and
 that an input file  with  name  <filename>  (a  string),  containing  the
 commands necessary for the  ANU  `pq'  standalone,  be  constructed.  The
 commands written to <filename> are also `Info'-ed behind  a  ```ToPQ> '''
-prompt at `InfoANUPQ' level  2  (see~"InfoANUPQ").  In  this  case,  `Pq'
+prompt at `InfoANUPQ' level  3  (see~"InfoANUPQ").  In  this  case,  `Pq'
 returns `true'. Interactively, `SetupFile' is ignored.
 
 `PqWorkspace := <workspace>' &
@@ -139,8 +145,8 @@ gap> Pq( H, rec( Prime := 5, ClassBound := 5, Metabelian := true ) );
 <pc group of size 78125 with 7 generators>
 \endexample
 
-It is also possible to pass them as extra arguments, where each option
-name appears as a string followed immediately by its value (if not a
+It is also possible to pass them as extra arguments,  where  each  option
+name appears as a string followed immediately by  its  value  (if  not  a
 boolean option) e.g.
 
 \beginexample
@@ -148,17 +154,24 @@ gap> Pq( H, "Prime", 5, "ClassBound", 5, "Metabelian" );
 <pc group of size 78125 with 7 generators>
 \endexample
 
+This method of passing options permits abbreviation; the only restriction
+is that the abbreviation must be  unique.  So  `"Pr"'  may  be  used  for
+`"Prime"', `"Class"' or even just `"C"' for `"ClassBound"', etc.
+
 \>PqEpimorphism( <F> : <options> ) F
 
 returns for the finitely presented group <F> an epimorphism from <F> onto
 the $p$-quotient of <F> specified by <options>;  the  possible  <options>
-are as for `Pq' (see~"Pq"). As for `Pq', `PqEpimorphism'  may  be  called
-with no arguments or one integer argument, in which case it is being used
-interactively (see~"PqEpimorphism!interactive"); and also  as  for  `Pq',
-the same options may be used, except that `SetupFile'  and  `PqWorkspace'
-are ignored by  the  interactive  `Pq'  function.  The  same  alternative
-methods of passing options for the non-interactive `Pq' function are also
-available for the non-interactive version of `PqEpimorphism'.
+and required <options> (`"Prime"' and `"ClassBound"')  are  as  for  `Pq'
+(see~"Pq"). `PqEpimorphism' only differs from `Pq' in  what  it  outputs;
+everything about what must/may be passed as input to  `PqEpimorphism'  is
+the same  as  for  `Pq',  i.e.~`PqEpimorphism'  may  be  called  with  no
+arguments or one integer  argument,  in  which  case  it  is  being  used
+interactively   (see~"PqEpimorphism!interactive"),   and   the    options
+`SetupFile'  and   `PqWorkspace'   are   ignored   by   the   interactive
+`PqEpimorphism' function; and the same  alternative  methods  of  passing
+options to  the  non-interactive  `Pq'  function  are  available  to  the
+non-interactive version of `PqEpimorphism'.
 
 \beginexample
 gap> F := FreeGroup (2, "F");
@@ -182,7 +195,10 @@ return, for the finitely presented group <F>, the  standard  presentation
 for the  $p$-quotient  of  <F>  specified  by  the  second  argument  and
 <options>, as a pc group. Behind the colon <options> a selection  of  the
 options from the following list should be given, separated by commas like
-record components (see~"ref:function call with options").
+record components (see~"ref:function call with options").  Section~"Hints
+and Warnings regarding the use of Options" gives some important hints and
+warnings regarding option usage; if you haven't read this section, please
+take the time to read it now.
 
 If  the  user  supplies   a   prime   <p>   as   second   argument   then
 `PqStandardPresentation'    or    `StandardPresentation'    computes    a
@@ -210,7 +226,8 @@ Specifies the $p$-quotient computed has  exponent  <n>.  By  default,  no
 exponent law is enforced.
 
 `Metabelian' &
-Specifies the $p$-quotient constructed is metabelian.
+Specifies the $p$-quotient constructed is  metabelian.  By  default  this
+restriction is not enforced.
 
 `PcgsAutomorphisms' &
 Specifies that a polycyclic  generating  sequence  for  the  automorphism
@@ -231,13 +248,15 @@ Specifies the level of ``verbosity'' of the information output by the ANU
 the range 0 to 3. `OutputLevel := 0' displays no output, `OutputLevel  :=
 1' displays minimal output (which  is  the  `pq'  binary's  default)  and
 `OutputLevel's for <n> greater than `1' give progressively  more  output.
+To see these messages from the `pq' binary, the `InfoANUPQ' level must be
+set to 2 (see~"InfoANUPQ").
 
 `SetupFile := <filename>' &
 Non-interactively, this option directs that `pq' should not be called and
 that an input file  with  name  <filename>  (a  string),  containing  the
 commands necessary for the  ANU  `pq'  standalone,  be  constructed.  The
 commands written to <filename> are also `Info'-ed behind  a  ```ToPQ> '''
-prompt at `InfoANUPQ' level  2  (see~"InfoANUPQ").  In  this  case,  `Pq'
+prompt at `InfoANUPQ' level  3  (see~"InfoANUPQ").  In  this  case,  `Pq'
 returns `true'. Interactively, `SetupFile' is ignored.
 
 `PqWorkspace := <workspace>' &
@@ -374,7 +393,10 @@ If the automorphism group  of  <G>  is  not  soluble  or  if  the  option
 call {\GAP} together with the {\AutPGrp}  package  as  a  subprocess  for
 certain orbit-stabilizer calculations.
 
-The following options are supported.
+The  following  options  are  supported.  Section~"Hints   and   Warnings
+regarding the use of Options" gives some  important  hints  and  warnings
+regarding option usage; if you haven't read this section, please take the
+time to read it now.
 
 \beginitems
 
@@ -432,7 +454,8 @@ Specifies that only descendants with  exponent  <n>  be  constructed.  By
 default there is no exponent law.
 
 `Metabelian' &
-Specifies that only metabelian descendants be constructed.
+Specifies that only metabelian descendants  be  constructed.  By  default
+this restriction is not enforced.
 
 `SubList := <sub>' &
 Suppose that <L> is the list of descendants generated, then  for  a  list
@@ -445,7 +468,7 @@ Non-interactively, this option directs that `pq' should not be called and
 that an input file  with  name  <filename>  (a  string),  containing  the
 commands necessary for the  ANU  `pq'  standalone,  be  constructed.  The
 commands written to <filename> are also `Info'-ed behind  a  ```ToPQ> '''
-prompt at `InfoANUPQ' level  2  (see~"InfoANUPQ").  In  this  case,  `Pq'
+prompt at `InfoANUPQ' level  3  (see~"InfoANUPQ").  In  this  case,  `Pq'
 returns `true'. Interactively, `SetupFile' is ignored.
 
 `PqWorkspace := <workspace>' &

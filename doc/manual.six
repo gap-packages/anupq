@@ -10,6 +10,7 @@ F 3.2. ANUPQData
 F 3.2. ANUPQDirectoryTemporary
 S 3.3. Setting the Verbosity of ANUPQ via Info and InfoANUPQ
 F 3.3. InfoANUPQ
+S 3.4. Hints and Warnings regarding the use of Options
 C anupq.tex 4. Non-interactive ANUPQ functions
 S 4.1. Computing p-Quotients
 F 4.1. Pq
