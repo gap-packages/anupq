@@ -162,7 +162,7 @@ options `SetupFile' or `PqWorkspace' are ignored by the interactive  `Pq'
 i.e.~the  following  options  are  recognised  by  the  interactive  `Pq'
 function:
 
-\beginlist
+\beginlist%unordered
 
 \atindex{option Prime}{@option \noexpand`Prime'}
 \item{}`Prime := <p>'
@@ -283,7 +283,7 @@ following list, separated by commas like record components; this list  is
 the same as for  `PqStandardPresentation'  except  for  the  omission  of
 options `SetupFile' and `PqWorkspace' (see~"PqStandardPresentation").
 
-\beginlist
+\beginlist%unordered
 
 \atindex{option ClassBound}{@option \noexpand`ClassBound'}
 \item{}`ClassBound := <n>'
@@ -404,7 +404,7 @@ record components (see Section~"ref:function call with  options"  in  the
 following options  are  recognised  by  the  interactive  `PqDescendants'
 function:
 
-\beginlist
+\beginlist%unordered
 
 \atindex{option ClassBound}{@option \noexpand`ClassBound'}
 \item{}`ClassBound := <n>'
@@ -726,23 +726,23 @@ The single command: `PqNextClass(<i>);' is equivalent to executing
 For those familiar with the `pq' binary, `PqNextClass' performs menu item
 6 of the main $p$-Quotient menu.
 
-\>PqPCover( <i> ) F
-\>PqPCover() F
+\>PqComputePCover( <i> ) F
+\>PqComputePCover() F
 
 for the <i>th or default interactive {\ANUPQ} process, direct the `pq' to
 compute the $p$-covering group of `ANUPQData.io[<i>].group'.
 
 *Notes*
 
-The single command: `PqPCover(<i>);' is equivalent to executing
+The single command: `PqComputePCover(<i>);' is equivalent to executing
 
 \){\kernttindent}PqSetupTablesForNextClass(<i>);
 \){\kernttindent}PqTails(<i>, 0);
 \){\kernttindent}PqDoConsistencyChecks(<i>, 0, 0);
 \){\kernttindent}PqEliminateRedundantGenerators(<i>);
 
-For those familiar with the `pq' binary, `PqPCover' performs menu item  7
-of the main $p$-Quotient menu.
+For those familiar with the `pq' binary, `PqComputePCover' performs  menu
+item 7 of the main $p$-Quotient menu.
 
 *Commands from the Advanced $p$-Quotient menu*
 
@@ -1177,7 +1177,7 @@ $p$-quotient is computed.
 
 `PqSPStandardPresentation' accepts three options, all optional:
 
-\beginlist
+\beginlist%unordered
 
 \atindex{option ClassBound}{@option \noexpand`ClassBound'}
 \item{}`ClassBound := <n>'

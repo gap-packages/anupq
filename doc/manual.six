@@ -173,8 +173,8 @@ F 5.4. PqRestorePcPresentation
 F 5.4. PqNextClass
 F 5.4. PqNextClass
 I 5.4. option QueueFactor
-F 5.4. PqPCover
-F 5.4. PqPCover
+F 5.4. PqComputePCover
+F 5.4. PqComputePCover
 F 5.4. PqCollect
 F 5.4. PqCollect
 F 5.4. PqSolveEquation
