@@ -10,6 +10,9 @@
 #Y  Copyright 1992-1994,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.5  2001/06/02 23:18:56  gap
+#H  Bug fixes. - GG
+#H
 #H  Revision 1.4  2001/05/24 22:05:03  gap
 #H  Added interactive versions of `[Epimorphism][Pq]StandardPresentation' and
 #H  factored out as separate functions the various menu items these functions
@@ -300,21 +303,7 @@ InstallGlobalFunction( PQ_EPIMORPHISM, function( args )
         return ANUPQData.pQepi;
     fi;
 
-    if datarec.calltype <> "interactive" or 
-       not IsBound(datarec.pcp) or 
-       ForAny( REC_NAMES( datarec.pcp ), 
-               optname -> not(ValueOption(optname) in
-                              [fail, datarec.pcp.(optname)]) ) then
-        # only do it in the interactive case if it hasn't already been done
-        # by checking whether options stored in datarec.pcp differ from those
-        # of a previous call ... if a check of an option value returns `fail'
-        # it is assumed the user intended the previous value stored in
-        # `<datarec>.pcp' (this is potentially problematic for boolean
-        # options, to reverse a previous `true', `false' must be explicitly
-        # set for the option on the subsequent function call)
-        
-        PQ_PC_PRESENTATION(datarec);
-    fi;
+    PQ_PC_PRESENTATION(datarec, "pQ");
 
     PQ_WRITE_PC_PRESENTATION(datarec, datarec.outfname);
     

@@ -15,38 +15,6 @@ Revision.anupqi_gi :=
 
 #############################################################################
 ##
-#F  PQ_SP_PCP_INPUT( <datarec> : <options> ) . pcp input - p-Q/SP menu opt. 1
-##
-##  inputs  data  given  by  <options>  to  the   `pq'   binary   for   group
-##  `<datarec>.group' to compute a pc presentation  (option  1  of  the  main
-##  Standard Presentation menu).
-##
-InstallGlobalFunction( PQ_SP_PCP_INPUT, function( datarec )
-local gens, rels;
-
-  datarec.pcp := rec(); # options processed are stored here
-
-  # Option 1 of p-Quotient/Standard Presentation Menu: defining the group
-  ToPQk(datarec, [ "1  #define group" ]);
-  ToPQk(datarec, [ "prime ",    VALUE_PQ_OPTION("Prime", fail, datarec.pcp) ]);
-  ToPQk(datarec, [ "class ",    VALUE_PQ_OPTION("ClassBound", fail, 
-                                                               datarec.pcp) ]);
-  ToPQk(datarec, [ "exponent ", VALUE_PQ_OPTION("Exponent", 0, datarec.pcp) ]);
-  if VALUE_PQ_OPTION( "Metabelian", false, datarec.pcp ) = true then
-    ToPQk(datarec, [ "metabelian" ]);
-  fi;
-  ToPQk(datarec, [ "output ", VALUE_PQ_OPTION("OutputLevel", 1, datarec.pcp)]);
-  gens := JoinStringsWithSeparator(
-              List( FreeGeneratorsOfFpGroup( datarec.group ), String ) );
-  ToPQk(datarec, [ "generators { ", gens, " }" ]);
-  rels := JoinStringsWithSeparator(
-              List( Filtered( RelatorsOfFpGroup( datarec.group ), 
-                              rel -> not IsOne(rel) ), String ) );
-  ToPQ(datarec, [ "relations  { ", rels, " };" ]);
-end );
-
-#############################################################################
-##
 #F  PQ_AUT_INPUT( <datarec>, <G> : <options> ) . . . . . . automorphism input
 ##
 ##  inputs automorphism data for `<datarec>.group' given by <options> to  the
@@ -80,15 +48,54 @@ end );
 
 #############################################################################
 ##
-#F  PQ_PC_PRESENTATION( <datarec> : <options> ) . . . . . . p-Q menu option 1
+#F  PQ_PC_PRESENTATION( <datarec>, <menu> ) . . . . . .  p-Q/SP menu option 1
 ##
 ##  inputs  data  given  by  <options>  to  the   `pq'   binary   for   group
-##  `<datarec>.group' to compute a pc presentation using option 1 of the main
-##  p-Quotient menu.
+##  `<datarec>.group' to compute a  pc  presentation  (do  option  1  of  the
+##  relevant menu) according to the  <menu>  menu,  where  <menu>  is  either
+##  `"pQ"' (Basic p-Quotient menu) or `"SP' (Standard Presentation menu).
 ##
-InstallGlobalFunction( PQ_PC_PRESENTATION, function( datarec )
-  PQ_MENU(datarec, "pQ");
-  PQ_SP_PCP_INPUT(datarec);
+InstallGlobalFunction( PQ_PC_PRESENTATION, function( datarec, menu )
+local gens, rels, pcp;
+
+  pcp := Concatenation( menu, "pcp");
+  if datarec.calltype = "interactive" and IsBound(datarec.(pcp)) and
+     ForAll( REC_NAMES( datarec.(pcp) ), 
+             optname -> ValueOption(optname) 
+                        in [fail, datarec.(pcp).(optname)] ) then
+     # only do it in the interactive case if it hasn't already been done
+     # by checking whether options stored in `<datarec>.(<pcp>)' differ 
+     # from those of a previous call ... if a check of an option value 
+     # returns `fail' it is assumed the user intended the previous value
+     # stored in `<datarec>.(<pcp>)' (this is potentially problematic for 
+     # boolean options, to reverse a previous `true', `false' must be
+     # explicitly set for the option on the subsequent function call)
+        
+     Info(InfoANUPQ, 1, "Using previously computed (", menu, 
+                        ") pc presentation.");
+     return;
+  fi;
+
+  PQ_MENU(datarec, menu);
+  datarec.(pcp) := rec(); # options processed are stored here
+
+  # Option 1 of p-Quotient/Standard Presentation Menu: defining the group
+  ToPQk(datarec, ["1  #define group"]);
+  ToPQk(datarec, ["prime ",    VALUE_PQ_OPTION("Prime", fail, datarec.(pcp))]);
+  ToPQk(datarec, ["class ",    VALUE_PQ_OPTION("ClassBound", fail, 
+                                                              datarec.(pcp))]);
+  ToPQk(datarec, ["exponent ", VALUE_PQ_OPTION("Exponent", 0, datarec.(pcp))]);
+  if VALUE_PQ_OPTION( "Metabelian", false, datarec.(pcp) ) = true then
+    ToPQk(datarec, [ "metabelian" ]);
+  fi;
+  ToPQk(datarec, ["output ", VALUE_PQ_OPTION("OutputLevel", 1, datarec.(pcp))]);
+  gens := JoinStringsWithSeparator(
+              List( FreeGeneratorsOfFpGroup( datarec.group ), String ) );
+  ToPQk(datarec, ["generators { ", gens, " }"]);
+  rels := JoinStringsWithSeparator(
+              List( Filtered( RelatorsOfFpGroup( datarec.group ), 
+                              rel -> not IsOne(rel) ), String ) );
+  ToPQ(datarec,  ["relations  { ", rels, " };"]);
 end );
 
 #############################################################################
@@ -109,7 +116,7 @@ InstallGlobalFunction( PqPcPresentation, function( arg )
 local datarec;
   ANUPQ_IOINDEX_ARG_CHK(arg);
   datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  PQ_PC_PRESENTATION( datarec );
+  PQ_PC_PRESENTATION( datarec, "pQ" );
 end );
 
 #############################################################################
@@ -159,22 +166,9 @@ local outfile, datarec;
   if not IsBound(datarec.pcp) then
     Info(InfoANUPQ, 1, "pq had not previously computed a pc presentation");
     Info(InfoANUPQ, 1, "... remedying that now.");
-    PQ_PC_PRESENTATION( datarec );
+    PQ_PC_PRESENTATION( datarec, "pQ" );
   fi;
   PQ_WRITE_PC_PRESENTATION( datarec, outfile );
-end );
-
-#############################################################################
-##
-#F  PQ_SP_PC_PRESENTATION( <datarec> : <options> ) . . . . . SP menu option 1
-##
-##  inputs  data  given  by  <options>  to  the   `pq'   binary   for   group
-##  `<datarec>.group' to compute a pc presentation using option 1 of the main
-##  Standard Presentation menu.
-##
-InstallGlobalFunction( PQ_SP_PC_PRESENTATION, function( datarec )
-  PQ_MENU(datarec, "SP");
-  PQ_SP_PCP_INPUT(datarec);
 end );
 
 #############################################################################
@@ -195,7 +189,7 @@ InstallGlobalFunction( PqSPPcPresentation, function( arg )
 local datarec;
   ANUPQ_IOINDEX_ARG_CHK(arg);
   datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  PQ_SP_PC_PRESENTATION( datarec );
+  PQ_PC_PRESENTATION( datarec, "SP" );
 end );
 
 #############################################################################

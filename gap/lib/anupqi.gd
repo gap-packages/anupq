@@ -15,19 +15,13 @@ Revision.anupqi_gd :=
 
 #############################################################################
 ##
-#F  PQ_SP_PCP_INPUT( <datarec> : <options> ) . pcp input - p-Q/SP menu opt. 1
-##
-DeclareGlobalFunction( "PQ_SP_PCP_INPUT" );
-
-#############################################################################
-##
 #F  PQ_AUT_INPUT( <datarec>, <G> : <options> ) . . . . . . automorphism input
 ##
 DeclareGlobalFunction( "PQ_AUT_INPUT" );
 
 #############################################################################
 ##
-#F  PQ_PC_PRESENTATION( <datarec> : <options> ) . . . . . . p-Q menu option 1
+#F  PQ_PC_PRESENTATION( <datarec>, <menu> ) . . . . . .  p-Q/SP menu option 1
 ##
 DeclareGlobalFunction( "PQ_PC_PRESENTATION" );
 
@@ -50,12 +44,6 @@ DeclareGlobalFunction( "PQ_WRITE_PC_PRESENTATION" );
 #F  PqWritePcPresentation( )
 ##
 DeclareGlobalFunction( "PqWritePcPresentation" );
-
-#############################################################################
-##
-#F  PQ_SP_PC_PRESENTATION( <datarec> : <options> ) . . . . . SP menu option 1
-##
-DeclareGlobalFunction( "PQ_SP_PC_PRESENTATION" );
 
 #############################################################################
 ##

@@ -10,6 +10,9 @@
 #Y  Copyright 1993-2001,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.4  2001/06/02 23:18:56  gap
+#H  Bug fixes. - GG
+#H
 #H  Revision 1.3  2001/05/25 17:44:40  gap
 #H  Bug fixes and additions to documentation. - GG
 #H
@@ -271,22 +274,8 @@ function( args )
         p := PrimeOfPGroup( G );
     fi;
     
-    if datarec.calltype <> "interactive" or 
-       not IsBound(datarec.pcp) or 
-       ForAny( REC_NAMES( datarec.pcp ), 
-               optname -> not(ValueOption(optname) in
-                              [fail, datarec.pcp.(optname)]) ) then
-        # only do it in the interactive case if it hasn't already been done
-        # by checking whether options stored in datarec.pcp differ from those
-        # of a previous call ... if a check of an option value returns `fail'
-        # it is assumed the user intended the previous value stored in
-        # `<datarec>.pcp' (this is potentially problematic for boolean
-        # options, to reverse a previous `true', `false' must be explicitly
-        # set for the option on the subsequent function call)
-        
-        PQ_SP_PC_PRESENTATION(datarec : Prime := p, 
-                                        ClassBound := PClassPGroup(G));
-    fi;
+    PQ_PC_PRESENTATION(datarec, "SP" : Prime := p, 
+                                       ClassBound := PClassPGroup(G));
 
     datarec.pQuotient := G;
     PQ_SP_STANDARD_PRESENTATION(datarec);
@@ -318,17 +307,17 @@ function( args )
 #    fi;
 
     # revise images to correspond to images of user-supplied generators 
-    datarec.sp := desc.group;
+    datarec.SP := desc.group;
     x  := Length( desc.map );
     k  := Length( GeneratorsOfGroup( datarec.group ) );
     # images of user supplied generators are last k entries in .pqImages 
 
-    datarec.spEpi := GroupHomomorphismByImagesNC( 
+    datarec.SPepi := GroupHomomorphismByImagesNC( 
                          datarec.group, 
-                         datarec.sp, 
+                         datarec.SP, 
                          GeneratorsOfGroup(datarec.group),
                          desc.map{[x - k + 1..x]} );
-    return datarec.spEpi;
+    return datarec.SPepi;
 end );
 
 #############################################################################
@@ -344,13 +333,13 @@ end );
 #F  PqStandardPresentation( <arg> : <options> ) . . . . . . . .  SP for group
 ##
 InstallGlobalFunction( PqStandardPresentation, function( arg )
-    local spEpi;
+    local SPepi;
 
-    spEpi := PQ_EPIMORPHISM_STANDARD_PRESENTATION( arg );
-    if spEpi = true then
+    SPepi := PQ_EPIMORPHISM_STANDARD_PRESENTATION( arg );
+    if SPepi = true then
       return true; # the SetupFile case
     fi;
-    return Range( spEpi );
+    return Range( SPepi );
 end );
 
 #############################################################################
