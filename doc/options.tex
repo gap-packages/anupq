@@ -98,10 +98,12 @@ which means that no exponent law is enforced.
 
 \>`Relators := <rels>'{option Relators}@{option `Relators'|indexit}&
 Specifies that the relators sent to the `pq'  program  should  be  <rels>
-instead of the relators of the group <F>; <rels>  should  be  a  list  of
-*strings* in the string representations of the generators  of  <F>.  This
-option provides a way of giving relators to  the  `pq'  program,  without
-having  them  pre-expanded  by  {\GAP},  which  can  sometimes  effect  a
+instead of the relators of the argument group <F> (or start group in  the
+interactive case) of the calling function; <rels> should  be  a  list  of
+*strings* in the string representations of the generators of <F>, and <F>
+must be an *fp group* (even if the calling function accepts a pc  group).
+This option provides a way  of  giving  relators  to  the  `pq'  program,
+without having them pre-expanded by {\GAP}, which can sometimes effect  a
 performance loss of the order of 100 (see Section~"The Relators Option").
 
 *Notes*

@@ -10,6 +10,11 @@
 #Y  Copyright 1992-1994,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.2  2002/02/18 17:03:28  gap
+#H  For `PqGAPRelators' and the `Relators' option the associated group needs
+#H  to be an fp group. This is essential in GAP 4.2, but only really makes
+#H  sense if it is, anyway. - GG
+#H
 #H  Revision 1.1  2002/02/15 08:53:47  gap
 #H  Moving `gap/lib' files to `lib'. - GG
 #H
@@ -759,19 +764,18 @@ end );
 ##
 #F  PqGAPRelators( <group>, <rels> ) . . . . . . . . pq relators as GAP words
 ##
-##  returns, for a list <rels> of strings in the  string  representations  of
-##  the generators of the fp or pc  group  <group>  prepared  as  a  list  of
-##  relators for the `pq' binary, a list of words that {\GAP} understands.
+##  returns a list of words that {\GAP} understands, given a list  <rels>  of
+##  strings in the string representations of the generators of the  fp  group
+##  <group> prepared as a list of relators for the `pq' program.
 ##
 ##  *Note:*
-##  The `pq' binary does not use `/' to indicate multiplication by an inverse
-##  and uses square brackets to represent (left norm) commutators. Also, even
-##  though the `pq' binary accepts relations, all elements of  <rels>  *must*
-##  be in relator form, i.e.~a relation of form `<w1> = <w2>' must be written
-##  as `<w1>*(<w2>)^-1'.
+##  The `pq' program does not  use  `/'  to  indicate  multiplication  by  an
+##  inverse and uses square brackets to represent (left normed)  commutators.
+##  Also, even though the `pq' program accepts  relations,  all  elements  of
+##  <rels> *must* be in relator form, i.e.~a relation of form `<w1>  =  <w2>'
+##  must be written as `<w1>*(<w2>)^-1'.
 ##
-##  Here is an example (that demonstrates its use, but with  not  necessarily
-##  appropriate relators for a $p$-quotient):
+##  Here is an example:
 ##
 ##  \beginexample
 ##  gap> F := FreeGroup("a", "b");
@@ -784,10 +788,10 @@ end );
 ##
 InstallGlobalFunction( PqGAPRelators, function( group, rels )
 local gens, relgens, diff, g;
-  if not( IsFpGroup(group) or IsPcGroup(group) ) then
-    Error("<group> must be an fp or pc group\n");
+  if not( IsFpGroup(group) ) then
+    Error("<group> must be an fp group\n");
   fi;
-  gens := List( GeneratorsOfGroup(group), String );
+  gens := List( FreeGeneratorsOfFpGroup(group), String );
   if not ForAll(rels, rel -> Position(rel, '/') = fail) then
     Error( "pq binary does not understand `/' in relators\n" );
   fi;
