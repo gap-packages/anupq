@@ -925,24 +925,24 @@ the context of finding the next class see "PqNextClass".)
 
 The  *type*   of   a   consistency   check   is   defined   as   follows.
 `PqDoConsistencyChecks(<i>, <weight>, <type>)' for  <weight>  in  `[3  ..
-PqPClass(<i>)]' and the given  value  of  <type>  invokes  the  following
-`PqJacobi' checks (see~"PqDoConsistencyCheck"):
+PqPClass(<i>)]' and the given value of <type> invokes the  equivalent  of
+the following `PqDoConsistencyCheck' calls (see~"PqDoConsistencyCheck"):
 
 \beginitems
 
 `<type> = 1':&
-`PqJacobi(<i>, <a>, <a>, <a>)' checks for  pc  generators  of  index  <a>
-satisfying `2 * PqWeight(<i>, <a>) + 1 = <weight>'.
+`PqDoConsistencyCheck(<i>, <a>, <a>, <a>)' checks `2 * PqWeight(<i>, <a>)
++ 1 = <weight>', for pc generators of index <a>.
 
 `<type> = 2':&
-`PqJacobi(<i>, <b>, <b>, <a>)' checks for pc generators of  indices  <b>,
-<a> satisfying `<b> > <a>' and `PqWeight(<i>, <b>) + PqWeight(<i>, <a>) +
-1 = <weight>'.
+`PqDoConsistencyCheck(<i>, <b>, <b>, <a>)' checks for  pc  generators  of
+indices <b>, <a>  satisfying  `<b>  >  <a>'  and  `PqWeight(<i>,  <b>)  +
+PqWeight(<i>, <a>) + 1 = <weight>'.
 
 `<type> = 3':&
-`PqJacobi(<i>, <c>, <b>, <a>)' checks for pc generators of  indices  <c>,
-<b>, <a> satisfying `<c> > <b> > <a>' and the sum of the weights of these
-generators equals <weight>.
+`PqDoConsistencyCheck(<i>, <c>, <b>, <a>)' checks for  pc  generators  of
+indices <c>, <b>, <a> satisfying `<c> > <b> > <a>' and  the  sum  of  the
+weights of these generators equals <weight>.
 
 \enditems
 
@@ -1068,10 +1068,43 @@ menu item 14 of the Advanced $p$-Quotient menu.
 \>PqJacobi( <c>, <b>, <a> ) F
 
 for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
-binary to do the Jacobi consistency check  for  the  pc  generators  with
-indices <c>, <b>, <a> which should be non-increasing  positive  integers,
-i.e.~$<c>   \ge   <b>   \ge   <a>$.   For   further   explanation,    see
-`PqDoConsistencyChecks' ("PqDoConsistencyChecks").
+binary to do the consistency check for the  pc  generators  with  indices
+<c>, <b>, <a> which should be non-increasing positive integers, i.e.~$<c>
+\ge <b> \ge <a>$.
+
+There are 3 types of consistency checks:
+$$
+\matrix{
+(a^n)a &=& a(a^n)                               \hfill     &{\rm (Type\ 1)}\cr
+(b^n)a &=& b^{(n-1)}(ba), b(a^n) = (ba)a^{(n-1)}\hfill     &{\rm (Type\ 2)}\cr
+c(ba)  &=& (cb)a                                \hfill     &{\rm (Type\ 3)}\cr
+}
+$$
+The reason some people talk about Jacobi relations instead of consistency
+checks becomes clear when one looks at the consistency check of type 3:
+$$
+\matrix{
+c(ba) &=& a c[c,a] b[b,a] = acb [c,a][c,a,b][b,a] = \dots\hfill\cr
+(cb)a &=& b c[c,b] a = a b[b,a] c[c,a] [c,b][c,b,a] 
+                     = abc [b,a] [b,a,c] [c,a] [c,b] [c,b,a] = \dots\hfill\cr
+}
+$$
+Each collection would normally  carried  on  further.  But  one  can  see
+already that no other commutators of weight 3 will occur. After all terms
+of weight one and weight two have been moved to the left we end up with:
+$$
+\matrix{
+  &abc [b,a] [c,a] [c,b] [c,a,b] \dots\hfill\cr
+= &abc [b,a] [c,a] [c,b] [c,b,a] [b,a,c] \dots\hfill\cr
+}
+$$
+Modulo terms of weight 4 this is equivalent to
+$$
+[c,a,b] [b,c,a] [a,b,c] = 1
+$$
+which is the Jacobi identity.
+
+See also `PqDoConsistencyChecks' ("PqDoConsistencyChecks").
 
 *Note:*
 For those familiar  with  the  `pq'  binary,  `PqDoConsistencyCheck'  and
@@ -1081,7 +1114,8 @@ For those familiar  with  the  `pq'  binary,  `PqDoConsistencyCheck'  and
 \>PqCompact() F
 
 for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
-binary to do a compaction.
+binary to do a compaction of its work space. This functions  may  not  be
+safe to perform at any point in time.
 
 *Note:*
 For those familiar with the `pq' binary, `PqCompact' performs  menu  item
@@ -1146,7 +1180,60 @@ interactive process is numbered <i>) should be a  list  of  two  integers
 `PqNrPcGenerators(<i>)'$  (see~"PqNrPcGenerators").  `PqDisplayStructure'
 also accepts the option `OutputLevel' (see "option OutputLevel").
 
-*FURTHER EXPLANATION NEEDED*
+*Explanation of output*
+
+New generators are defined as  commutators  of  previous  generators  and
+generators of class 1  or  as  $p$-th  powers  of  generators  that  have
+themselves been defined as $p$-th powers. A generator is never defined as
+$p$-th power of a commutator.
+
+Therefore, there are two cases: all the numbers on the righthand side are
+either the same or  they  differ.  Below,  `g<i>'  refers  to  the  <i>th
+defining generator.
+
+\beginlist%unordered
+
+\item{$\bullet$}
+If the righthand side numbers are all the same, then the generator  is  a
+$p$-th power (of a $p$-th power of a $p$-th power, etc.). The  number  of
+repeated digits say how often a $p$-th power has to be taken.
+
+In the following example, the generator number 31 is the  eleventh  power
+of generator 17 which in turn is an eleventh power and so on:
+
+\begintt
+#I  31 is defined on 17^11 = 1 1 1 1 1 
+\endtt
+                    
+So generator 31 is obtained by taking the eleventh power of  generator  1
+five times.
+
+\item{$\bullet$}
+If the numbers are different, it is a commutator. As long as there  is  a
+string of identical digits on the left, they  should  be  interpreted  as
+powers as above, e.g.
+
+\begintt
+#I  19 is defined on [11, 1] = 2 1 1 1 1    
+\endtt
+        
+Here, generator 19 is defined as  the  commutator  of  generator  11  and
+generator  1  which  is  the   same   as   the   left-normed   commutator
+`[g2, g1, g1, g1, g1]'. One can check this by tracing back the definition
+of generator 11 until one gets to a generator of class 1.
+
+\begintt
+#I  25 is defined on [14, 1] = 1 1 2 1 1 
+\endtt
+
+In this example, generator 25 is defined as commutator  of  generator  14
+and generator 1. The left-normed commutator is
+$$
+[(`g1'^{11})^{11}, `g2', `g1', `g1']
+$$
+Again, this can be verified by tracing back the definitions.
+
+\endlist
 
 *Note:*
 For those familiar with the `pq'  binary,  `PqDisplayStructure'  performs
@@ -1293,7 +1380,11 @@ which {\GAP} was started.
 *Notes*
 
 The presentations in files <f1> and <f2> must have been generated by  the
-`pq' binary but they do *not* need to be *standard* presentations.
+`pq' binary but they do *not* need to be *standard* presentations. If the
+presentations  in  files  <f1>  and   <f2>  *have*  been   generated   by
+`PqSPStandardPresentation' (see~"PqSPStandardPresentation") then a `true'
+response from `PqSPCompareTwoFilePresentations' says the  groups  defined
+by those presentations are isomorphic.
 
 For      those      familiar      with       the       `pq'       binary,
 `PqSPCompareTwoFilePresentations' performs menu item 6  of  the  Standard
@@ -1385,24 +1476,6 @@ performs menu item 5 of the main $p$-Group Generation menu.
 
 *Commands from the Advanced $p$-Group Generation menu*
 
-\>PqAPGSupplyAutomorphisms( <i>[, <mlist>] ) F
-\>PqAPGSupplyAutomorphisms([<mlist>]) F
-
-for the <i>th or default interactive {\ANUPQ} process,  supply  the  `pq'
-binary with the automorphism group data needed  for  the  group  of  that
-process    (for    process    <i>    the    group    is     stored     as
-`ANUPQData.io[<i>].group'). If  the  argument  <mlist>  is  omitted  then
-{\GAP} *must* be able to determine the automorphism group of the group of
-the process. Otherwise the automorphism data  is  provided  from  <mlist>
-which  should  be  a  list  of   matrices   with   non-negative   integer
-coefficients, where  each  matrix  must  have  the  same  dimensions;  in
-particular, the number of rows of each matrix must be  the  rank  of  the
-group of the process.
-
-*Note:*
-For those  familiar  with  the  `pq'  binary,  `PqAPGSupplyAutomorphisms'
-performs menu item 1 of the Advanced $p$-Group Generation menu.
-
 \>PqAPGDegree( <i>, <step>, <rank> [: Exponent := <n> ]) F
 \>PqAPGDegree( <step>, <rank> [: Exponent := <n> ]) F
 
@@ -1430,15 +1503,34 @@ performs menu item 7 of the Advanced $p$-Group Generation menu.
 \>PqAPGOrbits( <i> : <options> ) F
 \>PqAPGOrbits( : <options> ) F
 
-for the <i>th or default interactive {\ANUPQ} process, inputs data to the
-`pq' binary for the <i>th or default interactive {\ANUPQ} process, direct
-the `pq' binary to compute the orbit action of  the  automorphism  group,
-and return the number of orbits. Here the  options  <options>  recognised
-are   `PcgsAutomorphisms',    `SpaceEfficient',    `OrbitsSummary'    and
-`OrbitsListing' (see Chapter~"ANUPQ Options" for details).
+for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
+binary to compute the orbit action of the automorphism group, and  return
+the number of orbits, if either a summary or a complete listing (or both)
+of orbit information was requested. Here the options <options> recognised
+are `PcgsAutomorphisms',  `SpaceEfficient',  and  `CustomiseOutput'  (see
+Chapter~"ANUPQ Options" for details). For  the  `CustomiseOutput'  option
+only the setting of the `orbit' is recognised (all other  fields  if  set
+are ignored).
 
 *Note:* For those familiar with the `pq' binary,  `PqAPGOrbits'  performs
 menu item 8 of the Advanced $p$-Group Generation menu.
+
+\>PqAPGOrbitRepresentatives( <i> : <options> ) F
+\>PqAPGOrbitRepresentatives(: <options> ) F
+
+for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
+binary to process  the  orbit  representatives  and  output  the  reduced
+$p$-cover to a file. The options <options> may be any of  the  following:
+are  `PcgsAutomorphisms',  `SpaceEfficient',  `Exponent',   `Metabelian',
+`CapableDescendants' (or `AllDescendants'), `CustomiseOutput' (where only
+the `group' and `autgroup' fields are  recognised)  and  `Filename'  (see
+Chapter~"ANUPQ Options"  for  details).  If  `Filename'  is  omitted  the
+reduced $p$-cover is written to the file `"redPCover"' in  the  temporary
+directory whose name is stored in `ANUPQData.tmpdir'.
+
+*Note:*
+For those familiar  with  the  `pq'  binary,  `PqAPGOrbitRepresentatives'
+performs option 9 of the Advanced $p$-Group Generation menu.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Primitive Interactive ANUPQ Process Read/Write Functions}

@@ -25,11 +25,12 @@ package:
 \beginexample
 gap> AllANUPQoptions();
 [ "AllDescendants", "BasicAlgorithm", "Bounds", "CapableDescendants", 
-  "ClassBound", "CustomiseOutput", "Exponent", "GroupName", "Metabelian", 
-  "OrderBound", "OutputLevel", "PcgsAutomorphisms", "PqWorkspace", 
-  "Prime", "QueueFactor", "RankInitialSegmentSubgroups", "RedoPcp", 
-  "Relators", "SetupFile", "SpaceEfficient", "StandardPresentationFile", 
-  "StepSize", "SubList" ]
+  "ClassBound", "CustomiseOutput", "Exponent", "Filename", "GroupName", 
+  "Metabelian", "OrderBound", "OutputLevel", "PcgsAutomorphisms", 
+  "PqWorkspace", "Prime", "PrintAutomorphisms", "PrintPermutations", 
+  "QueueFactor", "RankInitialSegmentSubgroups", "RedoPcp", "Relators", 
+  "SetupFile", "SpaceEfficient", "StandardPresentationFile", "StepSize", 
+  "SubList" ]
 \endexample
 
 The following global variable gives a  partial  breakdown  of  where  the
@@ -295,6 +296,27 @@ temporary directory in which the `pq' binary executes.
 Specifies a queue factor of <n>, where <n> should be a positive  integer.
 This option may be used with `PqNextClass' (see~"PqNextClass").
 
+The queue factor is used when the `pq' binary uses automorphisms to close
+a set of elements of the $p$-multiplicator under their action.
+
+The algorithm used is a spinning algorithm:  it  starts  with  a  set  of
+vectors in echelonized  form  (elements  of  the  $p$-multiplicator)  and
+closes the span of these vectors under the action of  the  automorphisms.
+For this each automorphism is applied to each vector and it is checked if
+the result is contained in the span computed so far.  If  not,  the  span
+becomes bigger and the vector is put into a queue and  the  automorphisms
+are applied to this vector at a later stage. The process terminates  when
+the automorphisms have been applied to all vectors  and  no  new  vectors
+have been produced.
+
+For each new vector it is decided, if its processing should  be  delayed.
+If the vector contains too many non-zero entries, it is put into a second
+queue. The elements in this queue are processed only when  there  are  no
+elements in the first queue left.
+
+The queue factor is a percentage figure. A vector is put into the  second
+queue if the percentage of its non-zero entries exceeds the queue factor.
+
 \>`Bounds := <list>'{option Bounds}@{option `Bounds'|indexit}&
 Specifies a lower and upper bound on the indices of a list, where  <list>
 is a pair of positive non-decreasing  integers.  See~"PqDisplayStructure"
@@ -308,15 +330,9 @@ Specifies that automorphism matrices be printed.
 @{option `PrintPermutations'|indexit}&
 Specifies that permutations of the subgroups be printed.
 
-\>`OrbitsSummary := <list>'{option OrbitsSummary}%
-@{option `OrbitsSummary'|indexit}&
-Specifies that a summary of orbit information be printed.
-
-\>`OrbitsListing := <list>'{option OrbitsListing}%
-@{option `OrbitsListing'|indexit}&
-Specifies that a complete listing of orbit information be  printed.  This
-option is independent of `OrbitsSummary' (it's possible to  have  both  a
-summary and a complete listing of orbit information).
+\>`Filename := <string>'{option Filename}@{option `Filename'|indexit}&
+Specifies that an output or input file to be written to or read  from  by
+the `pq' binary should have the name <string>.
 
 \enditems
 
