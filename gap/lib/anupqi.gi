@@ -39,7 +39,7 @@ InstallGlobalFunction( PQ_AUT_GROUP, function( G )
     Error("group <G> must be a p-group\n");
   fi;
   if HasANUPQAutomorphisms(G) then
-      return SupplementInnerAutomorphisms(G);
+      return PqSupplementInnerAutomorphisms(G);
   elif HasAutomorphismGroup(G) or 
     RequirePackage("autpgrp") = true or
     IsAbelian(G) then
