@@ -57,8 +57,8 @@ print GAPIN
       "CompareVersionNumbers(VERSION, \"$GAPversion\");\n",
       "VERSION;\n",
       "TestPackageAvailability(\"anupq\", \"$ANUPQversion\");\n",
-      "TestPackageAvailability(\"autpgrp\", \"1.0\");\n",
-      "if RequirePackage(\"autpgrp\", \"1.0\") = true then\n",
+      "TestPackageAvailability(\"autpgrp\", \"1.1\");\n",
+      "if RequirePackage(\"autpgrp\", \"1.1\") = true then\n",
       "  Print(ConvertHybridAutGroup);\n",
       "fi;\n";
 close GAPIN;

@@ -55,8 +55,8 @@ DeclarePackage( "anupq", ANUPQPackageVersion(),
 ##
 ##  This is needed for `lib/anustab.gi'
 ##
-if TestPackageAvailability( "autpgrp", "1.0" ) <> fail then
-    RequirePackage( "autpgrp" );
+if TestPackageAvailability( "autpgrp", "1.1" ) <> fail then
+    RequirePackage( "autpgrp", "1.1" );
 fi;
 
 #############################################################################
