@@ -236,12 +236,12 @@ InstallValue(PQ_MENUS, rec(
   SP  := rec( name  := "Standard Presentation Menu",
               depth := 1, prev  := "",   nextopt := rec( pQ := 7 ) ),
   pQ  := rec( name  := "(Main) p-Quotient Menu",
-              depth := 2, prev  := "SP", nextopt := rec( pG  := 9, IpQ := 8 ) ),
+              depth := 2, prev  := "SP", nextopt := rec( pG  := 9, ApQ := 8 ) ),
   pG  := rec( name  := "(Main) p-Group Generation Menu",
-              depth := 3, prev  := "pQ", nextopt := rec( IpG := 6 ) ),
-  IpQ := rec( name  := "Interactive p-Quotient Menu",
+              depth := 3, prev  := "pQ", nextopt := rec( ApG := 6 ) ),
+  ApQ := rec( name  := "Advanced p-Quotient Menu",
               depth := 3, prev  := "pQ", nextopt := rec() ),
-  IpG := rec( name  := "Interactive p-Group Gen'n Menu",
+  ApG := rec( name  := "Advanced p-Group Gen'n Menu",
               depth := 4, prev  := "pG", nextopt := rec() )
   ) );
 
@@ -253,6 +253,7 @@ InstallValue(PQ_MENUS, rec(
 InstallGlobalFunction(PQ_MENU, function(arg)
 local datarec, newmenu, nextmenu, tomenu;
   datarec := arg[1];
+  #!!!! Must check Option 1 or 3 of SP or pQ menu done before entering ApQ
   if 2 = Length(arg) then
     newmenu := arg[2];
     while datarec.menu <> newmenu do
@@ -262,10 +263,10 @@ local datarec, newmenu, nextmenu, tomenu;
         ToPQk(datarec, [ 0 , "  #to ", tomenu]);
         FLUSH_PQ_STREAM_UNTIL(datarec.stream, 2, 2, PQ_READ_NEXT_LINE,
                               IS_PQ_PROMPT);
-      elif datarec.menu = "pQ" and newmenu = "IpQ" then
-        datarec.menu := "IpQ";
+      elif datarec.menu = "pQ" and newmenu = "ApQ" then
+        datarec.menu := "ApQ";
         tomenu := PQ_MENUS.(datarec.menu).name;
-        ToPQk(datarec, [ PQ_MENUS.pQ.nextopt.IpQ, "  #to ", tomenu ]);
+        ToPQk(datarec, [ PQ_MENUS.pQ.nextopt.ApQ, "  #to ", tomenu ]);
         FLUSH_PQ_STREAM_UNTIL(datarec.stream, 4, 2, PQ_READ_NEXT_LINE,
                               IS_PQ_PROMPT);
       else

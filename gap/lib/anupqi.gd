@@ -34,55 +34,68 @@ DeclareGlobalFunction( "PqPcPresentation" );
 
 #############################################################################
 ##
-#F PQ_SAVE_PC_PRESENTATION( <datarec> ) . . . . . . . . . . p-Q menu option 2
+#F  PQ_SAVE_PC_PRESENTATION( <datarec>, <filename> ) . . .  p-Q menu option 2
 ##
 DeclareGlobalFunction( "PQ_SAVE_PC_PRESENTATION" );
 
 #############################################################################
 ##
-#F PqSavePcPresentation( <i> ) . . . . . .  user version of p-Q menu option 2
-#F PqSavePcPresentation()
+#F  PqSavePcPresentation( <i>, <filename> ) . .  user ver. of p-Q menu opt. 2
+#F  PqSavePcPresentation( <filename> )
 ##
 DeclareGlobalFunction( "PqSavePcPresentation" );
 
 #############################################################################
 ##
-#F PQ_RESTORE_PC_PRESENTATION( <datarec> ) . . . . . . . .  p-Q menu option 3
+#F  PQ_RESTORE_PC_PRESENTATION( <datarec>, <filename> ) . . p-Q menu option 3
 ##
 DeclareGlobalFunction( "PQ_RESTORE_PC_PRESENTATION" );
 
 #############################################################################
 ##
-#F PqRestorePcPresentation( <i> ) . . . . . user version of p-Q menu option 3
-#F PqRestorePcPresentation()
+#F  PqRestorePcPresentation( <i>, <filename> ) . user ver. of p-Q menu opt. 3
+#F  PqRestorePcPresentation( <filename> )
 ##
 DeclareGlobalFunction( "PqRestorePcPresentation" );
 
 #############################################################################
 ##
-#F PQ_DISPLAY_PC_PRESENTATION( <datarec> ) . . . . . . . .  p-Q menu option 4
+#F  PQ_DISPLAY_PC_PRESENTATION( <datarec> ) . . . . . . . . p-Q menu option 4
 ##
 DeclareGlobalFunction( "PQ_DISPLAY_PC_PRESENTATION" );
 
 #############################################################################
 ##
-#F PqDisplayPcPresentation( <i> ) . . . . . user version of p-Q menu option 4
-#F PqDisplayPcPresentation()
+#F  PqDisplayPcPresentation( <i> ) . . . .  user version of p-Q menu option 4
+#F  PqDisplayPcPresentation()
 ##
 DeclareGlobalFunction( "PqDisplayPcPresentation" );
 
 #############################################################################
 ##
-#F PQ_SET_PRINT_LEVEL( <datarec>, <menu> ) . . . . p-Q/SP/I p-Q menu option 5
+#F  PQ_SET_PRINT_LEVEL(<datarec>, <menu>, <lev>) . . p-Q/SP/A p-Q menu opt. 5
 ##
 DeclareGlobalFunction( "PQ_SET_PRINT_LEVEL" );
 
 #############################################################################
 ##
-#F PqSetPrintLevel( <i> ) . . . . . . . . . user version of p-Q menu option 5
-#F PqSetPrintLevel()
+#F  PqSetPrintLevel( <i>, <lev> ) . . . . . user version of p-Q menu option 5
+#F  PqSetPrintLevel( <lev> )
 ##
 DeclareGlobalFunction( "PqSetPrintLevel" );
+
+#############################################################################
+##
+#F  PQ_NEXT_CLASS( <datarec> ) . . . . . . . . . . . . . .  p-Q menu option 6
+##
+DeclareGlobalFunction( "PQ_NEXT_CLASS" );
+
+#############################################################################
+##
+#F  PqNextClass( <i> ) . . . . . . . . . .  user version of p-Q menu option 6
+#F  PqNextClass()
+##
+DeclareGlobalFunction( "PqNextClass" );
 
 #############################################################################
 ##
@@ -99,344 +112,351 @@ DeclareGlobalFunction( "PqPCover" );
 
 #############################################################################
 ##
-#F  PQ_COLLECT( <datarec>, <word> ) . . . . . . . . . . . I p-Q menu option 1
+#F  PQ_COLLECT( <datarec>, <word> ) . . . . . . . . . . . A p-Q menu option 1
 ##
 DeclareGlobalFunction( "PQ_COLLECT" );
 
 #############################################################################
 ##
-#F PQ_SOLVE_EQUATION( <datarec> ) . . . . . . . . . . . . I p-Q menu option 2
+#F  PqCollect( <i>, <word> ) . . . . . .  user version of A p-Q menu option 1
+#F  PqCollect( <word> )
+##
+DeclareGlobalFunction( "PqCollect" );
+
+#############################################################################
+##
+#F PQ_SOLVE_EQUATION( <datarec> ) . . . . . . . . . . . . A p-Q menu option 2
 ##
 DeclareGlobalFunction( "PQ_SOLVE_EQUATION" );
 
 #############################################################################
 ##
-#F PqSolveEquation( <i> ) . . . . . . . . user version of I p-Q menu option 2
+#F PqSolveEquation( <i> ) . . . . . . . . user version of A p-Q menu option 2
 #F PqSolveEquation()
 ##
 DeclareGlobalFunction( "PqSolveEquation" );
 
 #############################################################################
 ##
-#F PQ_COMMUTATOR( <datarec> ) . . . . . . . . . . . . . . I p-Q menu option 3
+#F PQ_COMMUTATOR( <datarec> ) . . . . . . . . . . . . . . A p-Q menu option 3
 ##
 DeclareGlobalFunction( "PQ_COMMUTATOR" );
 
 #############################################################################
 ##
-#F PqCommutator( <i> ) . . . . . . . . .  user version of I p-Q menu option 3
+#F PqCommutator( <i> ) . . . . . . . . .  user version of A p-Q menu option 3
 #F PqCommutator()
 ##
 DeclareGlobalFunction( "PqCommutator" );
 
 #############################################################################
 ##
-#F PQ_DISPLAY_PRESENTATION( <datarec> ) . . . . . . . . . I p-Q menu option 4
+#F PQ_DISPLAY_PRESENTATION( <datarec> ) . . . . . . . . . A p-Q menu option 4
 ##
 DeclareGlobalFunction( "PQ_DISPLAY_PRESENTATION" );
 
 #############################################################################
 ##
-#F PqDisplayPresentation( <i> ) . . . . . user version of I p-Q menu option 4
+#F PqDisplayPresentation( <i> ) . . . . . user version of A p-Q menu option 4
 #F PqDisplayPresentation()
 ##
 DeclareGlobalFunction( "PqDisplayPresentation" );
 
 #############################################################################
 ##
-#F PQ_SETUP_TABLES_FOR_NEXT_CLASS( <datarec> ) . . . . .  I p-Q menu option 6
+#F PQ_SETUP_TABLES_FOR_NEXT_CLASS( <datarec> ) . . . . .  A p-Q menu option 6
 ##
 DeclareGlobalFunction( "PQ_SETUP_TABLES_FOR_NEXT_CLASS" );
 
 #############################################################################
 ##
-#F PqSetupTablesForNextClass( <i> ) . . . user version of I p-Q menu option 6
+#F PqSetupTablesForNextClass( <i> ) . . . user version of A p-Q menu option 6
 #F PqSetupTablesForNextClass()
 ##
 DeclareGlobalFunction( "PqSetupTablesForNextClass" );
 
 #############################################################################
 ##
-#F PQ_INSERT_TAILS( <datarec> ) . . . . . . . . . . . . . I p-Q menu option 7
+#F PQ_INSERT_TAILS( <datarec> ) . . . . . . . . . . . . . A p-Q menu option 7
 ##
 DeclareGlobalFunction( "PQ_INSERT_TAILS" );
 
 #############################################################################
 ##
-#F PqInsertTails( <i> ) . . . . . . . . . user version of I p-Q menu option 7
+#F PqInsertTails( <i> ) . . . . . . . . . user version of A p-Q menu option 7
 #F PqInsertTails()
 ##
 DeclareGlobalFunction( "PqInsertTails" );
 
 #############################################################################
 ##
-#F PQ_DO_CONSISTENCY_CHECKS( <datarec> ) . . . . . . . .  I p-Q menu option 8
+#F PQ_DO_CONSISTENCY_CHECKS( <datarec> ) . . . . . . . .  A p-Q menu option 8
 ##
 DeclareGlobalFunction( "PQ_DO_CONSISTENCY_CHECKS" );
 
 #############################################################################
 ##
-#F PqDoConsistencyChecks( <i> ) . . . . . user version of I p-Q menu option 8
+#F PqDoConsistencyChecks( <i> ) . . . . . user version of A p-Q menu option 8
 #F PqDoConsistencyChecks()
 ##
 DeclareGlobalFunction( "PqDoConsistencyChecks" );
 
 #############################################################################
 ##
-#F PQ_COLLECT_DEFINING_RELATIONS( <datarec> ) . . . . . . I p-Q menu option 9
+#F PQ_COLLECT_DEFINING_RELATIONS( <datarec> ) . . . . . . A p-Q menu option 9
 ##
 DeclareGlobalFunction( "PQ_COLLECT_DEFINING_RELATIONS" );
 
 #############################################################################
 ##
-#F PqCollectDefiningRelations( <i> ) . .  user version of I p-Q menu option 9
+#F PqCollectDefiningRelations( <i> ) . .  user version of A p-Q menu option 9
 #F PqCollectDefiningRelations()
 ##
 DeclareGlobalFunction( "PqCollectDefiningRelations" );
 
 #############################################################################
 ##
-#F PQ_DO_EXPONENT_CHECKS( <datarec> ) . . . . . . . . .  I p-Q menu option 10
+#F PQ_DO_EXPONENT_CHECKS( <datarec> ) . . . . . . . . .  A p-Q menu option 10
 ##
 DeclareGlobalFunction( "PQ_DO_EXPONENT_CHECKS" );
 
 #############################################################################
 ##
-#F PqDoExponentChecks( <i> ) . . . . . . user version of I p-Q menu option 10
+#F PqDoExponentChecks( <i> ) . . . . . . user version of A p-Q menu option 10
 #F PqDoExponentChecks()
 ##
 DeclareGlobalFunction( "PqDoExponentChecks" );
 
 #############################################################################
 ##
-#F PQ_ELIMINATE_REDUNDANT_GENERATORS( <datarec> ) . . .  I p-Q menu option 11
+#F PQ_ELIMINATE_REDUNDANT_GENERATORS( <datarec> ) . . .  A p-Q menu option 11
 ##
 DeclareGlobalFunction( "PQ_ELIMINATE_REDUNDANT_GENERATORS" );
 
 #############################################################################
 ##
-#F PqEliminateRedundantGenerators( <i> ) user version of I p-Q menu option 11
+#F PqEliminateRedundantGenerators( <i> ) user version of A p-Q menu option 11
 #F PqEliminateRedundantGenerators()
 ##
 DeclareGlobalFunction( "PqEliminateRedundantGenerators" );
 
 #############################################################################
 ##
-#F PQ_REVERT_TO_PREVIOUS_CLASS( <datarec> ) . . . . . .  I p-Q menu option 12
+#F PQ_REVERT_TO_PREVIOUS_CLASS( <datarec> ) . . . . . .  A p-Q menu option 12
 ##
 DeclareGlobalFunction( "PQ_REVERT_TO_PREVIOUS_CLASS" );
 
 #############################################################################
 ##
-#F PqRevertToPreviousClass( <i> ) . . .  user version of I p-Q menu option 12
+#F PqRevertToPreviousClass( <i> ) . . .  user version of A p-Q menu option 12
 #F PqRevertToPreviousClass()
 ##
 DeclareGlobalFunction( "PqRevertToPreviousClass" );
 
 #############################################################################
 ##
-#F PQ_SET_MAXIMAL_OCCURRENCES( <datarec> ) . . . . . . . I p-Q menu option 13
+#F PQ_SET_MAXIMAL_OCCURRENCES( <datarec> ) . . . . . . . A p-Q menu option 13
 ##
 DeclareGlobalFunction( "PQ_SET_MAXIMAL_OCCURRENCES" );
 
 #############################################################################
 ##
-#F PqSetMaximalOccurrences( <i> ) . . .  user version of I p-Q menu option 13
+#F PqSetMaximalOccurrences( <i> ) . . .  user version of A p-Q menu option 13
 #F PqSetMaximalOccurrences()
 ##
 DeclareGlobalFunction( "PqSetMaximalOccurrences" );
 
 #############################################################################
 ##
-#F PQ_SET_METABELIAN( <datarec> ) . . . . . . . . . . .  I p-Q menu option 14
+#F PQ_SET_METABELIAN( <datarec> ) . . . . . . . . . . .  A p-Q menu option 14
 ##
 DeclareGlobalFunction( "PQ_SET_METABELIAN" );
 
 #############################################################################
 ##
-#F PqSetMetabelian( <i> ) . . . . . . .  user version of I p-Q menu option 14
+#F PqSetMetabelian( <i> ) . . . . . . .  user version of A p-Q menu option 14
 #F PqSetMetabelian()
 ##
 DeclareGlobalFunction( "PqSetMetabelian" );
 
 #############################################################################
 ##
-#F PQ_DO_CONSISTENCY_CHECK( <datarec> ) . . . . . . . .  I p-Q menu option 15
+#F PQ_DO_CONSISTENCY_CHECK( <datarec> ) . . . . . . . .  A p-Q menu option 15
 ##
 DeclareGlobalFunction( "PQ_DO_CONSISTENCY_CHECK" );
 
 #############################################################################
 ##
-#F PqDoConsistencyCheck( <i> ) . . . . . user version of I p-Q menu option 15
+#F PqDoConsistencyCheck( <i> ) . . . . . user version of A p-Q menu option 15
 #F PqDoConsistencyCheck()
 ##
 DeclareGlobalFunction( "PqDoConsistencyCheck" );
 
 #############################################################################
 ##
-#F PQ_COMPACT( <datarec> ) . . . . . . . . . . . . . . . I p-Q menu option 16
+#F PQ_COMPACT( <datarec> ) . . . . . . . . . . . . . . . A p-Q menu option 16
 ##
 DeclareGlobalFunction( "PQ_COMPACT" );
 
 #############################################################################
 ##
-#F PqCompact( <i> ) . . . . . . . . . .  user version of I p-Q menu option 16
+#F PqCompact( <i> ) . . . . . . . . . .  user version of A p-Q menu option 16
 #F PqCompact()
 ##
 DeclareGlobalFunction( "PqCompact" );
 
 #############################################################################
 ##
-#F PQ_ECHELONISE( <datarec> ) . . . . . . . . . . . . .  I p-Q menu option 17
+#F PQ_ECHELONISE( <datarec> ) . . . . . . . . . . . . .  A p-Q menu option 17
 ##
 DeclareGlobalFunction( "PQ_ECHELONISE" );
 
 #############################################################################
 ##
-#F PqEchelonise( <i> ) . . . . . . . . . user version of I p-Q menu option 17
+#F PqEchelonise( <i> ) . . . . . . . . . user version of A p-Q menu option 17
 #F PqEchelonise()
 ##
 DeclareGlobalFunction( "PqEchelonise" );
 
 #############################################################################
 ##
-#F PQ_SUPPLY_AND_EXTEND_AUTOMORPHISMS( <datarec> ) . . . I p-Q menu option 18
+#F PQ_SUPPLY_AND_EXTEND_AUTOMORPHISMS( <datarec> ) . . . A p-Q menu option 18
 ##
 DeclareGlobalFunction( "PQ_SUPPLY_AND_EXTEND_AUTOMORPHISMS" );
 
 #############################################################################
 ##
-#F PqSupplyAndExtendAutomorphisms( <i> ) user version of I p-Q menu option 18
+#F PqSupplyAndExtendAutomorphisms( <i> ) user version of A p-Q menu option 18
 #F PqSupplyAndExtendAutomorphisms()
 ##
 DeclareGlobalFunction( "PqSupplyAndExtendAutomorphisms" );
 
 #############################################################################
 ##
-#F PQ_CLOSE_RELATIONS( <datarec> ) . . . . . . . . . . . I p-Q menu option 19
+#F PQ_CLOSE_RELATIONS( <datarec> ) . . . . . . . . . . . A p-Q menu option 19
 ##
 DeclareGlobalFunction( "PQ_CLOSE_RELATIONS" );
 
 #############################################################################
 ##
-#F PqCloseRelations( <i> ) . . . . . . . user version of I p-Q menu option 19
+#F PqCloseRelations( <i> ) . . . . . . . user version of A p-Q menu option 19
 #F PqCloseRelations()
 ##
 DeclareGlobalFunction( "PqCloseRelations" );
 
 #############################################################################
 ##
-#F PQ_PRINT_STRUCTURE( <datarec> ) . . . . . . . . . . . I p-Q menu option 20
+#F PQ_PRINT_STRUCTURE( <datarec> ) . . . . . . . . . . . A p-Q menu option 20
 ##
 DeclareGlobalFunction( "PQ_PRINT_STRUCTURE" );
 
 #############################################################################
 ##
-#F PqPrintStructure( <i> ) . . . . . . . user version of I p-Q menu option 20
+#F PqPrintStructure( <i> ) . . . . . . . user version of A p-Q menu option 20
 #F PqPrintStructure()
 ##
 DeclareGlobalFunction( "PqPrintStructure" );
 
 #############################################################################
 ##
-#F PQ_DISPLAY_AUTOMORPHISMS( <datarec> ) . . . . . . . . I p-Q menu option 21
+#F PQ_DISPLAY_AUTOMORPHISMS( <datarec> ) . . . . . . . . A p-Q menu option 21
 ##
 DeclareGlobalFunction( "PQ_DISPLAY_AUTOMORPHISMS" );
 
 #############################################################################
 ##
-#F PqDisplayAutomorphisms( <i> ) . . . . user version of I p-Q menu option 21
+#F PqDisplayAutomorphisms( <i> ) . . . . user version of A p-Q menu option 21
 #F PqDisplayAutomorphisms()
 ##
 DeclareGlobalFunction( "PqDisplayAutomorphisms" );
 
 #############################################################################
 ##
-#F PQ_COLLECT_DEFINING_GENERATORS( <datarec> ) . . . . . I p-Q menu option 23
+#F PQ_COLLECT_DEFINING_GENERATORS( <datarec> ) . . . . . A p-Q menu option 23
 ##
 DeclareGlobalFunction( "PQ_COLLECT_DEFINING_GENERATORS" );
 
 #############################################################################
 ##
-#F PqCollectDefiningGenerators( <i> ) .  user version of I p-Q menu option 23
+#F PqCollectDefiningGenerators( <i> ) .  user version of A p-Q menu option 23
 #F PqCollectDefiningGenerators()
 ##
 DeclareGlobalFunction( "PqCollectDefiningGenerators" );
 
 #############################################################################
 ##
-#F PQ_COMMUTATOR_DEFINING_GENERATORS( <datarec> ) . . .  I p-Q menu option 24
+#F PQ_COMMUTATOR_DEFINING_GENERATORS( <datarec> ) . . .  A p-Q menu option 24
 ##
 DeclareGlobalFunction( "PQ_COMMUTATOR_DEFINING_GENERATORS" );
 
 #############################################################################
 ##
-#F PqCommutatorDefiningGenerators( <i> ) user version of I p-Q menu option 24
+#F PqCommutatorDefiningGenerators( <i> ) user version of A p-Q menu option 24
 #F PqCommutatorDefiningGenerators()
 ##
 DeclareGlobalFunction( "PqCommutatorDefiningGenerators" );
 
 #############################################################################
 ##
-#F  PQ_WRITE_PC_PRESENTATION( <datarec> : <options> ) .  I p-Q menu option 25
+#F  PQ_WRITE_PC_PRESENTATION( <datarec> : <options> ) .  A p-Q menu option 25
 ##
 DeclareGlobalFunction( "PQ_WRITE_PC_PRESENTATION" );
 
 #############################################################################
 ##
-#F  PqWritePcPresentation( <i> : <options> ) . user ver. of I p-Q menu op. 25
+#F  PqWritePcPresentation( <i> : <options> ) . user ver. of A p-Q menu op. 25
 #F  PqWritePcPresentation( )
 ##
 DeclareGlobalFunction( "PqWritePcPresentation" );
 
 #############################################################################
 ##
-#F PQ_EVALUATE_CERTAIN_FORMULAE( <datarec> ) . . . . . . I p-Q menu option 27
+#F PQ_EVALUATE_CERTAIN_FORMULAE( <datarec> ) . . . . . . A p-Q menu option 27
 ##
 DeclareGlobalFunction( "PQ_EVALUATE_CERTAIN_FORMULAE" );
 
 #############################################################################
 ##
-#F PqEvaluateCertainFormulae( <i> ) . .  user version of I p-Q menu option 27
+#F PqEvaluateCertainFormulae( <i> ) . .  user version of A p-Q menu option 27
 #F PqEvaluateCertainFormulae()
 ##
 DeclareGlobalFunction( "PqEvaluateCertainFormulae" );
 
 #############################################################################
 ##
-#F PQ_EVALUATE_ACTION( <datarec> ) . . . . . . . . . . . I p-Q menu option 28
+#F PQ_EVALUATE_ACTION( <datarec> ) . . . . . . . . . . . A p-Q menu option 28
 ##
 DeclareGlobalFunction( "PQ_EVALUATE_ACTION" );
 
 #############################################################################
 ##
-#F PqEvaluateAction( <i> ) . . . . . . . user version of I p-Q menu option 28
+#F PqEvaluateAction( <i> ) . . . . . . . user version of A p-Q menu option 28
 #F PqEvaluateAction()
 ##
 DeclareGlobalFunction( "PqEvaluateAction" );
 
 #############################################################################
 ##
-#F PQ_EVALUATE_ENGEL_IDENTITY( <datarec> ) . . . . . . . I p-Q menu option 29
+#F PQ_EVALUATE_ENGEL_IDENTITY( <datarec> ) . . . . . . . A p-Q menu option 29
 ##
 DeclareGlobalFunction( "PQ_EVALUATE_ENGEL_IDENTITY" );
 
 #############################################################################
 ##
-#F PqEvaluateEngelIdentity( <i> ) . . .  user version of I p-Q menu option 29
+#F PqEvaluateEngelIdentity( <i> ) . . .  user version of A p-Q menu option 29
 #F PqEvaluateEngelIdentity()
 ##
 DeclareGlobalFunction( "PqEvaluateEngelIdentity" );
 
 #############################################################################
 ##
-#F PQ_PROCESS_RELATIONS_FILE( <datarec> ) . . . . . . .  I p-Q menu option 30
+#F PQ_PROCESS_RELATIONS_FILE( <datarec> ) . . . . . . .  A p-Q menu option 30
 ##
 DeclareGlobalFunction( "PQ_PROCESS_RELATIONS_FILE" );
 
 #############################################################################
 ##
-#F PqProcessRelationsFile( <i> ) . . . . user version of I p-Q menu option 30
+#F PqProcessRelationsFile( <i> ) . . . . user version of A p-Q menu option 30
 #F PqProcessRelationsFile()
 ##
 DeclareGlobalFunction( "PqProcessRelationsFile" );
@@ -573,223 +593,223 @@ DeclareGlobalFunction( "PQ_PG_CONSTRUCT_DESCENDANTS" );
 
 #############################################################################
 ##
-#F PQ_IPG_SUPPLY_AUTOMORPHISMS( <datarec> ) . . . . . . . I p-G menu option 1
+#F PQ_APG_SUPPLY_AUTOMORPHISMS( <datarec> ) . . . . . . . A p-G menu option 1
 ##
-DeclareGlobalFunction( "PQ_IPG_SUPPLY_AUTOMORPHISMS" );
+DeclareGlobalFunction( "PQ_APG_SUPPLY_AUTOMORPHISMS" );
 
 #############################################################################
 ##
-#F PqIPGSupplyAutomorphisms( <i> ) . . .  user version of I p-G menu option 1
-#F PqIPGSupplyAutomorphisms()
+#F PqAPGSupplyAutomorphisms( <i> ) . . .  user version of A p-G menu option 1
+#F PqAPGSupplyAutomorphisms()
 ##
-DeclareGlobalFunction( "PqIPGSupplyAutomorphisms" );
+DeclareGlobalFunction( "PqAPGSupplyAutomorphisms" );
 
 #############################################################################
 ##
-#F PQ_IPG_EXTEND_AUTOMORPHISMS( <datarec> ) . . . . . . . I p-G menu option 2
+#F PQ_APG_EXTEND_AUTOMORPHISMS( <datarec> ) . . . . . . . A p-G menu option 2
 ##
-DeclareGlobalFunction( "PQ_IPG_EXTEND_AUTOMORPHISMS" );
+DeclareGlobalFunction( "PQ_APG_EXTEND_AUTOMORPHISMS" );
 
 #############################################################################
 ##
-#F PqIPGExtendAutomorphisms( <i> ) . . .  user version of I p-G menu option 2
-#F PqIPGExtendAutomorphisms()
+#F PqAPGExtendAutomorphisms( <i> ) . . .  user version of A p-G menu option 2
+#F PqAPGExtendAutomorphisms()
 ##
-DeclareGlobalFunction( "PqIPGExtendAutomorphisms" );
+DeclareGlobalFunction( "PqAPGExtendAutomorphisms" );
 
 #############################################################################
 ##
-#F PQ_IPG_RESTORE_GROUP_FROM_FILE( <datarec> ) . . . . .  I p-G menu option 3
+#F PQ_APG_RESTORE_GROUP_FROM_FILE( <datarec> ) . . . . .  A p-G menu option 3
 ##
-DeclareGlobalFunction( "PQ_IPG_RESTORE_GROUP_FROM_FILE" );
+DeclareGlobalFunction( "PQ_APG_RESTORE_GROUP_FROM_FILE" );
 
 #############################################################################
 ##
-#F PqIPGRestoreGroupFromFile( <i> ) . . . user version of I p-G menu option 3
-#F PqIPGRestoreGroupFromFile()
+#F PqAPGRestoreGroupFromFile( <i> ) . . . user version of A p-G menu option 3
+#F PqAPGRestoreGroupFromFile()
 ##
-DeclareGlobalFunction( "PqIPGRestoreGroupFromFile" );
+DeclareGlobalFunction( "PqAPGRestoreGroupFromFile" );
 
 #############################################################################
 ##
-#F PQ_IPG_DISPLAY_GROUP_PRESENTATION( <datarec> ) . . . . I p-G menu option 4
+#F PQ_APG_DISPLAY_GROUP_PRESENTATION( <datarec> ) . . . . A p-G menu option 4
 ##
-DeclareGlobalFunction( "PQ_IPG_DISPLAY_GROUP_PRESENTATION" );
+DeclareGlobalFunction( "PQ_APG_DISPLAY_GROUP_PRESENTATION" );
 
 #############################################################################
 ##
-#F PqIPGDisplayGroupPresentation( <i> ) . user version of I p-G menu option 4
-#F PqIPGDisplayGroupPresentation()
+#F PqAPGDisplayGroupPresentation( <i> ) . user version of A p-G menu option 4
+#F PqAPGDisplayGroupPresentation()
 ##
-DeclareGlobalFunction( "PqIPGDisplayGroupPresentation" );
+DeclareGlobalFunction( "PqAPGDisplayGroupPresentation" );
 
 #############################################################################
 ##
-#F PQ_IPG_SINGLE_STAGE( <datarec> ) . . . . . . . . . . . I p-G menu option 5
+#F PQ_APG_SINGLE_STAGE( <datarec> ) . . . . . . . . . . . A p-G menu option 5
 ##
-DeclareGlobalFunction( "PQ_IPG_SINGLE_STAGE" );
+DeclareGlobalFunction( "PQ_APG_SINGLE_STAGE" );
 
 #############################################################################
 ##
-#F PqIPGSingleStage( <i> ) . . . . . . .  user version of I p-G menu option 5
-#F PqIPGSingleStage()
+#F PqAPGSingleStage( <i> ) . . . . . . .  user version of A p-G menu option 5
+#F PqAPGSingleStage()
 ##
-DeclareGlobalFunction( "PqIPGSingleStage" );
+DeclareGlobalFunction( "PqAPGSingleStage" );
 
 #############################################################################
 ##
-#F PQ_IPG_DEGREE( <datarec> ) . . . . . . . . . . . . . . I p-G menu option 6
+#F PQ_APG_DEGREE( <datarec> ) . . . . . . . . . . . . . . A p-G menu option 6
 ##
-DeclareGlobalFunction( "PQ_IPG_DEGREE" );
+DeclareGlobalFunction( "PQ_APG_DEGREE" );
 
 #############################################################################
 ##
-#F PqIPGDegree( <i> ) . . . . . . . . . . user version of I p-G menu option 6
-#F PqIPGDegree()
+#F PqAPGDegree( <i> ) . . . . . . . . . . user version of A p-G menu option 6
+#F PqAPGDegree()
 ##
-DeclareGlobalFunction( "PqIPGDegree" );
+DeclareGlobalFunction( "PqAPGDegree" );
 
 #############################################################################
 ##
-#F PQ_IPG_PERMUTATIONS( <datarec> ) . . . . . . . . . . . I p-G menu option 7
+#F PQ_APG_PERMUTATIONS( <datarec> ) . . . . . . . . . . . A p-G menu option 7
 ##
-DeclareGlobalFunction( "PQ_IPG_PERMUTATIONS" );
+DeclareGlobalFunction( "PQ_APG_PERMUTATIONS" );
 
 #############################################################################
 ##
-#F PqIPGPermutations( <i> ) . . . . . . . user version of I p-G menu option 7
-#F PqIPGPermutations()
+#F PqAPGPermutations( <i> ) . . . . . . . user version of A p-G menu option 7
+#F PqAPGPermutations()
 ##
-DeclareGlobalFunction( "PqIPGPermutations" );
+DeclareGlobalFunction( "PqAPGPermutations" );
 
 #############################################################################
 ##
-#F PQ_IPG_ORBITS( <datarec> ) . . . . . . . . . . . . . . I p-G menu option 8
+#F PQ_APG_ORBITS( <datarec> ) . . . . . . . . . . . . . . A p-G menu option 8
 ##
-DeclareGlobalFunction( "PQ_IPG_ORBITS" );
+DeclareGlobalFunction( "PQ_APG_ORBITS" );
 
 #############################################################################
 ##
-#F PqIPGOrbits( <i> ) . . . . . . . . . . user version of I p-G menu option 8
-#F PqIPGOrbits()
+#F PqAPGOrbits( <i> ) . . . . . . . . . . user version of A p-G menu option 8
+#F PqAPGOrbits()
 ##
-DeclareGlobalFunction( "PqIPGOrbits" );
+DeclareGlobalFunction( "PqAPGOrbits" );
 
 #############################################################################
 ##
-#F PQ_IPG_ORBIT_REPRESENTATIVES( <datarec> ) . . . . . .  I p-G menu option 9
+#F PQ_APG_ORBIT_REPRESENTATIVES( <datarec> ) . . . . . .  A p-G menu option 9
 ##
-DeclareGlobalFunction( "PQ_IPG_ORBIT_REPRESENTATIVES" );
+DeclareGlobalFunction( "PQ_APG_ORBIT_REPRESENTATIVES" );
 
 #############################################################################
 ##
-#F PqIPGOrbitRepresentatives( <i> ) . . . user version of I p-G menu option 9
-#F PqIPGOrbitRepresentatives()
+#F PqAPGOrbitRepresentatives( <i> ) . . . user version of A p-G menu option 9
+#F PqAPGOrbitRepresentatives()
 ##
-DeclareGlobalFunction( "PqIPGOrbitRepresentatives" );
+DeclareGlobalFunction( "PqAPGOrbitRepresentatives" );
 
 #############################################################################
 ##
-#F PQ_IPG_ORBIT_REPRESENTATIVE( <datarec> ) . . . . . .  I p-G menu option 10
+#F PQ_APG_ORBIT_REPRESENTATIVE( <datarec> ) . . . . . .  A p-G menu option 10
 ##
-DeclareGlobalFunction( "PQ_IPG_ORBIT_REPRESENTATIVE" );
+DeclareGlobalFunction( "PQ_APG_ORBIT_REPRESENTATIVE" );
 
 #############################################################################
 ##
-#F PqIPGOrbitRepresentative( <i> ) . . . user version of I p-G menu option 10
-#F PqIPGOrbitRepresentative()
+#F PqAPGOrbitRepresentative( <i> ) . . . user version of A p-G menu option 10
+#F PqAPGOrbitRepresentative()
 ##
-DeclareGlobalFunction( "PqIPGOrbitRepresentative" );
+DeclareGlobalFunction( "PqAPGOrbitRepresentative" );
 
 #############################################################################
 ##
-#F PQ_IPG_STANDARD_MATRIX_LABEL( <datarec> ) . . . . . . I p-G menu option 11
+#F PQ_APG_STANDARD_MATRIX_LABEL( <datarec> ) . . . . . . A p-G menu option 11
 ##
-DeclareGlobalFunction( "PQ_IPG_STANDARD_MATRIX_LABEL" );
+DeclareGlobalFunction( "PQ_APG_STANDARD_MATRIX_LABEL" );
 
 #############################################################################
 ##
-#F PqIPGStandardMatrixLabel( <i> ) . . . user version of I p-G menu option 11
-#F PqIPGStandardMatrixLabel()
+#F PqAPGStandardMatrixLabel( <i> ) . . . user version of A p-G menu option 11
+#F PqAPGStandardMatrixLabel()
 ##
-DeclareGlobalFunction( "PqIPGStandardMatrixLabel" );
+DeclareGlobalFunction( "PqAPGStandardMatrixLabel" );
 
 #############################################################################
 ##
-#F PQ_IPG_MATRIX_OF_LABEL( <datarec> ) . . . . . . . . . I p-G menu option 12
+#F PQ_APG_MATRIX_OF_LABEL( <datarec> ) . . . . . . . . . A p-G menu option 12
 ##
-DeclareGlobalFunction( "PQ_IPG_MATRIX_OF_LABEL" );
+DeclareGlobalFunction( "PQ_APG_MATRIX_OF_LABEL" );
 
 #############################################################################
 ##
-#F PqIPGMatrixOfLabel( <i> ) . . . . . . user version of I p-G menu option 12
-#F PqIPGMatrixOfLabel()
+#F PqAPGMatrixOfLabel( <i> ) . . . . . . user version of A p-G menu option 12
+#F PqAPGMatrixOfLabel()
 ##
-DeclareGlobalFunction( "PqIPGMatrixOfLabel" );
+DeclareGlobalFunction( "PqAPGMatrixOfLabel" );
 
 #############################################################################
 ##
-#F PQ_IPG_IMAGE_OF_ALLOWABLE_SUBGROUP( <datarec> ) . . . I p-G menu option 13
+#F PQ_APG_IMAGE_OF_ALLOWABLE_SUBGROUP( <datarec> ) . . . A p-G menu option 13
 ##
-DeclareGlobalFunction( "PQ_IPG_IMAGE_OF_ALLOWABLE_SUBGROUP" );
+DeclareGlobalFunction( "PQ_APG_IMAGE_OF_ALLOWABLE_SUBGROUP" );
 
 #############################################################################
 ##
-#F PqIPGImageOfAllowableSubgroup( <i> )  user version of I p-G menu option 13
-#F PqIPGImageOfAllowableSubgroup()
+#F PqAPGImageOfAllowableSubgroup( <i> )  user version of A p-G menu option 13
+#F PqAPGImageOfAllowableSubgroup()
 ##
-DeclareGlobalFunction( "PqIPGImageOfAllowableSubgroup" );
+DeclareGlobalFunction( "PqAPGImageOfAllowableSubgroup" );
 
 #############################################################################
 ##
-#F PQ_IPG_RANK_CLOSURE_OF_INITIAL_SEGMENT( <datarec> ) . I p-G menu option 14
+#F PQ_APG_RANK_CLOSURE_OF_INITIAL_SEGMENT( <datarec> ) . A p-G menu option 14
 ##
-DeclareGlobalFunction( "PQ_IPG_RANK_CLOSURE_OF_INITIAL_SEGMENT" );
+DeclareGlobalFunction( "PQ_APG_RANK_CLOSURE_OF_INITIAL_SEGMENT" );
 
 #############################################################################
 ##
-#F PqIPGRankClosureOfInitialSegment( <i> )  user version of I p-G menu option 14
-#F PqIPGRankClosureOfInitialSegment()
+#F PqAPGRankClosureOfInitialSegment( <i> )  user version of A p-G menu option 14
+#F PqAPGRankClosureOfInitialSegment()
 ##
-DeclareGlobalFunction( "PqIPGRankClosureOfInitialSegment" );
+DeclareGlobalFunction( "PqAPGRankClosureOfInitialSegment" );
 
 #############################################################################
 ##
-#F PQ_IPG_ORBIT_REPRESENTATIVE_OF_LABEL( <datarec> ) . . I p-G menu option 15
+#F PQ_APG_ORBIT_REPRESENTATIVE_OF_LABEL( <datarec> ) . . A p-G menu option 15
 ##
-DeclareGlobalFunction( "PQ_IPG_ORBIT_REPRESENTATIVE_OF_LABEL" );
+DeclareGlobalFunction( "PQ_APG_ORBIT_REPRESENTATIVE_OF_LABEL" );
 
 #############################################################################
 ##
-#F PqIPGOrbitRepresentativeOfLabel( <i> )  user version of I p-G menu option 15
-#F PqIPGOrbitRepresentativeOfLabel()
+#F PqAPGOrbitRepresentativeOfLabel( <i> )  user version of A p-G menu option 15
+#F PqAPGOrbitRepresentativeOfLabel()
 ##
-DeclareGlobalFunction( "PqIPGOrbitRepresentativeOfLabel" );
+DeclareGlobalFunction( "PqAPGOrbitRepresentativeOfLabel" );
 
 #############################################################################
 ##
-#F PQ_IPG_WRITE_COMPACT_DESCRIPTION( <datarec> ) . . . . I p-G menu option 16
+#F PQ_APG_WRITE_COMPACT_DESCRIPTION( <datarec> ) . . . . A p-G menu option 16
 ##
-DeclareGlobalFunction( "PQ_IPG_WRITE_COMPACT_DESCRIPTION" );
+DeclareGlobalFunction( "PQ_APG_WRITE_COMPACT_DESCRIPTION" );
 
 #############################################################################
 ##
-#F PqIPGWriteCompactDescription( <i> ) . user version of I p-G menu option 16
-#F PqIPGWriteCompactDescription()
+#F PqAPGWriteCompactDescription( <i> ) . user version of A p-G menu option 16
+#F PqAPGWriteCompactDescription()
 ##
-DeclareGlobalFunction( "PqIPGWriteCompactDescription" );
+DeclareGlobalFunction( "PqAPGWriteCompactDescription" );
 
 #############################################################################
 ##
-#F PQ_IPG_AUTOMORPHISM_CLASSES( <datarec> ) . . . . . .  I p-G menu option 17
+#F PQ_APG_AUTOMORPHISM_CLASSES( <datarec> ) . . . . . .  A p-G menu option 17
 ##
-DeclareGlobalFunction( "PQ_IPG_AUTOMORPHISM_CLASSES" );
+DeclareGlobalFunction( "PQ_APG_AUTOMORPHISM_CLASSES" );
 
 #############################################################################
 ##
-#F PqIPGAutomorphismClasses( <i> ) . . . user version of I p-G menu option 17
-#F PqIPGAutomorphismClasses()
+#F PqAPGAutomorphismClasses( <i> ) . . . user version of A p-G menu option 17
+#F PqAPGAutomorphismClasses()
 ##
-DeclareGlobalFunction( "PqIPGAutomorphismClasses" );
+DeclareGlobalFunction( "PqAPGAutomorphismClasses" );
 
 #E  anupqi.gd . . . . . . . . . . . . . . . . . . . . . . . . . . . ends here 

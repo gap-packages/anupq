@@ -167,57 +167,83 @@ end );
 
 #############################################################################
 ##
-#F  PQ_SAVE_PC_PRESENTATION( <datarec> ) . . . . . . . . .  p-Q menu option 2
+#F  PQ_SAVE_PC_PRESENTATION( <datarec>, <filename> ) . . .  p-Q menu option 2
 ##
-##  inputs data to the `pq' binary for option 2 of the
-##  main $p$-Quotient menu.
+##  directs the `pq' binary to save the pc presentation  previously  computed
+##  for  `<datarec>.group'  to  <filename>  using  option  2  of   the   main
+##  $p$-Quotient menu.
 ##
-InstallGlobalFunction( PQ_SAVE_PC_PRESENTATION, function( datarec )
+InstallGlobalFunction( PQ_SAVE_PC_PRESENTATION, function( datarec, filename )
+  PQ_MENU(datarec, "pQ");
+  ToPQ(datarec, [ "2  #save pc presentation to file" ]);
+  ToPQ(datarec, [ filename, "  #filename" ]);
 end );
 
 #############################################################################
 ##
-#F  PqSavePcPresentation( <i> ) . . . . . . user version of p-Q menu option 2
-#F  PqSavePcPresentation()
+#F  PqSavePcPresentation( <i>, <filename> ) . .  user ver. of p-Q menu opt. 2
+#F  PqSavePcPresentation( <filename> )
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, inputs data
-##  to the `pq' binary
+##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+##  binary to save the pc presentation previously computed for the  group  of
+##  that process, where the group of a process is  the  one  given  as  first
+##  argument when `PqStart' was called to initiate that process.
 ##
-##  *Note:* For those  familiar  with  the  `pq'  binary, 
-##  `PqSavePcPresentation' performs option 2 of the
-##  main $p$-Quotient menu.
+##  *Note:* For those familiar with the `pq'  binary,  `PqSavePcPresentation'
+##  performs option 2 of the main $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqSavePcPresentation, function( arg )
-local datarec;
+local datarec, filename;
+  if 0 = Length(arg) or Length(arg) > 2 then
+    Error( "expected 1 or 2 arguments\n" );
+  fi;
+  filename := arg[Length(arg)];
+  if not IsString( filename ) then
+    Error( "argument <filename> must be a string\n" );
+  fi;
+  arg := arg{[1..Length(arg) - 1]};
   ANUPQ_IOINDEX_ARG_CHK(arg);
   datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  PQ_SAVE_PC_PRESENTATION( datarec );
+  PQ_SAVE_PC_PRESENTATION( datarec, filename );
 end );
 
 #############################################################################
 ##
-#F  PQ_RESTORE_PC_PRESENTATION( <datarec> ) . . . . . . . . p-Q menu option 3
+#F  PQ_RESTORE_PC_PRESENTATION( <datarec>, <filename> ) . . p-Q menu option 3
 ##
-##  inputs data to the `pq' binary for option 3 of the
-##  main $p$-Quotient menu.
+##  directs the `pq' binary to restore the pc presentation  previously  saved
+##  to <filename> using option 3 of the main $p$-Quotient menu.
 ##
-InstallGlobalFunction( PQ_RESTORE_PC_PRESENTATION, function( datarec )
+InstallGlobalFunction( PQ_RESTORE_PC_PRESENTATION, function( datarec, filename )
+  PQ_MENU(datarec, "pQ");
+  ToPQ(datarec, [ "3  #restore pc presentation from file" ]);
+  ToPQ(datarec, [ filename, "  #filename" ]);
 end );
 
 #############################################################################
 ##
-#F  PqRestorePcPresentation( <i> ) . . . .  user version of p-Q menu option 3
-#F  PqRestorePcPresentation()
+#F  PqRestorePcPresentation( <i>, <filename> ) . user ver. of p-Q menu opt. 3
+#F  PqRestorePcPresentation( <filename> )
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, inputs data
-##  to the `pq' binary
+##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+##  binary to restore the pc presentation previously saved to <filename>  for
+##  the group of that process, where the group of a process is the one  given
+##  as first argument when `PqStart' was called to initiate that process.
 ##
-##  *Note:* For those  familiar  with  the  `pq'  binary, 
-##  `PqRestorePcPresentation' performs option 3 of the
-##  main $p$-Quotient menu.
+##  *Note:*
+##  For  those  familiar  with  the  `pq'  binary,  `PqRestorePcPresentation'
+##  performs option 3 of the main $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqRestorePcPresentation, function( arg )
-local datarec;
+local datarec, filename;
+  if 0 = Length(arg) or Length(arg) > 2 then
+    Error( "expected 1 or 2 arguments\n" );
+  fi;
+  filename := arg[Length(arg)];
+  if not IsString( filename ) then
+    Error( "argument <filename> must be a string\n" );
+  fi;
+  arg := arg{[1..Length(arg) - 1]};
   ANUPQ_IOINDEX_ARG_CHK(arg);
   datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
   PQ_RESTORE_PC_PRESENTATION( datarec );
@@ -227,10 +253,14 @@ end );
 ##
 #F  PQ_DISPLAY_PC_PRESENTATION( <datarec> ) . . . . . . . . p-Q menu option 4
 ##
-##  inputs data to the `pq' binary for option 4 of the
-##  main $p$-Quotient menu.
+##  directs the  `pq'  binary  to  display  the  pc  presentation  previously
+##  computed  (by   `PQ_PC_PRESENTATION')   or   restored   from   file   (by
+##  `PQ_RESTORE_PC_PRESENTATION') using option 4  of  the  main  $p$-Quotient
+##  menu.
 ##
 InstallGlobalFunction( PQ_DISPLAY_PC_PRESENTATION, function( datarec )
+  PQ_MENU(datarec, "pQ");
+  ToPQ(datarec, [ "4  #display pc presentation from file" ]);
 end );
 
 #############################################################################
@@ -238,12 +268,18 @@ end );
 #F  PqDisplayPcPresentation( <i> ) . . . .  user version of p-Q menu option 4
 #F  PqDisplayPcPresentation()
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, inputs data
-##  to the `pq' binary
+##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+##  binary  to  display  the  pc   presentation   previously   computed   (by
+##  `PqPcPresentation'; see~"PqPcPresentation") or  restored  from  file  (by
+##  `PqRestorePcPresentation'; see~"PqRestorePcPresentation") for  the  group
+##  of that process, where the group of a process is the one given  as  first
+##  argument when `PqStart' was called to initiate that process. To  set  the
+##  amount of  information  this  command  displays  you  may  wish  to  call
+##  `PqSetPrintLevel' first (see~"PqSetPrintLevel").
 ##
-##  *Note:* For those  familiar  with  the  `pq'  binary, 
-##  `PqDisplayPcPresentation' performs option 4 of the
-##  main $p$-Quotient menu.
+##  *Note:* 
+##  For  those  familiar  with  the  `pq'  binary,  `PqDisplayPcPresentation'
+##  performs option 4 of the main $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqDisplayPcPresentation, function( arg )
 local datarec;
@@ -254,22 +290,23 @@ end );
 
 #############################################################################
 ##
-#F PQ_SET_PRINT_LEVEL( <datarec>, <menu>, <lev> ) .  p-Q/SP/I p-Q menu opt. 5
+#F  PQ_SET_PRINT_LEVEL(<datarec>, <menu>, <lev>) . . p-Q/SP/A p-Q menu opt. 5
 ##
-##  inputs data to the `pq' binary to set the print level (do option 5 of the
-##  relevant menu) according to the  <menu>  menu,  where  <menu>  is  either
-##  `"pQ"' (main $p$-Quotient menu) or `"SP' (Standard Presentation menu)  or
-##  `"IpQ"' (Interactive $p$-Quotient menu).
+##  inputs data to the `pq' binary to set the print level  to  <lev>  in  the
+##  <menu> menu, where <menu> is either `"pQ"' (main  $p$-Quotient  menu)  or
+##  `"SP' (Standard Presentation  menu)  or  `"ApQ"'  (Advanced  $p$-Quotient
+##  menu), by performing option 5 of <menu> menu.
 ##
-InstallGlobalFunction( PQ_SET_PRINT_LEVEL, function( datarec, menu )
+InstallGlobalFunction( PQ_SET_PRINT_LEVEL, function( datarec, menu, lev )
   PQ_MENU(datarec, menu);
   ToPQ(datarec, [ "5  #set print level" ]);
+  ToPQ(datarec, [ lev, "  #print level" ]);
 end );
 
 #############################################################################
 ##
-#F PqSetPrintLevel( <i>, <lev> )  . . . . . user version of p-Q menu option 5
-#F PqSetPrintLevel( <lev> )
+#F  PqSetPrintLevel( <i>, <lev> ) . . . . . user version of p-Q menu option 5
+#F  PqSetPrintLevel( <lev> )
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, inputs data to the
 ##  `pq' binary, to set the print level in the main $p$-Quotient menu.
@@ -282,9 +319,44 @@ local datarec, lev;
   if IsEmpty(arg) or 2 < Length(arg) then
     Error( "1 or 2 arguments expected\n");
   fi;
+  lev := arg[Length(arg)];
+  if not(lev in [0..3]) then
+    Error( "argument <lev> should be an integer in [0 .. 3]\n" );
+  fi;
+  arg := arg{[1..Length(arg) - 1]};
   ANUPQ_IOINDEX_ARG_CHK(arg);
   datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  PQ_SET_PRINT_LEVEL( datarec );
+  PQ_SET_PRINT_LEVEL( datarec, "SP", lev );
+end );
+
+#############################################################################
+##
+#F  PQ_NEXT_CLASS( <datarec> ) . . . . . . . . . . . . . .  p-Q menu option 6
+##
+##  directs the `pq' binary to calculate the next class of `<datarec>.group',
+##  using option 6 of the main $p$-Quotient menu.
+##
+InstallGlobalFunction( PQ_NEXT_CLASS, function( datarec )
+  PQ_MENU(datarec, "pQ");
+  ToPQ(datarec, [ "6  #calculate next class" ]);
+end );
+
+#############################################################################
+##
+#F  PqNextClass( <i> ) . . . . . . . . . .  user version of p-Q menu option 6
+#F  PqNextClass()
+##
+##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+##  to calculate the next class of `<datarec>.group'.
+##
+##  *Note:* For those familiar with the `pq' binary,  `PqNextClass'  performs
+##  option 6 of the main $p$-Quotient menu.
+##
+InstallGlobalFunction( PqNextClass, function( arg )
+local datarec;
+  ANUPQ_IOINDEX_ARG_CHK(arg);
+  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
+  PQ_NEXT_CLASS( datarec );
 end );
 
 #############################################################################
@@ -320,15 +392,15 @@ end );
 
 #############################################################################
 ##
-#F  PQ_COLLECT( <datarec>, <word> ) . . . . . . . . . . . I p-Q menu option 1
+#F  PQ_COLLECT( <datarec>, <word> ) . . . . . . . . . . . A p-Q menu option 1
 ##
 ##  instructs the  `pq'  binary  to  do  a  collection  on  <word>  a  string
-##  representing the product of three generators, e.g. "x3*x2*x1"  (option  1
+##  representing the product of three generators, e.g. `"x3*x2*x1"' (option 1
 ##  of the interactive $p$-Quotient menu).
 ##
 InstallGlobalFunction( PQ_COLLECT, function( datarec, word )
 
-  PQ_MENU(datarec, "IpQ"); #we need options from the Interactive p-Q Menu
+  PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
   ToPQk(datarec, [ "1  #do individual collection" ]);
   FLUSH_PQ_STREAM_UNTIL(
       datarec.stream, 4, 2, PQ_READ_NEXT_LINE,
@@ -338,13 +410,40 @@ end );
 
 #############################################################################
 ##
-#F  PQ_SOLVE_EQUATION( <datarec>, <a>, <b> ) . . . . . .  I p-Q menu option 2
+#F  PqCollect( <i>, <word> ) . . . . . .  user version of A p-Q menu option 1
+#F  PqCollect( <word> )
+##
+##  for the <i>th or default interactive {\ANUPQ} process, instructs the `pq'
+##  binary to do a collection on <word> a string representing the product  of
+##  three generators, e.g. `"x3*x2*x1"'.
+##
+##  *Note:* For those familiar with the  `pq'  binary,  `PqCollect'  performs
+##  option 1 of the Advanced $p$-Quotient menu.
+##
+InstallGlobalFunction( PqCollect, function( arg )
+local datarec, word;
+  if IsEmpty(arg) or 2 < Length(arg) then
+    Error( "1 or 2 arguments expected\n");
+  fi;
+  word := arg[Length(arg)];
+  if not IsString(word) then
+    Error( "argument <word> should be a string e.g. \"x3*x2*x1\"\n" );
+  fi;
+  arg := arg{[1..Length(arg) - 1]};
+  ANUPQ_IOINDEX_ARG_CHK(arg);
+  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
+  PQ_COLLECT( datarec, word );
+end );
+
+#############################################################################
+##
+#F  PQ_SOLVE_EQUATION( <datarec>, <a>, <b> ) . . . . . .  A p-Q menu option 2
 ##
 ##  inputs data to the `pq' binary for option 2 of the
-##  Interactive $p$-Quotient menu.
+##  Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PQ_SOLVE_EQUATION, function( datarec, a, b )
-  PQ_MENU(datarec, "IpQ"); #we need options from the Interactive p-Q Menu
+  PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
   ToPQk(datarec, [ "2  #solve equation" ]);
   FLUSH_PQ_STREAM_UNTIL(
       datarec.stream, 4, 2, PQ_READ_NEXT_LINE,
@@ -358,7 +457,7 @@ end );
 
 #############################################################################
 ##
-#F  PqSolveEquation( <i> ) . . . . . . .  user version of I p-Q menu option 2
+#F  PqSolveEquation( <i> ) . . . . . . .  user version of A p-Q menu option 2
 #F  PqSolveEquation()
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, inputs data
@@ -366,7 +465,7 @@ end );
 ##
 ##  *Note:* For those  familiar  with  the  `pq'  binary, 
 ##  `PqSolveEquation' performs option 2 of the
-##  Interactive $p$-Quotient menu.
+##  Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqSolveEquation, function( arg )
 local datarec;
@@ -377,14 +476,14 @@ end );
 
 #############################################################################
 ##
-#F  PQ_COMMUTATOR( <datarec>, <words>, <pow> ) . . . . .  I p-Q menu option 3
+#F  PQ_COMMUTATOR( <datarec>, <words>, <pow> ) . . . . .  A p-Q menu option 3
 ##
 ##  inputs data to the `pq' binary for option 3 of the
-##  Interactive $p$-Quotient menu.
+##  Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PQ_COMMUTATOR, function( datarec, words, pow )
 local i;
-  PQ_MENU(datarec, "IpQ"); #we need options from the Interactive p-Q Menu
+  PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
   ToPQ(datarec, [ "3  #commutator" ]);
   # @add argument checking@
   ToPQk(datarec, [ Length(words), "  #no. of components" ]);
@@ -401,7 +500,7 @@ end );
 
 #############################################################################
 ##
-#F  PqCommutator( <i> ) . . . . . . . . . user version of I p-Q menu option 3
+#F  PqCommutator( <i> ) . . . . . . . . . user version of A p-Q menu option 3
 #F  PqCommutator()
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, inputs data
@@ -409,7 +508,7 @@ end );
 ##
 ##  *Note:* For those  familiar  with  the  `pq'  binary, 
 ##  `PqCommutator' performs option 3 of the
-##  Interactive $p$-Quotient menu.
+##  Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqCommutator, function( arg )
 local datarec;
@@ -420,17 +519,17 @@ end );
 
 #############################################################################
 ##
-#F  PQ_DISPLAY_PRESENTATION( <datarec> ) . . . . . . . .  I p-Q menu option 4
+#F  PQ_DISPLAY_PRESENTATION( <datarec> ) . . . . . . . .  A p-Q menu option 4
 ##
 ##  inputs data to the `pq' binary for option 4 of the
-##  Interactive $p$-Quotient menu.
+##  Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PQ_DISPLAY_PRESENTATION, function( datarec )
 end );
 
 #############################################################################
 ##
-#F  PqDisplayPresentation( <i> ) . . . .  user version of I p-Q menu option 4
+#F  PqDisplayPresentation( <i> ) . . . .  user version of A p-Q menu option 4
 #F  PqDisplayPresentation()
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, inputs data
@@ -438,7 +537,7 @@ end );
 ##
 ##  *Note:* For those  familiar  with  the  `pq'  binary, 
 ##  `PqDisplayPresentation' performs option 4 of the
-##  Interactive $p$-Quotient menu.
+##  Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqDisplayPresentation, function( arg )
 local datarec;
@@ -449,20 +548,20 @@ end );
 
 #############################################################################
 ##
-#F  PQ_SETUP_TABLES_FOR_NEXT_CLASS( <datarec> ) . . . . . I p-Q menu option 6
+#F  PQ_SETUP_TABLES_FOR_NEXT_CLASS( <datarec> ) . . . . . A p-Q menu option 6
 ##
 ##  inputs data to the `pq' binary for option 6 of the
-##  Interactive $p$-Quotient menu.
+##  Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PQ_SETUP_TABLES_FOR_NEXT_CLASS, function( datarec )
-  PQ_MENU(datarec, "IpQ"); #we need options from the Interactive p-Q Menu
+  PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
   ToPQ(datarec, [ "6  #set up tables for next class" ]);
   #@datarec.class should be incremented here@
 end );
 
 #############################################################################
 ##
-#F  PqSetupTablesForNextClass( <i> ) . .  user version of I p-Q menu option 6
+#F  PqSetupTablesForNextClass( <i> ) . .  user version of A p-Q menu option 6
 #F  PqSetupTablesForNextClass()
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, inputs data
@@ -470,7 +569,7 @@ end );
 ##
 ##  *Note:* For those  familiar  with  the  `pq'  binary, 
 ##  `PqSetupTablesForNextClass' performs option 6 of the
-##  Interactive $p$-Quotient menu.
+##  Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqSetupTablesForNextClass, function( arg )
 local datarec;
@@ -481,14 +580,14 @@ end );
 
 #############################################################################
 ##
-#F  PQ_INSERT_TAILS( <datarec>, <weight>, <which> )  . .  I p-Q menu option 7
+#F  PQ_INSERT_TAILS( <datarec>, <weight>, <which> )  . .  A p-Q menu option 7
 ##
 ##  inputs data to the `pq' binary for option 7 of the
-##  Interactive $p$-Quotient menu.
+##  Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PQ_INSERT_TAILS, function( datarec, weight, which )
 local intwhich;
-  PQ_MENU(datarec, "IpQ"); #we need options from the Interactive p-Q Menu
+  PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
   ToPQ(datarec, [ "7  #insert tails" ]);
   ToPQ(datarec, [ weight, "  #weight of tails to add/compute" ]);
   #@check weight in [0..class]@
@@ -507,7 +606,7 @@ end );
 
 #############################################################################
 ##
-#F  PqInsertTails( <i> ) . . . . . . . .  user version of I p-Q menu option 7
+#F  PqInsertTails( <i> ) . . . . . . . .  user version of A p-Q menu option 7
 #F  PqInsertTails()
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, inputs data
@@ -515,7 +614,7 @@ end );
 ##
 ##  *Note:* For those  familiar  with  the  `pq'  binary, 
 ##  `PqInsertTails' performs option 7 of the
-##  Interactive $p$-Quotient menu.
+##  Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqInsertTails, function( arg )
 local datarec;
@@ -526,14 +625,14 @@ end );
 
 #############################################################################
 ##
-#F  PQ_DO_CONSISTENCY_CHECKS( <datarec>, <weight>, <type> ) . I p-Q menu opt 8
+#F  PQ_DO_CONSISTENCY_CHECKS( <datarec>, <weight>, <type> ) . A p-Q menu opt 8
 ##
 ##  inputs data to the `pq' binary for option 8 of the
-##  Interactive $p$-Quotient menu.
+##  Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PQ_DO_CONSISTENCY_CHECKS, 
 function( datarec, weight, type )
-  PQ_MENU(datarec, "IpQ"); #we need options from the Interactive p-Q Menu
+  PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
   ToPQ(datarec, [ "8  #check consistency" ]);
   ToPQ(datarec, [ weight, "  #weight of tails to add/compute" ]);
   #@check type in: [0,1,2,3] 0 = `all' weight in [0..class]@
@@ -542,7 +641,7 @@ end );
 
 #############################################################################
 ##
-#F  PqDoConsistencyChecks( <i> ) . . . .  user version of I p-Q menu option 8
+#F  PqDoConsistencyChecks( <i> ) . . . .  user version of A p-Q menu option 8
 #F  PqDoConsistencyChecks()
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, inputs data
@@ -550,7 +649,7 @@ end );
 ##
 ##  *Note:* For those  familiar  with  the  `pq'  binary, 
 ##  `PqDoConsistencyChecks' performs option 8 of the
-##  Interactive $p$-Quotient menu.
+##  Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqDoConsistencyChecks, function( arg )
 local datarec;
@@ -561,19 +660,19 @@ end );
 
 #############################################################################
 ##
-#F  PQ_COLLECT_DEFINING_RELATIONS( <datarec> ) . . . . .  I p-Q menu option 9
+#F  PQ_COLLECT_DEFINING_RELATIONS( <datarec> ) . . . . .  A p-Q menu option 9
 ##
 ##  inputs data to the `pq' binary for option 9 of the
-##  Interactive $p$-Quotient menu.
+##  Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PQ_COLLECT_DEFINING_RELATIONS, function( datarec )
-  PQ_MENU(datarec, "IpQ"); #we need options from the Interactive p-Q Menu
+  PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
   ToPQ(datarec, [ "9  #collect defining relations" ]);
 end );
 
 #############################################################################
 ##
-#F  PqCollectDefiningRelations( <i> ) . . user version of I p-Q menu option 9
+#F  PqCollectDefiningRelations( <i> ) . . user version of A p-Q menu option 9
 #F  PqCollectDefiningRelations()
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, inputs data
@@ -581,7 +680,7 @@ end );
 ##
 ##  *Note:* For those  familiar  with  the  `pq'  binary, 
 ##  `PqCollectDefiningRelations' performs option 9 of the
-##  Interactive $p$-Quotient menu.
+##  Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqCollectDefiningRelations, function( arg )
 local datarec;
@@ -592,10 +691,10 @@ end );
 
 #############################################################################
 ##
-#F  PQ_DO_EXPONENT_CHECKS( <datarec>, <weight1>, <weight2> ) I p-Q menu optn 10
+#F  PQ_DO_EXPONENT_CHECKS( <datarec>, <weight1>, <weight2> ) A p-Q menu optn 10
 ##
 ##  inputs data to the `pq' binary for option 10 of the
-##  Interactive $p$-Quotient menu.
+##  Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PQ_DO_EXPONENT_CHECKS, 
 function( datarec, weight1, weight2 )
@@ -603,7 +702,7 @@ function( datarec, weight1, weight2 )
   if not IsBound(datarec.pQpcp.Exponent) or datarec.pQpcp.Exponent = 0 then
     Error( "no exponent law set\n" );
   fi;
-  PQ_MENU(datarec, "IpQ"); #we need options from the Interactive p-Q Menu
+  PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
   ToPQ(datarec, [ "10  #do exponent checks" ]);
   ToPQ(datarec, [ weight1, "  #start weight"]);
   ToPQ(datarec, [ weight2, "  #end weight"]);
@@ -612,7 +711,7 @@ end );
 
 #############################################################################
 ##
-#F  PqDoExponentChecks( <i> ) . . . . .  user version of I p-Q menu option 10
+#F  PqDoExponentChecks( <i> ) . . . . .  user version of A p-Q menu option 10
 #F  PqDoExponentChecks()
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, inputs data
@@ -620,7 +719,7 @@ end );
 ##
 ##  *Note:* For those  familiar  with  the  `pq'  binary, 
 ##  `PqDoExponentChecks' performs option 10 of the
-##  Interactive $p$-Quotient menu.
+##  Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqDoExponentChecks, function( arg )
 local datarec;
@@ -631,19 +730,19 @@ end );
 
 #############################################################################
 ##
-#F  PQ_ELIMINATE_REDUNDANT_GENERATORS( <datarec> ) . . . I p-Q menu option 11
+#F  PQ_ELIMINATE_REDUNDANT_GENERATORS( <datarec> ) . . . A p-Q menu option 11
 ##
 ##  inputs data to the `pq' binary for option 11 of the
-##  Interactive $p$-Quotient menu.
+##  Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PQ_ELIMINATE_REDUNDANT_GENERATORS, function( datarec )
-  PQ_MENU(datarec, "IpQ"); #we need options from the Interactive p-Q Menu
+  PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
   ToPQ(datarec, [ "11  #eliminate redundant generators" ]);
 end );
 
 #############################################################################
 ##
-#F  PqEliminateRedundantGenerators( <i> )  user version of I p-Q menu option 11
+#F  PqEliminateRedundantGenerators( <i> )  user version of A p-Q menu option 11
 #F  PqEliminateRedundantGenerators()
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, inputs data
@@ -651,7 +750,7 @@ end );
 ##
 ##  *Note:* For those  familiar  with  the  `pq'  binary, 
 ##  `PqEliminateRedundantGenerators' performs option 11 of the
-##  Interactive $p$-Quotient menu.
+##  Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqEliminateRedundantGenerators, function( arg )
 local datarec;
@@ -662,19 +761,19 @@ end );
 
 #############################################################################
 ##
-#F  PQ_REVERT_TO_PREVIOUS_CLASS( <datarec> ) . . . . . . I p-Q menu option 12
+#F  PQ_REVERT_TO_PREVIOUS_CLASS( <datarec> ) . . . . . . A p-Q menu option 12
 ##
 ##  inputs data to the `pq' binary for option 12 of the
-##  Interactive $p$-Quotient menu.
+##  Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PQ_REVERT_TO_PREVIOUS_CLASS, function( datarec )
-  PQ_MENU(datarec, "IpQ"); #we need options from the Interactive p-Q Menu
+  PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
   ToPQ(datarec, [ "12  #revert to previous class" ]);
 end );
 
 #############################################################################
 ##
-#F  PqRevertToPreviousClass( <i> ) . . . user version of I p-Q menu option 12
+#F  PqRevertToPreviousClass( <i> ) . . . user version of A p-Q menu option 12
 #F  PqRevertToPreviousClass()
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, inputs data
@@ -682,7 +781,7 @@ end );
 ##
 ##  *Note:* For those  familiar  with  the  `pq'  binary, 
 ##  `PqRevertToPreviousClass' performs option 12 of the
-##  Interactive $p$-Quotient menu.
+##  Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqRevertToPreviousClass, function( arg )
 local datarec;
@@ -693,10 +792,10 @@ end );
 
 #############################################################################
 ##
-#F  PQ_SET_MAXIMAL_OCCURRENCES( <datarec>, <weights> ) . . I p-Q menu opt. 13
+#F  PQ_SET_MAXIMAL_OCCURRENCES( <datarec>, <weights> ) . . A p-Q menu opt. 13
 ##
 ##  inputs data to the `pq' binary for option 13 of the
-##  Interactive $p$-Quotient menu.
+##  Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PQ_SET_MAXIMAL_OCCURRENCES, function( datarec, weights )
 local ngens;
@@ -705,7 +804,7 @@ local ngens;
     Error( "no. of weights must be equal to the no. of generators of ",
            "weight 1 (", ngens, ")\n" );
   fi;
-  PQ_MENU(datarec, "IpQ"); #we need options from the Interactive p-Q Menu
+  PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
   ToPQ(datarec, [ "13  #set maximal occurrences" ]);
   ToPQ(datarec, [ JoinStringsWithSeparator( List(weights, String), " " ),
                     "  #weights"]);
@@ -713,7 +812,7 @@ end );
 
 #############################################################################
 ##
-#F  PqSetMaximalOccurrences( <i> ) . . . user version of I p-Q menu option 13
+#F  PqSetMaximalOccurrences( <i> ) . . . user version of A p-Q menu option 13
 #F  PqSetMaximalOccurrences()
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, inputs data
@@ -721,7 +820,7 @@ end );
 ##
 ##  *Note:* For those  familiar  with  the  `pq'  binary, 
 ##  `PqSetMaximalOccurrences' performs option 13 of the
-##  Interactive $p$-Quotient menu.
+##  Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqSetMaximalOccurrences, function( arg )
 local datarec;
@@ -732,19 +831,19 @@ end );
 
 #############################################################################
 ##
-#F  PQ_SET_METABELIAN( <datarec> ) . . . . . . . . . . . I p-Q menu option 14
+#F  PQ_SET_METABELIAN( <datarec> ) . . . . . . . . . . . A p-Q menu option 14
 ##
 ##  inputs data to the `pq' binary for option 14 of the
-##  Interactive $p$-Quotient menu.
+##  Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PQ_SET_METABELIAN, function( datarec )
-  PQ_MENU(datarec, "IpQ"); #we need options from the Interactive p-Q Menu
+  PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
   ToPQ(datarec, [ "14  #set metabelian" ]);
 end );
 
 #############################################################################
 ##
-#F  PqSetMetabelian( <i> ) . . . . . . . user version of I p-Q menu option 14
+#F  PqSetMetabelian( <i> ) . . . . . . . user version of A p-Q menu option 14
 #F  PqSetMetabelian()
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, inputs data
@@ -752,7 +851,7 @@ end );
 ##
 ##  *Note:* For those  familiar  with  the  `pq'  binary, 
 ##  `PqSetMetabelian' performs option 14 of the
-##  Interactive $p$-Quotient menu.
+##  Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqSetMetabelian, function( arg )
 local datarec;
@@ -763,24 +862,24 @@ end );
 
 #############################################################################
 ##
-#F  PQ_DO_CONSISTENCY_CHECK( <datarec>, <c>, <b>, <a> ) . I p-Q menu option 15
+#F  PQ_DO_CONSISTENCY_CHECK( <datarec>, <c>, <b>, <a> ) . A p-Q menu option 15
 ##
 ##  inputs data to the `pq' binary for option 15 of the
-##  Interactive $p$-Quotient menu.
+##  Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PQ_DO_CONSISTENCY_CHECK, function( datarec, c, b, a )
   if not ForAll([c, b, a], IsPosInt) or c < b or b < a then
     Error( "generator indices must be non-increasing positive integers\n" );
   fi;
   #@more checking required here@
-  PQ_MENU(datarec, "IpQ"); #we need options from the Interactive p-Q Menu
+  PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
   ToPQ(datarec, [ "15  #do individual consistency check" ]);
   ToPQ(datarec, [ c, " ", b, " ", a, "  #generator indices"]);
 end );
 
 #############################################################################
 ##
-#F  PqDoConsistencyCheck( <i> ) . . . .  user version of I p-Q menu option 15
+#F  PqDoConsistencyCheck( <i> ) . . . .  user version of A p-Q menu option 15
 #F  PqDoConsistencyCheck()
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, inputs data
@@ -788,7 +887,7 @@ end );
 ##
 ##  *Note:* For those  familiar  with  the  `pq'  binary, 
 ##  `PqDoConsistencyCheck' performs option 15 of the
-##  Interactive $p$-Quotient menu.
+##  Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqDoConsistencyCheck, function( arg )
 local datarec;
@@ -799,19 +898,19 @@ end );
 
 #############################################################################
 ##
-#F  PQ_COMPACT( <datarec> ) . . . . . . . . . . . . . .  I p-Q menu option 16
+#F  PQ_COMPACT( <datarec> ) . . . . . . . . . . . . . .  A p-Q menu option 16
 ##
 ##  inputs data to the `pq' binary for option 16 of the
-##  Interactive $p$-Quotient menu.
+##  Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PQ_COMPACT, function( datarec )
-  PQ_MENU(datarec, "IpQ"); #we need options from the Interactive p-Q Menu
+  PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
   ToPQ(datarec, [ "16  #compact" ]);
 end );
 
 #############################################################################
 ##
-#F  PqCompact( <i> ) . . . . . . . . . . user version of I p-Q menu option 16
+#F  PqCompact( <i> ) . . . . . . . . . . user version of A p-Q menu option 16
 #F  PqCompact()
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, inputs data
@@ -819,7 +918,7 @@ end );
 ##
 ##  *Note:* For those  familiar  with  the  `pq'  binary, 
 ##  `PqCompact' performs option 16 of the
-##  Interactive $p$-Quotient menu.
+##  Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqCompact, function( arg )
 local datarec;
@@ -830,20 +929,20 @@ end );
 
 #############################################################################
 ##
-#F  PQ_ECHELONISE( <datarec> ) . . . . . . . . . . . . . I p-Q menu option 17
+#F  PQ_ECHELONISE( <datarec> ) . . . . . . . . . . . . . A p-Q menu option 17
 ##
 ##  inputs data to the `pq' binary for option 17 of the
-##  Interactive $p$-Quotient menu.
+##  Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PQ_ECHELONISE, function( datarec )
-  PQ_MENU(datarec, "IpQ"); #we need options from the Interactive p-Q Menu
+  PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
   #@dependence@
   ToPQ(datarec, [ "17  #echelonise" ]);
 end );
 
 #############################################################################
 ##
-#F  PqEchelonise( <i> ) . . . . . . . .  user version of I p-Q menu option 17
+#F  PqEchelonise( <i> ) . . . . . . . .  user version of A p-Q menu option 17
 #F  PqEchelonise()
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, inputs data
@@ -851,7 +950,7 @@ end );
 ##
 ##  *Note:* For those  familiar  with  the  `pq'  binary, 
 ##  `PqEchelonise' performs option 17 of the
-##  Interactive $p$-Quotient menu.
+##  Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqEchelonise, function( arg )
 local datarec;
@@ -862,10 +961,10 @@ end );
 
 #############################################################################
 ##
-#F  PQ_SUPPLY_AND_EXTEND_AUTOMORPHISMS( <datarec>, <mlist> )  I p-Q menu opt 18
+#F  PQ_SUPPLY_AND_EXTEND_AUTOMORPHISMS( <datarec>, <mlist> )  A p-Q menu opt 18
 ##
 ##  inputs data to the `pq' binary for option 18 of the
-##  Interactive $p$-Quotient menu.
+##  Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PQ_SUPPLY_AND_EXTEND_AUTOMORPHISMS, 
 function( datarec, mlist )
@@ -883,7 +982,7 @@ local rank, nauts, nexpts, i, j, aut, exponents;
   if not ForAll(mlist, mat -> Length(mat[1]) = nexpts) then
     Error("each matrix of <mlist> must have the same no. of columns\n");
   fi;
-  PQ_MENU(datarec, "IpQ"); #we need options from the Interactive p-Q Menu
+  PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
   ToPQ(datarec, [ "18  #supply and extend auts" ]);
   nauts := Length(mlist);
   ToPQ(datarec, [ nauts,  "  #no. of auts" ]);
@@ -900,7 +999,7 @@ end );
 
 #############################################################################
 ##
-#F  PqSupplyAndExtendAutomorphisms( <i> )  user version of I p-Q menu option 18
+#F  PqSupplyAndExtendAutomorphisms( <i> )  user version of A p-Q menu option 18
 #F  PqSupplyAndExtendAutomorphisms()
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, inputs data
@@ -908,7 +1007,7 @@ end );
 ##
 ##  *Note:* For those  familiar  with  the  `pq'  binary, 
 ##  `PqSupplyAndExtendAutomorphisms' performs option 18 of the
-##  Interactive $p$-Quotient menu.
+##  Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqSupplyAndExtendAutomorphisms, function( arg )
 local datarec;
@@ -919,19 +1018,19 @@ end );
 
 #############################################################################
 ##
-#F  PQ_CLOSE_RELATIONS( <datarec> ) . . . . . . . . . .  I p-Q menu option 19
+#F  PQ_CLOSE_RELATIONS( <datarec> ) . . . . . . . . . .  A p-Q menu option 19
 ##
 ##  inputs data to the `pq' binary for option 19 of the
-##  Interactive $p$-Quotient menu.
+##  Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PQ_CLOSE_RELATIONS, function( datarec )
-  PQ_MENU(datarec, "IpQ"); #we need options from the Interactive p-Q Menu
+  PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
   ToPQ(datarec, [ "19  #close relations" ]);
 end );
 
 #############################################################################
 ##
-#F  PqCloseRelations( <i> ) . . . . . .  user version of I p-Q menu option 19
+#F  PqCloseRelations( <i> ) . . . . . .  user version of A p-Q menu option 19
 #F  PqCloseRelations()
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, inputs data
@@ -939,7 +1038,7 @@ end );
 ##
 ##  *Note:* For those  familiar  with  the  `pq'  binary, 
 ##  `PqCloseRelations' performs option 19 of the
-##  Interactive $p$-Quotient menu.
+##  Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqCloseRelations, function( arg )
 local datarec;
@@ -950,19 +1049,19 @@ end );
 
 #############################################################################
 ##
-#F  PQ_PRINT_STRUCTURE( <datarec> ) . . . . . . . . . .  I p-Q menu option 20
+#F  PQ_PRINT_STRUCTURE( <datarec> ) . . . . . . . . . .  A p-Q menu option 20
 ##
 ##  inputs data to the `pq' binary for option 20 of the
-##  Interactive $p$-Quotient menu.
+##  Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PQ_PRINT_STRUCTURE, function( datarec )
-  PQ_MENU(datarec, "IpQ"); #we need options from the Interactive p-Q Menu
+  PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
   ToPQ(datarec, [ "20  #print structure" ]);
 end );
 
 #############################################################################
 ##
-#F  PqPrintStructure( <i> ) . . . . . .  user version of I p-Q menu option 20
+#F  PqPrintStructure( <i> ) . . . . . .  user version of A p-Q menu option 20
 #F  PqPrintStructure()
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, inputs data
@@ -970,7 +1069,7 @@ end );
 ##
 ##  *Note:* For those  familiar  with  the  `pq'  binary, 
 ##  `PqPrintStructure' performs option 20 of the
-##  Interactive $p$-Quotient menu.
+##  Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqPrintStructure, function( arg )
 local datarec;
@@ -981,19 +1080,19 @@ end );
 
 #############################################################################
 ##
-#F  PQ_DISPLAY_AUTOMORPHISMS( <datarec> ) . . . . . . .  I p-Q menu option 21
+#F  PQ_DISPLAY_AUTOMORPHISMS( <datarec> ) . . . . . . .  A p-Q menu option 21
 ##
 ##  inputs data to the `pq' binary for option 21 of the
-##  Interactive $p$-Quotient menu.
+##  Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PQ_DISPLAY_AUTOMORPHISMS, function( datarec )
-  PQ_MENU(datarec, "IpQ"); #we need options from the Interactive p-Q Menu
+  PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
   ToPQ(datarec, [ "21  #display automorphisms" ]);
 end );
 
 #############################################################################
 ##
-#F  PqDisplayAutomorphisms( <i> ) . . .  user version of I p-Q menu option 21
+#F  PqDisplayAutomorphisms( <i> ) . . .  user version of A p-Q menu option 21
 #F  PqDisplayAutomorphisms()
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, inputs data
@@ -1001,7 +1100,7 @@ end );
 ##
 ##  *Note:* For those  familiar  with  the  `pq'  binary, 
 ##  `PqDisplayAutomorphisms' performs option 21 of the
-##  Interactive $p$-Quotient menu.
+##  Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqDisplayAutomorphisms, function( arg )
 local datarec;
@@ -1012,19 +1111,19 @@ end );
 
 #############################################################################
 ##
-#F  PQ_COLLECT_DEFINING_GENERATORS( <datarec> ) . . . .  I p-Q menu option 23
+#F  PQ_COLLECT_DEFINING_GENERATORS( <datarec> ) . . . .  A p-Q menu option 23
 ##
 ##  inputs data to the `pq' binary for option 23 of the
-##  Interactive $p$-Quotient menu.
+##  Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PQ_COLLECT_DEFINING_GENERATORS, function( datarec )
-  PQ_MENU(datarec, "IpQ"); #we need options from the Interactive p-Q Menu
+  PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
   ToPQ(datarec, [ "23  #collect defining generators" ]);
 end );
 
 #############################################################################
 ##
-#F  PqCollectDefiningGenerators( <i> ) . user version of I p-Q menu option 23
+#F  PqCollectDefiningGenerators( <i> ) . user version of A p-Q menu option 23
 #F  PqCollectDefiningGenerators()
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, inputs data
@@ -1032,7 +1131,7 @@ end );
 ##
 ##  *Note:* For those  familiar  with  the  `pq'  binary, 
 ##  `PqCollectDefiningGenerators' performs option 23 of the
-##  Interactive $p$-Quotient menu.
+##  Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqCollectDefiningGenerators, function( arg )
 local datarec;
@@ -1043,19 +1142,19 @@ end );
 
 #############################################################################
 ##
-#F  PQ_COMMUTATOR_DEFINING_GENERATORS( <datarec> ) . . . I p-Q menu option 24
+#F  PQ_COMMUTATOR_DEFINING_GENERATORS( <datarec> ) . . . A p-Q menu option 24
 ##
 ##  inputs data to the `pq' binary for option 24 of the
-##  Interactive $p$-Quotient menu.
+##  Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PQ_COMMUTATOR_DEFINING_GENERATORS, function( datarec )
-  PQ_MENU(datarec, "IpQ"); #we need options from the Interactive p-Q Menu
+  PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
   ToPQ(datarec, [ "24  #commutator defining generators" ]);
 end );
 
 #############################################################################
 ##
-#F  PqCommutatorDefiningGenerators( <i> )  user version of I p-Q menu option 24
+#F  PqCommutatorDefiningGenerators( <i> )  user version of A p-Q menu option 24
 #F  PqCommutatorDefiningGenerators()
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, inputs data
@@ -1063,7 +1162,7 @@ end );
 ##
 ##  *Note:* For those  familiar  with  the  `pq'  binary, 
 ##  `PqCommutatorDefiningGenerators' performs option 24 of the
-##  Interactive $p$-Quotient menu.
+##  Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqCommutatorDefiningGenerators, function( arg )
 local datarec;
@@ -1074,14 +1173,14 @@ end );
 
 #############################################################################
 ##
-#F  PQ_WRITE_PC_PRESENTATION( <datarec>, <outfile> ) . . I p-Q menu option 25
+#F  PQ_WRITE_PC_PRESENTATION( <datarec>, <outfile> ) . . A p-Q menu option 25
 ##
 ##  tells the `pq' binary to write a pc presentation to <outfile>  for  group
 ##  `<datarec>.group' (option 25 of the interactive $p$-Quotient menu).
 ##
 InstallGlobalFunction( PQ_WRITE_PC_PRESENTATION, function( datarec, outfile )
   PrintTo(outfile, ""); #to ensure it's empty
-  PQ_MENU(datarec, "IpQ"); #we need options from the Interactive p-Q Menu
+  PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
   ToPQ(datarec, [ "25 #set output file" ]);
   ToPQ(datarec, [ outfile ]);
   ToPQ(datarec, [ "2  #output in GAP format" ]);
@@ -1089,7 +1188,7 @@ end );
 
 #############################################################################
 ##
-#F  PqWritePcPresentation( <i>, <outfile> ) .  user ver. of I p-Q menu op. 25
+#F  PqWritePcPresentation( <i>, <outfile> ) .  user ver. of A p-Q menu op. 25
 #F  PqWritePcPresentation( <outfile> )
 ##
 ##  for the <i>th or default interactive {\ANUPQ}  process,  tells  the  `pq'
@@ -1126,19 +1225,19 @@ end );
 
 #############################################################################
 ##
-#F  PQ_EVALUATE_CERTAIN_FORMULAE( <datarec> ) . . . . .  I p-Q menu option 27
+#F  PQ_EVALUATE_CERTAIN_FORMULAE( <datarec> ) . . . . .  A p-Q menu option 27
 ##
 ##  inputs data to the `pq' binary for option 27 of the
-##  Interactive $p$-Quotient menu.
+##  Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PQ_EVALUATE_CERTAIN_FORMULAE, function( datarec )
-  PQ_MENU(datarec, "IpQ"); #we need options from the Interactive p-Q Menu
+  PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
   ToPQ(datarec, [ "27  #evaluate certain formulae" ]);
 end );
 
 #############################################################################
 ##
-#F  PqEvaluateCertainFormulae( <i> ) . . user version of I p-Q menu option 27
+#F  PqEvaluateCertainFormulae( <i> ) . . user version of A p-Q menu option 27
 #F  PqEvaluateCertainFormulae()
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, inputs data
@@ -1146,7 +1245,7 @@ end );
 ##
 ##  *Note:* For those  familiar  with  the  `pq'  binary, 
 ##  `PqEvaluateCertainFormulae' performs option 27 of the
-##  Interactive $p$-Quotient menu.
+##  Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqEvaluateCertainFormulae, function( arg )
 local datarec;
@@ -1157,19 +1256,19 @@ end );
 
 #############################################################################
 ##
-#F  PQ_EVALUATE_ACTION( <datarec> ) . . . . . . . . . .  I p-Q menu option 28
+#F  PQ_EVALUATE_ACTION( <datarec> ) . . . . . . . . . .  A p-Q menu option 28
 ##
 ##  inputs data to the `pq' binary for option 28 of the
-##  Interactive $p$-Quotient menu.
+##  Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PQ_EVALUATE_ACTION, function( datarec )
-  PQ_MENU(datarec, "IpQ"); #we need options from the Interactive p-Q Menu
+  PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
   ToPQ(datarec, [ "28  #evaluate action" ]);
 end );
 
 #############################################################################
 ##
-#F  PqEvaluateAction( <i> ) . . . . . .  user version of I p-Q menu option 28
+#F  PqEvaluateAction( <i> ) . . . . . .  user version of A p-Q menu option 28
 #F  PqEvaluateAction()
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, inputs data
@@ -1177,7 +1276,7 @@ end );
 ##
 ##  *Note:* For those  familiar  with  the  `pq'  binary, 
 ##  `PqEvaluateAction' performs option 28 of the
-##  Interactive $p$-Quotient menu.
+##  Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqEvaluateAction, function( arg )
 local datarec;
@@ -1188,19 +1287,19 @@ end );
 
 #############################################################################
 ##
-#F  PQ_EVALUATE_ENGEL_IDENTITY( <datarec> ) . . . . . .  I p-Q menu option 29
+#F  PQ_EVALUATE_ENGEL_IDENTITY( <datarec> ) . . . . . .  A p-Q menu option 29
 ##
 ##  inputs data to the `pq' binary for option 29 of the
-##  Interactive $p$-Quotient menu.
+##  Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PQ_EVALUATE_ENGEL_IDENTITY, function( datarec )
-  PQ_MENU(datarec, "IpQ"); #we need options from the Interactive p-Q Menu
+  PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
   ToPQ(datarec, [ "29  #evaluate Engel identity" ]);
 end );
 
 #############################################################################
 ##
-#F  PqEvaluateEngelIdentity( <i> ) . . . user version of I p-Q menu option 29
+#F  PqEvaluateEngelIdentity( <i> ) . . . user version of A p-Q menu option 29
 #F  PqEvaluateEngelIdentity()
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, inputs data
@@ -1208,7 +1307,7 @@ end );
 ##
 ##  *Note:* For those  familiar  with  the  `pq'  binary, 
 ##  `PqEvaluateEngelIdentity' performs option 29 of the
-##  Interactive $p$-Quotient menu.
+##  Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqEvaluateEngelIdentity, function( arg )
 local datarec;
@@ -1219,19 +1318,19 @@ end );
 
 #############################################################################
 ##
-#F  PQ_PROCESS_RELATIONS_FILE( <datarec> ) . . . . . . . I p-Q menu option 30
+#F  PQ_PROCESS_RELATIONS_FILE( <datarec> ) . . . . . . . A p-Q menu option 30
 ##
 ##  inputs data to the `pq' binary for option 30 of the
-##  Interactive $p$-Quotient menu.
+##  Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PQ_PROCESS_RELATIONS_FILE, function( datarec )
-  PQ_MENU(datarec, "IpQ"); #we need options from the Interactive p-Q Menu
+  PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
   ToPQ(datarec, [ "30  #process relations file" ]);
 end );
 
 #############################################################################
 ##
-#F  PqProcessRelationsFile( <i> ) . . .  user version of I p-Q menu option 30
+#F  PqProcessRelationsFile( <i> ) . . .  user version of A p-Q menu option 30
 #F  PqProcessRelationsFile()
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, inputs data
@@ -1239,7 +1338,7 @@ end );
 ##
 ##  *Note:* For those  familiar  with  the  `pq'  binary, 
 ##  `PqProcessRelationsFile' performs option 30 of the
-##  Interactive $p$-Quotient menu.
+##  Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqProcessRelationsFile, function( arg )
 local datarec;
@@ -1660,495 +1759,495 @@ end );
 
 #############################################################################
 ##
-#F  PQ_IPG_SUPPLY_AUTOMORPHISMS( <datarec> ) . . . . . .  I p-G menu option 1
+#F  PQ_APG_SUPPLY_AUTOMORPHISMS( <datarec> ) . . . . . .  A p-G menu option 1
 ##
 ##  inputs data to the `pq' binary for option 1 of the
-##  Interactive $p$-Group Generation menu.
+##  Advanced $p$-Group Generation menu.
 ##
-InstallGlobalFunction( PQ_IPG_SUPPLY_AUTOMORPHISMS, function( datarec )
+InstallGlobalFunction( PQ_APG_SUPPLY_AUTOMORPHISMS, function( datarec )
 end );
 
 #############################################################################
 ##
-#F  PqIPGSupplyAutomorphisms( <i> ) . . . user version of I p-G menu option 1
-#F  PqIPGSupplyAutomorphisms()
+#F  PqAPGSupplyAutomorphisms( <i> ) . . . user version of A p-G menu option 1
+#F  PqAPGSupplyAutomorphisms()
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, inputs data
 ##  to the `pq' binary
 ##
 ##  *Note:* For those  familiar  with  the  `pq'  binary, 
-##  `PqIPGSupplyAutomorphisms' performs option 1 of the
-##  Interactive $p$-Group Generation menu.
+##  `PqAPGSupplyAutomorphisms' performs option 1 of the
+##  Advanced $p$-Group Generation menu.
 ##
-InstallGlobalFunction( PqIPGSupplyAutomorphisms, function( arg )
+InstallGlobalFunction( PqAPGSupplyAutomorphisms, function( arg )
 local datarec;
   ANUPQ_IOINDEX_ARG_CHK(arg);
   datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  PQ_IPG_SUPPLY_AUTOMORPHISMS( datarec );
+  PQ_APG_SUPPLY_AUTOMORPHISMS( datarec );
 end );
 
 #############################################################################
 ##
-#F  PQ_IPG_EXTEND_AUTOMORPHISMS( <datarec> ) . . . . . .  I p-G menu option 2
+#F  PQ_APG_EXTEND_AUTOMORPHISMS( <datarec> ) . . . . . .  A p-G menu option 2
 ##
 ##  inputs data to the `pq' binary for option 2 of the
-##  Interactive $p$-Group Generation menu.
+##  Advanced $p$-Group Generation menu.
 ##
-InstallGlobalFunction( PQ_IPG_EXTEND_AUTOMORPHISMS, function( datarec )
+InstallGlobalFunction( PQ_APG_EXTEND_AUTOMORPHISMS, function( datarec )
 end );
 
 #############################################################################
 ##
-#F  PqIPGExtendAutomorphisms( <i> ) . . . user version of I p-G menu option 2
-#F  PqIPGExtendAutomorphisms()
+#F  PqAPGExtendAutomorphisms( <i> ) . . . user version of A p-G menu option 2
+#F  PqAPGExtendAutomorphisms()
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, inputs data
 ##  to the `pq' binary
 ##
 ##  *Note:* For those  familiar  with  the  `pq'  binary, 
-##  `PqIPGExtendAutomorphisms' performs option 2 of the
-##  Interactive $p$-Group Generation menu.
+##  `PqAPGExtendAutomorphisms' performs option 2 of the
+##  Advanced $p$-Group Generation menu.
 ##
-InstallGlobalFunction( PqIPGExtendAutomorphisms, function( arg )
+InstallGlobalFunction( PqAPGExtendAutomorphisms, function( arg )
 local datarec;
   ANUPQ_IOINDEX_ARG_CHK(arg);
   datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  PQ_IPG_EXTEND_AUTOMORPHISMS( datarec );
+  PQ_APG_EXTEND_AUTOMORPHISMS( datarec );
 end );
 
 #############################################################################
 ##
-#F  PQ_IPG_RESTORE_GROUP_FROM_FILE( <datarec> ) . . . . . I p-G menu option 3
+#F  PQ_APG_RESTORE_GROUP_FROM_FILE( <datarec> ) . . . . . A p-G menu option 3
 ##
 ##  inputs data to the `pq' binary for option 3 of the
-##  Interactive $p$-Group Generation menu.
+##  Advanced $p$-Group Generation menu.
 ##
-InstallGlobalFunction( PQ_IPG_RESTORE_GROUP_FROM_FILE, function( datarec )
+InstallGlobalFunction( PQ_APG_RESTORE_GROUP_FROM_FILE, function( datarec )
 end );
 
 #############################################################################
 ##
-#F  PqIPGRestoreGroupFromFile( <i> ) . .  user version of I p-G menu option 3
-#F  PqIPGRestoreGroupFromFile()
+#F  PqAPGRestoreGroupFromFile( <i> ) . .  user version of A p-G menu option 3
+#F  PqAPGRestoreGroupFromFile()
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, inputs data
 ##  to the `pq' binary
 ##
 ##  *Note:* For those  familiar  with  the  `pq'  binary, 
-##  `PqIPGRestoreGroupFromFile' performs option 3 of the
-##  Interactive $p$-Group Generation menu.
+##  `PqAPGRestoreGroupFromFile' performs option 3 of the
+##  Advanced $p$-Group Generation menu.
 ##
-InstallGlobalFunction( PqIPGRestoreGroupFromFile, function( arg )
+InstallGlobalFunction( PqAPGRestoreGroupFromFile, function( arg )
 local datarec;
   ANUPQ_IOINDEX_ARG_CHK(arg);
   datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  PQ_IPG_RESTORE_GROUP_FROM_FILE( datarec );
+  PQ_APG_RESTORE_GROUP_FROM_FILE( datarec );
 end );
 
 #############################################################################
 ##
-#F  PQ_IPG_DISPLAY_GROUP_PRESENTATION( <datarec> ) . . .  I p-G menu option 4
+#F  PQ_APG_DISPLAY_GROUP_PRESENTATION( <datarec> ) . . .  A p-G menu option 4
 ##
 ##  inputs data to the `pq' binary for option 4 of the
-##  Interactive $p$-Group Generation menu.
+##  Advanced $p$-Group Generation menu.
 ##
-InstallGlobalFunction( PQ_IPG_DISPLAY_GROUP_PRESENTATION, function( datarec )
+InstallGlobalFunction( PQ_APG_DISPLAY_GROUP_PRESENTATION, function( datarec )
 end );
 
 #############################################################################
 ##
-#F  PqIPGDisplayGroupPresentation( <i> )  user version of I p-G menu option 4
-#F  PqIPGDisplayGroupPresentation()
+#F  PqAPGDisplayGroupPresentation( <i> )  user version of A p-G menu option 4
+#F  PqAPGDisplayGroupPresentation()
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, inputs data
 ##  to the `pq' binary
 ##
 ##  *Note:* For those  familiar  with  the  `pq'  binary, 
-##  `PqIPGDisplayGroupPresentation' performs option 4 of the
-##  Interactive $p$-Group Generation menu.
+##  `PqAPGDisplayGroupPresentation' performs option 4 of the
+##  Advanced $p$-Group Generation menu.
 ##
-InstallGlobalFunction( PqIPGDisplayGroupPresentation, function( arg )
+InstallGlobalFunction( PqAPGDisplayGroupPresentation, function( arg )
 local datarec;
   ANUPQ_IOINDEX_ARG_CHK(arg);
   datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  PQ_IPG_DISPLAY_GROUP_PRESENTATION( datarec );
+  PQ_APG_DISPLAY_GROUP_PRESENTATION( datarec );
 end );
 
 #############################################################################
 ##
-#F  PQ_IPG_SINGLE_STAGE( <datarec> ) . . . . . . . . . .  I p-G menu option 5
+#F  PQ_APG_SINGLE_STAGE( <datarec> ) . . . . . . . . . .  A p-G menu option 5
 ##
 ##  inputs data to the `pq' binary for option 5 of the
-##  Interactive $p$-Group Generation menu.
+##  Advanced $p$-Group Generation menu.
 ##
-InstallGlobalFunction( PQ_IPG_SINGLE_STAGE, function( datarec )
+InstallGlobalFunction( PQ_APG_SINGLE_STAGE, function( datarec )
 end );
 
 #############################################################################
 ##
-#F  PqIPGSingleStage( <i> ) . . . . . . . user version of I p-G menu option 5
-#F  PqIPGSingleStage()
+#F  PqAPGSingleStage( <i> ) . . . . . . . user version of A p-G menu option 5
+#F  PqAPGSingleStage()
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, inputs data
 ##  to the `pq' binary
 ##
 ##  *Note:* For those  familiar  with  the  `pq'  binary, 
-##  `PqIPGSingleStage' performs option 5 of the
-##  Interactive $p$-Group Generation menu.
+##  `PqAPGSingleStage' performs option 5 of the
+##  Advanced $p$-Group Generation menu.
 ##
-InstallGlobalFunction( PqIPGSingleStage, function( arg )
+InstallGlobalFunction( PqAPGSingleStage, function( arg )
 local datarec;
   ANUPQ_IOINDEX_ARG_CHK(arg);
   datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  PQ_IPG_SINGLE_STAGE( datarec );
+  PQ_APG_SINGLE_STAGE( datarec );
 end );
 
 #############################################################################
 ##
-#F  PQ_IPG_DEGREE( <datarec> ) . . . . . . . . . . . . .  I p-G menu option 6
+#F  PQ_APG_DEGREE( <datarec> ) . . . . . . . . . . . . .  A p-G menu option 6
 ##
 ##  inputs data to the `pq' binary for option 6 of the
-##  Interactive $p$-Group Generation menu.
+##  Advanced $p$-Group Generation menu.
 ##
-InstallGlobalFunction( PQ_IPG_DEGREE, function( datarec )
+InstallGlobalFunction( PQ_APG_DEGREE, function( datarec )
 end );
 
 #############################################################################
 ##
-#F  PqIPGDegree( <i> ) . . . . . . . . .  user version of I p-G menu option 6
-#F  PqIPGDegree()
+#F  PqAPGDegree( <i> ) . . . . . . . . .  user version of A p-G menu option 6
+#F  PqAPGDegree()
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, inputs data
 ##  to the `pq' binary
 ##
 ##  *Note:* For those  familiar  with  the  `pq'  binary, 
-##  `PqIPGDegree' performs option 6 of the
-##  Interactive $p$-Group Generation menu.
+##  `PqAPGDegree' performs option 6 of the
+##  Advanced $p$-Group Generation menu.
 ##
-InstallGlobalFunction( PqIPGDegree, function( arg )
+InstallGlobalFunction( PqAPGDegree, function( arg )
 local datarec;
   ANUPQ_IOINDEX_ARG_CHK(arg);
   datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  PQ_IPG_DEGREE( datarec );
+  PQ_APG_DEGREE( datarec );
 end );
 
 #############################################################################
 ##
-#F  PQ_IPG_PERMUTATIONS( <datarec> ) . . . . . . . . . .  I p-G menu option 7
+#F  PQ_APG_PERMUTATIONS( <datarec> ) . . . . . . . . . .  A p-G menu option 7
 ##
 ##  inputs data to the `pq' binary for option 7 of the
-##  Interactive $p$-Group Generation menu.
+##  Advanced $p$-Group Generation menu.
 ##
-InstallGlobalFunction( PQ_IPG_PERMUTATIONS, function( datarec )
+InstallGlobalFunction( PQ_APG_PERMUTATIONS, function( datarec )
 end );
 
 #############################################################################
 ##
-#F  PqIPGPermutations( <i> ) . . . . . .  user version of I p-G menu option 7
-#F  PqIPGPermutations()
+#F  PqAPGPermutations( <i> ) . . . . . .  user version of A p-G menu option 7
+#F  PqAPGPermutations()
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, inputs data
 ##  to the `pq' binary
 ##
 ##  *Note:* For those  familiar  with  the  `pq'  binary, 
-##  `PqIPGPermutations' performs option 7 of the
-##  Interactive $p$-Group Generation menu.
+##  `PqAPGPermutations' performs option 7 of the
+##  Advanced $p$-Group Generation menu.
 ##
-InstallGlobalFunction( PqIPGPermutations, function( arg )
+InstallGlobalFunction( PqAPGPermutations, function( arg )
 local datarec;
   ANUPQ_IOINDEX_ARG_CHK(arg);
   datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  PQ_IPG_PERMUTATIONS( datarec );
+  PQ_APG_PERMUTATIONS( datarec );
 end );
 
 #############################################################################
 ##
-#F  PQ_IPG_ORBITS( <datarec> ) . . . . . . . . . . . . .  I p-G menu option 8
+#F  PQ_APG_ORBITS( <datarec> ) . . . . . . . . . . . . .  A p-G menu option 8
 ##
 ##  inputs data to the `pq' binary for option 8 of the
-##  Interactive $p$-Group Generation menu.
+##  Advanced $p$-Group Generation menu.
 ##
-InstallGlobalFunction( PQ_IPG_ORBITS, function( datarec )
+InstallGlobalFunction( PQ_APG_ORBITS, function( datarec )
 end );
 
 #############################################################################
 ##
-#F  PqIPGOrbits( <i> ) . . . . . . . . .  user version of I p-G menu option 8
-#F  PqIPGOrbits()
+#F  PqAPGOrbits( <i> ) . . . . . . . . .  user version of A p-G menu option 8
+#F  PqAPGOrbits()
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, inputs data
 ##  to the `pq' binary
 ##
 ##  *Note:* For those  familiar  with  the  `pq'  binary, 
-##  `PqIPGOrbits' performs option 8 of the
-##  Interactive $p$-Group Generation menu.
+##  `PqAPGOrbits' performs option 8 of the
+##  Advanced $p$-Group Generation menu.
 ##
-InstallGlobalFunction( PqIPGOrbits, function( arg )
+InstallGlobalFunction( PqAPGOrbits, function( arg )
 local datarec;
   ANUPQ_IOINDEX_ARG_CHK(arg);
   datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  PQ_IPG_ORBITS( datarec );
+  PQ_APG_ORBITS( datarec );
 end );
 
 #############################################################################
 ##
-#F  PQ_IPG_ORBIT_REPRESENTATIVES( <datarec> ) . . . . . . I p-G menu option 9
+#F  PQ_APG_ORBIT_REPRESENTATIVES( <datarec> ) . . . . . . A p-G menu option 9
 ##
 ##  inputs data to the `pq' binary for option 9 of the
-##  Interactive $p$-Group Generation menu.
+##  Advanced $p$-Group Generation menu.
 ##
-InstallGlobalFunction( PQ_IPG_ORBIT_REPRESENTATIVES, function( datarec )
+InstallGlobalFunction( PQ_APG_ORBIT_REPRESENTATIVES, function( datarec )
 end );
 
 #############################################################################
 ##
-#F  PqIPGOrbitRepresentatives( <i> ) . .  user version of I p-G menu option 9
-#F  PqIPGOrbitRepresentatives()
+#F  PqAPGOrbitRepresentatives( <i> ) . .  user version of A p-G menu option 9
+#F  PqAPGOrbitRepresentatives()
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, inputs data
 ##  to the `pq' binary
 ##
 ##  *Note:* For those  familiar  with  the  `pq'  binary, 
-##  `PqIPGOrbitRepresentatives' performs option 9 of the
-##  Interactive $p$-Group Generation menu.
+##  `PqAPGOrbitRepresentatives' performs option 9 of the
+##  Advanced $p$-Group Generation menu.
 ##
-InstallGlobalFunction( PqIPGOrbitRepresentatives, function( arg )
+InstallGlobalFunction( PqAPGOrbitRepresentatives, function( arg )
 local datarec;
   ANUPQ_IOINDEX_ARG_CHK(arg);
   datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  PQ_IPG_ORBIT_REPRESENTATIVES( datarec );
+  PQ_APG_ORBIT_REPRESENTATIVES( datarec );
 end );
 
 #############################################################################
 ##
-#F  PQ_IPG_ORBIT_REPRESENTATIVE( <datarec> ) . . . . . . I p-G menu option 10
+#F  PQ_APG_ORBIT_REPRESENTATIVE( <datarec> ) . . . . . . A p-G menu option 10
 ##
 ##  inputs data to the `pq' binary for option 10 of the
-##  Interactive $p$-Group Generation menu.
+##  Advanced $p$-Group Generation menu.
 ##
-InstallGlobalFunction( PQ_IPG_ORBIT_REPRESENTATIVE, function( datarec )
+InstallGlobalFunction( PQ_APG_ORBIT_REPRESENTATIVE, function( datarec )
 end );
 
 #############################################################################
 ##
-#F  PqIPGOrbitRepresentative( <i> ) . .  user version of I p-G menu option 10
-#F  PqIPGOrbitRepresentative()
+#F  PqAPGOrbitRepresentative( <i> ) . .  user version of A p-G menu option 10
+#F  PqAPGOrbitRepresentative()
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, inputs data
 ##  to the `pq' binary
 ##
 ##  *Note:* For those  familiar  with  the  `pq'  binary, 
-##  `PqIPGOrbitRepresentative' performs option 10 of the
-##  Interactive $p$-Group Generation menu.
+##  `PqAPGOrbitRepresentative' performs option 10 of the
+##  Advanced $p$-Group Generation menu.
 ##
-InstallGlobalFunction( PqIPGOrbitRepresentative, function( arg )
+InstallGlobalFunction( PqAPGOrbitRepresentative, function( arg )
 local datarec;
   ANUPQ_IOINDEX_ARG_CHK(arg);
   datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  PQ_IPG_ORBIT_REPRESENTATIVE( datarec );
+  PQ_APG_ORBIT_REPRESENTATIVE( datarec );
 end );
 
 #############################################################################
 ##
-#F  PQ_IPG_STANDARD_MATRIX_LABEL( <datarec> ) . . . . .  I p-G menu option 11
+#F  PQ_APG_STANDARD_MATRIX_LABEL( <datarec> ) . . . . .  A p-G menu option 11
 ##
 ##  inputs data to the `pq' binary for option 11 of the
-##  Interactive $p$-Group Generation menu.
+##  Advanced $p$-Group Generation menu.
 ##
-InstallGlobalFunction( PQ_IPG_STANDARD_MATRIX_LABEL, function( datarec )
+InstallGlobalFunction( PQ_APG_STANDARD_MATRIX_LABEL, function( datarec )
 end );
 
 #############################################################################
 ##
-#F  PqIPGStandardMatrixLabel( <i> ) . .  user version of I p-G menu option 11
-#F  PqIPGStandardMatrixLabel()
+#F  PqAPGStandardMatrixLabel( <i> ) . .  user version of A p-G menu option 11
+#F  PqAPGStandardMatrixLabel()
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, inputs data
 ##  to the `pq' binary
 ##
 ##  *Note:* For those  familiar  with  the  `pq'  binary, 
-##  `PqIPGStandardMatrixLabel' performs option 11 of the
-##  Interactive $p$-Group Generation menu.
+##  `PqAPGStandardMatrixLabel' performs option 11 of the
+##  Advanced $p$-Group Generation menu.
 ##
-InstallGlobalFunction( PqIPGStandardMatrixLabel, function( arg )
+InstallGlobalFunction( PqAPGStandardMatrixLabel, function( arg )
 local datarec;
   ANUPQ_IOINDEX_ARG_CHK(arg);
   datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  PQ_IPG_STANDARD_MATRIX_LABEL( datarec );
+  PQ_APG_STANDARD_MATRIX_LABEL( datarec );
 end );
 
 #############################################################################
 ##
-#F  PQ_IPG_MATRIX_OF_LABEL( <datarec> ) . . . . . . . .  I p-G menu option 12
+#F  PQ_APG_MATRIX_OF_LABEL( <datarec> ) . . . . . . . .  A p-G menu option 12
 ##
 ##  inputs data to the `pq' binary for option 12 of the
-##  Interactive $p$-Group Generation menu.
+##  Advanced $p$-Group Generation menu.
 ##
-InstallGlobalFunction( PQ_IPG_MATRIX_OF_LABEL, function( datarec )
+InstallGlobalFunction( PQ_APG_MATRIX_OF_LABEL, function( datarec )
 end );
 
 #############################################################################
 ##
-#F  PqIPGMatrixOfLabel( <i> ) . . . . .  user version of I p-G menu option 12
-#F  PqIPGMatrixOfLabel()
+#F  PqAPGMatrixOfLabel( <i> ) . . . . .  user version of A p-G menu option 12
+#F  PqAPGMatrixOfLabel()
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, inputs data
 ##  to the `pq' binary
 ##
 ##  *Note:* For those  familiar  with  the  `pq'  binary, 
-##  `PqIPGMatrixOfLabel' performs option 12 of the
-##  Interactive $p$-Group Generation menu.
+##  `PqAPGMatrixOfLabel' performs option 12 of the
+##  Advanced $p$-Group Generation menu.
 ##
-InstallGlobalFunction( PqIPGMatrixOfLabel, function( arg )
+InstallGlobalFunction( PqAPGMatrixOfLabel, function( arg )
 local datarec;
   ANUPQ_IOINDEX_ARG_CHK(arg);
   datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  PQ_IPG_MATRIX_OF_LABEL( datarec );
+  PQ_APG_MATRIX_OF_LABEL( datarec );
 end );
 
 #############################################################################
 ##
-#F  PQ_IPG_IMAGE_OF_ALLOWABLE_SUBGROUP( <datarec> ) . .  I p-G menu option 13
+#F  PQ_APG_IMAGE_OF_ALLOWABLE_SUBGROUP( <datarec> ) . .  A p-G menu option 13
 ##
 ##  inputs data to the `pq' binary for option 13 of the
-##  Interactive $p$-Group Generation menu.
+##  Advanced $p$-Group Generation menu.
 ##
-InstallGlobalFunction( PQ_IPG_IMAGE_OF_ALLOWABLE_SUBGROUP, function( datarec )
+InstallGlobalFunction( PQ_APG_IMAGE_OF_ALLOWABLE_SUBGROUP, function( datarec )
 end );
 
 #############################################################################
 ##
-#F  PqIPGImageOfAllowableSubgroup( <i> ) user version of I p-G menu option 13
-#F  PqIPGImageOfAllowableSubgroup()
+#F  PqAPGImageOfAllowableSubgroup( <i> ) user version of A p-G menu option 13
+#F  PqAPGImageOfAllowableSubgroup()
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, inputs data
 ##  to the `pq' binary
 ##
 ##  *Note:* For those  familiar  with  the  `pq'  binary, 
-##  `PqIPGImageOfAllowableSubgroup' performs option 13 of the
-##  Interactive $p$-Group Generation menu.
+##  `PqAPGImageOfAllowableSubgroup' performs option 13 of the
+##  Advanced $p$-Group Generation menu.
 ##
-InstallGlobalFunction( PqIPGImageOfAllowableSubgroup, function( arg )
+InstallGlobalFunction( PqAPGImageOfAllowableSubgroup, function( arg )
 local datarec;
   ANUPQ_IOINDEX_ARG_CHK(arg);
   datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  PQ_IPG_IMAGE_OF_ALLOWABLE_SUBGROUP( datarec );
+  PQ_APG_IMAGE_OF_ALLOWABLE_SUBGROUP( datarec );
 end );
 
 #############################################################################
 ##
-#F  PQ_IPG_RANK_CLOSURE_OF_INITIAL_SEGMENT( <datarec> )  I p-G menu option 14
+#F  PQ_APG_RANK_CLOSURE_OF_INITIAL_SEGMENT( <datarec> )  A p-G menu option 14
 ##
 ##  inputs data to the `pq' binary for option 14 of the
-##  Interactive $p$-Group Generation menu.
+##  Advanced $p$-Group Generation menu.
 ##
-InstallGlobalFunction( PQ_IPG_RANK_CLOSURE_OF_INITIAL_SEGMENT, function( datarec )
+InstallGlobalFunction( PQ_APG_RANK_CLOSURE_OF_INITIAL_SEGMENT, function( datarec )
 end );
 
 #############################################################################
 ##
-#F  PqIPGRankClosureOfInitialSegment( <i> )  user version of I p-G menu option 14
-#F  PqIPGRankClosureOfInitialSegment()
+#F  PqAPGRankClosureOfInitialSegment( <i> )  user version of A p-G menu option 14
+#F  PqAPGRankClosureOfInitialSegment()
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, inputs data
 ##  to the `pq' binary
 ##
 ##  *Note:* For those  familiar  with  the  `pq'  binary, 
-##  `PqIPGRankClosureOfInitialSegment' performs option 14 of the
-##  Interactive $p$-Group Generation menu.
+##  `PqAPGRankClosureOfInitialSegment' performs option 14 of the
+##  Advanced $p$-Group Generation menu.
 ##
-InstallGlobalFunction( PqIPGRankClosureOfInitialSegment, function( arg )
+InstallGlobalFunction( PqAPGRankClosureOfInitialSegment, function( arg )
 local datarec;
   ANUPQ_IOINDEX_ARG_CHK(arg);
   datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  PQ_IPG_RANK_CLOSURE_OF_INITIAL_SEGMENT( datarec );
+  PQ_APG_RANK_CLOSURE_OF_INITIAL_SEGMENT( datarec );
 end );
 
 #############################################################################
 ##
-#F  PQ_IPG_ORBIT_REPRESENTATIVE_OF_LABEL( <datarec> ) .  I p-G menu option 15
+#F  PQ_APG_ORBIT_REPRESENTATIVE_OF_LABEL( <datarec> ) .  A p-G menu option 15
 ##
 ##  inputs data to the `pq' binary for option 15 of the
-##  Interactive $p$-Group Generation menu.
+##  Advanced $p$-Group Generation menu.
 ##
-InstallGlobalFunction( PQ_IPG_ORBIT_REPRESENTATIVE_OF_LABEL, function( datarec )
+InstallGlobalFunction( PQ_APG_ORBIT_REPRESENTATIVE_OF_LABEL, function( datarec )
 end );
 
 #############################################################################
 ##
-#F  PqIPGOrbitRepresentativeOfLabel( <i> )  user version of I p-G menu option 15
-#F  PqIPGOrbitRepresentativeOfLabel()
+#F  PqAPGOrbitRepresentativeOfLabel( <i> )  user version of A p-G menu option 15
+#F  PqAPGOrbitRepresentativeOfLabel()
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, inputs data
 ##  to the `pq' binary
 ##
 ##  *Note:* For those  familiar  with  the  `pq'  binary, 
-##  `PqIPGOrbitRepresentativeOfLabel' performs option 15 of the
-##  Interactive $p$-Group Generation menu.
+##  `PqAPGOrbitRepresentativeOfLabel' performs option 15 of the
+##  Advanced $p$-Group Generation menu.
 ##
-InstallGlobalFunction( PqIPGOrbitRepresentativeOfLabel, function( arg )
+InstallGlobalFunction( PqAPGOrbitRepresentativeOfLabel, function( arg )
 local datarec;
   ANUPQ_IOINDEX_ARG_CHK(arg);
   datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  PQ_IPG_ORBIT_REPRESENTATIVE_OF_LABEL( datarec );
+  PQ_APG_ORBIT_REPRESENTATIVE_OF_LABEL( datarec );
 end );
 
 #############################################################################
 ##
-#F  PQ_IPG_WRITE_COMPACT_DESCRIPTION( <datarec> ) . . .  I p-G menu option 16
+#F  PQ_APG_WRITE_COMPACT_DESCRIPTION( <datarec> ) . . .  A p-G menu option 16
 ##
 ##  inputs data to the `pq' binary for option 16 of the
-##  Interactive $p$-Group Generation menu.
+##  Advanced $p$-Group Generation menu.
 ##
-InstallGlobalFunction( PQ_IPG_WRITE_COMPACT_DESCRIPTION, function( datarec )
+InstallGlobalFunction( PQ_APG_WRITE_COMPACT_DESCRIPTION, function( datarec )
 end );
 
 #############################################################################
 ##
-#F  PqIPGWriteCompactDescription( <i> )  user version of I p-G menu option 16
-#F  PqIPGWriteCompactDescription()
+#F  PqAPGWriteCompactDescription( <i> )  user version of A p-G menu option 16
+#F  PqAPGWriteCompactDescription()
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, inputs data
 ##  to the `pq' binary
 ##
 ##  *Note:* For those  familiar  with  the  `pq'  binary, 
-##  `PqIPGWriteCompactDescription' performs option 16 of the
-##  Interactive $p$-Group Generation menu.
+##  `PqAPGWriteCompactDescription' performs option 16 of the
+##  Advanced $p$-Group Generation menu.
 ##
-InstallGlobalFunction( PqIPGWriteCompactDescription, function( arg )
+InstallGlobalFunction( PqAPGWriteCompactDescription, function( arg )
 local datarec;
   ANUPQ_IOINDEX_ARG_CHK(arg);
   datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  PQ_IPG_WRITE_COMPACT_DESCRIPTION( datarec );
+  PQ_APG_WRITE_COMPACT_DESCRIPTION( datarec );
 end );
 
 #############################################################################
 ##
-#F  PQ_IPG_AUTOMORPHISM_CLASSES( <datarec> ) . . . . . . I p-G menu option 17
+#F  PQ_APG_AUTOMORPHISM_CLASSES( <datarec> ) . . . . . . A p-G menu option 17
 ##
 ##  inputs data to the `pq' binary for option 17 of the
-##  Interactive $p$-Group Generation menu.
+##  Advanced $p$-Group Generation menu.
 ##
-InstallGlobalFunction( PQ_IPG_AUTOMORPHISM_CLASSES, function( datarec )
+InstallGlobalFunction( PQ_APG_AUTOMORPHISM_CLASSES, function( datarec )
 end );
 
 #############################################################################
 ##
-#F  PqIPGAutomorphismClasses( <i> ) . .  user version of I p-G menu option 17
-#F  PqIPGAutomorphismClasses()
+#F  PqAPGAutomorphismClasses( <i> ) . .  user version of A p-G menu option 17
+#F  PqAPGAutomorphismClasses()
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, inputs data
 ##  to the `pq' binary
 ##
 ##  *Note:* For those  familiar  with  the  `pq'  binary, 
-##  `PqIPGAutomorphismClasses' performs option 17 of the
-##  Interactive $p$-Group Generation menu.
+##  `PqAPGAutomorphismClasses' performs option 17 of the
+##  Advanced $p$-Group Generation menu.
 ##
-InstallGlobalFunction( PqIPGAutomorphismClasses, function( arg )
+InstallGlobalFunction( PqAPGAutomorphismClasses, function( arg )
 local datarec;
   ANUPQ_IOINDEX_ARG_CHK(arg);
   datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  PQ_IPG_AUTOMORPHISM_CLASSES( datarec );
+  PQ_APG_AUTOMORPHISM_CLASSES( datarec );
 end );
 
 #E  anupqi.gi . . . . . . . . . . . . . . . . . . . . . . . . . . . ends here 

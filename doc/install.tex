@@ -8,10 +8,7 @@
 %%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\Chapter{Installing and Loading the ANUPQ Share Package}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\Section{Installing the ANUPQ Share Package}
+\Chapter{Installing the ANUPQ Share Package}
 
 The ANU `pq' binary is written in C and the package can only be installed
 under UNIX. It has  been  tested  on  DECstation  running  Ultrix,  a  HP
@@ -280,44 +277,6 @@ gap> SetInfoLevel(InfoWarning, 1);
 gap> ReadTest( "gap/tst/anupga.tst" );
 gap>
 \endtt
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\Section{Loading the ANUPQ Share Package}
-
-To use the {\ANUPQ} Share Package you have to request it explicitly. This
-is done by calling
-
-\beginexample
-gap> RequirePackage("anupq");
-#I    Loading the ANUPQ (ANU p-Quotient) share package
-#I    C code by  Eamonn O'Brien <obrien@math.auckland.ac.nz>
-#I                ANU pq binary version: 1.4
-#I    GAP code by Werner Nickel <nickel@mathematik.tu-darmstadt.de>
-#I                ANUPQ package version: 1.0
-#I  
-#I                For help, type: ?ANUPQ
-true
-\endexample
-
-The `RequirePackage' command is described in Section~"ref:RequirePackage"
-in the {\GAP} Reference Manual.
-
-If {\GAP} cannot find a working binary, the call to `RequirePackage' will
-fail.
-
-If you know you have a working {\ANUPQ} binary, as well  as  a  correctly
-installed {\ANUPQ} Share Package, it is possible to suppress  the  `Info'
-messages by temporarily setting the `InfoLevel' of  `InfoWarning'  to  0,
-and a duplicated semicolon will suppress the `true' result:
-
-\beginexample
-gap> SetInfoLevel(InfoWarning, 0); RequirePackage( "ace" );;
-gap> SetInfoLevel(InfoWarning, 1);
-\endexample
-
-If you want to load the {\ANUPQ} package by  default,  you  can  put  the
-`RequirePackage' command into your `.gaprc'  file  (see  Section~"ref:The
-.gaprc file" in the {\GAP} Reference Manual).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%

@@ -1,99 +1,111 @@
 C intro.tex 1. Introduction
 S 1.1. How to read this manual
 I 1.1. ANUPQ
-S 1.2. The ANUPQData Record
-F 1.2. ANUPQData
-F 1.2. ANUPQDirectoryTemporary
-S 1.3. Setting the Verbosity of ANUPQ via Info and InfoANUPQ
-F 1.3. InfoANUPQ
-S 1.4. Authors
+S 1.2. Authors
 C basics.tex 2. Basics
 I 2.0. capable
-C anupq.tex 3. Non-interactive ANUPQ functions
-S 3.1. Computing p-Quotients
-F 3.1. Pq
-F 3.1. PqEpimorphism
-S 3.2. Computing Standard Presentations
-I 3.2. automorphisms!of p groups
-F 3.2. PqStandardPresentation
-F 3.2. PqStandardPresentation
-F 3.2. StandardPresentation
-F 3.2. StandardPresentation
-F 3.2. EpimorphismPqStandardPresentation
-F 3.2. EpimorphismPqStandardPresentation
-F 3.2. EpimorphismStandardPresentation
-F 3.2. EpimorphismStandardPresentation
-S 3.3. Testing p-Groups upon Isomorphism
-F 3.3. IsPqIsomorphicPGroup
-F 3.3. IsIsomorphicPGroup
-S 3.4. Computing Descendants of a p-Group
-F 3.4. PqDescendants
-F 3.4. PqList
-F 3.4. PqList
-F 3.4. PqList
-F 3.4. SavePqList
-C interact.tex 4. Interactive ANUPQ functions
-S 4.1. Starting and Stopping Interactive ANUPQ Processes
-F 4.1. PqStart
-F 4.1. PqStart
-F 4.1. PqQuit
-F 4.1. PqQuit
-F 4.1. PqQuitAll
-S 4.2. Interactive ANUPQ Process Utility Functions and Interruption of an Interactive ANUPQ Process
-F 4.2. PqProcessIndex
-F 4.2. PqProcessIndex
-F 4.2. PqProcessIndices
-F 4.2. IsPqProcessAlive
-F 4.2. IsPqProcessAlive
-I 4.2. interruption
-S 4.3. Interactive ANUPQ Functions based on menu items of the pq binary
-F 4.3. PqPcPresentation
-F 4.3. PqPcPresentation
-F 4.3. PqPCover
-F 4.3. PqPCover
-F 4.3. PqWritePcPresentation
-F 4.3. PqWritePcPresentation
-F 4.3. PqSPPcPresentation
-F 4.3. PqSPPcPresentation
-F 4.3. PqSPStandardPresentation
-F 4.3. PqSPStandardPresentation
-F 4.3. PqSPIsomorphism
-F 4.3. PqSPIsomorphism
-F 4.3. PqPGSupplyAutomorphisms
-F 4.3. PqPGSupplyAutomorphisms
-S 4.4. Interactive Versions of Non-interactive ANUPQ Functions
-F 4.4. Pq!interactive
-F 4.4. Pq!interactive
-F 4.4. PqEpimorphism!interactive
-F 4.4. PqEpimorphism!interactive
-I 4.4. automorphisms!of p groups
-F 4.4. PqStandardPresentation!interactive
-F 4.4. PqStandardPresentation!interactive
-F 4.4. PqStandardPresentation!interactive
-F 4.4. PqStandardPresentation!interactive
-F 4.4. StandardPresentation!interactive
-F 4.4. StandardPresentation!interactive
-F 4.4. StandardPresentation!interactive
-F 4.4. StandardPresentation!interactive
-F 4.4. EpimorphismPqStandardPresentation!interactive
-F 4.4. EpimorphismPqStandardPresentation!interactive
-F 4.4. EpimorphismPqStandardPresentation!interactive
-F 4.4. EpimorphismPqStandardPresentation!interactive
-F 4.4. EpimorphismStandardPresentation!interactive
-F 4.4. EpimorphismStandardPresentation!interactive
-F 4.4. EpimorphismStandardPresentation!interactive
-F 4.4. EpimorphismStandardPresentation!interactive
-S 4.5. Primitive Interactive ANUPQ Process Read/Write Functions
-F 4.5. PqRead
-F 4.5. PqRead
-F 4.5. PqReadAll
-F 4.5. PqReadAll
-F 4.5. PqReadUntil
-F 4.5. PqReadUntil
-F 4.5. PqReadUntil
-F 4.5. PqReadUntil
-F 4.5. PqWrite
-F 4.5. PqWrite
-C install.tex 5. Installing and Loading the ANUPQ Share Package
-S 5.1. Installing the ANUPQ Share Package
-S 5.2. Loading the ANUPQ Share Package
+C infra.tex 3. Infrastructure
+S 3.1. Loading the ANUPQ Share Package
+S 3.2. The ANUPQData Record
+F 3.2. ANUPQData
+F 3.2. ANUPQDirectoryTemporary
+S 3.3. Setting the Verbosity of ANUPQ via Info and InfoANUPQ
+F 3.3. InfoANUPQ
+C anupq.tex 4. Non-interactive ANUPQ functions
+S 4.1. Computing p-Quotients
+F 4.1. Pq
+F 4.1. PqEpimorphism
+S 4.2. Computing Standard Presentations
+I 4.2. automorphisms!of p groups
+F 4.2. PqStandardPresentation
+F 4.2. PqStandardPresentation
+F 4.2. StandardPresentation
+F 4.2. StandardPresentation
+F 4.2. EpimorphismPqStandardPresentation
+F 4.2. EpimorphismPqStandardPresentation
+F 4.2. EpimorphismStandardPresentation
+F 4.2. EpimorphismStandardPresentation
+S 4.3. Testing p-Groups upon Isomorphism
+F 4.3. IsPqIsomorphicPGroup
+F 4.3. IsIsomorphicPGroup
+S 4.4. Computing Descendants of a p-Group
+F 4.4. PqDescendants
+F 4.4. PqList
+F 4.4. PqList
+F 4.4. PqList
+F 4.4. SavePqList
+C interact.tex 5. Interactive ANUPQ functions
+S 5.1. Starting and Stopping Interactive ANUPQ Processes
+F 5.1. PqStart
+F 5.1. PqStart
+F 5.1. PqQuit
+F 5.1. PqQuit
+F 5.1. PqQuitAll
+S 5.2. Interactive ANUPQ Process Utility Functions and Interruption of an Interactive ANUPQ Process
+F 5.2. PqProcessIndex
+F 5.2. PqProcessIndex
+F 5.2. PqProcessIndices
+F 5.2. IsPqProcessAlive
+F 5.2. IsPqProcessAlive
+I 5.2. interruption
+S 5.3. Interactive Versions of Non-interactive ANUPQ Functions
+F 5.3. Pq!interactive
+F 5.3. Pq!interactive
+F 5.3. PqEpimorphism!interactive
+F 5.3. PqEpimorphism!interactive
+I 5.3. automorphisms!of p groups
+F 5.3. PqStandardPresentation!interactive
+F 5.3. PqStandardPresentation!interactive
+F 5.3. PqStandardPresentation!interactive
+F 5.3. PqStandardPresentation!interactive
+F 5.3. StandardPresentation!interactive
+F 5.3. StandardPresentation!interactive
+F 5.3. StandardPresentation!interactive
+F 5.3. StandardPresentation!interactive
+F 5.3. EpimorphismPqStandardPresentation!interactive
+F 5.3. EpimorphismPqStandardPresentation!interactive
+F 5.3. EpimorphismPqStandardPresentation!interactive
+F 5.3. EpimorphismPqStandardPresentation!interactive
+F 5.3. EpimorphismStandardPresentation!interactive
+F 5.3. EpimorphismStandardPresentation!interactive
+F 5.3. EpimorphismStandardPresentation!interactive
+F 5.3. EpimorphismStandardPresentation!interactive
+S 5.4. Low-level Interactive ANUPQ Functions based on menu items of the pq binary
+F 5.4. PqPcPresentation
+F 5.4. PqPcPresentation
+F 5.4. PqSavePcPresentation
+F 5.4. PqSavePcPresentation
+F 5.4. PqRestorePcPresentation
+F 5.4. PqRestorePcPresentation
+F 5.4. PqDisplayPcPresentation
+F 5.4. PqDisplayPcPresentation
+F 5.4. PqSetPrintLevel
+F 5.4. PqSetPrintLevel
+F 5.4. PqNextClass
+F 5.4. PqNextClass
+F 5.4. PqPCover
+F 5.4. PqPCover
+F 5.4. PqCollect
+F 5.4. PqCollect
+F 5.4. PqWritePcPresentation
+F 5.4. PqWritePcPresentation
+F 5.4. PqSPPcPresentation
+F 5.4. PqSPPcPresentation
+F 5.4. PqSPStandardPresentation
+F 5.4. PqSPStandardPresentation
+F 5.4. PqSPIsomorphism
+F 5.4. PqSPIsomorphism
+F 5.4. PqPGSupplyAutomorphisms
+F 5.4. PqPGSupplyAutomorphisms
+S 5.5. Primitive Interactive ANUPQ Process Read/Write Functions
+F 5.5. PqRead
+F 5.5. PqRead
+F 5.5. PqReadAll
+F 5.5. PqReadAll
+F 5.5. PqReadUntil
+F 5.5. PqReadUntil
+F 5.5. PqReadUntil
+F 5.5. PqReadUntil
+F 5.5. PqWrite
+F 5.5. PqWrite
+C install.tex 6. Installing the ANUPQ Share Package

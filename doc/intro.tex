@@ -13,37 +13,42 @@
 The {\GAP} 4 share package {\ANUPQ} provides an interface to the ANU PQ C
 progam `pq' written by Eamonn O'Brien, making the functionality of the  C
 program available to {\GAP}. Henceforth, we shall refer to  the  {\ANUPQ}
-share package  (resp.  the  `pq'  binary),  when  discussing  the  {\GAP}
-component (resp. the C code component) of ANU PQ. The ANU `pq' standalone
-provides access to implementations of the following algorithms:
+interface (resp. the `pq' binary), when discussing the  {\GAP}  component
+(resp. the C code component) of the  {\ANUPQ}  share  package.  The  `pq'
+program consists of implementations of the following algorithms:
 
 \beginlist
 
 \item{1.}
-A $p$-quotient algorithm to compute  power-commutator  presentations  for
-$p$-factor groups of finitely presented groups. The algorithm implemented
-here is based on that described by Newman and O'Brien \cite{NO96},  Havas
-and Newman~\cite{HN80}, and papers referred to there. Another description
-of  the   algorithm   is   given   by   Vaughan-Lee   (see~\cite{Vau90a},
-\cite{Vau90b}). A FORTRAN implementation of this algorithm was programmed
-by Alford and Havas. The basic data structures of that implementation are
-retained.
+A *$p$-quotient algorithm* to compute power-commutator presentations  for
+$p$-factor groups of finitely presented groups.
+
+The algorithm implemented here is based on that described by  Newman  and
+O'Brien \cite{NO96}, Havas and Newman~\cite{HN80}, and papers referred to
+there. Another description of  the  algorithm  is  given  by  Vaughan-Lee
+(see~\cite{Vau90a}, \cite{Vau90b}).  A  FORTRAN  implementation  of  this
+algorithm was programmed by Alford and Havas. The basic  data  structures
+of that implementation are retained.
 
 \item{2.} 
-A   $p$-group   generation   algorithm   to   generate   power-commutator
-presentations of groups of prime power order. The  algorithm  implemented
-here is based on the  algorithms  described  by  Newman~\cite{New77}  and
-O'Brien~\cite{OBr90}. A FORTRAN  implementation  of  this  algorithm  was
-developed earlier by Newman and O'Brien.
+A  *$p$-group  generation   algorithm*   to   generate   power-commutator
+presentations of groups of prime power order.
+
+The algorithm implemented here is based on the  algorithms  described  by
+Newman~\cite{New77} and O'Brien~\cite{OBr90}. A FORTRAN implementation of
+this algorithm was developed earlier by Newman and O'Brien.
 
 \item{3.}
-A  standard  presentation  algorithm  used   to   compute   a   canonical
-power-commutator presentation of a $p$-group. The  algorithm  implemented
-here is described in~\cite{OBr94}.
+A  *standard  presentation  algorithm*  used  to  compute   a   canonical
+power-commutator presentation of a $p$-group.
+
+The algorithm implemented here is described in~\cite{OBr94}.
 
 \item{4.} 
-An algorithm which can be used to compute the  automorphism  group  of  a
-$p$-group. The algorithm implemented here is  described  in~\cite{OBr94}.
+An algorithm which can be used to compute the *automorphism group*  of  a
+$p$-group.
+
+The algorithm implemented here is described in~\cite{OBr94}. 
 This part of  the  standalone  program  is  not  accessible  through  the
 {\ANUPQ} share package.  Instead,  users  are  advised  to  consider  the
 {\GAP}~4 share package {\AutPGrp}, which implements a better algorithm in
@@ -61,161 +66,11 @@ For details regarding the standalone version see the file `guide.dvi'.
 
 \index{ANUPQ}
 Instructions on how to install and load the {\ANUPQ}  share  package  are
-located are located in  Sections~"Installing  the  ANUPQ  Share  Package"
-and~"Loading the ANUPQ Share Package", respectively.
+located in Sections~"Installing the ANUPQ Share Package" and~"Loading the
+ANUPQ Share Package", respectively.
 
 *need to fill in some details here about the structure of the manual
  or perhaps this section should come first*
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\Section{The ANUPQData Record}
-
-\>`ANUPQData' V
-
-is a {\GAP} record in which the essential data for  an  {\ANUPQ}  session
-within {\GAP} is stored; its fields are:
-
-\beginitems
-
-\quad`binary' & the path of the {\ANUPQ} binary;
-
-\quad`tmpdir' & the  path  of  the  temporary  directory  containing  the
-non-interactive   {\ANUPQ}   input   and   output   files    (also    see
-"ANUPQDirectoryTemporary" below);
-
-\quad`io' & list of data records for `PqStart' (see below  and~"PqStart")
-processes;
-
-\quad`infile' & the full path of the (non-interactive) `pq' input file;
-
-\quad`outfile'& the full path of the default `pq' output  file;
-
-\quad`outfname' & is the file to which `pq' output is directed, which  is
-`ANUPQData.outfile' except when option `SetupFile' is used, in which case
-`outfname' is set to `"PQ_OUTPUT"';
-
-and
-
-\quad`version'& the version of the current `pq' binary.
-
-\enditems
-
-Some or all of the fields: `group', `workspace', `menu', `pQuotient'  and
-`pQepi' may also be set after  a  non-interactive  {\ANUPQ}  function  is
-called.  They  have  a  similar  role  as  the  corresponding  fields  of
-`ANUPQData.io[<ioIndex>]' we describe below.
-
-Each time an interactive {\ANUPQ}  process  is  initiated  via  `PqStart'
-(see~"PqStart"), an identifying number <ioIndex>  is  generated  for  the
-interactive process  and  a  record  `ANUPQData.io[<ioIndex>]'  with  the
-following fields is created:
-
-\beginitems
-
-\quad`stream'& the  IOStream  opened  for  interactive  {\ANUPQ}  process
-<ioIndex>;
-
-\quad`group'& the group given as first argument to `PqStart';
-
-\quad`workspace'& the workspace set for the `pq' process (either given as
-a second argument to `PqStart', or set by default to 10000000);
-
-\quad`menu'& the current menu of the `pq' process  (the  `pq'  binary  is
-managed by various  menus,  the  details  of  which  the  user  shouldn't
-normally need to know about -- the `menu' field remembers which menu  the
-`pq' process is currently ``in'');
-
-\quad`outfname' & is the file to which `pq' output is directed, which  is
-always `ANUPQData.outfile' (see above) for an interactive process;
-
-\quad`pQpcp' & If this field is bound  it  is  a  record  containing  the
-options used the last time that  `pq'  computed  a  pc  presentation  for
-`group', while computing a $p$-quotient i.e.~if it is  bound  then  there
-has been such a call. (It is used  mainly  to  avoid  re-computing  a  pc
-presentation that's been done already, by functions that require  that  a
-pc presentation is known to the `pq' binary.)
-
-\quad`pQuotient'  &  This  is  set  to  the  value   returned   by   `Pq'
-(see~"Pq!interactive") when called interactively, for process  <i>.  (The
-field `pQepi' is also set at the same time.)
-
-\quad`pQepi' & This is set  to  the  value  returned  by  `PqEpimorphism'
-(see~"PqEpimorphism!interactive") when called interactively, for  process
-<i>. (The field `pQuotient' is also set at the same time.)
-
-\quad`SPpcp' & If this field is bound  it  is  a  record  containing  the
-options used the last time that  `pq'  computed  a  pc  presentation  for
-`group', while computing a standard presentation i.e.~if it is bound then
-there has been such a call. (It is used mainly to avoid re-computing a pc
-presentation that's been done already, by functions that require  that  a
-pc presentation is known to the `pq' binary.)
-
-\quad`SP' & This is set to the value returned by `PqStandardPresentation'
-or `StandardPresentation' (see~"PqStandardPresentation!interactive") when
-called interactively, for process <i>. (The field `SPepi' is also set  at
-the same time.)
-
-\quad`SPepi'   &   This   is   set   to    the    value    returned    by
-`EpimorphismPqStandardPresentation' or  `EpimorphismStandardPresentation'
-(see~"EpimorphismPqStandardPresentation!interactive")     when     called
-interactively, for process <i>. (The field `SP' is also set at  the  same
-time.)
-
-\enditems
-
-\>ANUPQDirectoryTemporary( <dir> ) F
-
-calls the UNIX command `mkdir' to create <dir>, which must be  a  string,
-and if successful a directory  object  for  <dir>  is  both  assigned  to
-`ANUPQData.tmpdir'  and  returned.  The  fields  `ANUPQData.infile'   and
-`ANUPQData.outfile' are also set to be files in  `ANUPQData.tmpdir',  and
-on exit from {\GAP} <dir> is removed. Most users  will  never  need  this
-command; by default, {\GAP} typically chooses a  ``random''  subdirectory
-of `/tmp' for `ANUPQData.tmpdir' which may occasionally  have  limits  on
-what may be written there. `ANUPQDirectoryTemporary' permits the user  to
-choose a directory (object) where one is not so limited.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\Section{Setting the Verbosity of ANUPQ via Info and InfoANUPQ}
-
-\>`InfoANUPQ' V
-
-The input to and the output from the `pq'  binary  is,  by  default,  not
-displayed. However the user may choose to  see  some,  or  all,  of  this
-input/output.   This   is   done   via   the   `Info'   mechanism    (see
-Chapter~"ref:Info Functions" in the {\GAP} Reference  Manual).  For  this
-purpose,  there  is  the  <InfoClass>  `InfoANUPQ'.  Each  line  of  `pq'
-input/output is directed to a call to `Info' and will  be  displayed  for
-the user to see if the `InfoLevel' of  `InfoANUPQ'  is  high  enough.  By
-default, the `InfoLevel' of `InfoANUPQ' is 1, and it is recommended  that
-you leave it at this level, or higher. Only messages which we think  that
-the user will really want to see are directed to  `Info'  at  `InfoANUPQ'
-level 1. To turn off *all* `InfoANUPQ'  messaging,  set  the  `InfoANUPQ'
-level to 0.
-
-Currently, information from the `pq' binary is directed to `Info' at four
-`InfoANUPQ' levels: 1, 2, 3 and 4. The command
-
-\beginexample
-gap> SetInfoLevel(InfoANUPQ, 2);
-\endexample
-
-enables the display of results from the `pq'  binary.
-
-\beginexample
-gap> SetInfoLevel(InfoANUPQ, 3);
-\endexample
-
-enables the display of all the input sent to the `pq'  binary,  behind  a
-```ToPQ> ''' prompt (so that you can distinguish it from the output  from
-the `pq' binary). Finally,
-
-\beginexample
-gap> SetInfoLevel(InfoANUPQ, 4);
-\endexample
-
-enables the display of all other output from the `pq' binary, namely  the
-banner, menus, and the timing data printed when the `pq' binary exits.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Authors}
