@@ -8,12 +8,12 @@ c11xc11xc11
 {}
 0
 
-7        #compute 11-covering group
+7         #compute 11-covering group
 
 9
 
-1
-2
+1         #supply automorphisms 
+2         #number of automorphisms 
   2  0  0  
   0  1  0  
   0  0  1  
@@ -21,6 +21,8 @@ c11xc11xc11
  10  0  1  
  10  0  0  
   0 10  0  
+
+0         #number of soluble automorphisms
 
 
 5         #iteration 

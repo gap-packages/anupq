@@ -25,6 +25,8 @@ c2c2c2c2
  0 1 0 0  
  0 0 1 0  
 
+0       #number of soluble automorphisms
+
 5       #iteration option 
 4       #class bound 
 1       #all descendants?

@@ -51,6 +51,10 @@ name
 0 1
 4 1
 4 0
+
+0         # number of soluble automorphisms
+            # if number of soluble automorphisms is nonzero need to enter
+            #    the relative order of each soluble automorphism
  
                # image of generator d under automorphism a
  

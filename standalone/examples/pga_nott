@@ -36,6 +36,8 @@ Nott
 2 0 0 0 
 0 1 0 0 
 
+0         #number of soluble automorphisms
+
 5         #iteration 
 4         #class bound
 0         #construct all descendants?

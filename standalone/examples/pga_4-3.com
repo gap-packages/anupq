@@ -27,8 +27,10 @@ c3c3c3c3
  2 0 0 0  
  0 2 0 0  
  0 0 2 0  
+
+0       #number of soluble automorphisms
  
-5
+5       #iteration 
 2       #class bound 
 1       #all descendants?
 1       #order bound?

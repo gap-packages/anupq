@@ -21,6 +21,8 @@ c2c2   #group identifier
 0 1
 1 0
 
+0    #number of soluble automorphisms
+
 5    #option to construct 
 3    #max class of descendants 
 1    #all descendants?
@@ -42,6 +44,7 @@ c2c2   #group identifier
 0    #default aut gp info?
 0    #print commutator matrix?
 1    #print aut gp description of descendants?
+1    #print aut gp order of descendants?
 
 0    #trace info for algorithm?
 

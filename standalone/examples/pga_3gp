@@ -31,6 +31,8 @@ c3c3
 2 0
 0 1
 
+0       #number of soluble automorphisms
+
 5       #iteration option 
 4       #class bound 
 0       #all descendants?
