@@ -10,6 +10,10 @@
 *Y  Copyright 1995-1997,  School of Mathematical Sciences, ANU,     Australia
 **
 *H  $Log$
+*H  Revision 1.10  2001/12/21 11:32:04  gap
+*H  Fixed a non-incompatibility with GAP 4.2 when not pq communicates calls
+*H  GAP without using an iostream. - GG
+*H
 *H  Revision 1.9  2001/06/25 17:17:17  gap
 *H  If pq is compiled without gmp then `ANUPQsize' and `ANUPQagsize'  used  not
 *H  to get assigned. Now  `src/GAP_link_via_file.c'  assigns  `fail'  to  these
@@ -94,6 +98,12 @@ void start_GAP_file ( GAP_input, auts, pga, pcp )
 
    /* open "GAP_input" file                                               */
    *GAP_input = OpenSystemFile( "GAP_input", "w+" );
+
+   if (!GAP4iostream) { /* this is necessary for GAP 4.2 compatibility    */
+     fprintf( *GAP_input, "if not IsBound( PcGroupFpGroupNC ) then\n" );
+     fprintf( *GAP_input, "    PcGroupFpGroupNC := PcGroupFpGroup;\n" );
+     fprintf( *GAP_input, "fi\n" );
+   }
 
    GAP_presentation (*GAP_input, pcp, 1);
 #ifdef LARGE_INT
