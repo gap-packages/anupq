@@ -37,6 +37,12 @@ DeclareGlobalVariable( "ANUPQoptions",
 
 #############################################################################
 ##
+#F  AllANUPQoptions() . . . . .  lists all options of the ANUPQ share package
+##
+DeclareGlobalFunction( "AllANUPQoptions" );
+
+#############################################################################
+##
 #V  ANUPQGlobalOptions . . . . .  options that can be set globally by PqStart
 ##
 ##  A list of the options that `PqStart' can set and thereby  make  available

@@ -2444,12 +2444,16 @@ local class, firstStep, expectedNsteps, optrec;
       ToPQ(datarec, [ PQ_BOOL(datarec.des.SpaceEfficient),
                       "be space efficient" ]);
     fi;
-    ToPQ(datarec, [ PQ_BOOL(
-                        VALUE_PQ_OPTION("AllDescendants", false, datarec.des) ),
+    VALUE_PQ_OPTION("AllDescendants", true, datarec.des);
+    ToPQ(datarec, [ PQ_BOOL( not VALUE_PQ_OPTION(
+                                     "CapableDescendants", 
+                                     not datarec.des.AllDescendants,
+                                     datarec.des ) ),
                     "completely process terminal descendants" ]);
     ToPQ(datarec, [ VALUE_PQ_OPTION("Exponent", 0, datarec), "  #exponent" ]);
                                              # "Exponent" is a `global' option
-    ToPQ(datarec, [ PQ_BOOL(VALUE_PQ_OPTION("Metabelian", false, datarec.des) ),
+    ToPQ(datarec, [ PQ_BOOL( VALUE_PQ_OPTION("Metabelian", 
+                                             false, datarec.des) ),
                     "enforce metabelian law" ]);
   fi;
   if IsRecord(datarec.des.TailorOutput) and

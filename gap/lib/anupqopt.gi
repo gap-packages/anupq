@@ -31,9 +31,11 @@ InstallValue( PQ_FUNCTION,
 ##
 #V  ANUPQoptions  . . . . . . . . . . . . . . . . . . . .  admissible options
 ##
-##  A record of lists of names of admissible ANUPQ options. Each field is the
-##  name of an ANUPQ function and the corresponding  value  is  the  list  of
-##  names of admissible for the function.
+##  is a record of lists of names of admissible {\ANUPQ} options,  such  that
+##  each field is either the name of a ``key'' {\ANUPQ} function  or  `other'
+##  (for a miscellaneous list of functions) and the  corresponding  value  is
+##  the list of option  names  that  are  admissible  for  the  function  (or
+##  miscellaneous list of functions).
 ##
 InstallValue( ANUPQoptions, 
               rec( # options for `Pq' and `PqEpimorphism'
@@ -44,7 +46,6 @@ InstallValue( ANUPQoptions,
                             "OutputLevel", 
                             "Relators", 
                             "GroupName", 
-                            "Verbose", #no longer used
                             "SetupFile",
                             "PqWorkspace" ],
 
@@ -59,30 +60,47 @@ InstallValue( ANUPQoptions,
                             "BasicAlgorithm", 
                             "RankInitialSegmentSubgroups", 
                             "SpaceEfficient", 
+                            "CapableDescendants", 
                             "AllDescendants", 
                             "Exponent", 
                             "Metabelian", 
                             "SubList", 
+                            "BasicAlgorithm",
                             "TailorOutput",
-                            "TmpDir", #no longer used
-                            "Verbose",#no longer used
                             "SetupFile" ],
 
                    # options for `[Epimorphism][Pq]StandardPresentation'
                    StandardPresentation
                        := [ "Prime", 
                             "ClassBound", 
+                            "Relators", 
                             "GroupName", 
                             "PcgsAutomorphisms", 
                             "Exponent", 
                             "Metabelian", 
                             "OutputLevel", 
                             "StandardPresentationFile", 
-                            "TmpDir", #no longer used
-                            "Verbose",#no longer used
-                            "SetupFile" ]
+                            "SetupFile" ],
+
+                   # miscellaneous options
+                   other
+                       := [ "QueueFactor", 
+                            "Bounds" ]
                   )
              );
+
+#############################################################################
+##
+#F  AllANUPQoptions() . . . . .  lists all options of the ANUPQ share package
+##
+##  lists all the {\GAP} options defined for functions of the {\ANUPQ}  share
+##  package.
+##
+InstallGlobalFunction( AllANUPQoptions, function()
+  return Set( Concatenation(
+                  List( RecNames(ANUPQoptions), fld -> ANUPQoptions.(fld) )
+                  ) );
+end );
 
 #############################################################################
 ##
@@ -112,7 +130,6 @@ InstallValue( ANUPQoptionChecks,
                    OutputLevel := x -> x in [0..3],
                    Relators   := x -> IsList(x) and ForAll(x, IsString),
                    StandardPresentationFile := IsString,
-                   Verbose    := IsBool,
                    SetupFile  := IsString,
                    PqWorkspace := IsPosInt,
                    StepSize := x -> IsPosInt(x) or
@@ -121,12 +138,12 @@ InstallValue( ANUPQoptionChecks,
                    BasicAlgorithm := IsBool,
                    RankInitialSegmentSubgroups := x -> x = 0 or IsPosInt(x),
                    SpaceEfficient := IsBool,
+                   CapableDescendants := IsBool,
                    AllDescendants := IsBool,
                    SubList := x -> IsPosInt(x) or
                                    (IsSet(x) and ForAll(x, IsInt)
                                     and IsPosInt(x[1])),
                    TailorOutput := IsRecord,
-                   TmpDir := IsString,
                    Bounds := x -> IsSet(x) and 2 = Length(x) and 
                                   ForAll(x, IsPosInt),
                    QueueFactor := IsPosInt,
@@ -151,7 +168,6 @@ InstallValue( ANUPQoptionTypes,
                    OutputLevel := "integer in [0..3]",
                    Relators   := "list of strings",
                    StandardPresentationFile := "string",
-                   Verbose    := "boolean",
                    SetupFile  := "string",
                    PqWorkspace := "positive integer",
                    StepSize := "positive integer or positive integer list",
@@ -159,11 +175,11 @@ InstallValue( ANUPQoptionTypes,
                    BasicAlgorithm := "boolean",
                    RankInitialSegmentSubgroups := "nonnegative integer",
                    SpaceEfficient := "boolean",
+                   CapableDescendants := "boolean",
                    AllDescendants := "boolean",
                    SubList 
                        := "pos've integer or increasing pos've integer list",
                    TailorOutput := "record",
-                   TmpDir := "string",
                    Bounds := "pair of increasing positive integers",
                    QueueFactor := "positive integer",
                    OutputFile := "string"
