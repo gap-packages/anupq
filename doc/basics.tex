@@ -1,6 +1,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
-%W  basics.tex      ANUPQ documentation - background info   Werner Nickel
+%W  basics.tex  ANUPQ documentation - background info       Werner Nickel
 %W                                                      Joachim Neubueser
 %%
 %H  $Id$
@@ -29,20 +29,20 @@ done in these functions and naive use may result in incorrect results.
 
 For details, see e.g.~\cite{NNN98}.
 
-Every $p$-group $G$ has a presentation of the form: 
+Every finite $p$-group $G$ has a presentation of the form: 
 $$
 \{a_1,\dots,a_n \mid a_i^p = v_{ii}, 1 \le i \le n, 
                [a_k, a_j] = v_{jk}, 1 \le j \< k \le n \}.  
 $$
 where $v_{jk}$ is a word in the elements $a_{k+1},\dots,a_n$ for 
-$1 \le j \< k \le n$.
+$1 \le j \leq k \le n$.
 
 \index{power-commutator presentation}\index{pc presentation}\index{pcp}
 \index{pc generators}\index{collection}
 This is called a *power-commutator* presentation (or *pc presentation*
 or *pcp*) of $G$, generators from such a presentation will be referred
 to as *pc generators*. In terms of such pc generators every element of
-$G$ can  be written  in a ``normal  form'' $a_1^{e_1},\dots,a_n^{e_n}$
+$G$ can  be written  in a ``normal  form'' $a_1^{e_1}\dots a_n^{e_n}$
 with $0  \le e_i \< p$.  Moreover any given product  of the generators
 can be brought into such a normal form using the defining relations in
 the above presentation  as rewrite rules.  Any such  process is called
@@ -198,7 +198,7 @@ $p$-central series terminates with a subgroup $P_k(G)$ with $k \<  b$,
 the algorithm will stop with that group. If no such bound is given, it
 will try to find the biggest such factor group.
 
-$G/P_2(G)$ is  the largest elementary abelian $p$-factor  group of $G$
+$G/P_1(G)$ is  the largest elementary abelian $p$-factor  group of $G$
 and this  can be found  from the relation  matrix of $G$  using matrix
 diagonalisation   modulo  $p$.   So   it  suffices   to  explain   how
 $G/P_{i+1}(G)$ is found from $G$ and $G/P_i(G)$ for some $i \ge 1$.
@@ -235,16 +235,16 @@ procedure is called *adding tails*. A more formal description of it is
 again given in \cite{NNN98}.
 
 \index{tails}
-It is important to realise that the ``new'' generators  will  generate
-an elementary abelian group, that is, in additive notation,  a  vector
-space over the field  of  $p$  elements.  As  said,  the  pcp  of  the
-$p$-cover obtained in this way need not be consistent. Since  the  pcp
-of $G_i$ was consistent, applying the consistency  conditions  to  the
-pcp of the $p$-cover, in case the $p$-cover is  not  consistent,  will
-produce a set of equations between the new generators,  that,  written
-additively, are linear equations over the field of  $p$  elements  and
-can hence be used to remove redundant generators  until  a  consistent
-pcp is obtained.
+It is important  to realise that the ``new''  generators will generate
+an elementary abelian  group, that is, in additive  notation, a vector
+space  over the  field  of $p$  elements.   As said,  the  pcp of  the
+$p$-cover obtained in  this way need not be  consistent. Since the pcp
+of $G_i$  was consistent, applying  the consistency conditions  to the
+pcp of the $p$-cover, in  case the presentation obtained for $p$-cover
+is not  consistent, will  produce a set  of equations between  the new
+generators, that,  written additively,  are linear equations  over the
+field  of $p$  elements  and can  hence  be used  to remove  redundant
+generators until a consistent pcp is obtained.
 
 In  reality,  to  follow  this  straightforward  procedure  would   be
 forbiddingly inefficient except for very  small  examples.  There  are

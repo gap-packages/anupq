@@ -100,8 +100,6 @@ See Section~"Attributes and a Property for fp and pc  p-groups"  for  the
 attributes   and   property   `NuclearRank',   `MultiplicatorRank'    and
 `IsCapable' which may be applied to the group returned by `Pq'.
 
-(`Pq' requires the {\ANUPQ} package; see~"Loading the ANUPQ Package".)
-
 See also `PqEpimorphism' ("PqEpimorphism").
 
 We now give a few examples of the use of `Pq'. Except for the addition of
@@ -249,8 +247,8 @@ defaults to `PrimePGroup(<F>)', if not supplied and  `HasPrimePGroup(<F>)
 = true'; and
 
 `ClassBound'&
-defaults to `PrimePGroup(<F>)' if `HasPClassPGroup(<F>) =  true'  if  not
-supplied, or to the usual default of 63, otherwise.
+defaults to `PClassPGroup(<F>)+1' if `HasPClassPGroup(<F>) = true' if
+not supplied, or to the usual default of 63, otherwise.
 
 \enditems
 
@@ -289,21 +287,6 @@ gap> PqPCover( H : Prime := 5, ClassBound := 5, Metabelian);
 gap> 
 gap> # Now we redo the previous example using the `Relators' option
 gap> F := FreeGroup("a", "b");;
-gap> # `F' was defined for `Relators'. We use the same strings that GAP uses
-gap> # for printing the free group generators. It is *not* necessary to
-gap> # predefine: a := F.1; etc. (as it was above).
-gap> rels := [ "a^25", "[b, a, a]", "b^5" ];
-[ "a^25", "[b, a, a]", "b^5" ]
-gap> R := PqGAPRelators(F, rels);
-[ a^25, a^-1*b^-1*a*b*a^-1*b^-1*a^-1*b*a^2, b^5 ]
-gap> H := F / R;
-<fp group on the generators [ a, b ]>
-gap> PqPCover( H : Prime := 5, ClassBound := 5, Metabelian, Relators := rels);
-<pc group of size 48828125 with 11 generators>
-gap> 
-gap> # Above we could have just passed `F' (rather than `H'):
-gap> F := FreeGroup("a", "b");
-<free group on the generators [ a, b ]>
 gap> rels := [ "a^25", "[b, a, a]", "b^5" ];
 [ "a^25", "[b, a, a]", "b^5" ]
 gap> PqPCover( F : Prime := 5, ClassBound := 5, Metabelian, Relators := rels);
@@ -339,13 +322,13 @@ Section~"Hints and Warnings regarding the  use  of  Options"  gives  some
 important hints and warnings regarding option usage.
 
 *Notes:*
-In contrast to the function `Pq' (see~"Pq") which  returns  a  pc  group,
-here an fp group is returned. This is because the output is  mainly  used
-for isomorphism testing for which an fp group  is  enough.  However,  the
-presentation is essentially a polycyclic presentation and if you need  to
-do any further computation with this group (e.g.~to find the  order)  you
-can use the function `PcGroupFpGroup'  (see~"ref:PcGroupFpGroup"  in  the
-{\GAP} Reference Manual) to form a pc group.
+In contrast  to the  function `Pq' (see~"Pq")  which returns a  pc group,
+here an fp  group is returned. This is because the  output is mainly used
+for isomorphism  testing for which an  fp group is  enough.  However, the
+presentation  is a  polycyclic presentation  and if  you need  to  do any
+further computation with this group  (e.g.~to find the order) you can use
+the  function `PcGroupFpGroup'  (see~"ref:PcGroupFpGroup"  in the  {\GAP}
+Reference Manual) to form a pc group.
 
 The  attributes  and  property  `NuclearRank',  `MultiplicatorRank'   and
 `IsCapable' are set for the group returned by `PqStandardPresentation' or
@@ -425,9 +408,6 @@ gap> StandardPresentation( G4, K : ClassBound := 14 );
 Typing: `PqExample( "StandardPresentation" );' runs the above example  in
 {\GAP} (see~"PqExample").
 
-(These functions require the {\ANUPQ}  package;  see~"Loading  the  ANUPQ
-Package".)
-
 \>EpimorphismPqStandardPresentation( <F>, <p> : <options> ) F
 \>EpimorphismPqStandardPresentation( <F>, <Q> : <options> ) F
 \>EpimorphismStandardPresentation( <F>, <p> : <options> ) M
@@ -484,9 +464,6 @@ gap> Size( Image(phi) );
 Typing: `PqExample( "EpimorphismStandardPresentation" );' runs the  above
 example in {\GAP} (see~"PqExample").
 
-(These functions require the {\ANUPQ}  package;  see~"Loading  the  ANUPQ
-Package".)
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Testing p-Groups for Isomorphism}
 
@@ -519,9 +496,6 @@ true
 
 Typing: `PqExample( "IsIsomorphicPGroup" );' runs the  above  example  in
 {\GAP} (see~"PqExample").
-
-(These functions require the {\ANUPQ}  package;  see~"Loading  the  ANUPQ
-Package".)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Computing Descendants of a p-Group}
@@ -590,11 +564,11 @@ See Chapter~"ANUPQ options" for detailed descriptions of the options.
 \endlist
 
 *Notes:*
-The function `PqDescendants' uses the automorphism group of <G> which  it
-computes via the package {\AutPGrp}. If this package is not installed  an
-error may be raised. If the automorphism group of <G>  is  insoluble  the
-`pq' program will call {\GAP} together with  the  {\AutPGrp}  package  for
-certain orbit-stabilizer calculations.  (So,  in  any  case,  one  should
+The function `PqDescendants' uses the  automorphism group of <G> which it
+computes via the package {\AutPGrp}.  If this package is not installed an
+error may be  raised. If the automorphism group of  <G> is insoluble, the
+`pq' program  will call {\GAP}  together with the {\AutPGrp}  package for
+certain  orbit-stabilizer calculations.   (So,  in any  case, one  should
 ensure the {\AutPGrp} package is installed.)
 
 The  attributes  and  property  `NuclearRank',  `MultiplicatorRank'   and
@@ -679,9 +653,6 @@ The     examples     `"PqDescendants-1"',     `"PqDescendants-2"'     and
 `"PqDescendants-3"' (in order) are essentially  the  same  as  the  above
 three examples (see~"PqExample").
 
-(The function requires  the  {\ANUPQ}  package;  see~"Loading  the  ANUPQ
-Package".)
-
 \>PqList( <filename> [: SubList := <sub> ]) F
 
 reads a file with name <filename> (a string) and returns the list <L>  of
@@ -695,9 +666,6 @@ otherwise, if <sub> is a list of integers `PqList' returns  `Sublist(<L>,
 Both `PqList' and `SavePqList' (see "SavePqList") can be used to save and
 restore a list of descendants (see "PqDescendants").
 
-(The function requires  the  {\ANUPQ}  package;  see~"Loading  the  ANUPQ
-Package".)
-
 \>SavePqList( <filename>, <list> ) F
 
 writes a list of descendants <list> to a file  with  name  <filename>  (a
@@ -705,9 +673,6 @@ string).
 
 `SavePqList' and `PqList' (see "PqList") can be used to save and restore,
 respectively, the results of `PqDescendants' (see "PqDescendants").
-
-(The function requires  the  {\ANUPQ}  package;  see~"Loading  the  ANUPQ
-Package".)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
