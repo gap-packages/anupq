@@ -9,9 +9,10 @@ Examples that have a  name  ending  in  `-i'  are  interactive  only.
 Examples with names ending in `.g' also have  only  one  form.  Other
 examples have both a non-interactive and an  interactive  form;  call
 `PqExample' with 2nd argument `PqStart' to get the  interactive  form
-of the example. The substring `SP' in an  example  name  indicates  a
-Standard  Presentation  example  and  `Rel'  indicates  it  uses  the
-`Relators' option.
+of the example. The substring `PG' in an  example  name  indicates  a
+p-Group Generation example, `SP' indicates  a  Standard  Presentation
+example, `Rel' indicates it uses  the  `Relators'  option,  and  `Id'
+indicates it uses the `Identities' option.
 
 The following ANUPQ examples are available:
 
@@ -35,7 +36,7 @@ The following ANUPQ examples are available:
    "7gp-Rel-i"
   11-groups:
    "11gp-i"               "11gp-Rel-i"           "11gp-a-Rel-i"
-   "11gp-3-Engel-Id"
+   "11gp-3-Engel-Id"      "11gp-3-Engel-Id-i"
 
  p-Group Generation examples:
   general:

@@ -3,7 +3,7 @@
 #vars: F, rels, procId;
 #options: OutputLevel, ClassBound, OutputFile
 F := FreeGroup("a", "b", "c");
-rels := ["[b, a, a, b, c])^11", "[a, b, b, a, b, c])^11", "(a * b)^11"];
+rels := ["[b, a, a, b, c]^11", "[a, b, b, a, b, c]^11", "(a * b)^11"];
 procId := PqStart(F : Prime := 11, Relators := rels);
 #comment: set a different `ClassBound' by supplying <ClassBound>
 #comment: also set a different print level by supplying <OutputLevel>
