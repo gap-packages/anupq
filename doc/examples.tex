@@ -385,7 +385,7 @@ gap> f( Q.1, Q.2 );
 \Section{A Large Example}
 
 \atindex{B(5,4)}{@$B(5, 4)$}
-An example  demonstrating how large  computation can be organised  by the
+An example demonstrating how a large computation can be organised with the
 {\ANUPQ} package  is the computation of the Burnside group $B(5, 4)$, the
 largest  group of  exponent  4 generated  by  5 elements.   It has  order
 $2^{2728}$  and   lower  exponent-$p$  central  class   13.  The  example
@@ -404,7 +404,7 @@ construction cannot be used to prove that $B(5, 4)$  has  the  order  and
 class mentioned above. It is merely a reconstruction of the  group.  More
 information is contained in the header of the file `examples/B5-4.g'.
 
-\goodbreak
+\goodbreak%
 \begintt
 procId := PqStart( FreeGroup(5) : Exponent := 4, Prime := 2 );
 Pq( procId : ClassBound := 2 );
