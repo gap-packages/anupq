@@ -21,6 +21,9 @@ chmod +x Makefile
 rm -f Makefile
 sed -f sedfile Makefile.in >Makefile
 echo "Makefile successfully created."
+sed -f sedfile testPq.in >testPq
+chmod +x testPq
+echo "testPq successfully created."
 rm -f sedfile
 echo "Done."
 make unknown
