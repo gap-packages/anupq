@@ -214,8 +214,8 @@ the user will really want to see are directed to  `Info'  at  `InfoANUPQ'
 level 1. To turn off *all* `InfoANUPQ'  messaging,  set  the  `InfoANUPQ'
 level to 0.
 
-Currently, information from the `pq' binary is directed to `Info' at five
-`InfoANUPQ' levels: 1, 2, 3, 4 and 5. The command
+Currently, information from the `pq' binary is directed to `Info' at four
+user-intended `InfoANUPQ' levels: 1, 2, 3 and 4. The command
 
 \beginexample
 gap> SetInfoLevel(InfoANUPQ, 2);
@@ -236,9 +236,12 @@ gap> SetInfoLevel(InfoANUPQ, 4);
 \endexample
 
 enables the display of all other output from the `pq' binary, namely  the
-banner, menus, and the timing data printed when the  `pq'  binary  exits.
-The fifth `InfoANUPQ' level is intended only for debugging purposes,  and
-gives all partial results of commands read from an iostream.
+banner and menus. However, the timing data printed when the  `pq'  binary
+exits can never be observed.
+
+Higher `InfoANUPQ' levels (in particular, levels 5 and  6)  are  intended
+only for debugging purposes, and give all  partial  results  of  commands
+read from an iostream.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Hints and Warnings regarding the use of Options}
@@ -350,7 +353,8 @@ displaying the example described below.
 
 Some examples have both non-interactive and interactive forms; those that
 are non-interactive only have a name ending  in  `-ni';  those  that  are
-interactive only have a name ending in `-i'; all other examples have both
+interactive only have a name ending in `-i'; examples with  names  ending
+in  `.g'  also  have  only  one  form;  all  other  examples  have   both
 non-interactive and interactive forms and for these giving  `PqStart'  as
 second argument invokes `PqStart' initially  and  makes  the  appropriate
 adjustments  so  that  the  example  is  executed  or   displayed   using
