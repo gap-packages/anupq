@@ -5,7 +5,7 @@
 ##  Tests the ANUPQ with some groups from the SmallGroups library.
 ##  Execute this file with `ReadTest( "anupqsmgp.tst" );'.
 ##  The number of GAPstones returned at the end do not mean much as  they  do
-##  not measure the time spend by the `pq' binary.
+##  not measure the time spent by the `pq' binary.
 ##  The tests made are based on some examples provided by Bettina Eick.
 ##
 
