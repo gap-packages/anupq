@@ -19,7 +19,7 @@ PqPCover( G : Prime := 2, ClassBound := 3 );
 PqPCover( G : Prime := 2, ClassBound := 3, 
 #alt: do
 #              RedoPcp,
-              Exponent := 4);
+              Exponent := 4 );
 
 ## Now we'll get a p-cover of a p-quotient of another fp group
 ## which we will redo using the `Relators' option
@@ -28,27 +28,13 @@ H := F / R;
 #alt: do
 #procId3 := PqStart( H );
 #alt: sub <procId3> for <H>
-PqPCover( H : Prime := 5, ClassBound := 5, Metabelian);
+PqPCover( H : Prime := 5, ClassBound := 5, Metabelian );
 
 ## Now we redo the previous example using the `Relators' option
-F := FreeGroup("a", "b");
-## `F' was defined for `Relators'. We use the same strings that GAP uses
-## for printing the free group generators. It is *not* necessary to
-## predefine: a := F.1; etc. (as it was above).
-rels := [ "a^25", "[b, a, a]", "b^5" ];
-R := PqGAPRelators(F, rels);
-H := F / R;
-#alt: sub <procId3> for <H>
-PqPCover( H : Prime := 5, ClassBound := 5, Metabelian,
-#alt: do
-#              RedoPcp,
-              Relators := rels);
-
-## Above we could have just passed `F' (rather than `H'):
 F := FreeGroup("a", "b");
 rels := [ "a^25", "[b, a, a]", "b^5" ];
 #alt: do
 #procId4 := PqStart( F );
 #alt: sub <procId4> for <F>
 PqPCover( F : Prime := 5, ClassBound := 5, Metabelian, 
-              Relators := rels);
+              Relators := rels );

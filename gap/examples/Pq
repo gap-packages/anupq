@@ -19,8 +19,7 @@ Pq( G : Prime := 2, ClassBound := 3 );
 Pq( G : Prime := 2, ClassBound := 3,
 #alt: do
 #              RedoPcp,
-              Exponent := 4);
-
+              Exponent := 4 );
 
 ## Now we'll get a p-quotient of another fp group
 ## which we will redo using the `Relators' option
@@ -29,7 +28,7 @@ H := F / R;
 #alt: do
 #procId3 := PqStart( H );
 #alt: sub <procId3> for <H>
-Pq( H : Prime := 5, ClassBound := 5, Metabelian);
+Pq( H : Prime := 5, ClassBound := 5, Metabelian );
 
 ## Now we redo the previous example using the `Relators' option
 F := FreeGroup("a", "b");
@@ -43,8 +42,7 @@ H := F / R;
 Pq( H : Prime := 5, ClassBound := 5, Metabelian, 
 #alt: do
 #              RedoPcp,
-              Relators := rels);
-
+              Relators := rels );
 
 ## Above we could have just passed `F' (rather than `H'):
 F := FreeGroup("a", "b");
@@ -52,4 +50,5 @@ rels := [ "a^25", "[b, a, a]", "b^5" ];
 #alt: do
 #procId4 := PqStart( F );
 #alt: sub <procId4> for <F>
-Pq( F : Prime := 5, ClassBound := 5, Metabelian, Relators := rels);
+Pq( F : Prime := 5, ClassBound := 5, Metabelian, 
+        Relators := rels );
