@@ -485,7 +485,7 @@ local match, filter, lowlev, ctimelev;
     elif ForAny( PQ_ERROR_EXIT_MESSAGES,
                  s -> IsMatchingSublist(datarec.line, s) ) then
       Info( InfoANUPQ + InfoWarning, 1, Chomp(datarec.line) );
-      Error( "pq exited: ", datarec.line );
+      Error( "pq program terminated, with error condition:\n  ", datarec.line );
     else
       Info( InfoANUPQ, lowlev,   Chomp(datarec.line) );
     fi;
