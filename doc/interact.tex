@@ -526,7 +526,9 @@ initiate  the  process  with  an  fp  group,   use   `Pq'   interactively
 (see~"Pq!interactive")    to    create    a    pc    group    and     use
 `PqSetPQuotientToGroup'  (see~"PqSetPQuotientToGroup"),  which   involves
 *no* computation, to set the pc group returned by `Pq' as  the  group  of
-the process.
+the process. Note that the list of descendants accumulate;  i.e.~repeated
+calls to  `PqDescendants'  for  the  same  interactive  {\ANUPQ}  process
+progressively add to the list of descendants already calculated.
 
 Following the colon <options> a selection of the options listed  for  the
 non-interactive `PqDescendants' function (see~"PqDescendants") should  be
@@ -1661,7 +1663,7 @@ performs menu item 5 of the main $p$-Group Generation menu.
 \>PqPGRestoreDescendantFromFile([: Filename := <name> ]) F
 
 for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
-binary to restore group <n> of class <cls> from a temporary  file,  where
+program to restore group <n> of class <cls> from a temporary file,  where
 <cls> and <n> are positive integers,  or  the  group  stored  in  <name>.
 `PqPGSetDescendantToPcp'    and    `PqPGRestoreDescendantFromFile'    are
 synonyms;  they  make  sense  only  after  a  prior  call  to   construct
@@ -1669,10 +1671,17 @@ descendants          by          say           `PqPGConstructDescendants'
 (see~"PqPGConstructDescendants")  or  the   interactive   `PqDescendants'
 (see~"PqDescendants!interactive"). In the `Filename'  option  forms,  the
 option defaults to the last filename in which a presentation  was  stored
-by the `pq' binary.
+by the `pq' program.
 
-*Note:*
-For those familiar with the  `pq'  binary,  `PqPGSetDescendantToPcp'  and
+*Notes*
+
+Since the  `PqPGSetDescendantToPcp'  and  `PqPGRestoreDescendantFromFile'
+are intended to be used in calculation of further  descendants  the  `pq'
+program computes  the  $p$-cover  of  the  restored  descendant.   Hence,
+`PqCurrentGroup' used immediately after one of these commands returns the
+$p$-cover of the restored descendant rather than the descendant itself.
+
+For those familiar with the `pq'  program,  `PqPGSetDescendantToPcp'  and
 `PqPGRestoreDescendantFromFile' perform  menu  item  3  of  the  main  or
 advanced $p$-Group Generation menu.
 
