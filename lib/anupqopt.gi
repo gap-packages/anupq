@@ -142,6 +142,9 @@ InstallValue( ANUPQoptions,
                             "StandardPresentationFile" ],
                    PqPGSetDescendantToPcp
                        := [ "Filename" ], 
+                   PqPGSupplyAutomorphisms
+                       := [ "NumberOfSolubleAutomorphisms",
+                            "RelativeOrders" ],
                    PqPGConstructDescendants
                        := [ "ClassBound", 
                             "OrderBound", 
@@ -252,6 +255,8 @@ InstallValue( ANUPQoptionChecks,
                    RedoPcp := IsBool,
                    PrintAutomorphisms := IsBool,
                    PrintPermutations := IsBool,
+                   NumberOfSolubleAutomorphisms := x -> x = 0 or IsPosInt(x),
+                   RelativeOrders := x -> IsList(x) and ForAll(x, IsPosInt),
                    Filename := IsString,
                    TreeDepth := IsPosInt
                    )
@@ -293,6 +298,8 @@ InstallValue( ANUPQoptionTypes,
                    RedoPcp := "boolean",
                    PrintAutomorphisms := "boolean",
                    PrintPermutations := "boolean",
+                   NumberOfSolubleAutomorphisms := "nonnegative integer",
+                   RelativeOrders := "list of positive integers",
                    Filename := "string",
                    TreeDepth := "positive integer"
                    )

@@ -1610,14 +1610,16 @@ Note that the $p$-group generation commands can only be applied once  the
 `pq' program has produced a pc presentation of some quotient group of the
 ``group of the process''.
 
-\>PqPGSupplyAutomorphisms( <i>[, <mlist>] ) F
-\>PqPGSupplyAutomorphisms([<mlist>]) F
+\>PqPGSupplyAutomorphisms( <i>[, <mlist>] : <options> ) F
+\>PqPGSupplyAutomorphisms([<mlist>] : <options> ) F
 
 for the  <i>th or default  interactive {\ANUPQ} process, supply  the `pq'
 program with the automorphism group  data needed for the current quotient
 of the  group of  that process (for  process <i>  the group is  stored as
 `ANUPQData.io[<i>].group').  For  a description of the  format of <mlist>
-see~"PqSupplyAutomorphisms".
+see~"PqSupplyAutomorphisms".      The      options      possible      are
+`NumberOfSolubleAutomorphisms'    and     `RelativeOrders'.     (Detailed
+descriptions of these options may be found in Chapter~"ANUPQ Options".)
 
 If <mlist> is omitted, the automorphism data is determined from the group
 of  the process  which must  have been  a $p$-group  in  pc presentation.
@@ -1765,16 +1767,16 @@ details).   For the  `CustomiseOutput'  option only  the  setting of  the
 %program  to process  the  orbit representatives  and  output the  reduced
 %$p$-cover to a  file. 
 
-%for the  <i>th or default  interactive {\ANUPQ} process, direct  the `pq'
+for the  <i>th or default  interactive {\ANUPQ} process, direct  the `pq'
 to perform item 9 of the Advanced $p$-Group Generation menu.
 
-The options  <options> may be any of  the following: `PcgsAutomorphisms',
-`SpaceEfficient',  `Exponent',   `Metabelian',  `CapableDescendants'  (or
-`AllDescendants'),   `CustomiseOutput'  (where   only  the   `group'  and
-`autgroup'  fields  are recognised)  and  `Filename' (see  Chapter~"ANUPQ
-Options" for details).  If `Filename' is omitted the reduced $p$-cover is
-written to the  file `"redPCover"' in the temporary  directory whose name
-is stored in `ANUPQData.tmpdir'.
+The  options  <options>  may  be  any   selection   of   the   following:
+`PcgsAutomorphisms',    `SpaceEfficient',    `Exponent',    `Metabelian',
+`CapableDescendants' (or `AllDescendants'), `CustomiseOutput' (where only
+the `group' and `autgroup' fields are  recognised)  and  `Filename'  (see
+Chapter~"ANUPQ Options"  for  details).  If  `Filename'  is  omitted  the
+reduced $p$-cover is written to the file `"redPCover"' in  the  temporary
+directory whose name is stored in `ANUPQData.tmpdir'.
 
 %*Note:*
 %For those familiar  with  the  `pq'  program,  `PqAPGOrbitRepresentatives'

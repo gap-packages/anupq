@@ -9,7 +9,8 @@
 if not CompareVersionNumbers( VERSION, "4.4") then
   if not IsBound(GAPInfo) then
     BindGlobal( "GAPInfo", rec(DirectoriesTemporary := DIRECTORIES_TEMPORARY,
-                               PackagesInfo := rec()) );
+                               PackagesInfo := rec(),
+                               PackagesLoaded := LOADED_PACKAGES) );
   fi;
   GAPInfo.PackagesInfo.anupq 
       := [rec(Version :=

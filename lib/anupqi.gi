@@ -36,34 +36,34 @@ end );
 ##
 InstallGlobalFunction( PQ_AUT_GROUP, function( G )
 
-    local autgrp;
+  local autgrp;
 
-    if not IsPGroup(G) then
-        Error("group <G> must be a p-group\n");
-    fi;
-    if false and HasANUPQAutomorphisms(G) then
-        # Can't use this because we currently don't know how to interpret
-        # the automorphism information returned by the standalone properly.
+  if not IsPGroup(G) then
+      Error("group <G> must be a p-group\n");
+  fi;
+  if false and HasANUPQAutomorphisms(G) then
+      # Can't use this because we currently don't know how to interpret
+      # the automorphism information returned by the standalone properly.
 
-        autgrp := PqSupplementInnerAutomorphisms(G);
+      autgrp := PqSupplementInnerAutomorphisms(G);
     
-    elif false and HasAutomorphismGroup(G) then
+  elif false and HasAutomorphismGroup(G) then
 
-        # Can't use existing automorphism information because it does not
-        # contain the information required by the standalone.
+      # Can't use existing automorphism information because it does not
+      # contain the information required by the standalone.
 
-        autgrp := AutomorphismGroup( G );
+      autgrp := AutomorphismGroup( G );
 
-    elif RequirePackage("autpgrp") = true or IsAbelian(G) then
+  elif RequirePackage("autpgrp") = true or IsAbelian(G) then
 
-        autgrp := AutomorphismGroupPGroup(G);
+      autgrp := AutomorphismGroupPGroup(G);
 
-    else
-        return Error( "since package `AutPGrp' is not installed\n",
-                      "<G> must have class 1 or <G>'s aut. group must be known.\n",
-                      "Please install the `AutPGrp' package\n" );
-    fi;
-    return autgrp;
+  else
+      return Error( "since package `AutPGrp' is not installed\n",
+                    "<G> must have class 1 or <G>'s aut. group must be known.\n",
+                    "Please install the `AutPGrp' package\n" );
+  fi;
+  return autgrp;
 end );
 
 #############################################################################
@@ -76,68 +76,69 @@ end );
 ##
 InstallGlobalFunction( PQ_AUT_INPUT, function( datarec, G )
 
-    local   autrec,  nrautos,  rank,  gens,  i,  aut,  j,  g, exponents;
+  local   autrec,  nrautos,  rank,  gens,  i,  aut,  j,  g, exponents;
     
-    autrec  := PQ_AUT_GROUP( G );
-    nrautos := Length( autrec.glAutos ) + Length( autrec.agAutos );
+  autrec  := PQ_AUT_GROUP( G );
+  nrautos := Length( autrec.glAutos ) + Length( autrec.agAutos );
 
-    ## the automorphisms have to be in a special form which PQ_AUT_GROUP()
-    ## *must* deliver.
+  ## the automorphisms have to be in a special form which PQ_AUT_GROUP()
+  ## *must* deliver.
   
-    rank := RankPGroup( G );
-    gens := PcgsPCentralSeriesPGroup( G );
+  rank := RankPGroup( G );
+  gens := PcgsPCentralSeriesPGroup( G );
 
-    ToPQ(datarec, [ nrautos ], [ "  #number of automorphisms" ]);
+  ToPQ(datarec, [ nrautos ], [ "  #number of automorphisms" ]);
 
-    ##  First write out the automorphisms generating a soluble normal subgroup 
-    ##  of the automorphism group of the p-group.  These automorphisms may
-    ##  not have a faithful representation on the Frattini quotient of the
-    ##  p-group and are treated accordingly by the standalone.
-    ##
-    ##  They are written out in bottom up fashion as this is the order in
-    ##  which the orbit algorithm for a group given by an ag-system needs
-    ##  them.  
-    for i in Reversed([1..Length(autrec.agAutos)]) do
-        aut := autrec.agAutos[i];
+  ##  First write out the automorphisms generating a soluble normal subgroup 
+  ##  of the automorphism group of the p-group.  These automorphisms may
+  ##  not have a faithful representation on the Frattini quotient of the
+  ##  p-group and are treated accordingly by the standalone.
+  ##
+  ##  They are written out in bottom up fashion as this is the order in
+  ##  which the orbit algorithm for a group given by an ag-system needs
+  ##  them.  
+  for i in Reversed([1..Length(autrec.agAutos)]) do
+      aut := autrec.agAutos[i];
 
-        for j in [1..rank] do
-            g := gens[j];
-            exponents := Flat( List( ExponentsOfPcElement( gens, Image( aut, g ) ),
-                                 e -> [ String(e), " "] ) );
+      for j in [1..rank] do
+          g := gens[j];
+          exponents := Flat( List( ExponentsOfPcElement(gens, Image( aut, g )),
+                                   e -> [ String(e), " "] ) );
 
-            ToPQ(datarec, [ exponents ],
-                 [ " #gen'r exp'ts of im(ag aut ", i, ", gen ", j, ")" ]);
-        od;
-    od;
+          ToPQ(datarec, [ exponents ],
+               [ " #gen'r exp'ts of im(ag aut ", i, ", gen ", j, ")" ]);
+      od;
+  od;
 
-    ##  Now output the automorphisms from the insoluble quotient of the
-    ##  automorphism group of the p-group.  These have a faithful
-    ##  representation on the Frattini quotient of the p-group and are
-    ##  treated accordingly by the standalone.
-    for i in Reversed( [1..Length(autrec.glAutos)] ) do
-        aut := autrec.glAutos[i];
+  ##  Now output the automorphisms from the insoluble quotient of the
+  ##  automorphism group of the p-group.  These have a faithful
+  ##  representation on the Frattini quotient of the p-group and are
+  ##  treated accordingly by the standalone.
+  for i in Reversed( [1..Length(autrec.glAutos)] ) do
+      aut := autrec.glAutos[i];
 
-        for j in [1..rank] do
-            g := gens[j];
-            exponents := Flat( List( ExponentsOfPcElement( gens, Image( aut, g ) ),
-                                 e -> [ String(e), " "] ) );
+      for j in [1..rank] do
+          g := gens[j];
+          exponents := Flat( List( ExponentsOfPcElement(gens, Image( aut, g )),
+                                   e -> [ String(e), " "] ) );
 
-            ToPQ(datarec, [ exponents ],
-                 [ " #gen'r exp'ts of im(gl aut ", i, ", gen ", j, ")" ]);
-        od;
-    od;
+          ToPQ(datarec, [ exponents ],
+               [ " #gen'r exp'ts of im(gl aut ", i, ", gen ", j, ")" ]);
+      od;
+  od;
 
-    if ValueOption( "PqInhibitOrders" ) <> true then
-        ##  Finally, tell the standalone the number of soluble automorphisms
-        ##  and the relative order of each automorphism. 
-        ToPQ(datarec, [ Length(autrec.agOrder) ], 
-             [ "  #number of soluble automorphisms" ]);
+  if PQ_MENU(datarec) = "pG" then
+      ##  ?? Why only the pG menu ??
+      ##  Finally, tell the standalone the number of soluble automorphisms
+      ##  and the relative order of each automorphism. 
+      ToPQ(datarec, [ Length(autrec.agOrder) ], 
+           [ "  #number of soluble automorphisms" ]);
     
-        for i in Reversed( [1..Length( autrec.agOrder )] ) do
-            ToPQ( datarec, [ autrec.agOrder[i] ], 
-                  [ "  #rel order of ", i, "th ag automorphism" ] );
-        od;
-    fi;
+      for i in Reversed( [1..Length( autrec.agOrder )] ) do
+          ToPQ( datarec, [ autrec.agOrder[i] ], 
+                [ "  #rel order of ", i, "th ag automorphism" ] );
+      od;
+  fi;
 
 end );
 
@@ -149,7 +150,7 @@ end );
 ##  `pq' binary.
 ##
 InstallGlobalFunction( PQ_MANUAL_AUT_INPUT, function( datarec, mlist )
-local line, nauts, rank, nexpts, i, j, aut, exponents;
+local line, nauts, nsolauts, rank, nexpts, i, j, aut, exponents;
   nauts  := Length(mlist);
   rank   := Length(mlist[1]);
   ToPQ(datarec, [ nauts ], [ "  #no. of auts" ]);
@@ -165,6 +166,19 @@ local line, nauts, rank, nexpts, i, j, aut, exponents;
                     [ " #gen'r exp'ts of im(aut ", i, ", gen ", j, ")" ]);
     od;
   od;
+  if PQ_MENU(datarec) = "pG" then
+    ##  ?? Why only the pG menu ??
+    ##  Finally, tell the standalone the number of soluble automorphisms
+    ##  and the relative order of each automorphism. 
+    ToPQ(datarec, [ datarec.NumberOfSolubleAutomorphisms ], 
+                  [ "  #number of soluble automorphisms" ]);
+    if datarec.NumberOfSolubleAutomorphisms > 0 then
+      for i in datarec.RelativeOrders do
+        ToPQ( datarec, [ datarec.RelativeOrders[i] ], 
+                       [ "  #rel order of ", i, "th ag automorphism" ] );
+      od;
+    fi;
+  fi;
 end );
 
 #############################################################################
@@ -2421,7 +2435,7 @@ local datarec, savefile;
   ToPQ(datarec, [ VALUE_PQ_OPTION("ClassBound", 63)], [ "  #class bound" ]);
 
   if 1 = Length(arg) then
-    PQ_AUT_INPUT( datarec, datarec.pQuotient : PqInhibitOrders );
+    PQ_AUT_INPUT( datarec, datarec.pQuotient );
   else
     PQ_MANUAL_AUT_INPUT( datarec, arg[2] );
   fi;
@@ -2628,10 +2642,21 @@ end );
 ##  the main or Advanced $p$-Group Generation menu.
 ##
 InstallGlobalFunction( PQ_PG_SUPPLY_AUTS, function( arg )
+  local datarec;
+
   CallFuncList( PQ_MENU, arg{[1, Length(arg)]});
-  ToPQ(arg[1], [ 1 ], [ "  #supply automorphism data" ]);
+  datarec := arg[1];
+  if 2 < Length(arg) and 
+     VALUE_PQ_OPTION("NumberOfSolubleAutomorphisms", 0, datarec) > 0 and
+     Length(VALUE_PQ_OPTION("RelativeOrders", [], datarec)) 
+        <> datarec.NumberOfSolubleAutomorphisms then
+    Error("the number of elements of option \"RelativeOrders\" should equal\n",
+          "the value of option \"NumberOfSolubleAutomorphisms\" (",
+          datarec.NumberOfSolubleAutomorphisms, ")\n");
+  fi;
+  ToPQ(datarec, [ 1 ], [ "  #supply automorphism data" ]);
   if 2 = Length(arg) then
-    PQ_AUT_INPUT( arg[1], arg[1].group );
+    PQ_AUT_INPUT( datarec, datarec.group );
   else
     CallFuncList( PQ_MANUAL_AUT_INPUT, arg{[1 .. 2]} );
   fi;

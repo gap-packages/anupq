@@ -19,7 +19,7 @@ ReadPkg( "anupq", "lib/anupqi.gi" );
 ReadPkg( "anupq", "lib/anupqid.gi" );
 ReadPkg( "anupq", "lib/anustab.gi" );
 ReadPkg( "anupq", "lib/anupqxdesc.gi" );
-if not IsBound( LOADED_PACKAGES.autpgrp ) then
+if not IsBound( GAPInfo.PackagesLoaded.autpgrp ) then
     Info(InfoWarning + InfoANUPQ,1, "Package ``AutPGrp'' is not available.");
     Info(InfoWarning + InfoANUPQ,1, "You may run into trouble later if the pq");
     Info(InfoWarning + InfoANUPQ,1, "binary needs GAP to compute stabilisers.");

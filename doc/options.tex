@@ -26,12 +26,12 @@ package:
 gap> AllANUPQoptions();
 [ "AllDescendants", "BasicAlgorithm", "Bounds", "CapableDescendants", 
   "ClassBound", "CustomiseOutput", "Exponent", "Filename", "GroupName", 
-  "Identities", "Metabelian", "OrderBound", "OutputLevel", 
-  "PcgsAutomorphisms", "PqWorkspace", "Prime", "PrintAutomorphisms", 
-  "PrintPermutations", "QueueFactor", "RankInitialSegmentSubgroups", 
-  "RedoPcp", "Relators", "SetupFile", "SpaceEfficient", 
-  "StandardPresentationFile", "StepSize", "SubList", "TreeDepth", "pQuotient" 
- ]
+  "Identities", "Metabelian", "NumberOfSolubleAutomorphisms", "OrderBound", 
+  "OutputLevel", "PcgsAutomorphisms", "PqWorkspace", "Prime", 
+  "PrintAutomorphisms", "PrintPermutations", "QueueFactor", 
+  "RankInitialSegmentSubgroups", "RedoPcp", "RelativeOrders", "Relators", 
+  "SetupFile", "SpaceEfficient", "StandardPresentationFile", "StepSize", 
+  "SubList", "TreeDepth", "pQuotient" ]
 \endexample
 
 The following global variable gives a  partial  breakdown  of  where  the
@@ -302,6 +302,7 @@ If this flag is set, only capable descendants are computed. Setting  this
 option is equivalent to setting `AllDescendants  :=  false'  (see~"option
 AllDescendants"),    except    if    both    `CapableDescendants'     and
 `AllDescendants' are passed, `AllDescendants' is essentially ignored.
+\goodbreak%
 
 \>`AllDescendants := false'{option AllDescendants}@{option `AllDescendants'|indexit}&
 By default, *all* descendants are constructed. If this  flag  is  set  to
@@ -322,6 +323,24 @@ Suppose that <L> is the list of descendants generated, then  for  a  list
 <sub> of integers this option causes `PqDescendants' to return  `Sublist(
 <L>, <sub> )'. If an integer <n>  is  supplied,  `PqDescendants'  returns
 `<L>[<n>]'.
+
+\>`NumberOfSolubleAutomorphisms := <n>'{option NumberOfSolubleAutomorphisms}%
+@{option `NumberOfSolubleAutomorphisms'|indexit}&
+Specifies that the number of soluble automorphisms  of  the  automorphism
+group           supplied           by           `PqPGSupplyAutomorphisms'
+(see~"PqPGSupplyAutomorphisms") in a $p$-group generation calculation  is
+<n>. By default, <n> is taken to be  $0$;  <n>  must  be  a  non-negative
+integer. If $<n> \ge 0$ then a  value  for  the  option  `RelativeOrders'
+(see~"option RelativeOrders") must also be supplied.
+
+\>`RelativeOrders := <list>'{option RelativeOrders}%
+@{option `RelativeOrders'|indexit}&
+Specifies the  relative  orders  of  each  soluble  automorphism  of  the
+automorphism     group     supplied     by      `PqPGSupplyAutomorphisms'
+(see~"PqPGSupplyAutomorphisms") in a  $p$-group  generation  calculation.
+The list <list> must consist of <n> positive integers, where <n>  is  the
+value   of   the   option   `NumberOfSolubleAutomorphisms'   (see~"option
+NumberOfSolubleAutomorphisms"). By default <list> is empty.
 
 \>`BasicAlgorithm'{option BasicAlgorithm}@{option `BasicAlgorithm'|indexit}&
 Specifies that an  algorithm that the `pq' program  calls its ``default''

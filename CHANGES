@@ -26,6 +26,9 @@ Version 2.0:
        a group; example modified accordingly
    o lib/anupq.gi:
        `GAPInfo.DirectoriesTemporary' replaces `DIRECTORIES_TEMPORARY'
+   o lib/anupqopt.gi:
+       added two new options for `PqPGSupplyAutomorphisms', namely
+       `NumberOfSolubleAutomorphisms' and `RelativeOrders'
    o README, VERSION, 
      doc/{manual,intro,infra,anupq,options,install}.tex:
        - package version changed from 1.5 to 2.0
