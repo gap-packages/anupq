@@ -106,10 +106,10 @@ SetPackageInfo( rec(
 ##  
 
   AbstractHTML := 
-    "The <span class="pkgname">ANUPQ</span> package provides an interactive \
+    "The <span class=\"pkgname\">ANUPQ</span> package provides an interactive \
      interface to the p-quotient, p-group generation and standard presentation \
      algorithms of the ANU pq C program. The package supersedes the earlier \
-     <span class="pkgname">GAP</span> 3 version (1.0).",
+     <span class=\"pkgname\">GAP</span> 3 version (1.0).",
 
   PackageWWWHome := "http://www.math.rwth-aachen.de/~Greg.Gamble/ANUPQ/",
                   
