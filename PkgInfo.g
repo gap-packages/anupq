@@ -162,7 +162,7 @@ SetPackageInfo( rec(
     # without these, the package will not load
     NeededOtherPackages := [],
     # without these the package will issue a warning while loading
-    SuggestedOtherPackages := [ "autpgrp" ],
+    SuggestedOtherPackages := [ [ "autpgrp", ">=1.0" ] ],
     # needed external conditions (programs, operating system, ...)  provide 
     # just strings as text or
     # pairs [text, URL] where URL  provides further information
