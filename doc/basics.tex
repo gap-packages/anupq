@@ -22,7 +22,7 @@ of the pq program".
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Basic notions}
 
-*pc presentations and consistency*
+*pc Presentations and Consistency*
 
 For details, see \cite{NNN98}.
 
@@ -36,28 +36,27 @@ $1 \le j \< k \le n$.
 
 \index{power-commutator presentation}\index{pc presentation}\index{pcp}
 \index{pc generators}\index{collection}
-This is  called a *power-commutator*  presentation (or *pc presentation*
-or *pcp*) of $G$, generators from  such a presentation will be referred
-to as *pc generators*.  In terms of such pc generators every element
-of $G$  can be written in a  ``normal form'' $a_1^{e_1},\dots,a_n^{e_n}$
-with $0 \le  e_i \< p$.  Moreover any given  product of the generators
-and  their inverses can  be brought  into such a  normal form  using the
-defining  relations in the  above presentation  as rewrite  rules. Any
-such process is called  *collection*.  For the discussion of various
-collection methods see \cite{LGS90}.
+This is called a *power-commutator* presentation (or *pc presentation*
+or *pcp*) of $G$, generators from such a presentation will be referred
+to as *pc generators*. In terms of such pc generators every element of
+$G$ can be written in a  ``normal  form''  $a_1^{e_1},\dots,a_n^{e_n}$
+with $0 \le e_i \< p$. Moreover any given product  of  the  generators
+and their inverses can be brought into such a normal  form  using  the
+defining relations in the above presentation  as  rewrite  rules.  Any
+such process is called *collection*. For  the  discussion  of  various
+collection methods see \cite{LGS90} and \cite{Vau90a}.
 
 \index{consistent}\index{confluent rewriting system}\index{confluent}
-Every  $p$-group of order  $p^n$ has  such a  pcp presentation  on $n$
+Every $p$-group of order $p^n$ has such  a  pcp  presentation  on  $n$
 generators and conversely every such presentation defines a $p$-group.
 However a $p$-group defined by a pc-presentation on $n$ generators can
-be of  smaller order $p^m$ with  $m\<n$. A pcp on  $n$ generators that
-does  in   fact  define   a  $p$-group  of   order  $p^n$   is  called
-*consistent* in this  manual, in line with most  of the literature on
-the  algorithms  occurring  here.  A  consistent  pcp   determines   a
-*confluent rewriting system* (see~"ref:IsConfluent") for the group  it
-defines and for  this  reason  often  (in  particular  in  the  {\GAP}
-Reference  Manual)  such   a   pcp   presentation   is   also   called
-*confluent*.
+be of smaller order $p^m$ with $m\<n$. A pcp on  $n$  generators  that
+does in fact define a $p$-group of order $p^n$ is called  *consistent*
+in this manual, in line with most of the literature on the  algorithms
+occurring here. A consistent pcp  determines  a  *confluent  rewriting
+system* (see~"ref:IsConfluent") for the group it defines and for  this
+reason often (in particular in the {\GAP} Reference Manual) such a pcp
+presentation is also called *confluent*.
 
 Consistency of a pcp is tantamount to the fact that for any given word
 in the generators any two collections will yield the same normal form.
@@ -76,7 +75,7 @@ $$
 }
 $$
 
-*Exponent-$p$ central series and weighted pc presentations*
+*Exponent-$p$ Central Series and Weighted pc Presentations*
 
 For details, see \cite{NNN98}.
 
@@ -88,10 +87,10 @@ P_1(G)  := G,  P_i(G) := [G, P_{i-1}(G)] P_{i-1}(G)^p\.
 $$
 For a $p$-group $G$ this  series terminates with the trivial group. $G$
 \index{class}\atindex{p-class}{@$p$-class}
-has *$p$-class* $c$  if $c$ is the smallest  integer such that $P_{c+1}(G)$
-is  the trivial group.   In this  manual, as  well as  in much  of the
-literature about the pq- and related algorithms the $p$-class is often
-referred to simply as *class*.
+has  *$p$-class*  $c$  if  $c$  is  the  smallest  integer  such  that
+$P_{c+1}(G)$ is the trivial group. In this manual, as well as in  much
+of the literature about the `pq'- and related algorithms the $p$-class
+is often referred to simply as *class*.
 
 Let  the  $p$-group $G$  have  a consistent  pcp  as  above. Then  the
 subgroups
@@ -101,14 +100,15 @@ $$
 $$
 form a central series  of $G$. If this refines  the $p$-central series,
 \index{weight function}
-we can  define the  *weight function* $w$  for the pc  generators by
-$w(a_i) = k$ if $a_i$ is contained in $P_{k-1}(G)$  but not in $P_k(G)$.
+we can define the *weight function*  $w$  for  the  pc  generators  by
+$w(a_i) = k$  if  $a_i$  is  contained  in  $P_{k-1}(G)$  but  not  in
+$P_k(G)$.
 
 \index{weighted pcp}
 The pair of  such a weight function and  a pcp allowing it  is called a
 *weighted pcp*.
 
-*$p$-cover, $p$-multiplicator*
+*$p$-Cover, $p$-Multiplicator*
 
 For details, see \cite{NNN98}.
 
@@ -116,38 +116,94 @@ For details, see \cite{NNN98}.
 \atindex{p-multiplicator}{@$p$-multiplicator}
 \atindex{p-multiplicator rank}{@$p$-multiplicator rank}
 \index{multiplicator rank}
-Let $d$ be the minimal number of generators of the  $p$-group  $G$.  Then
-$G$ is isomorphic to a factor group $F/R$ of a free  group  $F$  of  rank
-$d$. It can be proved (see e.g.~\cite{OBr90}) that the  isomorphism  type
-of $F/[F, R]  R^p$  depends  only  on  $G$.  This  group  is  called  the
-*$p$-covering group* or *$p$-cover*  of  $G$,  and  $R/[F,  R]  R^p$  the
-$p$-multiplicator  of  $G$.  The  $p$-multiplicator  is  of   course   an
-elementary abelian $p$-group, its minimal number of generators is  called
-the *($p$-)multiplicator rank*.
+Let $d$  be the minimal number  of generators of the  $p$-group $G$ of
+$p$-class $c$.   Then $G$ is isomorphic  to a factor group  $F/R$ of a
+free group $F$ of  rank $d$. We denote $[F, R] R^p$  by $R^\*$.  It can
+be proved (see e.g.~\cite{OBr90}) that the isomorphism type of $G^\* :=
+F/R^\*$ depends only on $G$.   $G^\*$ is called the *$p$-covering group*
+or *$p$-cover* of $G$, and  $R/R^\*$ the $p$-multiplicator of $G$.  The
+$p$-multiplicator is  of course  an elementary abelian  $p$-group, its
+minimal number of generators is called the *($p$-)multiplicator rank*.
+
+*Descendants, Capable, Terminal, Nucleus*
+
+For details, see \cite{New77} and  \cite{OBr90}.
+
+\index{descendant}\index{immediate descendant}\index{nucleus}
+\index{capable}\index{terminal}\index{allowable}\index{permutation}
+\index{extended automorphism}
+Let again $G$  be a $p$-group of $p$-class $c$ and  with $d$ being the
+minimal  number  of   generators  of  $G$.   A  $p$-group   $H$  is  a
+*descendant* of $G$ if the minimal  number of generators of $H$ is $d$
+and $H/P_c(H)$  is isomorphic to $G$.   A descendant $H$ of  $G$ is an
+*immediate  descendant* if  it  has $p$-class  $c+1$.   $G$ is  called
+*capable* if it has immediate descendants, otherwise *terminal*.
+
+Let $G^\* = F/F^\*$ again be  the  $p$-cover  of  $G$,  Then  the  group
+$P_c(G^\*)$ is called the *nucleus* of $G$.  Note  that  $P_c(G^\*)$  is
+contained in the $p$-multiplicator $R/R^\*$.
+
+It is  proved e.g. in  \cite{OBr90} that the immediate  descendants of
+$G$  are  obtained  as  factorgroups  of  the  $p$-cover  by  (proper)
+supplements   of    the   nucleus   in    the   (elementary   abelian)
+$p$-multiplicator. These are also called *allowable*.
+
+\index{extended automorphism}\index{permutations}
+It is further proved there that every automorphism $\alpha$  of  $F/R$
+extends to an autmorphism $\alpha^\*$ of the $p$-cover $F/R^\*$ and that
+the restriction of $\alpha^\*$ to the multiplicator $R/R^\*$ is uniquely
+determined  by  $\alpha$.  Each  *extended  automorphism*   $\alpha^\*$
+induces a permutation of the allowable subgroups.  Thus  the  extended
+automorphisms determine a group $P$ of *permutations* on  the  set  of
+$A$ of allowable subgroups. Choosing a representative  $S$  from  each
+orbit of $P$ on $A$, the set of  factor  groups  $F/S$  contains  each
+(isomorphism type of) immediate descendant of $G$ exactly once.
+
+(The group $P$ of permutations that will appear in the description  of
+some interactive functions.)
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\Section{The p-quotient algorithm}
+\Section{The p-quotient Algorithm}
 
+For details see \cite{HN80} and \cite{NO96}. Other descriptions of the
+algorithm are given in \cite{Vau90b} and \cite{Sims94}.
+
+\index{p-quotient algorithm}
 The aim of the $p$-quotient (`pq'-) algorithm is  to  find  $p$-factor
 groups (or $p$-quotient groups) of a  given  finitely  presented  (fp)
 group $G$ for a given prime $p$.
 
-The `pq' algorithm successively  determines  the  factor  groups  of  the
-groups of the $p$-central series of a fp group $G$. If a  bound  $b$  for
-the $p$-class is given, it will determine those factor groups  up  to  at
-most $p$-class $b$, If the $p$-central series terminates with a  subgroup
-$P_k(G)$ with $k \< b$, the algorithm will stop with that  group.  If  no
-such bound is given, it will try to find the biggest such factorgroup.
+The `pq'  algorithm successively determines  the factor groups  of the
+groups of the $p$-central series of a fp group $G$. If a bound $b$ for
+the  $p$-class is  given, the  algorithm will  determine  those factor
+groups  up  to  at  most  $p$-class $b$,  If  the  $p$-central  series
+terminates with a subgroup $P_k(G)$  with $k \< b$, the algorithm will
+stop with that group.  If no such  bound is given, it will try to find
+the biggest such factorgroup.
 
-$G/P_2(G)$ is the largest elementary  abelian $p$-factor group of $G$ and
-this  can  be found  from  the relation  matrix  of  $G$ using  matrix
-diagonalisation modulo $p$. So  it suffices to explain how $G/P_{i+1}(G)$
-is found from $G/P_i(G)$ for some $i \ge 1$.
+$G/P_2(G)$ is  the largest elementary abelian $p$-factor  group of $G$
+and this  can be found  from the relation  matrix of $G$  using matrix
+diagonalisation   modulo  $p$.   So   it  suffices   to  explain   how
+$G/P_{i+1}(G)$ is found from $g$ and $G/P_i(G)$ for some $i \ge 1$.
+
 
 *UP TO HERE*
 
 If they are  not fulfilled they will provide a  set of equations among
 the 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\Section{Standard Presentation and Isomorphism Testing}
+
+For details see \cite{OBr94}.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\Section{The p-group generation Algorithm}
+
+For details see \cite{New77} and \cite{OBr90}.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Old stuff}
@@ -157,23 +213,22 @@ the
 \item{1.}
 A $p$-quotient  algorithm  to  compute  pc-presentations  for  $p$-factor
 groups of finitely presented groups. The algorithm  implemented  here  is
-based on that described by Newman  and  O'Brien  \cite{NO96},  Havas  and
-Newman~\cite{HN80}, and papers referred to there. Another description  of
-the algorithm is given by Vaughan-Lee (see~\cite{Vau90a}, \cite{Vau90b}).
+based on that described by Newman  and  O'Brien,  Havas  and
+Newman, and papers referred to there. 
 A FORTRAN implementation of this algorithm was programmed by  Alford  and
 Havas. The basic data structures of that implementation are retained.
 
 \item{2.} 
 A $p$-group generation algorithm to generate pc-presentations  of  groups
 of prime power order. The algorithm implemented  here  is  based  on  the
-algorithms described by Newman~\cite{New77} and  O'Brien~\cite{OBr90}.  A
+algorithms described by Newman.  A
 FORTRAN implementation of this algorithm was developed earlier by  Newman
 and O'Brien.
 
 \item{3.}
 A  standard  presentation  algorithm  used   to   compute   a   canonical
 pc-presentation  of  a  $p$-group.  The  algorithm  implemented  here  is
-described in~\cite{OBr94}.
+described in.
 
 \item{4.} 
 An algorithm which can be used to compute the  automorphism  group  of  a
@@ -186,14 +241,7 @@ computation of automorphism groups of $p$-groups.
 \endlist
 
 Further   background   may   be   found   in~\cite{OBr95},   \cite{Vau84},
-\cite{NNN98}, and~\cite{Sims94}.
-
-For details regarding the standalone version see the file `guide.dvi'.
-
-\index{capable}
-We say a $p$-quotient descendant is *capable* if that  descendant  occurs
-as the  factor  group  of  a  $p$-group  modulo  the  last  term  of  its
-$p$-central series.
+\cite{NNN98}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%

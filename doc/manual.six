@@ -22,9 +22,21 @@ I 2.1. p-cover
 I 2.1. p-multiplicator
 I 2.1. p-multiplicator rank
 I 2.1. multiplicator rank
-S 2.2. The p-quotient algorithm
-S 2.3. Old stuff
-I 2.3. capable
+I 2.1. descendant
+I 2.1. immediate descendant
+I 2.1. nucleus
+I 2.1. capable
+I 2.1. terminal
+I 2.1. allowable
+I 2.1. permutation
+I 2.1. extended automorphism
+I 2.1. extended automorphism
+I 2.1. permutations
+S 2.2. The p-quotient Algorithm
+I 2.2. p-quotient algorithm
+S 2.3. Standard Presentation and Isomorphism Testing
+S 2.4. The p-group generation Algorithm
+S 2.5. Old stuff
 C infra.tex 3. Infrastructure
 S 3.1. Loading the ANUPQ Package
 I 3.1. banner
