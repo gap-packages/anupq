@@ -3,6 +3,7 @@ I 1.0. ANUPQ
 S 1.1. Authors and Acknowledgements
 I 1.1. bug reports
 S 1.2. Change history
+I 1.2. option pkgbanner
 C basics.tex 2. Mathematical Background and Terminology
 S 2.1. Basic notions
 I 2.1. power-commutator presentation
