@@ -1202,24 +1202,27 @@ performs menu item 26 of the Advanced $p$-Quotient menu.
 
 *Commands from the Standard Presentation menu*
 
-\>PqSPPcPresentation( <i> : <options> ) F
-\>PqSPPcPresentation( : <options> ) F
+\>PqSPComputePcpAndPCover( <i> : <options> ) F
+\>PqSPComputePcpAndPCover( : <options> ) F
 
-for the <i>th or default interactive {\ANUPQ} process, inputs data  given
-by <options> for the group of  that  process  so  that  the  `pq'  binary
-computes a pc presentation, where the group of a process is the one given
-as first argument when `PqStart' was called to initiate that process (for
-process <i> the group is stored as `ANUPQData.io[<i>].group').
+for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+binary to compute for the group of that process a pc presentation  up  to
+the $p$-quotient of maximum class or the value of the option `ClassBound'
+and the $p$-cover of that  quotient,  and  sets  up  tabular  information
+required for computation of a standard presentation. Here the group of  a
+process is the one given as first argument when `PqStart' was  called  to
+initiate  that  process  (for  process  <i>  the  group  is   stored   as
+`ANUPQData.io[<i>].group').
 
-The  possible  <options>  are  the  same  as  for  the  interactive  `Pq'
-(see~"Pq!interactive")   function,   namely:    `Prime',    `ClassBound',
-`Exponent', `Relators', `GroupName', `Metabelian' and `OutputLevel'  (see
-Chapter~"ANUPQ options" for details of these options). The option `Prime'
-is  required  unless  already  provided  to   `PqStart'.   Also,   option
-`ClassBound' *must* be supplied.
+The possible <options> are `Prime', `ClassBound', `Relators', `Exponent',
+`Metabelian' and `OutputLevel' (see Chapter~"ANUPQ Options" for  detailed
+descriptions of these options). The option `Prime' is normally determined
+via `PrimePGroup', and so is not required unless the group  doesn't  know
+it's a $p$-group and `HasPrimePGroup' returns `false'.
 
-*Note:* For those familiar with  the  `pq'  binary,  `PqSPPcPresentation'
-performs menu item 1 of the Standard Presentation menu.
+*Note:*
+For  those  familiar  with  the  `pq'  binary,  `PqSPComputePcpAndPCover'
+performs option 1 of the Standard Presentation menu.
 
 \>PqSPStandardPresentation( <i>[, <mlist>][: <options>]) F
 \>PqSPStandardPresentation( [<mlist>][: <options>]) F
@@ -1345,7 +1348,7 @@ output from the `pq' (see~"InfoANUPQ").
 
 *Note:*    
 For  those  familiar  with  the  `pq'  binary,  `PqPGExtendAutomorphisms'
-performs menu item 2 of the main $p$-Group Generation menu. 
+performs menu item 2 of the main or advanced $p$-Group Generation menu. 
 
 \>PqPGRestoreGroupFromFile( <i>, <cls>, <n> ) F
 \>PqPGRestoreGroupFromFile( <cls>, <n> ) F
@@ -1356,7 +1359,7 @@ class <cls> from a temporary file.
 
 *Note:* 
 For those  familiar  with  the  `pq'  binary,  `PqPGRestoreGroupFromFile'
-performs menu item 3 of the main $p$-Group Generation menu.
+performs menu item 3 of the main or advanced $p$-Group Generation menu.
 
 \>PqPGConstructDescendants( <i> : <options> ) F
 \>PqPGConstructDescendants( : <options> ) F
@@ -1372,7 +1375,8 @@ possible are the same as those listed for the interactive `PqDescendants'
 options may be found in Chapter~"ANUPQ options".)
 
 `PqPGConstructDescendants' requires that the `pq' binary  has  previously
-computed a pc presentation and a $p$-cover for the group of the process.
+computed a pc presentation and a $p$-cover for  a  $p$-quotient  of  some
+class of the group of the process.
 
 *Note:* 
 For those  familiar  with  the  `pq'  binary,  `PqPGConstructDescendants'
@@ -1397,30 +1401,6 @@ group of the process.
 *Note:*
 For those  familiar  with  the  `pq'  binary,  `PqAPGSupplyAutomorphisms'
 performs menu item 1 of the Advanced $p$-Group Generation menu.
-
-\>PqAPGExtendAutomorphisms( <i> ) F
-\>PqAPGExtendAutomorphisms() F
-
-for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
-binary to compute the extensions of the automorphisms defined by  calling
-`PqAPGSupplyAutomorphisms' (see~"PqAPGSupplyAutomorphisms"). You may wish
-to set the `InfoLevel' of `InfoANUPQ' to 2 (or more) in order to see  the
-output from the `pq' (see~"InfoANUPQ").
-
-*Note:*
-For  those  familiar  with  the  `pq'  binary, `PqAPGExtendAutomorphisms'
-performs menu item 2 of the Advanced $p$-Group Generation menu.
-
-\>PqAPGRestoreGroupFromFile( <i>, <cls>, <n> ) F
-\>PqAPGRestoreGroupFromFile( <cls>, <n> ) F
-
-for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
-binary to restore group <n> of class <cls> from a temporary  file,  where
-<cls> and <n> are positive integers.
-
-*Note:*
-For those familiar  with  the  `pq'  binary,  `PqAPGRestoreGroupFromFile'
-performs menu item 3 of the Advanced $p$-Group Generation menu.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Primitive Interactive ANUPQ Process Read/Write Functions}

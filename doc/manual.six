@@ -233,8 +233,8 @@ F 5.4. PqWritePcPresentation
 F 5.4. PqWritePcPresentation
 F 5.4. PqWriteCompactDescription
 F 5.4. PqWriteCompactDescription
-F 5.4. PqSPPcPresentation
-F 5.4. PqSPPcPresentation
+F 5.4. PqSPComputePcpAndPCover
+F 5.4. PqSPComputePcpAndPCover
 F 5.4. PqSPStandardPresentation
 F 5.4. PqSPStandardPresentation
 I 5.4. option ClassBound
@@ -256,10 +256,6 @@ F 5.4. PqPGConstructDescendants
 F 5.4. PqPGConstructDescendants
 F 5.4. PqAPGSupplyAutomorphisms
 F 5.4. PqAPGSupplyAutomorphisms
-F 5.4. PqAPGExtendAutomorphisms
-F 5.4. PqAPGExtendAutomorphisms
-F 5.4. PqAPGRestoreGroupFromFile
-F 5.4. PqAPGRestoreGroupFromFile
 S 5.5. Primitive Interactive ANUPQ Process Read/Write Functions
 F 5.5. PqRead
 F 5.5. PqRead
