@@ -150,6 +150,6 @@ for class in [ 3 .. 13 ] do
 od;
 
 #comment: save the presentation to a different file by supplying <OutputFile>
-#sub <OutputFile> for </tmp/B54> if set and ok
+#sub <OutputFile> for <"/tmp/B54"> if set and ok
 PqWritePcPresentation( procId, "/tmp/B54" );;
 PqQuit( procId );;
