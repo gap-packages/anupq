@@ -413,7 +413,7 @@ struct pcp_vars *pcp;
       /* Originally pq checked the whole automorphism group.
        * Now it checks only coset reps. of inner automorphisms
        * i.e. those auts that are in 1-1 correspondence with outer auts. */
-      printf ("Orbit of automorphism group to check has order bound %s", s);
+      printf ("Subset of automorphism group to check has order bound %s", s);
       mpz_out_str (stdout, 10, &(pga->aut_order));
       printf ("\n");
 #endif
