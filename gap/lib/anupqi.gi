@@ -481,14 +481,17 @@ local line, classpos;
     PopOptions();
   fi;
   line := SplitString(datarec.matchedline, "", ":,. ^\n");
-  datarec.complete := line[3] <> "to";
-  if not datarec.complete then
+  datarec.complete := line[2] = "completed";
+  if datarec.complete then
+    classpos := Position(line, "class") + 2;
+    #if not IsBound(datarec.name) then #do we need to bother?
+    #  datarec.name := "<grp>";
+    #fi;
+  else
     # Only the ``incomplete'' form of datarec.matchedline gives the name
     datarec.name := line[2];
-  #elif not IsBound(datarec.name) then #do we need to bother?
-  #  datarec.name := "<grp>";
+    classpos := Position(line, "class") + 1;
   fi;
-  classpos := Position(line, "class") + 1;
   datarec.class  := Int( line[classpos] );
   datarec.forder := List( line{[classpos + 3, classpos + 4]}, Int);
   PQ_UNBIND(datarec, ["match", "matchedline"]);

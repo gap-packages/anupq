@@ -121,4 +121,10 @@ DeclareGlobalFunction( "PQ_EVALUATE" );
 ##
 DeclareGlobalFunction( "PqExample" );
 
+#############################################################################
+##
+#F  AllPqExamples() . . . . . . . . . .  list the names of all ANUPQ examples
+##
+DeclareGlobalFunction( "AllPqExamples" );
+
 #E  anupq.gd  . . . . . . . . . . . . . . . . . . . . . . . . . . . ends here 

@@ -10,6 +10,10 @@
 #Y  Copyright 1992-1994,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.26  2001/10/11 13:07:13  gap
+#H  Fixed some bugs. The group data should now be set correctly in all cases.
+#H  - GG
+#H
 #H  Revision 1.25  2001/09/29 22:04:19  gap
 #H  `Pq', `PqEpimorphism', `PqPCover', `[Pq]StandardPresentation[Epimorphism]'
 #H  now accept either an fp group or a pc group, and for each `ClassBound'
@@ -1084,5 +1088,24 @@ local name, file, instream, line, input, doPqStart, vars, var, printonly,
     SizeScreen( sizescreen ); # restore what was there before
   fi;
 end);
+
+#############################################################################
+##
+#F  AllPqExamples() . . . . . . . . . .  list the names of all ANUPQ examples
+##
+InstallGlobalFunction( AllPqExamples, function()
+  local dir,  str,  ls,  out;
+
+  dir := DirectoriesPackageLibrary( "anupq", "gap/examples" )[1];
+  ls  := Filename( DirectoriesSystemPrograms(), "ls" );
+  str := "";
+  out := OutputTextString( str, true );
+  Process( dir, ls, InputTextNone(), out, [] );
+  CloseStream( out );
+  return Filtered( SplitString( str, "",  "\n" ),
+                   file -> not( file in ["index", "README", "CVS", 
+                                         "7gp-a-x-Rel-i"] 
+                                or file[ Length(file) ] = '~' ) );
+end );
 
 #E  anupq.gi  . . . . . . . . . . . . . . . . . . . . . . . . . . . ends here 
