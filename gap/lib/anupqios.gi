@@ -494,7 +494,7 @@ local ioIndex, line;
 
   if Length(arg) in [1, 2] then
     ioIndex := ANUPQ_IOINDEX(arg{[1..Length(arg) - 1]});
-    return ToPQ( ANUPQData.io[ioIndex], arg{[Length(arg)..Length(arg)]} );
+    return ToPQk( ANUPQData.io[ioIndex], arg{[Length(arg)..Length(arg)]} );
   else
     Error("expected 1 or 2 arguments ... not ", Length(arg), " arguments\n");
   fi;
