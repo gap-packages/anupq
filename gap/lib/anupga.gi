@@ -14,6 +14,9 @@
 #Y  Copyright 1992-1994,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.3  2001/06/05 16:42:24  gap
+#H  Up-to-the-minute changes. - GG
+#H
 #H  Revision 1.2  2001/06/05 12:09:22  gap
 #H  Mainly half-baked changes, just to ensure CVS and me don't differ. - GG
 #H
@@ -565,8 +568,9 @@ InstallGlobalFunction( PQ_DESCENDANTS, function( args )
     PQ_PC_PRESENTATION( datarec, "pQ" 
                         : Prime      := PrimePGroup(datarec.group),
                           ClassBound := PClassPGroup(datarec.group) );
+    PQ_P_COVER( datarec );
     PQ_PG_SUPPLY_AUTS( datarec );
-
+    PQ_PG_CONSTRUCT_DESCENDANTS( datarec );
     if datarec.calltype <> "interactive" then
         success := PQ_COMPLETE_NONINTERACTIVE_FUNC_CALL(datarec);
         if success = true then
@@ -577,35 +581,8 @@ InstallGlobalFunction( PQ_DESCENDANTS, function( args )
     fi;
             
     # read group and images from file
-    HideGlobalVariables( "F", "MapImages" );
-    Read( ANUPQData.outfile );
-    datarec.pQuotient := ValueGlobal( "F" );
-    datarec.pQepi := GroupHomomorphismByImages( 
-                       datarec.group,
-                       datarec.pQuotient,
-                       GeneratorsOfGroup( datarec.group ),
-                       ValueGlobal( "MapImages" )
-                       );
-    SetFeatureObj( datarec.pQepi, IsSurjective, true );
-    UnhideGlobalVariables( "F", "MapImages" );
-    return datarec.pQepi;
 ###OLD
 
-   
-    # now construct the instruction from the args
-    res := ANUPQinstructions( pqi, CR, p );
-    if IsString(res)  then
-        if IsBound(dir)  then
-            Exec( Concatenation( "rm -rf ", dir ) );
-        fi;
-        Error(res);
-    elif not res[1]  then
-        if IsBound(dir)  then
-            Exec( Concatenation( "rm -rf ", dir ) );
-            return [];
-        fi;
-        return;
-    fi;
 
     # the next two lines were added by EOB 
     CR := res[2];

@@ -183,6 +183,21 @@ end);
   
 #############################################################################
 ##
+#F  PQ_BOOL( <optval> ) . .  convert a GAP boolean to a `pq' (i.e. C) boolean
+##    
+##  returns 1 if <optval> is `true' or 0 otherwise (i.e.  0  is  returned  if
+##  <optval> is `false' or `fail'; we assume, but do not check that  <optval>
+##  is boolean ... `VALUE_PQ_OPTION' should already have done that).
+##
+InstallGlobalFunction( PQ_BOOL, function( optval )
+  if optval = true then
+    return 1;
+  fi;
+  return 0;
+end);
+  
+#############################################################################
+##
 #F  SET_ANUPQ_OPTIONS( <funcname>, <fnname> )  . set options from OptionStack
 ##    
 ##  When called by a function with name  <funcname>  sets  the  options  from

@@ -34,6 +34,19 @@ DeclareGlobalFunction( "PqPcPresentation" );
 
 #############################################################################
 ##
+#F  PQ_P_COVER( <datarec> ) . . . . . . . . . . . . . . . . p-Q menu option 7
+##
+DeclareGlobalFunction( "PQ_P_COVER" );
+
+#############################################################################
+##
+#F  PqPCover( <i> ) . . . . . . . . . . . . user version of p-Q menu option 7
+#F  PqPCover()
+##
+DeclareGlobalFunction( "PqPCover" );
+
+#############################################################################
+##
 #F  PQ_WRITE_PC_PRESENTATION( <datarec> : <options> ) .  I p-Q menu option 25
 ##
 DeclareGlobalFunction( "PQ_WRITE_PC_PRESENTATION" );
@@ -90,5 +103,11 @@ DeclareGlobalFunction( "PQ_PG_SUPPLY_AUTS" );
 #F  PqPGSupplyAutomorphisms()
 ##
 DeclareGlobalFunction( "PqPGSupplyAutomorphisms" );
+
+#############################################################################
+##
+#F  PQ_PG_CONSTRUCT_DESCENDANTS( <datarec> : <options> ) . . pG menu option 5
+##
+DeclareGlobalFunction( "PQ_PG_CONSTRUCT_DESCENDANTS" );
 
 #E  anupqi.gd . . . . . . . . . . . . . . . . . . . . . . . . . . . ends here 

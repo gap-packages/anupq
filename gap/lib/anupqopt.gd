@@ -65,6 +65,12 @@ DeclareGlobalVariable( "ANUPQoptionTypes",
 #F  VALUE_PQ_OPTION( <optname>, <defaultval> ) 
 ##
 DeclareGlobalFunction( "VALUE_PQ_OPTION" );
+  
+#############################################################################
+##
+#F  PQ_BOOL( <optval> ) . .  convert a GAP boolean to a `pq' (i.e. C) boolean
+##    
+DeclareGlobalFunction( "PQ_BOOL" );
 
 #############################################################################
 ##

@@ -19,7 +19,7 @@ Revision.anupqi_gi :=
 ##
 ##  inputs automorphism data for `<datarec>.group' given by <options> to  the
 ##  `pq' binary derived from the pc group  <G>  (used  in  option  1  of  the
-##  p-Group Generation menu and option 2 of the Standard Presentation menu).
+##  $p$-Group Generation menu and option 2 of the Standard Presentation menu).
 ##
 InstallGlobalFunction( PQ_AUT_INPUT, function( datarec, G )
 local rank, automorphisms, gens, i, j, aut, g, exponents, pcgs;
@@ -156,7 +156,7 @@ end );
 ##  process <i> the group is stored as `ANUPQData.io[<i>].group').
 ##
 ##  *Note:* For those  familiar  with  the  `pq'  binary,  `PqPcPresentation'
-##  performs option 1 of the main p-Quotient menu.
+##  performs option 1 of the main $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqPcPresentation, function( arg )
 local datarec;
@@ -167,10 +167,41 @@ end );
 
 #############################################################################
 ##
+#F  PQ_P_COVER( <datarec> ) . . . . . . . . . . . . . . . . p-Q menu option 7
+##
+##  directs  the  `pq'  binary  to  compute   the   $p$-covering   group   of
+##  `<datarec>.group', using option 7 of the main $p$-Quotient menu.
+##
+InstallGlobalFunction( PQ_P_COVER, function( datarec )
+local savefile;
+  PQ_MENU(datarec, "pQ");
+  ToPQ(datarec, [ "7  #compute p-cover" ]);
+end );
+
+#############################################################################
+##
+#F  PqPCover( <i> ) . . . . . . . . . . . . user version of p-Q menu option 7
+#F  PqPCover()
+##
+##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+##  to compute the $p$-covering group of `<datarec>.group'.
+##
+##  *Note:* For those familiar with  the  `pq'  binary,  `PqPCover'  performs
+##  option 7 of the main $p$-Quotient menu.
+##
+InstallGlobalFunction( PqPCover, function( arg )
+local datarec;
+  ANUPQ_IOINDEX_ARG_CHK(arg);
+  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
+  PQ_P_COVER( datarec );
+end );
+
+#############################################################################
+##
 #F  PQ_WRITE_PC_PRESENTATION( <datarec>, <outfile> ) . . I p-Q menu option 25
 ##
 ##  tells the `pq' binary to write a pc presentation to <outfile>  for  group
-##  `<datarec>.group' (option 25 of the interactive p-Quotient menu).
+##  `<datarec>.group' (option 25 of the interactive $p$-Quotient menu).
 ##
 InstallGlobalFunction( PQ_WRITE_PC_PRESENTATION, function( datarec, outfile )
   PrintTo(outfile, ""); #to ensure it's empty
@@ -195,7 +226,7 @@ end );
 ##  first, effectively invoking `PqPcPresentation' (see~"PqPcPresentation").
 ##
 ##  *Note:* For those familiar with the `pq' binary,  `PqPcWritePresentation'
-##  performs option 25 of the interactive p-Quotient menu.
+##  performs option 25 of the interactive $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqWritePcPresentation, function( arg )
 local outfile, datarec;
@@ -353,6 +384,113 @@ local datarec;
   ANUPQ_IOINDEX_ARG_CHK(arg);
   datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
   PQ_PG_SUPPLY_AUTS( datarec );
+end );
+
+#############################################################################
+##
+#F  PQ_PG_CONSTRUCT_DESCENDANTS( <datarec> : <options> ) . . pG menu option 5
+##
+##  inputs  data  given  by  <options>  to  the  `pq'  binary  to   construct
+##  descendants, using option 5 of the main p-Group Generation menu.
+##
+InstallGlobalFunction( PQ_PG_CONSTRUCT_DESCENDANTS, function( datarec )
+local orderbnd, efficient, pcgs, stepsize,
+      G, firstStep,  ANUPQbool,  CR,  f,  i,  RF1,  RF2, pqi;
+
+  # deal with the easy answer
+  orderbnd := VALUE_PQ_OPTION("OrderBound");
+  if orderbnd <> fail and 
+     orderbnd <= LogInt(Size(datarec.group), PrimePGroup(datarec.group)) then
+    return [];
+  fi;
+
+  # sanity checks
+  efficient := VALUE_PQ_OPTION("SpaceEfficient", false);
+  pcgs := VALUE_PQ_OPTION("PcgsAutomorphisms", false);
+  if efficient and not pcgs then
+    Error( "\"SpaceEfficient\" is only allowed in conjunction with ",
+           "\"PcgsAutomorphisms\"\n");
+  fi;
+  stepsize := VALUE_PQ_OPTION("StepSize");
+  if stepsize <> fail and orderbnd <> fail then
+    Error( "\"StepSize\" and \"OrderBound\" must not be set simultaneously\n" );
+  fi;
+
+  PQ_MENU(datarec, "pG");
+  ToPQk(datarec, [ "5  #construct descendants" ]);
+    pqi:="";
+    G:=datarec.group;
+    CR := rec();
+    CR.ClassBound                  := PClassPGroup(G) + 1;
+    CR.StepSize                    := -1;
+    CR.Verbose                     := false;
+    CR.RankInitialSegmentSubgroups := 0;
+    CR.AllDescendants              := false;
+    CR.ExpSet                      := false;
+    CR.Exponent                    := 0;
+    CR.Metabelian                  := false;
+    CR.SubList                     := -1; 
+
+
+    # generate instructions
+    AppendTo( pqi, "5\n", CR.ClassBound, "\n" );
+    if CR.StepSize <> -1  then
+        AppendTo( pqi, "0\n" );
+        if CR.ClassBound = PClassPGroup(G) + 1  then
+            if IsList(CR.StepSize)  then
+                if Length(CR.StepSize) <> 1  then
+                    return "Only one \"StepSize\" must be given";
+                else
+                    CR.StepSize := CR.StepSize[1];
+                fi;
+            fi;
+            AppendTo( pqi, CR.StepSize, "\n" );
+            firstStep := CR.StepSize;
+        else
+            if IsList(CR.StepSize)  then
+                if Length (CR.StepSize) <> CR.ClassBound - PClassPGroup(G)  then
+                    f := "The difference between maximal class and class ";
+                    f := Concatenation(f, 
+                      "of the starting group is ", 
+                      String(CR.ClassBound-PClassPGroup(G)),
+                      ".\nTherefore you must supply ",
+                      String(CR.ClassBound-PClassPGroup(G)),
+                      " step-sizes in the \"StepSize\" list \n" );
+                    return f;
+                fi;
+                AppendTo( pqi, "0\n" );
+                for i  in CR.StepSize  do
+                    AppendTo( pqi, i, " " );
+                od;
+                AppendTo( pqi, "\n" );
+                firstStep := CR.StepSize[1];
+            else
+                AppendTo( pqi, "1\n", CR.StepSize, "\n" );
+            fi;
+        fi;
+    elif CR.OrderBound <> -1  then
+        AppendTo( pqi, "1\n1\n", CR.OrderBound, "\n" );
+    else
+        AppendTo( pqi, "1\n0\n" );
+    fi;    
+    AppendTo( pqi, ANUPQbool(CR.PcgsAutomorphisms), "\n0\n",
+                   CR.RankInitialSegmentSubgroups, "\n" );
+    if CR.PcgsAutomorphisms  then
+        AppendTo( pqi, ANUPQbool(CR.SpaceEfficient), "\n" );
+    fi;
+    if HasNuclearRank(G) and firstStep <> 0  and
+        firstStep > NuclearRank(G) then
+            f := Concatenation( "\"StepSize\" (=", String(firstStep),
+                   ") must be smaller or equal the \"Nuclear Rank\" (=",
+                   String(NuclearRank(G)), ")" );
+            return f;
+    fi;
+    AppendTo( pqi, ANUPQbool(CR.AllDescendants), "\n" );
+    AppendTo( pqi, CR.Exponent, "\n" );
+    AppendTo( pqi, ANUPQbool(CR.Metabelian), "\n", "1\n" );
+
+    # return success
+    return [true, CR];
 end );
 
 #E  anupqi.gi . . . . . . . . . . . . . . . . . . . . . . . . . . . ends here 
