@@ -29,7 +29,8 @@ InstallValue( ANUPQoptions,
                             "Metabelian", 
                             "OutputLevel", 
                             "Verbose", 
-                            "SetupFile" ],
+                            "SetupFile",
+                            "PqWorkspace" ],
 
                    # options for `PqDescendants'
                    PqDescendants
@@ -76,7 +77,7 @@ InstallGlobalFunction( SET_ANUPQ_OPTIONS, function( funcname, fnname )
     if IsEmpty( OptionsStack ) then
         # no options??
         CR := rec();
-        Info( InfoANUPQ, 2, funcname, " called with no options!" );
+        Info( InfoANUPQ, 1, funcname, " called with no options!" );
     else
         CR := ShallowCopy( OptionsStack[ Length( OptionsStack ) ] );
         optnames := Set( REC_NAMES(CR) );
