@@ -271,6 +271,10 @@ local gens, rels, p, fpgrp, identities, pcgs, len, strp, i, j, Rel, line;
   datarec.match := true;
   ToPQ(datarec, [ rels ], []);
   datarec.haspcp := true;
+  # The `pq' only sets OutputLevel locally within the menu item
+  # ... for the GAP interface this would be too confusing; so we
+  # set it `globally'
+  PQ_SET_OUTPUT_LEVEL(datarec, datarec.OutputLevel);
   PQ_SET_GRP_DATA(datarec);
   if identities and datarec.ngens[1] <> 0 then
     PQ_EVALUATE_IDENTITIES(datarec);
@@ -2847,9 +2851,9 @@ local nodescendants, class, firstStep, expectedNsteps, optrec, line, ngroups,
   ToPQ_BOOL(datarec, VALUE_PQ_OPTION("BasicAlgorithm", false, datarec.des),
                      "use default algorithm");
   if not datarec.des.BasicAlgorithm then
-    ToPQ_BOOL(datarec,
-              VALUE_PQ_OPTION("RankInitialSegmentSubgroups", 0, datarec.des),
-              "  #rank of initial segment subgrp");
+    ToPQ(datarec, VALUE_PQ_OPTION(
+                      "RankInitialSegmentSubgroups", 0, datarec.des),
+                      "  #rank of initial segment subgrp");
     if datarec.PcgsAutomorphisms then
       ToPQ_BOOL(datarec, datarec.des.SpaceEfficient, "be space efficient");
     fi;
