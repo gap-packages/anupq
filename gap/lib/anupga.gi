@@ -14,6 +14,9 @@
 #Y  Copyright 1992-1994,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.5  2001/06/15 17:35:38  werner
+#H  Changing the way Process() is handled.                                WN
+#H
 #H  Revision 1.4  2001/06/13 21:34:25  gap
 #H  - The non-interactive `PqDescendants' and `PqList' have been modified.
 #H    o `PqList' now takes the option `SubList' which enables `PqDescendants'
@@ -576,9 +579,7 @@ InstallGlobalFunction( PQ_DESCENDANTS, function( args )
     PQ_PG_CONSTRUCT_DESCENDANTS( datarec );
     if datarec.calltype <> "interactive" then
         success := PQ_COMPLETE_NONINTERACTIVE_FUNC_CALL(datarec);
-        if success = true then
-            return true;
-        elif success <> 0 then
+        if success <> 0 then
             Error( "process did not succeed\n" );
         fi;
     fi;

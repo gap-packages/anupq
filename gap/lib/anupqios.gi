@@ -643,13 +643,13 @@ local output, proc;
   else 
     output := OutputTextNone();
   fi;
+  Error( "before\n" );
   proc := Process(ANUPQData.tmpdir, 
-                  Filename( DirectoriesSystemPrograms(), "sh" ),
-                  InputTextUser(),
+                  ANUPQData.binary,
+                  InputTextFile( ANUPQData.infile ),
                   output,
-                  [ "-c", Concatenation(ANUPQData.binary, " ", datarec.opts, 
-                                        " <", ANUPQData.infile) ]
-                  );
+                  datarec.opts );
+  Error( "after\n" );
   CloseStream( output );
   return proc;
 end );
