@@ -118,7 +118,8 @@ InstallValue( ANUPQoptionChecks,
                    SubList := x -> IsPosInt(x) or
                                    (IsSet(x) and ForAll(x, IsInt)
                                     and IsPosInt(x[1])),
-                   TmpDir := IsString
+                   TmpDir := IsString,
+                   OutputFile := IsString
                    )
              );
 
@@ -148,7 +149,8 @@ InstallValue( ANUPQoptionTypes,
                    AllDescendants := "boolean",
                    SubList 
                        := "pos've integer or increasing pos've integer list",
-                   TmpDir := "string"
+                   TmpDir := "string",
+                   OutputFile := "string"
                    )
              );
 
