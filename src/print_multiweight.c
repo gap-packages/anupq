@@ -12,7 +12,6 @@
 #include "pq_defs.h"
 #include "pcp_vars.h"
 #include "constants.h"
-#include <malloc.h>
 #include "pq_functions.h"
 
 /* print the structure of each of the pcp generators, 
