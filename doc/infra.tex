@@ -393,8 +393,8 @@ Here we mistyped `ClassBound'  as  `Classbound',  and  after  seeing  the
 `Info'-ed warning that `Classbound' was ignored, we typed  a  <control>-C
 (that's the ```user interrupt at''' message) which took us into  a  break
 loop, from which we `quit;'. Since the  `Pq'  command  was  not  able  to
-finish the options `Prime' and `Classbound', in particular, will still be
-on the `OptionsStack':
+finish, the options `Prime' and `Classbound', in particular,  will  still
+be on the `OptionsStack':
 
 \begintt
 gap> OptionsStack;
@@ -409,11 +409,12 @@ concern the user. We need to remove these options; hence we type:
 gap> ResetOptionsStack();
 \endexample
 
-We altered `OnBreak' (see~"ref:OnBreak" in the Reference manual) to reduce
-the back-tracing on entry into a break loop.
+Above, we altered `OnBreak' (see~"ref:OnBreak" in the  Reference  manual)
+to reduce the back-tracing on entry into a break  loop.  We  now  restore
+`OnBreak' to its usual value.
 
 \beginexample
-gap> OnBreak := Where;; # Restore `OnBreak' to its usual value
+gap> OnBreak := Where;;
 \endexample
 
 *Notes*
@@ -427,10 +428,10 @@ It is recommended that the novice user set  `ANUPQWarnOfOtherOptions'  to
 
 *Other Troubleshooting Strategies*
 
-There are some other strategies which may have helped us  see  our  error
+There are some other strategies which may have helped us to see our error
 above. The function `Pq' recognises the option `OutputLevel' (see~"option
 OutputLevel"); if this option is set to at  least  1,  the  `pq'  program
-provides information on each class as it is generated:
+provides information on each class quotient as it is generated:
 
 \beginexample
 gap> ANUPQWarnOfOtherOptions := false;; # Set back to normal
@@ -452,8 +453,8 @@ gap> Pq( F : Prime := 2, Classbound := 1, OutputLevel := 1 );
 [... output truncated ...]
 \endexample
 
-After seeing the information on class 2 we would have got the  idea  that
-the `Classbound' option  was  not  recognised  and  would  probably  have
+After seeing the information for the class 2 quotient we may have got the
+idea that the  `Classbound'  option  was  not  recognised  and  may  have
 realised that this was due to a mis-spelling. The above  will  ordinarily
 cause   the   available   space   to    be    exhausted,    necessitating
 user-intervention by typing <control>-C and `quit;' (to escape the  break
