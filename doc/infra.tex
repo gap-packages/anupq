@@ -51,6 +51,7 @@ examples.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Loading the ANUPQ Share Package}
 
+\index{banner}
 To use the {\ANUPQ} Share Package you have to request it explicitly. This
 is done by calling
 
@@ -83,7 +84,11 @@ gap> SetInfoLevel(InfoWarning, 0); RequirePackage( "anupq" );;
 gap> SetInfoLevel(InfoWarning, 1);
 \endexample
 
-If you want to load the {\ANUPQ} package by  default,  you  can  put  the
+\index{banner!suppression}
+The banner is also suppressed if the global {\GAP}  variable  `QUIET'  is
+`true' or `BANNER' is  `false'  (these  conditions  occur  if  {\GAP}  is
+invoked with the `-q' or `-b' command line  switches,  respectively).  If
+you want to load the  {\ANUPQ}  package  by  default,  you  can  put  the
 `RequirePackage' command into your `.gaprc'  file  (see  Section~"ref:The
 .gaprc file" in the {\GAP} Reference Manual).
 
