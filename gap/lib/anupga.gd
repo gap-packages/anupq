@@ -86,6 +86,13 @@ DeclareGlobalFunction( "PqDescendants" );
 
 #############################################################################
 ##
+#F  PqSetPQuotientToGroup( <i> ) . . . set p-quotient as the group of process
+#F  PqSetPQuotientToGroup()
+##
+DeclareGlobalFunction( "PqSetPQuotientToGroup" );
+
+#############################################################################
+##
 #F  SavePqList( <file>, <lst> ) . . . . . . . . .  save a list of descendants
 ##
 DeclareGlobalFunction( "SavePqList" );

@@ -2514,7 +2514,7 @@ local nodescendants, class, firstStep, expectedNsteps, optrec, line, ngroups,
        IsPGroup(datarec.group) and
        datarec.des.OrderBound <= LogInt(Size(datarec.group), 
                                         PrimePGroup(datarec.group)) then
-      return [];
+      return 0;
     fi;
 
     # We do these here to ensure an error doesn't occur mid-input of the menu
@@ -2523,7 +2523,7 @@ local nodescendants, class, firstStep, expectedNsteps, optrec, line, ngroups,
       #group has come from a `PqPGRestoreGroupFromFile' command
       if not datarec.capable then
         Info(InfoWarning + InfoANUPQ, 1, "group restored from file is incapable");
-        return [];
+        return 0;
       fi;
     fi;
     if not IsBound(datarec.pcoverclass) or 
@@ -2576,7 +2576,7 @@ local nodescendants, class, firstStep, expectedNsteps, optrec, line, ngroups,
     nodescendants := not IsEmpty(datarec.matchedlines);
     PQ_UNBIND( datarec, ["matchlist", "matchedlines"] );
     if nodescendants then
-      return [];
+      return 0;
     fi;
     ToPQ(datarec, [ datarec.des.ClassBound, " #class bound" ]);
 

@@ -14,6 +14,9 @@
 #Y  Copyright 1992-1994,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.17  2001/10/05 08:34:33  gap
+#H  Added `PqSetPQuotientToGroup'. - GG
+#H
 #H  Revision 1.16  2001/09/29 22:04:19  gap
 #H  `Pq', `PqEpimorphism', `PqPCover', `[Pq]StandardPresentation[Epimorphism]'
 #H  now accept either an fp group or a pc group, and for each `ClassBound'
@@ -534,7 +537,7 @@ end );
 #F  PQ_DESCENDANTS( <args> ) . . . . . . . . . construct descendants of group
 ##
 InstallGlobalFunction( PQ_DESCENDANTS, function( args )
-    local   datarec,  G,  pd,  desc;
+    local   datarec, p, class, G, ndescendants;
 
     datarec := ANUPQ_ARG_CHK(1, "PqDescendants", args);
     if datarec.calltype = "GAP3compatible" then
@@ -552,12 +555,21 @@ InstallGlobalFunction( PQ_DESCENDANTS, function( args )
     fi;
 
     PushOptions(rec(nonuser := true));
-    PQ_PC_PRESENTATION( datarec, "pQ" 
-                        : Prime      := PrimePGroup(datarec.group),
-                          ClassBound := PClassPGroup(datarec.group) );
-    PQ_P_COVER( datarec );
+    p     := PrimePGroup(datarec.group);
+    class := PClassPGroup(datarec.group);
+    if not( IsBound(datarec.pQuotient) and 
+            p = PrimePGroup(datarec.pQuotient) and
+            ( class = datarec.class or
+              IsBound(datarec.pcoverclass) and 
+              class = datarec.pcoverclass - 1 ) ) then
+      PQ_PC_PRESENTATION( datarec, "pQ" : Prime := p, ClassBound := class );
+    fi;
+    if not( IsBound(datarec.pCover) and 
+            class = datarec.pcoverclass - 1 ) then
+      PQ_P_COVER( datarec );
+    fi;
     PQ_PG_SUPPLY_AUTS( datarec, "pG" );
-    PQ_PG_CONSTRUCT_DESCENDANTS( datarec );
+    ndescendants := PQ_PG_CONSTRUCT_DESCENDANTS( datarec );
     PopOptions();
 
     if datarec.calltype = "non-interactive" then
@@ -567,6 +579,10 @@ InstallGlobalFunction( PQ_DESCENDANTS, function( args )
       fi;
     fi;
         
+    if ndescendants = 0 then
+      return [];
+    fi;
+
     datarec.descendants 
         := PqList( Filename( ANUPQData.tmpdir, "GAP_library" ) );
     for G in datarec.descendants do
@@ -586,6 +602,21 @@ end );
 ##
 InstallGlobalFunction( PqDescendants, function( arg )
     return PQ_DESCENDANTS(arg);
+end );
+
+#############################################################################
+##
+#F  PqSetPQuotientToGroup( <i> ) . . . set p-quotient as the group of process
+#F  PqSetPQuotientToGroup()
+##
+InstallGlobalFunction( PqSetPQuotientToGroup, function( arg )
+local datarec;
+    ANUPQ_IOINDEX_ARG_CHK(arg);
+    datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
+    if not IsBound(datarec.pQuotient) then
+        Error( "p-quotient has not yet been calculated!\n" );
+    fi;
+    datarec.group := datarec.pQuotient;
 end );
 
 #############################################################################
