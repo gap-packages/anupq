@@ -139,7 +139,34 @@ the same purpose as for a `ANUPQData.io[<ioIndex>]' record.
 \quad`stream'& the  IOStream  opened  for  interactive  {\ANUPQ}  process
 <ioIndex> or non-interactive {\ANUPQ} function;
 
-\quad`group'& the group given as first argument to `PqStart';
+\quad`group'& the group given  as  first  argument  to  `PqStart',  `Pq',
+`PqEpimorphism',  `PqDescendants'  or  `PqStandardPresentation'  (or  any
+synonymous methods);
+
+\quad`gens'& a list of the generators of the  group  `group'  as  strings
+(the same as those passed to the `pq' binary);
+
+\quad`rels'& a list of the relators of the group `group' as strings  (the
+same as those passed to the `pq' binary);
+
+\quad`name'& the name of the group whose pc presentation is defined by  a
+call to the `pq' binary (according to the `pq' binary -- unless you  have
+used the `GroupName' option (see e.g.~"Pq") this  will  be  the  default:
+`"G"');
+
+\quad`class'& the largest lower exponent-$p$ central class found for  the
+group (usually `group') whose pc presentation is defined by a call to the
+`pq' binary;
+
+\quad`order'& the order of the largest lower exponent-$p$  central  class
+found the group (usually `group') whose pc presentation is defined  by  a
+call to the `pq' binary;
+
+\quad`pcoverclass'& the class of the  $p$-covering  group  last  computed
+(determined from `pq' binary output);
+
+\quad`pcoverorder'& the order of the  $p$-covering  group  last  computed
+(determined from `pq' binary output);
 
 \quad`workspace'& the workspace set for the `pq' process (either given as
 a second argument to `PqStart', or set by default to 10000000);
@@ -251,6 +278,14 @@ read from an iostream.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Hints and Warnings regarding the use of Options}
 
+\index{menu item!of pq binary}
+\index{option!of pq binary is a menu item}
+*Note:*
+By ``options'' we refer to {\GAP} options. The `pq' binary also uses  the
+term ``option''; to distinguish the two usages  of  ``option'',  in  this
+manual we use the term *menu item* to  refer  to  what  the  `pq'  binary
+refers to as an ``option''.
+
 Options are passed to the {\ANUPQ} interface functions in either  of  the
 two usual mechanisms provided by {\GAP}, namely:
 
@@ -260,10 +295,10 @@ two usual mechanisms provided by {\GAP}, namely:
 (see Chapter~"ref:Options Stack" in the {\GAP} Reference Manual); or
 
 \item{--} options may be appended to the argument list  of  any  function
-call, separated by a colon from  the  argument  list  (see  "ref:Function
-Calls" in the {\GAP} Reference Manual),  in  which  case  they  are  then
-passed on recursively to any subsequent inner function call, which may in
-turn have options of their own.
+call,   separated   by   a   colon   from   the   argument   list    (see
+Chapter~"ref:Function Calls" in the {\GAP} Reference  Manual),  in  which
+case they are then passed on recursively to any subsequent inner function
+call, which may in turn have options of their own.
 
 \endlist
 
@@ -310,17 +345,19 @@ be trapped.
 
 \>PqLeftNormComm( <words> ) F
 
-returns for a list <words> of words in the generators of a free group  or
-an fp group and <pow> is a positive integer, the left norm commutator  of
-<words>, e.g.~if <w1>, <w2>, <w3> are words in  the  generators  of  some
-free or  fp  group  then  `PqLeftNormComm(  [<w1>,  <w2>,  <w3>]  );'  is
-equivalent to `Comm( Comm( <w1>, <w2> ), <w3> );'.
+returns for a list <words> of words in the generators of a group the left
+norm commutator of <words>, e.g.~if <w1>, <w2>, <w3>  are  words  in  the
+generators of some free or fp group then  `PqLeftNormComm(  [<w1>,  <w2>,
+<w3>] );' is equivalent to `Comm( Comm( <w1>, <w2> ), <w3> );'. Actually,
+the only restriction on <words> is that they must constitute a  non-empty
+list of group elements of the same group (so a list  of  permutations  is
+allowed, for example).
 
 \>PqGAPRelators( <group>, <rels> ) F
 
 returns, for a list <rels> of strings in the  string  representations  of
-the generators of the fp group <group> prepared as a list of relators for 
-the `pq' binary, a list of words that {\GAP} understands.
+the generators of the fp or pc  group  <group>  prepared  as  a  list  of
+relators for the `pq' binary, a list of words that {\GAP} understands.
 
 *Note:*
 The `pq' binary does not use `/' to indicate multiplication by an inverse

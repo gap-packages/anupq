@@ -102,6 +102,11 @@ string. See the example below.
 Specifies that the largest metabelian  $p$-quotient  be  constructed.  By
 default this restriction is not enforced.
 
+\atindex{option GroupName}{@option \noexpand`GroupName'}
+`GroupName := <name>' &
+Specifies that the `pq' binary should refer to  the  group  by  the  name
+<name> (a string). By default the `pq' binary uses `"G"'.
+
 \atindex{option OutputLevel}{@option \noexpand`OutputLevel'}
 `OutputLevel := <n>' &
 Specifies the level of ``verbosity'' of the information output by the ANU
@@ -306,6 +311,11 @@ exponent law is enforced.
 `Metabelian' &
 Specifies the $p$-quotient constructed is  metabelian.  By  default  this
 restriction is not enforced.
+
+\atindex{option GroupName}{@option \noexpand`GroupName'}
+`GroupName := <name>' &
+Specifies that the `pq' binary should refer to  the  group  by  the  name
+<name> (a string). By default the `pq' binary uses `"G"'.
 
 \atindex{option PcgsAutomorphisms}{@option \noexpand`PcgsAutomorphisms'}
 `PcgsAutomorphisms' &
@@ -548,7 +558,8 @@ explanations.
 If `PcgsAutomorphisms' is used when the  automorphism  group  of  <G>  is
 insoluble, an error message occurs.
 
-\atindex{option RankInitialSegmentSubgroups}{@option \noexpand`RankInitialSegmentSubgroups'}
+\atindex{option RankInitialSegmentSubgroups}%
+{@option \noexpand`RankInitialSegmentSubgroups'}
 `RankInitialSegmentSubgroups := <n>' &
 Sets the rank of the initial  segment  subgroup  chosen  to  be  <n>.  By
 default, this has value 0.
@@ -576,12 +587,75 @@ default there is no exponent law.
 Specifies that only metabelian descendants  be  constructed.  By  default
 this restriction is not enforced.
 
+\atindex{option GroupName}{@option \noexpand`GroupName'}
+`GroupName := <name>' &
+Specifies that the `pq' binary should refer to  the  group  by  the  name
+<name> (a string). By default the `pq' binary uses `"G"'.
+
 \atindex{option SubList}{@option \noexpand`SubList'}
 `SubList := <sub>' &
 Suppose that <L> is the list of descendants generated, then  for  a  list
 <sub> of integers this option causes `PqDescendants' to return  `Sublist(
 <L>, <sub> )'. If an integer <n>  is  supplied,  `PqDescendants'  returns
 `<L>[<n>]'.
+
+\atindex{option BasicAlgorithm}{@option \noexpand`BasicAlgorithm'}
+`BasicAlgorithm' &
+Specifies that an algorithm that the `pq' binary  calls  its  ``default''
+algorithm be used. By default this  algorithm  is  *not*  used.  If  this
+option is supplied the settings of options `RankInitialSegmentSubgroups',
+`AllDescendants', `Exponent' and `Metabelian' are ignored.
+
+\atindex{option TailorOutput}{@option \noexpand`TailorOutput'}
+`TailorOutput := <rec>' &
+Specifies that fine tuning of the output is desired. To see  this  output
+you will need to see the level of `InfoANUPQ' to 2 (see~"InfoANUPQ"). The
+record <rec> should have any subset (or all) of the the following fields:
+
+\quad`perm := <list>' &
+where <list> is a list of booleans which determine (in order) whether one
+wants to print for the permutation group output: the degree, the extended
+automorphisms, the automorphism matrices, and the permutations.
+
+\quad`orbit := <list>' &
+where <list> is a list of booleans which determine (in order) whether one
+wants to print for the orbit output: a summary, and a complete listing of
+orbits. (It's possible to have *both* a summary and a complete listing.)
+
+\quad`group := <list>' &
+where <list> is a list of booleans which determine (in order) whether one
+wants to print  for  the  group  output:  the  standard  matrix  of  each
+allowable subgroup, the presentation of reduced $p$-covering groups,  the
+presentation of immediate descendants, the nuclear rank  of  descendants,
+and the $p$-multiplicator rank of descendants.
+
+\quad`autgroup := <list>' &
+where <list> is a list of booleans which determine (in order) whether one
+wants to print for the automorphism group output: the commutator  matrix,
+the automorphism group description of descendants, and  the  automorphism
+group order of descendants.
+
+\quad`trace := <val>' &
+where <val> is a boolean which if `true' specifies algorithm  trace  data
+is desired. By default, one does not get algorithm trace data.
+
+`' &
+Not providing a field (or mis-spelling  it!),  specifies  that  that  the
+default output is desired. As a convenience,  `1'  is  also  accepted  as
+`true', and any value that is neither `1' nor `true' is taken as `false'.
+Also for each <list> above, an unbound list entry is  taken  as  `false'.
+Thus, for example
+
+\begintt
+TailorOutput := rec(group := [,,1], autgroup := [,1])
+\endtt
+
+&
+specifies for the group output that only the  presentation  of  immediate
+descendants is desired,  for  the  automorphism  group  output  only  the
+automorphism group description of descendants  should  be  printed,  that
+there should be no algorithm trace data,  and  that  the  default  output
+should be provided for the permutation group and orbit output.
 
 \atindex{option SetupFile}{@option \noexpand`SetupFile'}
 `SetupFile := <filename>' &

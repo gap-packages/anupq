@@ -13,6 +13,8 @@ F 3.2. ANUPQDirectoryTemporary
 S 3.3. Setting the Verbosity of ANUPQ via Info and InfoANUPQ
 F 3.3. InfoANUPQ
 S 3.4. Hints and Warnings regarding the use of Options
+I 3.4. menu item!of pq binary
+I 3.4. option!of pq binary is a menu item
 S 3.5. Utility Functions
 F 3.5. PqLeftNormComm
 F 3.5. PqGAPRelators
@@ -27,6 +29,7 @@ I 4.1. option ClassBound
 I 4.1. option Exponent
 I 4.1. option Relators
 I 4.1. option Metabelian
+I 4.1. option GroupName
 I 4.1. option OutputLevel
 I 4.1. option SetupFile
 I 4.1. option PqWorkspace
@@ -41,6 +44,7 @@ F 4.2. StandardPresentation
 I 4.2. option ClassBound
 I 4.2. option Exponent
 I 4.2. option Metabelian
+I 4.2. option GroupName
 I 4.2. option PcgsAutomorphisms
 I 4.2. option OutputLevel
 I 4.2. option SetupFile
@@ -65,7 +69,10 @@ I 4.4. option SpaceEfficient
 I 4.4. option AllDescendants
 I 4.4. option Exponent
 I 4.4. option Metabelian
+I 4.4. option GroupName
 I 4.4. option SubList
+I 4.4. option BasicAlgorithm
+I 4.4. option TailorOutput
 I 4.4. option SetupFile
 I 4.4. option PqWorkspace
 F 4.4. PqList
