@@ -38,8 +38,17 @@ if IsBound( LOADED_PACKAGES.autpgrp ) then
         ANUPQMaxDegree, V, elm, baseU, id, baseN, infoLevelAutGrp, LINK_output,
         soluble, a, mat;
   
+    # number of generators 
+    if Length( ANUPQglb.glAutos ) > 0 then
+        m := Length (ANUPQglb.glAutos[1]);   
+    elif Length( ANUPQglb.agAutos ) > 0 then
+        m := Length (ANUPQglb.agAutos[1]);   
+    else
+        Error( "Panic: PqStabiliserOfAllowableSubgroup ",
+               "called without automorphisms" );
+    fi;
+
     # get the p-group
-    m := Length (ANUPQglb.glAutos[1]);   
     n := Length (Pcgs(F));
     H := F / Subgroup (F, Pcgs(F){[m+1 .. n]}); IsPGroup(H);
     pcgs := Pcgs(H);
