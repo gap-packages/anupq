@@ -82,13 +82,20 @@ if IsBound( LOADED_PACKAGES.autpgrp ) then
     d := RankPGroup( aut.group );
     #compute perm rep having at most this degree
     ANUPQMaxDegree := 10000;
-    if p^d <= ANUPQMaxDegree then
+    if p^d <= ANUPQMaxDegree or ANUPQsize = fail then
       V := aut.field^d;
+      if ANUPQsize = fail and p^d > ANUPQMaxDegree then
+          Info(InfoANUPQ + InfoWarning, 1,
+               "no. of elements in vector space V is large (", p^d, ")");
+          Info(InfoANUPQ + InfoWarning, 1,
+               "... this may take a while, if it succeeds at all!");
+      fi;
       elm := Elements( V );
       aut.glOper := [];
       for i in [1..NumberGlAutos] do
           a := aut.glAutos[i]; 
-          mat := List(a!.baseimgs, x -> ExponentsOfPcElement( pcgs, x ){[1..d]});
+          mat := List(a!.baseimgs, 
+                      x -> ExponentsOfPcElement( pcgs, x ){[1..d]});
           mat := mat * One( aut.field );
           Immutable( mat );
           ConvertToMatrixRep( mat, aut.field );
