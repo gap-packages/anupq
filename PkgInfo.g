@@ -160,7 +160,7 @@ SetPackageInfo( rec(
     # list of pairs [package name, (least) version],  package name is case
     # insensitive, least version denoted with '>=' prepended to version string.
     # without these, the package will not load
-    NeededOtherPackages := [["", ""]],
+    NeededOtherPackages := [],
     # without these the package will issue a warning while loading
     SuggestedOtherPackages := [ "autpgrp" ],
     # needed external conditions (programs, operating system, ...)  provide 
@@ -198,7 +198,7 @@ SetPackageInfo( rec(
       fi;
 
       return true;
-    end );
+    end,
 
 ##  Suggest here if the package should be *automatically loaded* when GAP is 
 ##  started.  This should usually be 'false'. Say 'true' only if your package 
