@@ -197,7 +197,7 @@ starting the interactive process. A pc presentation is only  computed  if
 one has not previously been computed with the same set of options (that's
 a partial lie, see the following note for the truth).
 
-*Note:*
+*Notes:*
 If a pc  presentation  has  previously  been  computed  any  options  not
 supplied are assumed to have  the  values  of  the  previous  call  to  a
 function that computed a pc presentation, i.e.~it is  ok  to  provide  no
@@ -208,6 +208,10 @@ if on a previous function call that computed a pc  presentation  you  set
 false' in the `Pq' call (the usual default of `false' is  over-ridden  by
 the previous value provided), or  alternatively  call  `PqPcPresentation'
 (see~"PqPcPresentation"), which never avoids re-doing the computation.
+
+The  attributes  and  property  `NuclearRank',  `MultiplicatorRank'   and
+`IsCapable' are set for the group returned by `Pq'  (see~"Properties  and
+Attributes").
 
 The following is one of the examples for the non-interactive `Pq'  redone
 with the interactive version. Also, we set the option `OutputLevel' to  1
@@ -246,6 +250,11 @@ Reference Manual). As a minimum the `Pq' function *must* have values  for
 the `Prime' and `ClassBound' options, though `Prime' need not  be  passed
 again  in  the  case  it  has  previously  been  provided  to   `PqStart'
 (see~"PqStart") when starting the interactive process.
+
+*Note:*
+The  attributes  and  property  `NuclearRank',  `MultiplicatorRank'   and
+`IsCapable' are set for the image group of the  epimorphism  returned  by
+`PqEpimorphism' (see~"Properties and Attributes").
 
 \index{automorphisms!of $p$-groups}
 \>PqStandardPresentation( <i>, <p> : <options> )!{interactive} F
@@ -299,6 +308,11 @@ options `SetupFile' and `PqWorkspace' (see~"PqStandardPresentation").
 Detailed descriptions of the above options may be found in Chapter~"ANUPQ
 options".
 
+*Note:*
+The  attributes  and  property  `NuclearRank',  `MultiplicatorRank'   and
+`IsCapable' are set for the group returned by `PqStandardPresentation' or
+`StandardPresentation' (see~"Properties and Attributes").
+
 Taking  one  of  the  examples  for  the   non-interactive   version   of
 `StandardPresentation'  (see~"StandardPresentation")  that  required  two
 separate calls to the `pq' binary, we now show how, with the  interactive
@@ -340,6 +354,12 @@ $p$-quotient     of     <F>      by      `StandardPresentation'      then
 group with presentation <S>. The group <F> must have been given (as first
 argument)  to  `PqStart'  to  start  the  interactive  {\ANUPQ}   process
 (see~"PqStart").
+
+*Note:*
+The  attributes  and  property  `NuclearRank',  `MultiplicatorRank'   and
+`IsCapable' are set for the image group of the  epimorphism  returned  by
+`EpimorphismPqStandardPresentation' or  `EpimorphismStandardPresentation'
+(see~"Properties and Attributes").
 
 Taking        our         earlier         non-interactive         example
 (see~"EpimorphismPqStandardPresentation")   we   again   illustrate   how
@@ -429,13 +449,17 @@ function:
 
 \endlist
 
-*Note:*
+*Notes:*
 The function `PqDescendants' uses the automorphism group of <G> which  it
 computes via the package {\AutPGrp}. If this package is not installed  an
 error may be raised. If the automorphism group of <G>  is  insoluble  the
 `pq' binary will call {\GAP} together with  the  {\AutPGrp}  package  for
 certain orbit-stabilizer calculations.  (So,  in  any  case,  one  should
 ensure the {\AutPGrp} package is installed.)
+
+The  attributes  and  property  `NuclearRank',  `MultiplicatorRank'   and
+`IsCapable'  are  set  for  each  group   of   the   list   returned   by
+`PqDescendants' (see~"Properties and Attributes").
 
 Let us now repeat the examples previously given for  the  non-interactive
 `PqDescendants',  but  this  time  with  the   interactive   version   of
@@ -587,6 +611,16 @@ numbered pc generator.
 for the <i>th or default interactive {\ANUPQ} process, return  the  lower
 exponent $p$-class quotient of the  group  currently  determined  by  the
 process as a {\GAP} pc group.
+
+*Notes:*
+The  attributes  and  property  `NuclearRank',  `MultiplicatorRank'   and
+`IsCapable'  are  set  for  the  group   returned   by   `PqCurrentGroup'
+(see~"Properties and Attributes").
+
+In order to set the above attributes  and  property  the  next  class  is
+calculated after which the class is reverted to the previous class.  Thus
+`PqCurrentGroup(<i>);'    cannot    be    immediately     followed     by
+`PqRevertToPreviousClass(<i>);' (see~"PqRevertToPreviousClass").
 
 \>PqDisplayPcPresentation( <i> [: OutputLevel := <lev> ]) F
 \>PqDisplayPcPresentation([: OutputLevel := <lev> ]) F

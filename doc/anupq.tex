@@ -88,11 +88,15 @@ descriptions).
 
 \endlist
 
-*Note:* `Pq' may  also  be  called  with  no  arguments  or  one  integer
+*Notes:* `Pq' may also  be  called  with  no  arguments  or  one  integer
 argument,   in   which   case   it   is    being    used    interactively
 (see~"Pq!interactive");  the  same  options  may  be  used,  except  that
 `SetupFile'  and  `PqWorkspace'  are  ignored  by  the  interactive  `Pq'
 function.
+
+The  attributes  and  property  `NuclearRank',  `MultiplicatorRank'   and
+`IsCapable' are set for the group returned by `Pq'  (see~"Properties  and
+Attributes").
 
 (`Pq' requires the {\ANUPQ} package; see~"Loading the ANUPQ Package".)
 
@@ -214,10 +218,14 @@ gap> Image( phi );
 Typing: `PqExample( "PqEpimorphism" );' runs the above example in  {\GAP}
 (see~"PqExample").
 
-*Note:* `PqEpimorphism' may also be  called  with  no  arguments  or  one
+*Notes:* `PqEpimorphism' may also be called  with  no  arguments  or  one
 integer  argument,  in  which  case  it  is  being   used   interactively
 (see~"PqEpimorphism!interactive"),  and  the  options   `SetupFile'   and
 `PqWorkspace' are ignored by the interactive `PqEpimorphism' function.
+
+The  attributes  and  property  `NuclearRank',  `MultiplicatorRank'   and
+`IsCapable' are set for the image group of the  epimorphism  returned  by
+`PqEpimorphism' (see~"Properties and Attributes").
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Computing Standard Presentations}
@@ -243,7 +251,7 @@ Section~"ref:function call with options" in the {\GAP} Reference Manual).
 Section~"Hints and Warnings regarding the  use  of  Options"  gives  some
 important hints and warnings regarding option usage.
 
-*Note:*
+*Notes:*
 In contrast to the function `Pq' (see~"Pq") which  returns  a  pc  group,
 here an fp group is returned. This is because the output is  mainly  used
 for isomorphism testing for which an fp group  is  enough.  However,  the
@@ -251,6 +259,10 @@ presentation is essentially a polycyclic presentation and if you need  to
 do any further computation with this group (e.g.~to find the  order)  you
 can use the function `PcGroupFpGroup'  (see~"ref:PcGroupFpGroup"  in  the
 {\GAP} Reference Manual) to form a pc group.
+
+The  attributes  and  property  `NuclearRank',  `MultiplicatorRank'   and
+`IsCapable' are set for the group returned by `PqStandardPresentation' or
+`StandardPresentation' (see~"Properties and Attributes").
 
 The following options  are  recognised  by  `PqStandardPresentation'  and
 `StandardPresentation'  (see   Chapter~"ANUPQ   options"   for   detailed
@@ -340,6 +352,12 @@ presented group given by a standard  presentation,  i.e.~if  <S>  is  the
 standard  presentation  computed  for  the   $p$-quotient   of   <F>   by
 `StandardPresentation' then `EpimorphismStandardPresentation' returns the
 epimorphism from <F> to the group with presentation <S>.
+
+*Note:*
+The  attributes  and  property  `NuclearRank',  `MultiplicatorRank'   and
+`IsCapable' are set for the image group of the  epimorphism  returned  by
+`EpimorphismPqStandardPresentation' or  `EpimorphismStandardPresentation'
+(see~"Properties and Attributes").
 
 We illustrate the function with the following example.
 
@@ -483,13 +501,17 @@ See Chapter~"ANUPQ options" for detailed descriptions of the options.
 
 \endlist
 
-*Note:*
+*Notes:*
 The function `PqDescendants' uses the automorphism group of <G> which  it
 computes via the package {\AutPGrp}. If this package is not installed  an
 error may be raised. If the automorphism group of <G>  is  insoluble  the
 `pq' binary will call {\GAP} together with  the  {\AutPGrp}  package  for
 certain orbit-stabilizer calculations.  (So,  in  any  case,  one  should
 ensure the {\AutPGrp} package is installed.)
+
+The  attributes  and  property  `NuclearRank',  `MultiplicatorRank'   and
+`IsCapable'  are  set  for  each  group   of   the   list   returned   by
+`PqDescendants' (see~"Properties and Attributes").
 
 The options <options> for `PqDescendants' may be passed in an alternative
 manner to that already described, namely you can pass  `PqDescendants'  a
@@ -597,6 +619,42 @@ respectively, the results of `PqDescendants' (see "PqDescendants").
 
 (The function requires  the  {\ANUPQ}  package;  see~"Loading  the  ANUPQ
 Package".)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\Section{Properties and Attributes}
+
+\>NuclearRank( <G> ) A
+\>MultiplicatorRank( <G> ) A
+\>IsCapable( <G> ) P
+
+return the nuclear rank  of  <G>,  $p$-multiplicator  rank  of  <G>,  and
+whether <G> is capable (i.e.~`true' if it is, or `false' if it  is  not),
+respectively, where <G> is one of the following:
+
+\beginlist%unordered
+
+\item{--} a pc group returned by `Pq' (see~"Pq");
+
+\item{--}  the  image  (pc  group)  of  the  epimorphism  returned  by  a
+`PqEpimorphism' call (see~"PqEpimorphism");
+
+\item{--}  an  fp   group   returned   by   `PqStandardPresentation'   or
+`StandardPresentation' (see~"PqStandardPresentation");
+
+\item{--} the  image  (fp  group)  of  the  epimorphism  returned  by  an
+`EpimorphismPqStandardPresentation' or  `EpimorphismStandardPresentation'
+call (see~"EpimorphismPqStandardPresentation");
+
+\item{--} one of the pc groups of the list  of  descendants  returned  by
+`PqDescendants' (see~"PqDescendants"); or
+
+\item{--}    the    pc     group     returned     by     `PqCurrentGroup'
+(see~"PqCurrentGroup").
+
+\endlist
+
+*Note:* For <G> such that `HasNuclearRank(<G>) = true',  `IsCapable(<G>)'
+is equivalent to (the truth or falsity of) `NuclearRank( <G> ) = 0'.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%

@@ -76,6 +76,10 @@ I 4.4. option SetupFile
 I 4.4. option PqWorkspace
 F 4.4. PqList
 F 4.4. SavePqList
+S 4.5. Properties and Attributes
+F 4.5. NuclearRank
+F 4.5. MultiplicatorRank
+F 4.5. IsCapable
 C interact.tex 5. Interactive ANUPQ functions
 S 5.1. Starting and Stopping Interactive ANUPQ Processes
 F 5.1. PqStart
