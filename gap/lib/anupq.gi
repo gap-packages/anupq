@@ -10,6 +10,9 @@
 #Y  Copyright 1992-1994,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.6  2001/06/15 17:43:49  gap
+#H  Correcting `success' variable check. - GG
+#H
 #H  Revision 1.5  2001/06/02 23:18:56  gap
 #H  Bug fixes. - GG
 #H
@@ -309,9 +312,7 @@ InstallGlobalFunction( PQ_EPIMORPHISM, function( args )
     
     if datarec.calltype <> "interactive" then
         success := PQ_COMPLETE_NONINTERACTIVE_FUNC_CALL(datarec);
-        if success = true then
-            return true;
-        elif success <> 0 then
+        if success <> 0 then
             Error( "process did not succeed\n" );
         fi;
     fi;
