@@ -14,6 +14,10 @@
 #Y  Copyright 1992-1994,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.13  2001/09/06 22:37:48  gap
+#H  Now compute the aut. grp behind the scenes according to suggestion by
+#H  Bettina. - GG
+#H
 #H  Revision 1.12  2001/08/30 01:09:54  gap
 #H  - Make better use of InfoANUPQ, levels now mean:
 #H    1:non-(timing,memory usage) output from `pq' and general info.
@@ -510,17 +514,7 @@ InstallGlobalFunction( PQ_DESCENDANTS, function( args )
         return datarec.descendants;
     fi;
 
-    # if automorphisms are not supplied and group has p-class 1, 
-    # construct automorphisms, else signal Error 
-    if not HasAutomorphismGroup(datarec.group) then 
-        if (PClassPGroup(datarec.group) = 1) then 
-            AutomorphismGroup( datarec.group );
-        else 
-            G := datarec.group;
-            Error ("<G> must have class 1 or ",
-                   "<G>'s automorphism group must be known\n");
-        fi;
-    fi;
+    PQ_AUT_GROUP(datarec.group); # make sure we have the aut. grp.
 
     # if <G> is not capable and we want to compute something, return
     if HasIsCapable(datarec.group) and not IsCapable(datarec.group) and 

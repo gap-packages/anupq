@@ -21,6 +21,12 @@ DeclareGlobalFunction( "PQ_UNBIND" );
 
 #############################################################################
 ##
+#F  PQ_AUT_GROUP( <G> ) . . . . . . . . . . . . . . . . .  automorphism group
+##
+DeclareGlobalFunction( "PQ_AUT_GROUP" );
+
+#############################################################################
+##
 #F  PQ_AUT_INPUT( <datarec>, <G> : <options> ) . . . . . . automorphism input
 ##
 DeclareGlobalFunction( "PQ_AUT_INPUT" );

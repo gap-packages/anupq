@@ -195,15 +195,15 @@ InstallValue( ANUPQoptionTypes,
 ##
 ##  If the value <optval> of <optname> is not `fail' and it is  an  ok  value
 ##  for <optname> then <optval> is returned; if <optval> is not an  ok  value
-##  an error is  signalled.  If  <optval>  is  `fail'  and  <datarec>  on  an
-##  interactive function call and <datarec>.(<optname>) is already bound then
-##  that value is returned; otherwise, if <optval> is `fail'  and  a  default
-##  value <defaultval> different from `fail' is supplied then <defaultval> is
-##  returned. Supplying a <defaultval> of `fail'  is  special;  it  indicates
-##  that option <optname> must have a value i.e. <optval> is not  allowed  to
-##  be `fail' and if it is an error is signalled. If a <datarec> argument  is
-##  supplied, which must be a record, then the return value,  if  not  `fail'
-##  and a legal value, is also stored in `<datarec>.(<optname>)'.
+##  an error is signalled. If <optval> is `fail' and <datarec> is  given  and
+##  <datarec>.(<optname>) is already  bound  then  that  value  is  returned;
+##  otherwise, if  <optval>  is  `fail'  and  a  default  value  <defaultval>
+##  different  from  `fail'  is  supplied  then  <defaultval>  is   returned.
+##  Supplying a <defaultval> of `fail' is special; it indicates  that  option
+##  <optname> must have a value i.e. <optval> is not allowed to be `fail' and
+##  if it is an error is signalled. If  a  <datarec>  argument  is  supplied,
+##  which must be a record, then the return value, if not `fail' and a  legal
+##  value, is also stored in `<datarec>.(<optname>)'.
 ##
 ##  *Note:* <defaultval> cannot be a record.
 ##
@@ -215,8 +215,7 @@ local optname, optval, len;
   if optval = fail then
     if 1 = len then
       return optval;
-    elif IsRecord( arg[len] ) and IsBound( arg[len].calltype ) and
-         arg[len].calltype="interactive" and IsBound( arg[len].(optname) ) then
+    elif IsRecord( arg[len] ) and IsBound( arg[len].(optname) ) then
       # return the previously recorded value
       return arg[len].(optname);
     elif not IsRecord(arg[2]) then

@@ -28,6 +28,28 @@ end );
 
 #############################################################################
 ##
+#F  PQ_AUT_GROUP( <G> ) . . . . . . . . . . . . . . . . .  automorphism group
+##
+##  returns the automorphism group of a $p$-group,  avoiding  computation  if
+##  possible, or else trying to use {\AutPGrp} if possible, or otherwise uses
+##  the library function knowing its limitations.
+##
+InstallGlobalFunction( PQ_AUT_GROUP, function( G )
+  if not IsPGroup(G) then
+    Error("group <G> must be a p-group\n");
+  fi;
+  if HasAutomorphismGroup(G) or RequirePackage("autpgrp") = true or
+     PClassPGroup(G) = 1 then
+    return AutomorphismGroup(G);
+  else
+    Error( "since package `AutPGrp' is not installed\n",
+           "<G> must have class 1 or <G>'s aut. group must be known.\n",
+           "Please install the `AutPGrp' package\n" );
+  fi;
+end );
+
+#############################################################################
+##
 #F  PQ_AUT_INPUT( <datarec>, <G> : <options> ) . . . . . . automorphism input
 ##
 ##  inputs automorphism data for `<datarec>.group' given by <options> to  the
@@ -36,8 +58,8 @@ end );
 ##
 InstallGlobalFunction( PQ_AUT_INPUT, function( datarec, G )
 local autGrp, rank, automorphisms, gens, i, j, aut, g, exponents;
-  autGrp := AutomorphismGroup(G); # GAP better be able to provide this
-  if VALUE_PQ_OPTION("PcgsAutomorphisms", false, datarec) then
+  autGrp := PQ_AUT_GROUP( G );
+  if VALUE_PQ_OPTION("PcgsAutomorphisms", IsSolvableGroup(autGrp), datarec) then
     automorphisms := Pcgs( autGrp );
     if automorphisms = fail then
       Error( "option \"PcgsAutomorphisms\" used with insoluble",
@@ -740,13 +762,14 @@ end );
 ##
 InstallGlobalFunction( PqSetOutputLevel, function( arg )
 local datarec, lev;
-  if IsEmpty(arg) or 2 < Length(arg) then
+  if not(Length(arg) in [1, 2]) then
     Error( "1 or 2 arguments expected\n");
   fi;
   lev := arg[Length(arg)];
   if not(lev in [0..3]) then
     Error( "argument <lev> should be an integer in [0 .. 3]\n" );
   fi;
+  arg := arg{[1 .. Length(arg) - 1]};
   ANUPQ_IOINDEX_ARG_CHK(arg);
   datarec := ANUPQData.io[ ANUPQ_IOINDEX( arg{[1..Length(arg) - 1]} ) ];
   PQ_SET_OUTPUT_LEVEL( datarec, lev);
@@ -2370,13 +2393,14 @@ local class, firstStep, expectedNsteps, optrec;
 
   # sanity checks
   if     VALUE_PQ_OPTION("SpaceEfficient", false, datarec.des) and 
-     not VALUE_PQ_OPTION("PcgsAutomorphisms", false, datarec.des) then
-    Error( "\"SpaceEfficient\" is only allowed in conjunction with ",
-           "\"PcgsAutomorphisms\"\n");
+     not VALUE_PQ_OPTION("PcgsAutomorphisms", false, datarec) then
+    Info(InfoWarning + InfoANUPQ, 1,
+         "\"SpaceEfficient\" ignored since \"PcgsAutomorphisms\" is set.");
   fi;
   if VALUE_PQ_OPTION("StepSize", datarec.des) <> fail then
     if datarec.des.OrderBound <> 0 then
-      Error("\"StepSize\" and \"OrderBound\" must not be set simultaneously\n");
+      Error("\"StepSize\" and \"OrderBound\" ",
+            "must not be set simultaneously\n");
     fi;
     expectedNsteps := datarec.des.ClassBound - datarec.pcoverclass + 1;
     if IsList(datarec.des.StepSize) then
@@ -2428,9 +2452,7 @@ local class, firstStep, expectedNsteps, optrec;
                        "  #step sizes" ]);
     fi;
   fi;
-  ToPQ(datarec, [ PQ_BOOL(
-                      VALUE_PQ_OPTION("PcgsAutomorphisms", false, datarec.des)
-                      ),
+  ToPQ(datarec, [ PQ_BOOL(VALUE_PQ_OPTION("PcgsAutomorphisms", false, datarec)),
                    "compute pcgs gen. seq. for auts." ]);
   ToPQ(datarec, [ PQ_BOOL(
                       VALUE_PQ_OPTION("BasicAlgorithm", false, datarec.des)
@@ -2440,7 +2462,7 @@ local class, firstStep, expectedNsteps, optrec;
     ToPQ(datarec, [ VALUE_PQ_OPTION("RankInitialSegmentSubgroups", 0,
                                     datarec.des),
                     "  #rank of initial segment subgrp" ]);
-    if datarec.des.PcgsAutomorphisms then
+    if datarec.PcgsAutomorphisms then
       ToPQ(datarec, [ PQ_BOOL(datarec.des.SpaceEfficient),
                       "be space efficient" ]);
     fi;
