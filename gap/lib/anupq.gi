@@ -10,6 +10,13 @@
 #Y  Copyright 1992-1994,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.31  2001/11/20 17:46:30  gap
+#H  Fixed a bug that caused infinite looping when the group completed during
+#H  a `next class' operation (`pq' produces two messages in this case - only
+#H  the first mentions `completed'). Also, fixed some other inefficiency problems
+#H  where `Pq', `PqPCover' or `PqEpimorphism' started from scratch rather than
+#H  pick up where it had left off. - GG
+#H
 #H  Revision 1.30  2001/11/14 16:52:05  gap
 #H  `Pq' now works for trivial groups (with non-trivial presentations).
 #H  `PQ_PC_PRESENTATION' and hence `Pq' et al. now accept non-p-group pc groups.
@@ -556,7 +563,8 @@ InstallGlobalFunction( PQ_EPI_OR_PCOVER, function( args )
     trivial := IsEmpty( datarec.group!.GeneratorsOfMagmaWithInverses );
     if trivial then
         ; #the `pq' binary spits out nonsense if given a trivial pres'n
-    elif datarec.calltype = "interactive" and IsBound( datarec.(out) ) then
+    elif datarec.calltype = "interactive" and 
+         ( IsBound(datarec.pQuotient) or IsBound(datarec.pCover) ) then
         AtClass := function()
           return IsBound(datarec.complete) and datarec.complete or
                  IsBound(datarec.class) and datarec.class = datarec.ClassBound;
@@ -577,6 +585,9 @@ InstallGlobalFunction( PQ_EPI_OR_PCOVER, function( args )
         fi;
     else
         PQ_PC_PRESENTATION(datarec, "pQ");
+        if datarec.class < Minimum(63, datarec.ClassBound) then
+            datarec.complete := true;
+        fi;
     fi;
 
     trivial := trivial or IsEmpty(datarec.ngens) or datarec.ngens[1] = 0;

@@ -480,6 +480,8 @@ local match, filter, lowlev, ctimelev;
     if IsBound(match) then
       if ForAny( match, s -> IsMatchingSublist(datarec.line, s) ) then
         datarec.matchedline := datarec.line;
+        datarec.complete := IsBound(datarec.complete) and datarec.complete or
+                            IsMatchingSublist(datarec.line, "Group completed");
       fi;
     elif IsBound(datarec.matchlist) and 
          ForAny( datarec.matchlist, 

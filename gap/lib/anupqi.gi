@@ -495,16 +495,15 @@ end );
 InstallGlobalFunction( PQ_SET_GRP_DATA, function( datarec )
 local line, classpos;
   # Either datarec.matchedline is of one of the following forms:
-  # Group: <grp> to lower exponent-<p> central class <c> has order <p>^<n>
   # Group completed. Lower exponent-<p> central class = <c>, Order = <p>^<n>
+  # Group: <grp> to lower exponent-<p> central class <c> has order <p>^<n>
   if not IsBound(datarec.matchedline) then
     PushOptions(rec(nonuser := true));
     ToPQ(datarec, [ "4  #display presentation" ]);
     PopOptions();
   fi;
   line := SplitString(datarec.matchedline, "", ":,. ^\n");
-  datarec.complete := line[2] = "completed";
-  if datarec.complete then
+  if line[2] = "completed" then
     classpos := Position(line, "class") + 2;
     #if not IsBound(datarec.name) then #do we need to bother?
     #  datarec.name := "<grp>";
