@@ -25,10 +25,10 @@ package:
 \beginexample
 gap> AllANUPQoptions();
 [ "AllDescendants", "BasicAlgorithm", "Bounds", "CapableDescendants", 
-  "ClassBound", "Exponent", "GroupName", "Metabelian", "OrderBound", 
-  "OutputLevel", "PcgsAutomorphisms", "PqWorkspace", "Prime", "QueueFactor", 
-  "RankInitialSegmentSubgroups", "Relators", "SetupFile", "SpaceEfficient", 
-  "StandardPresentationFile", "StepSize", "SubList", "TailorOutput" ]
+  "ClassBound", "CustomiseOutput", "Exponent", "GroupName", "Metabelian", 
+  "OrderBound", "OutputLevel", "PcgsAutomorphisms", "PqWorkspace", "Prime", 
+  "QueueFactor", "RankInitialSegmentSubgroups", "Relators", "SetupFile", 
+  "SpaceEfficient", "StandardPresentationFile", "StepSize", "SubList" ]
 \endexample
 
 The following global variable gives a  partial  breakdown  of  where  the
@@ -210,7 +210,8 @@ algorithm be used. By default this  algorithm  is  *not*  used.  If  this
 option is supplied the settings of options `RankInitialSegmentSubgroups',
 `AllDescendants', `Exponent' and `Metabelian' are ignored.
 
-\>`TailorOutput := <rec>'{option TailorOutput}@{option `TailorOutput'|indexit}&
+\>`CustomiseOutput := <rec>'{option CustomiseOutput}%
+@{option `CustomiseOutput'|indexit}&
 Specifies that fine tuning of the output is  desired.  The  record  <rec>
 should have any subset (or all) of the the following fields:
 
@@ -250,7 +251,7 @@ each <list> above, an unbound list entry is taken as `false'.  Thus,  for
 example
 
 \begintt
-TailorOutput := rec(group := [,,1], autgroup := [,1])
+CustomiseOutput := rec(group := [,,1], autgroup := [,1])
 \endtt
 
 specifies for the group output that only the  presentation  of  immediate
