@@ -10,6 +10,9 @@
 *Y  Copyright 1995-1997,  School of Mathematical Sciences, ANU,     Australia
 **
 *H  $Log$
+*H  Revision 1.7  2001/09/22 20:20:33  gap
+*H  Now we don't lose the IsCapable, NuclearRank and MultiplicatorRank info. - GG
+*H
 *H  Revision 1.6  2001/06/15 14:31:51  werner
 *H  fucked up revision numbers.   WN
 *H
@@ -105,12 +108,6 @@ void GAP_presentation ( file, pcp, aspcgroup )
    fprintf( file, "F := FreeGroup( %d );\n",  pcp->lastg );
 
    if( aspcgroup ) {
-     /*  Code to make the output GAP 4.2 compatible.  */
-     fprintf( file, "if not IsBound( PcGroupFpGroupNC ) then\n" );
-     fprintf( file, "   PcGroupFpGroupNC := PcGroupFpGroup;" );
-     fprintf( file, "   PolycyclicFactorGroupNC := PolycyclicFactorGroup;" );
-     fprintf( file, "fi;\n" );
-
      fprintf( file, "F := PcGroupFpGroupNC( F / [\n" );
    }
    else
@@ -244,7 +241,11 @@ void write_GAP_library ( file, pcp )
    /* write the GAP presentation to file                                  */
    GAP_presentation( file, pcp, 0 );
 
-   /* add information whether group is capable and its nuclear rank       */
+   /* convert <F> to a pc group in descendants case
+      ... has to be done here; otherwise, we lose the property/attributes */
+   fprintf( file, "if IsList(L) then\n    F := PcGroupFpGroupNC(F);\nfi;\n" ); 
+
+   /* add info. whether group is capable, and its nuclear and mult'r ranks*/
    fprintf( file, "SetIsCapable(F, %s);\n", (pcp->newgen)?"true":"false" );
    fprintf( file, "SetNuclearRank(F, %d);\n", pcp->newgen                  );
    fprintf( file, "SetMultiplicatorRank (F, %d);\n", pcp->multiplicator_rank );
@@ -252,8 +253,8 @@ void write_GAP_library ( file, pcp )
    /* add the pq identitfier                                              */
    MakeNameList( file, pcp->ident );
 
-   /* add the group <G> to <L>                                            */
-   fprintf( file, "if IsList(L) then\n    Add( L, PcGroupFpGroupNC(F) );\n" ); 
+   /* add the group <F> to <L>                                            */
+   fprintf( file, "if IsList(L) then\n    Add( L, F );\n" ); 
    fprintf( file, "else\n    L.group := F;\n    L.map := MapImages;\nfi;" );
 
    fprintf( file, "\nend;\n\n\n"       );
