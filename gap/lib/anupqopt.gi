@@ -78,6 +78,16 @@ InstallValue( ANUPQoptions,
 
 #############################################################################
 ##
+#V  ANUPQGlobalOptions . . . . .  options that can be set globally by PqStart
+##
+##  A list of the options that `PqStart' can set and thereby  make  available
+##  to any function  interacting  with  the  {\ANUPQ}  process  initiated  by
+##  `PqStart'.
+##
+InstallValue( ANUPQGlobalOptions, [ "Prime", "Exponent" ] );
+
+#############################################################################
+##
 #V  ANUPQoptionChecks . . . . . . . . . . . the checks for admissible options
 ##
 ##  A record whose fields are the names of admissible ANUPQ options and whose
@@ -144,8 +154,10 @@ InstallValue( ANUPQoptionTypes,
 ##
 ##  If the value <optval> of <optname> is not `fail' and it is  an  ok  value
 ##  for <optname> then <optval> is returned; if <optval> is not an  ok  value
-##  an error is  signalled.  If  <optval>  is  `fail'  and  a  default  value
-##  <defaultval> different from  `fail'  is  supplied  then  <defaultval>  is
+##  an error is  signalled.  If  <optval>  is  `fail'  and  <datarec>  on  an
+##  interactive function call and <datarec>.(<optname>) is already bound then
+##  that value is returned; otherwise, if <optval> is `fail'  and  a  default
+##  value <defaultval> different from `fail' is supplied then <defaultval> is
 ##  returned. Supplying a <defaultval> of `fail'  is  special;  it  indicates
 ##  that option <optname> must have a value i.e. <optval> is not  allowed  to
 ##  be `fail' and if it is an error is signalled. If a <datarec> argument  is
@@ -155,30 +167,53 @@ InstallValue( ANUPQoptionTypes,
 ##  *Note:* <defaultval> cannot be a record.
 ##
 InstallGlobalFunction(VALUE_PQ_OPTION, function(arg)
-local optname, optval, defaultval, len;
+local optname, optval, len;
   optname := arg[1];
   optval := ValueOption(optname);
   len := Length(arg);
   if optval = fail then
-    if 2 <= len and not IsRecord(arg[2]) then
-      defaultval := arg[2];
-      if defaultval = fail then
+    if 1 = len then
+      return optval;
+    elif IsRecord( arg[len] ) and IsBound( arg[len].calltype ) and
+         arg[len].calltype="interactive" and IsBound( arg[len].(optname) ) then
+      # return the previously recorded value
+      return arg[len].(optname);
+    elif not IsRecord(arg[2]) then
+      if arg[2] = fail then
         Error("you must supply a value for option: \"", optname, "\"\n");
       fi;
-      if 3 = len then
-        arg[3].(optname) := defaultval;
-      fi;
-      return defaultval;
+      optval := arg[2]; 
     fi;
-    return optval;
   elif not ANUPQoptionChecks.(optname)(optval) then
     Error("\"", optname, "\" value must be a ", 
           ANUPQoptionTypes.(optname), "\n");
   fi;
-  if 2 <= len and IsRecord( arg[len] ) then
+  if (optval <> fail) and (2 <= len) and IsRecord(arg[len]) and 
+     not( IsBound( arg[len].calltype ) and 
+          (arg[len].calltype = "interactive") and
+          optname in ANUPQGlobalOptions ) then
     arg[len].(optname) := optval;
   fi;
   return optval;
+end);
+  
+#############################################################################
+##
+#F  SET_GLOBAL_PQ_OPTION(<optname>,<datarec>) .  set global option in PqStart
+##
+##  If  <optname>  is  passed  as  an   option   and   it   is   valid   then
+##  `<datarec>.(<optname>)' is set. This is only called by `PqStart'.
+##
+InstallGlobalFunction(SET_GLOBAL_PQ_OPTION, function(optname, datarec)
+local optval;
+  optval := ValueOption(optname);
+  if optval <> fail then
+    if not ANUPQoptionChecks.(optname)(optval) then
+      Error("\"", optname, "\" value must be a ", 
+            ANUPQoptionTypes.(optname), "\n");
+    fi;
+    datarec.(optname) := optval;
+  fi;
 end);
   
 #############################################################################

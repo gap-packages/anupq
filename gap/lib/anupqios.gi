@@ -58,10 +58,10 @@ end );
 
 #############################################################################
 ##
-#F  PqStart( <G>, <workspace> )  . . .  Initiate an interactive ANUPQ session
-#F  PqStart( <G> )
-#F  PqStart( <workspace> )
-#F  PqStart()
+#F  PqStart(<G>,<workspace> : <options>) . Initiate interactive ANUPQ session
+#F  PqStart(<G> : <options>)
+#F  PqStart(<workspace> : <options>)
+#F  PqStart( : <options>)
 ##
 ##  activate an iostream for an interactive {\ANUPQ} process (i.e.  `PqStart'
 ##  starts up a `pq' binary process and opens a {\GAP} iostream  to  ``talk''
@@ -73,8 +73,14 @@ end );
 ##  <workspace> (i.e. $4 \times <workspace>$ bytes in a 32-bit  environment);
 ##  otherwise, the `pq' binary sets a default workspace of $10000000$.
 ##
+##  The only <options> currently recognised  by  `PqStart'  are  `Prime'  and
+##  `Exponent' (see~"Pq" for details) and if provided  they  are  essentially
+##  global for the interactive {\ANUPQ} process, except that any  interactive
+##  function interacting with the process and passing new  values  for  these
+##  options will over-ride the global values.
+##
 InstallGlobalFunction(PqStart, function(arg)
-local opts, iorec, G, workspace;
+local opts, iorec, G, workspace, optname;
 
   if 2 < Length(arg) then
     Error("at most two arguments expected.\n");
@@ -101,6 +107,10 @@ local opts, iorec, G, workspace;
   if IsBound( G ) then
     iorec.group := G;
   fi;
+  iorec.calltype := "interactive";
+  for optname in ANUPQGlobalOptions do
+    SET_GLOBAL_PQ_OPTION(optname, iorec);
+  od;
 
   Add( ANUPQData.io, iorec );
   return Length(ANUPQData.io);
@@ -622,21 +632,20 @@ end);
 InstallGlobalFunction(ANUPQ_ARG_CHK, 
 function(len, funcname, arg1, arg1type, arg1err, args, opts)
 local interactive, ioArgs, datarec, optrec, optname, optnames;
-  if Length(args) <= len then
-    for optname in opts do
-      if ValueOption(optname) = fail then
-        Error( "option \"", optname, "\" must be supplied\n" );
-      fi;
-    od;
-  fi;
   interactive := Length(args) < len or IsInt( args[1] );
   if interactive then
     ioArgs := args{[1..Length(args) - len + 1]};
     ANUPQ_IOINDEX_ARG_CHK(ioArgs);
     datarec := ANUPQData.io[ ANUPQ_IOINDEX(ioArgs) ];
     datarec.outfname := ANUPQData.outfile; # not always needed
-    datarec.calltype := "interactive";
+    for optname in opts do
+      VALUE_PQ_OPTION(optname, fail, datarec);
+    od;
+    #datarec.calltype := "interactive";    # PqStart sets this
   elif Length(args) = len then
+    for optname in opts do
+      VALUE_PQ_OPTION(optname, fail);
+    od;
     if not arg1type( args[1] ) then
       Error( "first argument <args[1]> must be ", arg1err, ".\n" );
     fi;

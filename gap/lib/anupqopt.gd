@@ -37,6 +37,21 @@ DeclareGlobalVariable( "ANUPQoptions",
 
 #############################################################################
 ##
+#V  ANUPQGlobalOptions . . . . .  options that can be set globally by PqStart
+##
+##  A list of the options that `PqStart' can set and thereby  make  available
+##  to any function  interacting  with  the  {\ANUPQ}  process  initiated  by
+##  `PqStart'.
+##
+DeclareGlobalVariable( "ANUPQGlobalOptions", 
+  Concatenation( [
+    "A list of the options that PqStart can set and thereby make available\n",
+    "to any function interacting with the ANUPQ process initiated by PqStart."
+    ] )
+  );
+
+#############################################################################
+##
 #V  ANUPQoptionChecks . . . . . . . . . . . the checks for admissible options
 ##
 DeclareGlobalVariable( "ANUPQoptionChecks", 
@@ -63,9 +78,17 @@ DeclareGlobalVariable( "ANUPQoptionTypes",
 ##
 #F  VALUE_PQ_OPTION( <optname> ) . . . . . . . . . enhancement of ValueOption
 #F  VALUE_PQ_OPTION( <optname>, <defaultval> ) 
+#F  VALUE_PQ_OPTION( <optname>, <datarec> ) 
+#F  VALUE_PQ_OPTION( <optname>, <defaultval>, <datarec> ) 
 ##
 DeclareGlobalFunction( "VALUE_PQ_OPTION" );
   
+#############################################################################
+##
+#F  SET_GLOBAL_PQ_OPTION(<optname>,<datarec>) .  set global option in PqStart
+##
+DeclareGlobalFunction( "SET_GLOBAL_PQ_OPTION" );
+
 #############################################################################
 ##
 #F  PQ_BOOL( <optval> ) . .  convert a GAP boolean to a `pq' (i.e. C) boolean

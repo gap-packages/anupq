@@ -84,11 +84,12 @@ local gens, rels, pcp, p, pcgs, len, strp, i, j, Rel;
 
   # Option 1 of p-Quotient/Standard Presentation Menu: defining the group
   ToPQk(datarec, ["1  #define group"]);
-  p := VALUE_PQ_OPTION("Prime", fail, datarec.(pcp));
+  p := VALUE_PQ_OPTION("Prime", fail, datarec); # "Prime" is a `global' option
   ToPQk(datarec, ["prime ",    p]);
   ToPQk(datarec, ["class ",    VALUE_PQ_OPTION("ClassBound", fail, 
                                                               datarec.(pcp))]);
-  ToPQk(datarec, ["exponent ", VALUE_PQ_OPTION("Exponent", 0, datarec.(pcp))]);
+  ToPQk(datarec, ["exponent ", VALUE_PQ_OPTION("Exponent", 0, datarec)]);
+                                             # "Exponent" is a `global' option
   if VALUE_PQ_OPTION( "Metabelian", false, datarec.(pcp) ) = true then
     ToPQk(datarec, [ "metabelian" ]);
   fi;
@@ -724,7 +725,7 @@ end );
 InstallGlobalFunction( PQ_DO_EXPONENT_CHECKS, 
 function( datarec, weight1, weight2 )
   #@does default only at the moment@
-  if not IsBound(datarec.pQpcp.Exponent) or datarec.pQpcp.Exponent = 0 then
+  if not IsBound(datarec.Exponent) or datarec.Exponent = 0 then
     Error( "no exponent law set\n" );
   fi;
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
@@ -1870,7 +1871,8 @@ local firstStep, expectedNsteps;
   ToPQ(datarec, [ PQ_BOOL(
                       VALUE_PQ_OPTION( "AllDescendants", false, datarec.des ) ),
                    "completely process terminal descendants" ]);
-  ToPQ(datarec, [ VALUE_PQ_OPTION("Exponent", 0, datarec.des), "  #exponent" ]);
+  ToPQ(datarec, [ VALUE_PQ_OPTION("Exponent", 0, datarec), "  #exponent" ]);
+                                           # "Exponent" is a `global' option
   ToPQ(datarec, [ PQ_BOOL( VALUE_PQ_OPTION("Metabelian", false, datarec.des) ),
                    "enforce metabelian law" ]);
   ToPQ(datarec, [ "1  #default output" ]); # There are > 18 questions to deal

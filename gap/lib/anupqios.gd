@@ -20,8 +20,10 @@ DeclareGlobalFunction( "PQ_START" );
 
 #############################################################################
 ##
-#F  PqStart( <G>, <workspace> )  . . .  Initiate an interactive ANUPQ session
-#F  PqStart( <G> )
+#F  PqStart(<G>,<workspace> : <options>) . Initiate interactive ANUPQ session
+#F  PqStart(<G> : <options>)
+#F  PqStart(<workspace> : <options>)
+#F  PqStart( : <options>)
 ##
 DeclareGlobalFunction( "PqStart" );
 
