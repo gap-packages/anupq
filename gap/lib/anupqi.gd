@@ -27,7 +27,7 @@ DeclareGlobalFunction( "PQ_MANUAL_AUT_INPUT" );
 
 #############################################################################
 ##
-#F  PQ_AUT_ARG_CHK(<datarec>, <mlist>) .  checks a matrix list look like auts
+#F  PQ_AUT_ARG_CHK(<minnargs>, <args>) . checks args for a func defining auts
 ##
 DeclareGlobalFunction( "PQ_AUT_ARG_CHK" );
 
@@ -650,14 +650,14 @@ DeclareGlobalFunction( "PqSPIsomorphism" );
 
 #############################################################################
 ##
-#F  PQ_PG_SUPPLY_AUTS( <datarec>, <menu> ) . . . . .  p-G/A p-G menu option 1
+#F  PQ_PG_SUPPLY_AUTS( <datarec>[, <mlist>], <menu> ) .  p-G/A p-G menu opt 1
 ##
 DeclareGlobalFunction( "PQ_PG_SUPPLY_AUTS" );
 
 #############################################################################
 ##
-#F  PqPGSupplyAutomorphisms( <i> ) . . . . . user version of pG menu option 1
-#F  PqPGSupplyAutomorphisms()
+#F  PqPGSupplyAutomorphisms( <i>[, <mlist>] ) .  user ver of pG menu option 1
+#F  PqPGSupplyAutomorphisms([<mlist>])
 ##
 DeclareGlobalFunction( "PqPGSupplyAutomorphisms" );
 
@@ -715,8 +715,8 @@ DeclareGlobalFunction( "PqPGConstructDescendants" );
 
 #############################################################################
 ##
-#F  PqAPGSupplyAutomorphisms( <i> ) . . . user version of A p-G menu option 1
-#F  PqAPGSupplyAutomorphisms()
+#F  PqAPGSupplyAutomorphisms( <i>[, <mlist>] ) . user ver of A p-G menu opt 1
+#F  PqAPGSupplyAutomorphisms([<mlist>])
 ##
 DeclareGlobalFunction( "PqAPGSupplyAutomorphisms" );
 

@@ -80,18 +80,36 @@ end );
 
 #############################################################################
 ##
-#F  PQ_AUT_ARG_CHK(<datarec>, <mlist>) .  checks a matrix list look like auts
+#F  PQ_AUT_ARG_CHK(<minnargs>, <args>) . checks args for a func defining auts
 ##
-##  checks as much as is possible that a list of matrices will be valid input
-##  as automorphisms for the `pq' binary.
+##  checks that  the  arguments  make  sense  for  a  function  that  defines
+##  automorphisms, and if one fo the arguments is a list checks as much as is
+##  possible that it is a list of  matrices  that  will  be  valid  input  as
+##  automorphisms for the `pq' binary.  If  the  arguments  look  ok  a  list
+##  containing the `ANUPQData.io' index of the data record and, if  relevant,
+##  a list of matrices is returned.
 ##
-InstallGlobalFunction( PQ_AUT_ARG_CHK, function( datarec, mlist )
-local rank, nexpts;
-  if not( IsList(mlist) and ForAll(mlist, IsMatrix) and
-          ForAll(Flat(mlist), i -> IsInt(i) and i >= 0) ) then
+InstallGlobalFunction( PQ_AUT_ARG_CHK, function( minnargs, args )
+local ioIndex, datarec, mlist, rank, nexpts;
+  if Length(args) < minnargs then
+    Error("expected at least 1 argument\n"); #minnargs is 0 or 1
+  elif 2 < Length(args) then
+    Error("expected at most 2 arguments\n");
+  fi;
+  if not IsEmpty(args) and IsList(args[ Length(args) ]) then
+    mlist := args[ Length(args) ];
+    args := args{[1 .. Length(args) - 1]};
+  fi;
+  ANUPQ_IOINDEX_ARG_CHK(args);
+  ioIndex := ANUPQ_IOINDEX(args);
+  if not IsBound(mlist) then
+    return [ioIndex];
+  elif not( IsList(mlist) and ForAll(mlist, IsMatrix) and
+            ForAll(Flat(mlist), i -> IsInt(i) and i >= 0) ) then
     Error("<mlist> must be a list of matrices with ",
           "non-negative integer coefficients\n");
   fi;
+  datarec := ANUPQData.io[ ioIndex ];
   if IsBound( datarec.pQuotient ) then
     rank := RankPGroup( datarec.pQuotient );
   else
@@ -105,6 +123,7 @@ local rank, nexpts;
   if not ForAll(mlist, mat -> Length(mat[1]) = nexpts) then
     Error("each matrix of <mlist> must have the same no. of columns\n");
   fi;
+  return [ioIndex, mlist];
 end );
 
 #############################################################################
@@ -564,6 +583,9 @@ end );
 ##
 ##  directs the `pq' binary to calculate the next class of `<datarec>.group',
 ##  using option 6 of the main $p$-Quotient menu.
+##
+#T  Another possibility for checking for whether a queue factor is needed
+#T  is to test for `<datarec>.hasAuts'.
 ##
 InstallGlobalFunction( PQ_NEXT_CLASS, function( datarec )
 local line;
@@ -1408,20 +1430,14 @@ end );
 ##  option 18 of the Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqSupplyAutomorphisms, function( arg )
-local datarec, mlist;
-  if IsEmpty(arg) or 2 < Length(arg) then
-    Error("expected 1 or 2 arguments\n");
-  fi;
-  mlist := arg[ Length(arg) ];
-  arg := arg{[1 .. Length(arg) - 1]};
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  if IsBound(datarec.hasAuts) and datarec.hasAuts then
+local args;
+  args := PQ_AUT_ARG_CHK(1, arg);
+  args[1] := ANUPQData.io[ args[1] ];
+  if IsBound(args[1].hasAuts) and args[1].hasAuts then
     Error("huh! already have automorphisms.\n",
           "Perhaps you wanted to use `PqExtendAutomorphisms'\n");
   fi;
-  PQ_AUT_ARG_CHK(datarec, mlist);
-  PQ_SUPPLY_OR_EXTEND_AUTOMORPHISMS(datarec, mlist);
+  CallFuncList( PQ_SUPPLY_OR_EXTEND_AUTOMORPHISMS, args );
 end );
 
 #############################################################################
@@ -1947,25 +1963,14 @@ end );
 ##  performs option 2 of the Standard Presentation menu.
 ##
 InstallGlobalFunction( PqSPStandardPresentation, function( arg )
-local ioIndex, datarec, mlist;
-  if 2 < Length(arg) then
-    Error("expected at most 2 arguments\n");
+local args, datarec;
+  args := PQ_AUT_ARG_CHK(0, arg);
+  datarec := ANUPQData.io[ args[1] ];
+  if 1 = Length(args) and not IsBound(datarec.pQuotient) then
+    PQ_EPIMORPHISM( args[1] ); #PQ_EPIMORPHISM uses the data record io index
   fi;
-  if not IsEmpty(arg) and IsList(arg[ Length(arg) ]) then
-    mlist := arg[ Length(arg) ];
-    arg := arg{[1 .. Length(arg) - 1]};
-  fi;
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  if IsBound(mlist) then
-    PQ_AUT_ARG_CHK( datarec, mlist );
-    PQ_SP_STANDARD_PRESENTATION( datarec, mlist );
-  else
-    if not IsBound(datarec.pQuotient) then
-      PQ_EPIMORPHISM(ioIndex);
-    fi;
-    PQ_SP_STANDARD_PRESENTATION( datarec );
-  fi;
+  args[1] := datarec;
+  CallFuncList( PQ_SP_STANDARD_PRESENTATION, args );
 end );
 
 #############################################################################
@@ -2141,35 +2146,47 @@ end );
 
 #############################################################################
 ##
-#F  PQ_PG_SUPPLY_AUTS( <datarec>, <menu> ) . . . . .  p-G/A p-G menu option 1
+#F  PQ_PG_SUPPLY_AUTS( <datarec>[, <mlist>], <menu> ) .  p-G/A p-G menu opt 1
 ##
 ##  defines the automorphism group of `<datarec>.group', using  option  1  of
 ##  the main or Advanced $p$-Group Generation menu.
 ##
-InstallGlobalFunction( PQ_PG_SUPPLY_AUTS, function( datarec, menu )
-local gens;
-  PQ_MENU(datarec, menu);
-  ToPQ(datarec, [ "1  #supply automorphism data" ]);
-  PQ_AUT_INPUT( datarec, datarec.group );
+InstallGlobalFunction( PQ_PG_SUPPLY_AUTS, function( arg )
+  CallFuncList( PQ_MENU, arg{[1, Length(arg)]});
+  ToPQ(arg[1], [ "1  #supply automorphism data" ]);
+  if 2 = Length(arg) then
+    PQ_AUT_INPUT( arg[1], arg[1].group );
+  else
+    CallFuncList( PQ_MANUAL_AUT_INPUT, arg{[1 .. 2]} );
+  fi;
 end );
 
 #############################################################################
 ##
-#F  PqPGSupplyAutomorphisms( <i> ) . . . . . user version of pG menu option 1
-#F  PqPGSupplyAutomorphisms()
+#F  PqPGSupplyAutomorphisms( <i>[, <mlist>] ) .  user ver of pG menu option 1
+#F  PqPGSupplyAutomorphisms([<mlist>])
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, supplies the  `pq'
-##  binary with the automorphism group  data  needed  for  `<datarec>.group'.
+##  for the <i>th or default interactive {\ANUPQ} process,  supply  the  `pq'
+##  binary with the automorphism group data needed  for  the  group  of  that
+##  process    (for    process    <i>    the    group    is     stored     as
+##  `ANUPQData.io[<i>].group'). If  the  argument  <mlist>  is  omitted  then
+##  {\GAP} *must* be able to determine the automorphism group of the group of
+##  the process. Otherwise the automorphism data  is  provided  from  <mlist>
+##  which  should  be  a  list  of   matrices   with   non-negative   integer
+##  coefficients, where  each  matrix  must  have  the  same  dimensions;  in
+##  particular, the number of rows of each matrix must be  the  rank  of  the
+##  group of the process.
 ##
 ##  *Note:*
 ##  For  those  familiar  with  the  `pq'  binary,  `PqPGSupplyAutomorphisms'
 ##  performs option 1 of the main $p$-Group Generation menu.
 ##
 InstallGlobalFunction( PqPGSupplyAutomorphisms, function( arg )
-local datarec;
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  PQ_PG_SUPPLY_AUTS( datarec, "pG" );
+local args;
+  args := PQ_AUT_ARG_CHK(0, arg);
+  args[1] := ANUPQData.io[ args[1] ];
+  Add(args, "pG");
+  CallFuncList( PQ_PG_SUPPLY_AUTS, args );
 end );
 
 #############################################################################
@@ -2404,22 +2421,30 @@ end );
 
 #############################################################################
 ##
-#F  PqAPGSupplyAutomorphisms( <i> ) . . . user version of A p-G menu option 1
-#F  PqAPGSupplyAutomorphisms()
+#F  PqAPGSupplyAutomorphisms( <i>[, <mlist>] ) . user ver of A p-G menu opt 1
+#F  PqAPGSupplyAutomorphisms([<mlist>])
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, supplies the  `pq'
-##  binary    with    the    automorphism    group    data     needed     for
-##  `ANUPQData.io[<i>].group'.
+##  for the <i>th or default interactive {\ANUPQ} process,  supply  the  `pq'
+##  binary with the automorphism group data needed  for  the  group  of  that
+##  process    (for    process    <i>    the    group    is     stored     as
+##  `ANUPQData.io[<i>].group'). If  the  argument  <mlist>  is  omitted  then
+##  {\GAP} *must* be able to determine the automorphism group of the group of
+##  the process. Otherwise the automorphism data  is  provided  from  <mlist>
+##  which  should  be  a  list  of   matrices   with   non-negative   integer
+##  coefficients, where  each  matrix  must  have  the  same  dimensions;  in
+##  particular, the number of rows of each matrix must be  the  rank  of  the
+##  group of the process.
 ##
 ##  *Note:*
 ##  For those  familiar  with  the  `pq'  binary,  `PqAPGSupplyAutomorphisms'
 ##  performs option 1 of the Advanced $p$-Group Generation menu.
 ##
 InstallGlobalFunction( PqAPGSupplyAutomorphisms, function( arg )
-local datarec;
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  PQ_PG_SUPPLY_AUTS( datarec, "ApG" );
+local args;
+  args := PQ_AUT_ARG_CHK(0, arg);
+  args[1] := ANUPQData.io[ args[1] ];
+  Add(args, "ApG");
+  CallFuncList( PQ_PG_SUPPLY_AUTS, args );
 end );
 
 #############################################################################
