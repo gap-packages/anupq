@@ -607,21 +607,6 @@ struct pcp_vars *pcp;
 	    }
 	    else if (file_format == GAP_PRES_FORMAT) {
 	       GAP_presentation (FileName, pcp, 1);
-               /* add info. whether group is capable, 
-                * and its nuclear and multiplicator ranks, if we can        */
-	       if (pcp->cc < MAXCLASS && pcp->lastg < MAXPC &&
-                   !pcp->overflow && group_present) {
-	         next_class (FALSE, &head, &list, pcp);
-                 fprintf( FileName, "SetIsCapable(F, %s);\n", 
-                                    (pcp->newgen)?"true":"false" );
-                 fprintf( FileName, "SetNuclearRank(F, %d);\n", pcp->newgen );
-                 fprintf( FileName, "SetMultiplicatorRank (F, %d);\n", 
-                                    pcp->lastg - y[pcp->clend + pcp->cc-1] );
-                 last_class (pcp);
-               }
-               else 
-	         printf (
-                   "Could not set IsCapable, NuclearRank, MultiplicatorRank\n");
 	       printf ("Group presentation written in GAP format to file\n");
 	    }
 	    else if (file_format == MAGMA_PRES_FORMAT) {
