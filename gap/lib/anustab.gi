@@ -71,7 +71,7 @@ if IsBound( LOADED_PACKAGES.autpgrp ) then
   
     aut.field    := ANUPQglb.F;
     aut.group    := H;
-    if IsBound( ANUPQsize ) then
+    if ANUPQsize <> fail then
       aut.size     := ANUPQsize;
     fi;
     aut.one      := IdentityPGAutomorphism( H );

@@ -10,6 +10,15 @@
 *Y  Copyright 1995-1997,  School of Mathematical Sciences, ANU,     Australia
 **
 *H  $Log$
+*H  Revision 1.9  2001/06/25 17:17:17  gap
+*H  If pq is compiled without gmp then `ANUPQsize' and `ANUPQagsize'  used  not
+*H  to get assigned. Now  `src/GAP_link_via_file.c'  assigns  `fail'  to  these
+*H  variables  in  this  case.  This  was  the  simplest  solution;  this   way
+*H  `PqStabiliserOfAllowableSubgroup' could be passed variables in the same way
+*H  as before ... a few lines in `PqStabiliserOfAllowableSubgroup' were changed
+*H  to look for the possibility that `ANUPQsize = fail' (rather than is  bound)
+*H  and that also takes care of `ANUPQagsize = fail'. - GG
+*H
 *H  Revision 1.8  2001/06/21 23:33:18  gap
 *H  Cleaned out a few commented out bits of old code. - GG
 *H
@@ -89,6 +98,8 @@ void start_GAP_file ( GAP_input, auts, pga, pcp )
    GAP_presentation (*GAP_input, pcp, 1);
 #ifdef LARGE_INT
    Magma_report_autgp_order (*GAP_input, pga, pcp);                           
+#else
+   fprintf( *GAP_input, "ANUPQsize := fail;;\nANUPQagsize := fail;;\n" );
 #endif
 
    /* write global variables                                              */
