@@ -10,6 +10,9 @@
 #Y  Copyright 1993-2001,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.12  2001/09/12 13:27:46  gap
+#H  Improvements due to Bettina + improvements in Info-ed output control. - GG
+#H
 #H  Revision 1.11  2001/08/30 21:21:16  gap
 #H  `PqCurrentGroup' is now useful and returns a pc group, not just data.
 #H  `PqEliminateRedundantGenerators' now updates the `ngens' and `forder'
@@ -303,14 +306,14 @@ InstallMethod( FpGroupPcGroup, "pc group", [IsPcGroup], 0, PqFpGroupPcGroup );
 ##
 InstallGlobalFunction( PQ_EPIMORPHISM_STANDARD_PRESENTATION, 
 function( args )
-    local   datarec, p_or_G, rank, p, G, automorphisms, generators, x,
+    local   datarec, p_or_Q, rank, p, Q, automorphisms, generators, x,
             images, i, r, j, aut, result, desc, k;
 
     datarec := ANUPQ_ARG_CHK(2, "StandardPresentation", "group", 
                              IsFpGroup,  "an fp group", args, []);
-    p_or_G := args[ Length(args) ];
-    if IsInt(p_or_G)  then
-    	p := p_or_G;
+    p_or_Q := args[ Length(args) ];
+    if IsInt(p_or_Q)  then
+    	p := p_or_Q;
         if not IsPrimeInt(p)  then
             Error( "<p> must be a prime" );
         fi;
@@ -318,46 +321,46 @@ function( args )
                         y->y=p );
 
         # construct free group with <rank> generators
-        G := FreeGroup( rank, "g" );
+        Q := FreeGroup( rank, "q" );
     
         # construct power-relation
-        G := G / List( GeneratorsOfGroup(G), x -> x^p );
+        Q := Q / List( GeneratorsOfGroup(Q), x -> x^p );
     
         # construct pc group
-        G := PcGroupFpGroup(G);
+        Q := PcGroupFpGroup(Q);
     
         # construct automorphism
         automorphisms := [];
-        generators := GeneratorsOfGroup(G);
+        generators := GeneratorsOfGroup(Q);
         for x in GeneratorsOfGroup( GL(rank,p) ) do
             images := [];
             for i  in [ 1 .. rank ]  do
-                r := One(G);
+                r := One(Q);
                 for j  in [ 1 .. rank ]  do
                     r := r * generators[j]^Int(x[i][j]);
                 od;
                 images[i] := r;
             od;
-            aut := GroupHomomorphismByImages( G, G, generators, images );
+            aut := GroupHomomorphismByImages( Q, Q, generators, images );
             SetIsBijective( aut, true );
             Add( automorphisms, aut );
         od;
-        SetAutomorphismGroup( G, GroupByGenerators( automorphisms ) );
+        SetAutomorphismGroup( Q, GroupByGenerators( automorphisms ) );
     else
-        G := p_or_G;
-        if not IsPcGroup(G)  then
-            Error( "<G> must be a pc group" );
-        elif not HasAutomorphismGroup(G)  then
-            Error( "the automorphism group of <G> must be known" );
+        Q := p_or_Q;
+        if not IsPcGroup(Q)  then
+            Error( "<Q> must be a pc group" );
+        else
+            PQ_AUT_GROUP(Q);
         fi;
-        p := PrimeOfPGroup( G );
+        p := PrimeOfPGroup( Q );
     fi;
     
     #PushOptions(rec(nonuser := true));
     PQ_PC_PRESENTATION(datarec, "SP" : Prime := p, 
-                                       ClassBound := PClassPGroup(G));
+                                       ClassBound := PClassPGroup(Q));
 
-    datarec.pQuotient := G;
+    datarec.pQuotient := Q;
     PQ_SP_STANDARD_PRESENTATION(datarec);
 
     PQ_SP_ISOMORPHISM(datarec);

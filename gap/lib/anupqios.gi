@@ -45,7 +45,8 @@ local opts, iorec;
     if iorec.stream = fail then
       Error( "sorry! Run out of pseudo-ttys. Can't open an io stream.\n" );
     fi;
-    FLUSH_PQ_STREAM_UNTIL(iorec.stream, 5, 5, PQ_READ_NEXT_LINE, IS_PQ_PROMPT);
+    # menus are flushed at InfoANUPQ level 6, prompts at level 5
+    FLUSH_PQ_STREAM_UNTIL(iorec.stream, 6, 5, PQ_READ_NEXT_LINE, IS_PQ_PROMPT);
   else
     iorec.stream := OutputTextFile(setupfile, false);
     iorec.setupfile := setupfile;
@@ -277,7 +278,7 @@ InstallValue(PQ_MENUS, rec(
 #F  PQ_MENU( <datarec> )
 ##
 InstallGlobalFunction(PQ_MENU, function(arg)
-local datarec, newmenu, nextmenu, tomenu;
+local datarec, newmenu, nextmenu, tomenu, infolev;
   datarec := arg[1];
   if 2 = Length(arg) then
     newmenu := arg[2];
@@ -289,18 +290,22 @@ local datarec, newmenu, nextmenu, tomenu;
         datarec.menu := PQ_MENUS.(datarec.menu).prev;
         tomenu := PQ_MENUS.(datarec.menu).name;
         ToPQk(datarec, [ 0 , "  #to ", tomenu]);
+        infolev := 5;
       elif datarec.menu = "pQ" and newmenu = "ApQ" then
         datarec.menu := "ApQ";
         tomenu := PQ_MENUS.(datarec.menu).name;
         ToPQk(datarec, [ PQ_MENUS.pQ.nextopt.ApQ, "  #to ", tomenu ]);
+        infolev := 6;
       else
         nextmenu := RecNames( PQ_MENUS.(datarec.menu).nextopt )[1];
         tomenu := PQ_MENUS.(nextmenu).name;
         ToPQk(datarec, [ PQ_MENUS.(datarec.menu).nextopt.(nextmenu),
                          "  #to ", tomenu ]);
         datarec.menu := nextmenu;
+        infolev := 6;
       fi;
-      FLUSH_PQ_STREAM_UNTIL(datarec.stream, 5, 5, PQ_READ_NEXT_LINE,
+      # menus are flushed at InfoANUPQ level 6, prompts at level 5
+      FLUSH_PQ_STREAM_UNTIL(datarec.stream, infolev, 5, PQ_READ_NEXT_LINE,
                             IS_PQ_PROMPT);
     od;
   fi;
@@ -430,8 +435,12 @@ local match, filter, lowlev, ctimelev;
     lowlev := 3;
     ctimelev := 3;
   else
-    lowlev := 1;
     ctimelev := 2;
+    if not IsBound(datarec.OutputLevel) or datarec.OutputLevel = 0 then
+      lowlev := 3;
+    else
+      lowlev := 1;
+    fi;
   fi;
   repeat
     datarec.line := PQ_READ_NEXT_LINE(datarec.stream);
