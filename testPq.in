@@ -1,6 +1,8 @@
 #!/usr/bin/env perl
 
-$tstdir = "gap/tst";
+$pwd = `pwd`;
+chomp $pwd;
+$tstdir = "$pwd/gap/tst";
 $i = "";
 $tmpdir = "/tmp/testPq";
 while ( (-d "$tmpdir$i") && !(-W "$tmpdir$i") ) { $i++ }
@@ -8,7 +10,7 @@ $tmpdir .= $i;
 system("rm -rf $tmpdir; mkdir $tmpdir");
 print "Made dir: $tmpdir\n";
 
-$pq = "bin/@GAPARCH@/pq";
+$pq = "$pwd/bin/@GAPARCH@/pq";
 # Test 1
 syswrite STDOUT, "Testing the pq binary ...",
          length( "Testing the pq binary ..." );
@@ -123,18 +125,20 @@ sub check {
   my ($file, $opts) = @_;
   (my $outfile = $file) =~ s/[.](pga|sp)/.out/;
   # run pq over test file and clean out system-dependent stuff
-  system("$pq $opts< $tstdir/$file | grep -v seconds > $tmpdir/tmpfile");
+  system("( cd $tmpdir; ".
+         "  $pq $opts< $tstdir/$file ".
+         "  | grep -v seconds | grep -v '#I --' > $tmpdir/tmpfile )");
   my $length = `wc -l $tmpdir/tmpfile` - 2;
   system("tail -n $length $tmpdir/tmpfile > $tmpdir/$outfile");
   # now there should be no differences with our master copy
   my $diff = `diff $tstdir/out/$outfile $tmpdir/$outfile`;
   if ($diff =~ /^\s*$/) {
     print " OK.\n";
-    if ( $file =~ /4/ ) {
-      print " (actually it's not OK - there's a bug in pq's SP - \n",
-            "  but your answers agree with our wrong ones; \n",
-            "  we're working on it!)\n";
-    }
+    #if ( $file =~ /4/ ) {
+    #  print " (actually it's not OK - there's a bug in pq's SP - \n",
+    #        "  but your answers agree with our wrong ones; \n",
+    #        "  we're working on it!)\n";
+    #}
   } else {
     #print " differences:\n$diff";
     if ( $file =~ /3/ ) {
