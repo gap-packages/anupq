@@ -14,6 +14,9 @@
 #Y  Copyright 1992-1994,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.9  2001/06/26 09:44:27  gap
+#H  Just cleaning house. - GG
+#H
 #H  Revision 1.8  2001/06/21 23:04:20  gap
 #H  src/*, include/*, Makefile.in:
 #H   - pq binary now calls itself version 1.5 (global variable PQ_VERSION
@@ -148,21 +151,6 @@
 Revision.anupga_gi :=
     "@(#)$Id$";
 
-if IsBound(ANUPQtmpDir)  then
-    ThisIsAHack := ANUPQtmpDir;
-else
-    ThisIsAHack := "ThisIsAHack";
-fi;
-ANUPQtmpDir := ThisIsAHack;
-
-#############################################################################
-##
-#F  InfoANUPQ1  . . . . . . . . . . . . . . . . . . . . . . debug information
-#F  InfoANUPQ2  . . . . . . . . . . . . . . . . . . . . . . debug information
-##
-if not IsBound(InfoANUPQ1)  then InfoANUPQ1 := Print;    fi;
-if not IsBound(InfoANUPQ2)  then InfoANUPQ2 := Ignore;   fi;
-
 #############################################################################
 ##
 #F  ANUPQerror( <param> ) . . . . . . . . . . . . .  report illegal parameter
@@ -180,8 +168,6 @@ InstallGlobalFunction( ANUPQerror, function( param )
     "    \"Exponent\", <exponent>\n",
     "    \"Metabelian\"\n",
     "    \"SubList\"\n",
-    "    \"TmpDir\"\n",
-    "    \"Verbose\"\n",
     "    \"SetupFile\", <file>\n",
     "Illegal Parameter: \"", param, "\"" );
 end );
@@ -277,129 +263,6 @@ InstallGlobalFunction( ANUPQextractArgs, function( args )
         i := i + 1;
     od;
     return CR;
-
-end );
-
-#############################################################################
-##
-#F  ANUPQinstructions( <pqi>, <param>, <p> )  . . . . . .  construct PQ input
-##
-InstallGlobalFunction( ANUPQinstructions, function( pqi, param, p )
-    local   G, firstStep,  ANUPQbool,  CR,  f,  i,  RF1,  RF2;
-
-    G := param.group;
-    firstStep := 0;
-
-    # function to print boolean value
-    ANUPQbool := function(b)
-        if b  then
-            return 1;
-        else
-            return 0;
-        fi;
-    end;
-
-    # <CR> will hold the parameters
-    CR := rec ();
-    CR.ClassBound                  := PClassPGroup(G) + 1;
-    CR.StepSize                    := -1;
-    CR.OrderBound                  := -1;
-    CR.PcgsAutomorphisms           := false;
-    CR.Verbose                     := false;
-    CR.RankInitialSegmentSubgroups := 0;
-    CR.SpaceEfficient              := false;
-    CR.AllDescendants              := false;
-    CR.ExpSet                      := false;
-    CR.Exponent                    := 0;
-    CR.Metabelian                  := false;
-    CR.group                       := G;
-    CR.SubList                     := -1; 
-
-    # merge arguments with default parameters
-    RF1 := REC_NAMES(CR);
-    RF2 := REC_NAMES(param);
-    for f  in RF2  do
-        if not f in RF1  then
-            ANUPQerror(f);
-        else
-            CR.(f) := param.(f);
-        fi;
-    od;
-
-    # sanity check
-    if CR.OrderBound <> -1 and CR.OrderBound <= LogInt(Size(G), p)  then
-        return [false];
-    fi;
-    if CR.SpaceEfficient and not CR.PcgsAutomorphisms  then
-        f := "\"SpaceEfficient\" is only allowed in conjunction with ";
-        f := Concatenation( f, "\"PcgsAutomorphisms\"" );
-        return f;
-    fi;
-    if CR.StepSize <> -1 and CR.OrderBound <> -1  then
-        f := "\"StepSize\" and \"OrderBound\" must not be set ";
-        f := Concatenation( f, "simultaneously" );
-        return f;
-    fi;
-
-    # generate instructions
-    AppendTo( pqi, "5\n", CR.ClassBound, "\n" );
-    if CR.StepSize <> -1  then
-        AppendTo( pqi, "0\n" );
-        if CR.ClassBound = PClassPGroup(G) + 1  then
-            if IsList(CR.StepSize)  then
-                if Length(CR.StepSize) <> 1  then
-                    return "Only one \"StepSize\" must be given";
-                else
-                    CR.StepSize := CR.StepSize[1];
-                fi;
-            fi;
-            AppendTo( pqi, CR.StepSize, "\n" );
-            firstStep := CR.StepSize;
-        else
-            if IsList(CR.StepSize)  then
-                if Length (CR.StepSize) <> CR.ClassBound - PClassPGroup(G)  then
-                    f := "The difference between maximal class and class ";
-                    f := Concatenation(f, 
-                      "of the starting group is ", 
-                      String(CR.ClassBound-PClassPGroup(G)),
-                      ".\nTherefore you must supply ",
-                      String(CR.ClassBound-PClassPGroup(G)),
-                      " step-sizes in the \"StepSize\" list \n" );
-                    return f;
-                fi;
-                AppendTo( pqi, "0\n" );
-                for i  in CR.StepSize  do
-                    AppendTo( pqi, i, " " );
-                od;
-                AppendTo( pqi, "\n" );
-                firstStep := CR.StepSize[1];
-            else
-                AppendTo( pqi, "1\n", CR.StepSize, "\n" );
-            fi;
-        fi;
-    elif CR.OrderBound <> -1  then
-        AppendTo( pqi, "1\n1\n", CR.OrderBound, "\n" );
-    else
-        AppendTo( pqi, "1\n0\n" );
-    fi;    
-    AppendTo( pqi, ANUPQbool(CR.PcgsAutomorphisms), "\n0\n",
-                   CR.RankInitialSegmentSubgroups, "\n" );
-    if CR.PcgsAutomorphisms  then
-        AppendTo( pqi, ANUPQbool(CR.SpaceEfficient), "\n" );
-    fi;
-    if HasNuclearRank(G) and firstStep <> 0  and
-        firstStep > NuclearRank(G) then
-            f := Concatenation( "\"StepSize\" (=", String(firstStep),
-                   ") must be smaller or equal the \"Nuclear Rank\" (=",
-                   String(NuclearRank(G)), ")" );
-            return f;
-    fi;
-    AppendTo( pqi, ANUPQbool(CR.AllDescendants), "\n" );
-    AppendTo( pqi, CR.Exponent, "\n" );
-    AppendTo( pqi, ANUPQbool(CR.Metabelian), "\n", "1\n" );
-
-    # return success
-    return [true, CR];
 
 end );
 

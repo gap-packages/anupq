@@ -10,6 +10,9 @@
 #Y  Copyright 1993-2001,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.8  2001/06/26 09:44:27  gap
+#H  Just cleaning house. - GG
+#H
 #H  Revision 1.7  2001/06/21 23:04:20  gap
 #H  src/*, include/*, Makefile.in:
 #H   - pq binary now calls itself version 1.5 (global variable PQ_VERSION
@@ -131,17 +134,6 @@ Revision.anusp_gi :=
 
 #############################################################################
 ##
-#F  InfoANUPQSP1  . . . . . . . . . . . . . . . . . . . . . debug information
-#F  InfoANUPQSP2  . . . . . . . . . . . . . . . . . . . . . debug information
-##
-if not IsBound(InfoANUPQSP1)  then InfoANUPQSP1 := Print;    fi;
-if not IsBound(InfoANUPQSP2)  then InfoANUPQSP2 := Ignore;   fi;
-
-##  ANUPQtmpDir can be used to supply a name for a temporary directory.
-if not IsBound( ANUPQtmpDir ) then ANUPQtmpDir := "ThisIsAHack"; fi;
-
-#############################################################################
-##
 #F  ANUPQSPerror( <param> )  . . . . . . . . . . . . report illegal parameter
 ##
 InstallGlobalFunction( ANUPQSPerror, function( param )
@@ -152,8 +144,6 @@ InstallGlobalFunction( ANUPQSPerror, function( param )
     "    \"Exponent\", <exponent>\n",
     "    \"Metabelian\"\n",
     "    \"OutputLevel\", <level>\n",
-    "    \"TmpDir\"\n",
-    "    \"Verbose\"\n",
     "    \"SetupFile\", <file>\n",
     "Illegal Parameter: \"", param, "\"" );
 end );
