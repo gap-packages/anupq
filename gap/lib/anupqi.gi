@@ -2449,22 +2449,27 @@ end );
 
 #############################################################################
 ##
-#F  PqPGRestoreGroupFromFile(<i>, <cls>, <n>) . u ver of p-G/A p-G menu opt 3
+#F  PqPGSetDescendantToPcp( <i>, <cls>, <n> ) . u ver of p-G/A p-G menu opt 3
+#F  PqPGSetDescendantToPcp( <cls>, <n> )
+#F  PqPGSetDescendantToPcp( <i> [: Filename := <name> ])
+#F  PqPGSetDescendantToPcp([: Filename := <name> ])
+#F  PqPGRestoreGroupFromFile(<i>, <cls>, <n>)
 #F  PqPGRestoreGroupFromFile( <cls>, <n> )
 #F  PqPGRestoreGroupFromFile( <i> [: Filename := <name> ])
 #F  PqPGRestoreGroupFromFile([: Filename := <name> ])
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+##  for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
 ##  binary to restore group <n> of class <cls> from a temporary  file,  where
 ##  <cls> and <n> are positive integers, or the group stored  in  <name>.  In
 ##  the `Filename' option forms, the option defaults to the last filename  in
 ##  which a presentation was stored by the `pq' binary.
 ##
 ##  *Note:*
-##  For those  familiar  with  the  `pq'  binary,  `PqPGRestoreGroupFromFile'
-##  performs option 3 of the main or advanced $p$-Group Generation menu.
+##  For those familiar with the  `pq'  binary,  `PqPGSetDescendantToPcp'  and
+##  `PqPGRestoreGroupFromFile' perform option  3  of  the  main  or  advanced
+##  $p$-Group Generation menu.
 ##
-InstallGlobalFunction( PqPGRestoreGroupFromFile, function( arg )
+InstallGlobalFunction( PqPGSetDescendantToPcp, function( arg )
 local len, datarec, cls, n;
   len := Length(arg);
   if len > 3 or not(ForAll(arg, IsPosInt)) then

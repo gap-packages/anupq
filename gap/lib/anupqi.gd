@@ -692,10 +692,17 @@ DeclareGlobalFunction( "PQ_PG_RESTORE_GROUP" );
 
 #############################################################################
 ##
-#F  PqPGRestoreGroupFromFile(<i>, <cls>, <n>) . u ver of p-G/A p-G menu opt 3
+#F  PqPGSetDescendantToPcp( <i>, <cls>, <n> ) . u ver of p-G/A p-G menu opt 3
+#F  PqPGSetDescendantToPcp( <cls>, <n> )
+#F  PqPGSetDescendantToPcp( <i> [: Filename := <name> ])
+#F  PqPGSetDescendantToPcp([: Filename := <name> ])
+#F  PqPGRestoreGroupFromFile(<i>, <cls>, <n>)
 #F  PqPGRestoreGroupFromFile( <cls>, <n> )
+#F  PqPGRestoreGroupFromFile( <i> [: Filename := <name> ])
+#F  PqPGRestoreGroupFromFile([: Filename := <name> ])
 ##
-DeclareGlobalFunction( "PqPGRestoreGroupFromFile" );
+DeclareGlobalFunction( "PqPGSetDescendantToPcp" );
+DeclareSynonym( "PqPGRestoreGroupFromFile", PqPGSetDescendantToPcp );
 
 #############################################################################
 ##
