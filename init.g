@@ -6,22 +6,14 @@
 ##  @(#)$Id$
 ##
 
-##  ANUPQ package 1.2 requires GAP 4.3fix4 ... compatibility with 4.2 futile
-##  Compatibility with GAP 4.2
-#if not IsBound( PolycyclicFactorGroupNC ) then
-#    PolycyclicFactorGroupNC := PolycyclicFactorGroup;
-#fi;
-#
-#if not IsBound( PcGroupFpGroupNC ) then
-#    PcGroupFpGroupNC := PcGroupFpGroup;
-#fi;
-
-ANUPQPackageVersion := function()
-  local versionfile, version;
-  versionfile := Filename( DirectoriesPackageLibrary("anupq", ""), "VERSION" );
-  version := StringFile(versionfile);
-  return version{[1..Length(version) - 1]};
-end;
+if not IsBound(GAPInfo) then
+  BindGlobal("GAPInfo",
+    rec(DirectoriesTemporary := DIRECTORIES_TEMPORARY,
+        PackagesInfo := rec(anupq := [rec(Version :=
+          Chomp(StringFile(Filename( DirectoriesPackageLibrary("anupq", ""),
+                                     "VERSION" ))))])
+       ));
+fi;
 
 ##  Install the documentation
 DeclarePackageAutoDocumentation( "ANUPQ", "doc", "ANUPQ",
@@ -30,7 +22,7 @@ DeclarePackageAutoDocumentation( "ANUPQ", "doc", "ANUPQ",
 ##
 ##  Announce the package version and test for the existence of the binary.
 ##
-DeclarePackage( "anupq", ANUPQPackageVersion(),
+DeclarePackage( "anupq", GAPInfo.PackagesInfo.anupq[1].Version,
   function()
     local path;
 
@@ -73,11 +65,6 @@ ReadPkg( "anupq", "lib/anupqi.gd" );
 ReadPkg( "anupq", "lib/anupqid.gd" );
 ReadPkg( "anupq", "lib/anustab.gd" );
 ReadPkg( "anupq", "lib/anupqxdesc.gd" );
-##  ANUPQ package 1.2 requires GAP 4.3fix4 ... compatibility with 4.2 futile
-#if not CompareVersionNumbers( VERSION, "4.3" ) then
-#    ReadPkg( "anupq", "lib/anupq4r2cpt.gd" );
-#    ReadPkg( "anupq", "lib/anupq4r2cpt.gi" );
-#fi;
 ReadPkg( "anupq", "lib/anupqhead.g" );
 
 #E  init.g . . . . . . . . . . . . . . . . . . . . . . . . . . . .  ends here

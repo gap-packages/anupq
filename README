@@ -51,17 +51,27 @@ HP 9000/700 and  HP  9000/800  running  HP-UX,  a  MIPS  running  RISC/os
 Berkeley, a NeXTstation running NeXTSTEP  3.0,  SUNs  running  SunOS  and
 Intel Pentium based PCs running Linux.
 
-You can download `anupq-<XXX>.zoo', for some version number <XXX>,  which
-is a `zoo' archive containing the ANUPQ package from the same  places  as
-GAP. The main FTP servers are:
+You can download  `anupq-XXX.zoo' (where `XXX'  is  the  package  version
+number) from the home page for the ANUPQ package
 
-ftp://ftp.gap-system.org/gap/share/
-ftp://ftp.math.rwth-aachen.de/pub/gap/share/
+http://www.math.rwth-aachen.de/~Greg.Gamble/ANUPQ/ (Germany)
 
-`anupq.zoo' is also available via the GAP www page at
+or the Australian mirrors
 
-http://www.gap-system.org/Info4/share.html
-http://www.math.rwth-aachen.de/~GAP/Info4/share.html
+http://www.maths.curtin.edu.au/~gregg/ANUPQ/       (Perth, Australia)
+http://www.itee.uq.edu.au/~gregg/ANUPQ/            (Queensland, Australia)
+
+or via the Packages links from the GAP sites
+
+http://www.gap-system.org/                         (UK)
+http://www.math.rwth-aachen.de/~GAP/               (Germany)
+http://mirrors.ccs.neu.edu/GAP/NEU/                (USA)
+
+or the GAP ftp servers
+
+ftp://ftp-gap.dcs.st-and.ac.uk/pub/gap/gap4/accpkg/
+ftp://ftp.math.rwth-aachen.de/pub/gap4/accpkg/
+ftp://ftp.ccs.neu.edu/pub/mirrors/ftp-gap.dcs.st-and.ac.uk/pub/gap/gap4/accpkg/
 
                       Installing the ANUPQ package
                       ----------------------------
@@ -213,12 +223,12 @@ tests, just type:
 
 Some of the tests the script runs take a while. Please be  patient.  Note
 that since version 1.2, the ANUPQ package requires at least  GAP  4.3fix4
-and updates to the AutPGrp package provided at the time fix4 of  GAP  4.3
-was released  (the testPq script checks for these).  The  output  you see
-should be something like the following:
+and at least version 1.1 of the AutPGrp package (the testPq script checks
+for these).  For GAP 4.4 one requires version 1.2 of the AutPGrp package.
+The output you see should be something like the following:
 
   Made dir: /tmp/testPq
-  Testing installation of ANUPQ Package (version 1.5)
+  Testing installation of ANUPQ Package (version 2.0)
   
   The first two tests check that the pq C program compiled ok.
   Testing the pq binary ... OK.
@@ -226,15 +236,15 @@ should be something like the following:
   The pq C program compiled ok!
   
   The next tests check that you have the right version of GAP
-  for version 1.5 of the ANUPQ package and that GAP is finding
+  for version 2.0 of the ANUPQ package and that GAP is finding
   the right versions of the ANUPQ and AutPGrp packages.
   
   Checking GAP ...
    pq binary made with GAP set to: /usr/local/bin/gap
    Starting GAP to determine version and package availability ...
-    GAP version (4.3fix4) ... OK.
-    GAP found ANUPQ package (version 1.5) ... good.
-    GAP found AutPGrp package (version 1.1) ... good.
+    GAP version (4.4) ... OK.
+    GAP found ANUPQ package (version 2.0) ... good.
+    GAP found AutPGrp package (version 1.2) ... good.
    GAP is OK.
 
   Checking the link between the pq binary and GAP ... OK.
@@ -273,5 +283,5 @@ the problem; so please include:
     e-mail: gregg@math.rwth-aachen.de)
     www:    http://www.math.rwth-aachen.de/~Greg.Gamble
   -- 9 October, 2001; 18 February, 2002; 16 April, 2002; 
-     3 November, 2002; 13 April, 2003.
+     3 November, 2002; 13 April, 2003; 28 January, 2004.
 

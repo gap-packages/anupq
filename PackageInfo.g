@@ -1,19 +1,19 @@
 #############################################################################
 ##
-#W  PkgInfo.g               ANUPQ Package                         Greg Gamble
+#W  PackageInfo.g             ANUPQ Package                       Greg Gamble
 #W                                                               Frank Lübeck
 ##
 #H  @(#)$Id$
 
 SetPackageInfo( rec(
 
-  PkgName := "ANUPQ",
-  Version := "1.5",
-  Date    := "13/04/2003",
-  ArchiveURL 
-          := "http://www.math.rwth-aachen.de/~Greg.Gamble/ANUPQ/anupq-1.5",
+  PackageName := "ANUPQ",
+  Subtitle    := "ANU p-Quotient",
+  Version     := "2.0",
+  Date        := "04/02/2004",
+  ArchiveURL  := "http://www.math.rwth-aachen.de/~Greg.Gamble/ANUPQ/anupq-2.0",
   ArchiveFormats 
-          := ".zoo",
+              := ".zoo",
 
 ##    - if no 'TextFiles' or 'BinaryFiles' are given and a .zoo archive is
 ##      provided, then the files in that archive with a "!TEXT!" comment are
@@ -37,7 +37,7 @@ SetPackageInfo( rec(
       WWWHome       := "http://www.math.rwth-aachen.de/~Greg.Gamble",
       PostalAddress := Concatenation(
                          "Greg Gamble\n",
-                         "School of Mathematics and Statistics\n",
+                         "Department of Mathematics and Statistics\n",
                          "Curtin University of Technology\n",
                          "GPO Box U 1987\n",
                          "Perth WA 6845\n",
@@ -77,11 +77,10 @@ SetPackageInfo( rec(
     )
   ],  
 
-  Status  := "accepted",
+  Status      := "accepted",
   CommunicatedBy 
-          := "Charles Wright (Eugene)",
-  AcceptDate 
-          := "04/2002",
+              := "Charles Wright (Eugene)",
+  AcceptDate  := "04/2002",
 
 ##  For a central overview of all packages and a collection of all package
 ##  archives it is necessary to have two files accessible which should be
@@ -95,7 +94,8 @@ SetPackageInfo( rec(
 ##  
 
   README_URL := "http://www.math.rwth-aachen.de/~Greg.Gamble/ANUPQ/README",
-  PkgInfoURL := "http://www.math.rwth-aachen.de/~Greg.Gamble/ANUPQ/PkgInfo.g",
+  PackageInfoURL 
+         := "http://www.math.rwth-aachen.de/~Greg.Gamble/ANUPQ/PackageInfo.g",
 
 ##  Here you  must provide a short abstract explaining the package content 
 ##  in HTML format (used on the package overview Web page) and an URL 
@@ -137,7 +137,9 @@ SetPackageInfo( rec(
     BookName  := "ANUPQ",
     # format/extension can be one of .zoo, .tar.gz, .tar.bz2, -win.zip
     Archive   := 
-      "http://www.math.rwth-aachen.de/~Greg.Gamble/ANUPQ/anupq-1.5.zoo",
+      "http://www.math.rwth-aachen.de/~Greg.Gamble/ANUPQ/anupq-2.0.zoo",
+    ArchiveURLSubset
+              := ["doc", "htm"],
     HTMLStart := "htm/chapters.htm",
     PDFFile   := "doc/manual.pdf",
     # the path to the .six file used by GAP's help system
@@ -147,7 +149,7 @@ SetPackageInfo( rec(
     LongTitle := "ANU p-Quotient",
     # Should this help book be autoloaded when GAP starts up? This should
     # usually be 'true', otherwise say 'false'. 
-    AutoLoad := true
+    Autoload := true
   ),
 
 ##  Are there restrictions on the operating system for this package? Or does
@@ -199,7 +201,7 @@ SetPackageInfo( rec(
     " (", ~.PackageDoc.LongTitle, " package)\n",
     "C code by  ", ~.Persons[3].FirstNames, " ", ~.Persons[3].LastName,
                   " <", ~.Persons[3].Email, ">\n",
-    "           (ANU pq binary version: 1.5)\n",
+    "           (ANU pq binary version: 1.6)\n",
     "GAP code by ", ~.Persons[2].FirstNames, " ", ~.Persons[2].LastName,
                   " <", ~.Persons[2].Email, ">\n",
     "        and   ", ~.Persons[1].FirstNames, " ", ~.Persons[1].LastName,

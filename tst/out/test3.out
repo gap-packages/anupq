@@ -36,6 +36,7 @@ Input 2 exponents for image of pcp generator 2: 0 1
 Now enter the data for automorphism 2
 Input 2 exponents for image of pcp generator 1: 4 1 
 Input 2 exponents for image of pcp generator 2: 4 0 
+Input number of soluble generators for automorphism group: 0 
 
 Select option: 5 
 Input class bound on descendants: 5 
