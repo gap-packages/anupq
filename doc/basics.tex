@@ -10,14 +10,17 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Chapter{Mathematical Background and Terminology}
 
-In this chapter we will give a brief description of  the  mathematical
-notions used in the algorithms implemented in  the  ANU  `pq'  program
-that are made accessible from {\GAP} through this package. For  proofs
-and details  we  will  point  to  relevant  places  in  the  published
-literature. Also we will try to give some explanation  of  terminology
+In this chapter  we will give a brief  description of the mathematical
+notions used  in the  algorithms implemented in  the ANU  `pq' program
+that are made accessible from  {\GAP} through this package. For proofs
+and  details  we  will  point  to relevant  places  in  the  published
+literature. Also we  will try to give some  explanation of terminology
 that may help to use the ``low-level'' interactive functions described
-in Section~"Low-level Interactive ANUPQ Functions based on menu  items
-of the pq program".
+in Section~"Low-level Interactive ANUPQ  Functions based on menu items
+of the pq program".  However,  users who intend to use these functions
+are  strongly  advised to  acquire  a  thorough  understanding of  the
+algorithms from the quoted literature.  There is little or no checking
+done in these functions and naive use may result in incorrect results.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Basic notions}
@@ -39,12 +42,12 @@ $1 \le j \< k \le n$.
 This is called a *power-commutator* presentation (or *pc presentation*
 or *pcp*) of $G$, generators from such a presentation will be referred
 to as *pc generators*. In terms of such pc generators every element of
-$G$ can be written in a  ``normal  form''  $a_1^{e_1},\dots,a_n^{e_n}$
-with $0 \le e_i \< p$. Moreover any given product  of  the  generators
-and their inverses can be brought into such a normal  form  using  the
-defining relations in the above presentation  as  rewrite  rules.  Any
-such process is called *collection*. For  the  discussion  of  various
-collection methods see \cite{LGS90} and \cite{VL90a}.
+$G$ can  be written  in a ``normal  form'' $a_1^{e_1},\dots,a_n^{e_n}$
+with $0  \le e_i \< p$.  Moreover any given product  of the generators
+can be brought into such a normal form using the defining relations in
+the above presentation  as rewrite rules.  Any such  process is called
+*collection*.  For the  discussion of  various collection  methods see
+\cite{LGS90} and \cite{VL90a}.
 
 \index{consistent}\index{confluent  rewriting system}\index{confluent}
 Every $p$-group of order $p^n$ has such a pcp on  $n$  generators  and
@@ -75,6 +78,8 @@ $$
  c(ba) &=& (cb)a                                 \hfill&{\rm (Type\ 3)}\cr
 }
 $$
+See \cite{VL84} for a description of a sufficient set of consistency
+conditions in the context of the $p$-quotient algorithm.
 
 \goodbreak%
 
