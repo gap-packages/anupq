@@ -46,9 +46,10 @@ gap> PqExample();
 #I  Examples with names ending in `.g' also have  only  one  form.  Other
 #I  examples have both a non-interactive and an  interactive  form;  call
 #I  `PqExample' with 2nd argument `PqStart' to get the  interactive  form
-#I  of the example. The substring `SP' in an  example  name  indicates  a
-#I  Standard  Presentation  example  and  `Rel'  indicates  it  uses  the
-#I  `Relators' option.
+#I  of the example. The substring `PG' in an  example  name  indicates  a
+#I  p-Group Generation example, `SP' indicates  a  Standard  Presentation
+#I  example, `Rel' indicates it uses  the  `Relators'  option,  and  `Id'
+#I  indicates it uses the `Identities' option.
 #I  
 #I  The following ANUPQ examples are available:
 #I  
@@ -158,7 +159,7 @@ Firstly, we run the example that allows pre-expansion of commutators (the
 function  `PqLeftNormComm'  is  provided   by   the   {\ANUPQ}   package;
 see~"PqLeftNormComm"):
 
-\beginexample
+\begintt
 gap> SetInfoLevel(InfoANUPQ, 2); #to see timing information
 gap> PqExample("11gp-i");
 #I  #Example: "11gp-i" . . . based on: examples/11gp
@@ -251,16 +252,17 @@ gap> PqPcPresentation(procId : ClassBound := 7,
 #I  Group: <grp> to lower exponent-11 central class 5 has order 11^98
 #I  Group: <grp> to lower exponent-11 central class 6 has order 11^228
 #I  Group: <grp> to lower exponent-11 central class 7 has order 11^563
-#I  Computation of presentation took 44.27 seconds
+#I  Computation of presentation took 27.04 seconds
 gap> PqSavePcPresentation(procId, ANUPQData.outfile);
 #I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-\endexample
+\endtt
 
 Now we do the same calculation using the `Relators' option. In this  way,
 the commutators are passed directly as strings to the  `pq'  program,  so
 that {\GAP} does not ``see'' them and pre-expand them.
 
-\beginexample
+\begintt
+gap> PqExample("11gp-Rel-i");
 #I  #Example: "11gp-Rel-i" . . . based on: examples/11gp
 #I  #(equivalent to "11gp-i" example but uses `Relators' option)
 #I  F, rels, procId are local to `PqExample'
@@ -269,9 +271,10 @@ gap> F := FreeGroup("a", "b", "c");
 gap> rels := ["[b, a, a, b, c]^11", "[a, b, b, a, b, c]^11", "(a * b)^11"];
 [ "[b, a, a, b, c]^11", "[a, b, b, a, b, c]^11", "(a * b)^11" ]
 gap> procId := PqStart(F : Prime := 11, Relators := rels);
-4
+2
 gap> PqPcPresentation(procId : ClassBound := 7, 
 >                              OutputLevel := 1);
+#I  Relators parsed ok.
 #I  Lower exponent-11 central series for <grp>
 #I  Group: <grp> to lower exponent-11 central class 1 has order 11^3
 #I  Group: <grp> to lower exponent-11 central class 2 has order 11^8
@@ -280,10 +283,10 @@ gap> PqPcPresentation(procId : ClassBound := 7,
 #I  Group: <grp> to lower exponent-11 central class 5 has order 11^98
 #I  Group: <grp> to lower exponent-11 central class 6 has order 11^228
 #I  Group: <grp> to lower exponent-11 central class 7 has order 11^563
-#I  Computation of presentation took 0.52 seconds
+#I  Computation of presentation took 0.27 seconds
 gap> PqSavePcPresentation(procId, ANUPQData.outfile);
 #I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-\endexample
+\endtt
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{The Identities Option and PqEvaluateIdentities Function}
@@ -295,7 +298,8 @@ compute $p$-quotients that satisfy an identity. A trivial example  better
 done using the `Exponent' option, but which nevertheless demonstrates the
 usage of the `Identities' option, is as follows:
 
-\beginexample
+\begintt
+gap> SetInfoLevel(InfoANUPQ, 1);
 gap> PqExample("B2-4-Id");
 #I  #Example: "B2-4-Id" . alternative way to generate B(2, 4) by Werner Nickel
 #I  #Generates B(2, 4) by using the `Identities' option
@@ -322,14 +326,14 @@ gap> Pq( F : Prime := 2, Identities := [ f ] );
 #I  Class 5 with 12 generators.
 <pc group of size 4096 with 12 generators>
 #I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-\endexample
+\endtt
 
 Since the identity used in the above construction of $B(2, 4)$ is just an
 exponent law, the ``right'' way to  compute  it  is  via  the  `Exponent'
 option (see~"option Exponent"), which is implemented at the C  level  and
 *is* highly optimised:
 
-\beginexample
+\begintt
 gap> PqExample("B2-4");   
 #I  #Example: "B2-4" . . . the ``right'' way to generate B(2, 4)
 #I  #Generates B(2, 4) by using the `Exponent' option
@@ -339,14 +343,14 @@ gap> F := FreeGroup("a", "b");
 gap> Pq( F : Prime := 2, Exponent := 4 );
 <pc group of size 4096 with 12 generators>
 #I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-\endexample
+\endtt
 
 The following example uses the `Identities' option to compute  a  3-Engel
 group for the prime 11. As is the case for the example  `"B2-4-Id"',  the
 example has both a non-interactive and an  interactive  form;  below,  we
 demonstrate the interactive form.
 
-\beginexample
+\begintt
 gap> PqExample("11gp-3-Engel-Id", PqStart);
 #I  #Example: "11gp-3-Engel-Id" . 3-Engel group for prime 11 by Werner Nickel
 #I  #Non-trivial example of using the `Identities' option
@@ -362,7 +366,7 @@ gap> # must satisfy the Engel identity: [u, v, v, v] = 1.
 gap> f := function(u, v) return PqLeftNormComm( [u, v, v, v] ); end;
 function( u, v ) ... end
 gap> procId := PqStart( G );
-6
+3
 gap> Q := Pq( procId : Prime := 11, Identities := [ f ] );
 #I  Evaluated 4 instances.
 #I  Class 1 with 2 generators.
@@ -380,7 +384,7 @@ gap> f( Random(Q), Random(Q) );
 gap> f( Q.1, Q.2 );
 <identity> of ...
 #I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-\endexample
+\endtt
 
 The (interactive) call to `Pq' above, is essentially equivalent to a call
 to `PqPcPresentation' with the same arguments and options followed  by  a
@@ -394,7 +398,7 @@ the `Pq' call into its low-level  equivalents,  and  set  and  unset  the
 `Identities' option to show where `PqEvaluateIdentities' fits  into  this
 scheme.
 
-\beginexample
+\begintt
 gap> PqExample("11gp-3-Engel-Id-i");
 #I  #Example: "11gp-3-Engel-Id-i" . 3-Engel grp for prime 11 by Werner Nickel
 #I  #Variation of "11gp-3-Engel-Id" broken down into its lower-level component
@@ -411,7 +415,7 @@ gap> # must satisfy the Engel identity: [u, v, v, v] = 1.
 gap> f := function(u, v) return PqLeftNormComm( [u, v, v, v] ); end;
 function( u, v ) ... end
 gap> procId := PqStart( G : Prime := 11 );
-8
+4
 gap> PqPcPresentation( procId : ClassBound := 1);
 gap> PqEvaluateIdentities( procId : Identities := [f] );
 #I  Evaluated 4 instances.
@@ -435,7 +439,7 @@ gap> f( Random(Q), Random(Q) );
 gap> f( Q.1, Q.2 );
 <identity> of ...
 #I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-\endexample
+\endtt
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{A Large Example}
