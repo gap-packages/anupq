@@ -10,10 +10,10 @@ procId := PqStart(F : Prime := 5, Exponent := 5);
 PqPcPresentation(procId : ClassBound := 6, 
 #sub <OutputLevel1> for <1> if set and ok
                           OutputLevel := 1);;
-#comment: set a different print level by supplying <OutputLevel2>
-#sub <OutputLevel2> for <3> if set and ok
-PqSetOutputLevel(procId, 3);;
 PqSetupTablesForNextClass(procId);;
 PqTails(procId, 0);;
 PqDoConsistencyChecks(procId, 0, 0);;
-PqDoExponentChecks(procId, 1, 6);;
+#comment: set a different print level by supplying <OutputLevel2>
+#sub <OutputLevel2> for <3> if set and ok
+PqSetOutputLevel(procId, 3);;
+PqDoExponentChecks(procId);;
