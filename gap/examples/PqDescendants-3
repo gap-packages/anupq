@@ -10,7 +10,7 @@ G := PcGroupFpGroup( F / [ F.1^5, F.2^5, Comm(F.2, F.1) ] );
 #procId := PqStart( G );
 #alt: sub <procId> for <G>
 des := PqDescendants( G : Metabelian, ClassBound := 3,
-                          Exponent := 5 );
+                          Exponent := 5, CapableDescendants );
 List(des, d -> Length( PCentralSeries( d, 5 ) ) - 1 );
 List(des, d -> Length( DerivedSeries( d ) ) );
 List(des, d -> Maximum( List( Elements(d), Order ) ) );
