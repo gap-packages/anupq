@@ -16,13 +16,13 @@ package, i.e.~the functions  that  manipulate  and  initiate  interactive
 dialogue with a running `pq' process (process used in  the  UNIX  sense).
 Occasionally, a user needs the ``next step''; the functions  provided  in
 this chapter make use of data from previous steps retained  by  the  `pq'
-program, thus allowing the user to interact with the `pq' program like  one
-can when one uses the `pq' program as a  stand-alone  (see~`guide.dvi'  in
-the `standalone-doc' directory).
+program, thus allowing the user to interact with the  `pq'  program  like
+one can when one uses the `pq' program as a stand-alone  (see~`guide.dvi'
+in the `standalone-doc' directory).
 
-An  interactive  {\ANUPQ}  process  is  initiated  by   `PqStart'   and
-terminated  via  `PqQuit';   these   functions   are   described   in
-Section~"Starting and Stopping Interactive ANUPQ Processes".
+An interactive {\ANUPQ} process is initiated by `PqStart' and  terminated
+via `PqQuit'; these functions  are  described  in  Section~"Starting  and
+Stopping Interactive ANUPQ Processes".
 
 Each interactive {\ANUPQ} function that manipulates  an  already  started
 interactive {\ANUPQ} process, has a form where the first argument is  the
@@ -36,6 +36,9 @@ an error if <i> is not the index of an  active  interactive  process,  or
 there are no current active interactive processes.
 
 *Notes*: 
+For technical reasons, interactive {\ANUPQ} process  are  never  assigned
+prime identification indices <i>.
+
 The global method of passing options (via `PushOptions'), should  not  be
 used with any of the interactive functions. In fact,  the  `OptionsStack'
 should be empty at the time any of the interactive functions is called.
@@ -321,25 +324,27 @@ scrapped, and `PqPCover'  proceeds  as  in  1.  or  2.  but  without  the
 \endlist
 
 \index{automorphisms!of $p$-groups}
-\>PqStandardPresentation( <i>, <p> : <options> )!{interactive} F
-\>PqStandardPresentation( <p> : <options> )!{interactive} F
-\>PqStandardPresentation( <i>, <Q> : <options> )!{interactive} F
-\>PqStandardPresentation( <Q> : <options> )!{interactive} F
-\>StandardPresentation( <i>, <p> : <options> )!{interactive} M
-\>StandardPresentation( <p> : <options> )!{interactive} M
-\>StandardPresentation( <i>, <Q> : <options> )!{interactive} M
-\>StandardPresentation( <Q> : <options> )!{interactive} M
+\>PqStandardPresentation([ <i>,] <p> : <options> )!{interactive} F
+\>PqStandardPresentation([ <i>,] <Q> : <options> )!{interactive} F
+\>PqStandardPresentation([ <i> ]: <options> )!{interactive} F
+\>StandardPresentation([ <i>,] <p> : <options> )!{interactive} M
+\>StandardPresentation([ <i>,] <Q> : <options> )!{interactive} M
+\>StandardPresentation([ <i> ]: <options> )!{interactive} M
 
-For the fp or pc group <F> of the <i>th or default  interactive  {\ANUPQ}
-process and either a prime <p> or  a  pc  <p>-group  <Q>,  the  functions
-return the <p>-quotient  of  <F>  specified  by  the  last  argument  and
-<options>, as an fp group which has a standard  presentation.  The  group
-<F> must have been given (as first argument) to `PqStart'  to  start  the
-interactive {\ANUPQ} process (see~"PqStart"). If the user supplies  a  pc
-group <Q> which must be a $p$-quotient of <F>, the package {\AutPGrp}  is
-called automatically to compute the automorphism group of <Q>;  an  error
-will occur that asks the user to install the package  {\AutPGrp}  if  the
-automorphism group cannot be computed.
+return, for the  <i>th  or  default  interactive  {\ANUPQ}  process,  the
+<p>-quotient of the group <F> of the process, specified by  the  argument
+<p> (a prime) or <Q> (a pc <p>-group), if given, and <options>.  must  be
+an fp or pc group (<F> should have been  given  (as  first  argument)  to
+`PqStart' to start the interactive {\ANUPQ} process; see~"PqStart"),  and
+must be an fp or pc group. It is only permissible to  omit  the  argument
+<p> or <Q>, in the case where <F> is a pc group and it *knows* that it is
+a <p>-group.
+
+If the user supplies a pc group <Q> which must be a $p$-quotient of  <F>,
+the  package  {\AutPGrp}  is  called   automatically   to   compute   the
+automorphism group of <Q>; an error will occur  that  asks  the  user  to
+install the package  {\AutPGrp}  if  the  automorphism  group  cannot  be
+computed.
 
 Following the colon, <options> is a selection of  the  options  from  the
 following list, separated by commas like record components; this list  is
@@ -1309,33 +1314,34 @@ performs menu item 21 of the Advanced $p$-Quotient menu.
 \>PqWritePcPresentation( <filename> ) F
 
 for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
-program to write a pc presentation of a  previously-computed  quotient  of
+program to write a pc presentation of a previously-computed  quotient  of
 the group of that process, to the file with  name  <filename>.  Here  the
 group of a process is the one given as first argument when `PqStart'  was
 called to initiate that process (for process <i> the group is  stored  as
 `ANUPQData.io[<i>].group').  If  the  first  character  of   the   string
 <filename> is not `/', <filename> is assumed to be the path of a writable
 file relative to the directory in which  {\GAP}  was  started.  If  a  pc
-presentation has not been previously computed by the  `pq'  program,  then
+presentation has not been previously computed by the `pq'  program,  then
 `pq'   is   called   to   compute   it   first,   effectively    invoking
 `PqPcPresentation' (see~"PqPcPresentation").
 
-*Note:* For those familiar with the `pq' program,  `PqPcWritePresentation'
+*Note:* For those familiar with the `pq' program, `PqPcWritePresentation'
 performs menu item 25 of the Advanced $p$-Quotient menu.
 
-\>PqWriteCompactDescription( <i> ) F
-\>PqWriteCompactDescription() F
-
-for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
-program to write a compact description 
-
-*OF ....*
-
-to a file.
-
-*Note:* 
-For those familiar  with  the  `pq'  program,  `PqWriteCompactDescription'
-performs menu item 26 of the Advanced $p$-Quotient menu.
+%We may include this in the future.
+%\>PqWriteCompactDescription( <i> ) F
+%\>PqWriteCompactDescription() F
+%
+%for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
+%program to write a compact description 
+%
+%*OF ....*
+%
+%to a file.
+%
+%*Note:* 
+%For those familiar  with  the  `pq'  program,  `PqWriteCompactDescription'
+%performs menu item 26 of the Advanced $p$-Quotient menu.
 
 *Commands from the Standard Presentation menu*
 

@@ -313,17 +313,21 @@ gap> PqPCover( F : Prime := 5, ClassBound := 5, Metabelian, Relators := rels);
 \index{automorphisms!of $p$-groups}
 \>PqStandardPresentation( <F>, <p> : <options> ) F
 \>PqStandardPresentation( <F>, <Q> : <options> ) F
+\>PqStandardPresentation( <F> : <options> ) F
 \>StandardPresentation( <F>, <p> : <options> ) M
 \>StandardPresentation( <F>, <Q> : <options> ) M
+\>StandardPresentation( <F> : <options> ) M
 
-Here <F> is an fp or pc group and the second argument is either  a  prime
-<p> or a pc <p>-group <Q>. If the user supplies a pc group <Q> as  second
-argument which is a $p$-quotient of <F>, the package {\AutPGrp} is called
-automatically to compute the automorphism group of  <Q>;  an  error  will
-occur that asks the  user  to  install  the  package  {\AutPGrp}  if  the
-automorphism  group  cannot  be  computed.  The  functions   return   the
-<p>-quotient of <F>, specified by the second argument and  <options>,  as
-an fp group which has a standard presentation.
+Here <F> is an fp or pc group and the second argument, when  present,  is
+either a prime <p> or a pc <p>-group <Q>. The second argument can only be
+omitted in the case where <F> is a pc group and it *knows* that it  is  a
+<p>-group. If the user supplies a pc group <Q> as second  argument  which
+is a $p$-quotient of <F>, the package {\AutPGrp} is called  automatically
+to compute the automorphism group of <Q>; an error will occur  that  asks
+the user to install the package  {\AutPGrp}  if  the  automorphism  group
+cannot be  computed.  The  functions  return  the  <p>-quotient  of  <F>,
+specified by the second argument and <options>, as an fp group which  has
+a standard presentation.
 
 Following the colon, <options> is a selection of  the  options  from  the
 following  list,  separated  by  commas  like  record   components   (see
