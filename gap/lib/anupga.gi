@@ -14,6 +14,9 @@
 #Y  Copyright 1992-1994,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.20  2001/11/20 18:49:16  werner
+#H  Handle automorphism returned from the ANUPQ more carefully.          WN
+#H
 #H  Revision 1.19  2001/11/20 17:16:49  werner
 #H  Delay setting up the automorphism group for descendants.  We store the
 #H  information returned by the ANUPQ in an attribute ANUPQAUtomorphisms and
@@ -416,11 +419,16 @@ function( G, gens, automs, isSoluble )
 
 end );
 
-InstallMethod( AutomorphismGroup,
-        "automorphism from ANUPQ output",
-        [ IsPGroup and HasANUPQAutomorphisms ],
-        100,
-function( G )
+##
+##  The following method does not return the full automorphisms group,
+##  but only a supplement to the inner automorphism.
+##
+#InstallMethod( AutomorphismGroup,
+#        "automorphism from ANUPQ output",
+#        [ IsPGroup and HasANUPQAutomorphisms ],
+#        100,
+
+SupplementInnerAutomorphisms := function( G )
     local   gens,  automs,  A;
 
     gens := ANUPQAutomorphisms( G ).gens;
@@ -445,7 +453,7 @@ function( G )
     SetAutomorphismGroup( G, A );
 
     return A;
-end );
+end;
 
 #############################################################################
 ##
