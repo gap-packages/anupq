@@ -14,6 +14,50 @@ Revision.anupqios_gi :=
 
 #############################################################################
 ##
+#F  PQ_START( <workspace>, <setupfile> ) . . . open a stream for a pq process
+##
+##  ensures the images file written by the `pq' binary when in  the  Standard
+##  Presentation menu is empty, opens an io stream  to  a  `pq'  process  (if
+##  <setupfile> is `fail') or a file stream for a setup file (if  <setupfile>
+##  is a filename i.e. a string) and returns  a  record  with  fields  `menu'
+##  (current menu for the `pq' binary), `opts' (the runtime switches used  by
+##  the `pq' process), `workspace' (the value of <workspace> which should  be
+##  a positive integer), and `stream' (the io or file stream opened).
+##
+InstallGlobalFunction(PQ_START, function( workspace, setupfile )
+local opts, iorec;
+  PrintTo(ANUPQData.SPimages, ""); #to ensure it's empty
+  #if setupfile = fail then
+  #  opts := [ "-G" ];
+  #else
+    opts := [ "-i", "-k", "-g" ];
+  #fi;
+  if workspace <> 10000000 then
+    Append( opts, [ "-s", String(workspace) ] );
+  fi;
+  iorec := rec( menu := "SP", 
+                opts := opts,
+                workspace := workspace );
+  if setupfile = fail then
+    iorec.stream := InputOutputLocalProcess( ANUPQData.tmpdir, 
+                                             ANUPQData.binary, 
+                                             opts );
+    if iorec.stream = fail then
+      Error( "sorry! Run out of pseudo-ttys. Can't open an io stream.\n" );
+    fi;
+    FLUSH_PQ_STREAM_UNTIL(iorec.stream, 4, 2, PQ_READ_NEXT_LINE, IS_PQ_PROMPT);
+  else
+    iorec.stream := OutputTextFile(setupfile, false);
+    iorec.setupfile := setupfile;
+    ToPQk(iorec, [ "#pq called with flags: '",
+                   JoinStringsWithSeparator(opts, " "),
+                   "'" ]);
+  fi;
+  return iorec;
+end );
+
+#############################################################################
+##
 #F  PqStart( <G>, <workspace> )  . . .  Initiate an interactive ANUPQ session
 #F  PqStart( <G> )
 #F  PqStart( <workspace> )
@@ -36,36 +80,29 @@ local opts, iorec, G, workspace;
     Error("at most two arguments expected.\n");
   fi;
 
-  iorec := rec( menu   := "SP" );
   if not IsEmpty(arg) and IsGroup( arg[1] ) then
     G := arg[1];
     if not( IsFpGroup(G) or IsPcGroup(G) ) then
       Error( "argument <G> should be an fp group or a pc group\n" );
     fi;
-    iorec.group := G;
     arg := arg{[2 .. Length(arg)]};
   fi;
 
-  opts := [ "-i", "-k", "-g" ];
   if not IsEmpty(arg) then
     workspace := arg[1];
     if not IsPosInt(workspace) then
       Error("argument <workspace> should be a positive integer.\n");
     fi;
-    Append( opts, [ "-s", String(workspace) ] );
-    iorec.workspace := workspace;
   else
-    iorec.workspace := 10000000;
+    workspace := 10000000;
   fi;
 
-  PrintTo(ANUPQData.SPimages, ""); #to ensure it's empty
-  iorec.stream := InputOutputLocalProcess(ANUPQData.tmpdir, ANUPQData.binary, opts);
-  if iorec.stream = fail then
-    Error( "sorry! Run out of pseudo-ttys. Can't initiate stream.\n" );
+  iorec := PQ_START( workspace, fail );
+  if IsBound( G ) then
+    iorec.group := G;
   fi;
 
   Add( ANUPQData.io, iorec );
-  FLUSH_PQ_STREAM_UNTIL(iorec.stream, 4, 2, PQ_READ_NEXT_LINE, IS_PQ_PROMPT);
   return Length(ANUPQData.io);
 end);
 
@@ -266,7 +303,7 @@ end);
 ##
 #F  IS_PQ_PROMPT( <line> ) . . . .  checks whether the line is a prompt of pq
 ##
-##  returns `true' if the string  <line>  ends  in  `":  "'  or  `"?  "',  or
+##  returns `true' if the string  <line>  ends  in  `": "'  or  `"? "',  or
 ##  otherwise returns `false'.
 ##
 InstallGlobalFunction(IS_PQ_PROMPT, function(line)
@@ -277,11 +314,24 @@ end);
 
 #############################################################################
 ##
-#F  PQ_READ_ALL_LINE . . read a line from a stream until a sentinel character
+#F  IS_PQ_REQUEST( <line> ) . .  checks whether the line is a request from pq
+##
+##  returns `true' if the string <line> ends in `"!\n"' or otherwise  returns
+##  `false'.
+##
+InstallGlobalFunction(IS_PQ_REQUEST, function(line)
+local len;
+  len := Length(line);
+  return 1 < len  and line{[len - 1 .. len]} = "!\n";
+end);
+
+#############################################################################
+##
+#F  PQ_READ_ALL_LINE(<iostream>) . read line from stream until sentinel char.
 ##
 ##  Essentially, like `ReadLine' but does not return a line fragment; if  the
 ##  initial `ReadLine' call doesn't return `fail', it waits until it has  all
-##  the line (i.e. a line that ends with a '\n', or "? "  or  ": ")  before
+##  the line (i.e. a line that ends with a '\n',  or  "? "  or  ": ")  before
 ##  returning.
 ##
 InstallGlobalFunction(PQ_READ_ALL_LINE, function(iostream)
@@ -295,8 +345,10 @@ local line, moreOfline;
     #else
     #  Sleep(1);
     fi;
-  until 0 < Length(line) and
-        (line[Length(line)] = '\n' or IS_PQ_PROMPT(line) );
+    Info(InfoANUPQ, 5, "PQ_READ_ALL_LINE line: ", line);
+  until 0 < Length(line) and ( line[Length(line)] = '\n' or 
+                               IS_PQ_PROMPT(line) or 
+                               IS_PQ_REQUEST(line) );
   return line;
 end);
 
@@ -354,13 +406,13 @@ end);
 
 #############################################################################
 ##
-#F  ToPQk( <datarec>, <list> ) . . . . . . . . writes a list to a pq iostream
+#F  ToPQk( <datarec>, <list> ) . . . . . . . . . writes a list to a pq stream
 ##
-##  writes list  <list> to  iostream  <datarec>.stream  with  a  ```ToPQ> '''
-##  prompt to `Info' at `InfoANUPQ' level 3 and returns `true' if  successful
-##  and `fail' otherwise. The ``k'' at  the  end  of  the  function  name  is
-##  mnemonic for ``keyword'' (for ``keyword'' inputs to the `pq'  binary  one
-##  never wants to flush output).
+##  writes list <list> to iostream `<datarec>.stream' and `Info's  <list>  at
+##  `InfoANUPQ' level 3 after a ```ToPQ> ''' prompt, and  returns  `true'  if
+##  successful and `fail' otherwise. The ``k'' at the  end  of  the  function
+##  name is mnemonic for ``keyword'' (for  ``keyword''  inputs  to  the  `pq'
+##  binary one never wants to flush output).
 ##
 InstallGlobalFunction(ToPQk, function(datarec, list)
 local string;
@@ -502,17 +554,42 @@ end);
 
 #############################################################################
 ##
-#F  ToPQ( <datarec>, <list> ) .  write list to pq iostream (& int'vely flush)
+#F  ToPQ(<datarec>, <list>) .  write list to pq stream (& for iostream flush)
 ##
-##  writes list <list> to iostream  <stream>  and  then,  if  an  interactive
-##  function (determined by checking <datarec>) calls `FLUSH_PQ_STREAM_UNTIL'
-##  to flush all `pq' output at `InfoANUPQ' level 2.
+##  calls `ToPQk' to write list <list>  to  iostream  `<datarec>.stream'  and
+##  `Info' <list> at `InfoANUPQ' level 3 after  a  ```ToPQ> '''  prompt,  and
+##  then, if we are not just writing a setup  file  (determined  by  checking
+##  whether `<datarec>.setupfile' is bound), calls `FLUSH_PQ_STREAM_UNTIL' to
+##  flush all `pq' output at `InfoANUPQ' level 2, and finally returns  `true'
+##  if successful and `fail' otherwise. If we are not writing  a  setup  file
+##  the last line flushed (or `fail') is saved in `<datarec>.line'.
 ##
 InstallGlobalFunction(ToPQ, function(datarec, list)
-  ToPQk(datarec, list);
-  if datarec <> ANUPQData then # if not a non-interactive call
-    FLUSH_PQ_STREAM_UNTIL(datarec.stream,2,2,PQ_READ_NEXT_LINE,IS_PQ_PROMPT);
+local ok;
+  ok := ToPQk(datarec, list);
+  if ok = true and not IsBound( datarec.setupfile ) then
+    datarec.line := FLUSH_PQ_STREAM_UNTIL( datarec.stream, 2, 2,
+                                           PQ_READ_NEXT_LINE, 
+                                           line -> IS_PQ_PROMPT(line) or
+                                                   IS_PQ_REQUEST(line) );
+  
+    while datarec.line <> fail and Length(datarec.line) >= 5 and 
+          datarec.line{[Length(datarec.line)-5..Length(datarec.line)-1]} 
+               = "HELP!" do
+
+      Read( Filename( ANUPQData.tmpdir, "GAP_input" ) );
+      Read( Filename( ANUPQData.tmpdir, "GAP_rep" ) );
+
+      ToPQ( datarec, [ "doneX" ] );
+    od;
+  
+    if IsString(datarec.line) then
+      ok := true;
+    else
+      ok := fail;
+    fi;
   fi;
+  return ok;
 end);
 
 #############################################################################
@@ -544,39 +621,25 @@ local interactive, ioArgs, datarec, optrec, optnames, opts;
     ioArgs := args{[1..Length(args) - len + 1]};
     ANUPQ_IOINDEX_ARG_CHK(ioArgs);
     datarec := ANUPQData.io[ ANUPQ_IOINDEX(ioArgs) ];
-    datarec.outfname := ANUPQData.outfile;
+    datarec.outfname := ANUPQData.outfile; # not always needed
     datarec.calltype := "interactive";
   elif Length(args) = len then
-    datarec := ANUPQData;
-    datarec.menu := "SP";
+    if not arg1type( args[1] ) then
+      Error( "first argument <args[1]> must be ", arg1err, ".\n" );
+    fi;
+    ANUPQData.ni := PQ_START( VALUE_PQ_OPTION( "PqWorkspace", 10000000 ),
+                              VALUE_PQ_OPTION( "SetupFile" ) );
+    datarec := ANUPQData.ni;
     datarec.(arg1) := args[1];
-    if not arg1type( datarec.(arg1) ) then
-      Error( "first argument must be ", arg1err, ".\n" );
-    fi;
-    datarec.setupfile := VALUE_PQ_OPTION( "SetupFile" );
-    datarec.workspace := VALUE_PQ_OPTION( "PqWorkspace" );
-    datarec.opts := ["-i", "-k", "-g"];
-    if IsInt(datarec.workspace) then
-      Add(datarec.opts, "-s");
-      Add(datarec.opts, String(datarec.workspace) );
-    else
-      datarec.workspace := 10000000;
-    fi;
-    opts := JoinStringsWithSeparator(datarec.opts, " ");
-    if datarec.setupfile = fail then
-      datarec.stream := OutputTextFile(ANUPQData.infile, false);
-      ToPQk(datarec, [ "#pq called with flags: '", opts, "'" ]);
-      datarec.outfname := ANUPQData.outfile;
-    else
-      datarec.stream := OutputTextFile(ANUPQData.setupfile, false);
-      ToPQk(datarec, 
-            [ "#pq input file ... use with flags: '", opts, "'" ]);
+    if IsBound( datarec.setupfile ) then
       datarec.outfname := "PQ_OUTPUT";
+    else
+      datarec.outfname := ANUPQData.outfile; # not always needed
     fi;
     datarec.calltype := "non-interactive";
   else
     # GAP 3 way of passing options is supported in non-interactive use
-    datarec := ANUPQData;
+    datarec := ANUPQData.ni;
     if IsRecord(args[len + 1]) then
       optrec := ShallowCopy(args[len + 1]);
       optnames := Set( REC_NAMES(optrec) );
@@ -599,38 +662,21 @@ end );
 ##
 #F  PQ_COMPLETE_NONINTERACTIVE_FUNC_CALL( <datarec> )
 ##
-##  writes the final commands to the `pq' input/setup file and when not  just
-##  creating a setup file calls `pq' with the input file; if just creating  a
-##  setup file, `true'  is  returned,  or  otherwise  the  return  value  (an
-##  integer) of the call to `Process' is returned.
+##  writes the final commands to the `pq' stream/setup file so that the  `pq'
+##  binary makes a clean exit.
 ##
 InstallGlobalFunction(PQ_COMPLETE_NONINTERACTIVE_FUNC_CALL, function(datarec)
 local output, proc;
   PQ_MENU(datarec, "SP");
-  ToPQ(datarec, [ "0  #exit program" ]);
+  ToPQk(datarec, [ "0  #exit program" ]);
   CloseStream(datarec.stream);
 
-  if datarec.setupfile <> fail then
+  if IsBound( datarec.setupfile ) then
     Info(InfoANUPQ, 1, "Input file: '", datarec.setupfile, "' written.");
     Info(InfoANUPQ, 1, "Run `pq' with '", datarec.opts, "' flags.");
-    Info(InfoANUPQ, 1, "The result will be saved in: '",datarec.outfname,"'");
-    return true;
+    Info(InfoANUPQ, 1, "The result will be saved in: '", 
+                       datarec.outfname, "'.");
   fi;
-
-  if VALUE_PQ_OPTION( "Verbose" ) = true or
-     IsInt( VALUE_PQ_OPTION( "OutputLevel" ) ) or
-     InfoLevel(InfoANUPQ) >= 2 then
-    output := OutputTextFile( "*stdout*", false );
-  else 
-    output := OutputTextNone();
-  fi;
-  proc := Process(ANUPQData.tmpdir, 
-                  ANUPQData.binary,
-                  InputTextFile( ANUPQData.infile ),
-                  output,
-                  datarec.opts );
-  CloseStream( output );
-  return proc;
 end );
 
 #E  anupqios.gi . . . . . . . . . . . . . . . . . . . . . . . . . . ends here 

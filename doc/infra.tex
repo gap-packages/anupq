@@ -22,6 +22,7 @@ gap> RequirePackage("anupq");
 #I    C code by  Eamonn O'Brien <obrien@math.auckland.ac.nz>
 #I                ANU pq binary version: 1.4
 #I    GAP code by Werner Nickel <nickel@mathematik.tu-darmstadt.de>
+#I            and   Greg Gamble  <gregg@math.rwth-aachen.de>
 #I                ANUPQ package version: 1.0
 #I  
 #I                For help, type: ?ANUPQ
@@ -60,41 +61,37 @@ within {\GAP} is stored; its fields are:
 
 \quad`binary' & the path of the {\ANUPQ} binary;
 
-\quad`tmpdir' & the  path  of  the  temporary  directory  containing  the
-non-interactive   {\ANUPQ}   input   and   output   files    (also    see
-"ANUPQDirectoryTemporary" below);
+\quad`tmpdir' & the path of the temporary  directory  used  by  the  `pq'
+binary and {\GAP} (i.e.~the directory in which all the  `pq''s  temporary
+files are created) (also see "ANUPQDirectoryTemporary" below);
+
+\quad`outfile'& the full path of the default `pq' output  file;
+
+\quad`SPimages'& the full path of the file  `GAP_library'  to  which  the
+`pq' binary writes its Standard Presentation images;
+
+\quad`version'& the version of the current `pq' binary;
+
+\quad`ni' & a data record used by non-interactive  functions  (see  below
+and Chapter~"Non-interactive ANUPQ Functions"); and
 
 \quad`io' & list of data records for `PqStart' (see below  and~"PqStart")
 processes;
 
-\quad`infile' & the full path of the (non-interactive) `pq' input file;
-
-\quad`outfile'& the full path of the default `pq' output  file;
-
-\quad`outfname' & is the file to which `pq' output is directed, which  is
-`ANUPQData.outfile' except when option `SetupFile' is used, in which case
-`outfname' is set to `"PQ_OUTPUT"';
-
-and
-
-\quad`version'& the version of the current `pq' binary.
-
 \enditems
-
-Some or all of the fields: `group', `workspace', `menu', `pQuotient'  and
-`pQepi' may also be set after  a  non-interactive  {\ANUPQ}  function  is
-called.  They  have  a  similar  role  as  the  corresponding  fields  of
-`ANUPQData.io[<ioIndex>]' we describe below.
 
 Each time an interactive {\ANUPQ}  process  is  initiated  via  `PqStart'
 (see~"PqStart"), an identifying number <ioIndex>  is  generated  for  the
-interactive process  and  a  record  `ANUPQData.io[<ioIndex>]'  with  the
-following fields is created:
+interactive process and a record `ANUPQData.io[<ioIndex>]' with  some  or
+all of the fields listed below is  created.  Whenever  a  non-interactive
+function is called (see Chapter~"Non-interactive ANUPQ  Functions"),  the
+record `ANUPQData.ni' is updated with fields that, if bound, have exactly
+the same purpose as listed below.
 
 \beginitems
 
 \quad`stream'& the  IOStream  opened  for  interactive  {\ANUPQ}  process
-<ioIndex>;
+<ioIndex> or non-interactive {\ANUPQ} function;
 
 \quad`group'& the group given as first argument to `PqStart';
 
@@ -107,7 +104,9 @@ normally need to know about -- the `menu' field remembers which menu  the
 `pq' process is currently ``in'');
 
 \quad`outfname' & is the file to which `pq' output is directed, which  is
-always `ANUPQData.outfile' (see above) for an interactive process;
+always `ANUPQData.outfile', except when option `SetupFile' is used with a
+non-interactive  function,  in  which   case   `outfname'   is   set   to
+`"PQ_OUTPUT"';
 
 \quad`pQpcp' & If this field is bound  it  is  a  record  containing  the
 options used the last time that  `pq'  computed  a  pc  presentation  for
@@ -174,8 +173,8 @@ the user will really want to see are directed to  `Info'  at  `InfoANUPQ'
 level 1. To turn off *all* `InfoANUPQ'  messaging,  set  the  `InfoANUPQ'
 level to 0.
 
-Currently, information from the `pq' binary is directed to `Info' at four
-`InfoANUPQ' levels: 1, 2, 3 and 4. The command
+Currently, information from the `pq' binary is directed to `Info' at five
+`InfoANUPQ' levels: 1, 2, 3, 4 and 5. The command
 
 \beginexample
 gap> SetInfoLevel(InfoANUPQ, 2);
@@ -196,7 +195,9 @@ gap> SetInfoLevel(InfoANUPQ, 4);
 \endexample
 
 enables the display of all other output from the `pq' binary, namely  the
-banner, menus, and the timing data printed when the `pq' binary exits.
+banner, menus, and the timing data printed when the  `pq'  binary  exits.
+The fifth `InfoANUPQ' level is intended only for debugging purposes,  and
+gives all partial results of commands that read from an iostream.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%

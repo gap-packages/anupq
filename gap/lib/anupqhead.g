@@ -20,18 +20,20 @@ Revision.anupqhead_g :=
 ##
 ##  The fields of ANUPQData are:
 ##
-##    "binary"  . . the path of the ANUPQ binary
-##    "tmpdir"  . . the path of the temporary directory for ANUPQ i/o files
-##    "io"  . . . . list of data records for ANUPQStart IO Streams
-##    "infile"  . . the path of the ANUPQ input file
-##    "outfile" . . the path of the ANUPQ output file
-##    "SPimages"  . the path of the ANUPQ GAP_library file
-##    "version" . . the version of the current ANUPQ binary
+##    "binary"  . . the path of the pq binary
+##    "tmpdir"  . . the path of the temporary directory for pq i/o files
+##    "io"  . . . . list of data records for PqStart IO Streams
+##    "infile"  . . the path of the pq input file
+##    "outfile" . . the path of the pq output file
+##    "SPimages"  . the path of the pq GAP_library file
+##    "version" . . the version of the current pq binary
 ##
 ANUPQData := rec( binary := Filename( DirectoriesPackagePrograms( "anupq" ),
                                       "pq"),
                   tmpdir := DirectoryTemporary(),
-                  io := [] # Initially no ANUPQStart IO Streams
+                  ni := rec(), # record for non-interactive functions
+                  io := []     # list of records for PqStart IO Streams,
+                               #  of which, there are initially none
                   );
 ANUPQData.infile  := Filename( ANUPQData.tmpdir, "PQ_INPUT" ); 
 ANUPQData.outfile := Filename( ANUPQData.tmpdir, "PQ_OUTPUT" );
@@ -72,8 +74,9 @@ Info(InfoWarning,1,"  Loading the ANUPQ (ANU p-Quotient) share package");
 Info(InfoWarning,1,"  C code by  Eamonn O'Brien <obrien@math.auckland.ac.nz>");
 Info(InfoWarning,1,"              ANU pq binary version: ", ANUPQData.version);
 Info(InfoWarning,1,"  GAP code by Werner Nickel <nickel@mathematik.tu-darmstadt.de>");
-Info(InfoWarning,1,"              ANUPQ package version: ", 
-                                  PACKAGES_VERSIONS.anupq);
+Info(InfoWarning,1,"          and   Greg Gamble  <gregg@math.rwth-aachen.de>");
+Info(InfoWarning,1,"              ANUPQ package version: ",
+                                    PACKAGES_VERSIONS.anupq);
 Info(InfoWarning,1,"");
 Info(InfoWarning,1,"              For help, type: ?ANUPQ");
 

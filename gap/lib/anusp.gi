@@ -10,6 +10,17 @@
 #Y  Copyright 1993-2001,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.6  2001/06/19 17:21:39  gap
+#H  - Non-interactive functions now use iostreams (when not creating a SetupFile).
+#H  - The `Verbose' option has now been eliminated; it's function is now provided
+#H    by using `InfoANUPQ'.
+#H  - Data recorded for a non-interactive function is now stored in the record
+#H    `ANUPQData.ni' entirely analogous to the interactive function records
+#H    `ANUPQData.io[<i>]'.
+#H  - `ToPQ' now takes care of the cases where the `pq' binary calls GAP to
+#H    compute stabilisers.
+#H  - A header was added to `anustab.g'. - GG
+#H
 #H  Revision 1.5  2001/06/15 17:43:49  gap
 #H  Correcting `success' variable check. - GG
 #H
@@ -228,7 +239,7 @@ InstallMethod( FpGroupPcGroup, "pc group", [IsPcGroup], 0, PqFpGroupPcGroup );
 InstallGlobalFunction( PQ_EPIMORPHISM_STANDARD_PRESENTATION, 
 function( args )
     local   datarec, p_or_G, rank, p, G, automorphisms, generators, x,
-            images, i, r, j, aut, success, result, desc, k;
+            images, i, r, j, aut, result, desc, k;
 
     datarec := ANUPQ_ARG_CHK(2, "StandardPresentation", "group", 
                              IsFpGroup,  "an fp group", args);
@@ -285,15 +296,15 @@ function( args )
 
     PQ_SP_ISOMORPHISM(datarec);
 
-    if datarec.calltype <> "interactive" then
-        PrintTo(ANUPQData.SPimages, ""); #to ensure it's empty
-        success := PQ_COMPLETE_NONINTERACTIVE_FUNC_CALL(datarec);
-        if success <> 0 then
-            Error( "process did not succeed\n" );
+    if datarec.calltype = "non-interactive" then
+        PQ_COMPLETE_NONINTERACTIVE_FUNC_CALL(datarec);
+        if IsBound( datarec.setupfile ) then
+            return true;
         fi;
     fi;
 
     # try to read output
+    PrintTo(ANUPQData.infile, ""); #This is a work-around for a bug in READ
     result := ANUPQReadOutput( ANUPQData.SPimages, ANUSPGlobalVariables );
 
     if not IsBound(result.ANUPQmagic)  then

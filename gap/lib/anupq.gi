@@ -10,6 +10,17 @@
 #Y  Copyright 1992-1994,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.7  2001/06/19 17:21:39  gap
+#H  - Non-interactive functions now use iostreams (when not creating a SetupFile).
+#H  - The `Verbose' option has now been eliminated; it's function is now provided
+#H    by using `InfoANUPQ'.
+#H  - Data recorded for a non-interactive function is now stored in the record
+#H    `ANUPQData.ni' entirely analogous to the interactive function records
+#H    `ANUPQData.io[<i>]'.
+#H  - `ToPQ' now takes care of the cases where the `pq' binary calls GAP to
+#H    compute stabilisers.
+#H  - A header was added to `anustab.g'. - GG
+#H
 #H  Revision 1.6  2001/06/15 17:43:49  gap
 #H  Correcting `success' variable check. - GG
 #H
@@ -295,7 +306,7 @@ end );
 #F  PQ_EPIMORPHISM( <args> : <options> ) . . . . . prime quotient epimorphism
 ##
 InstallGlobalFunction( PQ_EPIMORPHISM, function( args )
-    local   datarec, success;
+    local   datarec;
 
     datarec := ANUPQ_ARG_CHK(1, "Pq", "group", IsFpGroup, "an fp group", args);
     if datarec.calltype = "interactive" then      
@@ -303,23 +314,26 @@ InstallGlobalFunction( PQ_EPIMORPHISM, function( args )
             return datarec.pQepi; # it's already been computed
         fi;
     elif datarec.calltype = "GAP3compatible" then
-        return ANUPQData.pQepi;
+        # ANUPQ_ARG_CHK calls PQ_EPIMORPHISM itself in this case
+        # (so datarec.pQepi has already been computed)
+        return datarec.pQepi;
     fi;
 
     PQ_PC_PRESENTATION(datarec, "pQ");
 
     PQ_WRITE_PC_PRESENTATION(datarec, datarec.outfname);
     
-    if datarec.calltype <> "interactive" then
-        success := PQ_COMPLETE_NONINTERACTIVE_FUNC_CALL(datarec);
-        if success <> 0 then
-            Error( "process did not succeed\n" );
-        fi;
+    if datarec.calltype = "non-interactive" then
+      PQ_COMPLETE_NONINTERACTIVE_FUNC_CALL(datarec);
+      if IsBound( datarec.setupfile ) then
+        return true;
+      fi;
     fi;
             
     # read group and images from file
     HideGlobalVariables( "F", "MapImages" );
-    Read( ANUPQData.outfile );
+    PrintTo(ANUPQData.infile, ""); #This is a work-around for a bug in READ
+    Read( datarec.outfname );
     datarec.pQuotient := ValueGlobal( "F" );
     datarec.pQepi := GroupHomomorphismByImages( 
                        datarec.group,

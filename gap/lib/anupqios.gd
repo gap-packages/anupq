@@ -14,6 +14,12 @@ Revision.anupqios_gd :=
 
 #############################################################################
 ##
+#F  PQ_START( <workspace>, <setupfile> ) . . . open a stream for a pq process
+##
+DeclareGlobalFunction( "PQ_START" );
+
+#############################################################################
+##
 #F  PqStart( <G>, <workspace> )  . . .  Initiate an interactive ANUPQ session
 #F  PqStart( <G> )
 ##
@@ -84,6 +90,12 @@ DeclareGlobalFunction( "PQ_MENU" );
 #F  IS_PQ_PROMPT( <line> ) . . . .  checks whether the line is a prompt of pq
 ##
 DeclareGlobalFunction( "IS_PQ_PROMPT" );
+
+#############################################################################
+##
+#F  IS_PQ_REQUEST( <line> ) . .  checks whether the line is a request from pq
+##
+DeclareGlobalFunction( "IS_PQ_REQUEST" );
 
 #############################################################################
 ##

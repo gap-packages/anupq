@@ -1,9 +1,21 @@
-# code to compute the stabiliser of an allowable subgroup 
-# description is written to file LINK_output 
+#############################################################################
+####
+##
+#A  anustab.g                ANUPQ share package               Eamonn O'Brien
+#A                                                              Werner Nickel
+##
+#A  @(#)$Id$
+##
+#Y  Copyright 1993-2001,  Lehrstuhl D fuer Mathematik,  RWTH Aachen,  Germany
+#Y  Copyright 1993-2001,  School of Mathematical Sciences, ANU,     Australia
+##
+##  Code to compute the stabiliser of an allowable subgroup;
+##  description is written to file LINK_output.
+##
 
 if RequirePackage ("autpgrp") = fail then
-    Error( "Share package AUTPGRP not availaible\n\n",
-           "See the installation instructions for the ANU PQ package\n\n" );
+    Error( "Share package AutPGrp not available\n\n",
+           "See the installation instructions for the ANUPQ package\n\n" );
     quit;
 fi;
 

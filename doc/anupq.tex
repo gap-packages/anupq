@@ -55,8 +55,8 @@ separated by commas like record components (see~"ref:function  call  with
 options"). `Pq' may also be called  with  no  arguments  or  one  integer
 argument,   in   which   case   it   is    being    used    interactively
 (see~"Pq!interactive");  the  same  options  may  be  used,  except  that
-`Verbose', `SetupFile' and `PqWorkspace' are ignored by  the  interactive
-`Pq' function.
+`SetupFile'  and  `PqWorkspace'  are  ignored  by  the  interactive  `Pq'
+function.
 
 \beginitems
 
@@ -80,23 +80,14 @@ Specifies the level of ``verbosity'' of the information output by the ANU
 the range 0 to 3. `OutputLevel := 0' displays no output, `OutputLevel  :=
 1' displays minimal output (which  is  the  `pq'  binary's  default)  and
 `OutputLevel's for <n> greater than `1' give progressively  more  output.
-Non-interactively, setting this option (even to 1) implies `Verbose'.
-
-`Verbose' &
-Non-interactively if `Verbose' or `OutputLevel' is set or the `InfoLevel'
-of `InfoANUPQ' is at least 2, all the output from the ANU `pq' binary  is
-displayed (not `Info'-ed), and if `InfoLevel' of `InfoANUPQ' is 3, before
-the output from the `pq' binary displayed, each line of the input  script
-to  the  `pq'  binary  is  `Info'-ed  behind  a   ```ToPQ> '''    prompt.
-Interactively, the `Verbose' option is  ignored  and  all  input  to  and
-output from the the `pq' binary is `Info'-ed at the various  `InfoLevel's
-of `InfoANUPQ' as described in Section~"InfoANUPQ".
 
 `SetupFile := <filename>' &
 Non-interactively, this option directs that `pq' should not be called and
 that an input file  with  name  <filename>  (a  string),  containing  the
-commands necessary for the ANU `pq' standalone, be constructed.  In  this
-case, `Pq' returns `true'. Interactively, `SetupFile' is ignored.
+commands necessary for the  ANU  `pq'  standalone,  be  constructed.  The
+commands written to <filename> are also `Info'-ed behind  a  ```ToPQ> '''
+prompt at `InfoANUPQ' level  2  (see~"InfoANUPQ").  In  this  case,  `Pq'
+returns `true'. Interactively, `SetupFile' is ignored.
 
 `PqWorkspace := <workspace>' &
 Non-interactively, this option sets the memory used by the  `pq'  binary.
@@ -163,11 +154,10 @@ the $p$-quotient of <F> specified by <options>;  the  possible  <options>
 are as for `Pq' (see~"Pq"). As for `Pq', `PqEpimorphism'  may  be  called
 with no arguments or one integer argument, in which case it is being used
 interactively (see~"PqEpimorphism!interactive"); and also  as  for  `Pq',
-the same options may be used,  except  that  `Verbose',  `SetupFile'  and
-`PqWorkspace' are ignored by the  interactive  `Pq'  function.  The  same
-alternative methods of  passing  options  for  the  non-interactive  `Pq'
-function  are  also  available  for  the   non-interactive   version   of
-`PqEpimorphism'.
+the same options may be used, except that `SetupFile'  and  `PqWorkspace'
+are ignored by  the  interactive  `Pq'  function.  The  same  alternative
+methods of passing options for the non-interactive `Pq' function are also
+available for the non-interactive version of `PqEpimorphism'.
 
 \beginexample
 gap> F := FreeGroup (2, "F");
@@ -240,23 +230,14 @@ Specifies the level of ``verbosity'' of the information output by the ANU
 the range 0 to 3. `OutputLevel := 0' displays no output, `OutputLevel  :=
 1' displays minimal output (which  is  the  `pq'  binary's  default)  and
 `OutputLevel's for <n> greater than `1' give progressively  more  output.
-Non-interactively, setting this option (even to 1) implies `Verbose'.
-
-`Verbose' &
-Non-interactively if `Verbose' or `OutputLevel' is set or the `InfoLevel'
-of `InfoANUPQ' is at least 2, all the output from the ANU `pq' binary  is
-displayed (not `Info'-ed), and if `InfoLevel' of `InfoANUPQ' is 3, before
-the output from the `pq' binary displayed, each line of the input  script
-to  the  `pq'  binary  is  `Info'-ed  behind  a   ```ToPQ> '''    prompt.
-Interactively, the `Verbose' option is  ignored  and  all  input  to  and
-output from the the `pq' binary is `Info'-ed at the various  `InfoLevel's
-of `InfoANUPQ' as described in Section~"InfoANUPQ".
 
 `SetupFile := <filename>' &
 Non-interactively, this option directs that `pq' should not be called and
 that an input file  with  name  <filename>  (a  string),  containing  the
-commands necessary for the ANU `pq' standalone, be constructed.  In  this
-case, `Pq' returns `true'. Interactively, `SetupFile' is ignored.
+commands necessary for the  ANU  `pq'  standalone,  be  constructed.  The
+commands written to <filename> are also `Info'-ed behind  a  ```ToPQ> '''
+prompt at `InfoANUPQ' level  2  (see~"InfoANUPQ").  In  this  case,  `Pq'
+returns `true'. Interactively, `SetupFile' is ignored.
 
 `PqWorkspace := <workspace>' &
 Non-interactively, this option sets the memory used by the  `pq'  binary.
@@ -458,21 +439,13 @@ Suppose that <L> is the list of descendants generated, then  for  a  list
 <L>, <sub> )'. If an integer <n>  is  supplied,  `PqDescendants'  returns
 `<L>[<n>]'.
 
-`Verbose' &
-Non-interactively if `Verbose' or `OutputLevel' is set or the `InfoLevel'
-of `InfoANUPQ' is at least 2, all the output from the ANU `pq' binary  is
-displayed (not `Info'-ed), and if `InfoLevel' of `InfoANUPQ' is 3, before
-the output from the `pq' binary displayed, each line of the input  script
-to  the  `pq'  binary  is  `Info'-ed  behind  a   ```ToPQ> '''    prompt.
-Interactively, the `Verbose' option is  ignored  and  all  input  to  and
-output from the the `pq' binary is `Info'-ed at the various  `InfoLevel's
-of `InfoANUPQ' as described in Section~"InfoANUPQ".
-
 `SetupFile := <filename>' &
 Non-interactively, this option directs that `pq' should not be called and
 that an input file  with  name  <filename>  (a  string),  containing  the
-commands necessary for the ANU `pq' standalone, be constructed.  In  this
-case, `Pq' returns `true'. Interactively, `SetupFile' is ignored.
+commands necessary for the  ANU  `pq'  standalone,  be  constructed.  The
+commands written to <filename> are also `Info'-ed behind  a  ```ToPQ> '''
+prompt at `InfoANUPQ' level  2  (see~"InfoANUPQ").  In  this  case,  `Pq'
+returns `true'. Interactively, `SetupFile' is ignored.
 
 `PqWorkspace := <workspace>' &
 Non-interactively, this option sets the memory used by the  `pq'  binary.

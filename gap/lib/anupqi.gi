@@ -1711,7 +1711,7 @@ end );
 ##  descendants, using option 5 of the main $p$-Group Generation menu.
 ##
 InstallGlobalFunction( PQ_PG_CONSTRUCT_DESCENDANTS, function( datarec )
-local   firstStep,  expectedNsteps,  line;
+local firstStep, expectedNsteps;
 
   datarec.des := rec();
   # deal with the easy answer
@@ -1798,32 +1798,10 @@ local   firstStep,  expectedNsteps,  line;
   ToPQ(datarec, [ VALUE_PQ_OPTION("Exponent", 0, datarec.des), "  #exponent" ]);
   ToPQ(datarec, [ PQ_BOOL( VALUE_PQ_OPTION("Metabelian", false, datarec.des) ),
                    "enforce metabelian law" ]);
-  ToPQk(datarec, [ "1  #default output" ]); # There are > 18 questions to deal
+  ToPQ(datarec, [ "1  #default output" ]); # There are > 18 questions to deal
                                            # with by not taking the default
                                            # ... maybe in the future we will
                                            # give the user more control
-  
-  line := FLUSH_PQ_STREAM_UNTIL(datarec.stream, 3, 2, 
-                  PQ_READ_NEXT_LINE, 
-                  str -> IS_PQ_PROMPT(str) or
-                  (Length(str) >= 5 and str{[1..5]} = "HELP!") );
-
-  while line <> fail and Length(line) >= 5 and 
-    line{[Length(line)-5..Length(line)-1]} = "HELP!" do
-
-      Read( Filename( ANUPQData.tmpdir, "GAP_input" ) );
-      Read( Filename( ANUPQData.tmpdir, "GAP_rep" ) );
-
-      ToPQk( datarec, [ "doneX" ] );
-
-      line := FLUSH_PQ_STREAM_UNTIL(datarec.stream, 3, 2, 
-                      PQ_READ_NEXT_LINE, 
-                      str -> IS_PQ_PROMPT(str) or
-                      (Length(str) >= 5 
-                       and str{[Length(str)-5..Length(str)-1]} = "HELP!") );
-
-  od;
-  
 end );
 
 #############################################################################
