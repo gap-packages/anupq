@@ -363,7 +363,7 @@ local datarec, filename;
   arg := arg{[1..Length(arg) - 1]};
   ANUPQ_IOINDEX_ARG_CHK(arg);
   datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  PQ_RESTORE_PC_PRESENTATION( datarec );
+  PQ_RESTORE_PC_PRESENTATION( datarec, filename );
 end );
 
 #############################################################################
