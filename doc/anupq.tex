@@ -26,7 +26,7 @@ access to the $p$-quotient algorithm.
 Section~"Computing Standard Presentations" describe functions  that  give
 access to the standard presentation algorithm.
 
-Section~"Testing  p-Groups  upon  Isomorphism"  describe  functions  that
+Section~"Testing  p-Groups  for  Isomorphism"  describe  functions   that
 implement  an  isomorphism  test  for  $p$-groups  using   the   standard
 presentation algorithm.
 
@@ -50,10 +50,10 @@ help.
 \>Pq( <F> : <options> ) F
 
 returns for the finitely presented group <F>,  the  $p$-quotient  of  <F>
-specified by <options>, as a pc-group. Behind the colon, <options>  is  a
-selection of the  options  from  the  following  list  should  be  given,
+specified by <options>, as a pc-group. Following the colon, <options>  is
+a selection of the options from  the  following  list  should  be  given,
 separated by commas like record components (see~"ref:function  call  with
-options"). As a minimum the user must supply values for the  `Prime'  and
+options"). As a minimum the user *must* supply values for the `Prime' and
 `ClassBound' options. `Pq' may also be called with no  arguments  or  one
 integer  argument,  in  which  case  it  is  being   used   interactively
 (see~"Pq!interactive");  the  same  options  may  be  used,  except  that
@@ -66,12 +66,13 @@ read this section, please take the time to read it now.
 
 \atindex{option Prime}{@option \noexpand`Prime'}
 `Prime := <p>' &
-Specifies that the $p$-quotient for the prime <p> should be computed.
+Specifies that the $p$-quotient for the prime  <p>  should  be  computed.
+This option *must* be supplied.
 
 \atindex{option ClassBound}{@option \noexpand`ClassBound'}
 `ClassBound := <n>' &
 Specifies that the $p$-quotient computed has lower exponent-$p$ class  at
-most <n>.
+most <n>. This option *must* be supplied.
 
 \atindex{option Exponent}{@option \noexpand`Exponent'}
 `Exponent := <n>' &
@@ -136,7 +137,10 @@ Package".)
 
 See also "PqEpimorphism".
 
-We now give a few examples of the use of `Pq'.
+We now give a few examples of the use of `Pq'. Except for the addition of
+a few comments and the non-suppression of output (by not using duplicated
+semicolons) the same examples may be run by typing: `PqExample( "Pq" );'.
+(See~"PqExample").
 
 \beginexample
 gap> RequirePackage("anupq");; # does nothing if ANUPQ is already loaded
@@ -174,7 +178,7 @@ that the value of `R' is the same as before.
 
 \beginexample
 gap> F := FreeGroup("a", "b");;
-gap> # These are for `Relators'. We use the same strings that GAP uses
+gap> # `F' was defined for `Relators'. We use the same strings that GAP uses
 gap> # for printing the free group generators. It is *not* necessary to
 gap> # predefine: a := F.1; etc. (as it was above).
 gap> rels := [ "a^25", "[b, a, a]", "b^5" ];
@@ -223,11 +227,14 @@ This method of passing options permits abbreviation; the only restriction
 is that the abbreviation must be  unique.  So  `"Pr"'  may  be  used  for
 `"Prime"', `"Class"' or even just `"C"' for `"ClassBound"', etc.
 
+The above examples can be run  from  {\GAP}  via  `PqExample( "Pq-ni" );'
+(see~"PqExample").
+
 \>PqEpimorphism( <F> : <options> ) F
 
 returns for the finitely presented group <F> an epimorphism from <F> onto
 the $p$-quotient of <F> specified by <options>;  the  possible  <options>
-and required <options> (`"Prime"' and `"ClassBound"')  are  as  for  `Pq'
+and *required* <options> (`"Prime"' and `"ClassBound"') are as  for  `Pq'
 (see~"Pq"). `PqEpimorphism' only differs from `Pq' in  what  it  outputs;
 everything about what must/may be passed as input to  `PqEpimorphism'  is
 the same  as  for  `Pq',  i.e.~`PqEpimorphism'  may  be  called  with  no
@@ -247,6 +254,9 @@ gap> Image( phi );
 <pc group of size 3125 with 5 generators>
 \endexample
 
+Typing: `PqExample( "PqEpimorphism" );' runs the above example in  {\GAP}
+(see~"PqExample").
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Computing Standard Presentations}
 
@@ -258,9 +268,9 @@ gap> Image( phi );
 
 return, for the finitely presented group <F>, the  standard  presentation
 for the  $p$-quotient  of  <F>  specified  by  the  second  argument  and
-<options>, as a pc group. Behind the colon, <options> is a  selection  of
-the options from the following list should be given, separated by  commas
-like  record   components   (see~"ref:function   call   with   options").
+<options>, as a pc group. Following the colon, <options> is  a  selection
+of the options from the following list  should  be  given,  separated  by
+commas like record components  (see~"ref:function  call  with  options").
 Section~"Hints and Warnings regarding the  use  of  Options"  gives  some
 important hints and warnings regarding option usage; if you haven't  read
 this section, please take the time to read it now.
@@ -375,6 +385,9 @@ gap> StandardPresentation( G4, K : ClassBound := 14, PcgsAutomorphisms );
 <fp group with 53 generators>
 \endexample
 
+Typing: `PqExample( "StandardPresentation" );' runs the above example  in
+{\GAP} (see~"PqExample").
+
 (These functions require the {\ANUPQ}  share  package;  see~"Loading  the
 ANUPQ Share Package".)
 
@@ -399,7 +412,7 @@ gap> x := F.1;; y := F.2;; z := F.3;; w := F.4;; a := F.5;; b := F.6;;
 gap> R := [x^3 / w, y^3 / w * a^2 * b^2, w^3 / b,
 >          Comm (y, x) / z, Comm (z, x), Comm (z, y) / a, z^3 ];;
 gap> Q := F / R;;
-gap> G := Pq ( Q : Prime := 3, ClassBound := 3 );
+gap> G := Pq( Q : Prime := 3, ClassBound := 3 );
 <pc group of size 729 with 6 generators>
 gap> phi := EpimorphismStandardPresentation( Q, 3 : ClassBound := 3 );
 [ f1, f2, f3, f4, f5, f6 ] -> [ f1*f2^2*f3*f4^2*f5^2, f1*f2*f3*f5, f3^2, 
@@ -408,11 +421,14 @@ gap> Size( Image(phi) );
 729
 \endexample
 
+Typing: `PqExample( "EpimorphismStandardPresentation" );' runs the  above
+example in {\GAP} (see~"PqExample").
+
 (These functions require the {\ANUPQ}  share  package;  see~"Loading  the
 ANUPQ Share Package".)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\Section{Testing p-Groups upon Isomorphism}
+\Section{Testing p-Groups for Isomorphism}
 
 \>IsPqIsomorphicPGroup( <G>, <H> ) F
 \>IsIsomorphicPGroup( <G>, <H> ) M
@@ -439,6 +455,9 @@ gap> P4 := SmallGroup( 8, 3 );
 gap> IsIsomorphicPGroup( P1, P4 );
 true
 \endexample
+
+Typing: `PqExample( "IsIsomorphicPGroup" );' runs the  above  example  in
+{\GAP} (see~"PqExample").
 
 (These functions require the {\ANUPQ}  share  package;  see~"Loading  the
 ANUPQ Share Package".)
@@ -658,6 +677,10 @@ gap> List(des, d -> Length( DerivedSeries( d ) ) );
 gap> List(des, d -> Maximum( List( Elements(d), Order ) ) );     
 [ 5, 5, 5 ]
 \endexample
+
+The above three examples are essentially the same as `"PqDescendants-1"',
+`"PqDescendants-2"' and `"PqDescendants-3"', respectively, which  can  be
+run using `PqExample' (see~"PqExample").
 
 (The function requires the {\ANUPQ} share package; see~"Loading the ANUPQ
 Share Package".)

@@ -14,6 +14,9 @@ S 3.4. Hints and Warnings regarding the use of Options
 S 3.5. Utility Functions
 F 3.5. PqLeftNormComm
 F 3.5. PqGAPRelators
+F 3.5. PqExample
+F 3.5. PqExample
+F 3.5. PqExample
 C anupq.tex 4. Non-interactive ANUPQ functions
 S 4.1. Computing p-Quotients
 F 4.1. Pq
@@ -44,7 +47,7 @@ F 4.2. EpimorphismPqStandardPresentation
 F 4.2. EpimorphismPqStandardPresentation
 F 4.2. EpimorphismStandardPresentation
 F 4.2. EpimorphismStandardPresentation
-S 4.3. Testing p-Groups upon Isomorphism
+S 4.3. Testing p-Groups for Isomorphism
 F 4.3. IsPqIsomorphicPGroup
 F 4.3. IsIsomorphicPGroup
 S 4.4. Computing Descendants of a p-Group

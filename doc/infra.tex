@@ -39,10 +39,12 @@ still on the `OptionsStack' to affect subsequent functions  (details  are
 in Section~"Hints and Warnings regarding the use of Options"); and
 
 \item{$\bullet$} 
-in Section~"Utility functions" we define a function `PqLeftNormComm'  for
-computing left norm  commutators  in  {\GAP}  and  `PqGAPRelators'  which
+in Section~"Utility functions" we describe  a  function  `PqLeftNormComm'
+for computing left norm  commutators  in  {\GAP},  `PqGAPRelators'  which
 converts strings representing  relators  in  a  format  the  `pq'  binary
-understands to a form that {\GAP} understands.
+understands to a form that  {\GAP}  understands,  and  `PqExample'  which
+executes examples for the {\ANUPQ} share package or displays an index  of
+examples.
 
 \endlist
 
@@ -261,7 +263,7 @@ Particularly,  when  one  is   using   the   interactive   functions   of
 Chapter~"Interactive ANUPQ Functions",  one  should,  in  general,  avoid
 using the global method of passing options. In fact,  it  is  recommended
 that  prior  to  calling  `PqStart'  the  `OptionsStack'  be  empty.  The
-essential  problem  with  seting  options  globally  using  the  function
+essential problem  with  setting  options  globally  using  the  function
 `PushOptions' is that options pushed onto `OptionsStack',  in  this  way,
 remain there until an explicit `PopOptions()' call is made.
 
@@ -330,6 +332,44 @@ gap> PqGAPRelators(F, [ "a*b^2", "[a,b]^2*a", "([a,b,a,b,b]*a*b)^2*a" ]);
     -1*a*b*a*b*a^-1*b*a*b^-1*a*b*a^-1*b*a^-1*b^-1*a*b*a*b^-1*a^-1*b^-1*a^
     -1*b*a*b^-1*a*b^-1*a^-1*b*a^-1*b^-1*a*b*a*b^2*a*b*a ]
 \endexample
+
+\>PqExample() F
+\>PqExample( <example>[, PqStart][, Display] ) F
+\>PqExample( <example>[, PqStart][, <filename>] ) F
+
+With no arguments,  or  with  single  argument  `"index"',  or  a  string
+<example> that is not the name of a file in the `gap/examples' directory,
+an index of available examples is displayed.
+
+With just the one argument <example> that is the name of a  file  in  the
+`gap/examples' directory, the example contained in that file is  executed
+in its simplest form. Some examples accept options which you may  use  to
+modify some of the options used in the commands of the example.  To  find
+out which options an example  accepts, use  one  of  the  mechanisms  for
+displaying the example described below.
+
+Some examples have both non-interactive and interactive forms; those that
+are non-interactive only have a name ending  in  `-ni';  those  that  are
+interactive only have a name ending in `-i'; all other examples have both
+non-interactive and interactive forms and for these giving  `PqStart'  as
+second argument invokes `PqStart' initially  and  makes  the  appropriate
+adjustments  so  that  the  example  is  executed  or   displayed   using
+interactive functions.
+
+If `PqExample' is called with last (second or third)  argument  `Display'
+then the example  is  displayed  without  being  executed.  If  the  last
+argument is a non-empty  string  <filename>  then  the  example  is  also
+displayed without being executed but is also written to a file with  that
+name. Passing an empty string as last argument has  the  same  effect  as
+passing `Display'.
+
+*Note:*
+The  variables  used  in  `PqExample'  are  local  to  the   running   of
+`PqExample', so there's no  danger  of  having  some  of  your  variables
+over-written. However, they are not  completely  lost  either.  They  are
+saved to a record `ANUPQData.examples.vars', i.e.~if `F'  is  a  variable
+used in the example then you will be able to access it after  `PqExample'
+has finished as `ANUPQData.examples.vars.F'.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
