@@ -36,7 +36,7 @@ that give access to the $p$-group generation algorithm.
 To use any of the functions one must have at some stage previously typed:
 
 \begintt
-gap> RequirePackage("anupq");
+gap> LoadPackage("anupq");
 \endtt
 
 (the response of which we have omitted; see~"Loading the ANUPQ Package").
@@ -111,7 +111,7 @@ semicolons) the next 3 examples may be run by  typing:  `PqExample(  "Pq"
 );' (see~"PqExample").
 
 \beginexample
-gap> RequirePackage("anupq");; # does nothing if ANUPQ is already loaded
+gap> LoadPackage("anupq");; # does nothing if ANUPQ is already loaded
 gap> # First we get a p-quotient of a free group of rank 2
 gap> F := FreeGroup("a", "b");; a := F.1;; b := F.2;;
 gap> Pq( F : Prime := 2, ClassBound := 3 ); 
@@ -485,7 +485,7 @@ gap> phi := EpimorphismStandardPresentation( Q : Prime := 3,
 gap> NamesOfComponents(phi);
 [ "Source", "Range", "MappingGeneratorsImages" ]
 gap> phi!.Source; # This is the group Q (GAP uses F1, ... for gen'r symbols)
-<fp group on the generators [ F1, F2, F3, F4, F5, F6 ]>
+<fp group of size infinity on the generators [ F1, F2, F3, F4, F5, F6 ]>
 gap> phi!.Range;  # This is the group G (GAP uses f1, ... for gen'r symbols)
 <fp group on the generators [ f1, f2, f3, f4, f5, f6 ]>
 gap> AssignGeneratorVariables(G);
@@ -548,11 +548,13 @@ should  be  given,  separated  by  commas  like  record  components  (see
 Section~"ref:function call!with options" in the {\GAP} Reference Manual).
 See Chapter~"ANUPQ options" for detailed descriptions of the options.
 
-For each descendant <D>, a subgroup of the automorphism group  of <D>  is
-computed which is  a supplement to the inner automorphisms  of <D> in the
-whole automorphism group  of <D>.  This subgroup can  be accessed via the
-function                                 `PqSupplementInnerAutomorphisms'
-(see~"PqSupplementInnerAutomorphisms").
+The automorphism group of each descendant <D> is also computed via a call
+to the `AutomorphismGroupPGroup' function of the {\AutPGrp} package.
+%For each descendant <D>, a subgroup of the automorphism group  of <D>  is
+%computed which is  a supplement to the inner automorphisms  of <D> in the
+%whole automorphism group  of <D>.  This subgroup can  be accessed via the
+%function                                 `PqSupplementInnerAutomorphisms'
+%(see~"PqSupplementInnerAutomorphisms").
 
 \beginlist%unordered
 
@@ -699,11 +701,19 @@ three examples (see~"PqExample").
 
 \>PqSupplementInnerAutomorphisms( <D> ) F
 
-returns a subgroup of the automorphism group of the pc group <D> which is
-a supplement to  the  inner  automorphism  group  of  <D>  in  the  whole
-automorphism group of <D>. The group of automorphisms returned may  be  a
-proper subgroup of the full automorphism group. The descendant  <D>  must
-have been computed by the function `PqDescendants' (see~"PqDescendants").
+returns   a   record   analogous   to   what   is   returned    by    the
+`AutomorphismGroupPGroup' function of the {\AutPGrp} package, except that
+only  the  fields  `agAutos',  `agOrder'  and  `glAutos'  are  set.   The
+automorphisms generate a subgroup of the automorphism  group  of  the  pc
+group <D> that supplements the inner automorphism group  of  <D>  in  the
+whole automorphism group of <D>. The group of automorphisms returned  may
+be a proper subgroup of the full automorphism group. The  descendant  <D>
+must   have   been   computed    by    the    function    `PqDescendants'
+(see~"PqDescendants").
+
+It was hoped that this function would be useful for generating  the  full
+automorphism group of a descendant when  doing  descendant  calculations.
+However, currently it *cannot* be used for this purpose.
 
 \beginexample
 gap> Q := Pq( FreeGroup(2) : Prime := 3, ClassBound := 1 );
@@ -713,19 +723,26 @@ gap> des := PqDescendants( Q : StepSize := 1 );
   <pc group of size 27 with 3 generators>, 
   <pc group of size 27 with 3 generators> ]
 gap> S := PqSupplementInnerAutomorphisms( des[3] );
-<group with 2 generators>
-gap> Size( S );
-18
-gap> A := AutomorphismGroup( des[3] );
-<group of size 54 with 4 generators>
-gap> Size( A );
-54
+rec( agAutos := [  ], agOrder := [ 3, 2, 2, 2 ], 
+  glAutos := [ Pcgs([ f1, f2, f3 ]) -> [ f1*f2^2, f2, f3 ], 
+      Pcgs([ f1, f2, f3 ]) -> [ f1^2, f2, f3^2 ], 
+      Pcgs([ f1, f2, f3 ]) -> [ f1^2, f2, f3^2 ] ] )
+gap> A := AutomorphismGroupPGroup( des[3] );
+rec( glAutos := [  ], glOrder := 1, 
+  agAutos := [ Pcgs([ f1, f2, f3 ]) -> [ f1^2, f2, f3^2 ], 
+      Pcgs([ f1, f2, f3 ]) -> [ f1*f2^2, f2, f3 ], 
+      Pcgs([ f1, f2, f3 ]) -> [ f1*f3, f2, f3 ], 
+      Pcgs([ f1, f2, f3 ]) -> [ f1, f2*f3, f3 ] ], agOrder := [ 2, 3, 3, 3 ], 
+  one := IdentityMapping( <pc group of size 27 with 3 generators> ), 
+  group := <pc group of size 27 with 3 generators>, size := 54, 
+  glOper := [  ]
 \endexample
 
 The   above   example   may   be   executed   on-line   via   `PqExample(
-"PqSupplementInnerAutomorphisms" );' (see~"PqExample"). Note that by also
-including `PqStart' as a second argument to `PqExample' one can  see  how
-it   is   possible,   with    the    aid    of    `PqSetPQuotientToGroup'
+"PqSupplementInnerAutomorphisms" );' (see~"PqExample"). 
+
+Note that by also including `PqStart' as a second argument to `PqExample'
+one can see how it is possible, with the aid  of  `PqSetPQuotientToGroup'
 (see~"PqSetPQuotientToGroup"), to do the equivalent computations with the
 interactive versions of  `Pq'  and  `PqDescendants'  and  a  single  `pq'
 process (recall `pq' is the name of the external C program).

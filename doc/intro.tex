@@ -179,9 +179,39 @@ Below we list the main changes between versions of the {\ANUPQ} package.
 
 \beginlist
 
+\atindex{option pkgbanner}{@option \noexpand`pkgbanner'}
+\item{`2.0'}
+Changes to `pq' program (now version 1.6) and  {\GAP}  code  to  fix  bug
+reported by Boris Girnat (thanks Boris!) where too many descendants  were
+generated for a group of class more than 1  with  insoluble  automorphism
+group. Also more changes for {\GAP}~4.4, for which
+
+\itemitem{--}%unordered
+option `pkgbanner' for suppression of the package  banner  is  deprecated
+(now does nothing); its function is now provided by an optional  argument
+of  the  `LoadPackage';  see  Section~"ref:LoadPackage"  in  the   {\GAP}
+Reference Manual); and
+
+\itemitem{--}
+the package banner is no longer `Info'-ed at `InfoANUPQ' level 1, and  so
+cannot be suppressed by setting the `InfoANUPQ' level to 0.
+
+\item{}
+For {\GAP}~4.3fix4, the previous behaviour  for  the  display/suppression
+and `Info'-ing of the banner is unchanged, and `RequirePackage'  must  be
+used rather than the new command `LoadPackage'.
+
+\item{}
+`PqSupplementInnerAutomorphisms' now returns a record  analogous  to  the
+`AutomorphismGroupPGroup'  function  of  the  {\AutPGrp}   package,   and
+`AutomorphismGroupPGroup' rather than `PqSupplementInnerAutomorphisms' is
+now used to generate the required automorphism group data  in  descendant
+calculations. The corresponding `PqExample' example  has  similarly  been
+modified.
+
 \item{`1.5'}
-Fixed bug that in the filtering  of  ones  from  input  to  `pq'  program
-(thanks to Robert Morse again for the fix). Preparatory changes made  for
+Fixed bug in the filtering of ones from input to `pq' program (thanks  to
+Robert Morse again for  the  fix).  Some  preparatory  changes  made  for
 {\GAP}~4.4.
 
 \item{`1.4'}

@@ -17,7 +17,7 @@ to know that
 \beginlist%unordered
 
 \item{$\bullet$} 
-you must do a `RequirePackage("anupq");' before you can expect to  use  a
+you must do a `LoadPackage("anupq");' before you  can  expect  to  use  a
 command defined by the {\ANUPQ} package (details are in  Section~"Loading
 the ANUPQ Package");
 
@@ -61,47 +61,40 @@ To use the {\ANUPQ} package, as with  any  {\GAP}  package,  it  must  be
 requested explicitly. This is done by calling
 
 \beginexample
-gap> RequirePackage( "anupq" );
-#I    Loading the ANUPQ (ANU p-Quotient) package
-#I    C code by  Eamonn O'Brien <obrien@math.auckland.ac.nz>
-#I                ANU pq binary version: 1.5
-#I    GAP code by Werner Nickel <nickel@mathematik.tu-darmstadt.de>
-#I            and   Greg Gamble  <gregg@math.rwth-aachen.de>
-#I                ANUPQ package version: 1.5
-#I  
-#I                For help, type: ?ANUPQ
+gap> LoadPackage( "anupq" );
+-------------------------------------------------------------
+Loading ANUPQ 2.0 (ANU p-Quotient package)
+C code by  Eamonn O'Brien <obrien@math.auckland.ac.nz>
+           (ANU pq binary version: 1.6)
+GAP code by Werner Nickel <nickel@mathematik.tu-darmstadt.de>
+        and   Greg Gamble  <gregg@math.rwth-aachen.de>
+
+            For help, type: ?ANUPQ
+-------------------------------------------------------------
 true
 \endexample
 
+\index{banner!suppression}
+The banner may be suppressed by providing the version string (`"2.0"') as
+second argument and  `false'  as  third  argument  to  the  `LoadPackage'
+command.    The     `LoadPackage'     command     is     described     in
+Section~"ref:LoadPackage" in the {\GAP} Reference Manual.
+
 Note  that  since  {\ANUPQ}  package  functions  often  need  to  compute
-automorphisms  of $p$-groups,  the  {\ANUPQ} package  tries  to load  the
-{\AutPGrp}  package if  it  has  not already  been  loaded.  However,  if
-`autpgrp' is listed  in the file `ALLPKG' in the  `pkg' directory (and is
-not listed in `NOAUTO') and the {\AutPGrp} package is installed, then the
-{\AutPGrp} package is loaded automatically when {\GAP} is started up (see
-Section~"ref:Loading a GAP Package"  in the Reference Manual). The output
-above is what is seen if  the {\AutPGrp} package has already been loaded. 
-If the  {\AutPGrp} package was not  already loaded but  is available then
-you will see the {\AutPGrp} package banner immediately after the {\ANUPQ}
-banner as it is loaded.  If  the {\AutPGrp} package is *not* available, a
-warning  of  potential problems  later  is  `Info'-ed  at `InfoANUPQ'  or
-`InfoWarning' level 1.
+automorphism groups of $p$-groups, and uses the functionality provided by
+the {\AutPGrp} package to do so. Therefore, the user should  ensure  that
+the {\AutPGrp} package is also  installed,  preferrably  version  1.2  or
+better (when present {\AutPGrp} is normally  autoloaded  when  {\GAP}  is
+started up). If the {\AutPGrp} package is  not  installed,  the  {\ANUPQ}
+package will still load but  an  error  will  arise  the  first  time  an
+{\AutPGrp} function is required to compute the automorphism  group  of  a
+$p$-group.
 
-The `RequirePackage' command is described in Section~"ref:RequirePackage"
-in the {\GAP} Reference Manual.
-
-If {\GAP} cannot find a working `pq' binary, the call to `RequirePackage'
+If {\GAP} cannot find a working `pq' binary, the  call  to  `LoadPackage'
 will return `fail'.
 
-Since {\ANUPQ}'s banner is `Info'-ed at `InfoWarning' level  1,  it  will
-not be observed if the `InfoLevel' of `InfoWarning' is 0.
-
-\index{banner!suppression}
-The banner is also suppressed if the global {\GAP}  variable  `QUIET'  is
-`true' or `BANNER' is  `false'  (these  conditions  occur  if  {\GAP}  is
-invoked with the `-q' or `-b' command line  switches,  respectively).  If
-you want to load the  {\ANUPQ}  package  by  default,  you  can  put  the
-`RequirePackage' command into your `.gaprc'  file  (see  Section~"ref:The
+If you want to load the {\ANUPQ} package by  default,  you  can  put  the
+`LoadPackage' command  into  your  `.gaprc'  file  (see  Section~"ref:The
 .gaprc file" in the {\GAP} Reference Manual). By the way, the novice user
 of the {\ANUPQ} package should probably also append the line
 
@@ -109,25 +102,43 @@ of the {\ANUPQ} package should probably also append the line
 ANUPQWarnOfOtherOptions := true;
 \endtt
 
-to their `.gaprc' file, somewhere after the  `RequirePackage( "anupq" );'
+to their `.gaprc' file, somewhere after  the  `LoadPackage(  "anupq"  );'
 command (see~"ANUPQWarnOfOtherOptions").
 
+*Loading ANUPQ with GAP 4.3*
+
+The remainder of this section is only relevant if  you  are  still  using
+{\GAP} 4.3, and note that  in  any  case,  at  least  {\GAP}  4.3fix4  is
+required.
+
+To load {\ANUPQ} with {\GAP} 4.3 you will need  to  use  `RequirePackage'
+rather than `LoadPackage', and in this case the banner will look a little
+different. In particular, each line starts with `\#I', since  the  banner
+is `Info'-ed at `InfoWarning' level 1, and so will not be observed if the
+`InfoLevel' of `InfoWarning' is 0.
+
+With {\GAP} 4.3, the banner is  also  suppressed  if  the  global  {\GAP}
+variable `QUIET' is `true' or `BANNER' is `false' (these conditions occur
+if {\GAP} is invoked  with  the  `-q'  or  `-b'  command  line  switches,
+respectively).
+
 \atindex{option pkgbanner}{@option \noexpand`pkgbanner'}
-Yet one more way of suppressing {\ANUPQ}'s banner is to supply the option
-`pkgbanner' with value `"none"' to the `RequirePackage' command:
+With {\GAP} 4.3, there is yet one  more  way  of  suppressing  {\ANUPQ}'s
+banner is to supply the option  `pkgbanner'  (which  does  nothing  under
+{\GAP} 4.4) with value `"none"' to the `RequirePackage' command:
 
 \beginexample
 gap> RequirePackage( "anupq" : pkgbanner := "none" );
 true
 \endexample
 
-Finally, the full banner  is  replaced  by  a  ``short''  1-line  loading
-message (`Info'-ed at `InfoWarning' level 1) if, instead, `pkgbanner' has
-the value `"short"':
+Finally (with {\GAP} 4.3), the full banner is  replaced  by  a  ``short''
+1-line loading message (`Info'-ed at `InfoWarning' level 1) if,  instead,
+`pkgbanner' has the value `"short"':
 
 \begintt
 gap> RequirePackage( "anupq" : pkgbanner := "short" );
-#I  Loading ANUPQ Package Version 1.1
+#I  Loading ANUPQ Package Version 2.0
 true
 \endtt
 
