@@ -26,4 +26,21 @@ InstallGlobalFunction(Chomp, function(str)
   fi;
 end);
 
+#############################################################################
+##
+#F  JoinStringsWithSeparator( <list>[, <sep>] )
+##
+InstallGlobalFunction(JoinStringsWithSeparator, function(arg)
+  local str, sep, res, i;
+  str := List(arg[1], String);
+  if Length(str) = 0 then return ""; fi;
+  if Length(arg) > 1 then sep := arg[2]; else sep := ","; fi;
+  res := ShallowCopy(str[1]);
+  for i in [2 .. Length(str)] do
+    Append(res, sep);
+    Append(res, str[i]);
+  od;
+  return res;
+end );
+
 #E  anupq4r2cpt.gi  . . . . . . . . . . . . . . . . . . . . . . . . ends here 

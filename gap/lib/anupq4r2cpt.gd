@@ -24,4 +24,14 @@ Revision.anupq4r2cpt_gd :=
 ##
 DeclareGlobalFunction( "Chomp" );
 
+#############################################################################
+##
+#F  JoinStringsWithSeparator( <list>[, <sep>] )
+##
+##  joins <list> (a list of strings) after interpolating <sep> (or  `","'  if
+##  the second argument is omitted) between each adjacent  pair  of  strings;
+##  <sep> should be a string.
+##
+DeclareGlobalFunction( "JoinStringsWithSeparator" );
+
 #E  anupq4r2cpt.gd  . . . . . . . . . . . . . . . . . . . . . . . . ends here 
