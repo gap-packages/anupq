@@ -152,9 +152,16 @@ sub check {
            ." is not a valid path for GAP.\n";
       }
     } else {
-      print " error.\n";
-      die   " Please email the file: $tmpdir/$outfile\n",
-            " to Werner.Nickel\@mathematik.tu-darmstadt.de\n";
+      @diff = `diff $tstdir/out/$outfile $tmpdir/$outfile`;
+      if ( $file =~ /4/ && @diff == 10 && 
+	   !(grep { !/^\d+d\d+$/ && !/^<.*automorphism group/ } @diff) ) {
+	#differences due to not compiling with gmp
+        print " OK.\n";
+      } else {
+        print " error.\n";
+        die   " Please email the file: $tmpdir/$outfile\n",
+              " to Werner.Nickel\@mathematik.tu-darmstadt.de\n";
+      }
     }
   }
 }
