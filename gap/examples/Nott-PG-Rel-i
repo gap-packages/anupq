@@ -9,7 +9,7 @@ procId := PqStart(F : Prime := 5, Relators := rels);
 PqPcPresentation(procId : ClassBound := 3, 
 #sub <OutputLevel> for <1> if set and ok
                           OutputLevel := 1);;
-PqPCover(procId);;
+PqComputePCover(procId);;
 #comment: save the presentation to a different file by supplying <OutputFile>
 #sub <OutputFile> for <ANUPQData.outfile> if set and ok
 PqSavePcPresentation(procId, ANUPQData.outfile);;

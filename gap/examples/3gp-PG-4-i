@@ -8,7 +8,7 @@ procId := PqStart(F : Prime := 3);
 PqPcPresentation(procId : ClassBound := 1, 
 #sub <OutputLevel> for <1> if set and ok
                           OutputLevel := 1);;
-PqPCover(procId);;
+PqComputePCover(procId);;
 PqPGSupplyAutomorphisms(procId, [ [[2,0,0,0],
                                    [0,1,0,0],
                                    [0,0,1,0],
