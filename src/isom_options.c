@@ -399,6 +399,7 @@ struct pcp_vars *pcp;
 	 FileName = OpenFile (name, "r");
 	 group_present = setup_start_info (FALSE, 0, FileName, 
 					   FILE_INPUT, &pga, pcp);
+         pcp->multiplicator_rank = pcp->lastg - y[pcp->clend + pcp->cc-1];
 	 last_class (pcp);
 	 auts = read_auts_from_file (FileName, &pga.m, pcp);
 	 nmr_items = fscanf (FileName, "%d", &pga.fixed);
