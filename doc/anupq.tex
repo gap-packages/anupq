@@ -64,21 +64,44 @@ read this section, please take the time to read it now.
 
 \beginitems
 
-`Prime := <p>' & 
+\atindex{option Prime}{@option \noexpand`Prime'}
+`Prime := <p>' &
 Specifies that the $p$-quotient for the prime <p> should be computed.
 
-`ClassBound := <n>' & 
+\atindex{option ClassBound}{@option \noexpand`ClassBound'}
+`ClassBound := <n>' &
 Specifies that the $p$-quotient computed has lower exponent-$p$ class  at
 most <n>.
 
-`Exponent := <n>' & 
+\atindex{option Exponent}{@option \noexpand`Exponent'}
+`Exponent := <n>' &
 Specifies that the $p$-quotient computed has exponent <n>. By default, no
 exponent law is enforced.
 
-`Metabelian' & 
+\atindex{option Relators}{@option \noexpand`Relators'}
+`Relators := <rels>' &
+Specifies that the relators sent to the  `pq'  binary  should  be  <rels>
+rather than the relators of the group <F>; <rels> should  be  a  list  of
+*strings* in the string representations of the generators  of  <F>.  This
+option provides a way of giving relators  to  the  `pq'  binary,  without
+having  them  pre-expanded  by  {\GAP},  which  can  sometimes  effect  a
+performance loss of the order of 100.
+
+&
+*Note:*
+The `pq' binary does not use `/' to indicate multiplication by an inverse
+and uses square brackets to represent (left norm) commutators. Also, even
+though the `pq' binary accepts relations, all elements of  <rels>  *must*
+be in relator form, i.e.~a relation of form `<w1> = <w2>' must be written
+as `<w1>*(<w2>)^-1' and then put in a pair of double-quotes to make it  a
+string. See the example below.
+
+\atindex{option Metabelian}{@option \noexpand`Metabelian'}
+`Metabelian' &
 Specifies that the largest metabelian  $p$-quotient  be  constructed.  By
 default this restriction is not enforced.
 
+\atindex{option OutputLevel}{@option \noexpand`OutputLevel'}
 `OutputLevel := <n>' &
 Specifies the level of ``verbosity'' of the information output by the ANU
 `pq' binary when computing a pc presentation; <n> must be an  integer  in
@@ -88,6 +111,7 @@ the range 0 to 3. `OutputLevel := 0' displays no output, `OutputLevel  :=
 To see these messages from the `pq' binary, the `InfoANUPQ' level must be
 set to 2 (see~"InfoANUPQ").
 
+\atindex{option SetupFile}{@option \noexpand`SetupFile'}
 `SetupFile := <filename>' &
 Non-interactively, this option directs that `pq' should not be called and
 that an input file  with  name  <filename>  (a  string),  containing  the
@@ -96,6 +120,7 @@ commands written to <filename> are also `Info'-ed behind  a  ```ToPQ> '''
 prompt at `InfoANUPQ' level  3  (see~"InfoANUPQ").  In  this  case,  `Pq'
 returns `true'. Interactively, `SetupFile' is ignored.
 
+\atindex{option PqWorkspace}{@option \noexpand`PqWorkspace'}
 `PqWorkspace := <workspace>' &
 Non-interactively, this option sets the memory used by the  `pq'  binary.
 It sets the maximum number of integer-sized elements to allocate  in  its
@@ -106,7 +131,7 @@ this  case  may  be  set  by   giving   `PqStart'   a   second   argument
 
 \enditems
 
-(`Pq' requires the {\ANUPQ} share package; see~"Loading  the  ANUPQ  Share
+(`Pq' requires the {\ANUPQ} share package; see~"Loading the  ANUPQ  Share
 Package".)
 
 See also "PqEpimorphism".
@@ -128,8 +153,48 @@ gap> # Now let's get a different p-quotient of the same group
 gap> Pq( G : Prime := 2, ClassBound := 3, Exponent := 4); 
 <pc group of size 128 with 7 generators>
 gap> # Now we'll get a p-quotient of another finitely generated group 
-gap> H := F / [ a^25, Comm(Comm(b, a), a), b^5 ];;
+gap> # which we will redo using the `Relators' option
+gap> R := [ a^25, Comm(Comm(b, a), a), b^5 ];
+[ a^25, a^-1*b^-1*a*b*a^-1*b^-1*a^-1*b*a^2, b^5 ]
+gap> H := F / R;
+<fp group on the generators [ a, b ]>
 gap> Pq( H : Prime := 5, ClassBound := 5, Metabelian);
+<pc group of size 78125 with 7 generators>
+\endexample
+
+\atindex{option Relators!example of usage}%
+{@option \noexpand`Relators'!example of usage}
+Now we redo the last example to show  how  one  may  use  the  `Relators'
+option. Observe that `Comm(Comm(b, a), a)'  is  a  left  norm  commutator
+which must be written in square bracket notation for the `pq' binary  and
+embedded in  a  pair  of  double  quotes.  The  function  `PqGAPRelators'
+(see~"PqGAPRelators") can be used to translate a list of strings prepared
+for the `Relators' option into {\GAP} format. Below we  use  it.  Observe
+that the value of `R' is the same as before.
+
+\beginexample
+gap> F := FreeGroup("a", "b");;
+gap> # These are for `Relators'. We use the same strings that GAP uses
+gap> # for printing the free group generators. It is *not* necessary to
+gap> # predefine: a := F.1; etc. (as it was above).
+gap> rels := [ "a^25", "[b, a, a]", "b^5" ];
+[ "a^25", "[b, a, a]", "b^5" ]
+gap> R := PqGAPRelators(F, rels);
+[ a^25, a^-1*b^-1*a*b*a^-1*b^-1*a^-1*b*a^2, b^5 ]
+gap> H := F / R;
+<fp group on the generators [ a, b ]>
+gap> Pq( H : Prime := 5, ClassBound := 5, Metabelian, Relators := rels);
+<pc group of size 78125 with 7 generators>
+\endexample
+
+In fact, above we could have just passed `F' (rather than  `H'),  i.e.~we
+could have done:
+
+\beginexample
+gap> F := FreeGroup("a", "b");;
+gap> rels := [ "a^25", "[b, a, a]", "b^5" ];
+[ "a^25", "[b, a, a]", "b^5" ]
+gap> Pq( F : Prime := 5, ClassBound := 5, Metabelian, Relators := rels);
 <pc group of size 78125 with 7 generators>
 \endexample
 
@@ -217,18 +282,22 @@ class onwards.
 The following options are supported.
 
 \beginitems
+\atindex{option ClassBound}{@option \noexpand`ClassBound'}
 `ClassBound := <n>' &
 Specifies  the  standard  presentation  is  computed  for   the   largest
 $p$-quotient of <F> having lower expon\-ent-$p$ class at most <n>.
 
+\atindex{option Exponent}{@option \noexpand`Exponent'}
 `Exponent := <n>' &
 Specifies the $p$-quotient computed has  exponent  <n>.  By  default,  no
 exponent law is enforced.
 
+\atindex{option Metabelian}{@option \noexpand`Metabelian'}
 `Metabelian' &
 Specifies the $p$-quotient constructed is  metabelian.  By  default  this
 restriction is not enforced.
 
+\atindex{option PcgsAutomorphisms}{@option \noexpand`PcgsAutomorphisms'}
 `PcgsAutomorphisms' &
 Specifies that a polycyclic  generating  sequence  for  the  automorphism
 group of <G> (which must be *soluble*), be computed  and  passed  to  the
@@ -242,6 +311,7 @@ explanations.
 If `PcgsAutomorphisms' is used when the  automorphism  group  of  <G>  is
 insoluble, an error message occurs.
 
+\atindex{option OutputLevel}{@option \noexpand`OutputLevel'}
 `OutputLevel := <n>' &
 Specifies the level of ``verbosity'' of the information output by the ANU
 `pq' binary when computing a pc presentation; <n> must be an  integer  in
@@ -251,6 +321,7 @@ the range 0 to 3. `OutputLevel := 0' displays no output, `OutputLevel  :=
 To see these messages from the `pq' binary, the `InfoANUPQ' level must be
 set to 2 (see~"InfoANUPQ").
 
+\atindex{option SetupFile}{@option \noexpand`SetupFile'}
 `SetupFile := <filename>' &
 Non-interactively, this option directs that `pq' should not be called and
 that an input file  with  name  <filename>  (a  string),  containing  the
@@ -259,6 +330,7 @@ commands written to <filename> are also `Info'-ed behind  a  ```ToPQ> '''
 prompt at `InfoANUPQ' level  3  (see~"InfoANUPQ").  In  this  case,  `Pq'
 returns `true'. Interactively, `SetupFile' is ignored.
 
+\atindex{option PqWorkspace}{@option \noexpand`PqWorkspace'}
 `PqWorkspace := <workspace>' &
 Non-interactively, this option sets the memory used by the  `pq'  binary.
 It sets the maximum number of integer-sized elements to allocate  in  its
@@ -400,27 +472,51 @@ time to read it now.
 
 \beginitems
 
+\atindex{option ClassBound}{@option \noexpand`ClassBound'}
 `ClassBound := <n>' &
 Specifies that only descendants with lower exponent-$p$ class at most <n>
 (an integer) be generated. The default value is the exponent-$p$ class of
 <G> plus one.
 
+\atindex{option Relators}{@option \noexpand`Relators'}
+`Relators := <rels>' &
+Specifies that the relators sent to the  `pq'  binary  should  be  <rels>
+rather than the relators of the group <F>; <rels> should  be  a  list  of
+*strings* in the string representations of the generators  of  <F>.  This
+option provides a way of giving relators  to  the  `pq'  binary,  without
+having  them  pre-expanded  by  {\GAP},  which  can  sometimes  effect  a
+performance loss of the order of 100.
+
+&
+*Note:*
+The `pq' binary does not use `/' to indicate multiplication by an inverse
+and uses square brackets to represent (left norm) commutators. Also, even
+though the `pq' binary accepts relations, all elements of  <rels>  *must*
+be in relator form, i.e.~a relation of form `<w1> = <w2>' must be written
+as `<w1>*(<w2>)^-1' and then put in a pair of double-quotes to make it  a
+string. See the examples given for `Pq' ("Pq") to see how this option may
+be used.
+
+\atindex{option OrderBound}{@option \noexpand`OrderBound'}
 `OrderBound := <n>' &
 Specifies that only descendants of size at most $p^<n>$, where <n>  is  a
 non-negative integer,  be  generated.  Note  that  you  cannot  set  both
 `OrderBound' and `StepSize'.
 
+\atindex{option StepSize}{@option \noexpand`StepSize'}
 `StepSize := <n>' &
 Specifies that only  those  immediate  descendants  which  are  a  factor
 $p^<n>$ bigger than their parent group, where <n> is a positive  integer,
 be generated.
 
+\atindex{option StepSize}{@option \noexpand`StepSize'}
 `StepSize := <list>' &
 If <list> is a list of positive integers such that the sum of the  length
 of <list> and the exponent-$p$ class of <G> is equal to the  class  bound
 defined by the option `ClassBound', then the integers of <list>  are  the
 step sizes for each additional class.
 
+\atindex{option PcgsAutomorphisms}{@option \noexpand`PcgsAutomorphisms'}
 `PcgsAutomorphisms' &
 Specifies that a polycyclic  generating  sequence  for  the  automorphism
 group of <G> (which must be *soluble*), be computed  and  passed  to  the
@@ -434,10 +530,12 @@ explanations.
 If `PcgsAutomorphisms' is used when the  automorphism  group  of  <G>  is
 insoluble, an error message occurs.
 
+\atindex{option RankInitialSegmentSubgroups}{@option \noexpand`RankInitialSegmentSubgroups'}
 `RankInitialSegmentSubgroups := <n>' &
 Sets the rank of the initial  segment  subgroup  chosen  to  be  <n>.  By
 default, this has value 0.
 
+\atindex{option SpaceEfficient}{@option \noexpand`SpaceEfficient'}
 `SpaceEfficient' &
 Specifies that the `pq' binary perform calculations more slowly but  with
 greater space efficiency. This flag is frequently necessary for groups of
@@ -445,24 +543,29 @@ large Frattini quotient rank. The space saving occurs  because  only  one
 permutation is stored at any one time. This option is only  available  in
 conjunction with the `PcgsAutomorphisms' flag.
 
+\atindex{option AllDescendants}{@option \noexpand`AllDescendants'}
 `AllDescendants' &
 By default, only *capable* descendants are constructed. If this  flag  is
 set, all descendants are computed.
 
+\atindex{option Exponent}{@option \noexpand`Exponent'}
 `Exponent := <n>' &
 Specifies that only descendants with  exponent  <n>  be  constructed.  By
 default there is no exponent law.
 
+\atindex{option Metabelian}{@option \noexpand`Metabelian'}
 `Metabelian' &
 Specifies that only metabelian descendants  be  constructed.  By  default
 this restriction is not enforced.
 
+\atindex{option SubList}{@option \noexpand`SubList'}
 `SubList := <sub>' &
 Suppose that <L> is the list of descendants generated, then  for  a  list
 <sub> of integers this option causes `PqDescendants' to return  `Sublist(
 <L>, <sub> )'. If an integer <n>  is  supplied,  `PqDescendants'  returns
 `<L>[<n>]'.
 
+\atindex{option SetupFile}{@option \noexpand`SetupFile'}
 `SetupFile := <filename>' &
 Non-interactively, this option directs that `pq' should not be called and
 that an input file  with  name  <filename>  (a  string),  containing  the
@@ -471,6 +574,7 @@ commands written to <filename> are also `Info'-ed behind  a  ```ToPQ> '''
 prompt at `InfoANUPQ' level  3  (see~"InfoANUPQ").  In  this  case,  `Pq'
 returns `true'. Interactively, `SetupFile' is ignored.
 
+\atindex{option PqWorkspace}{@option \noexpand`PqWorkspace'}
 `PqWorkspace := <workspace>' &
 Non-interactively, this option sets the memory used by the  `pq'  binary.
 It sets the maximum number of integer-sized elements to allocate  in  its

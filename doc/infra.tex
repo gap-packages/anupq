@@ -39,8 +39,10 @@ still on the `OptionsStack' to affect subsequent functions  (details  are
 in Section~"Hints and Warnings regarding the use of Options"); and
 
 \item{$\bullet$} 
-in Section~"Left norm commutators" we define a function  `PqLeftNormComm'
-for computing left norm commutators in {\GAP}.
+in Section~"Utility functions" we define a function `PqLeftNormComm'  for
+computing left norm  commutators  in  {\GAP}  and  `PqGAPRelators'  which
+converts strings representing  relators  in  a  format  the  `pq'  binary
+understands to a form that {\GAP} understands.
 
 \endlist
 
@@ -294,7 +296,7 @@ advantages that options can be abbreviated and mis-spelled  options  will
 be trapped.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\Section{Left norm commutators}
+\Section{Utility Functions}
 
 \>PqLeftNormComm( <words> ) F
 
@@ -303,6 +305,31 @@ an fp group and <pow> is a positive integer, the left norm commutator  of
 <words>, e.g.~if <w1>, <w2>, <w3> are words in  the  generators  of  some
 free or  fp  group  then  `PqLeftNormComm(  [<w1>,  <w2>,  <w3>]  );'  is
 equivalent to `Comm( Comm( <w1>, <w2> ), <w3> );'.
+
+\>PqGAPRelators( <group>, <rels> ) F
+
+returns, for a list <rels> of strings in the  string  representations  of
+the generators of the fp group <group> prepared as a list of relators for 
+the `pq' binary, a list of words that {\GAP} understands.
+
+*Note:*
+The `pq' binary does not use `/' to indicate multiplication by an inverse
+and uses square brackets to represent (left norm) commutators. Also, even
+though the `pq' binary accepts relations, all elements of  <rels>  *must*
+be in relator form, i.e.~a relation of form `<w1> = <w2>' must be written
+as `<w1>*(<w2>)^-1'.
+
+Here is an example (that demonstrates its use, but with  not  necessarily
+appropriate relators for a $p$-quotient):
+
+\beginexample
+gap> F := FreeGroup("a", "b");
+gap> PqGAPRelators(F, [ "a*b^2", "[a,b]^2*a", "([a,b,a,b,b]*a*b)^2*a" ]);
+[ a*b^2, a^-1*b^-1*a*b*a^-1*b^-1*a*b*a, b^-1*a^-1*b^-1*a^-1*b*a*b^-1*a*b*a^
+    -1*b*a^-1*b^-1*a*b*a*b^-1*a^-1*b^-1*a^-1*b*a*b^-1*a*b^-1*a^-1*b*a^-1*b^
+    -1*a*b*a*b*a^-1*b*a*b^-1*a*b*a^-1*b*a^-1*b^-1*a*b*a*b^-1*a^-1*b^-1*a^
+    -1*b*a*b^-1*a*b^-1*a^-1*b*a^-1*b^-1*a*b*a*b^2*a*b*a ]
+\endexample
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
