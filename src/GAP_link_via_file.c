@@ -10,6 +10,9 @@
 *Y  Copyright 1995-1997,  School of Mathematical Sciences, ANU,     Australia
 **
 *H  $Log$
+*H  Revision 1.8  2001/06/21 23:33:18  gap
+*H  Cleaned out a few commented out bits of old code. - GG
+*H
 *H  Revision 1.7  2001/06/21 23:04:21  gap
 *H  src/*, include/*, Makefile.in:
 *H   - pq binary now calls itself version 1.5 (global variable PQ_VERSION
@@ -178,13 +181,6 @@ void insoluble_stab_gens ( rep, orbit_length, pga, pcp )
    /* append the commands to compute the stabilizer                       */
    GAP_rep = OpenFile( "GAP_rep", "w+" );
 
-/* 
-   fprintf( GAP_rep, "RequirePackage( \"anupq\" );\n" );
-   fprintf( GAP_rep, "stab := ANUPQstabilizer(%d, %d, ANUPQglb);;\n",
-	    rep, orbit_length );
-   fprintf( GAP_rep, "ANUPQoutputResult( stab, \"LINK_output\" );\n" );
-*/
-
    S = label_to_subgroup (&index, &subset, rep, pga);
    GAP_factorise_subgroup (GAP_rep, S, index, subset, pga, pcp);
    free_matrix (S, pga->s, 0);
@@ -204,8 +200,6 @@ void insoluble_stab_gens ( rep, orbit_length, pga, pcp )
    fprintf( GAP_rep, "    gens, relativeOrders, ANUPQsize, ANUPQagsize );\n" );
 
    CloseFile( GAP_rep );
-
-   /*   unlink( "LINK_output" );*/
 
    if ( GAP4iostream ) {
      printf( "GAP, please compute stabiliser!\n" );
@@ -258,10 +252,6 @@ void insoluble_stab_gens ( rep, orbit_length, pga, pcp )
 	 exit(FAILURE);
        }
    }
-
-/*
-   fprintf( stderr, "after the while loop\n" );
-*/
 
    CloseFile( OpenFile( "LINK_output", "r" ) );
 
