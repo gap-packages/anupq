@@ -1441,12 +1441,16 @@ output from the `pq' (see~"InfoANUPQ").
 For  those  familiar  with  the  `pq'  binary,  `PqPGExtendAutomorphisms'
 performs menu item 2 of the main or advanced $p$-Group Generation menu. 
 
-\>PqPGRestoreGroupFromFile( <i>, <cls>, <n> ) F
+\>PqPGRestoreGroupFromFile(<i>, <cls>, <n>) F
 \>PqPGRestoreGroupFromFile( <cls>, <n> ) F
+\>PqPGRestoreGroupFromFile( <i> [: Filename := <name> ]) F
+\>PqPGRestoreGroupFromFile([: Filename := <name> ]) F
 
-for the <i>th  or  default  interactive  {\ANUPQ}  process  and  positive
-integers <cls> and <n>, direct the `pq' binary to restore  group  <n>  of
-class <cls> from a temporary file.
+for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+binary to restore group <n> of class <cls> from a temporary  file,  where
+<cls> and <n> are positive integers, or the group stored  in  <name>.  In
+the `Filename' option forms, the option defaults to the last filename  in
+which a presentation was stored by the `pq' binary.
 
 *Note:* 
 For those  familiar  with  the  `pq'  binary,  `PqPGRestoreGroupFromFile'
