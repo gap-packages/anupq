@@ -559,7 +559,7 @@ end);
 ##
 InstallGlobalFunction(ANUPQ_ARG_CHK, 
 function(len, funcname, arg1, arg1type, arg1err, args)
-local interactive, ioArgs, datarec, optrec, optnames;
+local interactive, ioArgs, datarec, optrec, optnames, opts;
   interactive := Length(args) < len or IsInt( args[1] );
   if interactive then
     ioArgs := args{[1..Length(args) - len + 1]};
@@ -576,20 +576,22 @@ local interactive, ioArgs, datarec, optrec, optnames;
     fi;
     datarec.setupfile := VALUE_PQ_OPTION( "SetupFile" );
     datarec.workspace := VALUE_PQ_OPTION( "PqWorkspace" );
-    datarec.opts := "-i -k -g";
+    datarec.opts := ["-i", "-k", "-g"];
     if IsInt(datarec.workspace) then
-      Append(datarec.opts, Concatenation( " -s ", String(datarec.workspace) ));
+      Add(datarec.opts, "-s");
+      Add(datarec.opts, String(datarec.workspace) );
     else
       datarec.workspace := 10000000;
     fi;
+    opts := JoinStrinsWithSeparator(datarec.opts, " ");
     if datarec.setupfile = fail then
       datarec.stream := OutputTextFile(ANUPQData.infile, false);
-      ToPQk(datarec, [ "#pq called with flags: '", datarec.opts, "'" ]);
+      ToPQk(datarec, [ "#pq called with flags: '", opts, "'" ]);
       datarec.outfname := ANUPQData.outfile;
     else
       datarec.stream := OutputTextFile(ANUPQData.setupfile, false);
       ToPQk(datarec, 
-            [ "#pq input file ... use with flags: '", datarec.opts, "'" ]);
+            [ "#pq input file ... use with flags: '", opts, "'" ]);
       datarec.outfname := "PQ_OUTPUT";
     fi;
     datarec.calltype := "non-interactive";
