@@ -45,11 +45,14 @@ The following ANUPQ examples are available:
   2-groups:
    "2gp-PG-i"             "2gp-PG-2-i"           "2gp-PG-3-i"
    "2gp-PG-4-i"           "2gp-PG-e4-i"
+   "PqDescendantsTreeCoclassOne-16-i"
   3-groups:
    "3gp-PG-i"             "3gp-PG-4-i"           "3gp-PG-x-i"
-   "3gp-PG-x-1-i"
+   "3gp-PG-x-1-i"         "PqDescendants-treetraverse-i"
+   "PqDescendantsTreeCoclassOne-9-i"
   5-groups:
    "5gp-PG-i"             "Nott-PG-Rel-i"        "Nott-APG-Rel-i"
+   "PqDescendantsTreeCoclassOne-25-i"
   7,11-groups:
    "7gp-PG-i"             "11gp-PG-i"
 
