@@ -1,7 +1,6 @@
 C intro.tex 1. Introduction
-S 1.1. How to read this manual
-I 1.1. ANUPQ
-S 1.2. Authors
+I 1.0. ANUPQ
+S 1.1. Authors
 C basics.tex 2. Basics
 I 2.0. capable
 C infra.tex 3. Infrastructure
