@@ -54,10 +54,10 @@ hints are unhelpful).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Starting and Stopping Interactive ANUPQ Processes}
 
-\>PqStart( <G>, <workspace> ) F
-\>PqStart( <G> ) F
-\>PqStart( <workspace> ) F
-\>PqStart() F
+\>PqStart( <G>, <workspace> : <options> ) F
+\>PqStart( <G> : <options> ) F
+\>PqStart( <workspace> : <options> ) F
+\>PqStart(: <options> ) F
 
 activate an iostream for an interactive {\ANUPQ} process (i.e.  `PqStart'
 starts up a `pq' binary process and opens a {\GAP} iostream  to  ``talk''
@@ -68,6 +68,12 @@ functions. If `PqStart' is given an integer argument <workspace> then the
 `pq' binary is started up with a workspace (an  integer  array)  of  size
 <workspace> (i.e. $4 \times <workspace>$ bytes in a 32-bit  environment);
 otherwise, the `pq' binary sets a default workspace of $10000000$.
+
+The only <options> currently recognised  by  `PqStart'  are  `Prime'  and
+`Exponent' (see~"Pq" for details) and if provided  they  are  essentially 
+global for the interactive {\ANUPQ} process, except that any  interactive
+function interacting with the process and passing new  values  for  these
+options will over-ride the global values.
 
 \>PqQuit( <i> ) F
 \>PqQuit() F
