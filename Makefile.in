@@ -362,11 +362,12 @@ $(EFILE):  $(OBJECTS)
 clean:
 	(cd $(SRC) ; rm -f $(OBJECTS) core* $(EFILE); rm -rf ../bin)
 
+distclean: clean
+	rm -f Makefile testPq gap/tst/GAP
+
 ## create distribution .zoo file of package #################################
 src_dist:
-	@( cd .. ; find $(PKGNAME) -type f | \
-	   egrep -v 'CVS|sedf|bin|zoo|[.]cvs|[.]bbl|[.]bak|~|[.]aux|[.]toc|[.][ib]lg|[.]log|[.]lab|[.]ind|[.]idx|[.]swp' | \
-	   zoo ahI $(PKGNAME).zoo )
+	@echo "use make_zoo"
 
 ## move directories around to how GAP4 likes them ###########################
 GAP4remapdirs:

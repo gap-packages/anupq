@@ -14,14 +14,23 @@ if not IsBound( PcGroupFpGroupNC ) then
     PcGroupFpGroupNC := PcGroupFpGroup;
 fi;
 
+ANUPQPackageVersion := function()
+  local versionfile, stream, version;
+  versionfile := Filename( DirectoriesPackageLibrary("anupq", ""), "VERSION" );
+  stream := InputTextFile( versionfile );
+  version := ReadAll(stream);
+  CloseStream(stream);
+  return version{[1..Length(version) - 1]};
+end;
+
 ##  Install the documentation
 DeclarePackageAutoDocumentation( "anupq", "doc" );
 
 ##
 ##  Announce the package version and test for the existence of the binary.
 ##
-DeclarePackage( "anupq","1.1", 
-function()
+DeclarePackage( "anupq", ANUPQPackageVersion(),
+  function()
     local path;
 
     if not CompareVersionNumbers( VERSION, "4.2" ) then
@@ -40,7 +49,7 @@ function()
     fi;
 
     return true;
-end );
+  end );
 
 ##
 ##  This is needed for `gap/lib/anustab.gi'
