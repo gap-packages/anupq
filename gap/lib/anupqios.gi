@@ -27,11 +27,11 @@ Revision.anupqios_gi :=
 InstallGlobalFunction(PQ_START, function( workspace, setupfile )
 local opts, iorec;
   PrintTo(ANUPQData.SPimages, ""); #to ensure it's empty
-  #if setupfile = fail then
-  #  opts := [ "-G" ];
-  #else
+  if setupfile = fail then
+    opts := [ "-G" ];
+  else
     opts := [ "-i", "-k", "-g" ];
-  #fi;
+  fi;
   if workspace <> 10000000 then
     Append( opts, [ "-s", String(workspace) ] );
   fi;
@@ -49,7 +49,7 @@ local opts, iorec;
   else
     iorec.stream := OutputTextFile(setupfile, false);
     iorec.setupfile := setupfile;
-    ToPQk(iorec, [ "#pq called with flags: '",
+    ToPQk(iorec, [ "#call pq with flags: '",
                    JoinStringsWithSeparator(opts, " "),
                    "'" ]);
   fi;
@@ -303,7 +303,7 @@ end);
 ##
 #F  IS_PQ_PROMPT( <line> ) . . . .  checks whether the line is a prompt of pq
 ##
-##  returns `true' if the string  <line>  ends  in  `": "'  or  `"? "',  or
+##  returns `true' if  the  string  <line>  ends  in  `": "'  or  `"? "',  or
 ##  otherwise returns `false'.
 ##
 InstallGlobalFunction(IS_PQ_PROMPT, function(line)
@@ -322,7 +322,7 @@ end);
 InstallGlobalFunction(IS_PQ_REQUEST, function(line)
 local len;
   len := Length(line);
-  return 1 < len  and line{[len - 1 .. len]} = "!\n";
+  return 1 < len  and line{[1 .. 3]} = "GAP" and line{[len - 1 .. len]} = "!\n";
 end);
 
 #############################################################################
@@ -573,14 +573,17 @@ local ok;
                                            line -> IS_PQ_PROMPT(line) or
                                                    IS_PQ_REQUEST(line) );
   
-    while datarec.line <> fail and Length(datarec.line) >= 5 and 
-          datarec.line{[Length(datarec.line)-5..Length(datarec.line)-1]} 
-               = "HELP!" do
+    while datarec.line <> fail and 
+          PositionSublist(
+              datarec.line, "GAP, please compute stabiliser!") <> fail do
 
+      HideGlobalVariables( "ANUPQglb", "F", "gens", "relativeOrders",
+                           "ANUPQsize", "ANUPQagsize" );
       Read( Filename( ANUPQData.tmpdir, "GAP_input" ) );
       Read( Filename( ANUPQData.tmpdir, "GAP_rep" ) );
-
-      ToPQ( datarec, [ "doneX" ] );
+      UnhideGlobalVariables( "ANUPQglb", "F", "gens", "relativeOrders",
+                             "ANUPQsize", "ANUPQagsize" );
+      ToPQ( datarec, [ "pq, stabiliser is ready!" ] );
     od;
   
     if IsString(datarec.line) then

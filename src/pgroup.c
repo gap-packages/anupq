@@ -176,7 +176,7 @@ struct pcp_vars *pcp;
 
 void list_pga_menu ()
 {
-   printf ("\nMenu for p-group generation\n");
+   printf ("\nMenu for p-Group Generation\n");
    printf ("-----------------------------\n");
    printf ("%d. Read automorphism information for starting group\n", 
 	   SUPPLY_AUTOMORPHISMS);
@@ -184,6 +184,6 @@ void list_pga_menu ()
    printf ("%d. Specify input file and group number\n", RESTORE_GROUP);
    printf ("%d. List group presentation\n", DISPLAY_GROUP);
    printf ("%d. Construct descendants\n", ITERATION);
-   printf ("%d. Interactive construction\n", INTERACTIVE_PGA);
-   printf ("%d. Exit to main menu\n", MAX_PGA_OPTION);
+   printf ("%d. Advanced p-group generation menu\n", INTERACTIVE_PGA);
+   printf ("%d. Exit to basic menu\n", MAX_PGA_OPTION);
 }

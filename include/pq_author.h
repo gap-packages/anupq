@@ -9,28 +9,29 @@
 **
 */
 
+#define PQ_VERSION "ANU p-Quotient Program Version 1.5"
+
 /* 
 ###############################################################################
 #
 #     Australian National University p-Quotient Program 
 #
-#     Version 1.4
+#     Version 1.5
 #
-#     June 1996
+#     June 2001 (-v and -G options added and adapted to GAP 4)
 #
 ###############################################################################
 
 This implementation was developed in C by 
 
 Eamonn O'Brien 
-Lehrstuhl D fuer Mathematik
-RWTH
-Templergraben 64
-52062 Aachen
+Department of Mathematics
+University of Auckland
+Private Bag 92019, Auckland, New Zealand
 
-E-mail: obrien@math.rwth-aachen.de
+E-mail: obrien@math.auckland.ac.nz
 
-WWW http://www.math.rwth-aachen.de/~obrien
+WWW http://www.math.auckland.ac.nz/~obrien
 
 ###############################################################################
 #
@@ -43,14 +44,14 @@ The program provides access to implementations of the following algorithms:
 1. A p-quotient algorithm to compute a power-commutator presentation
 for a p-group.  The algorithm implemented here is based on that 
 described in Havas and Newman (1980) and papers referred to there.
-Another description of the algorithm appears in Vaughan-Lee (1990).
+Another description of the algorithm appears in Vaughan-Lee (1990b).
 A FORTRAN implementation of this algorithm was programmed by 
 Alford & Havas. The basic data structures of that implementation 
 are retained.
 
 The current implementation incorporates the following features:
 
-a. collection from the left (see Vaughan-Lee, 1990); 
+a. collection from the left (see Vaughan-Lee, 1990b); 
    Vaughan-Lee's implementation of this collection 
    algorithm is used in the program;
 
@@ -88,10 +89,9 @@ Access to parts of this program is provided via GAP, Magma,
 and Quotpic. 
 
 This program is supplied as a package within GAP.
-The link from GAP to pq is described in the manual
-for GAP 3.2 (and later versions); all of the necessary 
-code with documentation can be found in the gap 
-directory of this distribution.
+The link from GAP 4 to pq is described in the ANUPQ share
+package manual; all of the necessary code with documentation 
+can be found in the gap directory of this distribution.
 
 ###############################################################################
 #
@@ -123,11 +123,11 @@ Kluwer Academic Publishers, Dordrecht.
 M.R. Vaughan-Lee (1982), "An Aspect of the Nilpotent Quotient Algorithm", 
 Computational Group Theory (Durham, 1982), pp. 76-83. Academic Press.
 
-Michael Vaughan-Lee (1990), The Restricted Burnside Problem,
+Michael Vaughan-Lee (1990a), The Restricted Burnside Problem,
 London Mathematical Society monographs (New Ser.) #5.
 Clarendon Press, New York, Oxford.
 
-M.R. Vaughan-Lee (1990), "Collection from the left", 
+M.R. Vaughan-Lee (1990b), "Collection from the left", 
 J. Symbolic Comput. 9, 725-733.
 
 */

@@ -34,6 +34,9 @@
 
    -b to choose basic format for input of presentation; 
    -C to write CAYLEY group library;
+   -G used by GAP 4, essentially equivalent to: -i -g -k simultaneously
+      except that it also sends requests back via GAP's iostream when
+      it needs GAP to compute stabilisers;
    -g to write GAP group library and to run pq from within GAP;
    -m to write Magma group library;
    -i to choose standard presentation menu;
@@ -42,6 +45,7 @@
    -s <integer> to allocate array of size <integer> for workspace y;
    -t to pass time limit in CPU seconds for computation 
       where t = 0 implies infinite time;
+   -v prints the version of the pq binary and exits;
    -w <filename> to write group descriptions in CAYLEY/GAP/Magma format 
       to <filename> -- used in conjunction with -C or -g or -m
 
@@ -55,6 +59,7 @@ int work_space = PQSPACE;
 int format = PRETTY;
 int menu = DEFAULT_MENU;
 Logical StandardPresentation = FALSE;
+Logical GAP4iostream = FALSE;
 
 main (argc, argv)
 int argc;
@@ -83,9 +88,9 @@ char *argv[];
    /* process run-time parameters */
    if (process_parameters (argc, argv) == 0) {
 #if defined (RUN_TIME) 
-      printf ("Usage: pq [-b] [-c] [-C] [-d] [-g] [-i] [-k] [-m] [-s <integer>] [-w <filename>]\n");
+      printf ("Usage: pq [-b] [-c] [-C] [-d] [-G] [-g] [-i] [-k] [-m] [-s <integer>] [-v] [-w <filename>]\n");
 #else 
-      printf ("Usage: pq [-b] [-C] [-g] [-i] [-k] [-m] [-s <integer>] [-w <filename>]\n");
+      printf ("Usage: pq [-b] [-C] [-G] [-g] [-i] [-k] [-m] [-s <integer>] [-v] [-w <filename>]\n");
 #endif
       exit (INPUT_ERROR);
    }
@@ -179,6 +184,11 @@ char *argv[];
 	 format = FILE_INPUT;
       else if (strcmp (argv[i], "-C") == 0)  
 	 Group_library = CAYLEY_LIBRARY;
+      else if (strcmp (argv[i], "-G") == 0)  
+	{Group_library = GAP_LIBRARY;
+	 menu = ISOM_MENU;
+	 format = FILE_INPUT;
+         GAP4iostream = TRUE;}
       else if (strcmp (argv[i], "-g") == 0)  
 	 Group_library = GAP_LIBRARY;
       else if (strcmp (argv[i], "-m") == 0)  
@@ -187,6 +197,9 @@ char *argv[];
       else if (strcmp (argv[i], "-q") == 0)  
 	 menu = QUOTPIC_MENU;
 #endif 
+      else if (strcmp (argv[i], "-v") == 0)  
+	{printf ("%s\n", PQ_VERSION);
+         exit (SUCCESS);}
       else 
 	 return (0);
    }        

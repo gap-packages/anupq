@@ -20,10 +20,10 @@ is done by calling
 gap> RequirePackage("anupq");
 #I    Loading the ANUPQ (ANU p-Quotient) share package
 #I    C code by  Eamonn O'Brien <obrien@math.auckland.ac.nz>
-#I                ANU pq binary version: 1.4
+#I                ANU pq binary version: 1.5
 #I    GAP code by Werner Nickel <nickel@mathematik.tu-darmstadt.de>
 #I            and   Greg Gamble  <gregg@math.rwth-aachen.de>
-#I                ANUPQ package version: 1.0
+#I                ANUPQ package version: 1.1
 #I  
 #I                For help, type: ?ANUPQ
 true
@@ -147,13 +147,13 @@ time.)
 
 calls the UNIX command `mkdir' to create <dir>, which must be  a  string,
 and if successful a directory  object  for  <dir>  is  both  assigned  to
-`ANUPQData.tmpdir'  and  returned.  The  fields  `ANUPQData.infile'   and
-`ANUPQData.outfile' are also set to be files in  `ANUPQData.tmpdir',  and
-on exit from {\GAP} <dir> is removed. Most users  will  never  need  this
-command; by default, {\GAP} typically chooses a  ``random''  subdirectory
-of `/tmp' for `ANUPQData.tmpdir' which may occasionally  have  limits  on
-what may be written there. `ANUPQDirectoryTemporary' permits the user  to
-choose a directory (object) where one is not so limited.
+`ANUPQData.tmpdir' and returned. The field  `ANUPQData.outfile'  is  also
+set to be a file in `ANUPQData.tmpdir', and on exit from {\GAP} <dir>  is
+removed. Most users will never need  this  command;  by  default,  {\GAP}
+typically   chooses   a   ``random''   subdirectory   of    `/tmp'    for
+`ANUPQData.tmpdir' which may occasionally have  limits  on  what  may  be
+written there. `ANUPQDirectoryTemporary' permits the  user  to  choose  a
+directory (object) where one is not so limited.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Setting the Verbosity of ANUPQ via Info and InfoANUPQ}

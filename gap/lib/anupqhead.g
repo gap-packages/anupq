@@ -23,7 +23,6 @@ Revision.anupqhead_g :=
 ##    "binary"  . . the path of the pq binary
 ##    "tmpdir"  . . the path of the temporary directory for pq i/o files
 ##    "io"  . . . . list of data records for PqStart IO Streams
-##    "infile"  . . the path of the pq input file
 ##    "outfile" . . the path of the pq output file
 ##    "SPimages"  . the path of the pq GAP_library file
 ##    "version" . . the version of the current pq binary
@@ -35,15 +34,12 @@ ANUPQData := rec( binary := Filename( DirectoriesPackagePrograms( "anupq" ),
                   io := []     # list of records for PqStart IO Streams,
                                #  of which, there are initially none
                   );
-ANUPQData.infile  := Filename( ANUPQData.tmpdir, "PQ_INPUT" ); 
 ANUPQData.outfile := Filename( ANUPQData.tmpdir, "PQ_OUTPUT" );
 ANUPQData.SPimages := Filename( ANUPQData.tmpdir, "GAP_library" );
 
 # Fire up ANUPQ with the code for exit 
 # ... to generate a banner (which has ANUPQ's current version)
-PrintTo( ANUPQData.infile, "10\n" );
-Exec( Concatenation( ANUPQData.binary, " -s 0 <", ANUPQData.infile, ">", 
-                     ANUPQData.outfile ) );
+Exec( Concatenation( ANUPQData.binary, " -v >", ANUPQData.outfile ) );
 # For now use ANUPQData.scratch for an input stream
 ANUPQData.scratch := InputTextFile( ANUPQData.outfile );
 # Grab the first line of outfile, which has the version number of the binary
@@ -53,8 +49,7 @@ CloseStream( ANUPQData.scratch );
 # ... ANUPQData.scratch now records where N.n starts
 ANUPQData.scratch := PositionSublist( ANUPQData.version, "Version" ) + 8;
 ANUPQData.version := ANUPQData.version{ [ANUPQData.scratch ..
-                                         Position( ANUPQData.version, ' ', 
-                                                   ANUPQData.scratch ) - 1] };
+                                         Length(ANUPQData.version) - 1] };
 Unbind( ANUPQData.scratch ); # We don't need ANUPQData.scratch, anymore.
 
 #############################################################################

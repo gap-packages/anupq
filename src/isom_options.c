@@ -468,7 +468,7 @@ void list_isom_menu ()
    printf ("%d. Display presentation\n", PRINT_PCP);
    printf ("%d. Set print level for construction\n", STANDARD_PRINT_LEVEL);
    printf ("%d. Compare two presentations stored in files\n", COMPARE);
-   printf ("%d. Call p-Quotient menu\n", PQ_MENU);
+   printf ("%d. Call basic menu for p-Quotient program\n", PQ_MENU);
    printf ("%d. Compute the isomorphism\n", ISOM_OPTION);
    printf ("%d. Exit from program\n", MAXOPTION);
 }

@@ -9,6 +9,7 @@
 **
 */
 
+#include "pq_author.h"
 #include "pq_defs.h"
 #include <sys/types.h>
 #include <sys/times.h>
@@ -50,8 +51,8 @@ int work_space;
    struct tm *x;
    time (&time_val);
    x = localtime (&time_val);
-   printf ("ANU p-Quotient Program Version 1.4 running with workspace %d\n", 
-	   work_space);
+   printf ("%s running with workspace %d\n", 
+	   PQ_VERSION, work_space);
    printf ("Date is %d:%d:%d %d-%d-19%d\n", x->tm_hour, x->tm_min, x->tm_sec,  
 	   x->tm_mday, x->tm_mon + 1, x->tm_year);
 #else 
@@ -64,13 +65,13 @@ int work_space;
 #endif 
 
 #if defined (LIE) 
-   id = "Lie Ring Program Version 1.0";
+   id = "ANU Lie Ring Program Version 1.0";
 #endif
 #if defined (GROUP) 
-   id = "p-Quotient Program Version 1.4";
+   id = PQ_VERSION;
 #endif 
 
-   printf ("ANU %s running with workspace %d on %s\n", 
+   printf ("%s running with workspace %d on %s\n", 
 	   id, work_space, s);
    now = time (NULL);
 #ifndef HAS_NO_STRFTIME

@@ -171,9 +171,9 @@ void list_pqa_menu ()
    printf ("%d. Set print level\n", PRINT_LEVEL);
    printf ("%d. Calculate next class\n", NEXT_CLASS);
    printf ("%d. Compute p-covering group\n", PCOVER);
-   printf ("%d. Interactive manipulation of presentation\n", INTERACTIVE_PQ);
-   printf ("%d. Begin p-group generation\n", PGP);
-   printf ("%d. Exit from program\n", MAXOPTION);
+   printf ("%d. Advanced p-quotient menu\n", INTERACTIVE_PQ);
+   printf ("%d. (Main) menu for p-group generation\n", PGP);
+   printf ("%d. Exit from p-quotient program\n", MAXOPTION);
 }
 
 #endif 

@@ -23,4 +23,6 @@ int Compact_Description;
 int Compact_Order;
 char *Group_library_file;
 
+extern Logical GAP4iostream;
+
 #endif

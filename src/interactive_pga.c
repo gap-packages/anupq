@@ -317,7 +317,7 @@ struct pcp_vars *pcp;
 
 void list_interactive_pga_menu ()
 {
-   printf ("\nAdvanced menu for p-group generation\n");
+   printf ("\nAdvanced Menu for p-Group Generation\n");
    printf ("-------------------------------------\n");
    printf ("%d. Read automorphism information for starting group\n",
 	   SUPPLY_AUTS);

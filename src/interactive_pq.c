@@ -678,7 +678,7 @@ void list_interactive_pq_menu ()
    printf ("%d. Evaluate action specified on defining generators\n", DGEN_AUT);
    printf ("%d. Evaluate Engel (p - 1)-identity\n", ENGEL);
    printf ("%d. Process contents of relation file\n", RELATIONS_FILE);
-   printf ("%d. Exit from advanced p-quotient menu\n", MAXOPTION);
+   printf ("%d. Exit to basic menu\n", MAXOPTION);
 }
 
 #endif

@@ -2,9 +2,9 @@
 #
 #     Australian National University p-Quotient Program 
 #
-#     Version 1.4
+#     Version 1.5
 #
-#     January 1997, April 2001
+#     June 2001
 #
 ###############################################################################
 
@@ -32,14 +32,14 @@ for a p-group.  The algorithm implemented here is based on that
 described in Newman and O'Brien (1996), Havas and Newman (1980),
 and papers referred to there.
 
-Another description of the algorithm appears in Vaughan-Lee (1990).
+Another description of the algorithm appears in Vaughan-Lee (1990b).
 A FORTRAN implementation of this algorithm was programmed by 
 Alford & Havas. The basic data structures of that implementation 
 are retained.
 
 The current implementation incorporates the following features:
 
-a. collection from the left (see Vaughan-Lee, 1990); 
+a. collection from the left (see Vaughan-Lee, 1990b); 
    Vaughan-Lee's implementation of this collection 
    algorithm is used in the program;
 
@@ -109,11 +109,11 @@ Kluwer Academic Publishers, Dordrecht.
 M.R. Vaughan-Lee (1982), "An Aspect of the Nilpotent Quotient Algorithm", 
 Computational Group Theory (Durham, 1982), pp. 76-83. Academic Press.
 
-Michael Vaughan-Lee (1990), The Restricted Burnside Problem,
+Michael Vaughan-Lee (1990a), The Restricted Burnside Problem,
 London Mathematical Society monographs (New Ser.) #5.
 Clarendon Press, New York, Oxford.
 
-M.R. Vaughan-Lee (1990), "Collection from the left", 
+M.R. Vaughan-Lee (1990b), "Collection from the left", 
 J. Symbolic Comput. 9, 725-733.
 
 ###############################################################################

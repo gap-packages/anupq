@@ -20,13 +20,13 @@ DeclarePackageAutoDocumentation( "anupq", "doc" );
 ##
 ##  Announce the package version and test for the existence of the binary.
 ##
-DeclarePackage( "anupq","1.0", 
+DeclarePackage( "anupq","1.1", 
 function()
     local path;
 
     if not CompareVersionNumbers( VERSION, "4.2" ) then
         Info( InfoWarning, 1,
-              "Package ``anupq'': requires at least GAP 4.2" );
+              "Package ``ANUPQ'': requires at least GAP 4.2" );
         return fail;
     fi;
 
@@ -35,13 +35,19 @@ function()
 
     if Filename( path, "pq" ) = fail then
         Info( InfoWarning, 1,
-              "Package ``anupq'': The executable program is not available" );
+              "Package ``ANUPQ'': the executable program is not available" );
         return fail;
     fi;
 
     return true;
 end );
 
+##
+##  This is needed for `gap/lib/anustab.gi'
+##
+if TestPackageAvailability( "autpgrp", "1.0" ) <> fail then
+    RequirePackage( "autpgrp" );
+fi;
 
 #############################################################################
 ##
@@ -54,6 +60,7 @@ ReadPkg( "anupq", "gap/lib/anusp.gd" );
 ReadPkg( "anupq", "gap/lib/anupqopt.gd" );
 ReadPkg( "anupq", "gap/lib/anupqios.gd" );
 ReadPkg( "anupq", "gap/lib/anupqi.gd" );
+ReadPkg( "anupq", "gap/lib/anustab.gd" );
 if not CompareVersionNumbers( VERSION, "4.3" ) then
     ReadPkg( "anupq", "gap/lib/anupq4r2cpt.gd" );
 fi;

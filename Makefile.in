@@ -422,7 +422,7 @@ FreeSpace.o: FreeSpace.c ../include/pq_defs.h \
 GAP.o: GAP.c
 GAP_link_via_file.o: GAP_link_via_file.c ../include/pq_defs.h \
  ../include/storage_fixed.h ../include/pcp_vars.h \
- ../include/pga_vars.h ../include/constants.h \
+ ../include/pga_vars.h ../include/constants.h ../include/global.h \
  ../include/pq_functions.h ../include/menus.h
 GAP_present.o: GAP_present.c ../include/pq_defs.h \
  ../include/storage_fixed.h ../include/pcp_vars.h \
@@ -799,7 +799,8 @@ strip_identities.o: strip_identities.c ../include/pq_defs.h \
  ../include/pga_vars.h ../include/pq_functions.h
 subgroup_to_label.o: subgroup_to_label.c ../include/pq_defs.h \
  ../include/storage_fixed.h ../include/pga_vars.h
-system.o: system.c ../include/pq_defs.h ../include/storage_fixed.h
+system.o: system.c ../include/pq_author.h ../include/pq_defs.h \
+ ../include/storage_fixed.h
 tail_info.o: tail_info.c ../include/pq_defs.h \
  ../include/storage_fixed.h ../include/constants.h
 tails.o: tails.c ../include/pq_defs.h ../include/storage_fixed.h \

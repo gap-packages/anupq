@@ -10,6 +10,37 @@
 #Y  Copyright 1992-1994,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.8  2001/06/21 23:04:20  gap
+#H  src/*, include/*, Makefile.in:
+#H   - pq binary now calls itself version 1.5 (global variable PQ_VERSION
+#H     added in include/pq_author.h for this)
+#H   - added -v option (gives pq version)
+#H   - added -G option (equivalent to `-g -i -k' + assumes talking to GAP via
+#H     an iostream ... extern variable: GAP4iostream added in include/global.h
+#H     for this)
+#H   - some idiosyncrasies in the menus cleaned up.
+#H  standalone-doc/*:
+#H   - updated ... see newly added header in guide.tex for details.
+#H  gap/lib/anustab.g[id]:
+#H   - replace gap/lib/anustab.g ... original code is now in function
+#H     `PqStabiliserOfAllowableSubgroup'
+#H  init.g,read.g:
+#H   - now read in gap/lib/anustab.g[id] so that `PqStabiliserOfAllowableSubgroup'
+#H     is defined. ANUPQ share package now calls itself Version 1.1.
+#H  gap/lib/anupqhead.g:
+#H   - now uses -v option of pq to extract the version. ANUPQData.infile is no
+#H     longer defined.
+#H  gap/lib/*.g[id] (other):
+#H   - now when not being called to create a setup file GAP calls pq with the -G
+#H     option. The setup file has comment on first line telling user to use:
+#H     the `-i -g -k' flags. Modifications made to call
+#H     `PqStabiliserOfAllowableSubgroup' in the `ToPQ' function when a
+#H     `PQ_REQUEST' is detected.
+#H   - `PQ_REQUEST' takes a string as argument and returns a boolean. It detects
+#H     when a `GAP, please compute stabilisers!\n' request has been emitted by
+#H     the `pq' binary.
+#H  - GG
+#H
 #H  Revision 1.7  2001/06/19 17:21:39  gap
 #H  - Non-interactive functions now use iostreams (when not creating a SetupFile).
 #H  - The `Verbose' option has now been eliminated; it's function is now provided
@@ -121,9 +152,9 @@ Revision.anupq_gi :=
 ##
 ##  calls the UNIX command `mkdir' to create <dir>, which must be  a  string,
 ##  and if successful a directory  object  for  <dir>  is  both  assigned  to
-##  `ANUPQData.tmpdir'  and  returned.  The  fields  `ANUPQData.infile'   and
-##  `ANUPQData.outfile' are also set to be files in  `ANUPQData.tmpdir',  and
-##  on exit from {\GAP} <dir> is removed.
+##  `ANUPQData.tmpdir' and returned. The field  `ANUPQData.outfile'  is  also
+##  set to be a file in `ANUPQData.tmpdir', and on exit from {\GAP} <dir>  is
+##  removed.
 ##
 InstallGlobalFunction(ANUPQDirectoryTemporary, function(dir)
 local created;
@@ -146,7 +177,6 @@ local created;
 
   Add( DIRECTORIES_TEMPORARY, dir );
   ANUPQData.tmpdir  := Directory(dir);
-  ANUPQData.infile  := Filename(ANUPQData.tmpdir, "PQ_INPUT");
   ANUPQData.outfile := Filename(ANUPQData.tmpdir, "PQ_OUTPUT");
   return ANUPQData.tmpdir;
 end);
@@ -332,7 +362,6 @@ InstallGlobalFunction( PQ_EPIMORPHISM, function( args )
             
     # read group and images from file
     HideGlobalVariables( "F", "MapImages" );
-    PrintTo(ANUPQData.infile, ""); #This is a work-around for a bug in READ
     Read( datarec.outfname );
     datarec.pQuotient := ValueGlobal( "F" );
     datarec.pQepi := GroupHomomorphismByImages( 
