@@ -353,6 +353,7 @@ F 6.1. option RankInitialSegmentSubgroups
 F 6.1. option SpaceEfficient
 F 6.1. option CapableDescendants
 F 6.1. option AllDescendants
+F 6.1. option TreeDepth
 F 6.1. option SubList
 F 6.1. option BasicAlgorithm
 F 6.1. option CustomiseOutput
@@ -373,3 +374,6 @@ S 8.1. The Relators Option
 S 8.2. The Identities Option and PqEvaluateIdentities Function
 S 8.3. A Large Example
 I 8.3. B(5,4)
+S 8.4. Developing descendants trees
+F 8.4. PqDescendantsTreeCoclassOne
+F 8.4. PqDescendantsTreeCoclassOne
