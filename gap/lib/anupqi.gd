@@ -60,9 +60,28 @@ DeclareGlobalFunction( "PqRestorePcPresentation" );
 
 #############################################################################
 ##
+#F  PQ_PRE_DISPLAY( <datarec>, <menu> ) . . . .  execute pre-display commands
+##
+DeclareGlobalFunction( "PQ_PRE_DISPLAY" );
+
+#############################################################################
+##
 #F  PQ_DISPLAY_PRESENTATION( <datarec>, <menu> ) . . . . .  any menu option 4
 ##
 DeclareGlobalFunction( "PQ_DISPLAY_PRESENTATION" );
+
+#############################################################################
+##
+#F  PQ_CURRENT_GROUP(<datarec>) .  uses p-Q menu opt 4 to set the current grp
+##
+DeclareGlobalFunction( "PQ_CURRENT_GROUP" );
+
+#############################################################################
+##
+#F  PqCurrentGroup( <i> ) . . .  using p-Q menu opt 4 returns the current grp
+#F  PqCurrentGroup()
+##
+DeclareGlobalFunction( "PqCurrentGroup" );
 
 #############################################################################
 ##
@@ -150,9 +169,15 @@ DeclareGlobalFunction( "PqSolveEquation" );
 
 #############################################################################
 ##
-#F  PQ_COMMUTATOR( <datarec>, <words>, <pow> ) . . . . .  A p-Q menu option 3
+#F  PQ_COMMUTATOR( <datarec>, <words>, <pow>, <item> ) . A p-Q menu opts 3/24
 ##
 DeclareGlobalFunction( "PQ_COMMUTATOR" );
+
+#############################################################################
+##
+#F  PQ_COMMUTATOR_CHK_ARGS( <args> ) . . . . check args for commutator cmd ok
+##
+DeclareGlobalFunction( "PQ_COMMUTATOR_CHK_ARGS" );
 
 #############################################################################
 ##
@@ -437,14 +462,8 @@ DeclareGlobalFunction( "PqCollectDefiningGenerators" );
 
 #############################################################################
 ##
-#F  PQ_COMMUTATOR_DEFINING_GENERATORS( <datarec> ) . . . A p-Q menu option 24
-##
-DeclareGlobalFunction( "PQ_COMMUTATOR_DEFINING_GENERATORS" );
-
-#############################################################################
-##
-#F  PqCommutatorDefiningGenerators( <i> ) .  user ver of A p-Q menu option 24
-#F  PqCommutatorDefiningGenerators()
+#F  PqCommutatorDefiningGenerators(<i>,<words>,<pow>) . user ver A p-Q opt 24
+#F  PqCommutatorDefiningGenerators( <words>, <pow> )
 ##
 DeclareGlobalFunction( "PqCommutatorDefiningGenerators" );
 
@@ -466,6 +485,19 @@ DeclareGlobalFunction( "PQ_WRITE_PC_PRESENTATION" );
 #F  PqWritePcPresentation( )
 ##
 DeclareGlobalFunction( "PqWritePcPresentation" );
+
+#############################################################################
+##
+#F  PQ_WRITE_COMPACT_DESCRIPTION( <datarec> ) . . . . .  A p-Q menu option 26
+##
+DeclareGlobalFunction( "PQ_WRITE_COMPACT_DESCRIPTION" );
+
+#############################################################################
+##
+#F  PqWriteCompactDescription( <i> ) . . user version of A p-Q menu option 26
+#F  PqWriteCompactDescription()
+##
+DeclareGlobalFunction( "PqWriteCompactDescription" );
 
 #############################################################################
 ##

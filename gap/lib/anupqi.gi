@@ -215,6 +215,7 @@ InstallGlobalFunction( PQ_RESTORE_PC_PRESENTATION, function( datarec, filename )
   PQ_MENU(datarec, "pQ");
   ToPQ(datarec, [ "3  #restore pc presentation from file" ]);
   ToPQ(datarec, [ filename, "  #filename" ]);
+  datarec.pQpcp := rec(); # Just so it's bound
 end );
 
 #############################################################################
@@ -248,6 +249,29 @@ end );
 
 #############################################################################
 ##
+#F  PQ_PRE_DISPLAY( <datarec>, <menu> ) . . . .  execute pre-display commands
+##
+##  sets  up  a  display  command  by  ensuring  the  print  level   is   set
+##  appropriately and the `InfoLevel' of  `InfoANUPQ'  is  at  least  2,  and
+##  returns  the  `InfoLevel'  of  `InfoANUPQ'  at  the  point   of   calling
+##  `PQ_PRE_DISPLAY'.
+##
+InstallGlobalFunction( PQ_PRE_DISPLAY, function( datarec, menu )
+local lev, infolev;
+  PQ_MENU(datarec, menu);
+  if menu[ Length(menu) ] <> 'G' then
+    lev := VALUE_PQ_OPTION("OutputLevel");
+    if lev <> fail then
+      PQ_SET_PRINT_LEVEL( datarec, menu, lev );
+    fi;
+  fi;
+  infolev := InfoLevel(InfoANUPQ);
+  SetInfoLevel(InfoANUPQ, Maximum(2, infolev));
+  return infolev;
+end );
+
+#############################################################################
+##
 #F  PQ_DISPLAY_PRESENTATION( <datarec>, <menu> ) . . . . .  any menu option 4
 ##
 ##  directs the  `pq'  binary  to  display  the  pc  presentation  previously
@@ -255,11 +279,62 @@ end );
 ##
 InstallGlobalFunction( PQ_DISPLAY_PRESENTATION, function( datarec, menu )
 local infolev;
-  PQ_MENU(datarec, menu);
-  infolev := InfoLevel(InfoANUPQ);
-  SetInfoLevel(InfoANUPQ, Maximum(2, infolev));
+  infolev := PQ_PRE_DISPLAY(datarec, menu);
   ToPQ(datarec, [ "4  #display presentation" ]);
   SetInfoLevel(InfoANUPQ, infolev);
+end );
+
+#############################################################################
+##
+#F  PQ_CURRENT_GROUP(<datarec>) .  uses p-Q menu opt 4 to set the current grp
+##
+##  sets the details of the current group in `<datarec>.pQ.currGrp'.
+##
+InstallGlobalFunction( PQ_CURRENT_GROUP, function( datarec )
+local lev, line;
+  PQ_MENU(datarec, "pQ");
+  if not IsBound(datarec.pQ) then
+    datarec.pQ := rec();
+  fi;
+  if IsBound(datarec.pQ.OutputLevel) then
+    lev := datarec.pQ.OutputLevel;
+    ToPQ(datarec, [ "5  #set print level" ]);
+    ToPQ(datarec, [ "0  #minimal print level" ]);
+  fi;
+  ToPQk(datarec, [ "4  #display presentation" ]);
+  line := FLUSH_PQ_STREAM_UNTIL( datarec.stream, 2, 2, PQ_READ_NEXT_LINE,
+                                 line -> 5 < Length(line) and 
+                                         line{[1..6]} = "Group:");
+  line := SplitString(line, "", ": ");
+  datarec.pQ.currGrp := rec( name := line[2], 
+                             class := Int( line[8] ),
+                             order := EvalString( line[11] ) );
+  if IsBound(lev) then
+    ToPQ(datarec, [ "5  #set print level" ]);
+    ToPQ(datarec, [ lev, "  #print level" ]);
+  fi;
+end );
+
+#############################################################################
+##
+#F  PqCurrentGroup( <i> ) . . .  using p-Q menu opt 4 returns the current grp
+#F  PqCurrentGroup()
+##
+##  for the <i>th or default interactive {\ANUPQ} process, returns  a  record
+##  with fields `name', `class' and `order' which are respectively  the  name
+##  (known to the `pq' binary, which is by default `"G"'), the class and  the
+##  order of the current group.
+##
+InstallGlobalFunction( PqCurrentGroup, function( arg )
+local datarec;
+  ANUPQ_IOINDEX_ARG_CHK(arg);
+  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
+  if not IsBound(datarec.pQpcp) then
+    Error( "pq binary must have a pcp, call `PqPcPresentation' or\n",
+           "`PqRestorePcPresentation' first\n" );
+  fi;
+  PQ_CURRENT_GROUP( datarec );
+  return datarec.pQ.currGrp;
 end );
 
 #############################################################################
@@ -282,14 +357,8 @@ end );
 ##
 InstallGlobalFunction( PqDisplayPcPresentation, function( arg )
 local datarec;
-  #Commented out bit: one way of merging setting the print level
-  #if 2 = Length(arg) then
-  #  datarec := PQ_CHK_PRINT_ARGS( arg );
-  #  PQ_SET_PRINT_LEVEL( datarec, "pQ", arg[Length(arg)] );
-  #else
-    ANUPQ_IOINDEX_ARG_CHK(arg);
-    datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  #fi;
+  ANUPQ_IOINDEX_ARG_CHK(arg);
+  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
   PQ_DISPLAY_PRESENTATION( datarec, "pQ" );
 end );
 
@@ -303,9 +372,16 @@ end );
 ##  menu), by performing option 5 of <menu> menu.
 ##
 InstallGlobalFunction( PQ_SET_PRINT_LEVEL, function( datarec, menu, lev )
-  PQ_MENU(datarec, menu);
-  ToPQ(datarec, [ "5  #set print level" ]);
-  ToPQ(datarec, [ lev, "  #print level" ]);
+  if not IsBound( datarec.(menu) ) then
+    datarec.(menu) := rec();
+  fi;
+  if not IsBound( datarec.(menu).OutputLevel ) or 
+     datarec.(menu).OutputLevel <> lev then
+    PQ_MENU(datarec, menu);
+    ToPQ(datarec, [ "5  #set print level" ]);
+    ToPQ(datarec, [ lev, "  #print level" ]);
+    datarec.(menu).OutputLevel := lev;
+  fi;
 end );
 
 #############################################################################
@@ -417,7 +493,7 @@ InstallGlobalFunction( PQ_COLLECT, function( datarec, word )
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
   ToPQk(datarec, [ "1  #do individual collection" ]);
   FLUSH_PQ_STREAM_UNTIL(
-      datarec.stream, 4, 2, PQ_READ_NEXT_LINE,
+      datarec.stream, 2, 2, PQ_READ_NEXT_LINE,
       line -> 0 < Length(line) and line[Length(line)] = '\n');
   ToPQ(datarec, [ word, ";  #word to be collected" ]);
 end );
@@ -471,11 +547,11 @@ InstallGlobalFunction( PQ_SOLVE_EQUATION, function( datarec, a, b )
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
   ToPQk(datarec, [ "2  #solve equation" ]);
   FLUSH_PQ_STREAM_UNTIL(
-      datarec.stream, 4, 2, PQ_READ_NEXT_LINE,
+      datarec.stream, 2, 2, PQ_READ_NEXT_LINE,
       line -> 0 < Length(line) and line[Length(line)] = '\n');
   ToPQk(datarec, [ a, ";  #word a" ]);
   FLUSH_PQ_STREAM_UNTIL(
-      datarec.stream, 4, 2, PQ_READ_NEXT_LINE,
+      datarec.stream, 2, 2, PQ_READ_NEXT_LINE,
       line -> 0 < Length(line) and line[Length(line)] = '\n');
   ToPQ(datarec, [ b, ";  #word b" ]);
 end );
@@ -506,26 +582,58 @@ end );
 
 #############################################################################
 ##
-#F  PQ_COMMUTATOR( <datarec>, <words>, <pow> ) . . . . .  A p-Q menu option 3
+#F  PQ_COMMUTATOR( <datarec>, <words>, <pow>, <item> ) . A p-Q menu opts 3/24
 ##
-##  inputs data to the `pq' binary for option 3 of the
-##  Advanced $p$-Quotient menu.
+##  inputs data to the `pq' binary  for  option  3  or  24  of  the  Advanced
+##  $p$-Quotient menu, to compute  the  left  norm  commutator  of  the  list
+##  <words> of words in the generators raised to  the  integer  power  <pow>,
+##  where <item> is `"3 #commutator"' for option 3  or  `"24  #commutator  of
+##  defining genrs"' for option 24.
 ##
-InstallGlobalFunction( PQ_COMMUTATOR, function( datarec, words, pow )
+InstallGlobalFunction( PQ_COMMUTATOR, function( datarec, words, pow, item )
 local i;
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
-  ToPQ(datarec, [ "3  #commutator" ]);
+  ToPQ(datarec, [ item ]);
   # @add argument checking@
   ToPQk(datarec, [ Length(words), "  #no. of components" ]);
   for i in [1..Length(words)] do
     FLUSH_PQ_STREAM_UNTIL(
-        datarec.stream, 4, 2, PQ_READ_NEXT_LINE,
+        datarec.stream, 2, 2, PQ_READ_NEXT_LINE,
         line -> 1 < Length(line) and 
                 line{[Length(line) - 1..Length(line)]} = ":\n");
     ToPQk(datarec, [ words[i], ";  #word ", i ]);
   od;
-  FLUSH_PQ_STREAM_UNTIL(datarec.stream, 4, 2, PQ_READ_NEXT_LINE, IS_PQ_PROMPT);
+  FLUSH_PQ_STREAM_UNTIL(datarec.stream, 2, 2, PQ_READ_NEXT_LINE, IS_PQ_PROMPT);
   ToPQ(datarec, [ pow, "  #power" ]);
+end );
+
+#############################################################################
+##
+#F  PQ_COMMUTATOR_CHK_ARGS( <args> ) . . . . check args for commutator cmd ok
+##
+##  returns a list of valid arguments for a low-level commutator  command  or
+##  generates an error.
+##
+InstallGlobalFunction( PQ_COMMUTATOR_CHK_ARGS, function( args )
+local len, words, pow, datarec;
+  len := Length(args);
+  if not(len in [2, 3]) then
+    Error("expected 2 or 3 arguments\n");
+  fi;
+  words := args[len - 1];
+  pow   := args[len];
+  if not(IsList(words) and ForAll(words, IsString)) then
+    #@need to add more checking for words@
+    Error( "argument <words> must be a list of strings,\n",
+           "where each string represents a word in the generators\n" );
+  fi;
+  if not IsPosInt(pow) then
+    Error( "argument <pow> must be a positive integer\n" );
+  fi;
+  args := args{[1 .. len - 2]};
+  ANUPQ_IOINDEX_ARG_CHK(args);
+  datarec := ANUPQData.io[ ANUPQ_IOINDEX(args) ];
+  return [datarec, words, pow];
 end );
 
 #############################################################################
@@ -542,15 +650,8 @@ end );
 ##  of the Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqCommutator, function( arg )
-local len, datarec;
-  len := Length(arg);
-  if not(len in [2,3]) then
-    Error("expected 2 or 3 arguments\n");
-  fi;
-  #@need to add argument checking for words and pow@
-  ANUPQ_IOINDEX_ARG_CHK(arg{[1..len -2]});
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg{[1..len - 2]}) ];
-  PQ_COMMUTATOR( datarec, arg[len - 1], arg[len] );
+  CallFuncList( PQ_COMMUTATOR, Concatenation( PQ_COMMUTATOR_CHK_ARGS(arg), 
+                                              [ "3  #commutator" ] ) );
 end );
 
 #############################################################################
@@ -1252,10 +1353,12 @@ end );
 ##  <n>.
 ##
 InstallGlobalFunction( PQ_PRINT_STRUCTURE, function( datarec, m, n )
-  PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
+local infolev;
+  infolev := PQ_PRE_DISPLAY(datarec, "ApQ");
   ToPQ(datarec, [ "20  #print structure" ]);
   ToPQ(datarec, [ m, "  #no. of first generator" ]);
   ToPQ(datarec, [ n, "  #no. of last generator"  ]);
+  SetInfoLevel(InfoANUPQ, infolev);
 end );
 
 #############################################################################
@@ -1310,10 +1413,12 @@ end );
 ##  <n>.
 ##
 InstallGlobalFunction( PQ_DISPLAY_AUTOMORPHISMS, function( datarec, m, n )
-  PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
-  ToPQ(datarec, [ "21  #display automorphisms" ]);
+local infolev;
+  infolev := PQ_PRE_DISPLAY(datarec, "ApQ");
+  ToPQ(datarec, [ "21 #display automorphisms" ]);
   ToPQ(datarec, [ m, "  #no. of first generator" ]);
   ToPQ(datarec, [ n, "  #no. of last generator"  ]);
+  SetInfoLevel(InfoANUPQ, infolev);
 end );
 
 #############################################################################
@@ -1345,7 +1450,7 @@ InstallGlobalFunction( PQ_COLLECT_DEFINING_GENERATORS, function( datarec, word )
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
   ToPQk(datarec, [ "23  #collect defining generators" ]);
   FLUSH_PQ_STREAM_UNTIL(
-      datarec.stream, 4, 2, PQ_READ_NEXT_LINE,
+      datarec.stream, 2, 2, PQ_READ_NEXT_LINE,
       line -> 0 < Length(line) and line[Length(line)] = '\n');
   ToPQ(datarec, [ word, ";  #word to be collected" ]);
 end );
@@ -1370,33 +1475,21 @@ end );
 
 #############################################################################
 ##
-#F  PQ_COMMUTATOR_DEFINING_GENERATORS( <datarec> ) . . . A p-Q menu option 24
-##
-##  inputs data to the `pq' binary for option 24 of the Advanced $p$-Quotient
-##  menu, to compute the commutator of the defining generators.
-##
-InstallGlobalFunction( PQ_COMMUTATOR_DEFINING_GENERATORS, function( datarec )
-  PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
-  ToPQ(datarec, [ "24  #commutator defining generators" ]);
-end );
-
-#############################################################################
-##
-#F  PqCommutatorDefiningGenerators( <i> ) .  user ver of A p-Q menu option 24
-#F  PqCommutatorDefiningGenerators()
+#F  PqCommutatorDefiningGenerators(<i>,<words>,<pow>) . user ver A p-Q opt 24
+#F  PqCommutatorDefiningGenerators( <words>, <pow> )
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
-##  binary to compute the commutator of the defining generators.
+##  binary to compute the left norm commutator of the list <words>  of  words
+##  in the generators raised to the integer power <pow>.
 ##
 ##  *Note:*
 ##  For those familiar with the `pq' binary, `PqCommutatorDefiningGenerators'
 ##  performs option 24 of the Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqCommutatorDefiningGenerators, function( arg )
-local datarec;
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  PQ_COMMUTATOR_DEFINING_GENERATORS( datarec );
+  CallFuncList( PQ_COMMUTATOR, 
+                Concatenation( PQ_COMMUTATOR_CHK_ARGS(arg), 
+                               [ "24 #commutator of defining genrs" ] ) );
 end );
 
 #############################################################################
@@ -1477,6 +1570,34 @@ local outfile, datarec;
     PQ_PC_PRESENTATION( datarec, "pQ" );
   fi;
   PQ_WRITE_PC_PRESENTATION( datarec, outfile );
+end );
+
+#############################################################################
+##
+#F  PQ_WRITE_COMPACT_DESCRIPTION( <datarec> ) . . . . .  A p-Q menu option 26
+##
+##  tells the `pq' binary to write a compact description to a file.
+##
+InstallGlobalFunction( PQ_WRITE_COMPACT_DESCRIPTION, function( datarec )
+  PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
+  ToPQ(datarec, [ "26 #write compact description to file" ]);
+end );
+
+#############################################################################
+##
+#F  PqWriteCompactDescription( <i> ) . . user version of A p-Q menu option 26
+#F  PqWriteCompactDescription()
+##
+##  for the <i>th or default interactive {\ANUPQ}  process,  tells  the  `pq'
+##  binary to write a compact description to a file.
+##
+##  *Note:* 
+##  For those familiar  with  the  `pq'  binary,  `PqWriteCompactDescription'
+##  performs option 26 of the Advanced $p$-Quotient menu.
+##
+InstallGlobalFunction( PqWriteCompactDescription, function( arg )
+  ANUPQ_IOINDEX_ARG_CHK(arg);
+  PQ_WRITE_COMPACT_DESCRIPTION( ANUPQData.io[ ANUPQ_IOINDEX(arg) ] );
 end );
 
 #############################################################################

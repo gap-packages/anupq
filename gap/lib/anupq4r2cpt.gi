@@ -58,4 +58,14 @@ InstallGlobalFunction( ResetOptionsStack,
     fi;
 end);
 
+#############################################################################
+##
+#F  EvalString( <expr> ) . . . . . . . . . . . . evaluate a string expression
+##
+InstallGlobalFunction("EvalString", function( expr )
+  local tmp;
+  tmp := Concatenation( "return ", expr, ";" );
+  return ReadAsFunction( InputTextString( tmp ) )();
+end );
+
 #E  anupq4r2cpt.gi  . . . . . . . . . . . . . . . . . . . . . . . . ends here 

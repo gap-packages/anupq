@@ -48,4 +48,26 @@ DeclareGlobalFunction( "JoinStringsWithSeparator" );
 ##
 DeclareGlobalFunction( "ResetOptionsStack");
 
+#############################################################################
+##
+#F  EvalString( <expr> ) . . . . . . . . . . . . evaluate a string expression
+##
+##  passes <expr> (a string) through  an  input text stream  so  that  {\GAP}
+##  interprets it, and returns the  result.  The  following  trivial  example
+##  demonstrates its use.
+##
+##  \beginexample
+##  gap> a:=10;
+##  10
+##  gap> EvalString("a^2");
+##  100
+##  \endexample
+##
+##  `EvalString' is intended for *single* expressions. A sequence of commands
+##  may   be   interpreted   by   using   the   functions   `InputTextString'
+##  (see~"InputTextString")  and  `ReadAsFunction'   (see~"ReadAsFunction!for
+##  streams") together; see "Operations for Input Streams" for an example.
+##
+DeclareGlobalFunction( "EvalString" );
+
 #E  anupq4r2cpt.gd  . . . . . . . . . . . . . . . . . . . . . . . . ends here 
