@@ -337,7 +337,7 @@ end);
 
 # UNIXSelect may disappear!
 if not("UNIXSelect" in NamesGVars()) then
-  BindGlobal("UNIXSelect", function(arg) end); #a no-op
+  BindGlobal("UNIXSelect", function(arg) Sleep(1); end); #avoid chewing up CPU
 fi;
 #############################################################################
 ##

@@ -84,12 +84,19 @@ DeclareOperation( "IsMatchingSublist", [ IsList, IsList, IS_INT ] );
 
 #############################################################################
 ##
+#F  StringFile( <name> ) . . . . . . return content of file <name> as string
+##
+DeclareGlobalFunction( "StringFile" );
+
+#############################################################################
+##
 #F  FileDescriptorOfStream( <stream> )
 #F  UNIXSelect( <arg> )
 ##
 ##  We provide dummy functions for these. In {\GAP} 4.3 they are  implemented
 ##  in the kernel. Each returns 1 for {\GAP} 4.2, which for the  way  we  use
-##  them in the {\ANUPQ} package essentially renders them as no-ops.
+##  them in the {\ANUPQ} package essentially renders them as  no-ops,  except
+##  that `UNIXSelect' also sleeps 1 second.
 ##
 DeclareGlobalFunction( "FileDescriptorOfStream" );
 DeclareGlobalFunction( "UNIXSelect" );

@@ -27,8 +27,4 @@ if not IsBound( LOADED_PACKAGES.autpgrp ) then
          "See the installation instructions for the ``ANUPQ'' share package.");
 fi;
 
-if not CompareVersionNumbers( VERSION, "4.3" ) then
-    ReadPkg( "anupq", "gap/lib/anupq4r2cpt.gi" );
-fi;
-
 #E  read.g . . . . . . . . . . . . . . . . . . . . . . . . . . . .  ends here

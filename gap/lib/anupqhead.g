@@ -5,6 +5,7 @@
 #W                                                                Greg Gamble
 ##
 ##  `Head' file for the GAP interface to the ANU pq binary by Eamonn O'Brien.
+#T  This should be split into `.gd' and `.gi' files.
 ##    
 #H  @(#)$Id$
 ##
@@ -27,30 +28,26 @@ Revision.anupqhead_g :=
 ##    "SPimages"  . the path of the pq GAP_library file
 ##    "version" . . the version of the current pq binary
 ##
-ANUPQData := rec( binary := Filename( DirectoriesPackagePrograms( "anupq" ),
-                                      "pq"),
-                  tmpdir := DirectoryTemporary(),
-                  ni := rec(), # record for non-interactive functions
-                  io := []     # list of records for PqStart IO Streams,
-                               #  of which, there are initially none
-                  );
-ANUPQData.outfile := Filename( ANUPQData.tmpdir, "PQ_OUTPUT" );
+DeclareGlobalVariable( "ANUPQData",
+  "A record containing various data associated with the ANUPQ share package."
+);
+InstallValue( ANUPQData,
+  rec( binary := Filename( DirectoriesPackagePrograms( "anupq" ), "pq"),
+       tmpdir := DirectoryTemporary(),
+       ni := rec(), # record for non-interactive functions
+       io := []     # list of records for PqStart IO Streams,
+                    #  of which, there are initially none
+       )
+);
+ANUPQData.outfile  := Filename( ANUPQData.tmpdir, "PQ_OUTPUT" );
 ANUPQData.SPimages := Filename( ANUPQData.tmpdir, "GAP_library" );
 
-# Fire up ANUPQ with the code for exit 
-# ... to generate a banner (which has ANUPQ's current version)
+# Fire up the pq binary to get its version
 Exec( Concatenation( ANUPQData.binary, " -v >", ANUPQData.outfile ) );
-# For now use ANUPQData.scratch for an input stream
-ANUPQData.scratch := InputTextFile( ANUPQData.outfile );
-# Grab the first line of outfile, which has the version number of the binary
-ANUPQData.version := ReadLine( ANUPQData.scratch );
-CloseStream( ANUPQData.scratch );
-# We just want the N.n part of the first line of outfile
-# ... ANUPQData.scratch now records where N.n starts
-ANUPQData.scratch := PositionSublist( ANUPQData.version, "Version" ) + 8;
-ANUPQData.version := ANUPQData.version{ [ANUPQData.scratch ..
-                                         Length(ANUPQData.version) - 1] };
-Unbind( ANUPQData.scratch ); # We don't need ANUPQData.scratch, anymore.
+ANUPQData.version := StringFile( ANUPQData.outfile );
+ANUPQData.version := 
+    ANUPQData.version{[PositionSublist( ANUPQData.version, "Version" ) + 8 ..
+                       Length(ANUPQData.version) - 1] };
 
 #############################################################################
 ##  
@@ -65,6 +62,8 @@ SetInfoLevel( InfoANUPQ, 1 );
 ##
 ##  Print a banner . . . . . .  using InfoWarning (so a user can turn it off)
 ##
+if not QUIET and BANNER then
+
 Info(InfoWarning,1,"  Loading the ANUPQ (ANU p-Quotient) share package");
 Info(InfoWarning,1,"  C code by  Eamonn O'Brien <obrien@math.auckland.ac.nz>");
 Info(InfoWarning,1,"              ANU pq binary version: ", ANUPQData.version);
@@ -74,6 +73,8 @@ Info(InfoWarning,1,"              ANUPQ package version: ",
                                     PACKAGES_VERSIONS.anupq);
 Info(InfoWarning,1,"");
 Info(InfoWarning,1,"              For help, type: ?ANUPQ");
+
+fi;
 
 #############################################################################
 ##

@@ -72,6 +72,7 @@ ReadPkg( "anupq", "gap/lib/anupqi.gd" );
 ReadPkg( "anupq", "gap/lib/anustab.gd" );
 if not CompareVersionNumbers( VERSION, "4.3" ) then
     ReadPkg( "anupq", "gap/lib/anupq4r2cpt.gd" );
+    ReadPkg( "anupq", "gap/lib/anupq4r2cpt.gi" );
 fi;
 ReadPkg( "anupq", "gap/lib/anupqhead.g" );
 

@@ -99,11 +99,24 @@ InstallOtherMethod( IsMatchingSublist,"list,empty,pos",true,
 
 #############################################################################
 ##
+#F  StringFile( <name> ) . . . . . .  return content of file <name> as string
+##
+InstallGlobalFunction( StringFile, function( name )
+  local stream, string;
+  stream := InputTextFile(name);
+  string := ReadAll(stream);
+  CloseStream(stream);
+  return string;
+end);
+
+#############################################################################
+##
 #F  FileDescriptorOfStream( <stream> )
 #F  UNIXSelect( <arg> )
 ##
 InstallGlobalFunction( FileDescriptorOfStream, stream -> 1 );
 InstallGlobalFunction( UNIXSelect, function( arg )
+  Sleep(1); #so we don't chew up CPU
   return 1;
 end);
 
