@@ -50,15 +50,15 @@ help.
 \>Pq( <F> : <options> ) F
 
 returns for the finitely presented group <F>,  the  $p$-quotient  of  <F>
-specified by <options>, as a pc-group. Following the colon, <options>  is
-a selection of the options from  the  following  list  should  be  given,
-separated by commas like record components (see~"ref:function  call  with
-options"). As a minimum the user *must* supply values for the `Prime' and
-`ClassBound' options. `Pq' may also be called with no  arguments  or  one
-integer  argument,  in  which  case  it  is  being   used   interactively
-(see~"Pq!interactive");  the  same  options  may  be  used,  except  that
-`SetupFile'  and  `PqWorkspace'  are  ignored  by  the  interactive  `Pq'
-function.  Below  we  list  the   options   recognised   by   `Pq'   (see
+specified by <options>, as a pc group. Following the colon, <options>  is
+a selection of the options from the following list, separated  by  commas
+like record components (see Section~"ref:function call with  options"  in
+the {\GAP} Reference Manual). As a minimum the user *must* supply  values
+for the `Prime' and `ClassBound' options. `Pq' may also be called with no
+arguments or one integer  argument,  in  which  case  it  is  being  used
+interactively (see~"Pq!interactive");  the  same  options  may  be  used,
+except that `SetupFile' and `PqWorkspace' are ignored by the  interactive
+`Pq' function.  Below  we  list  the  options  recognised  by  `Pq'  (see
 Chapter~"ANUPQ options" for detailed descriptions).
 
 \beginlist
@@ -129,7 +129,7 @@ gap> Pq( H : Prime := 5, ClassBound := 5, Metabelian);
 \atindex{option Relators!example of usage}%
 {@option \noexpand`Relators'!example of usage}
 Now we redo the last example to show  how  one  may  use  the  `Relators'
-option. Observe that `Comm(Comm(b, a), a)'  is  a  left  norm  commutator
+option. Observe that `Comm(Comm(b, a), a)' is a  left  normed  commutator
 which must be written in square bracket notation for the `pq' binary  and
 embedded in  a  pair  of  double  quotes.  The  function  `PqGAPRelators'
 (see~"PqGAPRelators") can be used to translate a list of strings prepared
@@ -222,32 +222,33 @@ Typing: `PqExample( "PqEpimorphism" );' runs the above example in  {\GAP}
 
 \index{automorphisms!of $p$-groups}
 \>PqStandardPresentation( <F>, <p> : <options> ) F
-\>PqStandardPresentation( <F>, <G> : <options> ) F
+\>PqStandardPresentation( <F>, <Q> : <options> ) F
 \>StandardPresentation( <F>, <p> : <options> ) M
-\>StandardPresentation( <F>, <G> : <options> ) M
+\>StandardPresentation( <F>, <Q> : <options> ) M
 
-return, for the finitely presented group <F>, the  standard  presentation
-for the  $p$-quotient  of  <F>  specified  by  the  second  argument  and
-<options>, as a pc group. Following the colon, <options> is  a  selection
-of the options from the following list  should  be  given,  separated  by
-commas like record components  (see~"ref:function  call  with  options").
+Here <F> is a finitely presented group and the second argument is  either
+a prime <p> or a pc <p>-group <Q>. If the user supplies a pc group <Q> as
+second argument which is a $p$-quotient of <F>, the package {\AutPGrp} is
+called automatically to compute the automorphism group of <Q>;  an  error
+will occur that asks the user to install the package  {\AutPGrp}  if  the
+automorphism  group  cannot  be  computed.  The  functions   return   the
+<p>-quotient of <F>, specified by the second argument and  <options>,  as
+an fp group which has a standard presentation.
+
+Following the colon, <options> is a selection of  the  options  from  the
+following  list,  separated  by  commas  like  record   components   (see
+Section~"ref:function call with options" in the {\GAP} Reference Manual).
 Section~"Hints and Warnings regarding the  use  of  Options"  gives  some
-important hints and warnings regarding option usage; if you haven't  read
-this section, please take the time to read it now.
+important hints and warnings regarding option usage.
 
-If  the  user  supplies   a   prime   <p>   as   second   argument   then
-`PqStandardPresentation'    or    `StandardPresentation'    computes    a
-$p$-quotient of <F> for the prime <p>.
-
-Alternatively, a user may supply a pc group <G> as second argument  which
-is a $p$-quotient of <F>, and if she does so, the automorphism  group  of
-<G> must be known. The presentation for <G>  can  be  constructed  by  an
-initial call to `Pq' (see "Pq"). For <G> one usually chooses  a  class  1
-$p$-quotient of <F>, since the automorphism group of <G>  must  be  known
-and this is most readily available when  <G>  is  an  elementary  abelian
-group. Where the necessary information is available for a $p$-quotient of
-higher class, one can apply the standard presentation algorithm from that
-class onwards.
+*Note:*
+In contrast to the function `Pq' (see~"Pq") which  returns  a  pc  group,
+here an fp group is returned. This is because the output is  mainly  used
+for isomorphism testing for which an fp group  is  enough.  However,  the
+presentation is essentially a polycyclic presentation and if you need  to
+do any further computation with this group (e.g.~to find the  order)  you
+can use the function `PcGroupFpGroup'  (see~"ref:PcGroupFpGroup"  in  the
+{\GAP} Reference Manual) to form a pc group.
 
 The following options  are  recognised  by  `PqStandardPresentation'  and
 `StandardPresentation'  (see   Chapter~"ANUPQ   options"   for   detailed
@@ -266,9 +267,6 @@ descriptions).
 
 \atindex{option GroupName}{@option \noexpand`GroupName'}
 \item{}`GroupName := <name>'
-
-\atindex{option PcgsAutomorphisms}{@option \noexpand`PcgsAutomorphisms'}
-\item{}`PcgsAutomorphisms'
 
 \atindex{option OutputLevel}{@option \noexpand`OutputLevel'}
 \item{}`OutputLevel := <n>'
@@ -294,16 +292,23 @@ We illustrate the method with the following examples.
 
 \beginexample
 gap> F := FreeGroup( "a", "b" );; a := F.1;; b := F.2;;
-gap> G := F / [a^25, Comm(Comm(b, a), a), b^5];        
+gap> G := F / [a^25, Comm(Comm(b, a), a), b^5];
 <fp group on the generators [ a, b ]>
-gap> StandardPresentation( G, 5 : ClassBound := 10 );  
+gap> S := StandardPresentation( G, 5 : ClassBound := 10 );
 <fp group on the generators [ f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, 
   f12, f13, f14, f15, f16, f17, f18, f19, f20, f21, f22, f23, f24, f25, f26 ]>
+gap> IsPcGroup( S );
+false
+gap> # if we need to compute with S we should convert it to a pc group
+gap> Spc := PcGroupFpGroup( S );
+<pc group of size 1490116119384765625 with 26 generators>
+
 gap> H := F / [ a^625, Comm(Comm(Comm(Comm(b, a), a), a), a)/Comm(b, a)^5,
 >               Comm(Comm(b, a), b), b^625 ];;                     
 gap> StandardPresentation( H, 5 : ClassBound := 15, Metabelian );
 <fp group on the generators [ f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, 
   f12, f13, f14, f15, f16, f17, f18, f19, f20 ]>
+
 gap> F4 := FreeGroup( "a", "b", "c", "d" );;                        
 gap> a := F4.1;; b := F4.2;; c := F4.3;; d := F4.4;;
 gap> G4 := F4 / [ b^4, b^2 / Comm(Comm (b, a), a), d^16,                
@@ -311,11 +316,7 @@ gap> G4 := F4 / [ b^4, b^2 / Comm(Comm (b, a), a), d^16,
 <fp group on the generators [ a, b, c, d ]>
 gap> K := Pq( G4 : Prime := 2, ClassBound := 1 );
 <pc group of size 4 with 2 generators>
-gap> AutomorphismGroup( K );
-<group with 4 generators>
-gap> IsSolvable( last );
-true
-gap> StandardPresentation( G4, K : ClassBound := 14, PcgsAutomorphisms );
+gap> StandardPresentation( G4, K : ClassBound := 14 );
 <fp group with 53 generators>
 \endexample
 
@@ -326,31 +327,48 @@ Typing: `PqExample( "StandardPresentation" );' runs the above example  in
 ANUPQ Share Package".)
 
 \>EpimorphismPqStandardPresentation( <F>, <p> : <options> ) F
-\>EpimorphismPqStandardPresentation( <F>, <G> : <options> ) F
+\>EpimorphismPqStandardPresentation( <F>, <Q> : <options> ) F
 \>EpimorphismStandardPresentation( <F>, <p> : <options> ) M
-\>EpimorphismStandardPresentation( <F>, <G> : <options> ) M
+\>EpimorphismStandardPresentation( <F>, <Q> : <options> ) M
 
 Each of the above functions accepts the same arguments and options as the
 function `StandardPresentation' (see~"StandardPresentation") and  returns
 an epimorphism from the finitely presented group <F>  onto  the  finitely
 presented group given by a standard  presentation,  i.e.~if  <S>  is  the
-standard presentation computed for  <F>  by  `StandardPresentation'  then
-`EpimorphismStandardPresentation' returns the epimorphism from <F> to the
-group with presentation <S>.
+standard  presentation  computed  for  the   $p$-quotient   of   <F>   by
+`StandardPresentation' then `EpimorphismStandardPresentation' returns the
+epimorphism from <F> to the group with presentation <S>.
 
 We illustrate the function with the following example.
 
 \beginexample
-gap> F := FreeGroup (6);;
+gap> F := FreeGroup(6, "F");
+<free group on the generators [ F1, F2, F3, F4, F5, F6 ]>
+gap> # For printing GAP uses the symbols F1, ... for the generators of F
 gap> x := F.1;; y := F.2;; z := F.3;; w := F.4;; a := F.5;; b := F.6;;
 gap> R := [x^3 / w, y^3 / w * a^2 * b^2, w^3 / b,
 >          Comm (y, x) / z, Comm (z, x), Comm (z, y) / a, z^3 ];;
-gap> Q := F / R;;
+gap> Q := F / R;
+<fp group on the generators [ F1, F2, F3, F4, F5, F6 ]>
+gap> # For printing GAP also uses the symbols F1, ... for the generators of Q
+gap> # (the same as used for F) ... but the gen'rs of Q and F are different:
+gap> GeneratorsOfGroup(F) = GeneratorsOfGroup(Q);
+false
 gap> G := Pq( Q : Prime := 3, ClassBound := 3 );
 <pc group of size 729 with 6 generators>
 gap> phi := EpimorphismStandardPresentation( Q, 3 : ClassBound := 3 );
-[ f1, f2, f3, f4, f5, f6 ] -> [ f1*f2^2*f3*f4^2*f5^2, f1*f2*f3*f5, f3^2, 
-  f4*f6^2, f5, f6 ]
+[ F1, F2, F3, F4, F5, F6 ] -> [ f1*f2^2*f3, f1*f2*f3*f4*f5^2*f6^2, f3^2, f4, 
+  f5, f6 ]
+gap> NamesOfComponents(phi);
+[ "Source", "Range", "MappingGeneratorsImages" ]
+gap> phi!.Source; # This is the group Q (GAP uses F1, ... for gen'r symbols)
+<fp group on the generators [ F1, F2, F3, F4, F5, F6 ]>
+gap> phi!.Range;  # This is the group G (GAP uses f1, ... for gen'r symbols)
+<fp group on the generators [ f1, f2, f3, f4, f5, f6 ]>
+gap> AssignGeneratorVariables(G); # so f1, ... are now variables
+gap> # Just to see that the images of [F1, ..., F6] do generate G
+gap> Group([ f1*f2^2*f3, f1*f2*f3*f4*f5^2*f6^2, f3^2, f4, f5, f6 ]) = G;
+true
 gap> Size( Image(phi) );
 729
 \endexample
@@ -369,7 +387,8 @@ ANUPQ Share Package".)
 
 each return true if <G> is isomorphic to <H>, where both <G> and <H> must
 be pc groups of prime power order. These functions  compute  and  compare
-the standard presentations for <G> and <H> (see "StandardPresentation").
+in {\GAP} the fp groups given by standard presentations for <G>  and  <H>
+(see "StandardPresentation").
 
 \beginexample
 gap> G := Group( (1,2,3,4), (1,3) );
@@ -401,12 +420,13 @@ ANUPQ Share Package".)
 
 \>PqDescendants( <G> : <options> ) F
 
-returns, for the pc-group <G> which must be of prime power order  with  a
-confluent pc-presentation (see~"ref:IsConfluent!for pc groups"),  a  list
-of descendants (pc groups) of <G>.
-
-The  following   options   are   recognised   by   `PqDescendants'   (see
-Chapter~"ANUPQ options" for detailed descriptions).
+returns, for the pc group <G> which must be of prime power order  with  a
+confluent pc presentation (see~"ref:IsConfluent!for  pc  groups"  in  the
+{\GAP} Reference Manual), a list  of  descendants  (pc  groups)  of  <G>.
+Following the colon <options> a selection of  the  options  listed  below
+should  be  given,  separated  by  commas  like  record  components  (see
+Section~"ref:function call with options" in the {\GAP} Reference Manual).
+See Chapter~"ANUPQ options" for detailed descriptions of the options.
 
 \beginlist
 
@@ -421,9 +441,6 @@ Chapter~"ANUPQ options" for detailed descriptions).
 
 \atindex{option StepSize}{@option \noexpand`StepSize'}
 \item{}`StepSize := <nOrlist>'
-
-\atindex{option PcgsAutomorphisms}{@option \noexpand`PcgsAutomorphisms'}
-\item{}`PcgsAutomorphisms'
 
 \atindex{option RankInitialSegmentSubgroups}%
 {@option \noexpand`RankInitialSegmentSubgroups'}
@@ -465,25 +482,18 @@ Chapter~"ANUPQ options" for detailed descriptions).
 \endlist
 
 *Note:*
-In  general,  the   user   should   have   no   need   for   the   option
-`PcgsAutomorphisms', so long as the {\GAP} share  package  {\AutPGrp}  is
-installed. If the package {\AutPGrp} is installed it is used  to  compute
-the automorphism group of <G> and then `PcgsAutomorphisms' is by  default
-set to the value of `IsSolvable( AutomorphismGroup(  <G>  )  )'.  If  the
-package {\AutPGrp} is *not* installed and <G> does *not*  have  $p$-class
-1, then the automorphism group of <G> must be known, since  the  inferior
-{\GAP} library `AutomorphismGroup' command will be used.
+The function `PqDescendants' uses the automorphism group of <G> which  it
+computes via the package {\AutPGrp}. If this package is not installed  an
+error may be raised. If the automorphism group of <G>  is  insoluble  the
+`pq' binary will call {\GAP} together with  the  {\AutPGrp}  package  for
+certain orbit-stabilizer calculations.  (So,  in  any  case,  one  should
+ensure the {\AutPGrp} package is installed.)
 
-If  the  automorphism  group  of  <G>  is  insoluble  or  if  the  option
-`PcgsAutomorphisms' is set to `false', then the  `pq'  binary  will  call
-{\GAP} together with the {\AutPGrp} package for certain  orbit-stabilizer
-calculations. (So, in any case, one should ensure the {\AutPGrp}  package
-is installed.)
-
-Alternatively,  you can pass `PqDescendants'  a record  as  a  parameter,
-which  contains  as  entries some (or all) of the above mentioned.  Those
-parameters  which do not occur  in  the record are  set  to their default
-values.
+The options <options> for `PqDescendants' may be passed in an alternative
+manner to that already described, namely you can pass  `PqDescendants'  a
+record as an argument, which contains as entries some  (or  all)  of  the
+above mentioned. Those parameters which do not occur in  the  record  are
+set to their default values.
 
 Note that you cannot set both `OrderBound' and `StepSize'.
 
@@ -514,7 +524,8 @@ In the second example we compute all  capable descendants of order  27 of
 the  elementary abelian group of order 9.  
 
 \beginexample
-gap> F := FreeGroup( 2, "g" );;                                  
+gap> F := FreeGroup( 2, "g" );
+<free group on the generators [ g1, g2 ]>
 gap> G := PcGroupFpGroup( F / [ F.1^3, F.2^3, Comm(F.1, F.2) ] );
 <pc group of size 9 with 2 generators>
 gap> des := PqDescendants( G : OrderBound := 3, ClassBound := 2,
@@ -523,6 +534,11 @@ gap> des := PqDescendants( G : OrderBound := 3, ClassBound := 2,
   <pc group of size 27 with 3 generators> ]
 gap> List(des, d -> Length( PCentralSeries( d, 3 ) ) - 1 );
 [ 2, 2 ]
+gap> # For comparison let us now compute all descendants
+gap> PqDescendants( G : OrderBound := 3, ClassBound := 2);
+[ <pc group of size 27 with 3 generators>, 
+  <pc group of size 27 with 3 generators>, 
+  <pc group of size 27 with 3 generators> ]
 \endexample
 
 In  the  third  example,  we  compute  all  capable  descendants  of  the

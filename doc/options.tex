@@ -71,8 +71,8 @@ gap> ?>
 Specifies that the $p$-quotient for the prime  <p>  should  be  computed.
 
 \>`ClassBound := <n>'{option ClassBound}@{option `ClassBound'|indexit}&
-Specifies that the $p$-quotient computed has lower exponent-$p$ class  at
-most <n>.
+Specifies that the $p$-quotient to be  computed  has  lower  exponent-$p$
+class at most <n>.
 
 \>`Exponent := <n>'{option Exponent}@{option `Exponent'|indexit}&
 Specifies that the $p$-quotient computed has exponent <n>. By default, no
@@ -80,7 +80,7 @@ exponent law is enforced.
 
 \>`Relators := <rels>'{option Relators}@{option `Relators'|indexit}&
 Specifies that the relators sent to the  `pq'  binary  should  be  <rels>
-rather than the relators of the group <F>; <rels> should  be  a  list  of
+instead of than the relators of the group <F>; <rels> should be a list of
 *strings* in the string representations of the generators  of  <F>.  This
 option provides a way of giving relators  to  the  `pq'  binary,  without
 having  them  pre-expanded  by  {\GAP},  which  can  sometimes  effect  a
@@ -88,15 +88,16 @@ performance loss of the order of 100.
 
 *Note:*
 The `pq' binary does not use `/' to indicate multiplication by an inverse
-and uses square brackets to represent (left norm) commutators. Also, even
-though the `pq' binary accepts relations, all elements of  <rels>  *must*
-be in relator form, i.e.~a relation of form `<w1> = <w2>' must be written
-as `<w1>*(<w2>)^-1' and then put in a pair of double-quotes to make it  a
-string. See the example below.
+and uses square brackets to represent (left  normed)  commutators.  Also,
+even though the `pq' binary accepts relations,  all  elements  of  <rels>
+*must* be in relator form, i.e.~a relation of form `<w1> = <w2>' must  be
+written as `<w1>*(<w2>)^-1' and then put in a pair  of  double-quotes  to
+make it a string. See the example below.
 
 \>`Metabelian'{option Metabelian}@{option `Metabelian'|indexit}&
-Specifies that the largest metabelian  $p$-quotient  be  constructed.  By
-default this restriction is not enforced.
+Specifies that the largest metabelian $p$-quotient subject to  any  other
+conditions specified by other options be  constructed.  By  default  this
+restriction is not enforced.
 
 \>`GroupName := <name>'{option GroupName}@{option `GroupName'|indexit}&
 Specifies that the `pq' binary should refer to  the  group  by  the  name
@@ -141,10 +142,11 @@ generating sequence for the automorphism group  of  <G>  (which  must  be
 *soluble*), be computed and passed to the `pq' binary. This increases the
 efficiency of the computation; it also prevents  the  `pq'  from  calling
 {\GAP} for orbit-stabilizer calculations. By default, `PcgsAutomorphisms'
-is set to the value returned by `IsSolvable( AutomorphismGroup( <G>)  )',
+is set to the value returned by `IsSolvable( AutomorphismGroup( <G> ) )',
 and uses the package {\AutPGrp} to compute `AutomorphismGroup( <G> )'  if
-it is installed. See Section~"Computing Descendants  of  a  p-Group"  for
-further explanations.
+it is installed. This flag is set to `true' or `false' in the  background
+according  to  the  above  criterion  by  the  function   `PqDescendants'
+(see~"PqDescendants" and~"PqDescendants!interactive").
 
 *Note:*
 If `PcgsAutomorphisms' is used when the  automorphism  group  of  <G>  is
@@ -176,15 +178,16 @@ default, this has value 0.
 Specifies that the `pq' binary perform calculations more slowly but  with
 greater space efficiency. This flag is frequently necessary for groups of
 large Frattini quotient rank. The space saving occurs  because  only  one
-permutation is stored at any one time. This option is only  available  in
-conjunction with the `PcgsAutomorphisms' flag.
+permutation is stored at any one time. This option is only  available  if
+the   `PcgsAutomorphisms'   flag   is   set   to   `true'    (see~"option
+PcgsAutomorphisms").
 
 \>`CapableDescendants'{option CapableDescendants}@{option `CapableDescendants'|indexit}&
 By default, *all* (i.e.~capable and terminal) descendants  are  computed.
 If this flag is set, only capable descendants are computed. Setting  this
 option is equivalent to setting `AllDescendants  :=  false'  (see~"option
 AllDescendants"),    except    if    both    `CapableDescendants'     and
-`AllDescendants' are passed, `CapableDescendants' takes precedence.
+`AllDescendants' are passed, `AllDescendants' is essentially ignored.
 
 \>`AllDescendants := false'{option AllDescendants}@{option `AllDescendants'|indexit}&
 By default, *all* descendants are constructed. If this  flag  is  set  to
@@ -212,27 +215,29 @@ Specifies that fine tuning of the output is  desired.  The  record  <rec>
 should have any subset (or all) of the the following fields:
 
 \quad`perm := <list>' &
-where <list> is a list of booleans which determine (in order) whether one
-wants to print for the permutation group output: the degree, the extended
-automorphisms, the automorphism matrices, and the permutations.
+where  <list>  is  a  list  of  booleans  which  determine  whether   the
+permutation  group  output  should  contain:  the  degree,  the  extended
+automorphisms,  the  automorphism   matrices,   and   the   permutations,
+respectively.
 
 \quad`orbit := <list>' &
-where <list> is a list of booleans which determine (in order) whether one
-wants to print for the orbit output: a summary, and a complete listing of
-orbits. (It's possible to have *both* a summary and a complete listing.)
+where <list> is a list of booleans  which  determine  whether  the  orbit
+output should contain: a summary,  and  a  complete  listing  of  orbits,
+respectively. (It's possible to have *both*  a  summary  and  a  complete
+listing.)
 
 \quad`group := <list>' &
-where <list> is a list of booleans which determine (in order) whether one
-wants to print  for  the  group  output:  the  standard  matrix  of  each
-allowable subgroup, the presentation of reduced $p$-covering groups,  the
-presentation of immediate descendants, the nuclear rank  of  descendants,
-and the $p$-multiplicator rank of descendants.
+where <list> is a list of booleans  which  determine  whether  the  group
+output should contain: the standard matrix of  each  allowable  subgroup,
+the presentation of reduced  $p$-covering  groups,  the  presentation  of
+immediate  descendants,  the  nuclear  rank  of  descendants,   and   the
+$p$-multiplicator rank of descendants, respectively.
 
 \quad`autgroup := <list>' &
-where <list> is a list of booleans which determine (in order) whether one
-wants to print for the automorphism group output: the commutator  matrix,
-the automorphism group description of descendants, and  the  automorphism
-group order of descendants.
+where  <list>  is  a  list  of  booleans  which  determine  whether   the
+automorphism group output should  contain:  the  commutator  matrix,  the
+automorphism group description of descendants, and the automorphism group
+order of descendants, respectively.
 
 \quad`trace := <val>' &
 where <val> is a boolean which if `true' specifies algorithm  trace  data

@@ -45,7 +45,6 @@ I 4.2. option ClassBound
 I 4.2. option Exponent
 I 4.2. option Metabelian
 I 4.2. option GroupName
-I 4.2. option PcgsAutomorphisms
 I 4.2. option OutputLevel
 I 4.2. option StandardPresentationFile
 I 4.2. option SetupFile
@@ -63,7 +62,6 @@ I 4.4. option ClassBound
 I 4.4. option Relators
 I 4.4. option OrderBound
 I 4.4. option StepSize
-I 4.4. option PcgsAutomorphisms
 I 4.4. option RankInitialSegmentSubgroups
 I 4.4. option SpaceEfficient
 I 4.4. option CapableDescendants
@@ -119,7 +117,6 @@ I 5.3. option ClassBound
 I 5.3. option Exponent
 I 5.3. option Metabelian
 I 5.3. option GroupName
-I 5.3. option PcgsAutomorphisms
 I 5.3. option OutputLevel
 I 5.3. option StandardPresentationFile
 F 5.3. EpimorphismPqStandardPresentation!interactive
@@ -136,7 +133,6 @@ I 5.3. option ClassBound
 I 5.3. option Relators
 I 5.3. option OrderBound
 I 5.3. option StepSize
-I 5.3. option PcgsAutomorphisms
 I 5.3. option RankInitialSegmentSubgroups
 I 5.3. option SpaceEfficient
 I 5.3. option CapableDescendants
@@ -148,12 +144,6 @@ I 5.3. option SubList
 I 5.3. option BasicAlgorithm
 I 5.3. option TailorOutput
 S 5.4. Low-level Interactive ANUPQ Functions based on menu items of the pq binary
-F 5.4. PqPcPresentation
-F 5.4. PqPcPresentation
-F 5.4. PqSavePcPresentation
-F 5.4. PqSavePcPresentation
-F 5.4. PqRestorePcPresentation
-F 5.4. PqRestorePcPresentation
 F 5.4. PqFactoredOrder
 F 5.4. PqFactoredOrder
 F 5.4. PqOrder
@@ -170,6 +160,12 @@ F 5.4. PqDisplayPcPresentation
 F 5.4. PqDisplayPcPresentation
 F 5.4. PqSetOutputLevel
 F 5.4. PqSetOutputLevel
+F 5.4. PqPcPresentation
+F 5.4. PqPcPresentation
+F 5.4. PqSavePcPresentation
+F 5.4. PqSavePcPresentation
+F 5.4. PqRestorePcPresentation
+F 5.4. PqRestorePcPresentation
 F 5.4. PqNextClass
 F 5.4. PqNextClass
 I 5.4. option QueueFactor

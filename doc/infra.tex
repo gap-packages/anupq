@@ -39,9 +39,9 @@ still on the `OptionsStack' to affect subsequent functions  (details  are
 in Section~"Hints and Warnings regarding the use of Options"); and
 
 \item{$\bullet$} 
-in Section~"Utility functions" we describe  a  function  `PqLeftNormComm'
-for computing left norm  commutators  in  {\GAP},  `PqGAPRelators'  which
-converts strings representing  relators  in  a  format  the  `pq'  binary
+in Section~"Utility functions" we describe functions `PqLeftNormComm' for
+computing  left  normed  commutators  in  {\GAP},  `PqGAPRelators'  which
+converts strings representing relators from  a  format  the  `pq'  binary
 understands to a form that  {\GAP}  understands,  and  `PqExample'  which
 executes examples for the {\ANUPQ} share package or displays an index  of
 examples.
@@ -159,10 +159,10 @@ used the `GroupName' option  (see  e.g.~"Pq")  or  applied  the  function
 group (usually `group') whose pc presentation is defined by a call to the
 `pq' binary;
 
-\quad`forder'& the factored  order  of  the  largest  lower  exponent-$p$
-central class found for the group (usually `group') whose pc presentation
-is defined by a  call  to  the  `pq'  binary,  as  a  list  `[$p$,  $n$]'
-(indicating an order of $p^n$;
+\quad`forder'& the factored order of the factor group  of  largest  lower
+exponent-$p$ central class found for the group (usually `group') whose pc
+presentation is defined by a call to the `pq' binary (this factored order
+is given as a list `[$p$, $n$]', indicating an order of $p^n$);
 
 \quad`pcoverclass'& the lower exponent-$p$ central class  found  for  the
 $p$-covering group of a $p$-quotient of the group (usually `group') whose
@@ -237,20 +237,19 @@ The input to and the output from the `pq'  binary  is,  by  default,  not
 displayed. However the user may choose to  see  some,  or  all,  of  this
 input/output.   This   is   done   via   the   `Info'   mechanism    (see
 Chapter~"ref:Info Functions" in the {\GAP} Reference  Manual).  For  this
-purpose,  there  is  the  <InfoClass>  `InfoANUPQ'.  Each  line  of  `pq'
-input/output is directed to a call to `Info' and will  be  displayed  for
-the user to see if the `InfoLevel' of  `InfoANUPQ'  is  high  enough.  By
-default, the `InfoLevel' of `InfoANUPQ' is 1, and it is recommended  that
-you leave it at this level, or higher. Messages which we think  that  the
-user will really want to see and output from the `pq'  binary  influenced
-by the value of the option  `OutputLevel'  (see  the  options  listed  in
-Section~"Pq"), other than timing and memory usage are directed to  `Info'
-at `InfoANUPQ' level 1.
+purpose, there is the <InfoClass>  `InfoANUPQ'.  If  the  `InfoLevel'  of
+`InfoANUPQ' is high enough each line of `pq' input/output is directed  to
+a call to `Info' and will be displayed for the user to see.  By  default,
+the `InfoLevel' of `InfoANUPQ' is 1, and it is recommended that you leave
+it at this level, or higher. Messages that  the  user  should  presumably
+want to see and output from the `pq' binary influenced by  the  value  of
+the option `OutputLevel' (see the options listed in Section~"Pq"),  other
+than timing and memory usage are directed to `Info' at `InfoANUPQ'  level
+1.
 
 To turn off *all* `InfoANUPQ' messaging, set the `InfoANUPQ' level to 0.
 
-There are four other user-intended `InfoANUPQ' levels:
- 2, 3, 4 and 5.
+There are five other user-intended `InfoANUPQ' levels: 2, 3, 4, 5 and 6.
 
 \beginexample
 gap> SetInfoLevel(InfoANUPQ, 2);
@@ -264,7 +263,11 @@ gap> SetInfoLevel(InfoANUPQ, 3);
 
 enables the display of output of the nature of the first two  `InfoANUPQ'
 that was not directly invoked by the user (some commands  require  {\GAP}
-to discover something about the current state known to the `pq' binary).
+to discover something about the current state known to the `pq'  binary).
+In some cases, the `pq' binary produces a lot of output despite the  fact
+that the `OutputLevel' (see~"option OutputLevel") is unset or is  set  to
+0; such output except (for timing and memory usage) is also `Info'-ed  at
+`InfoANUPQ' level 3.
 
 \beginexample
 gap> SetInfoLevel(InfoANUPQ, 4);
@@ -272,15 +275,22 @@ gap> SetInfoLevel(InfoANUPQ, 4);
 
 enables the display of all the commands  directed  to  the  `pq'  binary,
 behind a ```ToPQ> ''' prompt (so that you can  distinguish  it  from  the
-output from the `pq' binary). Finally,
+output from the `pq' binary).
 
 \beginexample
 gap> SetInfoLevel(InfoANUPQ, 5);
 \endexample
 
+enables the display of the  `pq'  binary's  banner,  prompts  for  input.
+Finally,
+
+\beginexample
+gap> SetInfoLevel(InfoANUPQ, 6);
+\endexample
+
 enables the display of all other output from the `pq' binary, namely  the
-banner, prompts for input, and menus. However, the  timing  data  printed
-when the `pq' binary exits can never be observed.
+banner and menus. However, the timing data printed when the  `pq'  binary
+exits can never be observed.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Hints and Warnings regarding the use of Options}
@@ -331,8 +341,8 @@ such cases, the user will generally want to:
 gap> ResetOptionsStack();
 \endtt
 
-(see~"ref:ResetOptionsStack" in the Reference Manual)  which  recursively
-calls `PopOptions()' until `OptionsStack' is empty.
+(see Chapter~"ref:ResetOptionsStack"  in  the  {\GAP}  Reference  Manual)
+which recursively calls `PopOptions()' until `OptionsStack' is empty.
 
 Nevertheless, a function, that is passed options after  the  colon,  will
 also see any global options or any options passed down  recursively  from
@@ -350,31 +360,28 @@ be trapped.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Utility Functions}
 
-\>PqLeftNormComm( <words> ) F
+\>PqLeftNormComm( <elts> ) F
 
-returns for a list <words> of words in the generators of a group the left
-norm commutator of <words>, e.g.~if <w1>, <w2>, <w3>  are  words  in  the
-generators of some free or fp group then  `PqLeftNormComm(  [<w1>,  <w2>,
-<w3>] );' is equivalent to `Comm( Comm( <w1>, <w2> ), <w3> );'. Actually,
-the only restriction on <words> is that they must constitute a  non-empty
-list of group elements of the same group (so a list  of  permutations  is
-allowed, for example).
+returns for a list of elements of some group (e.g.~<elts> may be  a  list
+of words in the generators of  a  free  of  fp  group)  the  left  normed
+commutator of <elts>, e.g.~if <w1>, <w2>, <w3>  are  such  elements  then
+`PqLeftNormComm( [<w1>, <w2>, <w3>] );' is  equivalent  to  `Comm(  Comm(
+<w1>, <w2> ), <w3> );'.
 
 \>PqGAPRelators( <group>, <rels> ) F
 
-returns, for a list <rels> of strings in the  string  representations  of
-the generators of the fp or pc  group  <group>  prepared  as  a  list  of
-relators for the `pq' binary, a list of words that {\GAP} understands.
+returns a list of words that {\GAP} understands, given a list  <rels>  of
+strings in the string representations of the generators of the fp  or  pc
+group <group> prepared as a list of relators for the `pq' binary.
 
 *Note:*
 The `pq' binary does not use `/' to indicate multiplication by an inverse
-and uses square brackets to represent (left norm) commutators. Also, even
-though the `pq' binary accepts relations, all elements of  <rels>  *must*
-be in relator form, i.e.~a relation of form `<w1> = <w2>' must be written
-as `<w1>*(<w2>)^-1'.
+and uses square brackets to represent (left  normed)  commutators.  Also,
+even though the `pq' binary accepts relations,  all  elements  of  <rels>
+*must* be in relator form, i.e.~a relation of form `<w1> = <w2>' must  be
+written as `<w1>*(<w2>)^-1'.
 
-Here is an example (that demonstrates its use, but with  not  necessarily
-appropriate relators for a $p$-quotient):
+Here is an example:
 
 \beginexample
 gap> F := FreeGroup("a", "b");
