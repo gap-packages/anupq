@@ -27,6 +27,9 @@ struct pga_vars *pga;
    for (s = lower_step; s <= upper_step; ++s) 
       nmr_of_sets = MAX (nmr_of_sets, choose (r, s));
 
+   printf( ">>>>>>> lower: %d,  upper: %d,  r: %d\n", lower_step, upper_step, r );
+   printf( ">>>>> (45, 6) = %d\n", choose( 45,6 ) );
+
    pga->list = allocate_vector (nmr_of_sets, 0, FALSE);
    pga->available = allocate_vector (nmr_of_sets, 0, FALSE);
    pga->offset = allocate_vector (nmr_of_sets, 0, FALSE);
@@ -37,12 +40,12 @@ struct pga_vars *pga;
 int choose (r, s)
 {
    register int i;
-   int prod = 1, denom = 1;
+   int prod = 1;
 
    for (i = 1; i <= s; ++i) {
       prod *= (r + 1 - i);
-      denom *= i;
+      prod /= i;
    }
 
-   return prod / denom;
+   return prod;
 }
