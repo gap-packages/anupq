@@ -488,11 +488,7 @@ local line, classpos;
   #elif not IsBound(datarec.name) then #do we need to bother?
   #  datarec.name := "<grp>";
   fi;
-  if Length( line[3] ) > 1 and line[3][1] = '#' then
-    classpos := 9;
-  else
-    classpos := 8;
-  fi;
+  classpos := Position(line, "class") + 1;
   datarec.class  := Int( line[classpos] );
   datarec.forder := List( line{[classpos + 3, classpos + 4]}, Int);
   PQ_UNBIND(datarec, ["match", "matchedline"]);
@@ -2486,7 +2482,7 @@ local len, datarec, cls, n;
             IsBound( datarec.ndescendants[cls] ) ) then
       Error( "descendants for class ", cls, " have not been constructed\n" );
     elif datarec.ndescendants[cls][1] < n then
-      Error( "there is no group ", n, " saved (<n> must be < ",
+      Error( "there is no group ", n, " saved (<n> must be <= ",
              datarec.ndescendants[cls][1], ")\n" );
     fi;
     PQ_PG_RESTORE_GROUP(datarec, cls, n);
