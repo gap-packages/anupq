@@ -10,7 +10,7 @@ SetPackageInfo( rec(
   PackageName := "ANUPQ",
   Subtitle    := "ANU p-Quotient",
   Version     := "2.0",
-  Date        := "04/02/2004",
+  Date        := "24/03/2004",
   ArchiveURL  := "http://www.math.rwth-aachen.de/~Greg.Gamble/ANUPQ/anupq-2.0",
   ArchiveFormats 
               := ".zoo",

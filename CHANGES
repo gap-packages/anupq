@@ -51,8 +51,8 @@ Version 2.0:
        - undocumented ANUPQPackageVersion() function removed
    o make_zoo:
        now includes doc/manual.{lab,toc}
-!  o tst/anupqeg.tst:
-       TODO: Remake.
+   o tst/anupqeg.tst:
+       modified for `PqSupplementInnerAutomorphisms' change
 Version 1.5:
    o lib/anupqios.gi:
        typo. (and bug!) on line 541 fixed (1 changed to i);
