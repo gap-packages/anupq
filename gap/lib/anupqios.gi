@@ -645,13 +645,11 @@ local output, proc;
   else 
     output := OutputTextNone();
   fi;
-  Error( "before\n" );
   proc := Process(ANUPQData.tmpdir, 
                   ANUPQData.binary,
                   InputTextFile( ANUPQData.infile ),
                   output,
                   datarec.opts );
-  Error( "after\n" );
   CloseStream( output );
   return proc;
 end );
