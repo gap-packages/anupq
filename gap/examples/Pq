@@ -6,15 +6,18 @@ F := FreeGroup("a", "b"); a := F.1; b := F.2;
 #procId1 := PqStart( F );
 #alt: sub <procId1> for <F>
 Pq( F : Prime := 2, ClassBound := 3 );
+
 ## Now let us get a p-quotient of a finitely generated group
 G := F / [a^4, b^4];
 #alt: do
 #procId2 := PqStart( G );
 #alt: sub <procId2> for <G>
 Pq( G : Prime := 2, ClassBound := 3 );
+
 ## Now let's get a different p-quotient of the same group
 #alt: sub <procId2> for <G>
 Pq( G : Prime := 2, ClassBound := 3, Exponent := 4);
+
 ## Now we'll get a p-quotient of another finitely generated group
 ## which we will redo using the `Relators' option
 R := [ a^25, Comm(Comm(b, a), a), b^5 ];
@@ -22,6 +25,8 @@ H := F / R;
 #alt: do
 #procId3 := PqStart( H );
 #alt: sub <procId3> for <H>
+
+## Now we redo the previous example using the `Relators' option
 Pq( H : Prime := 5, ClassBound := 5, Metabelian);
 F := FreeGroup("a", "b");
 ## `F' was defined for `Relators'. We use the same strings that GAP uses
@@ -32,6 +37,7 @@ R := PqGAPRelators(F, rels);
 H := F / R;
 #alt: sub <procId3> for <H>
 Pq( H : Prime := 5, ClassBound := 5, Metabelian, Relators := rels);
+
 ## In the previous example we could just passed `F' (rather than `H'):
 F := FreeGroup("a", "b");
 rels := [ "a^25", "[b, a, a]", "b^5" ];
