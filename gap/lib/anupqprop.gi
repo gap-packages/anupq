@@ -22,7 +22,7 @@ local S;
   if not( HasIsPGroup(G) and IsPGroup(G) ) then
     Error( "supplied group is not known to be a p-group\n" );
   fi;
-  S := PqStandardPresentation(G, PrimeOfPGroup(G));
+  S := PqStandardPresentation(G : Prime := PrimeOfPGroup(G));
   SetIsCapable( G, IsCapable(S) );
   SetNuclearRank( G, NuclearRank(S) );
   SetMultiplicatorRank( G, MultiplicatorRank(S) );

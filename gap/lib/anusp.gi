@@ -10,6 +10,14 @@
 #Y  Copyright 1993-2001,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.16  2001/11/28 17:40:02  gap
+#H  - added option `pQuotient'
+#H  - standard presentation functions (`StandardPresentation', etc.) now
+#H    simplified by passing prime, or quotient via options `Prime', `pQuotient'
+#H  - io indices now don't avoid primes
+#H  - made changes in other functions consequent on the above
+#H    - GG
+#H
 #H  Revision 1.15  2001/10/18 03:00:13  gap
 #H  Added some methods for `StandardPresentation' and related functions
 #H  (so these functions have argument possibilities that the user would
@@ -325,29 +333,37 @@ InstallMethod( FpGroupPcGroup, "pc group", [IsPcGroup], 0, PqFpGroupPcGroup );
 ##
 InstallGlobalFunction( PQ_EPIMORPHISM_STANDARD_PRESENTATION, 
 function( args )
-    local   datarec, rank, p, Q, automorphisms, generators, x,
+    local   datarec, rank, Q, Qclass, automorphisms, generators, x,
             images, i, r, j, aut, result, desc, k;
 
-    datarec := ANUPQ_ARG_CHK(2, "StandardPresentation", args);
-    if IsBound( datarec.p ) then
-        p := datarec.p;
-    elif IsInt( args[ Length(args) ] ) then
-        p := args[ Length(args) ];
-    else
-        Q := args[ Length(args) ];
+    datarec := ANUPQ_ARG_CHK("StandardPresentation", args);
+
+    if datarec.calltype = "interactive" and IsBound(datarec.SPepi) then
+       # Note: the `pq' binary seg-faults if called twice to 
+       # calculate the standard presentation of a group
+      return datarec.SPepi;
     fi;
-    if IsBound(p) then
-        if not IsPrimeInt(p)  then
-            Error( "<p> must be a prime" );
-        fi;
-        rank := Number( List( AbelianInvariants(datarec.group), x->Gcd(x,p) ),
-                        y->y=p );
+
+    if VALUE_PQ_OPTION("pQuotient") = fail and
+       VALUE_PQ_OPTION("Prime", datarec) <> fail then
+       # Ensure a saved value of `Prime' has precedence
+       # over a saved value of `pQuotient'.
+        Unbind(datarec.pQuotient);
+    fi;
+
+    if VALUE_PQ_OPTION("pQuotient", datarec) <> fail then
+        PQ_AUT_GROUP( datarec.pQuotient );
+        datarec.Prime := PrimePGroup( datarec.pQuotient );
+    elif VALUE_PQ_OPTION("Prime", datarec) <> fail then
+        rank := Number( List( AbelianInvariants(datarec.group), 
+                              x -> Gcd(x, datarec.Prime) ),
+                        y -> y = datarec.Prime );
 
         # construct free group with <rank> generators
         Q := FreeGroup( rank, "q" );
     
         # construct power-relation
-        Q := Q / List( GeneratorsOfGroup(Q), x -> x^p );
+        Q := Q / List( GeneratorsOfGroup(Q), x -> x^datarec.Prime );
     
         # construct pc group
         Q := PcGroupFpGroup(Q);
@@ -355,7 +371,7 @@ function( args )
         # construct automorphism
         automorphisms := [];
         generators := GeneratorsOfGroup(Q);
-        for x in GeneratorsOfGroup( GL(rank,p) ) do
+        for x in GeneratorsOfGroup( GL(rank, datarec.Prime) ) do
             images := [];
             for i  in [ 1 .. rank ]  do
                 r := One(Q);
@@ -369,20 +385,17 @@ function( args )
             Add( automorphisms, aut );
         od;
         SetAutomorphismGroup( Q, GroupByGenerators( automorphisms ) );
-    else
-        if not IsPcGroup(Q)  then
-            Error( "<Q> must be a pc group" );
-        else
-            PQ_AUT_GROUP(Q);
-        fi;
-        p := PrimeOfPGroup( Q );
+        datarec.pQuotient := Q;
     fi;
     
     #PushOptions(rec(nonuser := true));
-    PQ_PC_PRESENTATION(datarec, "SP" : Prime := p, 
-                                       ClassBound := PClassPGroup(Q));
+    Qclass := PClassPGroup( datarec.pQuotient );
+    if VALUE_PQ_OPTION("ClassBound", 63) <= Qclass then
+        Error( "option `ClassBound' must be greater than `pQuotient' class (",
+               Qclass, ")\n" );
+    fi;
+    PQ_PC_PRESENTATION(datarec, "SP" : ClassBound := Qclass);
 
-    datarec.pQuotient := Q;
     PQ_SP_STANDARD_PRESENTATION(datarec);
 
     PQ_SP_ISOMORPHISM(datarec);
@@ -426,7 +439,7 @@ end );
 
 #############################################################################
 ##
-#F  EpimorphismPqStandardPresentation( <arg> ) . . . . epi. onto SP for group
+#F  EpimorphismPqStandardPresentation( <arg> ) . . . epi. onto SP for p-group
 ##
 InstallGlobalFunction( EpimorphismPqStandardPresentation, function( arg )
     return PQ_EPIMORPHISM_STANDARD_PRESENTATION( arg );
@@ -434,7 +447,7 @@ end );
 
 #############################################################################
 ##
-#F  PqStandardPresentation( <arg> : <options> ) . . . . . . . .  SP for group
+#F  PqStandardPresentation( <arg> : <options> ) . . . . . . .  SP for p-group
 ##
 InstallGlobalFunction( PqStandardPresentation, function( arg )
     local SPepi;
@@ -448,104 +461,44 @@ end );
 
 #############################################################################
 ##
-#M  EpimorphismStandardPresentation( <F>, <G> ) . .  epi. onto SP for p-group
-#M  EpimorphismStandardPresentation( <F>, <p> )
-#M  EpimorphismStandardPresentation( <F> )
-#M  EpimorphismStandardPresentation( [<i>,] <G> )
-#M  EpimorphismStandardPresentation( [<i>,] <p> )
+#M  EpimorphismStandardPresentation( <F> ) . . . . . epi. onto SP for p-group
 #M  EpimorphismStandardPresentation( [<i>] )
 ##
 InstallMethod( EpimorphismStandardPresentation, 
-               "fp group, pc group",
-               [IsFpGroup, IsPcGroup], 0,
+               "fp group", [IsFpGroup], 0,
                EpimorphismPqStandardPresentation );
 
 InstallMethod( EpimorphismStandardPresentation, 
-               "fp group, prime integer",
-               [IsFpGroup, IsPosInt], 0,
+               "pc group", [IsPcGroup], 0,
                EpimorphismPqStandardPresentation );
 
 InstallMethod( EpimorphismStandardPresentation, 
-               "pc group, pc group",
-               [IsPcGroup, IsPcGroup], 0,
+               "positive integer", [IsPosInt], 0,
                EpimorphismPqStandardPresentation );
 
-InstallMethod( EpimorphismStandardPresentation, 
-               "pc group, prime integer",
-               [IsPcGroup, IsPosInt], 0,
-               EpimorphismPqStandardPresentation );
-
-InstallMethod( EpimorphismStandardPresentation, 
-               "positive integer, pc group",
-               [IsPosInt, IsPcGroup], 0,
-               EpimorphismPqStandardPresentation );
-
-InstallMethod( EpimorphismStandardPresentation, 
-               "positive integer, prime integer",
-               [IsPosInt, IsPosInt], 0,
-               EpimorphismPqStandardPresentation );
-
-InstallOtherMethod( EpimorphismStandardPresentation, "pc group",
-                    [IsPcGroup], 0,
-                    EpimorphismPqStandardPresentation );
-
-InstallOtherMethod( EpimorphismStandardPresentation, "prime integer",
-                    [IsPosInt], 0,
-                    EpimorphismPqStandardPresentation );
-
-InstallOtherMethod( EpimorphismStandardPresentation, "",
-                    [], 0,
+InstallOtherMethod( EpimorphismStandardPresentation,
+                    "", [], 0,
                     EpimorphismPqStandardPresentation );
 
 #############################################################################
 ##
-#M  StandardPresentation( <F>, <G> ) . . . . . . . . . . . . . SP for p-group
-#M  StandardPresentation( <F>, <p> )
-#M  StandardPresentation( <F> )
-#M  StandardPresentation( [<i>,] <G> )
-#M  StandardPresentation( [<i>,] <p> )
+#M  StandardPresentation( <F> ) . . . . . . . . . . . . . . .  SP for p-group
 #M  StandardPresentation( [<i>] )
 ##
 InstallMethod( StandardPresentation, 
-               "fp group, pc group",
-               [IsFpGroup, IsPcGroup], 0,
+               "fp group", [IsFpGroup], 0,
                PqStandardPresentation );
 
 InstallMethod( StandardPresentation, 
-               "fp group, prime integer",
-               [IsFpGroup, IsPosInt], 0,
+               "pc group", [IsPcGroup], 0,
                PqStandardPresentation );
 
 InstallMethod( StandardPresentation, 
-               "pc group, pc group",
-               [IsPcGroup, IsPcGroup], 0,
+               "positive integer", [IsPosInt], 0,
                PqStandardPresentation );
 
-InstallMethod( StandardPresentation, 
-               "pc group, prime integer",
-               [IsPcGroup, IsPosInt], 0,
-               PqStandardPresentation );
-
-InstallMethod( StandardPresentation, 
-               "positive integer, pc group",
-               [IsPosInt, IsPcGroup], 0,
-               PqStandardPresentation );
-
-InstallMethod( StandardPresentation, 
-               "positive integer, prime integer",
-               [IsPosInt, IsPosInt], 0,
-               PqStandardPresentation );
-
-InstallOtherMethod( StandardPresentation, "pc group",
-                    [IsPcGroup], 0,
-                    PqStandardPresentation );
-
-InstallOtherMethod( StandardPresentation, "prime integer",
-                    [IsPosInt], 0,
-                    PqStandardPresentation );
-
-InstallOtherMethod( StandardPresentation, "",
-                    [], 0,
+InstallOtherMethod( StandardPresentation,
+                    "", [], 0,
                     PqStandardPresentation );
 
 #############################################################################
@@ -587,8 +540,10 @@ InstallGlobalFunction( IsPqIsomorphicPGroup, function( G, H )
     fi;
     
     # compute a standard presentation for both
-    SG := PqStandardPresentation(PqFpGroupPcGroup(G), p : ClassBound := class);
-    SH := PqStandardPresentation(PqFpGroupPcGroup(H), p : ClassBound := class);
+    SG := PqStandardPresentation(PqFpGroupPcGroup(G)
+                                 : Prime := p, ClassBound := class);
+    SH := PqStandardPresentation(PqFpGroupPcGroup(H)
+                                 : Prime := p, ClassBound := class);
     
     # the groups are equal if the presentation are equal
     Ggens := GeneratorsOfGroup( FreeGroupOfFpGroup( SG ) );

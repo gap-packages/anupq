@@ -73,6 +73,7 @@ InstallValue( ANUPQoptions,
                    # options for `[Epimorphism][Pq]StandardPresentation'
                    StandardPresentation
                        := [ "Prime", 
+                            "pQuotient",
                             "ClassBound", 
                             "Relators", 
                             "GroupName", 
@@ -199,6 +200,7 @@ InstallValue( ANUPQGlobalOptions, [ "Prime", "Exponent", "Relators" ] );
 ##
 InstallValue( ANUPQoptionChecks,
               rec( Prime := x -> IsInt(x) and IsPrimeInt(x),
+                   pQuotient  := IsPcGroup and IsPGroup,
                    ClassBound := IsPosInt,
                    OrderBound := IsPosInt,
                    Exponent   := IsPosInt,
@@ -241,6 +243,7 @@ InstallValue( ANUPQoptionChecks,
 ##
 InstallValue( ANUPQoptionTypes,
               rec( Prime := "prime integer",
+                   pQuotient  := "pc p-group",
                    ClassBound := "positive integer",
                    OrderBound := "positive integer",
                    Exponent   := "positive integer",
@@ -408,6 +411,17 @@ local optname, out;
       fi;
     else
       VALUE_PQ_OPTION("Prime", fail, datarec);
+    fi;
+  elif basefn = "StandardPresentation" then
+    if VALUE_PQ_OPTION("Prime", datarec) = fail and
+       VALUE_PQ_OPTION("pQuotient", datarec) = fail then
+      if IsPcGroup(datarec.group) and IsPGroup(datarec.group) then
+        datarec.Prime := PrimePGroup(datarec.group);
+      else
+        Error( "since group of process is not a pc p-group, a prime or\n",
+               "p-quotient (pc group) of the group of the process ",
+               "must be supplied\n" );
+      fi;
     fi;
   fi;
 end);

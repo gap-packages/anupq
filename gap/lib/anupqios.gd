@@ -174,7 +174,7 @@ DeclareGlobalFunction( "ToPQ" );
 
 #############################################################################
 ##
-#F  ANUPQ_ARG_CHK(<len>, <funcname>, <args>) .  check args of int/non-int fns
+#F  ANUPQ_ARG_CHK( <funcname>, <args> ) . . . . check args of int/non-int fns
 ##
 DeclareGlobalFunction( "ANUPQ_ARG_CHK" );
 

@@ -14,6 +14,14 @@
 #Y  Copyright 1992-1994,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.22  2001/11/28 17:40:02  gap
+#H  - added option `pQuotient'
+#H  - standard presentation functions (`StandardPresentation', etc.) now
+#H    simplified by passing prime, or quotient via options `Prime', `pQuotient'
+#H  - io indices now don't avoid primes
+#H  - made changes in other functions consequent on the above
+#H    - GG
+#H
 #H  Revision 1.21  2001/11/24 09:34:55  gap
 #H  Added `ANUPQWarnOfOtherOptions'. All user functions that use options now
 #H  warn of unrecognised options at `InfoANUPQ' or `InfoWarning' level 1 if
@@ -580,7 +588,7 @@ end );
 InstallGlobalFunction( PQ_DESCENDANTS, function( args )
     local   datarec, p, class, G, ndescendants;
 
-    datarec := ANUPQ_ARG_CHK(1, "PqDescendants", args);
+    datarec := ANUPQ_ARG_CHK("PqDescendants", args);
     if datarec.calltype = "GAP3compatible" then
         # ANUPQ_ARG_CHK calls PQ_DESCENDANTS itself in this case
         # (so datarec.descendants has already been computed)

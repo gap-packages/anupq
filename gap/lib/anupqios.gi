@@ -113,13 +113,7 @@ local opts, iorec, procId, G, workspace, optname;
     VALUE_PQ_OPTION(optname, iorec);
   od;
 
-  # We add iorec to the next *non-prime* position in ANUPQData.io
-  # ... the reason for this is to be able to distinguish easily
-  # the <i> and <p> arguments of [Epimorphism][Pq]StandardPresentation
   procId := Length(ANUPQData.io) + 1;
-  while IsPrimeInt(procId) do
-    procId := procId + 1;
-  od;
   iorec.procId := procId;
   ANUPQData.io[ procId ] := iorec;
   return procId;
@@ -671,55 +665,23 @@ end);
 
 #############################################################################
 ##
-#F  ANUPQ_ARG_CHK(<len>, <funcname>, <args>) .  check args of int/non-int fns
+#F  ANUPQ_ARG_CHK( <funcname>, <args> ) . . . . check args of int/non-int fns
 ##
-##  This checks the  argument  list  <args>  for  functions  that  have  both
-##  interactive and non-interactive versions; <len> is the length  of  <args>
-##  for the non-interactive  version  of  the  function,  <funcname>  is  the
-##  generic name of the function and is used  for  determining  the  list  of
-##  options for the function when they  are  passed  in  one  of  the  {\GAP}
-##  3-compatible  ways  only  available  non-interactively.   `ANUPQ_ARG_CHK'
-##  returns <datarec> which is either `ANUPQData.ni' in  the  non-interactive
-##  case or `ANUPQData.io[<i>]' for some <i> in the interactive  case,  after
-##  setting    <datarec>.calltype'     to     one     of     `"interactive"',
-##  `"non-interactive"' or `"GAP3compatible"'.
+##  checks the argument list <args> for a function that has both  interactive
+##  and non-interactive versions, where <funcname> is the generic name of the
+##  function. If <args> has length more than 1 then it contains  options  for
+##  the function that have been passed in one of the {\GAP} 3-compatible ways
+##  only available non-interactively. `ANUPQ_ARG_CHK' returns <datarec> which
+##  is   either   `ANUPQData.ni'   in    the    non-interactive    case    or
+##  `ANUPQData.io[<i>]' for some <i> in the interactive case,  after  setting
+##  <datarec>.calltype' to one  of  `"interactive"',  `"non-interactive"'  or
+##  `"GAP3compatible"'.
 ##
-InstallGlobalFunction(ANUPQ_ARG_CHK, function(len, funcname, args)
-local interactive, ioArgs, ioIndex, datarec, group, posNonGroup, p,
-      optrec, optname, optnames;
-  interactive := IsEmpty(args) or not IsGroup( args[1] );
-  if interactive then
-    ioArgs := args{[1..Length(args) - len + 1]};
-    if funcname = "StandardPresentation" and 
-       not IsEmpty(ioArgs) and IsInt( ioArgs[1] ) and IsPrime( ioArgs[1] ) then
-      ioArgs := [];
-    fi;
-    datarec := ANUPQData.io[ CallFuncList( PqProcessIndex, ioArgs ) ];
-    group := datarec.group;
-    posNonGroup := 1;
-  else
-    group := args[1];
-    posNonGroup := 2;
-  fi;
-  PQ_OTHER_OPTS_CHK(funcname, interactive);
-  if funcname = "StandardPresentation" and
-     First( [posNonGroup .. Length(args)], 
-            i -> IsPcGroup(args[i]) or
-                 IsInt(args[i]) and IsPrime(args[i]) ) = fail then
-    if not( IsPcGroup(group) and HasIsPGroup(group) and IsPGroup(group) ) then
-      Error( "since group of process is not (known to be) a pc p-group,\n",
-             "a prime or p-quotient (pc group) of the group of the process\n",
-             "must be supplied\n" );
-    fi;
-    p := PrimePGroup(group);
-    if interactive and 
-       First( [1 .. Length(args)], i -> IsPosInt(args[i]) ) = fail then
-      args := Concatenation( [ p ], args );
-    else
-      args := Concatenation( args{[1]}, [ p ], args{[2 .. Length(args)]} );
-    fi;
-  fi;
-  if interactive then
+InstallGlobalFunction(ANUPQ_ARG_CHK, function(funcname, args)
+local ioIndex, datarec, optrec, optnames;
+  PQ_OTHER_OPTS_CHK( funcname, IsEmpty(args) or IsPosInt( args[1] ) );
+  if IsEmpty(args) or IsPosInt( args[1] ) then
+    datarec := ANUPQData.io[ CallFuncList( PqProcessIndex, args ) ];
     datarec.outfname := ANUPQData.outfile; # not always needed
     #datarec.calltype := "interactive";    # PqStart sets this
     if not IsBound(datarec.group) then
@@ -728,10 +690,10 @@ local interactive, ioArgs, ioIndex, datarec, group, posNonGroup, p,
       if not IsPcGroup( datarec.group ) then
         Error( "group of process must be a pc group\n" );
       fi;
-    else # if funcname = "Pq" check for Prime, ClassBound
+    else # Check for Prime, ClassBound if nec.
       PQ_OPTION_CHECK( funcname, datarec );
     fi;
-  elif Length(args) = len then
+  elif 1 = Length(args) then
     if not IsPcGroup( args[1] ) then
       if funcname = "PqDescendants" then
         Error( "first argument <args[1]> must be a pc group\n" );
@@ -742,7 +704,7 @@ local interactive, ioArgs, ioIndex, datarec, group, posNonGroup, p,
     ANUPQData.ni := PQ_START( VALUE_PQ_OPTION( "PqWorkspace", 10000000 ),
                               VALUE_PQ_OPTION( "SetupFile" ) );
     datarec := ANUPQData.ni;
-    datarec.group := group;
+    datarec.group := args[1];
     datarec.calltype := "non-interactive";
     datarec.procId := 0;
     PQ_OPTION_CHECK( funcname, datarec ); # Check for Prime, ClassBound if nec.
@@ -753,25 +715,22 @@ local interactive, ioArgs, ioIndex, datarec, group, posNonGroup, p,
     fi;
   else
     # GAP 3 way of passing options is supported in non-interactive use
-    if IsRecord(args[len + 1]) then
-      optrec := ShallowCopy(args[len + 1]);
+    if IsRecord(args[2]) then
+      optrec := ShallowCopy(args[2]);
       optnames := Set( REC_NAMES(optrec) );
       SubtractSet( optnames, Set( ANUPQoptions.(funcname) ) );
       if not IsEmpty(optnames) then
         Error(ANUPQoptError( funcname, optnames ), "\n");
       fi;
     else
-      optrec := ANUPQextractOptions(funcname, args{[len + 1 .. Length(args)]});
+      optrec := ANUPQextractOptions(funcname, args{[2 .. Length(args)]});
     fi;
     PushOptions(optrec);
-    PQ_FUNCTION.(funcname)( args{[1..len]} );
+    PQ_FUNCTION.(funcname)( args{[1]} );
     PopOptions();
     datarec := ANUPQData.ni;
     datarec.calltype := "GAP3compatible";
     datarec.procId := 0;
-  fi;
-  if IsBound(p) then
-    datarec.p := p;
   fi;
   return datarec;
 end );

@@ -10,6 +10,14 @@
 #Y  Copyright 1992-1994,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.32  2001/11/28 17:40:02  gap
+#H  - added option `pQuotient'
+#H  - standard presentation functions (`StandardPresentation', etc.) now
+#H    simplified by passing prime, or quotient via options `Prime', `pQuotient'
+#H  - io indices now don't avoid primes
+#H  - made changes in other functions consequent on the above
+#H    - GG
+#H
 #H  Revision 1.31  2001/11/20 17:46:30  gap
 #H  Fixed a bug that caused infinite looping when the group completed during
 #H  a `next class' operation (`pq' produces two messages in this case - only
@@ -552,7 +560,7 @@ InstallGlobalFunction( PQ_EPI_OR_PCOVER, function( args )
     local   out, datarec, AtClass, trivial;
 
     out := ValueOption("PqEpiOrPCover");
-    datarec := ANUPQ_ARG_CHK(1, "Pq", args);
+    datarec := ANUPQ_ARG_CHK("Pq", args);
     datarec.filter := ["Output file in", "Group presentation"];
     VALUE_PQ_OPTION("Identities", [], datarec);
     if datarec.calltype = "GAP3compatible" then
