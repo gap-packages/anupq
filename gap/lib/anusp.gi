@@ -10,6 +10,11 @@
 #Y  Copyright 1993-2001,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.15  2001/10/18 03:00:13  gap
+#H  Added some methods for `StandardPresentation' and related functions
+#H  (so these functions have argument possibilities that the user would
+#H  expect). - GG
+#H
 #H  Revision 1.14  2001/09/29 22:04:19  gap
 #H  `Pq', `PqEpimorphism', `PqPCover', `[Pq]StandardPresentation[Epimorphism]'
 #H  now accept either an fp group or a pc group, and for each `ClassBound'
@@ -316,17 +321,22 @@ InstallMethod( FpGroupPcGroup, "pc group", [IsPcGroup], 0, PqFpGroupPcGroup );
 
 #############################################################################
 ##
-#F  PQ_EPIMORPHISM_STANDARD_PRESENTATION( <args> ) . . epi. onto SP for group
+#F  PQ_EPIMORPHISM_STANDARD_PRESENTATION( <args> ) . (epi. onto) SP for group
 ##
 InstallGlobalFunction( PQ_EPIMORPHISM_STANDARD_PRESENTATION, 
 function( args )
-    local   datarec, p_or_Q, rank, p, Q, automorphisms, generators, x,
+    local   datarec, rank, p, Q, automorphisms, generators, x,
             images, i, r, j, aut, result, desc, k;
 
     datarec := ANUPQ_ARG_CHK(2, "StandardPresentation", args);
-    p_or_Q := args[ Length(args) ];
-    if IsInt(p_or_Q)  then
-    	p := p_or_Q;
+    if IsBound( datarec.p ) then
+        p := datarec.p;
+    elif IsInt( args[ Length(args) ] ) then
+        p := args[ Length(args) ];
+    else
+        Q := args[ Length(args) ];
+    fi;
+    if IsBound(p) then
         if not IsPrimeInt(p)  then
             Error( "<p> must be a prime" );
         fi;
@@ -360,7 +370,6 @@ function( args )
         od;
         SetAutomorphismGroup( Q, GroupByGenerators( automorphisms ) );
     else
-        Q := p_or_Q;
         if not IsPcGroup(Q)  then
             Error( "<Q> must be a pc group" );
         else
@@ -440,8 +449,11 @@ end );
 #############################################################################
 ##
 #M  EpimorphismStandardPresentation( <F>, <G> ) . .  epi. onto SP for p-group
-#M  EpimorphismStandardPresentation( <i>, <G> )
-#M  EpimorphismStandardPresentation( <G> )
+#M  EpimorphismStandardPresentation( <F>, <p> )
+#M  EpimorphismStandardPresentation( <F> )
+#M  EpimorphismStandardPresentation( [<i>,] <G> )
+#M  EpimorphismStandardPresentation( [<i>,] <p> )
+#M  EpimorphismStandardPresentation( [<i>] )
 ##
 InstallMethod( EpimorphismStandardPresentation, 
                "fp group, pc group",
@@ -451,6 +463,16 @@ InstallMethod( EpimorphismStandardPresentation,
 InstallMethod( EpimorphismStandardPresentation, 
                "fp group, prime integer",
                [IsFpGroup, IsPosInt], 0,
+               EpimorphismPqStandardPresentation );
+
+InstallMethod( EpimorphismStandardPresentation, 
+               "pc group, pc group",
+               [IsPcGroup, IsPcGroup], 0,
+               EpimorphismPqStandardPresentation );
+
+InstallMethod( EpimorphismStandardPresentation, 
+               "pc group, prime integer",
+               [IsPcGroup, IsPosInt], 0,
                EpimorphismPqStandardPresentation );
 
 InstallMethod( EpimorphismStandardPresentation, 
@@ -471,11 +493,18 @@ InstallOtherMethod( EpimorphismStandardPresentation, "prime integer",
                     [IsPosInt], 0,
                     EpimorphismPqStandardPresentation );
 
+InstallOtherMethod( EpimorphismStandardPresentation, "",
+                    [], 0,
+                    EpimorphismPqStandardPresentation );
+
 #############################################################################
 ##
 #M  StandardPresentation( <F>, <G> ) . . . . . . . . . . . . . SP for p-group
-#M  StandardPresentation( <i>, <G> )
-#M  StandardPresentation( <G> )
+#M  StandardPresentation( <F>, <p> )
+#M  StandardPresentation( <F> )
+#M  StandardPresentation( [<i>,] <G> )
+#M  StandardPresentation( [<i>,] <p> )
+#M  StandardPresentation( [<i>] )
 ##
 InstallMethod( StandardPresentation, 
                "fp group, pc group",
@@ -485,6 +514,16 @@ InstallMethod( StandardPresentation,
 InstallMethod( StandardPresentation, 
                "fp group, prime integer",
                [IsFpGroup, IsPosInt], 0,
+               PqStandardPresentation );
+
+InstallMethod( StandardPresentation, 
+               "pc group, pc group",
+               [IsPcGroup, IsPcGroup], 0,
+               PqStandardPresentation );
+
+InstallMethod( StandardPresentation, 
+               "pc group, prime integer",
+               [IsPcGroup, IsPosInt], 0,
                PqStandardPresentation );
 
 InstallMethod( StandardPresentation, 
@@ -503,6 +542,10 @@ InstallOtherMethod( StandardPresentation, "pc group",
 
 InstallOtherMethod( StandardPresentation, "prime integer",
                     [IsPosInt], 0,
+                    PqStandardPresentation );
+
+InstallOtherMethod( StandardPresentation, "",
+                    [], 0,
                     PqStandardPresentation );
 
 #############################################################################
