@@ -27,11 +27,11 @@ of the pq program".
 For details, see \cite{NNN98}.
 
 Every $p$-group $G$ has a presentation of the form: 
-$$ 
-\{a_1,\dots, a_n \mid a_i^p = v_{ii}, 1 \le i \le n, 
-                   [a_k, a_j] = v_{jk}, 1 \le j \< k \le n \}.  
 $$
-where $v_{jk}$is a word in the elements $a_{k+1},\dots,a_n$ for 
+\{a_1,\dots,a_n \mid a_i^p = v_{ii}, 1 \le i \le n, 
+               [a_k, a_j] = v_{jk}, 1 \le j \< k \le n \}.  
+$$
+where $v_{jk}$ is a word in the elements $a_{k+1},\dots,a_n$ for 
 $1 \le j \< k \le n$.
 
 \index{power-commutator presentation}\index{pc presentation}\index{pcp}
@@ -70,9 +70,9 @@ indicated by bracketing, will result in the same normal form.  There
 are 3 types of such equations (that will be referred to in the manual):
 $$
 \matrix{
-(a^n)a &=& a(a^n)                           \hfill&{\rm (Type\ 1)}\cr
-(b^n)a &=& b^(n-1)(ba), b(a^n) = (ba)a^(n-1)\hfill&{\rm (Type\ 2)}\cr
-  (ba) &=& (cb)a                            \hfill&{\rm (Type\ 3)}\cr
+(a^n)a &=& a(a^n)                                \hfill&{\rm (Type\ 1)}\cr
+(b^n)a &=& b^{(n-1)}(ba), b(a^n) = (ba)a^{(n-1)} \hfill&{\rm (Type\ 2)}\cr
+ c(ba) &=& (cb)a                                 \hfill&{\rm (Type\ 3)}\cr
 }
 $$
 
@@ -81,14 +81,14 @@ $$
 For details, see \cite{NNN98}.
 
 \atindex{exponent-p central series}{@exponent-$p$ central series}
-The (*descending*  or  *lower*)  (exponent-)$p$-central  series 
+The (*descending*  or  *lower*)  (*exponent-*)*$p$-central series* 
 of an arbitrary  group $G$ is defined by  
-$$ 
-U_1  := G,  U_i := [G, U_{i-1}] U_{i-1}^p.   
-$$ 
-\atindex{p-class}{@$p$-class}\index{class}
+$$
+P_1(G)  := G,  P_i(G) := [G, P_{i-1}(G)] P_{i-1}(G)^p\.
+$$
 For a $p$-group $G$ this  series terminates with the trivial group. $G$
-has $p$-class $c$  if $c$ is the smallest  integer such that $U_{c+1}$
+\index{class}\atindex{p-class}{@$p$-class}
+has *$p$-class* $c$  if $c$ is the smallest  integer such that $P_{c+1}(G)$
 is  the trivial group.   In this  manual, as  well as  in much  of the
 literature about the pq- and related algorithms the $p$-class is often
 referred to simply as *class*.
@@ -96,13 +96,13 @@ referred to simply as *class*.
 Let  the  $p$-group $G$  have  a consistent  pcp  as  above. Then  the
 subgroups
 $$
-\langle1\rangle \< \langle a_1 \rangle \< \langle a_1, a_2 \rangle %
-    \< \dots \< \langle a_1,\dots,a_i \rangle \< \dots \< G
+\langle1\rangle \< {\langle}a_1\rangle \< {\langle}a_1, a_2\rangle %
+    \< \dots \< {\langle}a_1,\dots,a_i\rangle \< \dots \< G
 $$
-\index{weight function}
 form a central series  of $G$. If this refines  the $p$-central series,
+\index{weight function}
 we can  define the  *weight function* $w$  for the pc  generators by
-$w(a_i) = k$ if $a_i$ is contained in $U_{k-1}$  but not in $U_k$.
+$w(a_i) = k$ if $a_i$ is contained in $P_{k-1}(G)$  but not in $P_k(G)$.
 
 \index{weighted pcp}
 The pair of  such a weight function and  a pcp allowing it  is called a
@@ -116,14 +116,14 @@ For details, see \cite{NNN98}.
 \atindex{p-multiplicator}{@$p$-multiplicator}
 \atindex{p-multiplicator rank}{@$p$-multiplicator rank}
 \index{multiplicator rank}
-Let $d$ be the minimal number of generators of the $p$-group G. Then G
-is isomorphic to a factor group $F/R$ of a free group $F$ of rank $d$.
-It can be proved (see e.g.~\cite{OBr90}) that the isomorphism type  of
-$F/[F, R]  R^p$  depends  only  on  $G$.  This  group  is  called  the
-*$p$-covering group* or *$p$-cover* of $G$, and  $R/[F,  R]  R^p$  the
-$p$-multiplicator of  $G$.  The  $p$-multiplicator  is  of  course  an
-elementary abelian $p$-group, its  minimal  number  of  generators  is
-called the *($p$-)multiplicator rank*.
+Let $d$ be the minimal number of generators of the  $p$-group  $G$.  Then
+$G$ is isomorphic to a factor group $F/R$ of a free  group  $F$  of  rank
+$d$. It can be proved (see e.g.~\cite{OBr90}) that the  isomorphism  type
+of $F/[F, R]  R^p$  depends  only  on  $G$.  This  group  is  called  the
+*$p$-covering group* or *$p$-cover*  of  $G$,  and  $R/[F,  R]  R^p$  the
+$p$-multiplicator  of  $G$.  The  $p$-multiplicator  is  of   course   an
+elementary abelian $p$-group, its minimal number of generators is  called
+the *($p$-)multiplicator rank*.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{The p-quotient algorithm}
@@ -132,18 +132,17 @@ The aim of the $p$-quotient (`pq'-) algorithm is  to  find  $p$-factor
 groups (or $p$-quotient groups) of a  given  finitely  presented  (fp)
 group $G$ for a given prime $p$.
 
-The `pq'  algorithm successively determines  the factor groups  of the
-groups of the $p$-central series of a fp group $G$. If a bound $b$ for
-the $p$-class is given, it will determine those factor groups up to at
-most  $p$-class  $b$, If  the  $p$-central  series  terminates with  a
-subgroup $U_k$ with $k \< b$, the algorithm will stop with that group.
-If  no such  bound is  given, it  will try  to find  the  biggest such
-factorgroup.
+The `pq' algorithm successively  determines  the  factor  groups  of  the
+groups of the $p$-central series of a fp group $G$. If a  bound  $b$  for
+the $p$-class is given, it will determine those factor groups  up  to  at
+most $p$-class $b$, If the $p$-central series terminates with a  subgroup
+$P_k(G)$ with $k \< b$, the algorithm will stop with that  group.  If  no
+such bound is given, it will try to find the biggest such factorgroup.
 
-$G/U_2$ is the largest elementary  abelian $p$-factor group of $G$ and
+$G/P_2(G)$ is the largest elementary  abelian $p$-factor group of $G$ and
 this  can  be found  from  the relation  matrix  of  $G$ using  matrix
-diagonalisation modulo $p$. So  it suffices to explain how $G/U_{i+1}$
-is found from $G/U_i$ for some $i \ge 1$.
+diagonalisation modulo $p$. So  it suffices to explain how $G/P_{i+1}(G)$
+is found from $G/P_i(G)$ for some $i \ge 1$.
 
 *UP TO HERE*
 

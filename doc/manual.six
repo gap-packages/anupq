@@ -13,8 +13,8 @@ I 2.1. confluent rewriting system
 I 2.1. confluent
 I 2.1. consistency conditions
 I 2.1. exponent-p central series
-I 2.1. p-class
 I 2.1. class
+I 2.1. p-class
 I 2.1. weight function
 I 2.1. weighted pcp
 I 2.1. p-covering group
@@ -337,5 +337,5 @@ C install.tex 7. Installing the ANUPQ Package
 I 7.0. ANUPQ_GAP_EXEC!environment variable
 S 7.1. Testing your ANUPQ installation
 I 7.1. ANUPQ_GAP_EXEC!environment variable
-S 7.2. Running the pq binary as a standalone
+S 7.2. Running the pq program as a standalone
 I 7.2. ANUPQ_GAP_EXEC!environment variable
