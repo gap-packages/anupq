@@ -14,6 +14,10 @@
 #Y  Copyright 1992-1994,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.18  2001/10/18 02:52:09  gap
+#H  Now correctly detect when p-cover has been computed (for interactive
+#H  use of `Pq', `PqPCover' etc.) - GG
+#H
 #H  Revision 1.17  2001/10/05 08:34:33  gap
 #H  Added `PqSetPQuotientToGroup'. - GG
 #H
@@ -559,12 +563,14 @@ InstallGlobalFunction( PQ_DESCENDANTS, function( args )
     class := PClassPGroup(datarec.group);
     if not( IsBound(datarec.pQuotient) and 
             p = PrimePGroup(datarec.pQuotient) and
-            ( class = datarec.class or
-              IsBound(datarec.pcoverclass) and 
-              class = datarec.pcoverclass - 1 ) ) then
+            class = datarec.class or
+            IsBound(datarec.pCover) and
+            p = PrimePGroup(datarec.pCover) and
+            IsBound(datarec.pcoverclass) and 
+            class = datarec.pcoverclass - 1 ) then
       PQ_PC_PRESENTATION( datarec, "pQ" : Prime := p, ClassBound := class );
     fi;
-    if not( IsBound(datarec.pCover) and 
+    if not( IsBound(datarec.pCover) and p = PrimePGroup(datarec.pCover) and
             class = datarec.pcoverclass - 1 ) then
       PQ_P_COVER( datarec );
     fi;
