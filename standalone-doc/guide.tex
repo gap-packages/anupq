@@ -30,7 +30,7 @@
 \begin{document}
 \title{A guide to the ANU {\it p}-Quotient Program\\Version 1.5}
 \author{Eamonn O'Brien}
-\date{July 2001}
+\date{August 2001}
 \maketitle
 \tableofcontents
 \pagebreak
@@ -736,7 +736,13 @@ for input. Those prompts/questions are as follows.
   \end{description}
  \end{description}
  If you responded ``No" to the ``\texttt{Construct all descendants?}'' query
- you are prompted as follows:
+ and the class increase is one you are prompted:
+ \begin{description}
+  \item[\texttt{Input step size:}]\ \\
+  and a positive integer is expected.
+ \end{description}
+ If you responded ``No" to the ``\texttt{Construct all descendants?}'' query
+ and the class increase is greater than one you are prompted as follows:
  \begin{description}
   \item[\texttt{Constant step size?}]\ \\
   If you answer ``Yes" you are prompted:
@@ -829,7 +835,8 @@ default output for each of the following categories:
 permutation group, orbits, group descriptions, automorphism group
 descriptions, or if you want an algorithm trace. Answering ``No" to 
 any of these questions (except for the last)
-leads to further questions about what additional information you desire
+leads to further questions, each requiring a ``Yes"/``No" answer,
+about what additional information you desire
 (or don't want) for the category. The following are the questions that 
 result from a ``No" response to ``\texttt{Do you want default output?}":
 
@@ -862,6 +869,7 @@ result from a ``No" response to ``\texttt{Do you want default output?}":
   \begin{description}
    \item[\texttt{Print commutator matrix?}]
    \item[\texttt{Automorphism group description of descendants?}]
+   \item[\texttt{Automorphism group order of descendants?}]
   \end{description}
  \item[\texttt{Do you want algorithm trace output?}]\ \\
  This last question is designed to permit
@@ -1821,5 +1829,5 @@ E-mail address: obrien@math.auckland.ac.nz
 
 \vspace*{0.35cm}
 \noindent 
-Last revised July 2001
+Last revised August 2001
 \end{document}
