@@ -298,49 +298,24 @@ gap> PqPCover( F : Prime := 5, ClassBound := 5, Metabelian,
 \Section{Computing Standard Presentations}
 
 \index{automorphisms!of $p$-groups}
-\>PqStandardPresentation( <F>, <p> : <options> ) F
-\>PqStandardPresentation( <F>, <Q> : <options> ) F
 \>PqStandardPresentation( <F> : <options> ) F
-\>StandardPresentation( <F>, <p> : <options> ) M
-\>StandardPresentation( <F>, <Q> : <options> ) M
 \>StandardPresentation( <F> : <options> ) M
 
-Here <F> is an fp or pc group and the second argument, when  present,  is
-either a prime <p> or a pc <p>-group <Q>. The second argument can only be
-omitted in the case where <F> is a pc group and it *knows* that it  is  a
-<p>-group. If the user supplies a pc group <Q> as second  argument  which
-is a $p$-quotient of <F>, the package {\AutPGrp} is called  automatically
-to compute the automorphism group of <Q>; an error will occur  that  asks
-the user to install the package  {\AutPGrp}  if  the  automorphism  group
-cannot be  computed.  The  functions  return  the  <p>-quotient  of  <F>,
-specified by the second argument and <options>, as an fp group which  has
-a standard presentation.
-
-Following the colon, <options> is a selection of  the  options  from  the
-following  list,  separated  by  commas  like  record   components   (see
-Section~"ref:function call!with options" in the {\GAP} Reference Manual).
-Section~"Hints and Warnings regarding the  use  of  Options"  gives  some
-important hints and warnings regarding option usage.
-
-*Notes:*
-In contrast  to the  function `Pq' (see~"Pq")  which returns a  pc group,
-here an fp  group is returned. This is because the  output is mainly used
-for isomorphism  testing for which an  fp group is  enough.  However, the
-presentation  is a  polycyclic presentation  and if  you need  to  do any
-further computation with this group  (e.g.~to find the order) you can use
-the  function `PcGroupFpGroup'  (see~"ref:PcGroupFpGroup"  in the  {\GAP}
-Reference Manual) to form a pc group.
-
-The  attributes  and  property  `NuclearRank',  `MultiplicatorRank'   and
-`IsCapable' are set for the group returned by `PqStandardPresentation' or
-`StandardPresentation' (see Section~"Attributes and a Property for fp and
-pc p-groups").
-
-The following options  are  recognised  by  `PqStandardPresentation'  and
-`StandardPresentation'  (see   Chapter~"ANUPQ   options"   for   detailed
-descriptions).
+return the <p>-quotient of the fp or pc group <F> specified by <options>,
+as an *fp group* which has a standard presentation. Here <options>  is  a
+selection of the options from  the  following  list  (see  Chapter~"ANUPQ
+options"  for  detailed  descriptions).   Section~"Hints   and   Warnings
+regarding the use of Options" gives some  important  hints  and  warnings
+regarding option usage, and Section~"ref:function call!with  options"  in
+the {\GAP} Reference Manual describes their ``record''-like syntax.
 
 \beginlist%unordered
+
+\atindex{option Prime}{@option \noexpand`Prime'}
+\item{}`Prime := <p>'
+
+\atindex{option pQuotient}{@option \noexpand`pQuotient'}
+\item{}`pQuotient := <Q>'
 
 \atindex{option ClassBound}{@option \noexpand`ClassBound'}
 \item{}`ClassBound := <n>'
@@ -369,6 +344,11 @@ descriptions).
 
 \endlist
 
+Unless <F> is a pc <p>-group, the user *must* supply  either  the  option
+`Prime' or the option `pQuotient' (if both `Prime'  and  `pQuotient'  are
+supplied,  the  prime  <p>  is  determined  by   applying   `PrimePGroup'
+(see~"ref:PrimePGroup") to the value of `pQuotient').
+
 The options for `PqStandardPresentation' may also be passed  in  the  two
 alternative ways described for  `Pq'  (see~"Pq").  `StandardPresentation'
 does not provide these alternative ways of passing options. Options  that
@@ -380,7 +360,7 @@ We illustrate the method with the following examples.
 gap> F := FreeGroup( "a", "b" );; a := F.1;; b := F.2;;
 gap> G := F / [a^25, Comm(Comm(b, a), a), b^5];
 <fp group on the generators [ a, b ]>
-gap> S := StandardPresentation( G, 5 : ClassBound := 10 );
+gap> S := StandardPresentation( G : Prime := 5, ClassBound := 10 );
 <fp group on the generators [ f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, 
   f12, f13, f14, f15, f16, f17, f18, f19, f20, f21, f22, f23, f24, f25, f26 ]>
 gap> IsPcGroup( S );
@@ -402,17 +382,38 @@ gap> G4 := F4 / [ b^4, b^2 / Comm(Comm (b, a), a), d^16,
 <fp group on the generators [ a, b, c, d ]>
 gap> K := Pq( G4 : Prime := 2, ClassBound := 1 );
 <pc group of size 4 with 2 generators>
-gap> StandardPresentation( G4, K : ClassBound := 14 );
+gap> StandardPresentation( G4 : pQuotient := K, ClassBound := 14 );
 <fp group with 53 generators>
 \endexample
 
 Typing: `PqExample( "StandardPresentation" );' runs the above example  in
 {\GAP} (see~"PqExample").
 
-\>EpimorphismPqStandardPresentation( <F>, <p> : <options> ) F
-\>EpimorphismPqStandardPresentation( <F>, <Q> : <options> ) F
-\>EpimorphismStandardPresentation( <F>, <p> : <options> ) M
-\>EpimorphismStandardPresentation( <F>, <Q> : <options> ) M
+*Notes:*
+In contrast  to the  function `Pq' (see~"Pq")  which returns a  pc group,
+`PqStandardPresentation' or `StandardPresentation' returns an  fp  group.
+This is because the output is mainly used  for  isomorphism  testing  for
+which an fp group is enough. However, the presentation  is  a  polycyclic
+presentation and if you need to do  any  further  computation  with  this
+group (e.g.~to find the order) you can use the function  `PcGroupFpGroup'
+(see~"ref:PcGroupFpGroup" in the {\GAP} Reference Manual) to  form  a  pc
+group.
+
+If the user does not supply a <p>-quotient <Q> via the `pQuotient' option
+and the prime <p> is either supplied or <F> is a  pc  <p>-group,  then  a
+<p>-quotient <Q> is computed. If the user does supply a <p>-quotient  <Q>
+via the `pQuotient' option, the package {\AutPGrp} is called  to  compute
+the automorphism group of <Q>; an error will occur that asks the user  to
+install the package  {\AutPGrp}  if  the  automorphism  group  cannot  be
+computed.
+
+The  attributes  and  property  `NuclearRank',  `MultiplicatorRank'   and
+`IsCapable' are set for the group returned by `PqStandardPresentation' or
+`StandardPresentation' (see Section~"Attributes and a Property for fp and
+pc p-groups").
+
+\>EpimorphismPqStandardPresentation( <F> : <options> ) F
+\>EpimorphismStandardPresentation( <F> : <options> ) M
 
 Each of the above functions accepts the same arguments and options as the
 function `StandardPresentation' (see~"StandardPresentation") and  returns
@@ -445,7 +446,8 @@ gap> GeneratorsOfGroup(F) = GeneratorsOfGroup(Q);
 false
 gap> G := Pq( Q : Prime := 3, ClassBound := 3 );
 <pc group of size 729 with 6 generators>
-gap> phi := EpimorphismStandardPresentation( Q, 3 : ClassBound := 3 );
+gap> phi := EpimorphismStandardPresentation( Q : Prime := 3,
+>                                                ClassBound := 3 );
 [ F1, F2, F3, F4, F5, F6 ] -> [ f1*f2^2*f3, f1*f2*f3*f4*f5^2*f6^2, f3^2, f4, 
   f5, f6 ]
 gap> NamesOfComponents(phi);
@@ -463,7 +465,9 @@ gap> Size( Image(phi) );
 \endexample
 
 Typing: `PqExample( "EpimorphismStandardPresentation" );' runs the  above
-example in {\GAP} (see~"PqExample").
+example in {\GAP} (see~"PqExample"). Note that `AssignGeneratorVariables'
+(see~"ref:AssignGeneratorVariables")  has  only  been   available   since
+{\GAP}~4.3.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Testing p-Groups for Isomorphism}

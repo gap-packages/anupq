@@ -30,7 +30,7 @@ gap> AllANUPQoptions();
   "PcgsAutomorphisms", "PqWorkspace", "Prime", "PrintAutomorphisms", 
   "PrintPermutations", "QueueFactor", "RankInitialSegmentSubgroups", 
   "RedoPcp", "Relators", "SetupFile", "SpaceEfficient", 
-  "StandardPresentationFile", "StepSize", "SubList" ]
+  "StandardPresentationFile", "StepSize", "SubList", "pQuotient" ]
 \endexample
 
 The following global variable gives a  partial  breakdown  of  where  the
@@ -75,12 +75,20 @@ Specifies that the $p$-quotient for the prime  <p>  should  be  computed.
 \>`ClassBound := <n>'{option  ClassBound}@{option  `ClassBound'|indexit}&
 Specifies that the $p$-quotient to be  computed  has  lower  exponent-$p$
 class at most <n>. If this option is omitted a default of  63  (which  is
-the  maximum  possible  for  the  `pq'  program)  is  taken,  except   for
+the  maximum  possible  for  the  `pq'  program)  is  taken,  except  for
 `PqDescendants' (see~"PqDescendants") and in a special case of `PqPCover'
 (see~"PqPCover"). Let <F> be the argument (or start group of the  process
 in the interactive case) for the function; then for  `PqDescendants'  the
 default  is  `PClassPGroup(<F>)  +  1',  and  for  the  special  case  of
 `PqPCover' the default is `PClassPGroup(<F>)'.
+
+\>`pQuotient := <Q>'{option pQuotient}@{option `pQuotient'|indexit}&
+This option is only available for the standard presentation functions. It
+specifies that a $p$-quotient of the group argument of  the  function  or
+group of the process is the pc <p>-group  <Q>,  where  <Q>  is  of  class
+*lower*  than  the  provided  (or  default)  value  of  `ClassBound'.  If
+`pQuotient' is provided, then the option  `Prime'  if  also  provided  is
+ignored (the prime <p> is discovered by computing `PrimePGroup(<Q>)').
 
 \>`Exponent := <n>'{option Exponent}@{option `Exponent'|indexit}&
 Specifies that the $p$-quotient to be computed has exponent <n>.  For  an
@@ -91,11 +99,10 @@ which means that no exponent law is enforced.
 \>`Relators := <rels>'{option Relators}@{option `Relators'|indexit}&
 Specifies that the relators sent to the `pq'  program  should  be  <rels>
 instead of the relators of the group <F>; <rels>  should  be  a  list  of
-*strings* in the string representations of  the  generators  of  <F>.  
- This option provides a way of giving  relators  to
-the `pq' program, without having them pre-expanded by {\GAP},  which  can
-sometimes effect a performance loss of the order of 100 (see Section~"The
-Relators Option").
+*strings* in the string representations of the generators  of  <F>.  This
+option provides a way of giving relators to  the  `pq'  program,  without
+having  them  pre-expanded  by  {\GAP},  which  can  sometimes  effect  a
+performance loss of the order of 100 (see Section~"The Relators Option").
 
 *Notes*
 \beginlist%ordered

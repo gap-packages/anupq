@@ -36,9 +36,6 @@ an error if <i> is not the index of an  active  interactive  process,  or
 there are no current active interactive processes.
 
 *Notes*: 
-For technical reasons, interactive {\ANUPQ} process  are  never  assigned
-prime identification indices <i>.
-
 The global method of passing options (via `PushOptions'), should  not  be
 used with any of the interactive functions. In fact,  the  `OptionsStack'
 should be empty at the time any of the interactive functions is called.
@@ -327,34 +324,25 @@ scrapped, and `PqPCover'  proceeds  as  in  1.  or  2.  but  without  the
 \endlist
 
 \index{automorphisms!of $p$-groups}
-\>PqStandardPresentation([ <i>,] <p> : <options> )!{interactive} F
-\>PqStandardPresentation([ <i>,] <Q> : <options> )!{interactive} F
 \>PqStandardPresentation([ <i> ]: <options> )!{interactive} F
-\>StandardPresentation([ <i>,] <p> : <options> )!{interactive} M
-\>StandardPresentation([ <i>,] <Q> : <options> )!{interactive} M
 \>StandardPresentation([ <i> ]: <options> )!{interactive} M
 
 return, for the  <i>th  or  default  interactive  {\ANUPQ}  process,  the
-<p>-quotient of the group <F> of the process, specified by  the  argument
-<p> (a prime) or <Q> (a pc <p>-group), if given, and <options>.  must  be
-an fp or pc group (<F> should have been  given  (as  first  argument)  to
-`PqStart' to start the interactive {\ANUPQ} process; see~"PqStart"),  and
-must be an fp or pc group. It is only permissible to  omit  the  argument
-<p> or <Q>, in the case where <F> is a pc group and it *knows* that it is
-a <p>-group.
-
-If the user supplies a pc group <Q> which must be a $p$-quotient of  <F>,
-the  package  {\AutPGrp}  is  called   automatically   to   compute   the
-automorphism group of <Q>; an error will occur  that  asks  the  user  to
-install the package  {\AutPGrp}  if  the  automorphism  group  cannot  be
-computed.
-
-Following the colon, <options> is a selection of  the  options  from  the
-following list, separated by commas like record components; this list  is
-the same as for  `PqStandardPresentation'  except  for  the  omission  of
-options `SetupFile' and `PqWorkspace' (see~"PqStandardPresentation").
+<p>-quotient of the group <F> of the process, specified by <options>,  as
+an *fp group* which has a standard  presentation.  Here  <options>  is  a
+selection of the options from  the  following  list  (see  Chapter~"ANUPQ
+options" for detailed descriptions); this list is the  same  as  for  the
+non-interactive  version  of  `PqStandardPresentation'  except  for   the
+omission     of      options      `SetupFile'      and      `PqWorkspace'
+(see~"PqStandardPresentation").
 
 \beginlist%unordered
+
+\atindex{option Prime}{@option \noexpand`Prime'}
+\item{}`Prime := <p>'
+
+\atindex{option pQuotient}{@option \noexpand`pQuotient'}
+\item{}`pQuotient := <Q>'
 
 \atindex{option ClassBound}{@option \noexpand`ClassBound'}
 \item{}`ClassBound := <n>'
@@ -377,20 +365,18 @@ options `SetupFile' and `PqWorkspace' (see~"PqStandardPresentation").
 
 \endlist
 
-Detailed descriptions of the above options may be found in Chapter~"ANUPQ
-options".
-
-*Note:*
-The  attributes  and  property  `NuclearRank',  `MultiplicatorRank'   and
-`IsCapable' are set for the group returned by `PqStandardPresentation' or
-`StandardPresentation' (see Section~"Attributes and a Property for fp and  
-pc p-groups").
+Unless <F> is a pc <p>-group, or the option `Prime' has been passed to  a
+previous interactive function for the process to compute  a  <p>-quotient
+for <F>, the user *must* supply either the option `Prime' or  the  option
+`pQuotient' (if both `Prime' and `pQuotient' are supplied, the prime  <p>
+is determined by applying `PrimePGroup'  (see~"ref:PrimePGroup")  to  the
+value of `pQuotient').
 
 Taking  one  of  the  examples  for  the   non-interactive   version   of
 `StandardPresentation'  (see~"StandardPresentation")  that  required  two
-separate calls to the `pq' program, we now show how, with the  interactive
-version of `StandardPresentation',  it  can  be  done  by  setting  up  a
-dialogue with just the one `pq' process:
+separate calls to the `pq' program, we now show how it  can  be  done  by
+setting up  a  dialogue  with  just  the  one  `pq'  process,  using  the
+interactive version of `StandardPresentation':
 
 \beginexample
 gap> F4 := FreeGroup( "a", "b", "c", "d" );;
@@ -400,21 +386,53 @@ gap> G4 := F4 / [ b^4, b^2 / Comm(Comm (b, a), a), d^16,
 <fp group on the generators [ a, b, c, d ]>
 gap> SetInfoLevel(InfoANUPQ, 1); #Only essential Info please
 gap> PqStart(G4); #Start a new interactive process for a new group
-4
-gap> K := Pq( 4 : Prime := 2, ClassBound := 1 ); #`pq' process no. is 4
+2
+gap> K := Pq( 2 : Prime := 2, ClassBound := 1 ); #`pq' process no. is 2
 <pc group of size 4 with 2 generators>
-gap> StandardPresentation( 4, K : ClassBound := 14 );
+gap> StandardPresentation( 2 : pQuotient := K, ClassBound := 14 );
 <fp group with 53 generators>
 \endexample
 
-\>EpimorphismPqStandardPresentation( <i>, <p> : <options> )!{interactive} F
-\>EpimorphismPqStandardPresentation( <p> : <options> )!{interactive} F
-\>EpimorphismPqStandardPresentation( <i>, <Q> : <options> )!{interactive} F
-\>EpimorphismPqStandardPresentation( <Q> : <options> )!{interactive} F
-\>EpimorphismStandardPresentation( <i>, <p> : <options> )!{interactive} M
-\>EpimorphismStandardPresentation( <p> : <options> )!{interactive} M
-\>EpimorphismStandardPresentation( <i>, <Q> : <options> )!{interactive} M
-\>EpimorphismStandardPresentation( <Q> : <options> )!{interactive} M
+*Notes*
+
+In contrast  to the  function `Pq' (see~"Pq")  which returns a  pc group,
+`PqStandardPresentation' or `StandardPresentation' returns an  fp  group.
+This is because the output is mainly used  for  isomorphism  testing  for
+which an fp group is enough. However, the presentation  is  a  polycyclic
+presentation and if you need to do  any  further  computation  with  this
+group (e.g.~to find the order) you can use the function  `PcGroupFpGroup'
+(see~"ref:PcGroupFpGroup" in the {\GAP} Reference Manual) to  form  a  pc
+group.
+
+If the user does not  supply  a  <p>-quotient  <Q>  via  the  `pQuotient'
+option, and the prime <p> is either supplied,  stored  or  <F>  is  a  pc
+<p>-group, then a <p>-quotient <Q> is computed. (The value of  the  prime
+<p> is stored if  passed  initially  to  `PqStart'  or  to  a  subsequent
+interactive process.) Note that a stored value for  `pQuotient'  (from  a
+prior call to `Pq') does *not* have precedence over a value for the prime
+<p>. If the user does supply  a  <p>-quotient  <Q>  via  the  `pQuotient'
+option, the package {\AutPGrp} is  called  to  compute  the  automorphism
+group of <Q>; an error will occur that  asks  the  user  to  install  the
+package {\AutPGrp} if the automorphism group cannot be computed.
+
+If   any   of   the   interactive   functions   `PqStandardPresentation',
+`StandardPresentation',      `EpimorphismPqStandardPresentation'       or
+`EpimorphismStandardPresentation'  has  been  called  previously  for  an
+interactive process, a subsequent call to any of these functions for  the
+same process returns the previously computed value. Note that  all  these
+functions compute both an epimorphism and  an  fp  group  and  store  the
+results in the `SPepi' and `SP' fields of the data record associated with
+the    process.    See    the     example     for     the     interactive
+`EpimorphismStandardPresentation'
+("EpimorphismStandardPresentation!interactive").
+
+The  attributes  and  property  `NuclearRank',  `MultiplicatorRank'   and
+`IsCapable' are set for the group returned by `PqStandardPresentation' or
+`StandardPresentation' (see Section~"Attributes and a Property for fp and  
+pc p-groups").
+
+\>EpimorphismPqStandardPresentation([ <i> ]: <options> )!{interactive} F
+\>EpimorphismStandardPresentation([ <i> ]: <options> )!{interactive} M
 
 Each of the above functions accepts the same arguments and options as the
 interactive           form           of            `StandardPresentation'
@@ -428,35 +446,70 @@ group with presentation <S>. The group <F> must have been given (as first
 argument)  to  `PqStart'  to  start  the  interactive  {\ANUPQ}   process
 (see~"PqStart").
 
-*Note:*
-The  attributes  and  property  `NuclearRank',  `MultiplicatorRank'   and
-`IsCapable' are set for the image group of the  epimorphism  returned  by
-`EpimorphismPqStandardPresentation' or  `EpimorphismStandardPresentation'
-(see Section~"Attributes and a Property for fp and pc p-groups").
-
 Taking        our         earlier         non-interactive         example
-(see~"EpimorphismPqStandardPresentation")   we   again   illustrate   how
-something that required two separate calls to the `pq' program can now  be
-achieved with a dialogue with just one `pq' process.
+(see~"EpimorphismPqStandardPresentation") and modifying it a  little,  we
+illustrate,    as    for    the    interactive     `StandardPresentation'
+(see~"StandardPresentation!interactive"), how something that required two
+separate calls to the `pq' program can now be achieved  with  a  dialogue
+with just one `pq' process. Also,  observe  that  calls  to  one  of  the
+standard   presentation   functions   (as   mentioned   in   the    notes
+of~"StandardPresentation!interactive") computes and  stores  both  an  fp
+group with a standard presentation and an epimorphism;  subsequent  calls
+to a standard presentation function for the same  process  simply  return
+the appropriate stored value.
 
 \beginexample
-gap> F := FreeGroup(6, "F");
-<free group on the generators [ F1, F2, F3, F4, F5, F6 ]>
+gap> F := FreeGroup(6, "F");;
 gap> x := F.1;; y := F.2;; z := F.3;; w := F.4;; a := F.5;; b := F.6;;
 gap> R := [x^3 / w, y^3 / w * a^2 * b^2, w^3 / b,
->          Comm (y, x) / z, Comm (z, x), Comm (z, y) / a, z^3 ];;
+>          Comm (y, x) / z, Comm (z, x), Comm (z, y) / a, z^3 ];
+[ F1^3*F4^-1, F2^3*F4^-1*F5^2*F6^2, F4^3*F6^-1, F2^-1*F1^-1*F2*F1*F3^-1, 
+  F3^-1*F1^-1*F3*F1, F3^-1*F2^-1*F3*F2*F5^-1, F3^3 ]
 gap> Q := F / R;
 <fp group on the generators [ F1, F2, F3, F4, F5, F6 ]>
-gap> PqStart(Q); #Start a new interactive process for a new group       
-6
-gap> G := Pq( 6 : Prime := 3, ClassBound := 3 );
+gap> PqStart( Q );
+3
+gap> G := Pq( 3 : Prime := 3, ClassBound := 3 );
 <pc group of size 729 with 6 generators>
-gap> phi := EpimorphismStandardPresentation( 6, 3 : ClassBound := 3 );
-[ F1, F2, F3, F4, F5, F6 ] -> [ f1^2*f2*f4^2*f6, f1^2*f2^2*f3^2*f4*f5, f3^2, 
-  f4^2*f6^2, f5^2, f6^2 ]
+gap> lev := InfoLevel(InfoANUPQ);; # Save current InfoANUPQ level
+gap> SetInfoLevel(InfoANUPQ, 2); # To see computation times
+gap> # It is not necessary to pass the `Prime' option to
+gap> # `EpimorphismStandardPresentation' since it was previously
+gap> # passed to `Pq':
+gap> phi := EpimorphismStandardPresentation( procId : ClassBound := 3 );
+#I  Class 1 3-quotient and its 3-covering group computed in 0.00 seconds
+#I  Order of GL subgroup is 48
+#I  No. of soluble autos is 0
+#I    dim U = 1  dim N = 3  dim M = 3
+#I    nice stabilizer with perm rep
+#I  Computing standard presentation for class 2 took 0.00 seconds
+#I  Computing standard presentation for class 3 took 0.01 seconds
+[ F1, F2, F3, F4, F5, F6 ] -> [ f1*f2^2*f3*f4^2*f5^2, f1*f2*f3*f5, f3^2, 
+  f4*f6^2, f5, f6 ]
+gap> # Image of phi should be isomorphic to G ...
+gap> # let's check the order is correct:
 gap> Size( Image(phi) );
 729
+gap> # `StandardPresentation' and `EpimorphismStandardPresentation'
+gap> # behave like attributes, so no computation is done when
+gap> # either is called again for the same process ...
+gap> StandardPresentation( 3 : ClassBound := 3 );
+<fp group of size 729 on the generators [ f1, f2, f3, f4, f5, f6 ]>
+gap> # No timing data was Info-ed since no computation was done
+gap> SetInfoLevel(InfoANUPQ, lev); # Restore previous InfoANUPQ level
 \endexample
+
+A very similar (essential details are the same) example to the above may
+be executed live, by typing:
+`PqExample( "EpimorphismStandardPresentation-i" );'.
+
+*Note:*
+The  notes   for   `PqStandardPresentation'   or   `StandardPresentation'
+(see~"PqStandardPresentation!interactive")      apply       also       to
+`EpimorphismPqStandardPresentation' or  `EpimorphismStandardPresentation'
+except that their return value is an *epimorphism to* an fp  group,  i.e.
+one should interpret the phrase ``returns an fp group'' as  ``returns  an
+epimorphism to an fp group'' etc.
 
 \>PqDescendants( <i> : <options> )!{interactive} F
 \>PqDescendants( : <options> )!{interactive} F
@@ -549,11 +602,9 @@ Let us now repeat the examples previously given for  the  non-interactive
 gap> F := FreeGroup( "a", "b" );; a := F.1;; b := F.2;;
 gap> G := PcGroupFpGroup( F / [ a^2, b^2, Comm(b, a) ] );
 <pc group of size 4 with 2 generators>
-gap> PqStart(G);
-8
-gap> #This is now the 4th interactive process running
-gap> #... its id. no. is 8 (the 4th non-prime number)
-gap> des := PqDescendants( 8 : OrderBound := 6, ClassBound := 5 );;
+gap> PqStart(G); #This will now be the 4th interactive process running
+4
+gap> des := PqDescendants( 4 : OrderBound := 6, ClassBound := 5 );;
 gap> Length(des);
 83
 gap> List(des, Size);
@@ -577,8 +628,8 @@ gap> F := FreeGroup( 2, "g" );;
 gap> G := PcGroupFpGroup( F / [ F.1^3, F.2^3, Comm(F.1, F.2) ] );
 <pc group of size 9 with 2 generators>
 gap> PqStart(G); #This will now be the 5th interactive process running
-9
-gap> des := PqDescendants( 9 : OrderBound := 3, ClassBound := 2,
+5
+gap> des := PqDescendants( 5 : OrderBound := 3, ClassBound := 2,
 >                              CapableDescendants );
 [ <pc group of size 27 with 3 generators>, 
   <pc group of size 27 with 3 generators> ]
@@ -601,9 +652,9 @@ gap> F := FreeGroup( 2, "g" );;
 gap> G := PcGroupFpGroup( F / [ F.1^5, F.2^5, Comm(F.2, F.1) ] );
 <pc group of size 25 with 2 generators>
 gap> PqStart(G); #This will now be the 6th interactive process running
-10
-gap> des := PqDescendants( 10 : Metabelian, ClassBound := 3,
->                               Exponent := 5, CapableDescendants );
+6
+gap> des := PqDescendants( 6 : Metabelian, ClassBound := 3,
+>                              Exponent := 5, CapableDescendants );
 [ <pc group of size 125 with 3 generators>, 
   <pc group of size 625 with 4 generators>, 
   <pc group of size 3125 with 5 generators> ]
@@ -636,7 +687,7 @@ four group).
 gap> F := FreeGroup( "a", "b" );
 <free group on the generators [ a, b ]>
 gap> procId := PqStart( F : Prime := 2 );
-12
+7
 gap> Pq( procId : ClassBound := 1 );
 <pc group of size 4 with 2 generators>
 gap> PqSetPQuotientToGroup( procId );
