@@ -43,7 +43,8 @@ InstallValue( ANUPQoptions,
                             "Metabelian", 
                             "OutputLevel", 
                             "Relators", 
-                            "Verbose", 
+                            "GroupName", 
+                            "Verbose", #no longer used
                             "SetupFile",
                             "PqWorkspace" ],
 
@@ -52,29 +53,33 @@ InstallValue( ANUPQoptions,
                        := [ "ClassBound", 
                             "OrderBound", 
                             "Relators", 
+                            "GroupName", 
                             "StepSize", 
                             "PcgsAutomorphisms", 
+                            "BasicAlgorithm", 
                             "RankInitialSegmentSubgroups", 
                             "SpaceEfficient", 
                             "AllDescendants", 
                             "Exponent", 
                             "Metabelian", 
                             "SubList", 
-                            "TmpDir", 
-                            "Verbose", 
+                            "TailorOutput",
+                            "TmpDir", #no longer used
+                            "Verbose",#no longer used
                             "SetupFile" ],
 
                    # options for `[Epimorphism][Pq]StandardPresentation'
                    StandardPresentation
                        := [ "Prime", 
                             "ClassBound", 
+                            "GroupName", 
                             "PcgsAutomorphisms", 
                             "Exponent", 
                             "Metabelian", 
                             "OutputLevel", 
                             "StandardPresentationFile", 
-                            "TmpDir",
-                            "Verbose", 
+                            "TmpDir", #no longer used
+                            "Verbose",#no longer used
                             "SetupFile" ]
                   )
              );
@@ -103,6 +108,7 @@ InstallValue( ANUPQoptionChecks,
                    OrderBound := IsPosInt,
                    Exponent   := IsPosInt,
                    Metabelian := IsBool,
+                   GroupName  := IsString,
                    OutputLevel := x -> x in [0..3],
                    Relators   := x -> IsList(x) and ForAll(x, IsString),
                    StandardPresentationFile := IsString,
@@ -112,12 +118,14 @@ InstallValue( ANUPQoptionChecks,
                    StepSize := x -> IsPosInt(x) or
                                     (IsList(x) and ForAll(x, IsPosInt)), 
                    PcgsAutomorphisms := IsBool,
+                   BasicAlgorithm := IsBool,
                    RankInitialSegmentSubgroups := x -> x = 0 or IsPosInt(x),
                    SpaceEfficient := IsBool,
                    AllDescendants := IsBool,
                    SubList := x -> IsPosInt(x) or
                                    (IsSet(x) and ForAll(x, IsInt)
                                     and IsPosInt(x[1])),
+                   TailorOutput := IsRecord,
                    TmpDir := IsString,
                    QueueFactor := IsPosInt,
                    OutputFile := IsString
@@ -137,6 +145,7 @@ InstallValue( ANUPQoptionTypes,
                    OrderBound := "positive integer",
                    Exponent   := "positive integer",
                    Metabelian := "boolean",
+                   GroupName  := "string",
                    OutputLevel := "integer in [0..3]",
                    Relators   := "list of strings",
                    StandardPresentationFile := "string",
@@ -145,11 +154,13 @@ InstallValue( ANUPQoptionTypes,
                    PqWorkspace := "positive integer",
                    StepSize := "positive integer or positive integer list",
                    PcgsAutomorphisms := "boolean",
+                   BasicAlgorithm := "boolean",
                    RankInitialSegmentSubgroups := "nonnegative integer",
                    SpaceEfficient := "boolean",
                    AllDescendants := "boolean",
                    SubList 
                        := "pos've integer or increasing pos've integer list",
+                   TailorOutput := "record",
                    TmpDir := "string",
                    QueueFactor := "positive integer",
                    OutputFile := "string"
@@ -241,6 +252,36 @@ InstallGlobalFunction( PQ_BOOL, function( optval )
     return "1  #do ";
   fi;
   return "0  #do not ";
+end);
+  
+#############################################################################
+##
+#F  PQ_DO_TAILORED_OUTPUT(<datarec>, <subopt>, <suboptstring>, <suppstrings>)
+##    
+##  writes the requires output to the `pq' binary for the sub-option <subopt>
+##  of the option `TailorOutput', the value of that option having  previously
+##  been stored in `<datarec>.des.TailorOutput'; <suboptstring>  is  part  of
+##  the  comment  written  to  the  `pq'  binary  for  the   sub-option   and
+##  <suppstrings> is a list of such comments for the supplementary  questions
+##  asked by the `pq' binary for the sub-option <subopt>.
+##
+InstallGlobalFunction( PQ_DO_TAILORED_OUTPUT, 
+function(datarec, subopt, suboptstring, suppstrings)
+local optrec, isOptionSet, i;
+  optrec := datarec.des.TailorOutput;
+  if IsEmpty(suppstrings) then
+    isOptionSet := IsBound( optrec.(subopt) ) and optrec.(subopt) in [1, true];
+    ToPQ(datarec, [ PQ_BOOL( isOptionSet ), suboptstring ]);
+  elif IsBound( optrec.(subopt) ) and IsList( optrec.(subopt) ) then
+    ToPQ(datarec, [ "0  #tailor ", suboptstring ]);
+    for i in [1 .. Length(suppstrings)] do
+      isOptionSet := IsBound( optrec.(subopt)[i] ) and
+                     optrec.(subopt)[i] in [1, true];
+      ToPQ(datarec, [ PQ_BOOL( isOptionSet ), suppstrings[i] ]);
+    od;
+  else
+    ToPQ(datarec, [ "1  #default ", suboptstring ]);
+  fi;
 end);
   
 #############################################################################

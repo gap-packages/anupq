@@ -33,6 +33,12 @@ DeclareGlobalFunction( "PQ_AUT_ARG_CHK" );
 
 #############################################################################
 ##
+#F  PQ_SET_GRP_DATA( <datarec>, <fields> ) . . . save group data of curr. grp
+##
+DeclareGlobalFunction( "PQ_SET_GRP_DATA" );
+
+#############################################################################
+##
 #F  PQ_PC_PRESENTATION( <datarec>, <menu> ) . . . . . .  p-Q/SP menu option 1
 ##
 DeclareGlobalFunction( "PQ_PC_PRESENTATION" );

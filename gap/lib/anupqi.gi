@@ -128,6 +128,28 @@ end );
 
 #############################################################################
 ##
+#F  PQ_SET_GRP_DATA( <datarec>, <fields> ) . . . save group data of curr. grp
+##
+##  gleans from the `pq' binary information on the current group and set  the
+##  fields in <fields> of the record <datarec> to the name  (if  a  non-empty
+##  string), class and order of that group, respectively, and then flushes to
+##  the next prompt.
+##
+InstallGlobalFunction( PQ_SET_GRP_DATA, function( datarec, fields )
+local line;
+  line := FLUSH_PQ_STREAM_UNTIL( datarec.stream, 2, 2, PQ_READ_NEXT_LINE,
+                                 [line -> IsMatchingSublist( line, "Group:" ),
+                                  IS_PQ_PROMPT] );
+  line := SplitString(line, "", ": ");
+  if fields[1] <> "" then
+    datarec.(fields[1]) := line[2];              #name
+  fi;
+  datarec.(fields[2]) := Int( line[8] );         #class
+  datarec.(fields[3]) := EvalString( line[11] ); #order
+end );
+
+#############################################################################
+##
 #F  PQ_PC_PRESENTATION( <datarec>, <menu> ) . . . . . .  p-Q/SP menu option 1
 ##
 ##  inputs  data  given  by  <options>  to  the   `pq'   binary   for   group
@@ -136,7 +158,7 @@ end );
 ##  `"pQ"' (main $p$-Quotient menu) or `"SP' (Standard Presentation menu).
 ##
 InstallGlobalFunction( PQ_PC_PRESENTATION, function( datarec, menu )
-local gens, rels, pcp, p, pcgs, len, strp, i, j, Rel;
+local gens, rels, pcp, p, pcgs, len, strp, i, j, Rel, line;
 
   pcp := Concatenation( menu, "pcp");
   if datarec.calltype = "interactive" and IsBound(datarec.(pcp)) and
@@ -155,16 +177,19 @@ local gens, rels, pcp, p, pcgs, len, strp, i, j, Rel;
                         ") pc presentation.");
      return;
   fi;
+  datarec.(pcp) := rec(); # options processed are stored here
+  p := VALUE_PQ_OPTION("Prime", fail, datarec); # "Prime" is a `global' option
+  VALUE_PQ_OPTION("ClassBound", fail, datarec.(pcp));
 
   PQ_MENU(datarec, menu);
-  datarec.(pcp) := rec(); # options processed are stored here
 
   # Option 1 of p-Quotient/Standard Presentation Menu: defining the group
   ToPQk(datarec, ["1  #define group"]);
-  p := VALUE_PQ_OPTION("Prime", fail, datarec); # "Prime" is a `global' option
+  if VALUE_PQ_OPTION("GroupName", datarec.(pcp)) <> fail then
+    ToPQk(datarec, ["name ", datarec.(pcp).GroupName]);
+  fi;
   ToPQk(datarec, ["prime ",    p]);
-  ToPQk(datarec, ["class ",    VALUE_PQ_OPTION("ClassBound", fail, 
-                                                              datarec.(pcp))]);
+  ToPQk(datarec, ["class ",    datarec.(pcp).ClassBound]);
   ToPQk(datarec, ["exponent ", VALUE_PQ_OPTION("Exponent", 0, datarec)]);
                                              # "Exponent" is a `global' option
   if VALUE_PQ_OPTION( "Metabelian", false, datarec.(pcp) ) = true then
@@ -173,11 +198,12 @@ local gens, rels, pcp, p, pcgs, len, strp, i, j, Rel;
   ToPQk(datarec, ["output ", VALUE_PQ_OPTION("OutputLevel", 1, datarec.(pcp))]);
 
   if IsFpGroup(datarec.group) then
-    gens := FreeGeneratorsOfFpGroup(datarec.group);
+    gens := List( FreeGeneratorsOfFpGroup(datarec.group), String );
     rels := VALUE_PQ_OPTION("Relators", datarec);
     if rels = fail then
-      rels := Filtered( RelatorsOfFpGroup(datarec.group), 
-                        rel -> not IsOne(rel) );
+      rels := List( Filtered( RelatorsOfFpGroup(datarec.group), 
+                              rel -> not IsOne(rel) ),
+                    String );
     fi;
   else
     pcgs := PcgsPCentralSeriesPGroup(datarec.group);
@@ -216,10 +242,11 @@ local gens, rels, pcp, p, pcgs, len, strp, i, j, Rel;
       od;
     od;
   fi;
-  gens := JoinStringsWithSeparator( List(gens, String) );
-  rels := JoinStringsWithSeparator( List(rels, String) );
-  ToPQk(datarec, ["generators { ", gens, " }"]);
-  ToPQ (datarec, ["relators   { ", rels, " };"]);
+  datarec.gens := gens;
+  datarec.rels := rels;
+  ToPQk(datarec, ["generators { ", JoinStringsWithSeparator( gens ), " }"]);
+  ToPQk(datarec, ["relators   { ", JoinStringsWithSeparator( rels ), " };"]);
+  PQ_SET_GRP_DATA(datarec, ["name", "class", "order"]);
 end );
 
 #############################################################################
@@ -354,6 +381,8 @@ InstallGlobalFunction( PQ_RESTORE_PC_PRESENTATION, function( datarec, filename )
   ToPQ(datarec, [ "3  #restore pc presentation from file" ]);
   ToPQ(datarec, [ filename, "  #filename" ]);
   datarec.pQpcp := rec(); # Just so it's bound
+  ToPQk(datarec, [ "4  #display presentation" ]);
+  PQ_SET_GRP_DATA(datarec, ["name", "class", "order"]);
 end );
 
 #############################################################################
@@ -460,12 +489,8 @@ local lev, line;
     ToPQ(datarec, [ "0  #minimal print level" ]);
   fi;
   ToPQk(datarec, [ "4  #display presentation" ]);
-  line := FLUSH_PQ_STREAM_UNTIL( datarec.stream, 2, 2, PQ_READ_NEXT_LINE,
-                                 line -> IsMatchingSublist( line, "Group:" ) );
-  line := SplitString(line, "", ": ");
-  datarec.pQ.currGrp := rec( name := line[2], 
-                             class := Int( line[8] ),
-                             order := EvalString( line[11] ) );
+  datarec.pQ.currGrp := rec();
+  PQ_SET_GRP_DATA(datarec.pQ.currGrp, ["name", "class", "order"]);
   FLUSH_PQ_STREAM_UNTIL(datarec.stream, 2, 2, PQ_READ_NEXT_LINE, IS_PQ_PROMPT);
   if IsBound(lev) then
     ToPQ(datarec, [ "5  #set print level" ]);
@@ -633,7 +658,8 @@ end );
 InstallGlobalFunction( PQ_P_COVER, function( datarec )
 local savefile;
   PQ_MENU(datarec, "pQ");
-  ToPQ(datarec, [ "7  #compute p-cover" ]);
+  ToPQk(datarec, [ "7  #compute p-cover" ]);
+  PQ_SET_GRP_DATA(datarec, ["", "pcoverclass", "pcoverorder"]);
 end );
 
 #############################################################################
@@ -2304,14 +2330,30 @@ end );
 ##  descendants, using option 5 of the main $p$-Group Generation menu.
 ##
 InstallGlobalFunction( PQ_PG_CONSTRUCT_DESCENDANTS, function( datarec )
-local firstStep, expectedNsteps;
+local class, firstStep, expectedNsteps, optrec;
 
   datarec.des := rec();
   # deal with the easy answer
   if VALUE_PQ_OPTION("OrderBound", 0, datarec.des) <> 0 and 
+     IsPGroup(datarec.group) and
      datarec.des.OrderBound <= LogInt(Size(datarec.group), 
                                       PrimePGroup(datarec.group)) then
     return [];
+  fi;
+
+  # We do these here to ensure an error doesn't occur mid-input of the menu
+  # item data 
+  if IsBound(datarec.class) then
+    class := datarec.class;
+  elif IsPGroup(datarec.group) then #Hmm! probably don't want these 2 lines
+    class := PClassPGroup(datarec.group);
+  else
+    Error("huh! Nothing known about the p-class of the input group?!\n");
+  fi;
+  VALUE_PQ_OPTION("ClassBound", class + 1, datarec.des);
+  VALUE_PQ_OPTION("TailorOutput", false, datarec.des);
+  if not IsBound(datarec.pcoverclass) then
+    Error("the p-covering group has not yet been computed!\n");
   fi;
 
   # sanity checks
@@ -2324,8 +2366,14 @@ local firstStep, expectedNsteps;
     if datarec.des.OrderBound <> 0 then
       Error("\"StepSize\" and \"OrderBound\" must not be set simultaneously\n");
     fi;
+    expectedNsteps := datarec.des.ClassBound - datarec.pcoverclass + 1;
     if IsList(datarec.des.StepSize) then
       firstStep := datarec.des.StepSize[1];
+      if Length(datarec.des.StepSize) <> expectedNsteps then
+        Error( "the number of step-sizes in the \"StepSize\" list must\n",
+               "equal ", expectedNsteps, " (one more than the difference\n",
+               "of \"ClassBound\" and the class of the p-covering group)\n" );
+      fi;
     else
       firstStep := datarec.des.StepSize;
     fi;
@@ -2339,10 +2387,7 @@ local firstStep, expectedNsteps;
 
   PQ_MENU(datarec, "pG");
   ToPQ(datarec, [ "5  #construct descendants" ]);
-  ToPQ(datarec, [ VALUE_PQ_OPTION("ClassBound", 
-                                  PClassPGroup(datarec.group) + 1, 
-                                  datarec.des),
-                   "  #class bound" ]);
+  ToPQ(datarec, [ datarec.des.ClassBound, "  #class bound" ]);
 
   #Construct all descendants?
   if not IsBound(datarec.des.StepSize) then
@@ -2356,17 +2401,15 @@ local firstStep, expectedNsteps;
     fi;
   else
     ToPQ(datarec, [ "0  #do not construct all descendants" ]);
-    #Constant step size?
-    if IsInt(datarec.des.StepSize) then
+    if expectedNsteps = 1 then
+      # Input step size
+      ToPQ(datarec, [ "1  #step size" ]);
+
+      # Constant step size?
+    elif IsInt(datarec.des.StepSize) then
       ToPQ(datarec, [ "1  #set constant step size" ]);
       ToPQ(datarec, [ datarec.des.StepSize, "  #step size" ]);
     else
-      expectedNsteps := datarec.des.ClassBound - PClassPGroup(datarec.group);
-      if Length(datarec.des.StepSize) <> expectedNsteps then
-        Error( "the number of step-sizes in the \"StepSize\" list must\n",
-               "equal ", expectedNsteps, " (the difference of \"ClassBound\"\n",
-               "and the current class)\n" );
-      fi;
       ToPQ(datarec, [ "0  #set variable step size" ]);
       ToPQ(datarec, [ JoinStringsWithSeparator(
                           List(datarec.des.StepSize, String), " "),
@@ -2377,25 +2420,53 @@ local firstStep, expectedNsteps;
                       VALUE_PQ_OPTION("PcgsAutomorphisms", false, datarec.des)
                       ),
                    "compute pcgs gen. seq. for auts." ]);
-  ToPQ(datarec, [ "0  #do not use default algorithm" ]);
-  ToPQ(datarec, [ VALUE_PQ_OPTION("RankInitialSegmentSubgroups", 0,
-                                  datarec.des),
-                   "  #rank of initial segment subgrp" ]);
-  if datarec.des.PcgsAutomorphisms then
-    ToPQ(datarec, [ PQ_BOOL(datarec.des.SpaceEfficient),
-                   "be space efficient" ]);
-  fi;
   ToPQ(datarec, [ PQ_BOOL(
-                      VALUE_PQ_OPTION( "AllDescendants", false, datarec.des ) ),
-                   "completely process terminal descendants" ]);
-  ToPQ(datarec, [ VALUE_PQ_OPTION("Exponent", 0, datarec), "  #exponent" ]);
-                                           # "Exponent" is a `global' option
-  ToPQ(datarec, [ PQ_BOOL( VALUE_PQ_OPTION("Metabelian", false, datarec.des) ),
-                   "enforce metabelian law" ]);
-  ToPQ(datarec, [ "1  #default output" ]); # There are > 18 questions to deal
-                                           # with by not taking the default
-                                           # ... maybe in the future we will
-                                           # give the user more control
+                      VALUE_PQ_OPTION("BasicAlgorithm", false, datarec.des)
+                      ),
+                   "use default algorithm" ]);
+  if not datarec.des.BasicAlgorithm then
+    ToPQ(datarec, [ VALUE_PQ_OPTION("RankInitialSegmentSubgroups", 0,
+                                    datarec.des),
+                    "  #rank of initial segment subgrp" ]);
+    if datarec.des.PcgsAutomorphisms then
+      ToPQ(datarec, [ PQ_BOOL(datarec.des.SpaceEfficient),
+                      "be space efficient" ]);
+    fi;
+    ToPQ(datarec, [ PQ_BOOL(
+                        VALUE_PQ_OPTION("AllDescendants", false, datarec.des) ),
+                    "completely process terminal descendants" ]);
+    ToPQ(datarec, [ VALUE_PQ_OPTION("Exponent", 0, datarec), "  #exponent" ]);
+                                             # "Exponent" is a `global' option
+    ToPQ(datarec, [ PQ_BOOL(VALUE_PQ_OPTION("Metabelian", false, datarec.des) ),
+                    "enforce metabelian law" ]);
+  fi;
+  if IsRecord(datarec.des.TailorOutput) and
+     not IsEmpty( Intersection( RecNames(datarec.des.TailorOutput),
+                                ["perm", "orbit", "group", "autgroup", "trace"]
+                                ) ) then
+    ToPQ(datarec, [ "0  #tailor output" ]);
+    PQ_DO_TAILORED_OUTPUT( datarec, "perm", "perm. grp output",
+                           ["print degree",
+                            "print extended auts",
+                            "print aut. matrices",
+                            "print permutations"] );
+    PQ_DO_TAILORED_OUTPUT( datarec, "orbit", "orbit output",
+                           ["print orbit summary",
+                            "print complete orbit listing"] );
+    PQ_DO_TAILORED_OUTPUT( datarec, "group", "group output",
+                           ["print allowable subgp standard matrix",
+                            "print pres'n of reduced p-covers",
+                            "print pres'n of immediate descendants",
+                            "print nuclear rank of descendants",
+                            "print p-mult'r rank of descendants"] );
+    PQ_DO_TAILORED_OUTPUT( datarec, "autgroup", "aut. grp output",
+                           ["print commutator matrix",
+                            "print aut. grp descriptions of descendants",
+                            "print aut. grp orders of descendants"] );
+    PQ_DO_TAILORED_OUTPUT( datarec, "trace", "provide algorithm trace", [] );
+  else
+    ToPQ(datarec, [ "1  #default output" ]);
+  fi;
 end );
 
 #############################################################################
@@ -2406,7 +2477,7 @@ end );
 ##  for the <i>th or default interactive {\ANUPQ} process, inputs data  given
 ##  by <options> to the `pq' binary to  construct  descendants.  The  options
 ##  possible are all those given  for  `PqDescendants'  (see~"PqDescendants")
-##  except for `SubList' and `SetupFile'.
+##  except for `Relators', `SubList', `SetupFile' and `PqWorkspace'.
 ##
 ##  *Note:* 
 ##  For those  familiar  with  the  `pq'  binary,  `PqPGConstructDescendants'

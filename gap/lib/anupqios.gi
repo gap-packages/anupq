@@ -404,23 +404,45 @@ end);
 ##  10 means that the line  <line>  matched  by  `<IsMyLine>(<line>)'  should
 ##  never be `Info'-ed.
 ##
+##  If the argument <IsMyLine> is a list of two functions, the first is named
+##  <IsMatchingLine> and <IsMyLine> is renamed to be the second function, and
+##  then `FLUSH_PQ_STREAM_UNTIL' works as described  above  except  that  the
+##  line <line> returned is the last line for which <IsMatchingLine>(<line>)'
+##  returns `true' is returned instead of the last line flushed.
+##
 InstallGlobalFunction(FLUSH_PQ_STREAM_UNTIL, 
 function(stream, infoLev, infoLevMy, readln, IsMyLine)
-local line;
+local line, IsMatchingLine, MatchLine, matchedline;
 
   if not IsInputStream(stream) then
     return fail;
   fi;
 
+  if IsList(IsMyLine) then
+    IsMatchingLine := IsMyLine[1];
+    IsMyLine := IsMyLine[2];
+    MatchLine := function(line)
+      if IsMatchingLine(line) then
+        matchedline := line;
+      fi;
+    end;
+  else
+    MatchLine := function(line)
+      matchedline := line;
+    end;
+  fi;
+
   line := readln(stream);
+  MatchLine(line);
   while not IsMyLine(line) do
     Info(InfoANUPQ, infoLev, Chomp(line));
     line := readln(stream);
+    MatchLine(line);
   od;
   if line <> fail and infoLevMy < 10 then
     Info(InfoANUPQ, infoLevMy, Chomp(line));
   fi;
-  return line;
+  return matchedline;
 end);
 
 #############################################################################

@@ -10,6 +10,18 @@
 #Y  Copyright 1992-1994,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.18  2001/08/17 20:10:53  gap
+#H  Added options `BasicAlgorithm' and `TailorOutput' used in descendants
+#H  functions, allowing now the full generality of the sub-options available
+#H  in the construction of descendants menu item of the `pq' binary.
+#H  Now when `PqPc{,SP}Presentation' is called the `name', `class' and `order'
+#H  fields of the relevant `ANUPQData' record are set. Similarly when `PqPCover'
+#H  is called the `pcoverclass' and `pcoverorder' are set.
+#H  `PqRestorePcPresentation' now calls a display function in order to set the
+#H  `name', `class' and `order' fields of the relevant `ANUPQData' record.
+#H  (Actually, all of the above is actually done by the capitalised versions of
+#H  these commands.) - GG
+#H
 #H  Revision 1.17  2001/08/14 15:05:39  gap
 #H  Added option `QueueFactor' (used by `PqNextClass', when automorphisms
 #H  have been added previously ... we don't check for that, just offer `pq'
@@ -521,18 +533,24 @@ end );
 ##
 #F  PqLeftNormComm( <words> ) . . . . . . . . . . . . .  left norm commutator
 ##
-##  returns for a list <words> of words in the generators of a free group  or
-##  an fp group and <pow> is a positive integer, the left norm commutator  of
-##  <words>, e.g.~if <w1>, <w2>, <w3> are words in  the  generators  of  some
-##  free or  fp  group  then  `PqLeftNormComm(  [<w1>,  <w2>,  <w3>]  );'  is
-##  equivalent to `Comm( Comm( <w1>, <w2> ), <w3> );'.
+##  returns for a list <words> of words in the generators of a group the left
+##  norm commutator of <words>, e.g.~if <w1>, <w2>, <w3>  are  words  in  the
+##  generators of some free or fp group then  `PqLeftNormComm(  [<w1>,  <w2>,
+##  <w3>] );' is equivalent to `Comm( Comm( <w1>, <w2> ), <w3> );'. Actually,
+##  the only restriction on <words> is that they must constitute a  non-empty
+##  list of group elements of the same group (so a list  of  permutations  is
+##  allowed, for example).
 ##
 InstallGlobalFunction( PqLeftNormComm, function( words )
-local comm, word;
+local fam, comm, word;
   if not IsList(words) or IsEmpty(words) or 
-     not ForAll(words, 
-                w -> IsElementOfFreeGroup(w) or IsElementOfFpGroup(w)) then
+     not ForAll(words, IsMultiplicativeElementWithInverse) then
     Error( "<words> should be a non-empty list of group elements\n" );
+  else
+    fam := FamilyObj(words[1]);
+    if not ForAll(words, w -> IsIdenticalObj(FamilyObj(w), fam)) then
+      Error( "<words> should belong to the same group\n" );
+    fi;
   fi;
   comm := words[1];
   for word in words{[2 .. Length(words)]} do
@@ -546,8 +564,8 @@ end );
 #F  PqGAPRelators( <group>, <rels> ) . . . . . . . . pq relators as GAP words
 ##
 ##  returns, for a list <rels> of strings in the  string  representations  of
-##  the generators of the fp group <group> prepared as a list of relators for
-##  the `pq' binary, a list of words that {\GAP} understands.
+##  the generators of the fp or pc  group  <group>  prepared  as  a  list  of
+##  relators for the `pq' binary, a list of words that {\GAP} understands.
 ##
 ##  *Note:*
 ##  The `pq' binary does not use `/' to indicate multiplication by an inverse
@@ -570,7 +588,10 @@ end );
 ##
 InstallGlobalFunction( PqGAPRelators, function( group, rels )
 local gens, relgens, diff, g;
-  gens := List( FreeGeneratorsOfFpGroup(group), String );
+  if not( IsFpGroup(group) or IsPcGroup(group) ) then
+    Error("<group> must be an fp or pc group\n");
+  fi;
+  gens := List( GeneratorsOfGroup(group), String );
   if not ForAll(rels, rel -> Position(rel, '/') = fail) then
     Error( "pq binary does not understand `/' in relators\n" );
   fi;
