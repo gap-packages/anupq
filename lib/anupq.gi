@@ -10,6 +10,31 @@
 #Y  Copyright 1992-1994,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.3  2002/07/09 02:59:39  gap
+#H  A number of bugs mainly to do with the input of generators/relations were
+#H  identified by Robert Morse (thanks Robert):
+#H  o PQ_GROUP_FROM_PCP (lib/anupq.gi line 531):
+#H     `GroupHomomorphismByImages' replaced by `GroupHomomorphismByImagesNC'
+#H      Reason: The check was unnecessary and slowed things down enormously.
+#H  o PQ_PC_PRESENTATION (lib/anupq.g):
+#H     - datarec.gens, datarec.rels: previously `String' was applied to
+#H       the generators/relators provided and then stored in datarec.gens,
+#H       datarec.rels; this can be enormously costly. Now, no processing
+#H       is done when GAP already has them in another form (for pc groups,
+#H       however, the relators are calculated as before and stored as
+#H       strings, in datec.rels). The conversion to String is now only done
+#H       at the point of transmission to the pq program, and done in `ToPQk'.
+#H     - datarec.gens: an Error is now emitted if the number of defining gen'rs
+#H       is larger than 511 (the limit imposed by the pq program, see MAXGENS
+#H       in `include/runtime.h').
+#H  o ToPQk (lib/anupqios.gi):
+#H     When `ToPQk' is called with `cmd' equal to "gens" or "rels", cmd is
+#H     treated as the field of `datarec' so that the transmission of generators
+#H     and relators to the pq program can be treated specially, to improve
+#H     efficiency. The data is still split into ``nice'' lines of length < 69
+#H     characters, but care is taken to avoid infinite loops when there are
+#H     no nice places to break the lines.                                - GG
+#H
 #H  Revision 1.2  2002/02/18 17:03:28  gap
 #H  For `PqGAPRelators' and the `Relators' option the associated group needs
 #H  to be an fp group. This is essential in GAP 4.2, but only really makes
@@ -528,7 +553,7 @@ InstallGlobalFunction( PQ_GROUP_FROM_PCP, function( datarec, out )
       datarec.pCover := ValueGlobal( "F" );
       IsPGroup( datarec.pCover );
     else
-      datarec.pQepi := GroupHomomorphismByImages( 
+      datarec.pQepi := GroupHomomorphismByImagesNC( 
                            datarec.group,
                            ValueGlobal( "F" ),
                            GeneratorsOfGroup( datarec.group ),

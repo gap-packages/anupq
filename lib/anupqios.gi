@@ -515,25 +515,99 @@ end);
 ##  flush output).
 ##
 InstallGlobalFunction(ToPQk, function(datarec, cmd, comment)
-local ok;
+local ok, line, i, j, closed, fragment, sepchars, words, filterones;
 
   if not IsOutputTextStream(datarec.stream) and 
      IsEndOfStream(datarec.stream) then
     Error("sorry! Process stream has died!\n");
   fi;
-  # We add a null string in case <cmd> or <comment> is []
-  # ... so that `Concatenation( List(., String) );' statements return strings
-  Add(cmd, "");
-  Add(comment, "");
-  cmd     := Concatenation( List(cmd, String) );
-  comment := Concatenation( List(comment, String) );
-  Info(InfoANUPQ, 4, "ToPQ> ", cmd, comment);
-  if IsBound( datarec.setupfile) then
-    ok := WriteLine(datarec.stream, Concatenation(cmd, comment));
+  if cmd in ["gens", "rels"] then
+    # these are done specially because of their potential to be enormously long
+    if cmd = "gens" then
+      line := "generators { ";
+      sepchars := ", ";
+    else
+      line := "relators   { ";
+      sepchars := "*^, ";
+    fi;
+    words := datarec.(cmd);
+    filterones := cmd = "rels" and not IsBound(datarec.Relators) and
+                  (IsFpGroup(datarec.group) or not IsPGroup(datarec.group));
+    i := 1;
+    while filterones and i <= Length(words) and IsOne(words[i]) do
+      i := i + 1;
+    od;
+    if i <= Length(words) then
+      Append(line, String(words[1]));
+      i := i + 1;
+    fi;
+    ok := true;
+    closed := false;
+    repeat
+      while filterones and i <= Length(words) and IsOne(words[i]) do
+        i := i + 1;
+      od;
+      # i is the index of the next word to be added to line or > #words 
+      if i <= Length(words) then
+        # if number of non-trivial words is 0 or 1 no comma is ever added
+        Append(line, ", ");
+        Append(line, String(words[i]));
+        i := i + 1;
+      else
+        Append(line, " }");
+        if cmd = "rels" then
+          Append(line, ";");
+        fi;
+        closed := true; # not quite equivalent to: i > Length(words)
+      fi;
+      while ok and (Length(line) >= 69 or (closed and Length(line) > 0)) do
+        if Length(line) >= 69 then
+          # find a nice break if we can
+          j := 68;
+          while j > 4 and not line[j] in sepchars do j := j - 1; od;
+          # no nice break
+          if j = 4 then
+            j := 69;
+            while j < Length(line) and not line[j] in sepchars do 
+              j := j + 1;
+            od;
+          fi;
+          fragment := line{[1 .. j]};
+        else
+          fragment := line;
+          j := Length(line);
+        fi;
+        if j = Length(line) and closed then
+          line := "";
+        else
+          line := Concatenation("  ", line{[j + 1 .. Length(line)]});
+        fi;
+        Info(InfoANUPQ, 4, "ToPQ> ", fragment);
+        if IsBound( datarec.setupfile) then
+          ok := WriteLine(datarec.stream, fragment);
+        else
+          ok := WriteLine(datarec.stream, fragment);
+          if IsBound( ANUPQData.topqlogfile ) then
+            WriteLine(ANUPQData.logstream, fragment);
+          fi;
+        fi;
+      od;
+    until closed or not ok;
   else
-    ok := WriteLine(datarec.stream, cmd);
-    if IsBound( ANUPQData.topqlogfile ) then
-      WriteLine(ANUPQData.logstream, Concatenation(cmd, comment));
+    # We add a null string in case <cmd> or <comment> is []
+    # ... so that `Concatenation( List(., String) );' statements return strings
+    Add(cmd, "");
+    Add(comment, "");
+    cmd     := Concatenation( List(cmd, String) );
+    comment := Concatenation( List(comment, String) );
+    Info(InfoANUPQ, 4, "ToPQ> ", cmd, comment);
+    if IsBound( datarec.setupfile) then
+      ok := WriteLine(datarec.stream, Concatenation(cmd, comment));
+    else
+      ok := WriteLine(datarec.stream, cmd);
+      if IsBound( ANUPQData.topqlogfile ) then
+        WriteLine(ANUPQData.logstream, Concatenation(cmd, comment));
+      fi;
     fi;
   fi;
   if ok = fail then

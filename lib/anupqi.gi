@@ -204,21 +204,17 @@ local gens, rels, p, fpgrp, identities, pcgs, len, strp, i, j, Rel, line;
   ToPQk(datarec, ["output ", VALUE_PQ_OPTION("OutputLevel", 0, datarec)], []);
 
   if IsFpGroup(datarec.group) then
-    gens := List( FreeGeneratorsOfFpGroup(datarec.group), String );
+    gens := FreeGeneratorsOfFpGroup(datarec.group);
     rels := VALUE_PQ_OPTION("Relators", datarec);
     if rels = fail then
-      rels := List( Filtered( RelatorsOfFpGroup(datarec.group), 
-                              rel -> not IsOne(rel) ),
-                    String );
+      rels := RelatorsOfFpGroup(datarec.group);
     elif ForAll( rels, rel -> PqParseWord(datarec.group, rel) ) then
       Info(InfoANUPQ, 2, "Relators parsed ok.");
     fi;
   elif not( IsPGroup(datarec.group) ) then
     fpgrp := FpGroupPcGroup( datarec.group );
-    gens := List( FreeGeneratorsOfFpGroup(fpgrp), String );
-    rels := List( Filtered( RelatorsOfFpGroup(fpgrp),
-                            rel -> not IsOne(rel) ),
-                  String );
+    gens := FreeGeneratorsOfFpGroup(fpgrp);
+    rels := RelatorsOfFpGroup(fpgrp);
   else
     pcgs := PcgsPCentralSeriesPGroup(datarec.group);
     len  := Length(pcgs);
@@ -256,20 +252,28 @@ local gens, rels, p, fpgrp, identities, pcgs, len, strp, i, j, Rel, line;
       od;
     od;
   fi;
+  if Length(gens) > 511 then
+    # The pq program defines MAXGENS to be 511 in `../include/runtime.h'
+    # ... on the other hand, the number of pc gen'rs can be up to 65535
+    Error("number of defining generators, ", Length(gens), ", too large.\n",
+          "The pq program defines MAXGENS (the maximum number of defining\n",
+          "generators) to be 511.\n");
+  fi;
   datarec.gens := gens;
   datarec.rels := rels;
-  ToPQk(datarec, ["generators { ", JoinStringsWithSeparator( gens ), " }"], []);
-  # pq is intolerant of long lines and integers that are split over lines
-  rels := Concatenation(
-              "relators   { ", JoinStringsWithSeparator( rels, ", " ), " };");
-  while Length(rels) >= 69 do
-    i := 68;
-    while not (rels[i] in "*^, ") do i := i - 1; od;
-    ToPQk(datarec, [ rels{[1 .. i]} ], []);
-    rels := Concatenation( "  ", rels{[i + 1 .. Length(rels)]} );
-  od;
+  ToPQk(datarec, "gens", []);
   datarec.match := true;
-  ToPQ(datarec, [ rels ], []);
+  ToPQ(datarec, "rels", []);
+  ## pq is intolerant of long lines and integers that are split over lines
+  #rels := Concatenation(
+  #            "relators   { ", JoinStringsWithSeparator( rels, ", " ), " };");
+  #while Length(rels) >= 69 do
+  #  i := 68;
+  #  while not (rels[i] in "*^, ") do i := i - 1; od;
+  #  ToPQk(datarec, [ rels{[1 .. i]} ], []);
+  #  rels := Concatenation( "  ", rels{[i + 1 .. Length(rels)]} );
+  #od;
+  #ToPQ(datarec, [ rels ], []);
   datarec.haspcp := true;
   # The `pq' only sets OutputLevel locally within the menu item
   # ... for the GAP interface this would be too confusing; so we
