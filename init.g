@@ -1,6 +1,6 @@
 #############################################################################
 ##
-#W  init.g                ANUPQ share package                   Werner Nickel
+#W  init.g                   ANUPQ package                      Werner Nickel
 ##
 ##  @(#)$Id$
 ##

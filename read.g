@@ -1,6 +1,6 @@
 #############################################################################
 ##
-#W  read.g                ANUPQ share package                   Werner Nickel
+#W  read.g                   ANUPQ package                      Werner Nickel
 ##
 ##  @(#)$Id$
 ##
@@ -17,14 +17,10 @@ ReadPkg( "anupq", "gap/lib/anupqios.gi" );
 ReadPkg( "anupq", "gap/lib/anupqi.gi" );
 ReadPkg( "anupq", "gap/lib/anustab.gi" );
 if not IsBound( LOADED_PACKAGES.autpgrp ) then
-    Info(InfoWarning + InfoANUPQ,1, 
-         "Share package ``AutPGrp'' is not available.");
-    Info(InfoWarning + InfoANUPQ,1, 
-         "You may run into trouble later if the pq");
-    Info(InfoWarning + InfoANUPQ,1, 
-         "binary needs GAP to compute stabilisers.");
-    Info(InfoWarning + InfoANUPQ,1, 
-         "See the installation instructions for the ``ANUPQ'' share package.");
+    Info(InfoWarning + InfoANUPQ,1, "Package ``AutPGrp'' is not available.");
+    Info(InfoWarning + InfoANUPQ,1, "You may run into trouble later if the pq");
+    Info(InfoWarning + InfoANUPQ,1, "binary needs GAP to compute stabilisers.");
+    Info(InfoWarning + InfoANUPQ,1, "E.g. see the note for ?PqDescendants");
 fi;
 
 #E  read.g . . . . . . . . . . . . . . . . . . . . . . . . . . . .  ends here

@@ -65,19 +65,19 @@ if ( ($line = <GAPOUT>) =~ /true/ ) {
       " at least version 4r2 required!\n";
 }
 if ( ($line = <GAPOUT>) !~ /(fail|#I  Error)/ ) {
-  print "  GAP has ANUPQ share package (>= v 1.1) installed ... good.\n";
+  print "  GAP has ANUPQ package (>= v 1.1) installed ... good.\n";
 } else {
-  die "  GAP does not have ANUPQ share package (>= v 1.1) installed ... \n".
-      "  Please check installation instructions for ANUPQ share package \n".
+  die "  GAP does not have ANUPQ package (>= v 1.1) installed ... \n".
+      "  Please check installation instructions for ANUPQ package \n".
       "  (at least version 1.1 is required).\n";
 }
 if ( ($line = <GAPOUT>) !~ /(fail|#I  Error)/ ) {
-  print "  GAP has AutPGrp share package installed ... good.\n";
+  print "  GAP has AutPGrp package installed ... good.\n";
 } else {
-  die "  GAP does not have AutPGrp share package installed ... \n",
-      "  Please check installation instructions for ANUPQ share package \n",
-      "  (the AutPGrp share package is required when the pq binary\n",
-      "  calls GAP to compute stabilisers).\n";
+  die "  GAP does not have AutPGrp package installed ... \n",
+      "  see, for example, ?PqDescendants (the AutPGrp package\n",
+      "  may be required to compute automorphism groups, e.g. if\n",
+      "  the pq binary calls GAP to compute stabilisers).\n";
 }
 close GAPOUT;
 print " GAP is OK.\n";
@@ -87,7 +87,7 @@ syswrite STDOUT, "Checking the link between the pq binary and GAP ...",
 $pq_does_not_know_GAP &&
   die " The environment variable: ANUPQ_GAP_EXEC is not set;\n".
       " and the pq binary was made with: make ... GAP=\"\" ??\n".
-      " Please check the ANUPQ share package installation instructions\n".
+      " Please check the ANUPQ package installation instructions\n".
       " and either set the environment variable: ANUPQ_GAP_EXEC, or\n".
       " re-make the pq binary setting GAP to a valid path.\n";
 check("test3.pga", "");
@@ -96,8 +96,8 @@ syswrite STDOUT,"Testing the standard presentation part of the pq binary ...",
          length("Testing the standard presentation part of the pq binary ...");
 check("test4.sp", "-i -k ");
 # Test 5
-syswrite STDOUT, "Doing final GAP test ...",
-         length( "Doing final GAP test ..." );
+syswrite STDOUT, "Doing p-group generation (final GAP/ANUPQ) test ...",
+         length( "Doing p-group generation (final GAP/ANUPQ) test ..." );
 open( GAPIN, ">$tmpdir/gapinput");
 print GAPIN "SetInfoLevel(InfoWarning, 0); RequirePackage( \"anupq\" );;\n",
             "SetInfoLevel(InfoWarning, 1);\n",
@@ -106,12 +106,15 @@ print GAPIN "SetInfoLevel(InfoWarning, 0); RequirePackage( \"anupq\" );;\n",
 close GAPIN;
 system("$gap -b < $tmpdir/gapinput > $tmpdir/gapout");
 open(GAPOUT, "<$tmpdir/gapout");
+$seen_gap_prompt = 0;
 while (<GAPOUT>) {
-  if ( /^(GAP4, Version|(gap> )*(\#I --|[+] |$)|true$)/ ) {
+  $seen_gap_prompt = 1 if ( /^gap> /);
+  next if ( !$seen_gap_prompt );
+  if ( /^((gap> )*(\#I --|[+] |$)|true$)/ ) {
     next;
   } else {
     print " error.\n";
-    die   " Please email the file: $tmpdir/$gapout\n",
+    die   " Please email the file: $tmpdir/gapout\n",
           " to Werner.Nickel\@mathematik.tu-darmstadt.de\n";
   }
 }
@@ -119,7 +122,7 @@ print " OK.\n",
       "Tests complete.\n";
 system("rm -rf $tmpdir; mkdir $tmpdir");
 print "Removed dir: $tmpdir\n",
-      "Enjoy using your functional ANUPQ share package!\n";
+      "Enjoy using your functional ANUPQ package!\n";
 
 sub check {
   my ($file, $opts) = @_;
@@ -134,20 +137,15 @@ sub check {
   my $diff = `diff $tstdir/out/$outfile $tmpdir/$outfile`;
   if ($diff =~ /^\s*$/) {
     print " OK.\n";
-    #if ( $file =~ /4/ ) {
-    #  print " (actually it's not OK - there's a bug in pq's SP - \n",
-    #        "  but your answers agree with our wrong ones; \n",
-    #        "  we're working on it!)\n";
-    #}
   } else {
     #print " differences:\n$diff";
     if ( $file =~ /3/ ) {
       if ($ENV{ANUPQ_GAP_EXEC} ne "") {
-        die " Please check the ANUPQ share package installation instructions.\n"
+        die " Please check the ANUPQ package installation instructions.\n"
            ." The setting of the environment variable: ANUPQ_GAP_EXEC\n"
            ." is not a valid path for GAP.\n";
       } else {
-        die " Please check the ANUPQ share package installation instructions.\n"
+        die " Please check the ANUPQ package installation instructions.\n"
            ." Value of <path> when the pq was made with: make ... GAP=<path>\n" 
            ." is not a valid path for GAP.\n";
       }
