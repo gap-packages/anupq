@@ -119,6 +119,7 @@ InstallValue( ANUPQoptionChecks,
                                    (IsSet(x) and ForAll(x, IsInt)
                                     and IsPosInt(x[1])),
                    TmpDir := IsString,
+                   QueueFactor := IsPosInt,
                    OutputFile := IsString
                    )
              );
@@ -150,6 +151,7 @@ InstallValue( ANUPQoptionTypes,
                    SubList 
                        := "pos've integer or increasing pos've integer list",
                    TmpDir := "string",
+                   QueueFactor := "positive integer",
                    OutputFile := "string"
                    )
              );

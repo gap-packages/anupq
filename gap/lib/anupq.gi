@@ -10,6 +10,15 @@
 #Y  Copyright 1992-1994,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.17  2001/08/14 15:05:39  gap
+#H  Added option `QueueFactor' (used by `PqNextClass', when automorphisms
+#H  have been added previously ... we don't check for that, just offer `pq'
+#H  a queue factor = `QueueFactor' or 15 (if not provided by the user) if
+#H  it asks for it). `PqSetMaximalOccurrences' determines the number of
+#H  generators by `PQ_PQUOTIENT_CHK' which may need further modification.
+#H  Small bug seen when there are comments at end of line in `PqExample' fixed.
+#H  - GG
+#H
 #H  Revision 1.16  2001/08/10 16:51:24  gap
 #H  Amended a comment. - GG
 #H
@@ -908,13 +917,12 @@ local name, file, instream, line, input, doPqStart, vars, var, printonly,
           if line <> "\n" then
             Append(input, line);
             if iscompoundStatement then
-              if compoundDepth = 0 and 
-                 1 < Length(input) and input[Length(input) - 1] = ';' then
+              if compoundDepth = 0 and PositionSublist(input, ";") <> fail then
                 Read( InputTextString(input) );           
                 iscompoundStatement := false;
                 input := "";
               fi;
-            elif 1 < Length(input) and input[Length(input) - 1] = ';' then
+            elif PositionSublist(input, ";") <> fail then
               PQ_EVALUATE(input);
               input := "";
             fi;

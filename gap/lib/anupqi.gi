@@ -566,17 +566,30 @@ end );
 ##  using option 6 of the main $p$-Quotient menu.
 ##
 InstallGlobalFunction( PQ_NEXT_CLASS, function( datarec )
+local line;
   PQ_MENU(datarec, "pQ");
-  ToPQ(datarec, [ "6  #calculate next class" ]);
+  ToPQk(datarec, [ "6  #calculate next class" ]);
+  line := FLUSH_PQ_STREAM_UNTIL(
+              datarec.stream, 2, 2, PQ_READ_NEXT_LINE,
+              line -> IsMatchingSublist(line, "Select option:") or
+                      IsMatchingSublist(line, "Input queue factor:") );
+  if IsMatchingSublist(line, "Input queue factor:") then
+    ToPQ(datarec, [ VALUE_PQ_OPTION("QueueFactor", 15), " #queue factor"]);
+  fi;
 end );
 
 #############################################################################
 ##
-#F  PqNextClass( <i> ) . . . . . . . . . .  user version of p-Q menu option 6
-#F  PqNextClass()
+#F  PqNextClass( <i> [: <option>]) . . . .  user version of p-Q menu option 6
+#F  PqNextClass( [: <option>])
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
 ##  to calculate the next class of `<datarec>.group'.
+##
+##  `PqNextClass'  accepts  the  option  `QueueFactor'  which  should  be   a
+##  positive integer if automorphisms have been previously supplied.  If  the
+##  `pq' binary requires a queue factor and none is supplied via  the  option
+##  `QueueFactor' a default of 15 is taken.
 ##
 ##  *Note:* For those familiar with the `pq' binary,  `PqNextClass'  performs
 ##  option 6 of the main $p$-Quotient menu.
@@ -1161,14 +1174,27 @@ end );
 ##
 #F  PQ_PQUOTIENT_CHK( <datarec> ) . . . .  check p-quotient has been computed
 ##
-##  returns the number of generators of `<datarec>.pQuotient' if it has  been
-##  computed or otherwise generates an error.
+##  checks  whether  a  p-quotient  has  been  generated  using  `Pq'   (sets
+##  `<datarec>.pQuotient') or `PqPcPresentation' (sets `<datarec>.pQpcp')  or
+##  `PqSPPcPresentation' (sets `<datarec>.SPpcp') and returns the  number  of
+##  generators of `<datarec>.pQuotient' in the first instance or  the  number
+##  of generators of `<datarec>.group' in the second or third  instances,  or
+##  otherwise generates an error. 
+#T  This is possibly not the right way to get the number of generators in
+#T  general. I probably should make `PqCurrentGroup' discover the number
+#T  of generators and use that. - GG
 ##
 InstallGlobalFunction( PQ_PQUOTIENT_CHK, function( datarec )
-  if not IsBound( datarec.pQuotient ) then
-    Error( "huh! p-Quotient hasn't been generated\n" );
+local field;
+  field := First( ["pQuotient", "pQpcp", "SPpcp"], 
+                  field -> IsBound( datarec.(field) ) );
+  if field = fail then
+    Error( "huh! p-quotient hasn't been generated\n" );
+  elif field = "pQuotient" then
+    return Length( GeneratorsOfGroup( datarec.pQuotient ) );
+  else
+    return Length( GeneratorsOfGroup( datarec.group ) );
   fi;
-  return Length( GeneratorsOfGroup( datarec.pQuotient ) );
 end );
 
 #############################################################################
@@ -1177,8 +1203,8 @@ end );
 #F  PqSetMaximalOccurrences( <weights> )
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
-##  binary to set maximal occurrences; <weights> must be a list of  equal  in
-##  number to the number of generators of weight 1 of the $p$-quotient  which
+##  binary to set maximal occurrences; <weights> must be a list  of  integers
+##  of length the number of generators of weight 1 of the $p$-quotient  which
 ##  must have been previously computed.
 ##
 ##  *Note:*
