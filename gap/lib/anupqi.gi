@@ -986,17 +986,71 @@ end );
 
 #############################################################################
 ##
-#F  PQ_SUPPLY_AND_EXTEND_AUTOMORPHISMS( <datarec>, <mlist> )  A p-Q menu opt 18
+#F  PQ_SUPPLY_OR_EXTEND_AUTOMORPHISMS(<datarec>[,<mlist>])  A p-Q menu opt 18
 ##
-##  inputs data to the `pq' binary for option 18 of the
-##  Advanced $p$-Quotient menu.
+##  inputs data to the `pq' binary for option 18 of the Advanced $p$-Quotient
+##  menu.  If  a  list  <mlist>  of  matrices   with   non-negative   integer
+##  coefficients  is  supplied  it  is  used  to  ``supply''   automorphisms;
+##  otherwise, previously supplied automorphisms are ``extended''.
 ##
-InstallGlobalFunction( PQ_SUPPLY_AND_EXTEND_AUTOMORPHISMS, 
-function( datarec, mlist )
-local rank, nauts, nexpts, i, j, aut, exponents;
+InstallGlobalFunction( PQ_SUPPLY_OR_EXTEND_AUTOMORPHISMS, function( arg )
+local datarec, mlist, rank, nauts, nexpts, i, j, aut, exponents;
+  datarec := arg[1];
+  PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
+  if 1 = Length(arg) then
+    ToPQ(datarec, [ "18  #extend auts" ]);
+  else
+    ToPQ(datarec, [ "18  #supply auts" ]);
+    mlist := arg[2];
+    rank  := RankPGroup( datarec.pQuotient );
+    nauts := Length(mlist);
+    nexpts := Length(mlist[1][1]);
+    ToPQ(datarec, [ nauts,  "  #no. of auts" ]);
+    ToPQ(datarec, [ nexpts, "  #no. of exponents" ]);
+    for i in [1..nauts] do
+      aut := mlist[i];
+      for j in [1..rank] do
+        exponents := Flat( List( aut[j], e -> [ String(e), " "] ) );
+        ToPQ(datarec, 
+             [ exponents, " #gen'r exp'ts of im(aut ", i, ", gen ", j, ")" ]);
+      od;
+    od;
+  fi;
+  datarec.hasAuts := true;
+end );
+
+#############################################################################
+##
+#F  PqSupplyAutomorphisms( <i>, <mlist> ) . supply auts via A p-Q menu opt 18
+#F  PqSupplyAutomorphisms( <mlist> )
+##
+##  for the <i>th or  default  interactive  {\ANUPQ}  process,  supplies  the
+##  automorphism  data  provided  by  the  list  <mlist>  of  matrices   with
+##  non-negative integer coefficients. Each matrix in <mlist> must  have  the
+##  same dimensions; in particular, the number of rows of each matrix must be
+##  the rank of the $p$-quotient of the group associated with the interactive
+##  {\ANUPQ} process.
+##
+##  *Note:* For those familiar with the `pq' binary,  `PqSupplyAutomorphisms'
+##  uses option 18 of the Advanced $p$-Quotient menu.
+##
+InstallGlobalFunction( PqSupplyAutomorphisms, function( arg )
+local datarec, mlist, rank, nauts, nexpts;
+  if IsEmpty(arg) or 2 < Length(arg) then
+    Error("expected 1 or 2 arguments\n");
+  fi;
+  mlist := arg[ Length(arg) ];
+  arg := arg{[1 .. Length(arg) - 1]};
+  ANUPQ_IOINDEX_ARG_CHK(arg);
+  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
+  if IsBound(datarec.hasAuts) and datarec.hasAuts then
+    Error("huh! already have automorphisms.\n",
+          "Perhaps you wanted to use `PqExtendAutomorphisms'\n");
+  fi;
   if not( IsList(mlist) and ForAll(mlist, IsMatrix) and
           ForAll(Flat(mlist), i -> IsInt(i) and i >= 0) ) then
-    Error("expected list of matrices with non-negative integer coefficients\n");
+    Error("<mlist> must be a list of matrices with ",
+          "non-negative integer coefficients\n");
   fi;
   rank := RankPGroup( datarec.pQuotient );
   if not ForAll(mlist, mat -> Length(mat) = rank) then
@@ -1007,38 +1061,29 @@ local rank, nauts, nexpts, i, j, aut, exponents;
   if not ForAll(mlist, mat -> Length(mat[1]) = nexpts) then
     Error("each matrix of <mlist> must have the same no. of columns\n");
   fi;
-  PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
-  ToPQ(datarec, [ "18  #supply and extend auts" ]);
-  nauts := Length(mlist);
-  ToPQ(datarec, [ nauts,  "  #no. of auts" ]);
-  ToPQ(datarec, [ nexpts, "  #no. of exponents" ]);
-  for i in [1..nauts] do
-    aut := mlist[i];
-    for j in [1..rank] do
-      exponents := Flat( List( aut[j], e -> [ String(e), " "] ) );
-      ToPQ(datarec, 
-           [ exponents, " #gen'r exp'ts of im(aut ", i, ", gen ", j, ")" ]);
-    od;
-  od;
+  PQ_SUPPLY_OR_EXTEND_AUTOMORPHISMS( datarec, mlist, rank );
 end );
 
 #############################################################################
 ##
-#F  PqSupplyAndExtendAutomorphisms( <i> )  user version of A p-Q menu option 18
-#F  PqSupplyAndExtendAutomorphisms()
+#F  PqExtendAutomorphisms( <i> ) . . . . .  extend auts via A p-Q menu opt 18
+#F  PqExtendAutomorphisms()
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, inputs data
-##  to the `pq' binary
+##  for the <i>th or default interactive {\ANUPQ} process, inputs data to the
+##  `pq' binary to extend previously-supplied automorphisms.
 ##
-##  *Note:* For those  familiar  with  the  `pq'  binary, 
-##  `PqSupplyAndExtendAutomorphisms' performs option 18 of the
-##  Advanced $p$-Quotient menu.
+##  *Note:* For those familiar with the `pq' binary,  `PqExtendAutomorphisms'
+##  uses option 18 of the Advanced $p$-Quotient menu.
 ##
-InstallGlobalFunction( PqSupplyAndExtendAutomorphisms, function( arg )
+InstallGlobalFunction( PqExtendAutomorphisms, function( arg )
 local datarec;
   ANUPQ_IOINDEX_ARG_CHK(arg);
   datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  PQ_SUPPLY_AND_EXTEND_AUTOMORPHISMS( datarec );
+  if not(IsBound(datarec.hasAuts) and datarec.hasAuts) then
+    Error("huh! don't have any automorphisms to extend.\n",
+          "Perhaps you wanted to use `PqSupplyAutomorphisms'\n");
+  fi;
+  PQ_SUPPLY_OR_EXTEND_AUTOMORPHISMS( datarec );
 end );
 
 #############################################################################

@@ -333,16 +333,29 @@ DeclareGlobalFunction( "PqEchelonise" );
 
 #############################################################################
 ##
-#F PQ_SUPPLY_AND_EXTEND_AUTOMORPHISMS( <datarec> ) . . . A p-Q menu option 18
+#F  PQ_SUPPLY_OR_EXTEND_AUTOMORPHISMS(<datarec>[,<mlist>])  A p-Q menu opt 18
+#F  PQ_SUPPLY_AND_EXTEND_AUTOMORPHISMS(<datarec>[,<mlist>])
 ##
-DeclareGlobalFunction( "PQ_SUPPLY_AND_EXTEND_AUTOMORPHISMS" );
+##  The `OR' name accurately describes what this function does; but the `AND'
+##  name is added for backward compatibility.
+##
+DeclareGlobalFunction( "PQ_SUPPLY_OR_EXTEND_AUTOMORPHISMS" );
+DeclareSynonym( "PQ_SUPPLY_AND_EXTEND_AUTOMORPHISMS",
+                PQ_SUPPLY_OR_EXTEND_AUTOMORPHISMS);
 
 #############################################################################
 ##
-#F PqSupplyAndExtendAutomorphisms( <i> ) user version of A p-Q menu option 18
-#F PqSupplyAndExtendAutomorphisms()
+#F  PqSupplyAutomorphisms( <i>, <mlist> ) . supply auts via A p-Q menu opt 18
+#F  PqSupplyAutomorphisms( <mlist> )
 ##
-DeclareGlobalFunction( "PqSupplyAndExtendAutomorphisms" );
+DeclareGlobalFunction( "PqSupplyAutomorphisms" );
+
+#############################################################################
+##
+#F  PqExtendAutomorphisms( <i> ) . . . . .  extend auts via A p-Q menu opt 18
+#F  PqExtendAutomorphisms()
+##
+DeclareGlobalFunction( "PqExtendAutomorphisms" );
 
 #############################################################################
 ##
