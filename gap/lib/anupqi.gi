@@ -309,6 +309,7 @@ end );
 ##
 InstallGlobalFunction( PqPcPresentation, function( arg )
 local datarec;
+  PQ_OTHER_OPTS_CHK("PqPcPresentation", true);
   datarec := CallFuncList(ANUPQDataRecord, arg);
   PQ_PC_PRESENTATION( datarec, "pQ" );
 end );
@@ -853,6 +854,7 @@ end );
 ##
 InstallGlobalFunction( PqNextClass, function( arg )
 local datarec;
+  PQ_OTHER_OPTS_CHK("PqNextClass", true);
   datarec := CallFuncList(ANUPQDataRecord, arg);
   PQ_GRP_EXISTS_CHK( datarec );
   PQ_NEXT_CLASS( datarec );
@@ -933,6 +935,7 @@ end );
 ##  not correspond to a menu item of the `pq' program.
 ##
 InstallGlobalFunction( PqEvaluateIdentities, function( arg )
+  PQ_OTHER_OPTS_CHK("PqEvaluateIdentities", true);
   PQ_EVALUATE_IDENTITIES( CallFuncList(ANUPQDataRecord, arg) );
 end );
 
@@ -1530,6 +1533,7 @@ end );
 ##
 InstallGlobalFunction( PqDoExponentChecks, function( arg )
 local datarec;
+  PQ_OTHER_OPTS_CHK("PqDoExponentChecks", true);
   datarec := PQ_DATA_CHK(arg);
   PQ_DO_EXPONENT_CHECKS( datarec, PQ_BOUNDS(datarec, datarec.class) );
 end );
@@ -1984,6 +1988,7 @@ end );
 ##
 InstallGlobalFunction( PqDisplayStructure, function( arg )
 local datarec;
+  PQ_OTHER_OPTS_CHK("PqDisplayStructure", true);
   datarec := PQ_DATA_CHK(arg);
   PQ_DISPLAY( datarec, 20, "structure", 
               PQ_BOUNDS(datarec, datarec.forder[2]) );
@@ -2009,6 +2014,7 @@ end );
 ##
 InstallGlobalFunction( PqDisplayAutomorphisms, function( arg )
 local datarec;
+  PQ_OTHER_OPTS_CHK("PqDisplayAutomorphisms", true);
   datarec := PQ_DATA_CHK(arg);
   PQ_DISPLAY( datarec, 21, "automorphisms", 
               PQ_BOUNDS(datarec, datarec.forder[2]) );
@@ -2301,6 +2307,7 @@ end );
 ##
 InstallGlobalFunction( PqSPComputePcpAndPCover, function( arg )
 local datarec;
+  PQ_OTHER_OPTS_CHK("PqSPComputePcpAndPCover", true);
   datarec := CallFuncList(ANUPQDataRecord, arg);
   PQ_PC_PRESENTATION( datarec, "SP" );
 end );
@@ -2432,6 +2439,7 @@ end );
 ##
 InstallGlobalFunction( PqSPSavePresentation, function( arg )
 local datarec, filename;
+  PQ_OTHER_OPTS_CHK("PqSPSavePresentation", true);
   if 0 = Length(arg) or Length(arg) > 2 then
     Error( "expected 1 or 2 arguments\n" );
   fi;
@@ -2661,6 +2669,7 @@ end );
 ##
 InstallGlobalFunction( PqPGSetDescendantToPcp, function( arg )
 local len, datarec, cls, n;
+  PQ_OTHER_OPTS_CHK("PqPGSetDescendantToPcp", true);
   len := Length(arg);
   if len > 3 or not(ForAll(arg, IsPosInt)) then
     Error("expected at most 3 positive integer arguments\n");
@@ -2908,6 +2917,7 @@ end );
 ##
 InstallGlobalFunction( PqPGConstructDescendants, function( arg )
 local datarec;
+  PQ_OTHER_OPTS_CHK("PqPGConstructDescendants", true);
   datarec := CallFuncList(ANUPQDataRecord, arg);
   return PQ_PG_CONSTRUCT_DESCENDANTS( datarec );
 end );
@@ -2917,7 +2927,7 @@ end );
 #F  PqAPGSupplyAutomorphisms( <i>[, <mlist>] ) . user ver of A p-G menu opt 1
 #F  PqAPGSupplyAutomorphisms([<mlist>])
 ##
-#T  This is implemented, but not documneted in the manual. There is one line
+#T  This is implemented, but not documented in the manual. There is one line
 #T  different in the C code between this menu item and the corresponding p-G
 #T  menu item. I don't understand the difference. - GG
 ##  for the <i>th or default interactive {\ANUPQ} process,  supply  the  `pq'
@@ -2945,8 +2955,8 @@ end );
 
 #############################################################################
 ##
-#F  PqAPGSingleStage( <i> ) . . . . . . . user version of A p-G menu option 5
-#F  PqAPGSingleStage()
+#F  PqAPGSingleStage( <i> : <options> ) . user version of A p-G menu option 5
+#F  PqAPGSingleStage( : <options> )
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
 ##  binary to do a single stage of the descendants construction algorithm  as
@@ -2962,6 +2972,7 @@ end );
 ##
 InstallGlobalFunction( PqAPGSingleStage, function( arg )
 local datarec, ngroups;
+  PQ_OTHER_OPTS_CHK("PqAPGSingleStage", true);
   datarec := CallFuncList(ANUPQDataRecord, arg);
   PQ_MENU(datarec, "ApG");
   datarec.des.onestage := true;
@@ -3005,6 +3016,7 @@ end );
 ##
 InstallGlobalFunction( PqAPGDegree, function( arg )
 local len, datarec;
+  PQ_OTHER_OPTS_CHK("PqAPGDegree", true);
   len := Length(arg);
   if not(len in [2, 3] or ForAll(arg, IsPosInt)) then
     Error("expected 2 or 3 positive integer arguments\n");
@@ -3050,6 +3062,7 @@ end );
 ##
 InstallGlobalFunction( PqAPGPermutations, function( arg )
 local datarec;
+  PQ_OTHER_OPTS_CHK("PqAPGPermutations", true);
   datarec := CallFuncList(ANUPQDataRecord, arg);
   PQ_APG_PERMUTATIONS( datarec );
 end );
@@ -3117,6 +3130,7 @@ end );
 ##
 InstallGlobalFunction( PqAPGOrbits, function( arg )
 local datarec, norbits;
+  PQ_OTHER_OPTS_CHK("PqAPGOrbits", true);
   datarec := CallFuncList(ANUPQDataRecord, arg);
   norbits := PQ_APG_ORBITS( datarec );
   if norbits <> "" then
@@ -3185,6 +3199,7 @@ end );
 ##
 InstallGlobalFunction( PqAPGOrbitRepresentatives, function( arg )
 local datarec;
+  PQ_OTHER_OPTS_CHK("PqAPGOrbitRepresentatives", true);
   datarec := CallFuncList(ANUPQDataRecord, arg);
   PQ_APG_ORBIT_REPRESENTATIVES( datarec );
 end );

@@ -32,10 +32,9 @@ InstallValue( PQ_FUNCTION,
 #V  ANUPQoptions  . . . . . . . . . . . . . . . . . . . .  admissible options
 ##
 ##  is a record of lists of names of admissible {\ANUPQ} options,  such  that
-##  each field is either the name of a ``key'' {\ANUPQ} function  or  `other'
-##  (for a miscellaneous list of functions) and the  corresponding  value  is
-##  the list of option  names  that  are  admissible  for  the  function  (or
-##  miscellaneous list of functions).
+##  each field is either the name of a (``key'') {\ANUPQ}  function  and  the
+##  corresponding value is the list of option names that are  admissible  for
+##  the function.
 ##
 InstallValue( ANUPQoptions, 
               rec( # options for `Pq' and `PqEpimorphism'
@@ -59,7 +58,6 @@ InstallValue( ANUPQoptions,
                             "GroupName", 
                             "StepSize", 
                             "PcgsAutomorphisms", 
-                            "BasicAlgorithm", 
                             "RankInitialSegmentSubgroups", 
                             "SpaceEfficient", 
                             "CapableDescendants", 
@@ -69,7 +67,8 @@ InstallValue( ANUPQoptions,
                             "SubList", 
                             "BasicAlgorithm",
                             "CustomiseOutput",
-                            "SetupFile" ],
+                            "SetupFile",
+                            "PqWorkspace" ],
 
                    # options for `[Epimorphism][Pq]StandardPresentation'
                    StandardPresentation
@@ -82,15 +81,88 @@ InstallValue( ANUPQoptions,
                             "Metabelian", 
                             "OutputLevel", 
                             "StandardPresentationFile", 
-                            "SetupFile" ],
+                            "SetupFile",
+                            "PqWorkspace" ],
 
-                   # miscellaneous options
-                   other
-                       := [ "QueueFactor", 
-                            "Bounds",
+                   PqList 
+                       := [ "SubList" ],
+                   PqPcPresentation
+                       := [ "Prime", 
+                            "ClassBound", 
+                            "Exponent", 
+                            "Metabelian", 
+                            "OutputLevel", 
+                            "Relators", 
+                            "Identities",
+                            "GroupName" ],
+                   PqNextClass
+                       := [ "QueueFactor" ],
+                   PqEvaluateIdentities
+                       := [ "Identities" ],
+                   PqDoExponentChecks
+                       := [ "Bounds" ],
+                   PqDisplayStructure
+                       := [ "Bounds" ],
+                   PqDisplayAutomorphisms
+                       := [ "Bounds" ],
+                   PqSPComputePcpAndPCover
+                       := [ "Prime", 
+                            "ClassBound", 
+                            "Exponent", 
+                            "Metabelian", 
+                            "OutputLevel", 
+                            "Relators", 
+                            "GroupName" ],
+                   PqSPSavePresentation
+                       := [ "ClassBound", 
+                            "PcgsAutomorphisms", 
+                            "StandardPresentationFile" ],
+                   PqPGSetDescendantToPcp
+                       := [ "Filename" ], 
+                   PqPGConstructDescendants
+                       := [ "ClassBound", 
+                            "OrderBound", 
+                            "StepSize", 
+                            "PcgsAutomorphisms", 
+                            "RankInitialSegmentSubgroups", 
+                            "SpaceEfficient", 
+                            "CapableDescendants", 
+                            "AllDescendants", 
+                            "Exponent", 
+                            "Metabelian", 
+                            "BasicAlgorithm",
+                            "CustomiseOutput" ],
+                   PqAPGDegree
+                       := [ "Exponent" ],
+                   PqAPGPermutations
+                       := [ "PcgsAutomorphisms",
+                            "SpaceEfficient",
                             "PrintAutomorphisms",
-                            "PrintPermutations",
-                            "Filename" ]
+                            "PrintPermutations" ],
+                   PqAPGOrbits
+                       := [ "PcgsAutomorphisms",
+                            "SpaceEfficient",
+                            "CustomiseOutput" ],
+                   PqAPGOrbitRepresentatives
+                       := [ "PcgsAutomorphisms", 
+                            "SpaceEfficient", 
+                            "CapableDescendants", 
+                            "AllDescendants", 
+                            "Exponent", 
+                            "Metabelian", 
+                            "CustomiseOutput",
+                            "Filename" ], 
+                   PqAPGSingleStage
+                       := [ "StepSize", 
+                            "PcgsAutomorphisms", 
+                            "RankInitialSegmentSubgroups", 
+                            "SpaceEfficient", 
+                            "CapableDescendants", 
+                            "AllDescendants", 
+                            "Exponent", 
+                            "Metabelian", 
+                            "BasicAlgorithm",
+                            "CustomiseOutput" ]
                   )
              );
 
@@ -198,6 +270,58 @@ InstallValue( ANUPQoptionTypes,
                    Filename := "string"
                    )
              );
+
+#############################################################################
+##
+#F  PQ_OTHER_OPTS_CHK( <funcname>, <interactive> ) . check opts belong to f'n
+##
+##  checks the `OptionsStack'  only  has  recognised  options  for  (generic)
+##  function <funcname> and if not and if  `ANUPQWarnOfOtherOptions  =  true'
+##  (see~"ANUPQWarnOfOtherOptions") `Info's  the  non-<funcname>  options  at
+##  `InfoANUPQ' level 1.
+##
+##  The argument <interactive> is only relevant for those functions that have
+##  both an interactive and non-interactive form, namely those with fields in
+##  `PQ_FUNCTION', for which some options need to be excluded.
+##
+InstallGlobalFunction(PQ_OTHER_OPTS_CHK, function(funcname, interactive)
+local optnames, excopts, generic, interactivestr;
+  if ANUPQWarnOfOtherOptions and ValueOption("recursive") = fail and 
+     not IsEmpty(OptionsStack) then
+    excopts := [];
+    if funcname in RecNames(PQ_FUNCTION) then
+      if interactive then
+        excopts := ["PqWorkspace", "SetupFile"];
+        interactivestr := "interactive";
+      else
+        interactivestr := "non-interactive";
+        if funcname = "Pq" then
+          excopts  := ["RedoPcp"];
+        fi;
+      fi;
+      generic := "generic ";
+    else
+      generic := "";
+    fi;
+    optnames := Difference( RecNames( OptionsStack[ Length(OptionsStack) ] ),
+                            Difference( ANUPQoptions.(funcname), excopts ) );
+    if funcname = "Pq" then
+      optnames := Difference( optnames, ["PqEpiOrPCover"] );
+    fi;
+    if not IsEmpty(optnames) then
+      Info( InfoANUPQ + InfoWarning, 1, 
+            "ANUPQ Warning: Options: ", optnames, " ignored" );
+      if IsSubset(excopts, optnames) then
+        Info( InfoANUPQ + InfoWarning, 1, 
+              "(invalid for ", interactivestr, " call of generic function: `",
+              funcname, "')." );
+      else
+        Info( InfoANUPQ + InfoWarning, 1,
+              "(invalid for ", generic, "function: `", funcname, "')." );
+      fi;
+    fi;
+  fi;
+end);
 
 #############################################################################
 ##

@@ -14,6 +14,11 @@
 #Y  Copyright 1992-1994,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.21  2001/11/24 09:34:55  gap
+#H  Added `ANUPQWarnOfOtherOptions'. All user functions that use options now
+#H  warn of unrecognised options at `InfoANUPQ' or `InfoWarning' level 1 if
+#H  `ANUPQWarnOfOtherOptions' is set to `true' (by default it is `false'). - GG
+#H
 #H  Revision 1.20  2001/11/20 18:49:16  werner
 #H  Handle automorphism returned from the ANUPQ more carefully.          WN
 #H
@@ -491,6 +496,7 @@ InstallValue( ANUPGAGlobalVariables,
 InstallGlobalFunction( PqList, function( file )
     local   var,  lst,  groups,  autos,  sublist,  func;
 
+    PQ_OTHER_OPTS_CHK("PqList", false);
     # check arguments
     if not IsString(file) then
         Error( "usage: PqList( <file> [: SubList := <sub>])\n" );
@@ -621,7 +627,7 @@ InstallGlobalFunction( PQ_DESCENDANTS, function( args )
     fi;
 
     datarec.descendants 
-        := PqList( Filename( ANUPQData.tmpdir, "GAP_library" ) );
+        := PqList( Filename( ANUPQData.tmpdir, "GAP_library" ) : recursive );
     for G in datarec.descendants do
         if not HasIsCapable(G)  then
             SetIsCapable( G, false );

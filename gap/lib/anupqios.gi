@@ -701,6 +701,7 @@ local interactive, ioArgs, ioIndex, datarec, group, posNonGroup, p,
     group := args[1];
     posNonGroup := 2;
   fi;
+  PQ_OTHER_OPTS_CHK(funcname, interactive);
   if funcname = "StandardPresentation" and
      First( [posNonGroup .. Length(args)], 
             i -> IsPcGroup(args[i]) or

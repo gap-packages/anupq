@@ -60,6 +60,12 @@ SetInfoLevel( InfoANUPQ, 1 );
 
 #############################################################################
 ##
+#V  ANUPQWarnOfOtherOptions . if true user is warned of non-ANUPQ-f'n options
+##
+ANUPQWarnOfOtherOptions := false;
+
+#############################################################################
+##
 ##  Print a banner . . . . . .  using InfoWarning (so a user can turn it off)
 ##
 if not QUIET and BANNER then

@@ -82,6 +82,12 @@ DeclareGlobalVariable( "ANUPQoptionTypes",
 
 #############################################################################
 ##
+#F  PQ_OTHER_OPTS_CHK( <funcname>, <interactive> ) . check opts belong to f'n
+##
+DeclareGlobalFunction( "PQ_OTHER_OPTS_CHK" );
+
+#############################################################################
+##
 #F  VALUE_PQ_OPTION( <optname> ) . . . . . . . . . enhancement of ValueOption
 #F  VALUE_PQ_OPTION( <optname>, <defaultval> ) 
 #F  VALUE_PQ_OPTION( <optname>, <datarec> ) 

@@ -757,8 +757,8 @@ DeclareGlobalFunction( "PqAPGSupplyAutomorphisms" );
 
 #############################################################################
 ##
-#F PqAPGSingleStage( <i> ) . . . . . . .  user version of A p-G menu option 5
-#F PqAPGSingleStage()
+#F  PqAPGSingleStage( <i> : <options> ) . user version of A p-G menu option 5
+#F  PqAPGSingleStage( : <options> )
 ##
 DeclareGlobalFunction( "PqAPGSingleStage" );
 
