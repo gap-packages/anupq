@@ -10,6 +10,10 @@
 #Y  Copyright 1992-1994,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.29  2001/10/27 13:43:18  gap
+#H  `AllPqExamples' avoids uncommitted example `5gp-PG-e5-i' for which the
+#H  `pq' binary seems to have a bug. - GG
+#H
 #H  Revision 1.28  2001/10/27 10:18:17  gap
 #H  - Added `GrepPqExamples' and `PqParseWord'.
 #H  - `Relators' option is now checked by being parsed by `PqParseWord'.
@@ -1238,7 +1242,7 @@ InstallGlobalFunction( AllPqExamples, function()
   CloseStream( out );
   return Filtered( SplitString( str, "",  "\n" ),
                    file -> not( file in ["index", "README", "CVS", 
-                                         "7gp-a-x-Rel-i"] 
+                                         "5gp-PG-e5-i", "7gp-a-x-Rel-i"] 
                                 or file[ Length(file) ] = '~' ) );
 end );
 
