@@ -46,7 +46,7 @@ print GAPIN
       "TestPackageAvailability(\"autpgrp\", \"1.0\");\n";
 close GAPIN;
 print " Starting GAP to determine version and package availability ...\n"; 
-system("$gap -q < $tmpdir/gapinput > $tmpdir/gapout");
+system("$gap -q -r < $tmpdir/gapinput > $tmpdir/gapout");
 #print "$tmpdir/gapinput:\n";
 #system("more $tmpdir/gapinput");
 #print "$tmpdir/gapoutput:\n";
@@ -61,8 +61,12 @@ if ( ($line = <GAPOUT>) =~ /true/ ) {
   die "  GAP version ($line) ... too old! At least GAP 4r2 required!\n";
 } else { 
   chomp ($line);
-  die "  GAP version ($line) ... please install GAP 4,".
-      " at least version 4r2 required!\n";
+  die "  GAP version ($line) ... please install GAP 4,",
+      " at least version 4r2 required!\n\n",
+      "  If you already have a new enough version of GAP 4 installed\n",
+      "  then you probably need to compile pq with an",
+      " explicit GAP path, e.g.\n\n",
+      "    make GAP=/usr/local/bin/gap4\n";
 }
 if ( ($line = <GAPOUT>) !~ /(fail|#I  Error)/ ) {
   print "  GAP has ANUPQ package (>= v 1.1) installed ... good.\n";
