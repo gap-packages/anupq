@@ -94,9 +94,9 @@ argument,   in   which   case   it   is    being    used    interactively
 `SetupFile'  and  `PqWorkspace'  are  ignored  by  the  interactive  `Pq'
 function.
 
-The  attributes  and  property  `NuclearRank',  `MultiplicatorRank'   and
-`IsCapable' are set for the group returned by `Pq'  (see~"Properties  and
-Attributes").
+See Section~"Attributes and a Property for fp and pc  p-groups"  for  the
+attributes   and   property   `NuclearRank',   `MultiplicatorRank'    and
+`IsCapable' which may be applied to the group returned by `Pq'.
 
 (`Pq' requires the {\ANUPQ} package; see~"Loading the ANUPQ Package".)
 
@@ -223,9 +223,10 @@ integer  argument,  in  which  case  it  is  being   used   interactively
 (see~"PqEpimorphism!interactive"),  and  the  options   `SetupFile'   and
 `PqWorkspace' are ignored by the interactive `PqEpimorphism' function.
 
-The  attributes  and  property  `NuclearRank',  `MultiplicatorRank'   and
-`IsCapable' are set for the image group of the  epimorphism  returned  by
-`PqEpimorphism' (see~"Properties and Attributes").
+See Section~"Attributes and a Property for fp and pc  p-groups"  for  the
+attributes   and   property   `NuclearRank',   `MultiplicatorRank'    and
+`IsCapable' which may be applied to the image group  of  the  epimorphism
+returned by `PqEpimorphism'.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Computing Standard Presentations}
@@ -262,7 +263,8 @@ can use the function `PcGroupFpGroup'  (see~"ref:PcGroupFpGroup"  in  the
 
 The  attributes  and  property  `NuclearRank',  `MultiplicatorRank'   and
 `IsCapable' are set for the group returned by `PqStandardPresentation' or
-`StandardPresentation' (see~"Properties and Attributes").
+`StandardPresentation' (see Section~"Attributes and a Property for fp and
+pc p-groups").
 
 The following options  are  recognised  by  `PqStandardPresentation'  and
 `StandardPresentation'  (see   Chapter~"ANUPQ   options"   for   detailed
@@ -357,7 +359,7 @@ epimorphism from <F> to the group with presentation <S>.
 The  attributes  and  property  `NuclearRank',  `MultiplicatorRank'   and
 `IsCapable' are set for the image group of the  epimorphism  returned  by
 `EpimorphismPqStandardPresentation' or  `EpimorphismStandardPresentation'
-(see~"Properties and Attributes").
+(see Section~"Attributes and a Property for fp and pc p-groups").
 
 We illustrate the function with the following example.
 
@@ -511,7 +513,8 @@ ensure the {\AutPGrp} package is installed.)
 
 The  attributes  and  property  `NuclearRank',  `MultiplicatorRank'   and
 `IsCapable'  are  set  for  each  group   of   the   list   returned   by
-`PqDescendants' (see~"Properties and Attributes").
+`PqDescendants' (see Section~"Attributes and a Property  for  fp  and  pc
+p-groups").
 
 The options <options> for `PqDescendants' may be passed in an alternative
 manner to that already described, namely you can pass  `PqDescendants'  a
@@ -619,42 +622,6 @@ respectively, the results of `PqDescendants' (see "PqDescendants").
 
 (The function requires  the  {\ANUPQ}  package;  see~"Loading  the  ANUPQ
 Package".)
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\Section{Properties and Attributes}
-
-\>NuclearRank( <G> ) A
-\>MultiplicatorRank( <G> ) A
-\>IsCapable( <G> ) P
-
-return the nuclear rank  of  <G>,  $p$-multiplicator  rank  of  <G>,  and
-whether <G> is capable (i.e.~`true' if it is, or `false' if it  is  not),
-respectively, where <G> is one of the following:
-
-\beginlist%unordered
-
-\item{--} a pc group returned by `Pq' (see~"Pq");
-
-\item{--}  the  image  (pc  group)  of  the  epimorphism  returned  by  a
-`PqEpimorphism' call (see~"PqEpimorphism");
-
-\item{--}  an  fp   group   returned   by   `PqStandardPresentation'   or
-`StandardPresentation' (see~"PqStandardPresentation");
-
-\item{--} the  image  (fp  group)  of  the  epimorphism  returned  by  an
-`EpimorphismPqStandardPresentation' or  `EpimorphismStandardPresentation'
-call (see~"EpimorphismPqStandardPresentation");
-
-\item{--} one of the pc groups of the list  of  descendants  returned  by
-`PqDescendants' (see~"PqDescendants"); or
-
-\item{--}    the    pc     group     returned     by     `PqCurrentGroup'
-(see~"PqCurrentGroup").
-
-\endlist
-
-*Note:* For <G> such that `HasNuclearRank(<G>) = true',  `IsCapable(<G>)'
-is equivalent to (the truth or falsity of) `NuclearRank( <G> ) = 0'.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%

@@ -14,7 +14,7 @@ Most of the details in this chapter are of a technical nature;  the  user
 need only skim over this chapter on a first reading. Mostly, it is enough
 to know that
 
-\beginlist
+\beginlist%unordered
 
 \item{$\bullet$} 
 you must do a `RequirePackage("anupq");' before you can expect to  use  a
@@ -36,7 +36,7 @@ ANUPQ via Info and InfoANUPQ");
 if you passed options to a function and ran into an error then you should
 almost certainly type `ResetOptionsStack();' so  those  options  are  not
 still on the `OptionsStack' to affect subsequent functions  (details  are
-in Section~"Hints and Warnings regarding the use of Options"); and
+in Section~"Hints and Warnings regarding the use of Options");
 
 \item{$\bullet$} 
 in Section~"Utility functions" we describe functions `PqLeftNormComm' for
@@ -44,7 +44,12 @@ computing  left  normed  commutators  in  {\GAP},  `PqGAPRelators'  which
 converts strings representing relators from  a  format  the  `pq'  binary
 understands to a form that  {\GAP}  understands,  and  `PqExample'  which
 executes examples for the  {\ANUPQ}  package  or  displays  an  index  of
-examples.
+examples; and
+
+\item{$\bullet$} 
+in Section~"Attributes and a Property for fp and pc p-groups" we describe
+the  attributes  and  property  `NuclearRank',  `MultiplicatorRank'   and
+`IsCapable'.
 
 \endlist
 
@@ -429,6 +434,42 @@ over-written. However, they are not  completely  lost  either.  They  are
 saved to a record `ANUPQData.examples.vars', i.e.~if `F'  is  a  variable
 used in the example then you will be able to access it after  `PqExample'
 has finished as `ANUPQData.examples.vars.F'.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\Section{Attributes and a Property for fp and pc p-groups}
+
+\>NuclearRank( <G> ) A
+\>MultiplicatorRank( <G> ) A
+\>IsCapable( <G> ) P
+
+return the nuclear rank  of  <G>,  $p$-multiplicator  rank  of  <G>,  and
+whether <G> is capable (i.e.~`true' if it is, or `false' if it  is  not),
+respectively, where <G> is either an fp $p$-group or a pc $p$-group.
+
+These attributes and property are set automatically if <G> is one of  the
+following:
+
+\beginlist%unordered
+
+\item{--}  an  fp   group   returned   by   `PqStandardPresentation'   or
+`StandardPresentation' (see~"PqStandardPresentation");
+
+\item{--} the  image  (fp  group)  of  the  epimorphism  returned  by  an
+`EpimorphismPqStandardPresentation' or  `EpimorphismStandardPresentation'
+call (see~"EpimorphismPqStandardPresentation"); or
+
+\item{--} one of the pc groups of the list  of  descendants  returned  by
+`PqDescendants' (see~"PqDescendants").
+
+\endlist
+
+If <G> is not one of the above and the  attribute  or  property  has  not
+otherwise been set for <G>, then `PqStandardPresentation'  is  called  to
+set all three  of  `NuclearRank',  `MultiplicatorRank'  and  `IsCapable',
+before returning the value of the attribute or property actually called.
+
+*Note:* For <G> such that `HasNuclearRank(<G>) = true',  `IsCapable(<G>)'
+is equivalent to (the truth or falsity of) `NuclearRank( <G> ) = 0'.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
