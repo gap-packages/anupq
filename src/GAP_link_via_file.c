@@ -10,6 +10,9 @@
 *Y  Copyright 1995-1997,  School of Mathematical Sciences, ANU,     Australia
 **
 *H  $Log$
+*H  Revision 1.6  2001/06/16 15:05:04  werner
+*H  Progress (?) with talking to pq
+*H
 *H  Revision 1.5  2001/06/15 14:31:51  werner
 *H  fucked up revision numbers.   WN
 *H
@@ -135,7 +138,7 @@ void insoluble_stab_gens ( rep, orbit_length, pga, pcp )
 {
    FILE  * GAP_rep;
    char  * path,  *command;
-   int index;
+   int index, c;
    int *subset;
    int **S;                                                                     
 
@@ -158,43 +161,16 @@ void insoluble_stab_gens ( rep, orbit_length, pga, pcp )
 
    CloseFile( GAP_rep );
 
-   /* try to find gap                                                     */
-   if ( ( path = (char*) getenv( "ANUPQ_GAP_EXEC" ) ) == NULL )
-#       if defined( ANUPQ_GAP_EXEC )
-      path = ANUPQ_GAP_EXEC;
-#       else
-   path = "gap";
-#       endif
-   command = (char*) malloc( strlen(path) + 200 );
-#ifdef NeXT
-   strcpy( command, "exec " );
-   strcat( command, path    );
-#else
-   strcpy( command, path );
-#endif
-#if 0
-   strcat( command, " -q GAP_input < GAP_rep > GAP_log" );
-#else
-   strcat( command, " -q GAP_input < GAP_rep" );
-#endif
+   /*   unlink( "LINK_output" );*/
 
-   /* inform the user that we are about to call gap                       */
-   if (isatty (0)) 
-      printf ("Now calling GAP to compute stabiliser...\n");
-   unlink( "LINK_output" );
+   printf( "HELP!\n" );
 
-   /* compute the stabiliser of the orbit representative                  */
-#   if defined (SPARC) || defined(NeXT)
-   if ( vsystem(command) != 0 )
-#   else
-      if ( system(command) != 0 )
-#   endif 
-      {
-	 printf( "Error in system call to GAP\n" );
-	 exit(FAILURE);
-      }
+   while( (c = getchar()) != 'X' ) putchar( c );
+
+   fprintf( stderr, "after the while loop\n" );
+
    CloseFile( OpenFile( "LINK_output", "r" ) );
-   free( command );
+
    unlink( "GAP_log" );
    unlink( "GAP_rep" );
 }

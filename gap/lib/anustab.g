@@ -89,29 +89,31 @@ fi;
 
 aut.agAutos := Reversed (aut.agAutos);
 aut.agOrder := Reversed (aut.agOrder);
-PrintTo ("LINK_output", soluble);
-AppendTo ("LINK_output", "\n");
-AppendTo ("LINK_output", Length (aut.agAutos));
-AppendTo ("LINK_output", "\n");
+
+LINK_output := Filename( ANUPQData.tmpdir, "LINK_output" );
+PrintTo (LINK_output, soluble);
+AppendTo (LINK_output, "\n");
+AppendTo (LINK_output, Length (aut.agAutos));
+AppendTo (LINK_output, "\n");
 for i in [1..Length (aut.agOrder)] do 
-   AppendTo ("LINK_output", aut.agOrder[i]);
-   AppendTo ("LINK_output", "\n");
+   AppendTo (LINK_output, aut.agOrder[i]);
+   AppendTo (LINK_output, "\n");
 od;
-AppendTo ("LINK_output", Length (aut.agAutos) + Length (aut.glAutos) );
-AppendTo ("LINK_output", "\n");
+AppendTo (LINK_output, Length (aut.agAutos) + Length (aut.glAutos) );
+AppendTo (LINK_output, "\n");
 for a in aut.agAutos do
     mat := List( a!.baseimgs, x -> ExponentsOfPcElement( pcgs, x ) );
     mat := Flat( mat );
     for m in mat do
-        AppendTo ("LINK_output", m, " " );
+        AppendTo (LINK_output, m, " " );
     od;
-    AppendTo ("LINK_output", "\n");
+    AppendTo (LINK_output, "\n");
 od;
 for a in aut.glAutos do
     mat := List( a!.baseimgs, x -> ExponentsOfPcElement( pcgs, x ) );
     mat := Flat( mat );
     for m in mat do
-        AppendTo ("LINK_output", m, " " );
+        AppendTo (LINK_output, m, " " );
     od;
-    AppendTo ("LINK_output", "\n");
+    AppendTo (LINK_output, "\n");
 od;

@@ -14,6 +14,9 @@
 #Y  Copyright 1992-1994,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.6  2001/06/16 15:05:04  werner
+#H  Progress (?) with talking to pq
+#H
 #H  Revision 1.5  2001/06/15 17:35:38  werner
 #H  Changing the way Process() is handled.                                WN
 #H
@@ -462,7 +465,7 @@ InstallValue( ANUPGAGlobalVariables,
 #F  PqList( <file> [: SubList := <sub>]) . . . . .  get a list of descendants
 ##
 InstallGlobalFunction( PqList, function( file )
-    local   var,  lst,  groups,  autos,  sublist,  func;
+    local   var,  retval,  lst,  groups,  autos,  sublist,  func;
 
     # check arguments
     if not IsString(file) then
@@ -474,7 +477,8 @@ InstallGlobalFunction( PqList, function( file )
     od;
 
     # try to read <file>
-    if not READ(file) or not IsBoundGlobal( "ANUPQmagic" )  then
+    retval := READ( file );
+    if not retval or not IsBoundGlobal( "ANUPQmagic" )  then
 
         for var in ANUPGAGlobalVariables do
             UnhideGlobalVariables( var );
@@ -545,7 +549,7 @@ end );
 #F  PQ_DESCENDANTS( <args> ) . . . . . . . . . construct descendants of group
 ##
 InstallGlobalFunction( PQ_DESCENDANTS, function( args )
-    local   datarec, success, G;
+    local   datarec,  G,  pd,  desc;
 
     datarec := ANUPQ_ARG_CHK(1, "PqDescendants", "group", IsPcGroup, 
                              "a pc group", args);
@@ -571,25 +575,35 @@ InstallGlobalFunction( PQ_DESCENDANTS, function( args )
         return [];
     fi;
 
+    if datarec.calltype <> "interactive" then
+        pd := PqStart( args[1] );
+        datarec := ANUPQData.io[ pd ];
+        datarec.calltype := "interactive";
+    fi;
     PQ_PC_PRESENTATION( datarec, "pQ" 
                         : Prime      := PrimePGroup(datarec.group),
                           ClassBound := PClassPGroup(datarec.group) );
     PQ_P_COVER( datarec );
     PQ_PG_SUPPLY_AUTS( datarec );
     PQ_PG_CONSTRUCT_DESCENDANTS( datarec );
-    if datarec.calltype <> "interactive" then
-        success := PQ_COMPLETE_NONINTERACTIVE_FUNC_CALL(datarec);
-        if success <> 0 then
-            Error( "process did not succeed\n" );
-        fi;
-    fi;
+#    if datarec.calltype <> "interactive" then
+#        success := PQ_COMPLETE_NONINTERACTIVE_FUNC_CALL(datarec);
+#        if success <> 0 then
+#            Error( "process did not succeed\n" );
+#        fi;
+#    fi;
+
+#    if IsBound( pd ) then PqQuit( pd ); fi;
+        
     datarec.descendants 
         := PqList( Filename( ANUPQData.tmpdir, "GAP_library" ) );
+Print(     datarec.descendants  );
     for G in datarec.descendants do
         if not HasIsCapable(G)  then
             SetIsCapable( G, false );
         fi;
     od;
+
     return datarec.descendants;
 end );
 
