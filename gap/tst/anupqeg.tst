@@ -2,7 +2,7 @@
 ##
 #A  anupqeg.tst               ANUPQ package                       Greg Gamble
 ##
-##  Tests all the ANUPQ examples.
+##  Tests all but one of the ANUPQ examples.
 ##  Execute this file with `ReadTest( "anupqeg.tst" );'.
 ##  This is a *big* test, taking some 40 minutes on a *fast* (1GHz) machine.
 ##  The number of GAPstones returned at the end do not mean much as  they  do
@@ -33,23 +33,32 @@ gap> examples := AllPqExamples();
   "Pq", "Pq-ni", "PqDescendants-1", "PqDescendants-1-i", "PqDescendants-2", 
   "PqDescendants-3", "PqEpimorphism", "PqPCover", "R2-5-i", "R2-5-x-i", 
   "StandardPresentation", "StandardPresentation-i", "gp-256-SP-Rel-i" ]
+gap> examples := Difference(examples, ["EpimorphismStandardPresentation-i"]);
+[ "11gp-3-Engel-Id", "11gp-3-Engel-Id-i", "11gp-PG-i", "11gp-Rel-i", 
+  "11gp-SP-a-Rel-1-i", "11gp-SP-a-Rel-i", "11gp-SP-a-i", "11gp-SP-b-Rel-i", 
+  "11gp-SP-b-i", "11gp-SP-c-Rel-i", "11gp-a-Rel-i", "11gp-i", "2gp-PG-2-i", 
+  "2gp-PG-3-i", "2gp-PG-4-i", "2gp-PG-e4-i", "2gp-PG-i", "2gp-Rel", 
+  "2gp-Rel-i", "2gp-SP-1-Rel-i", "2gp-SP-2-Rel-i", "2gp-SP-3-Rel-i", 
+  "2gp-SP-4-Rel-i", "2gp-SP-Rel-i", "2gp-SP-d-Rel-i", "2gp-a-Rel-i", 
+  "3gp-PG-4-i", "3gp-PG-i", "3gp-PG-x-1-i", "3gp-PG-x-i", "3gp-Rel-i", 
+  "3gp-SP-1-Rel-i", "3gp-SP-2-Rel-i", "3gp-SP-3-Rel-i", "3gp-SP-4-Rel-i", 
+  "3gp-SP-Rel-i", "3gp-a-Rel", "3gp-a-Rel-i", "3gp-a-x-Rel-i", 
+  "3gp-maxoccur-Rel-i", "5gp-PG-i", "5gp-Rel-i", "5gp-SP-Rel-i", 
+  "5gp-SP-a-Rel-i", "5gp-SP-b-Rel-i", "5gp-SP-big-Rel-i", "5gp-SP-d-Rel-i", 
+  "5gp-a-Rel-i", "5gp-b-Rel-i", "5gp-c-Rel-i", "5gp-maxoccur-Rel-i", 
+  "5gp-metabelian-Rel", "5gp-metabelian-Rel-i", "7gp-PG-i", "7gp-Rel-i", 
+  "7gp-SP-Rel-i", "7gp-SP-a-Rel-i", "7gp-SP-b-Rel-i", "B2-4", "B2-4-Id", 
+  "B2-4-SP-i", "B2-5", "B2-5-i", "B2-8-i", "B4-4-a-i", "B4-4-i", "B5-4.g", 
+  "EpimorphismStandardPresentation", "F2-5-i", "G2-SP-Rel-i", "G3-SP-Rel-i", 
+  "G5-SP-Rel-i", "G5-SP-a-Rel-i", "IsIsomorphicPGroup-ni", "Nott-APG-Rel-i", 
+  "Nott-PG-Rel-i", "Nott-SP-Rel-i", "Pq", "Pq-ni", "PqDescendants-1", 
+  "PqDescendants-1-i", "PqDescendants-2", "PqDescendants-3", "PqEpimorphism", 
+  "PqPCover", "R2-5-i", "R2-5-x-i", "StandardPresentation", 
+  "StandardPresentation-i", "gp-256-SP-Rel-i" ]
 gap> nexamples := Length( examples );
-91
-gap> for i in [1, 11 .. 91] do
->      for example in examples{[i .. Minimum(i + 9, nexamples)]} do
->        PqExample( example );
->        len := Length(example);
->        if not( example{[len - 1 .. len]} in ["-i", ".g", "ni"] ) then
->          Info(InfoANUPQ, 1, "Executing interactive variant of example: \"",
->                             example, "\"");
->          PqExample( example, PqStart );
->        fi;
->      od;
->      PqQuitAll();
->    od;
-#I  #Example: "11gp-3-Engel-Id" . 3-Engel group for prime 11 by Werner Nickel
-#I  #Non-trivial example of using the `Identities' option
-#I  F, a, b, G, f, procId, Q are local to `PqExample'
+90
+gap> ##Example: "11gp-3-Engel-Id" . . . 3-Engel group for prime 11
+gap> ##Non-trivial example of using the `Identities' option
 gap> F := FreeGroup("a", "b"); a := F.1; b := F.2;
 <free group on the generators [ a, b ]>
 a
@@ -76,11 +85,9 @@ gap> f( Random(Q), Random(Q) );
 <identity> of ...
 gap> f( Q.1, Q.2 );
 <identity> of ...
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  Executing interactive variant of example: "11gp-3-Engel-Id"
-#I  #Example: "11gp-3-Engel-Id" . 3-Engel group for prime 11 by Werner Nickel
-#I  #Non-trivial example of using the `Identities' option
-#I  F, a, b, G, f, procId, Q are local to `PqExample'
+gap> # Executing interactive variant of example: "11gp-3-Engel-Id"
+gap> ##Example: "11gp-3-Engel-Id" . . . 3-Engel group for prime 11
+gap> ##Non-trivial example of using the `Identities' option
 gap> F := FreeGroup("a", "b"); a := F.1; b := F.2;
 <free group on the generators [ a, b ]>
 a
@@ -109,11 +116,9 @@ gap> f( Random(Q), Random(Q) );
 <identity> of ...
 gap> f( Q.1, Q.2 );
 <identity> of ...
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "11gp-3-Engel-Id-i" . 3-Engel grp for prime 11 by Werner Nickel
-#I  #Variation of "11gp-3-Engel-Id" broken down into its lower-level component
-#I  #command parts.
-#I  F, a, b, G, f, procId, Q are local to `PqExample'
+gap> ##Example: "11gp-3-Engel-Id-i" . . . 3-Engel grp for prime 11
+gap> ##Variation of "11gp-3-Engel-Id" broken down into its lower-level component
+gap> ##command parts.
 gap> F := FreeGroup("a", "b"); a := F.1; b := F.2;
 <free group on the generators [ a, b ]>
 a
@@ -131,9 +136,9 @@ gap> PqEvaluateIdentities( procId : Identities := [f] );
 #I  Evaluated 4 instances.
 #I  Class 1 with 2 generators.
 gap> for c in [2 .. 4] do
->      PqNextClass( procId : Identities := [] ); #reset `Identities' option
->      PqEvaluateIdentities( procId : Identities := [f] );
->    od;
+>   PqNextClass( procId : Identities := [] ); #reset `Identities' option
+>   PqEvaluateIdentities( procId : Identities := [f] );
+> od;
 #I  Evaluated 14 instances.
 #I  Class 2 with 3 generators.
 #I  Evaluated 44 instances.
@@ -148,31 +153,29 @@ gap> f( Random(Q), Random(Q) );
 <identity> of ...
 gap> f( Q.1, Q.2 );
 <identity> of ...
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "11gp-PG-i" . . . based on: examples/pga_11gp
-#I  #Descendants of C11 x C11 x C11
-#I  F, procId are local to `PqExample'
+gap> ##Example: "11gp-PG-i" . . . based on: examples/pga_11gp
+gap> ##Descendants of C11 x C11 x C11
 gap> F := FreeGroup("a", "b", "c");
 <free group on the generators [ a, b, c ]>
 gap> procId := PqStart(F : Prime := 11);
 3
 gap> PqPcPresentation(procId : ClassBound := 1, 
->                              OutputLevel := 1);
+>                           OutputLevel := 1);
 #I  Lower exponent-11 central series for <grp>
 #I  Group: <grp> to lower exponent-11 central class 1 has order 11^3
 gap> PqComputePCover(procId);
 #I  Group: <grp> to lower exponent-11 central class 2 has order 11^9
 gap> PqPGSupplyAutomorphisms(procId, [ [[ 2, 0, 0],
->                                       [ 0, 1, 0],
->                                       [ 0, 0, 1]],
->    
->                                      [[10, 0, 1],
->                                       [10, 0, 0],
->                                       [ 0,10, 0]] ]);
+>                                    [ 0, 1, 0],
+>                                    [ 0, 0, 1]],
+> 
+>                                   [[10, 0, 1],
+>                                    [10, 0, 0],
+>                                    [ 0,10, 0]] ]);
 gap> PqPGConstructDescendants(procId : ClassBound := 2,
->                                      CapableDescendants,
->                                      StepSize := 1,
->                                      RankInitialSegmentSubgroups := 3);
+>                                   CapableDescendants,
+>                                   StepSize := 1,
+>                                   RankInitialSegmentSubgroups := 3);
 #I  **************************************************
 #I  Starting group: <grp>
 #I  Order: 11^3
@@ -181,10 +184,9 @@ gap> PqPGConstructDescendants(procId : ClassBound := 2,
 #I  # of immediate descendants of order 11^4 is 4
 #I  # of capable immediate descendants is 2
 #I  **************************************************
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "11gp-Rel-i" . . . based on: examples/11gp
-#I  #(equivalent to "11gp-i" example but uses `Relators' option)
-#I  F, rels, procId are local to `PqExample'
+2
+gap> ##Example: "11gp-Rel-i" . . . based on: examples/11gp
+gap> ##(equivalent to "11gp-i" example but uses `Relators' option)
 gap> F := FreeGroup("a", "b", "c");
 <free group on the generators [ a, b, c ]>
 gap> rels := ["[b, a, a, b, c]^11", "[a, b, b, a, b, c]^11", "(a * b)^11"];
@@ -192,7 +194,7 @@ gap> rels := ["[b, a, a, b, c]^11", "[a, b, b, a, b, c]^11", "(a * b)^11"];
 gap> procId := PqStart(F : Prime := 11, Relators := rels);
 4
 gap> PqPcPresentation(procId : ClassBound := 7, 
->                              OutputLevel := 1);
+>                           OutputLevel := 1);
 #I  Lower exponent-11 central series for <grp>
 #I  Group: <grp> to lower exponent-11 central class 1 has order 11^3
 #I  Group: <grp> to lower exponent-11 central class 2 has order 11^8
@@ -202,11 +204,9 @@ gap> PqPcPresentation(procId : ClassBound := 7,
 #I  Group: <grp> to lower exponent-11 central class 6 has order 11^228
 #I  Group: <grp> to lower exponent-11 central class 7 has order 11^563
 gap> PqSavePcPresentation(procId, ANUPQData.outfile);
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "11gp-SP-a-Rel-1-i" . . . based on: isom/11gp_a.com
-#I  #(like "11gp-SP-a-Rel-i" but the initial input presentation
-#I  # is only to class 1).
-#I  F, rels, procId are local to `PqExample'
+gap> ##Example: "11gp-SP-a-Rel-1-i" . . . based on: isom/11gp_a.com
+gap> ##(like "11gp-SP-a-Rel-i" but the initial input presentation
+gap> ## is only to class 1).
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> rels := ["a^11", "b^11*[b, a, a]^-2", "[b, a, b, b, b, b]"];
@@ -216,33 +216,31 @@ gap> procId := PqStart(F : Prime := 11, Relators := rels);
 gap> PqSetOutputLevel(procId, 0);
 gap> PqSPComputePcpAndPCover(procId : ClassBound := 1);
 gap> PqSPStandardPresentation(procId, [ [[1,0],
->                                        [0,1]],
->    
->                                       [[1,0],
->                                        [0,1]],
->    
->                                       [[1,0],
->                                        [0,1]],
->    
->                                       [[1,0],
->                                        [3,1]],
->    
->                                       [[1,0],
->                                        [9,3]],
->    
->                                       [[1,0],
->                                        [6,6]],
->    
->                                       [[10,0],
->                                        [2,1]] ]
->    
->                             : # options
->                               ClassBound := 19,
->                               PcgsAutomorphisms);
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "11gp-SP-a-Rel-i" . . . based on: isom/11gp_a.com
-#I  #(equivalent to "11gp-SP-a-i" but uses the `Relators' option)
-#I  F, rels, procId are local to `PqExample'
+>                                     [0,1]],
+> 
+>                                    [[1,0],
+>                                     [0,1]],
+> 
+>                                    [[1,0],
+>                                     [0,1]],
+> 
+>                                    [[1,0],
+>                                     [3,1]],
+> 
+>                                    [[1,0],
+>                                     [9,3]],
+> 
+>                                    [[1,0],
+>                                     [6,6]],
+> 
+>                                    [[10,0],
+>                                     [2,1]] ]
+> 
+>                          : # options
+>                            ClassBound := 19,
+>                            PcgsAutomorphisms);
+gap> ##Example: "11gp-SP-a-Rel-i" . . . based on: isom/11gp_a.com
+gap> ##(equivalent to "11gp-SP-a-i" but uses the `Relators' option)
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> rels := ["a^11", "b^11*[b, a, a]^-2", "[b, a, b, b, b, b]"];
@@ -252,38 +250,36 @@ gap> procId := PqStart(F : Prime := 11, Relators := rels);
 gap> PqSetOutputLevel(procId, 0);
 gap> PqSPComputePcpAndPCover(procId : ClassBound := 3);
 gap> PqSPStandardPresentation(procId, [ [[1,0,0,0,1],
->                                        [0,1,0,0,0]],
->    
->                                       [[1,0,0,0,0],
->                                        [0,1,0,1,0]],
->    
->                                       [[1,0,0,0,0],
->                                        [0,1,0,0,1]],
->    
->                                       [[1,0,0,0,0],
->                                        [3,1,0,0,0]],
->    
->                                       [[1,0,0,0,0],
->                                        [9,3,0,0,0]],
->    
->                                       [[1,0,0,0,0],
->                                        [6,6,0,0,0]],
->    
->                                       [[10,0,0,0,0],
->                                        [2,1,0,0,0]] ]
->    
->                             : # options
->                               ClassBound := 19,
->                               PcgsAutomorphisms);
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "11gp-SP-a-i" . . . based on: isom/11gp_a.com
-#I  F, a, b, R, procId are local to `PqExample'
+>                                     [0,1,0,0,0]],
+> 
+>                                    [[1,0,0,0,0],
+>                                     [0,1,0,1,0]],
+> 
+>                                    [[1,0,0,0,0],
+>                                     [0,1,0,0,1]],
+> 
+>                                    [[1,0,0,0,0],
+>                                     [3,1,0,0,0]],
+> 
+>                                    [[1,0,0,0,0],
+>                                     [9,3,0,0,0]],
+> 
+>                                    [[1,0,0,0,0],
+>                                     [6,6,0,0,0]],
+> 
+>                                    [[10,0,0,0,0],
+>                                     [2,1,0,0,0]] ]
+> 
+>                          : # options
+>                            ClassBound := 19,
+>                            PcgsAutomorphisms);
+gap> ##Example: "11gp-SP-a-i" . . . based on: isom/11gp_a.com
 gap> F := FreeGroup("a", "b"); a := F.1; b := F.2;
 <free group on the generators [ a, b ]>
 a
 b
 gap> R := [a^11, b^11/PqLeftNormComm([b, a, a])^2, 
->          PqLeftNormComm([b, a, b, b, b, b])];
+>       PqLeftNormComm([b, a, b, b, b, b])];
 [ a^11, b^11*a^-2*b^-1*a*b*a*b^-1*a^-1*b*a^-1*b^-1*a*b*a*b^-1*a^-1*b*a, 
   b^-3*a^-1*b^-1*a*b*a^-1*b*a*b*a^-1*b^-1*a*b^-1*a^-1*b*a*b*a^-1*b^-1*a*b*a^
     -1*b*a*b^-1*a^-1*b^-1*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b*a^-1*b*a*b*a^
@@ -294,37 +290,35 @@ gap> procId := PqStart(F/R : Prime := 11);
 gap> PqSetOutputLevel(procId, 0);
 gap> PqSPComputePcpAndPCover(procId : ClassBound := 3);
 gap> PqSPStandardPresentation(procId, [ [[1,0,0,0,1],
->                                        [0,1,0,0,0]],
->    
->                                       [[1,0,0,0,0],
->                                        [0,1,0,1,0]],
->    
->                                       [[1,0,0,0,0],
->                                        [0,1,0,0,1]],
->    
->                                       [[1,0,0,0,0],
->                                        [3,1,0,0,0]],
->    
->                                       [[1,0,0,0,0],
->                                        [9,3,0,0,0]],
->    
->                                       [[1,0,0,0,0],
->                                        [6,6,0,0,0]],
->    
->                                       [[10,0,0,0,0],
->                                        [2,1,0,0,0]] ]
->    
->                             : # options
->                               ClassBound := 19,
->                               PcgsAutomorphisms);
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "11gp-SP-b-Rel-i" . . . based on: isom/11gp_b.com
-#I  #(equivalent to "11gp-SP-b-i" but uses the `Relators' option)
-#I  F, rels, procId are local to `PqExample'
+>                                     [0,1,0,0,0]],
+> 
+>                                    [[1,0,0,0,0],
+>                                     [0,1,0,1,0]],
+> 
+>                                    [[1,0,0,0,0],
+>                                     [0,1,0,0,1]],
+> 
+>                                    [[1,0,0,0,0],
+>                                     [3,1,0,0,0]],
+> 
+>                                    [[1,0,0,0,0],
+>                                     [9,3,0,0,0]],
+> 
+>                                    [[1,0,0,0,0],
+>                                     [6,6,0,0,0]],
+> 
+>                                    [[10,0,0,0,0],
+>                                     [2,1,0,0,0]] ]
+> 
+>                          : # options
+>                            ClassBound := 19,
+>                            PcgsAutomorphisms);
+gap> ##Example: "11gp-SP-b-Rel-i" . . . based on: isom/11gp_b.com
+gap> ##(equivalent to "11gp-SP-b-i" but uses the `Relators' option)
 gap> F := FreeGroup("a", "b", "c");
 <free group on the generators [ a, b, c ]>
 gap> rels := ["a^11", "b^11", "c^11", "[b, a, a, a, b, a]", 
->             "[c, a]", "[c, b]", "[b, a, b]"];
+>          "[c, a]", "[c, b]", "[b, a, b]"];
 [ "a^11", "b^11", "c^11", "[b, a, a, a, b, a]", "[c, a]", "[c, b]", 
   "[b, a, b]" ]
 gap> procId := PqStart(F : Prime := 11, Relators := rels);
@@ -332,62 +326,60 @@ gap> procId := PqStart(F : Prime := 11, Relators := rels);
 gap> PqSetOutputLevel(procId, 0);
 gap> PqSPComputePcpAndPCover(procId : ClassBound := 3);
 gap> PqSPStandardPresentation(procId, [ [[1,0,0,0,0],
->                                        [0,1,0,0,1],
->                                        [0,0,1,0,0]],
->    
->                                       [[1,0,0,0,0],
->                                        [0,1,0,0,0],
->                                        [0,0,1,0,1]],
->    
->                                       [[1,0,9,0,0],
->                                        [0,1,0,0,0],
->                                        [0,0,1,0,0]],
->    
->                                       [[1,7,8,0,0],
->                                        [0,1,0,0,0],
->                                        [0,0,1,0,0]],
->    
->                                       [[10,0,0,0,0],
->                                        [0,1,0,0,0],
->                                        [0,0,1,0,0]],
->    
->                                       [[2,0,0,0,0],
->                                        [0,1,0,0,0],
->                                        [0,0,1,0,0]],
->    
->                                       [[1,0,8,0,0],
->                                        [0,1,3,0,0],
->                                        [0,0,1,0,0]],
->    
->                                       [[1,0,9,0,0],
->                                        [0,1,0,0,0],
->                                        [0,0,3,0,0]],
->    
->                                       [[1,0,2,0,0],
->                                        [0,1,0,0,0],
->                                        [0,0,10,0,0]],
->    
->                                       [[1,9,10,0,0],
->                                        [0,3,7,0,0],
->                                        [0,0,6,0,0]],
->    
->                                       [[1,5,9,0,0],
->                                        [0,7,4,0,0],
->                                        [0,0,10,0,0]]]
->    
->                             : # options
->                               ClassBound := 8,
->                               PcgsAutomorphisms);
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "11gp-SP-b-i" . . . based on: isom/11gp_b.com
-#I  F, a, b, c, R, procId are local to `PqExample'
+>                                     [0,1,0,0,1],
+>                                     [0,0,1,0,0]],
+> 
+>                                    [[1,0,0,0,0],
+>                                     [0,1,0,0,0],
+>                                     [0,0,1,0,1]],
+> 
+>                                    [[1,0,9,0,0],
+>                                     [0,1,0,0,0],
+>                                     [0,0,1,0,0]],
+> 
+>                                    [[1,7,8,0,0],
+>                                     [0,1,0,0,0],
+>                                     [0,0,1,0,0]],
+> 
+>                                    [[10,0,0,0,0],
+>                                     [0,1,0,0,0],
+>                                     [0,0,1,0,0]],
+> 
+>                                    [[2,0,0,0,0],
+>                                     [0,1,0,0,0],
+>                                     [0,0,1,0,0]],
+> 
+>                                    [[1,0,8,0,0],
+>                                     [0,1,3,0,0],
+>                                     [0,0,1,0,0]],
+> 
+>                                    [[1,0,9,0,0],
+>                                     [0,1,0,0,0],
+>                                     [0,0,3,0,0]],
+> 
+>                                    [[1,0,2,0,0],
+>                                     [0,1,0,0,0],
+>                                     [0,0,10,0,0]],
+> 
+>                                    [[1,9,10,0,0],
+>                                     [0,3,7,0,0],
+>                                     [0,0,6,0,0]],
+> 
+>                                    [[1,5,9,0,0],
+>                                     [0,7,4,0,0],
+>                                     [0,0,10,0,0]]]
+> 
+>                          : # options
+>                            ClassBound := 8,
+>                            PcgsAutomorphisms);
+gap> ##Example: "11gp-SP-b-i" . . . based on: isom/11gp_b.com
 gap> F := FreeGroup("a", "b", "c"); a := F.1; b := F.2; c := F.3;
 <free group on the generators [ a, b, c ]>
 a
 b
 c
 gap> R := [a^11, b^11, c^11, PqLeftNormComm([b, a, a, a, b, a]),
->          Comm(c, a), Comm(c, b), PqLeftNormComm([b, a, b])];
+>       Comm(c, a), Comm(c, b), PqLeftNormComm([b, a, b])];
 [ a^11, b^11, c^11, b^-1*a^-3*b^-1*a*b*a*b^-1*a^-1*b*a*b^-1*a*b*a^-1*b^-1*a^
     -1*b*a^2*b*a^-2*b^-1*a*b*a*b^-1*a^-1*b*a^-1*b^-1*a*b*a^-1*b^-1*a^-1*b*a^
     -1*b^-1*a*b*a*b^-1*a^-1*b*a*b^-1*a*b*a^-1*b^-1*a^-1*b*a^2*b^-1*a^-2*b^
@@ -398,113 +390,110 @@ gap> procId := PqStart(F/R : Prime := 11);
 gap> PqSetOutputLevel(procId, 0);
 gap> PqSPComputePcpAndPCover(procId : ClassBound := 3);
 gap> PqSPStandardPresentation(procId, [ [[1,0,0,0,0],
->                                        [0,1,0,0,1],
->                                        [0,0,1,0,0]],
->    
->                                       [[1,0,0,0,0],
->                                        [0,1,0,0,0],
->                                        [0,0,1,0,1]],
->    
->                                       [[1,0,9,0,0],
->                                        [0,1,0,0,0],
->                                        [0,0,1,0,0]],
->    
->                                       [[1,7,8,0,0],
->                                        [0,1,0,0,0],
->                                        [0,0,1,0,0]],
->    
->                                       [[10,0,0,0,0],
->                                        [0,1,0,0,0],
->                                        [0,0,1,0,0]],
->    
->                                       [[2,0,0,0,0],
->                                        [0,1,0,0,0],
->                                        [0,0,1,0,0]],
->    
->                                       [[1,0,8,0,0],
->                                        [0,1,3,0,0],
->                                        [0,0,1,0,0]],
->    
->                                       [[1,0,9,0,0],
->                                        [0,1,0,0,0],
->                                        [0,0,3,0,0]],
->    
->                                       [[1,0,2,0,0],
->                                        [0,1,0,0,0],
->                                        [0,0,10,0,0]],
->    
->                                       [[1,9,10,0,0],
->                                        [0,3,7,0,0],
->                                        [0,0,6,0,0]],
->    
->                                       [[1,5,9,0,0],
->                                        [0,7,4,0,0],
->                                        [0,0,10,0,0]]]
->    
->                             : # options
->                               ClassBound := 8,
->                               PcgsAutomorphisms);
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "11gp-SP-c-Rel-i" . . . based on: isom/11gp_c.com
-#I  F, rels, procId are local to `PqExample'
+>                                     [0,1,0,0,1],
+>                                     [0,0,1,0,0]],
+> 
+>                                    [[1,0,0,0,0],
+>                                     [0,1,0,0,0],
+>                                     [0,0,1,0,1]],
+> 
+>                                    [[1,0,9,0,0],
+>                                     [0,1,0,0,0],
+>                                     [0,0,1,0,0]],
+> 
+>                                    [[1,7,8,0,0],
+>                                     [0,1,0,0,0],
+>                                     [0,0,1,0,0]],
+> 
+>                                    [[10,0,0,0,0],
+>                                     [0,1,0,0,0],
+>                                     [0,0,1,0,0]],
+> 
+>                                    [[2,0,0,0,0],
+>                                     [0,1,0,0,0],
+>                                     [0,0,1,0,0]],
+> 
+>                                    [[1,0,8,0,0],
+>                                     [0,1,3,0,0],
+>                                     [0,0,1,0,0]],
+> 
+>                                    [[1,0,9,0,0],
+>                                     [0,1,0,0,0],
+>                                     [0,0,3,0,0]],
+> 
+>                                    [[1,0,2,0,0],
+>                                     [0,1,0,0,0],
+>                                     [0,0,10,0,0]],
+> 
+>                                    [[1,9,10,0,0],
+>                                     [0,3,7,0,0],
+>                                     [0,0,6,0,0]],
+> 
+>                                    [[1,5,9,0,0],
+>                                     [0,7,4,0,0],
+>                                     [0,0,10,0,0]]]
+> 
+>                          : # options
+>                            ClassBound := 8,
+>                            PcgsAutomorphisms);
+gap> ##Example: "11gp-SP-c-Rel-i" . . . based on: isom/11gp_c.com
 gap> F := FreeGroup("a", "b", "c");
 <free group on the generators [ a, b, c ]>
 gap> rels := ["a^11", "b^11", "c^11", "[b, a, a, a, b]", 
->             "[c, a]", "[c, b]", "[b, a, b]"];
+>          "[c, a]", "[c, b]", "[b, a, b]"];
 [ "a^11", "b^11", "c^11", "[b, a, a, a, b]", "[c, a]", "[c, b]", "[b, a, b]" ]
 gap> procId := PqStart(F : Prime := 11, Relators := rels);
 10
 gap> PqSPComputePcpAndPCover(procId : ClassBound := 3);
 gap> PqSPStandardPresentation(procId, [ [[1,0,0,0,0],
->                                        [0,1,0,0,1],
->                                        [0,0,1,0,0]],
->    
->                                       [[1,0,0,0,0],
->                                        [0,1,0,0,0],
->                                        [0,0,1,0,1]],
->    
->                                       [[1,0,9,0,0],
->                                        [0,1,0,0,0],
->                                        [0,0,1,0,0]],
->    
->                                       [[1,7,8,0,0],
->                                        [0,1,0,0,0],
->                                        [0,0,1,0,0]],
->    
->                                       [[10,0,0,0,0],
->                                        [0,1,0,0,0],
->                                        [0,0,1,0,0]],
->    
->                                       [[2,0,0,0,0],
->                                        [0,1,0,0,0],
->                                        [0,0,1,0,0]],
->    
->                                       [[1,0,8,0,0],
->                                        [0,1,3,0,0],
->                                        [0,0,1,0,0]],
->    
->                                       [[1,0,9,0,0],
->                                        [0,1,0,0,0],
->                                        [0,0,3,0,0]],
->    
->                                       [[1,0,2,0,0],
->                                        [0,1,0,0,0],
->                                        [0,0,10,0,0]],
->    
->                                       [[1,9,10,0,0],
->                                        [0,3,7,0,0],
->                                        [0,0,6,0,0]],
->    
->                                       [[1,5,9,0,0],
->                                        [0,7,4,0,0],
->                                        [0,0,10,0,0]]]
->    
->                             : # options
->                               ClassBound := 8,#for 9 perm.deg.>2^31, pq dies
->                               PcgsAutomorphisms);
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "11gp-a-Rel-i" . . . based on: examples/11gpA
-#I  F, rels, procId are local to `PqExample'
+>                                     [0,1,0,0,1],
+>                                     [0,0,1,0,0]],
+> 
+>                                    [[1,0,0,0,0],
+>                                     [0,1,0,0,0],
+>                                     [0,0,1,0,1]],
+> 
+>                                    [[1,0,9,0,0],
+>                                     [0,1,0,0,0],
+>                                     [0,0,1,0,0]],
+> 
+>                                    [[1,7,8,0,0],
+>                                     [0,1,0,0,0],
+>                                     [0,0,1,0,0]],
+> 
+>                                    [[10,0,0,0,0],
+>                                     [0,1,0,0,0],
+>                                     [0,0,1,0,0]],
+> 
+>                                    [[2,0,0,0,0],
+>                                     [0,1,0,0,0],
+>                                     [0,0,1,0,0]],
+> 
+>                                    [[1,0,8,0,0],
+>                                     [0,1,3,0,0],
+>                                     [0,0,1,0,0]],
+> 
+>                                    [[1,0,9,0,0],
+>                                     [0,1,0,0,0],
+>                                     [0,0,3,0,0]],
+> 
+>                                    [[1,0,2,0,0],
+>                                     [0,1,0,0,0],
+>                                     [0,0,10,0,0]],
+> 
+>                                    [[1,9,10,0,0],
+>                                     [0,3,7,0,0],
+>                                     [0,0,6,0,0]],
+> 
+>                                    [[1,5,9,0,0],
+>                                     [0,7,4,0,0],
+>                                     [0,0,10,0,0]]]
+> 
+>                          : # options
+>                            ClassBound := 8,#for 9 perm.deg.>2^31, pq dies
+>                            PcgsAutomorphisms);
+gap> PqQuitAll();
+gap> ##Example: "11gp-a-Rel-i" . . . based on: examples/11gpA
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> rels := ["[b, a, a, b, b]^11", "[a, b, b, a, b, b]^11", "(a * b)^11"];
@@ -512,7 +501,7 @@ gap> rels := ["[b, a, a, b, b]^11", "[a, b, b, a, b, b]^11", "(a * b)^11"];
 gap> procId := PqStart(F : Prime := 11, Relators := rels);
 1
 gap> PqPcPresentation(procId : ClassBound := 8, 
->                              OutputLevel := 1);
+>                           OutputLevel := 1);
 #I  Lower exponent-11 central series for <grp>
 #I  Group: <grp> to lower exponent-11 central class 1 has order 11^2
 #I  Group: <grp> to lower exponent-11 central class 2 has order 11^4
@@ -523,16 +512,14 @@ gap> PqPcPresentation(procId : ClassBound := 8,
 #I  Group: <grp> to lower exponent-11 central class 7 has order 11^47
 #I  Group: <grp> to lower exponent-11 central class 8 has order 11^78
 gap> PqSavePcPresentation(procId, ANUPQData.outfile);
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "11gp-i" . . . based on: examples/11gp
-#I  F, a, b, c, R, procId are local to `PqExample'
+gap> ##Example: "11gp-i" . . . based on: examples/11gp
 gap> F := FreeGroup("a", "b", "c"); a := F.1; b := F.2; c := F.3;
 <free group on the generators [ a, b, c ]>
 a
 b
 c
 gap> R := [PqLeftNormComm([b, a, a, b, c])^11, 
->          PqLeftNormComm([a, b, b, a, b, c])^11, (a * b)^11];
+>       PqLeftNormComm([a, b, b, a, b, c])^11, (a * b)^11];
 [ b^-1*a^-2*b^-1*a*b*a*b^-1*a^-1*b*a*b*a^-1*b^-1*a*b*a^-1*b^-1*a^-1*b*a^2*c^
     -1*a^-2*b^-1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b*a^-1*b^-1*a^-1*b*a^
     2*b*c*b^-1*a^-2*b^-1*a*b*a*b^-1*a^-1*b*a*b*a^-1*b^-1*a*b*a^-1*b^-1*a^
@@ -605,7 +592,7 @@ gap> R := [PqLeftNormComm([b, a, a, b, c])^11,
 gap> procId := PqStart(F/R : Prime := 11);
 2
 gap> PqPcPresentation(procId : ClassBound := 7, 
->                              OutputLevel := 1);
+>                           OutputLevel := 1);
 #I  Lower exponent-11 central series for <grp>
 #I  Group: <grp> to lower exponent-11 central class 1 has order 11^3
 #I  Group: <grp> to lower exponent-11 central class 2 has order 11^8
@@ -615,30 +602,27 @@ gap> PqPcPresentation(procId : ClassBound := 7,
 #I  Group: <grp> to lower exponent-11 central class 6 has order 11^228
 #I  Group: <grp> to lower exponent-11 central class 7 has order 11^563
 gap> PqSavePcPresentation(procId, ANUPQData.outfile);
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "2gp-PG-2-i" . . . based on: examples/pga_example
-#I  #All class 3 descendants of C2 x C2 with extensive output
-#I  F, procId are local to `PqExample'
+gap> ##Example: "2gp-PG-2-i" . . . based on: examples/pga_example
+gap> ##All class 3 descendants of C2 x C2 with extensive output
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> procId := PqStart(F : Prime := 2);
 3
 gap> PqPcPresentation(procId : ClassBound := 1, 
->                              OutputLevel := 1);
+>                           OutputLevel := 1);
 #I  Lower exponent-2 central series for <grp>
 #I  Group: <grp> to lower exponent-2 central class 1 has order 2^2
 gap> PqComputePCover(procId);
 #I  Group: <grp> to lower exponent-2 central class 2 has order 2^5
 gap> PqPGSupplyAutomorphisms(procId, [ [[0,1],
->                                       [1,1]],
->    
->                                      [[0,1],
->                                       [1,0]] ]);
+>                                    [1,1]],
+> 
+>                                   [[0,1],
+>                                    [1,0]] ]);
 gap> PqPGConstructDescendants(procId : ClassBound := 3,
->                                      PcgsAutomorphisms,
->                                      CustomiseOutput := rec(group := [,,1],
->                                                             autgroup := [,1]\
-));
+>                                   PcgsAutomorphisms,
+>                                   CustomiseOutput := rec(group := [,,1],
+>                                                          autgroup := [,1]));
 #I  **************************************************
 #I  Starting group: <grp>
 #I  Order: 2^2
@@ -6151,30 +6135,29 @@ gap> PqPGConstructDescendants(procId : ClassBound := 3,
 #I  # of immediate descendants of order 2^10 is 1
 #I  # of capable immediate descendants is 1
 #I  **************************************************
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "2gp-PG-3-i" . . . based on: examples/pga_3-2.com
-#I  #All descendants of C2 x C2 x C2
-#I  F, procId are local to `PqExample'
+136
+gap> ##Example: "2gp-PG-3-i" . . . based on: examples/pga_3-2.com
+gap> ##All descendants of C2 x C2 x C2
 gap> F := FreeGroup("a", "b", "c");
 <free group on the generators [ a, b, c ]>
 gap> procId := PqStart(F : Prime := 2);
 4
 gap> PqPcPresentation(procId : ClassBound := 1, 
->                              OutputLevel := 1);
+>                           OutputLevel := 1);
 #I  Lower exponent-2 central series for <grp>
 #I  Group: <grp> to lower exponent-2 central class 1 has order 2^3
 gap> PqComputePCover(procId);
 #I  Group: <grp> to lower exponent-2 central class 2 has order 2^9
 gap> PqPGSupplyAutomorphisms(procId, [ [[1,1,0],
->                                       [0,1,0],
->                                       [0,0,1]],
->    
->                                      [[0,0,1],
->                                       [1,0,0],
->                                       [0,1,0]] ]);
+>                                    [0,1,0],
+>                                    [0,0,1]],
+> 
+>                                   [[0,0,1],
+>                                    [1,0,0],
+>                                    [0,1,0]] ]);
 gap> PqPGConstructDescendants(procId : ClassBound := 5,
->                                      OrderBound := 7,
->                                      BasicAlgorithm);
+>                                   OrderBound := 7,
+>                                   BasicAlgorithm);
 #I  **************************************************
 #I  Starting group: <grp>
 #I  Order: 2^3
@@ -8449,32 +8432,31 @@ gap> PqPGConstructDescendants(procId : ClassBound := 5,
 #I  2-multiplicator rank: 5
 #I  Group <grp> #19;2 #3;1 #1;1 is an invalid starting group
 #I  **************************************************
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "2gp-PG-4-i" . . . based on: examples/pga_4-2.com
-#I  #All descendants of C2 x C2 x C2 x C2
-#I  F, procId are local to `PqExample'
+365
+gap> ##Example: "2gp-PG-4-i" . . . based on: examples/pga_4-2.com
+gap> ##All descendants of C2 x C2 x C2 x C2
 gap> F := FreeGroup("a", "b", "c", "d");
 <free group on the generators [ a, b, c, d ]>
 gap> procId := PqStart(F : Prime := 2);
 5
 gap> PqPcPresentation(procId : ClassBound := 1, 
->                              OutputLevel := 1);
+>                           OutputLevel := 1);
 #I  Lower exponent-2 central series for <grp>
 #I  Group: <grp> to lower exponent-2 central class 1 has order 2^4
 gap> PqComputePCover(procId);
 #I  Group: <grp> to lower exponent-2 central class 2 has order 2^14
 gap> PqPGSupplyAutomorphisms(procId, [ [[1,1,0,0],
->                                       [0,1,0,0],
->                                       [0,0,1,0],
->                                       [0,0,0,1]],
->    
->                                      [[0,0,0,1],
->                                       [1,0,0,0],
->                                       [0,1,0,0],
->                                       [0,0,1,0]] ]);
+>                                    [0,1,0,0],
+>                                    [0,0,1,0],
+>                                    [0,0,0,1]],
+> 
+>                                   [[0,0,0,1],
+>                                    [1,0,0,0],
+>                                    [0,1,0,0],
+>                                    [0,0,1,0]] ]);
 gap> PqPGConstructDescendants(procId : ClassBound := 4,
->                                      OrderBound := 8,
->                                      BasicAlgorithm);
+>                                   OrderBound := 8,
+>                                   BasicAlgorithm);
 #I  **************************************************
 #I  Starting group: <grp>
 #I  Order: 2^4
@@ -41558,28 +41540,27 @@ gap> PqPGConstructDescendants(procId : ClassBound := 4,
 #I  2-multiplicator rank: 9
 #I  Group <grp> #664;3 #3;1 is an invalid starting group
 #I  **************************************************
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "2gp-PG-e4-i" . . . based on: examples/pga_exp4
-#I  #All 2-generator exponent 4 2-groups
-#I  F, procId are local to `PqExample'
+5473
+gap> ##Example: "2gp-PG-e4-i" . . . based on: examples/pga_exp4
+gap> ##All 2-generator exponent 4 2-groups
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> procId := PqStart(F : Prime := 2);
 6
 gap> PqPcPresentation(procId : ClassBound := 1, 
->                              OutputLevel := 1);
+>                           OutputLevel := 1);
 #I  Lower exponent-2 central series for <grp>
 #I  Group: <grp> to lower exponent-2 central class 1 has order 2^2
 gap> PqComputePCover(procId);
 #I  Group: <grp> to lower exponent-2 central class 2 has order 2^5
 gap> PqPGSupplyAutomorphisms(procId, [ [[0,1],
->                                       [1,1]],
->    
->                                      [[0,1],
->                                       [1,0]] ]);
+>                                    [1,1]],
+> 
+>                                   [[0,1],
+>                                    [1,0]] ]);
 gap> PqPGConstructDescendants(procId : ClassBound := 12,
->                                      PcgsAutomorphisms,
->                                      Exponent := 4);
+>                                   PcgsAutomorphisms,
+>                                   Exponent := 4);
 #I  **************************************************
 #I  Starting group: <grp>
 #I  Order: 2^2
@@ -41760,29 +41741,28 @@ gap> PqPGConstructDescendants(procId : ClassBound := 12,
 #I  Nuclear rank: 0
 #I  2-multiplicator rank: 2
 #I  Group <grp> #7;3 #2;2 #7;3 #2;2 is an invalid starting group
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "2gp-PG-i" . . . based on: examples/pga_2gp
-#I  #All descendants of C2 x C2 up to order 2^8
-#I  F, procId are local to `PqExample'
+26
+gap> ##Example: "2gp-PG-i" . . . based on: examples/pga_2gp
+gap> ##All descendants of C2 x C2 up to order 2^8
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> procId := PqStart(F : Prime := 2);
 7
 gap> PqPcPresentation(procId : ClassBound := 1, 
->                              OutputLevel := 1);
+>                           OutputLevel := 1);
 #I  Lower exponent-2 central series for <grp>
 #I  Group: <grp> to lower exponent-2 central class 1 has order 2^2
 gap> PqComputePCover(procId);
 #I  Group: <grp> to lower exponent-2 central class 2 has order 2^5
 gap> PqPGSupplyAutomorphisms(procId, [ [[0,1],
->                                       [1,1]],
->    
->                                      [[0,1],
->                                       [1,0]] ]);
+>                                    [1,1]],
+> 
+>                                   [[0,1],
+>                                    [1,0]] ]);
 gap> PqPGConstructDescendants(procId : ClassBound := 7,
->                                      OrderBound := 8,
->                                      PcgsAutomorphisms,
->                                      BasicAlgorithm);
+>                                   OrderBound := 8,
+>                                   PcgsAutomorphisms,
+>                                   BasicAlgorithm);
 #I  **************************************************
 #I  Starting group: <grp>
 #I  Order: 2^2
@@ -44056,16 +44036,15 @@ gap> PqPGConstructDescendants(procId : ClassBound := 7,
 #I  2-multiplicator rank: 3
 #I  Group <grp> #6;2 #3;1 #1;1 #1;1 #2;1 is an invalid starting group
 #I  **************************************************
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "2gp-Rel" . . . based on: examples/2gp
-#I  #Construction of largest quotient of class 6 of a 2-group
-#I  F, procId, rels are local to `PqExample'
+355
+gap> ##Example: "2gp-Rel" . . . based on: examples/2gp
+gap> ##Construction of largest quotient of class 6 of a 2-group
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> rels := [ "[b, a, a]", "(a * b * a)^4"];
 [ "[b, a, a]", "(a * b * a)^4" ]
 gap> Pq( F : Prime := 2, ClassBound := 6, Relators := rels, 
->            OutputLevel := 1 );
+>         OutputLevel := 1 );
 #I  Lower exponent-2 central series for <grp>
 #I  Group: <grp> to lower exponent-2 central class 1 has order 2^2
 #I  Group: <grp> to lower exponent-2 central class 2 has order 2^5
@@ -44074,11 +44053,9 @@ gap> Pq( F : Prime := 2, ClassBound := 6, Relators := rels,
 #I  Group: <grp> to lower exponent-2 central class 5 has order 2^15
 #I  Group: <grp> to lower exponent-2 central class 6 has order 2^19
 <pc group of size 524288 with 19 generators>
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  Executing interactive variant of example: "2gp-Rel"
-#I  #Example: "2gp-Rel" . . . based on: examples/2gp
-#I  #Construction of largest quotient of class 6 of a 2-group
-#I  F, procId, rels are local to `PqExample'
+gap> # Executing interactive variant of example: "2gp-Rel"
+gap> ##Example: "2gp-Rel" . . . based on: examples/2gp
+gap> ##Construction of largest quotient of class 6 of a 2-group
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> rels := [ "[b, a, a]", "(a * b * a)^4"];
@@ -44086,7 +44063,7 @@ gap> rels := [ "[b, a, a]", "(a * b * a)^4"];
 gap> procId := PqStart( F );
 8
 gap> Pq( procId : Prime := 2, ClassBound := 6, Relators := rels, 
->            OutputLevel := 1 );
+>         OutputLevel := 1 );
 #I  Lower exponent-2 central series for <grp>
 #I  Group: <grp> to lower exponent-2 central class 1 has order 2^2
 #I  Group: <grp> to lower exponent-2 central class 2 has order 2^5
@@ -44095,9 +44072,7 @@ gap> Pq( procId : Prime := 2, ClassBound := 6, Relators := rels,
 #I  Group: <grp> to lower exponent-2 central class 5 has order 2^15
 #I  Group: <grp> to lower exponent-2 central class 6 has order 2^19
 <pc group of size 524288 with 19 generators>
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "2gp-Rel-i" . . . based on: examples/2gp
-#I  F, rels, procId are local to `PqExample'
+gap> ##Example: "2gp-Rel-i" . . . based on: examples/2gp
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> rels := ["[b, a, a]", "(a * b * a)^4"];
@@ -44105,7 +44080,7 @@ gap> rels := ["[b, a, a]", "(a * b * a)^4"];
 gap> procId := PqStart(F : Prime := 2, Relators := rels);
 9
 gap> PqPcPresentation(procId : ClassBound := 6, 
->                              OutputLevel := 1);
+>                           OutputLevel := 1);
 #I  Lower exponent-2 central series for <grp>
 #I  Group: <grp> to lower exponent-2 central class 1 has order 2^2
 #I  Group: <grp> to lower exponent-2 central class 2 has order 2^5
@@ -44114,9 +44089,7 @@ gap> PqPcPresentation(procId : ClassBound := 6,
 #I  Group: <grp> to lower exponent-2 central class 5 has order 2^15
 #I  Group: <grp> to lower exponent-2 central class 6 has order 2^19
 gap> PqSavePcPresentation(procId, ANUPQData.outfile);
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "2gp-SP-1-Rel-i" . . . based on: isom/2gp.exam
-#I  F, rels, procId are local to `PqExample'
+gap> ##Example: "2gp-SP-1-Rel-i" . . . based on: isom/2gp.exam
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> rels := ["a^4", "b^2*[b, a, b]^-1", "b*(a^2 * b^-1 * a^2)^-1" ];
@@ -44125,17 +44098,16 @@ gap> procId := PqStart(F : Prime := 2, Relators := rels);
 10
 gap> PqSPComputePcpAndPCover(procId : ClassBound := 1);
 gap> PqSPStandardPresentation(procId, [ [[1,0],
->                                        [1,1]],
->    
->                                       [[0,1],
->                                        [1,0]] ]
->    
->                             : # options
->                               ClassBound := 7,
->                               PcgsAutomorphisms);
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "2gp-SP-2-Rel-i" . . . based on: isom/2gp.com
-#I  F, rels, procId are local to `PqExample'
+>                                     [1,1]],
+> 
+>                                    [[0,1],
+>                                     [1,0]] ]
+> 
+>                          : # options
+>                            ClassBound := 7,
+>                            PcgsAutomorphisms);
+gap> PqQuitAll();
+gap> ##Example: "2gp-SP-2-Rel-i" . . . based on: isom/2gp.com
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> rels := ["a^4", "b^2*[b, a, b]^-1" ];
@@ -44144,21 +44116,19 @@ gap> procId := PqStart(F : Prime := 2, Relators := rels);
 1
 gap> PqSPComputePcpAndPCover(procId : ClassBound := 2);
 gap> PqSPStandardPresentation(procId, [ [[1,0,0,1],
->                                        [0,1,0,0]],
->    
->                                       [[1,0,0,0],
->                                        [0,1,0,1]],
->    
->                                       [[1,1,1,0],
->                                        [0,1,1,1]] ]
->    
->                             : # options
->                               ClassBound := 10,
->                               PcgsAutomorphisms);
+>                                     [0,1,0,0]],
+> 
+>                                    [[1,0,0,0],
+>                                     [0,1,0,1]],
+> 
+>                                    [[1,1,1,0],
+>                                     [0,1,1,1]] ]
+> 
+>                          : # options
+>                            ClassBound := 10,
+>                            PcgsAutomorphisms);
 gap> PqDisplayPcPresentation(procId);
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "2gp-SP-3-Rel-i" . . . based on: isom/example.com
-#I  F, rels, procId are local to `PqExample'
+gap> ##Example: "2gp-SP-3-Rel-i" . . . based on: isom/example.com
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> rels := ["a^4", "b^2*[b, a, b]^-1", "b * (a^2 * b^-1 * a^2)^-1" ];
@@ -44167,20 +44137,18 @@ gap> procId := PqStart(F : Prime := 2, Relators := rels);
 2
 gap> PqSPComputePcpAndPCover(procId : ClassBound := 2);
 gap> PqSPStandardPresentation(procId, [ [[1,0,0,1],
->                                        [0,1,0,0]],
->    
->                                       [[1,0,0,0],
->                                        [0,1,0,1]],
->    
->                                       [[1,1,1,0],
->                                        [0,1,1,1]] ]
->    
->                             : # options
->                               ClassBound := 9,
->                               PcgsAutomorphisms);
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "2gp-SP-4-Rel-i" . . . based on: isom/isom_example.com
-#I  F, rels, procId are local to `PqExample'
+>                                     [0,1,0,0]],
+> 
+>                                    [[1,0,0,0],
+>                                     [0,1,0,1]],
+> 
+>                                    [[1,1,1,0],
+>                                     [0,1,1,1]] ]
+> 
+>                          : # options
+>                            ClassBound := 9,
+>                            PcgsAutomorphisms);
+gap> ##Example: "2gp-SP-4-Rel-i" . . . based on: isom/isom_example.com
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> rels := ["a^4", "b^2*[b, a, a]^-1", "b * (a^2 * b^-1 * a^2)^-1" ];
@@ -44189,20 +44157,18 @@ gap> procId := PqStart(F : Prime := 2, Relators := rels);
 3
 gap> PqSPComputePcpAndPCover(procId : ClassBound := 2);
 gap> PqSPStandardPresentation(procId, [ [[1,0,0,1],
->                                        [0,1,0,0]],
->    
->                                       [[1,0,0,0],
->                                        [0,1,0,1]],
->    
->                                       [[1,1,1,0],
->                                        [0,1,1,1]] ]
->    
->                             : # options
->                               ClassBound := 10,
->                               PcgsAutomorphisms);
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "2gp-SP-Rel-i" . . . based on: isom/2gp
-#I  F, rels, procId are local to `PqExample'
+>                                     [0,1,0,0]],
+> 
+>                                    [[1,0,0,0],
+>                                     [0,1,0,1]],
+> 
+>                                    [[1,1,1,0],
+>                                     [0,1,1,1]] ]
+> 
+>                          : # options
+>                            ClassBound := 10,
+>                            PcgsAutomorphisms);
+gap> ##Example: "2gp-SP-Rel-i" . . . based on: isom/2gp
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> rels := ["a^4", "b^4", "[b, a, a]" ];
@@ -44234,14 +44200,14 @@ gap> PqSPComputePcpAndPCover(procId : ClassBound := 1, OutputLevel := 3);
 #I  2 is defined on image of defining generator 2
 #I  The number of new generators introduced for weight 2 is 3
 gap> PqSPStandardPresentation(procId, [ [[0,1],
->                                        [1,1]],
->    
->                                       [[0,1],
->                                        [1,0]] ]
->    
->                             : # options
->                               ClassBound := 10,
->                               PcgsAutomorphisms);
+>                                     [1,1]],
+> 
+>                                    [[0,1],
+>                                     [1,0]] ]
+> 
+>                          : # options
+>                            ClassBound := 10,
+>                            PcgsAutomorphisms);
 #I  Starting group has order 2^2; its automorphism group order is 6 
 #I  The standard presentation for the class 2 2-quotient is
 #I  Group: <grp> #1;3 to lower exponent-2 central class 2 has order 2^5
@@ -44607,68 +44573,62 @@ gap> PqSPStandardPresentation(procId, [ [[0,1],
 #I  [ .18, .1 ] = .21
 #I  [ .19, .1 ] = .22
 #I  Subset of automorphism group to check has order bound 8192
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "2gp-SP-d-Rel-i" . . . based on: isom/red1.com
-#I  F, rels, procId are local to `PqExample'
+gap> ##Example: "2gp-SP-d-Rel-i" . . . based on: isom/red1.com
 gap> F := FreeGroup("a", "b", "c", "d");
 <free group on the generators [ a, b, c, d ]>
 gap> rels := ["b^4", "b^2 * [b, a, a]^-1", "d^16", "a^16 * (c * d)^-1",
->             "b^8 * (d * c^4)^-1", "b * (a^2 * b^-1 * a^2)^-1"];
+>          "b^8 * (d * c^4)^-1", "b * (a^2 * b^-1 * a^2)^-1"];
 [ "b^4", "b^2 * [b, a, a]^-1", "d^16", "a^16 * (c * d)^-1", 
   "b^8 * (d * c^4)^-1", "b * (a^2 * b^-1 * a^2)^-1" ]
 gap> procId := PqStart(F : Prime := 2, Relators := rels);
 5
 gap> PqSPComputePcpAndPCover(procId : ClassBound := 1);
 gap> PqSPStandardPresentation(procId, [ [[0,1],
->                                        [1,1]],
->    
->                                       [[0,1],
->                                        [1,0]] ]
->    
->                             : # options
->                               ClassBound := 10,
->                               PcgsAutomorphisms);
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "2gp-a-Rel-i" . . . based on: examples/keyword_2gp
-#I  F, rels, procId are local to `PqExample'
+>                                     [1,1]],
+> 
+>                                    [[0,1],
+>                                     [1,0]] ]
+> 
+>                          : # options
+>                            ClassBound := 10,
+>                            PcgsAutomorphisms);
+gap> ##Example: "2gp-a-Rel-i" . . . based on: examples/keyword_2gp
 gap> F := FreeGroup(3, "x");
 <free group on the generators [ x1, x2, x3 ]>
 gap> rels := ["x1^x2 * x3", "[x2, x1, x1]", 
->             "[x2 * [x2, x1] * x1^2, x1 * x2 ]"];
+>          "[x2 * [x2, x1] * x1^2, x1 * x2 ]"];
 [ "x1^x2 * x3", "[x2, x1, x1]", "[x2 * [x2, x1] * x1^2, x1 * x2 ]" ]
 gap> procId := PqStart(F : Prime := 2, Relators := rels);
 6
 gap> PqPcPresentation(procId : ClassBound := 3, 
->                              OutputLevel := 1);
+>                           OutputLevel := 1);
 #I  Lower exponent-2 central series for <grp>
 #I  Group: <grp> to lower exponent-2 central class 1 has order 2^2
 #I  Group: <grp> to lower exponent-2 central class 2 has order 2^4
 #I  Group: <grp> to lower exponent-2 central class 3 has order 2^6
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "3gp-PG-4-i" . . . based on: examples/pga_4-3.com
-#I  #All descendants of C3 x C3 x C3 x C3
-#I  F, procId are local to `PqExample'
+gap> ##Example: "3gp-PG-4-i" . . . based on: examples/pga_4-3.com
+gap> ##All descendants of C3 x C3 x C3 x C3
 gap> F := FreeGroup("a", "b", "c", "d");
 <free group on the generators [ a, b, c, d ]>
 gap> procId := PqStart(F : Prime := 3);
 7
 gap> PqPcPresentation(procId : ClassBound := 1, 
->                              OutputLevel := 1);
+>                           OutputLevel := 1);
 #I  Lower exponent-3 central series for <grp>
 #I  Group: <grp> to lower exponent-3 central class 1 has order 3^4
 gap> PqComputePCover(procId);
 #I  Group: <grp> to lower exponent-3 central class 2 has order 3^14
 gap> PqPGSupplyAutomorphisms(procId, [ [[2,0,0,0],
->                                       [0,1,0,0],
->                                       [0,0,1,0],
->                                       [0,0,0,1]],
->    
->                                      [[2,0,0,1],
->                                       [2,0,0,0],
->                                       [0,2,0,0],
->                                       [0,0,2,0]] ]);
+>                                    [0,1,0,0],
+>                                    [0,0,1,0],
+>                                    [0,0,0,1]],
+> 
+>                                   [[2,0,0,1],
+>                                    [2,0,0,0],
+>                                    [0,2,0,0],
+>                                    [0,0,2,0]] ]);
 gap> PqPGConstructDescendants(procId : ClassBound := 2,
->                                      OrderBound := 5);
+>                                   OrderBound := 5);
 #I  **************************************************
 #I  Starting group: <grp>
 #I  Order: 3^4
@@ -44677,39 +44637,38 @@ gap> PqPGConstructDescendants(procId : ClassBound := 2,
 #I  # of immediate descendants of order 3^5 is 6
 #I  # of capable immediate descendants is 2
 #I  **************************************************
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "3gp-PG-i" . . . based on: examples/pga_3gp
-#I  #All groups with lower exponent-3 series of shape 2-2-3-1
-#I  F, procId are local to `PqExample'
+6
+gap> ##Example: "3gp-PG-i" . . . based on: examples/pga_3gp
+gap> ##All groups with lower exponent-3 series of shape 2-2-3-1
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> procId := PqStart(F : Prime := 3);
 8
 gap> PqPcPresentation(procId : ClassBound := 1, 
->                              OutputLevel := 1);
+>                           OutputLevel := 1);
 #I  Lower exponent-3 central series for <grp>
 #I  Group: <grp> to lower exponent-3 central class 1 has order 3^2
 gap> PqComputePCover(procId);
 #I  Group: <grp> to lower exponent-3 central class 2 has order 3^5
 gap> PqPGSupplyAutomorphisms(procId, [ [[2,0],
->                                       [0,2]],
->    
->                                      [[0,2],
->                                       [1,0]],
->    
->                                      [[1,2],
->                                       [2,2]],
->    
->                                      [[1,0],
->                                       [2,1]],
->    
->                                      [[2,0],
->                                       [0,1]] ]);
+>                                    [0,2]],
+> 
+>                                   [[0,2],
+>                                    [1,0]],
+> 
+>                                   [[1,2],
+>                                    [2,2]],
+> 
+>                                   [[1,0],
+>                                    [2,1]],
+> 
+>                                   [[2,0],
+>                                    [0,1]] ]);
 gap> PqPGConstructDescendants(procId : ClassBound := 4,
->                                      CapableDescendants,
->                                      StepSize := [2, 3, 1],
->                                      PcgsAutomorphisms,
->                                      BasicAlgorithm);
+>                                   CapableDescendants,
+>                                   StepSize := [2, 3, 1],
+>                                   PcgsAutomorphisms,
+>                                   BasicAlgorithm);
 #I  **************************************************
 #I  Starting group: <grp>
 #I  Order: 3^2
@@ -44767,25 +44726,26 @@ gap> PqPGConstructDescendants(procId : ClassBound := 4,
 #I  # of immediate descendants of order 3^8 is 7
 #I  # of capable immediate descendants is 5
 #I  **************************************************
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "3gp-PG-x-i" . . . based on example from Werner
-#I  #A `by hand' descendants example
-#I  F, procId are local to `PqExample'
+41
+gap> ##Example: "3gp-PG-x-i" . . . based on example from Werner
+gap> ##A `by hand' descendants example
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> procId := PqStart(F : Prime := 3);
 9
 gap> Pq(procId : ClassBound := 1, 
->                              OutputLevel := 1);
+>                           OutputLevel := 1);
 #I  Lower exponent-3 central series for <grp>
 #I  Group: <grp> to lower exponent-3 central class 1 has order 3^2
+<pc group of size 9 with 2 generators>
 gap> PqPCover(procId);
 #I  Group: <grp> to lower exponent-3 central class 2 has order 3^5
+<pc group of size 243 with 5 generators>
 gap> PqPGSupplyAutomorphisms(procId, [ [[1,1],
->                                       [0,1]],
->    
->                                      [[0,1],
->                                       [1,0]] ]);
+>                                    [0,1]],
+> 
+>                                   [[0,1],
+>                                    [1,0]] ]);
 gap> PqPGExtendAutomorphisms(procId);
 #I  Automorphism 1:
 #I  Generator  1 --> 1 1 0 0 0 
@@ -44800,7 +44760,7 @@ gap> PqPGExtendAutomorphisms(procId);
 #I  Generator  4 --> 0 0 0 0 1 
 #I  Generator  5 --> 0 0 0 1 0 
 gap> PqPGConstructDescendants(procId : ClassBound := 3,
->                                      BasicAlgorithm);
+>                                   BasicAlgorithm);
 #I  **************************************************
 #I  Starting group: <grp>
 #I  Order: 3^2
@@ -44875,25 +44835,23 @@ gap> PqPGConstructDescendants(procId : ClassBound := 3,
 #I  # of capable immediate descendants is 1
 #I  **************************************************
 148
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "3gp-PG-x-i" . . . based on example from Werner
-#I  #Iterated descendants example
-#I  F, procId are local to `PqExample'
+gap> ##Example: "3gp-PG-x-i" . . . based on example from Werner
+gap> ##Iterated descendants example
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> procId := PqStart(F : Prime := 3);
 10
 gap> PqPcPresentation(procId : ClassBound := 1, 
->                              OutputLevel := 1);
+>                           OutputLevel := 1);
 #I  Lower exponent-3 central series for <grp>
 #I  Group: <grp> to lower exponent-3 central class 1 has order 3^2
 gap> PqComputePCover(procId);
 #I  Group: <grp> to lower exponent-3 central class 2 has order 3^5
 gap> PqPGSupplyAutomorphisms(procId, [ [[1,1],
->                                       [0,1]],
->    
->                                      [[0,1],
->                                       [1,0]] ]);
+>                                    [0,1]],
+> 
+>                                   [[0,1],
+>                                    [1,0]] ]);
 gap> PqPGExtendAutomorphisms(procId);
 #I  Automorphism 1:
 #I  Generator  1 --> 1 1 0 0 0 
@@ -44908,8 +44866,8 @@ gap> PqPGExtendAutomorphisms(procId);
 #I  Generator  4 --> 0 0 0 0 1 
 #I  Generator  5 --> 0 0 0 1 0 
 gap> PqPGConstructDescendants(procId : ClassBound := 2,
->                                      CapableDescendants,
->                                      BasicAlgorithm);
+>                                   CapableDescendants,
+>                                   BasicAlgorithm);
 #I  **************************************************
 #I  Starting group: <grp>
 #I  Order: 3^2
@@ -44924,7 +44882,6 @@ gap> PqPGConstructDescendants(procId : ClassBound := 2,
 #I  **************************************************
 6
 gap> PqPGSetDescendantToPcp(procId, 2, 5);
-Function call: <func> must return a value
 gap> PqPGExtendAutomorphisms(procId);
 #I  Automorphism 1:
 #I  Generator  1 --> 1 0 0 1 0 0 0 
@@ -44959,8 +44916,8 @@ gap> PqPGExtendAutomorphisms(procId);
 #I  Generator  6 --> 0 0 0 0 0 1 0 
 #I  Generator  7 --> 0 0 0 0 0 0 2 
 gap> PqPGConstructDescendants(procId : ClassBound := 3,
->                                      CapableDescendants,
->                                      BasicAlgorithm);
+>                                   CapableDescendants,
+>                                   BasicAlgorithm);
 #I  **************************************************
 #I  Starting group: <grp> #6;2
 #I  Order: 3^4
@@ -44973,7 +44930,6 @@ gap> PqPGConstructDescendants(procId : ClassBound := 3,
 #I  **************************************************
 2
 gap> PqPGSetDescendantToPcp(procId, 3, 2);
-Function call: <func> must return a value
 gap> PqPGExtendAutomorphisms(procId);
 #I  Automorphism 1:
 #I  Generator  1 --> 1 0 0 0 0 1 0 0 0 
@@ -45016,8 +44972,8 @@ gap> PqPGExtendAutomorphisms(procId);
 #I  Generator  8 --> 0 0 0 0 0 0 0 1 0 
 #I  Generator  9 --> 0 0 0 0 0 0 0 0 2 
 gap> PqPGConstructDescendants(procId : ClassBound := 4,
->                                      CapableDescendants,
->                                      BasicAlgorithm);
+>                                   CapableDescendants,
+>                                   BasicAlgorithm);
 #I  **************************************************
 #I  Starting group: <grp> #6;2 #3;2
 #I  Order: 3^6
@@ -45030,7 +44986,6 @@ gap> PqPGConstructDescendants(procId : ClassBound := 4,
 #I  **************************************************
 2
 gap> PqPGSetDescendantToPcp(procId, 4, 2);
-Function call: <func> must return a value
 gap> PqPGExtendAutomorphisms(procId);
 #I  Automorphism 1:
 #I  Generator  1 --> 1 0 0 0 0 0 0 1 0 0 0 
@@ -45081,8 +45036,8 @@ gap> PqPGExtendAutomorphisms(procId);
 #I  Generator 10 --> 0 0 0 0 0 0 0 0 0 1 0 
 #I  Generator 11 --> 0 0 0 0 0 0 0 0 0 0 2 
 gap> PqPGConstructDescendants(procId : ClassBound := 5,
->                                      CapableDescendants,
->                                      BasicAlgorithm);
+>                                   CapableDescendants,
+>                                   BasicAlgorithm);
 #I  **************************************************
 #I  Starting group: <grp> #6;2 #3;2 #3;2
 #I  Order: 3^8
@@ -45095,7 +45050,6 @@ gap> PqPGConstructDescendants(procId : ClassBound := 5,
 #I  **************************************************
 2
 gap> PqPGSetDescendantToPcp(procId, 5, 1);
-Function call: <func> must return a value
 gap> PqPGExtendAutomorphisms(procId);
 #I  Automorphism 1:
 #I  Generator  1 --> 1 0 0 0 0 0 0 0 1 0 0 0 
@@ -45163,8 +45117,8 @@ gap> PqPGExtendAutomorphisms(procId);
 #I  Generator 11 --> 0 0 0 0 0 0 0 0 0 0 2 0 
 #I  Generator 12 --> 0 0 0 0 0 0 0 0 0 0 0 2 
 gap> PqPGConstructDescendants(procId : ClassBound := 6,
->                                      CapableDescendants,
->                                      BasicAlgorithm);
+>                                   CapableDescendants,
+>                                   BasicAlgorithm);
 #I  **************************************************
 #I  Starting group: <grp> #6;2 #3;2 #3;2 #1;1
 #I  Order: 3^9
@@ -45175,7 +45129,6 @@ gap> PqPGConstructDescendants(procId : ClassBound := 6,
 #I  **************************************************
 1
 gap> PqPGSetDescendantToPcp(procId, 6, 1);
-Function call: <func> must return a value
 gap> PqPGExtendAutomorphisms(procId);
 #I  Automorphism 1:
 #I  Generator  1 --> 1 0 0 0 0 0 0 0 0 1 0 0 0 
@@ -45262,8 +45215,8 @@ gap> PqPGExtendAutomorphisms(procId);
 #I  Generator 12 --> 0 0 0 0 0 0 0 0 0 0 0 2 0 
 #I  Generator 13 --> 0 0 0 0 0 0 0 0 0 0 0 0 2 
 gap> PqPGConstructDescendants(procId : ClassBound := 7,
->                                      CapableDescendants,
->                                      BasicAlgorithm);
+>                                   CapableDescendants,
+>                                   BasicAlgorithm);
 #I  **************************************************
 #I  Starting group: <grp> #6;2 #3;2 #3;2 #1;1 #1;1
 #I  Order: 3^10
@@ -45274,7 +45227,6 @@ gap> PqPGConstructDescendants(procId : ClassBound := 7,
 #I  **************************************************
 1
 gap> PqPGSetDescendantToPcp(procId, 7, 1);
-Function call: <func> must return a value
 gap> PqPGExtendAutomorphisms(procId);
 #I  Automorphism 1:
 #I  Generator  1 --> 1 0 0 0 0 0 0 0 0 0 1 0 0 0 
@@ -45382,8 +45334,8 @@ gap> PqPGExtendAutomorphisms(procId);
 #I  Generator 13 --> 0 0 0 0 0 0 0 0 0 0 0 0 2 0 
 #I  Generator 14 --> 0 0 0 0 0 0 0 0 0 0 0 0 0 2 
 gap> PqPGConstructDescendants(procId : ClassBound := 8,
->                                      CapableDescendants,
->                                      BasicAlgorithm);
+>                                   CapableDescendants,
+>                                   BasicAlgorithm);
 #I  **************************************************
 #I  Starting group: <grp> #6;2 #3;2 #3;2 #1;1 #1;1 #1;1
 #I  Order: 3^11
@@ -45393,18 +45345,17 @@ gap> PqPGConstructDescendants(procId : ClassBound := 8,
 #I  # of capable immediate descendants is 1
 #I  **************************************************
 1
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "3gp-Rel-i" . . . based on: examples/3gp
-#I  F, rels, procId are local to `PqExample'
+gap> PqQuitAll();
+gap> ##Example: "3gp-Rel-i" . . . based on: examples/3gp
 gap> F := FreeGroup("a", "b", "c", "d");
 <free group on the generators [ a, b, c, d ]>
 gap> rels := ["(b * c^-1 * d)^-3", "(c * d^-1)^3", 
->             "[b, a] * c", "[c, a]", "[c, b] * d"];
+>          "[b, a] * c", "[c, a]", "[c, b] * d"];
 [ "(b * c^-1 * d)^-3", "(c * d^-1)^3", "[b, a] * c", "[c, a]", "[c, b] * d" ]
 gap> procId := PqStart(F : Prime := 3, Relators := rels);
 1
 gap> PqPcPresentation(procId : ClassBound := 19, 
->                              OutputLevel := 1);
+>                           OutputLevel := 1);
 #I  Lower exponent-3 central series for <grp>
 #I  Group: <grp> to lower exponent-3 central class 1 has order 3^2
 #I  Group: <grp> to lower exponent-3 central class 2 has order 3^4
@@ -45426,9 +45377,7 @@ gap> PqPcPresentation(procId : ClassBound := 19,
 #I  Group: <grp> to lower exponent-3 central class 18 has order 3^21
 #I  Group: <grp> to lower exponent-3 central class 19 has order 3^22
 gap> PqSavePcPresentation(procId, ANUPQData.outfile);
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "3gp-SP-1-Rel-i" . . . based on: isom/3gp.ex1
-#I  F, rels, procId are local to `PqExample'
+gap> ##Example: "3gp-SP-1-Rel-i" . . . based on: isom/3gp.ex1
 gap> F := FreeGroup("x", "y");
 <free group on the generators [ x, y ]>
 gap> rels := ["(x * y * x)^3", "[x, y, y]"];
@@ -45437,26 +45386,24 @@ gap> procId := PqStart(F : Prime := 3, Relators := rels);
 2
 gap> PqSPComputePcpAndPCover(procId : ClassBound := 1);
 gap> PqSPStandardPresentation(procId, [ [[2,0],
->                                        [0,2]],
->    
->                                       [[0,2],
->                                        [1,0]],
->    
->                                       [[1,2],
->                                        [2,2]],
->    
->                                       [[1,0],
->                                        [2,1]],
->    
->                                       [[2,0],
->                                        [0,1]] ]
->    
->                             : # options
->                               ClassBound := 10,
->                               PcgsAutomorphisms);
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "3gp-SP-2-Rel-i" . . . based on: isom/3gp.ex2
-#I  F, rels, procId are local to `PqExample'
+>                                     [0,2]],
+> 
+>                                    [[0,2],
+>                                     [1,0]],
+> 
+>                                    [[1,2],
+>                                     [2,2]],
+> 
+>                                    [[1,0],
+>                                     [2,1]],
+> 
+>                                    [[2,0],
+>                                     [0,1]] ]
+> 
+>                          : # options
+>                            ClassBound := 10,
+>                            PcgsAutomorphisms);
+gap> ##Example: "3gp-SP-2-Rel-i" . . . based on: isom/3gp.ex2
 gap> F := FreeGroup("x", "y");
 <free group on the generators [ x, y ]>
 gap> rels := ["(x * y * x)^3", "[y, x, x]"];
@@ -45465,26 +45412,24 @@ gap> procId := PqStart(F : Prime := 3, Relators := rels);
 3
 gap> PqSPComputePcpAndPCover(procId : ClassBound := 1);
 gap> PqSPStandardPresentation(procId, [ [[2,0],
->                                        [0,2]],
->    
->                                       [[0,2],
->                                        [1,0]],
->    
->                                       [[1,2],
->                                        [2,2]],
->    
->                                       [[1,0],
->                                        [2,1]],
->    
->                                       [[2,0],
->                                        [0,1]] ]
->    
->                             : # options
->                               ClassBound := 9,
->                               PcgsAutomorphisms);
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "3gp-SP-3-Rel-i" . . . based on: isom/3gp.exam
-#I  F, rels, procId are local to `PqExample'
+>                                     [0,2]],
+> 
+>                                    [[0,2],
+>                                     [1,0]],
+> 
+>                                    [[1,2],
+>                                     [2,2]],
+> 
+>                                    [[1,0],
+>                                     [2,1]],
+> 
+>                                    [[2,0],
+>                                     [0,1]] ]
+> 
+>                          : # options
+>                            ClassBound := 9,
+>                            PcgsAutomorphisms);
+gap> ##Example: "3gp-SP-3-Rel-i" . . . based on: isom/3gp.exam
 gap> F := FreeGroup("x", "y");
 <free group on the generators [ x, y ]>
 gap> rels := ["(x * y * x)^3", "[x, y, x]"];
@@ -45493,55 +45438,51 @@ gap> procId := PqStart(F : Prime := 3, Relators := rels);
 4
 gap> PqSPComputePcpAndPCover(procId : ClassBound := 1);
 gap> PqSPStandardPresentation(procId, [ [[2,0],
->                                        [0,2]],
->    
->                                       [[0,2],
->                                        [1,0]],
->    
->                                       [[1,2],
->                                        [2,2]],
->    
->                                       [[1,0],
->                                        [2,1]],
->    
->                                       [[2,0],
->                                        [0,1]] ]
->    
->                             : # options
->                               ClassBound := 6,
->                               PcgsAutomorphisms);
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "3gp-SP-4-Rel-i" . . . based on: isom/3gp.test
-#I  F, rels, procId are local to `PqExample'
+>                                     [0,2]],
+> 
+>                                    [[0,2],
+>                                     [1,0]],
+> 
+>                                    [[1,2],
+>                                     [2,2]],
+> 
+>                                    [[1,0],
+>                                     [2,1]],
+> 
+>                                    [[2,0],
+>                                     [0,1]] ]
+> 
+>                          : # options
+>                            ClassBound := 6,
+>                            PcgsAutomorphisms);
+gap> ##Example: "3gp-SP-4-Rel-i" . . . based on: isom/3gp.test
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> rels := ["(b * [b, a] * [b, a, b])^3", "([b, a] * [b, a, b]^2)^3",
->             "[b, a, a]"];
+>          "[b, a, a]"];
 [ "(b * [b, a] * [b, a, b])^3", "([b, a] * [b, a, b]^2)^3", "[b, a, a]" ]
 gap> procId := PqStart(F : Prime := 3, Relators := rels);
 5
 gap> PqSPComputePcpAndPCover(procId : ClassBound := 1);
 gap> PqSPStandardPresentation(procId, [ [[2,0],
->                                        [0,2]],
->    
->                                       [[0,2],
->                                        [1,0]],
->    
->                                       [[1,2],
->                                        [2,2]],
->    
->                                       [[1,0],
->                                        [2,1]],
->    
->                                       [[2,0],
->                                        [0,1]] ]
->    
->                             : # options
->                               ClassBound := 7,
->                               PcgsAutomorphisms);
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "3gp-SP-Rel-i" . . . based on: isom/3gp
-#I  F, rels, procId are local to `PqExample'
+>                                     [0,2]],
+> 
+>                                    [[0,2],
+>                                     [1,0]],
+> 
+>                                    [[1,2],
+>                                     [2,2]],
+> 
+>                                    [[1,0],
+>                                     [2,1]],
+> 
+>                                    [[2,0],
+>                                     [0,1]] ]
+> 
+>                          : # options
+>                            ClassBound := 7,
+>                            PcgsAutomorphisms);
+gap> ##Example: "3gp-SP-Rel-i" . . . based on: isom/3gp
 gap> F := FreeGroup("x", "y");
 <free group on the generators [ x, y ]>
 gap> rels := ["[x, y, y, y]", "[x, y, x]"];
@@ -45550,33 +45491,31 @@ gap> procId := PqStart(F : Prime := 3, Relators := rels);
 6
 gap> PqSPComputePcpAndPCover(procId : ClassBound := 1);
 gap> PqSPStandardPresentation(procId, [ [[2,0],
->                                        [0,2]],
->    
->                                       [[0,2],
->                                        [1,0]],
->    
->                                       [[1,2],
->                                        [2,2]],
->    
->                                       [[1,0],
->                                        [2,1]],
->    
->                                       [[2,0],
->                                        [0,1]] ]
->    
->                             : # options
->                               ClassBound := 10,
->                               PcgsAutomorphisms);
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "3gp-a-Rel" . . . based on: examples/3gpA
-#I  #(exponent 9 group with 2 generators of order 3)
-#I  F, procId, rels are local to `PqExample'
+>                                     [0,2]],
+> 
+>                                    [[0,2],
+>                                     [1,0]],
+> 
+>                                    [[1,2],
+>                                     [2,2]],
+> 
+>                                    [[1,0],
+>                                     [2,1]],
+> 
+>                                    [[2,0],
+>                                     [0,1]] ]
+> 
+>                          : # options
+>                            ClassBound := 10,
+>                            PcgsAutomorphisms);
+gap> ##Example: "3gp-a-Rel" . . . based on: examples/3gpA
+gap> ##(exponent 9 group with 2 generators of order 3)
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> rels := ["a^3", "b^3"];
 [ "a^3", "b^3" ]
 gap> Pq( F : Prime := 3, Exponent := 9, Relators := rels, ClassBound := 6,
->            OutputLevel := 1 );
+>         OutputLevel := 1 );
 #I  Lower exponent-3 central series for <grp>
 #I  Group: <grp> to lower exponent-3 central class 1 has order 3^2
 #I  Group: <grp> to lower exponent-3 central class 2 has order 3^3
@@ -45585,20 +45524,17 @@ gap> Pq( F : Prime := 3, Exponent := 9, Relators := rels, ClassBound := 6,
 #I  Group: <grp> to lower exponent-3 central class 5 has order 3^9
 #I  Group: <grp> to lower exponent-3 central class 6 has order 3^11
 <pc group of size 177147 with 11 generators>
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  Executing interactive variant of example: "3gp-a-Rel"
-#I  #Example: "3gp-a-Rel" . . . based on: examples/3gpA
-#I  #(exponent 9 group with 2 generators of order 3)
-#I  F, procId, rels are local to `PqExample'
+gap> # Executing interactive variant of example: "3gp-a-Rel"
+gap> ##Example: "3gp-a-Rel" . . . based on: examples/3gpA
+gap> ##(exponent 9 group with 2 generators of order 3)
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> rels := ["a^3", "b^3"];
 [ "a^3", "b^3" ]
 gap> procId := PqStart( F );
 7
-gap> Pq( procId : Prime := 3, Exponent := 9, Relators := rels, ClassBound := 6\
-,
->            OutputLevel := 1 );
+gap> Pq( procId : Prime := 3, Exponent := 9, Relators := rels, ClassBound := 6,
+>         OutputLevel := 1 );
 #I  Lower exponent-3 central series for <grp>
 #I  Group: <grp> to lower exponent-3 central class 1 has order 3^2
 #I  Group: <grp> to lower exponent-3 central class 2 has order 3^3
@@ -45607,10 +45543,8 @@ gap> Pq( procId : Prime := 3, Exponent := 9, Relators := rels, ClassBound := 6\
 #I  Group: <grp> to lower exponent-3 central class 5 has order 3^9
 #I  Group: <grp> to lower exponent-3 central class 6 has order 3^11
 <pc group of size 177147 with 11 generators>
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "3gp-a-Rel-i" . . . based on: examples/3gpA
-#I  #(exponent 9 group with 2 generators of order 3)
-#I  F, rels, procId are local to `PqExample'
+gap> ##Example: "3gp-a-Rel-i" . . . based on: examples/3gpA
+gap> ##(exponent 9 group with 2 generators of order 3)
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> rels := ["a^3", "b^3"];
@@ -45618,7 +45552,7 @@ gap> rels := ["a^3", "b^3"];
 gap> procId := PqStart(F : Prime := 3, Exponent := 9, Relators := rels);
 8
 gap> PqPcPresentation(procId : ClassBound := 12, 
->                              OutputLevel := 1);
+>                           OutputLevel := 1);
 #I  Lower exponent-3 central series for <grp>
 #I  Group: <grp> to lower exponent-3 central class 1 has order 3^2
 #I  Group: <grp> to lower exponent-3 central class 2 has order 3^3
@@ -45633,10 +45567,8 @@ gap> PqPcPresentation(procId : ClassBound := 12,
 #I  Group: <grp> to lower exponent-3 central class 11 has order 3^52
 #I  Group: <grp> to lower exponent-3 central class 12 has order 3^73
 gap> PqSavePcPresentation(procId, ANUPQData.outfile);
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "3gp-a-x-Rel-i" . . . based on: examples/3gpA
-#I  #(exponent 9 group with 2 generators of order 3, extended)
-#I  F, rels, procId are local to `PqExample'
+gap> ##Example: "3gp-a-x-Rel-i" . . . based on: examples/3gpA
+gap> ##(exponent 9 group with 2 generators of order 3, extended)
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> rels := ["a^3", "b^3"];
@@ -45644,7 +45576,7 @@ gap> rels := ["a^3", "b^3"];
 gap> procId := PqStart(F : Prime := 3, Exponent := 9, Relators := rels);
 9
 gap> PqPcPresentation(procId : ClassBound := 4, 
->                              OutputLevel := 1);
+>                           OutputLevel := 1);
 #I  Lower exponent-3 central series for <grp>
 #I  Group: <grp> to lower exponent-3 central class 1 has order 3^2
 #I  Group: <grp> to lower exponent-3 central class 2 has order 3^3
@@ -45734,10 +45666,8 @@ gap> PqDisplayPcPresentation(procId : OutputLevel := 2);
 #I  [ .8, .2 ] = .10
 #I  [ .9, .1 ] = .11
 gap> PqSavePcPresentation(procId, ANUPQData.outfile);
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "3gp-maxoccur-Rel-i" . . . based on: examples/maxoccur
-#I  #Demonstrates usage of `PqSetMaximalOccurrences'.
-#I  F, rels, procId, class are local to `PqExample'
+gap> ##Example: "3gp-maxoccur-Rel-i" . . . based on: examples/maxoccur
+gap> ##Demonstrates usage of `PqSetMaximalOccurrences'.
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> rels := ["a^3", "b^3"];
@@ -45745,13 +45675,13 @@ gap> rels := ["a^3", "b^3"];
 gap> procId := PqStart(F : Prime := 3, Relators := rels);
 10
 gap> PqPcPresentation(procId : ClassBound := 1, 
->                              OutputLevel := 1);
+>                           OutputLevel := 1);
 #I  Lower exponent-3 central series for <grp>
 #I  Group: <grp> to lower exponent-3 central class 1 has order 3^2
 gap> PqSetMaximalOccurrences(procId, [6, 4]);
 gap> for class in [2 .. 9] do
->      PqNextClass(procId);
->    od;
+>   PqNextClass(procId);
+> od;
 #I  Group: <grp> to lower exponent-3 central class 2 has order 3^3
 #I  Group: <grp> to lower exponent-3 central class 3 has order 3^5
 #I  Group: <grp> to lower exponent-3 central class 4 has order 3^7
@@ -45761,28 +45691,27 @@ gap> for class in [2 .. 9] do
 #I  Group: <grp> to lower exponent-3 central class 8 has order 3^29
 #I  Group: <grp> to lower exponent-3 central class 9 has order 3^35
 gap> PqSavePcPresentation(procId, ANUPQData.outfile);
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "5gp-PG-i" . . . based on: examples/pga_5gp
-#I  #Descendants of C5 x C5
-#I  F, procId are local to `PqExample'
+gap> PqQuitAll();
+gap> ##Example: "5gp-PG-i" . . . based on: examples/pga_5gp
+gap> ##Descendants of C5 x C5
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> procId := PqStart(F : Prime := 5);
 1
 gap> PqPcPresentation(procId : ClassBound := 1, 
->                              OutputLevel := 1);
+>                           OutputLevel := 1);
 #I  Lower exponent-5 central series for <grp>
 #I  Group: <grp> to lower exponent-5 central class 1 has order 5^2
 gap> PqComputePCover(procId);
 #I  Group: <grp> to lower exponent-5 central class 2 has order 5^5
 gap> PqPGSupplyAutomorphisms(procId, [ [[2,0],
->                                       [0,1]],
->    
->                                      [[4,1],
->                                       [4,0]] ]);
+>                                    [0,1]],
+> 
+>                                   [[4,1],
+>                                    [4,0]] ]);
 gap> PqPGConstructDescendants(procId : ClassBound := 2,
->                                      StepSize := 2,
->                                      RankInitialSegmentSubgroups := 4);
+>                                   StepSize := 2,
+>                                   RankInitialSegmentSubgroups := 4);
 #I  **************************************************
 #I  Starting group: <grp>
 #I  Order: 5^2
@@ -45791,9 +45720,8 @@ gap> PqPGConstructDescendants(procId : ClassBound := 2,
 #I  # of immediate descendants of order 5^3 is 3
 #I  # of capable immediate descendants is 2
 #I  **************************************************
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "5gp-Rel-i" . . . based on: examples/5gp
-#I  F, rels, procId are local to `PqExample'
+3
+gap> ##Example: "5gp-Rel-i" . . . based on: examples/5gp
 gap> F := FreeGroup("a", "b", "c");
 <free group on the generators [ a, b, c ]>
 gap> rels := ["a^25 * c", "[a,  b] * c^-4", "[a, c]^25"];
@@ -45801,7 +45729,7 @@ gap> rels := ["a^25 * c", "[a,  b] * c^-4", "[a, c]^25"];
 gap> procId := PqStart(F : Prime := 5, Relators := rels);
 2
 gap> PqPcPresentation(procId : ClassBound := 27, 
->                              OutputLevel := 1);
+>                           OutputLevel := 1);
 #I  Lower exponent-5 central series for <grp>
 #I  Group: <grp> to lower exponent-5 central class 1 has order 5^2
 #I  Group: <grp> to lower exponent-5 central class 2 has order 5^4
@@ -45831,9 +45759,7 @@ gap> PqPcPresentation(procId : ClassBound := 27,
 #I  Group: <grp> to lower exponent-5 central class 26 has order 5^52
 #I  Group: <grp> to lower exponent-5 central class 27 has order 5^54
 gap> PqSavePcPresentation(procId, ANUPQData.outfile);
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "5gp-SP-Rel-i" . . . based on: isom/5gp
-#I  F, rels, procId are local to `PqExample'
+gap> ##Example: "5gp-SP-Rel-i" . . . based on: isom/5gp
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> rels := ["a^25", "[b, a, a, a]", "b^5*[b, a, a]^-1"];
@@ -45842,32 +45768,30 @@ gap> procId := PqStart(F : Prime := 5, Relators := rels);
 3
 gap> PqSPComputePcpAndPCover(procId : ClassBound := 2);
 gap> PqSPStandardPresentation(procId, [ [[1,0,0,1],
->                                        [0,1,0,0]],
->    
->                                       [[1,0,0,0],
->                                        [0,1,0,1]],
->    
->                                       [[1,3,0,0],
->                                        [0,1,0,0]],
->    
->                                       [[1,3,0,0],
->                                        [0,4,0,0]],
->    
->                                       [[1,2,0,0],
->                                        [0,3,0,0]],
->    
->                                       [[4,0,0,0],
->                                        [0,1,0,0]],
->    
->                                       [[3,0,0,0],
->                                        [0,1,0,0]] ]
->    
->                             : # options
->                               ClassBound := 10,
->                               PcgsAutomorphisms);
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "5gp-SP-a-Rel-i" . . . based on: isom/5gp_a
-#I  F, rels, procId are local to `PqExample'
+>                                     [0,1,0,0]],
+> 
+>                                    [[1,0,0,0],
+>                                     [0,1,0,1]],
+> 
+>                                    [[1,3,0,0],
+>                                     [0,1,0,0]],
+> 
+>                                    [[1,3,0,0],
+>                                     [0,4,0,0]],
+> 
+>                                    [[1,2,0,0],
+>                                     [0,3,0,0]],
+> 
+>                                    [[4,0,0,0],
+>                                     [0,1,0,0]],
+> 
+>                                    [[3,0,0,0],
+>                                     [0,1,0,0]] ]
+> 
+>                          : # options
+>                            ClassBound := 10,
+>                            PcgsAutomorphisms);
+gap> ##Example: "5gp-SP-a-Rel-i" . . . based on: isom/5gp_a
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> rels := ["a^25", "[b, a, a]", "[b, a, b, b, b, b]", "b^5"];
@@ -45876,68 +45800,64 @@ gap> procId := PqStart(F : Prime := 5, Relators := rels);
 4
 gap> PqSPComputePcpAndPCover(procId : ClassBound := 2);
 gap> PqSPStandardPresentation(procId, [ [[1,0,0,1],
->                                        [0,1,0,0]],
->    
->                                       [[1,0,0,0],
->                                        [0,1,0,1]],
->    
->                                       [[1,3,0,0],
->                                        [0,1,0,0]],
->    
->                                       [[1,3,0,0],
->                                        [0,4,0,0]],
->    
->                                       [[1,2,0,0],
->                                        [0,3,0,0]],
->    
->                                       [[4,0,0,0],
->                                        [0,1,0,0]],
->    
->                                       [[3,0,0,0],
->                                        [0,1,0,0]] ]
->    
->                             : # options
->                               ClassBound := 27,
->                               PcgsAutomorphisms);
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "5gp-SP-b-Rel-i" . . . based on: isom/5gp_b
-#I  F, rels, procId are local to `PqExample'
+>                                     [0,1,0,0]],
+> 
+>                                    [[1,0,0,0],
+>                                     [0,1,0,1]],
+> 
+>                                    [[1,3,0,0],
+>                                     [0,1,0,0]],
+> 
+>                                    [[1,3,0,0],
+>                                     [0,4,0,0]],
+> 
+>                                    [[1,2,0,0],
+>                                     [0,3,0,0]],
+> 
+>                                    [[4,0,0,0],
+>                                     [0,1,0,0]],
+> 
+>                                    [[3,0,0,0],
+>                                     [0,1,0,0]] ]
+> 
+>                          : # options
+>                            ClassBound := 27,
+>                            PcgsAutomorphisms);
+gap> ##Example: "5gp-SP-b-Rel-i" . . . based on: isom/5gp_b
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> rels := ["a^25", "[b, a, a]", "[b, a, a, a, a, a, b]",
->             "[b, a, b, b, b, b]", "b^5 * [b, a, a]^-1"];
+>          "[b, a, b, b, b, b]", "b^5 * [b, a, a]^-1"];
 [ "a^25", "[b, a, a]", "[b, a, a, a, a, a, b]", "[b, a, b, b, b, b]", 
   "b^5 * [b, a, a]^-1" ]
 gap> procId := PqStart(F : Prime := 5, Relators := rels);
 5
 gap> PqSPComputePcpAndPCover(procId : ClassBound := 2);
 gap> PqSPStandardPresentation(procId, [ [[1,0,0,1],
->                                        [0,1,0,0]],
->    
->                                       [[1,0,0,0],
->                                        [0,1,0,1]],
->    
->                                       [[1,3,0,0],
->                                        [0,1,0,0]],
->    
->                                       [[1,3,0,0],
->                                        [0,4,0,0]],
->    
->                                       [[1,2,0,0],
->                                        [0,3,0,0]],
->    
->                                       [[4,0,0,0],
->                                        [0,1,0,0]],
->    
->                                       [[3,0,0,0],
->                                        [0,1,0,0]] ]
->    
->                             : # options
->                               ClassBound := 27,
->                               PcgsAutomorphisms);
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "5gp-SP-big-Rel-i" . . . based on: isom/large_5gp
-#I  F, rels, procId are local to `PqExample'
+>                                     [0,1,0,0]],
+> 
+>                                    [[1,0,0,0],
+>                                     [0,1,0,1]],
+> 
+>                                    [[1,3,0,0],
+>                                     [0,1,0,0]],
+> 
+>                                    [[1,3,0,0],
+>                                     [0,4,0,0]],
+> 
+>                                    [[1,2,0,0],
+>                                     [0,3,0,0]],
+> 
+>                                    [[4,0,0,0],
+>                                     [0,1,0,0]],
+> 
+>                                    [[3,0,0,0],
+>                                     [0,1,0,0]] ]
+> 
+>                          : # options
+>                            ClassBound := 27,
+>                            PcgsAutomorphisms);
+gap> ##Example: "5gp-SP-big-Rel-i" . . . based on: isom/large_5gp
 gap> F := FreeGroup("a", "b", "c", "d");
 <free group on the generators [ a, b, c, d ]>
 gap> rels := ["a * b^d", "c * d^a", "[c, a, a]", "[c, b, b, a]"];
@@ -45946,61 +45866,56 @@ gap> procId := PqStart(F : Prime := 5, Relators := rels);
 6
 gap> PqSPComputePcpAndPCover(procId : ClassBound := 1);
 gap> PqSPStandardPresentation(procId, [ [[4,1],
->                                        [4,0]],
->    
->                                       [[2,0],
->                                        [0,1]] ]
->    
->                             : # options
->                               ClassBound := 5);
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "5gp-SP-d-Rel-i" . . . based on: isom/5gp_d
-#I  F, rels, procId are local to `PqExample'
+>                                     [4,0]],
+> 
+>                                    [[2,0],
+>                                     [0,1]] ]
+> 
+>                          : # options
+>                            ClassBound := 5);
+gap> ##Example: "5gp-SP-d-Rel-i" . . . based on: isom/5gp_d
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> rels := ["a^25", "[b, a, a, a, b]", "[b, a, b, b, b]",
->             "[b, a, b, a]", "b^5 * [a, b, a]^-1"];
+>          "[b, a, b, a]", "b^5 * [a, b, a]^-1"];
 [ "a^25", "[b, a, a, a, b]", "[b, a, b, b, b]", "[b, a, b, a]", 
   "b^5 * [a, b, a]^-1" ]
 gap> procId := PqStart(F : Prime := 5, Relators := rels);
 7
 gap> PqSPComputePcpAndPCover(procId : ClassBound := 2);
 gap> PqSPStandardPresentation(procId, [ [[1,0,0,1],
->                                        [0,1,0,0]],
->    
->                                       [[1,0,0,0],
->                                        [0,1,0,1]],
->    
->                                       [[1,3,0,0],
->                                        [0,1,0,0]],
->    
->                                       [[1,3,0,0],
->                                        [0,4,0,0]],
->    
->                                       [[1,2,0,0],
->                                        [0,3,0,0]],
->    
->                                       [[4,0,0,0],
->                                        [0,1,0,0]],
->    
->                                       [[3,0,0,0],
->                                        [0,1,0,0]] ]
->    
->                             : # options
->                               ClassBound := 20,
->                               PcgsAutomorphisms);
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "5gp-a-Rel-i" . . . based on: examples/5gpA
-#I  F, rels, procId are local to `PqExample'
+>                                     [0,1,0,0]],
+> 
+>                                    [[1,0,0,0],
+>                                     [0,1,0,1]],
+> 
+>                                    [[1,3,0,0],
+>                                     [0,1,0,0]],
+> 
+>                                    [[1,3,0,0],
+>                                     [0,4,0,0]],
+> 
+>                                    [[1,2,0,0],
+>                                     [0,3,0,0]],
+> 
+>                                    [[4,0,0,0],
+>                                     [0,1,0,0]],
+> 
+>                                    [[3,0,0,0],
+>                                     [0,1,0,0]] ]
+> 
+>                          : # options
+>                            ClassBound := 20,
+>                            PcgsAutomorphisms);
+gap> ##Example: "5gp-a-Rel-i" . . . based on: examples/5gpA
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> rels := ["a^5", "b^5", "(a * b)^5", "(a * b^2)^5", "(a * b^-2)^5",
->             "(a * b^-1)^5", "(a^2 * b)^5", "(a^2 * b^2)^5", "(a^2 * b^-2)^5"\
-,
->             "(a^2 * b^-1)^5", "(a * b * a^-1 * b^2)^5", 
->             "(a * b * a^2 * b^-1)^5", "(a * b * a^2 * b^2)^5",
->             "(a * b * a * b^-1)^5", "(a * b * a^-1 * b)^5",
->             "(a * b * a^-1 * b^-1)^5"];
+>          "(a * b^-1)^5", "(a^2 * b)^5", "(a^2 * b^2)^5", "(a^2 * b^-2)^5",
+>          "(a^2 * b^-1)^5", "(a * b * a^-1 * b^2)^5", 
+>          "(a * b * a^2 * b^-1)^5", "(a * b * a^2 * b^2)^5",
+>          "(a * b * a * b^-1)^5", "(a * b * a^-1 * b)^5",
+>          "(a * b * a^-1 * b^-1)^5"];
 [ "a^5", "b^5", "(a * b)^5", "(a * b^2)^5", "(a * b^-2)^5", "(a * b^-1)^5", 
   "(a^2 * b)^5", "(a^2 * b^2)^5", "(a^2 * b^-2)^5", "(a^2 * b^-1)^5", 
   "(a * b * a^-1 * b^2)^5", "(a * b * a^2 * b^-1)^5", "(a * b * a^2 * b^2)^5",
@@ -46008,7 +45923,7 @@ gap> rels := ["a^5", "b^5", "(a * b)^5", "(a * b^2)^5", "(a * b^-2)^5",
 gap> procId := PqStart(F : Prime := 5, Relators := rels);
 8
 gap> PqPcPresentation(procId : ClassBound := 5, 
->                              OutputLevel := 1);
+>                           OutputLevel := 1);
 #I  Lower exponent-5 central series for <grp>
 #I  Group: <grp> to lower exponent-5 central class 1 has order 5^2
 #I  Group: <grp> to lower exponent-5 central class 2 has order 5^3
@@ -46026,9 +45941,7 @@ gap> PqNextClass(procId); #class 9
 gap> PqNextClass(procId); #class 10
 #I  Group: <grp> to lower exponent-5 central class 10 has order 5^39
 gap> PqSavePcPresentation(procId, ANUPQData.outfile);
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "5gp-b-Rel-i" . . . based on: examples/5gpB
-#I  F, rels, procId are local to `PqExample'
+gap> ##Example: "5gp-b-Rel-i" . . . based on: examples/5gpB
 gap> F := FreeGroup("x", "y", "z", "w");
 <free group on the generators [ x, y, z, w ]>
 gap> rels := ["x^25 * (x^z)^-1", "[x, y] * z^-1", "[x, z]"];
@@ -46036,32 +45949,29 @@ gap> rels := ["x^25 * (x^z)^-1", "[x, y] * z^-1", "[x, z]"];
 gap> procId := PqStart(F : Prime := 5, Relators := rels);
 9
 gap> PqPcPresentation(procId : ClassBound := 5, 
->                              OutputLevel := 1);
+>                           OutputLevel := 1);
 #I  Lower exponent-5 central series for <grp>
 #I  Group: <grp> to lower exponent-5 central class 1 has order 5^2
 #I  Group: <grp> to lower exponent-5 central class 2 has order 5^5
 #I  Group: <grp> to lower exponent-5 central class 3 has order 5^10
 #I  Group: <grp> to lower exponent-5 central class 4 has order 5^18
 #I  Group: <grp> to lower exponent-5 central class 5 has order 5^32
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "5gp-c-Rel-i" . . . based on: examples/keyword_5gp
-#I  F, rels, procId are local to `PqExample'
+gap> ##Example: "5gp-c-Rel-i" . . . based on: examples/keyword_5gp
 gap> F := FreeGroup("a", "b", "c", "d");
 <free group on the generators [ a, b, c, d ]>
 gap> rels := ["[a, b, b, c]", "(a * b * c^d * a)^25", 
->             "(a * b)^25 * [a, c, c, d]^-2"];
+>          "(a * b)^25 * [a, c, c, d]^-2"];
 [ "[a, b, b, c]", "(a * b * c^d * a)^25", "(a * b)^25 * [a, c, c, d]^-2" ]
 gap> procId := PqStart(F : Prime := 5, Relators := rels);
 10
 gap> PqPcPresentation(procId : ClassBound := 2, 
->                              OutputLevel := 1);
+>                           OutputLevel := 1);
 #I  Lower exponent-5 central series for <grp>
 #I  Group: <grp> to lower exponent-5 central class 1 has order 5^4
 #I  Group: <grp> to lower exponent-5 central class 2 has order 5^14
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "5gp-maxoccur-Rel-i" . . . based on: GrpFP_2_pQuotient6
-#I  #Demonstrates usage of `PqSetMaximalOccurrences'.
-#I  F, rels, procId, class are local to `PqExample'
+gap> PqQuitAll();
+gap> ##Example: "5gp-maxoccur-Rel-i" . . . based on: GrpFP_2_pQuotient6
+gap> ##Demonstrates usage of `PqSetMaximalOccurrences'.
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> rels := ["a^5", "b^5"];
@@ -46069,13 +45979,13 @@ gap> rels := ["a^5", "b^5"];
 gap> procId := PqStart(F : Prime := 5, Relators := rels);
 1
 gap> PqPcPresentation(procId : ClassBound := 1, 
->                              OutputLevel := 1);
+>                           OutputLevel := 1);
 #I  Lower exponent-5 central series for <grp>
 #I  Group: <grp> to lower exponent-5 central class 1 has order 5^2
 gap> PqSetMaximalOccurrences(procId, [3, 2]);
 gap> for class in [2 .. 6] do
->      PqNextClass(procId);
->    od;
+>   PqNextClass(procId);
+> od;
 #I  Group: <grp> to lower exponent-5 central class 2 has order 5^3
 #I  Group: <grp> to lower exponent-5 central class 3 has order 5^5
 #I  Group: <grp> to lower exponent-5 central class 4 has order 5^7
@@ -46085,17 +45995,15 @@ gap> for class in [2 .. 6] do
 gap> PqDisplayPcPresentation(procId);
 #I  Group: <grp> to lower exponent-5 central class 5 has order 5^9
 gap> PqSavePcPresentation(procId, ANUPQData.outfile);
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "5gp-metabelian-Rel" . . . based on: examples/metabelian
-#I  #Construction of a metabelian 5-quotient
-#I  F, procId, rels are local to `PqExample'
+gap> ##Example: "5gp-metabelian-Rel" . . . based on: examples/metabelian
+gap> ##Construction of a metabelian 5-quotient
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> rels := [ "a^625", "b^625", "[b, a, b]", 
->              "[b, a, a, a, a] * [b, a]^-5" ];
+>           "[b, a, a, a, a] * [b, a]^-5" ];
 [ "a^625", "b^625", "[b, a, b]", "[b, a, a, a, a] * [b, a]^-5" ]
 gap> Pq( F : Prime := 5, ClassBound := 20, Metabelian, Relators := rels, 
->            OutputLevel := 1 );
+>         OutputLevel := 1 );
 #I  Lower exponent-5 central series for <grp>
 #I  Group: <grp> to lower exponent-5 central class 1 has order 5^2
 #I  Group: <grp> to lower exponent-5 central class 2 has order 5^5
@@ -46112,20 +46020,18 @@ gap> Pq( F : Prime := 5, ClassBound := 20, Metabelian, Relators := rels,
 #I  Group: <grp> to lower exponent-5 central class 13 has order 5^20
 #I  Group completed. Lower exponent-5 central class = 13, Order = 5^20
 <pc group of size 95367431640625 with 20 generators>
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  Executing interactive variant of example: "5gp-metabelian-Rel"
-#I  #Example: "5gp-metabelian-Rel" . . . based on: examples/metabelian
-#I  #Construction of a metabelian 5-quotient
-#I  F, procId, rels are local to `PqExample'
+gap> # Executing interactive variant of example: "5gp-metabelian-Rel"
+gap> ##Example: "5gp-metabelian-Rel" . . . based on: examples/metabelian
+gap> ##Construction of a metabelian 5-quotient
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> rels := [ "a^625", "b^625", "[b, a, b]", 
->              "[b, a, a, a, a] * [b, a]^-5" ];
+>           "[b, a, a, a, a] * [b, a]^-5" ];
 [ "a^625", "b^625", "[b, a, b]", "[b, a, a, a, a] * [b, a]^-5" ]
 gap> procId := PqStart( F );
 2
 gap> Pq( procId : Prime := 5, ClassBound := 20, Metabelian, Relators := rels, 
->            OutputLevel := 1 );
+>         OutputLevel := 1 );
 #I  Lower exponent-5 central series for <grp>
 #I  Group: <grp> to lower exponent-5 central class 1 has order 5^2
 #I  Group: <grp> to lower exponent-5 central class 2 has order 5^5
@@ -46142,10 +46048,8 @@ gap> Pq( procId : Prime := 5, ClassBound := 20, Metabelian, Relators := rels,
 #I  Group: <grp> to lower exponent-5 central class 13 has order 5^20
 #I  Group completed. Lower exponent-5 central class = 13, Order = 5^20
 <pc group of size 95367431640625 with 20 generators>
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "5gp-metabelian-Rel-i" . . . based on: examples/metabelian
-#I  #Demonstrates usage of `PqSetMetabelian'.
-#I  F, rels, procId, class are local to `PqExample'
+gap> ##Example: "5gp-metabelian-Rel-i" . . . based on: examples/metabelian
+gap> ##Demonstrates usage of `PqSetMetabelian'.
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> rels := ["a^625", "b^625", "[b, a, b]", "[b, a, a, a, a] * [b, a]^-5"];
@@ -46153,14 +46057,13 @@ gap> rels := ["a^625", "b^625", "[b, a, b]", "[b, a, a, a, a] * [b, a]^-5"];
 gap> procId := PqStart(F : Prime := 5, Relators := rels);
 3
 gap> PqPcPresentation(procId : ClassBound := 1, 
->                              OutputLevel := 1);
+>                           OutputLevel := 1);
 #I  Lower exponent-5 central series for <grp>
 #I  Group: <grp> to lower exponent-5 central class 1 has order 5^2
 gap> PqSetMetabelian(procId);
-Function call: <func> must return a value
 gap> for class in [2 .. 14] do
->      PqNextClass(procId);
->    od;
+>   PqNextClass(procId);
+> od;
 #I  Group: <grp> to lower exponent-5 central class 2 has order 5^5
 #I  Group: <grp> to lower exponent-5 central class 3 has order 5^8
 #I  Group: <grp> to lower exponent-5 central class 4 has order 5^11
@@ -46176,28 +46079,26 @@ gap> for class in [2 .. 14] do
 #I  Group completed. Lower exponent-5 central class = 13, Order = 5^20
 #I  Group: <grp> to lower exponent-5 central class 13 has order 5^20
 gap> PqSavePcPresentation(procId, ANUPQData.outfile);
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "7gp-PG-i" . . . based on: examples/pga_7gp
-#I  #Descendants of C7 x C7
-#I  F, procId are local to `PqExample'
+gap> ##Example: "7gp-PG-i" . . . based on: examples/pga_7gp
+gap> ##Descendants of C7 x C7
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> procId := PqStart(F : Prime := 7);
 4
 gap> PqPcPresentation(procId : ClassBound := 1, 
->                              OutputLevel := 1);
+>                           OutputLevel := 1);
 #I  Lower exponent-7 central series for <grp>
 #I  Group: <grp> to lower exponent-7 central class 1 has order 7^2
 gap> PqComputePCover(procId);
 #I  Group: <grp> to lower exponent-7 central class 2 has order 7^5
 gap> PqPGSupplyAutomorphisms(procId, [ [[3,0],
->                                       [0,1]],
->    
->                                      [[6,1],
->                                       [6,0]] ]);
+>                                    [0,1]],
+> 
+>                                   [[6,1],
+>                                    [6,0]] ]);
 gap> PqPGConstructDescendants(procId : ClassBound := 2,
->                                      CapableDescendants,
->                                      StepSize := 1);
+>                                   CapableDescendants,
+>                                   StepSize := 1);
 #I  **************************************************
 #I  Starting group: <grp>
 #I  Order: 7^2
@@ -46206,9 +46107,8 @@ gap> PqPGConstructDescendants(procId : ClassBound := 2,
 #I  # of immediate descendants of order 7^3 is 3
 #I  # of capable immediate descendants is 2
 #I  **************************************************
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "7gp-Rel-i" . . . based on: examples/7gp
-#I  F, rels, procId are local to `PqExample'
+2
+gap> ##Example: "7gp-Rel-i" . . . based on: examples/7gp
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> rels := ["[b, a, a, b, b]^49", "(a * b * b * a * b * a)^49", "b^7"];
@@ -46216,7 +46116,7 @@ gap> rels := ["[b, a, a, b, b]^49", "(a * b * b * a * b * a)^49", "b^7"];
 gap> procId := PqStart(F : Prime := 7, Relators := rels);
 5
 gap> PqPcPresentation(procId : ClassBound := 10, 
->                              OutputLevel := 1);
+>                           OutputLevel := 1);
 #I  Lower exponent-7 central series for <grp>
 #I  Group: <grp> to lower exponent-7 central class 1 has order 7^2
 #I  Group: <grp> to lower exponent-7 central class 2 has order 7^4
@@ -46229,9 +46129,7 @@ gap> PqPcPresentation(procId : ClassBound := 10,
 #I  Group: <grp> to lower exponent-7 central class 9 has order 7^128
 #I  Group: <grp> to lower exponent-7 central class 10 has order 7^226
 gap> PqSavePcPresentation(procId, ANUPQData.outfile);
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "7gp-SP-Rel-i" . . . based on: isom/7gp.com
-#I  F, rels, procId are local to `PqExample'
+gap> ##Example: "7gp-SP-Rel-i" . . . based on: isom/7gp.com
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> rels := ["a^7", "b^7 * [b, a, a]^-1", "[b, a, b, b, b, b, b]"];
@@ -46240,65 +46138,61 @@ gap> procId := PqStart(F : Prime := 7, Relators := rels);
 6
 gap> PqSPComputePcpAndPCover(procId : ClassBound := 3);
 gap> PqSPStandardPresentation(procId, [ [[1,0,0,0,1],
->                                        [0,1,0,0,0]],
->    
->                                       [[1,0,0,0,0],
->                                        [0,1,0,0,1]],
->    
->                                       [[1,0,0,0,0],
->                                        [0,1,0,0,1]],
->    
->                                       [[1,0,0,0,0],
->                                        [6,1,0,0,0]],
->    
->                                       [[6,0,0,0,0],
->                                        [2,1,0,0,0]],
->    
->                                       [[6,0,0,0,0],
->                                        [0,6,0,0,0]],
->    
->                                       [[6,0,0,0,0],
->                                        [4,5,0,0,0]] ]
->    
->                             : # options
->                               ClassBound := 10,
->                               PcgsAutomorphisms);
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "7gp-SP-a-Rel-i" . . . based on: isom/7gp_a
-#I  F, rels, procId are local to `PqExample'
+>                                     [0,1,0,0,0]],
+> 
+>                                    [[1,0,0,0,0],
+>                                     [0,1,0,0,1]],
+> 
+>                                    [[1,0,0,0,0],
+>                                     [0,1,0,0,1]],
+> 
+>                                    [[1,0,0,0,0],
+>                                     [6,1,0,0,0]],
+> 
+>                                    [[6,0,0,0,0],
+>                                     [2,1,0,0,0]],
+> 
+>                                    [[6,0,0,0,0],
+>                                     [0,6,0,0,0]],
+> 
+>                                    [[6,0,0,0,0],
+>                                     [4,5,0,0,0]] ]
+> 
+>                          : # options
+>                            ClassBound := 10,
+>                            PcgsAutomorphisms);
+gap> ##Example: "7gp-SP-a-Rel-i" . . . based on: isom/7gp_a
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> rels := ["b^7", "a^7 * [b, a, b]^-1", "(a * b * [b, a, b] )^7",
->             "[b, a, a, a, a, b, a]"];
+>          "[b, a, a, a, a, b, a]"];
 [ "b^7", "a^7 * [b, a, b]^-1", "(a * b * [b, a, b] )^7", 
   "[b, a, a, a, a, b, a]" ]
 gap> procId := PqStart(F : Prime := 7, Relators := rels);
 7
 gap> PqSPComputePcpAndPCover(procId : ClassBound := 3);
 gap> PqSPStandardPresentation(procId, [ [[1,0,0,0],
->                                        [0,1,0,1]],
->    
->                                       [[1,3,0,0],
->                                        [0,1,0,0]],
->    
->                                       [[6,0,0,0],
->                                        [0,1,0,0]],
->    
->                                       [[3,0,0,0],
->                                        [0,1,0,0]],
->    
->                                       [[1,2,0,0],
->                                        [0,1,0,0]],
->    
->                                       [[1,4,0,0],
->                                        [0,4,0,0]] ]
->    
->                             : # options
->                               ClassBound := 20,
->                               PcgsAutomorphisms);
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "7gp-SP-b-Rel-i" . . . based on: isom/7gp_b
-#I  F, rels, procId are local to `PqExample'
+>                                     [0,1,0,1]],
+> 
+>                                    [[1,3,0,0],
+>                                     [0,1,0,0]],
+> 
+>                                    [[6,0,0,0],
+>                                     [0,1,0,0]],
+> 
+>                                    [[3,0,0,0],
+>                                     [0,1,0,0]],
+> 
+>                                    [[1,2,0,0],
+>                                     [0,1,0,0]],
+> 
+>                                    [[1,4,0,0],
+>                                     [0,4,0,0]] ]
+> 
+>                          : # options
+>                            ClassBound := 20,
+>                            PcgsAutomorphisms);
+gap> ##Example: "7gp-SP-b-Rel-i" . . . based on: isom/7gp_b
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> rels := ["b^7 * [b, a, a]^-1", "[b, a, b]"];
@@ -46307,54 +46201,48 @@ gap> procId := PqStart(F : Prime := 7, Relators := rels);
 8
 gap> PqSPComputePcpAndPCover(procId : ClassBound := 2);
 gap> PqSPStandardPresentation(procId, [ [[1,0,0,1],
->                                        [0,1,0,0]],
->    
->                                       [[1,0,0,0],
->                                        [0,1,0,1]],
->    
->                                       [[1,3,0,0],
->                                        [0,1,0,0]],
->    
->                                       [[6,0,0,0],
->                                        [0,1,0,0]],
->    
->                                       [[3,0,0,0],
->                                        [0,1,0,0]],
->    
->                                       [[1,2,0,0],
->                                        [0,6,0,0]],
->    
->                                       [[1,4,0,0],
->                                        [0,4,0,0]] ]
->    
->                             : # options
->                               ClassBound := 40,
->                               PcgsAutomorphisms);
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "B2-4" . . . the ``right'' way to generate B(2, 4)
-#I  #Generates B(2, 4) by using the `Exponent' option
-#I  F, procId are local to `PqExample'
+>                                     [0,1,0,0]],
+> 
+>                                    [[1,0,0,0],
+>                                     [0,1,0,1]],
+> 
+>                                    [[1,3,0,0],
+>                                     [0,1,0,0]],
+> 
+>                                    [[6,0,0,0],
+>                                     [0,1,0,0]],
+> 
+>                                    [[3,0,0,0],
+>                                     [0,1,0,0]],
+> 
+>                                    [[1,2,0,0],
+>                                     [0,6,0,0]],
+> 
+>                                    [[1,4,0,0],
+>                                     [0,4,0,0]] ]
+> 
+>                          : # options
+>                            ClassBound := 40,
+>                            PcgsAutomorphisms);
+gap> ##Example: "B2-4" . . . the ``right'' way to generate B(2, 4)
+gap> ##Generates B(2, 4) by using the `Exponent' option
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> Pq( F : Prime := 2, Exponent := 4 );
 <pc group of size 4096 with 12 generators>
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  Executing interactive variant of example: "B2-4"
-#I  #Example: "B2-4" . . . the ``right'' way to generate B(2, 4)
-#I  #Generates B(2, 4) by using the `Exponent' option
-#I  F, procId are local to `PqExample'
+gap> # Executing interactive variant of example: "B2-4"
+gap> ##Example: "B2-4" . . . the ``right'' way to generate B(2, 4)
+gap> ##Generates B(2, 4) by using the `Exponent' option
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> procId := PqStart( F );
 9
 gap> Pq( procId : Prime := 2, Exponent := 4 );
 <pc group of size 4096 with 12 generators>
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "B2-4-Id" . alternative way to generate B(2, 4) by Werner Nickel
-#I  #Generates B(2, 4) by using the `Identities' option
-#I  #... this is not as efficient as using `Exponent' but
-#I  #demonstrates the usage of the `Identities' option.
-#I  F, f, procId are local to `PqExample'
+gap> ##Example: "B2-4-Id" . . . alternative way to generate B(2, 4)
+gap> ##Generates B(2, 4) by using the `Identities' option
+gap> ##... this is not as efficient as using `Exponent' but
+gap> ##demonstrates the usage of the `Identities' option.
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> # All words w in the pc generators of B(2, 4) satisfy f(w) = 1 
@@ -46374,13 +46262,11 @@ gap> Pq( F : Prime := 2, Identities := [ f ] );
 #I  Evaluated 192 instances.
 #I  Class 5 with 12 generators.
 <pc group of size 4096 with 12 generators>
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  Executing interactive variant of example: "B2-4-Id"
-#I  #Example: "B2-4-Id" . alternative way to generate B(2, 4) by Werner Nickel
-#I  #Generates B(2, 4) by using the `Identities' option
-#I  #... this is not as efficient as using `Exponent' but
-#I  #demonstrates the usage of the `Identities' option.
-#I  F, f, procId are local to `PqExample'
+gap> # Executing interactive variant of example: "B2-4-Id"
+gap> ##Example: "B2-4-Id" . . . alternative way to generate B(2, 4)
+gap> ##Generates B(2, 4) by using the `Identities' option
+gap> ##... this is not as efficient as using `Exponent' but
+gap> ##demonstrates the usage of the `Identities' option.
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> # All words w in the pc generators of B(2, 4) satisfy f(w) = 1 
@@ -46402,10 +46288,9 @@ gap> Pq( procId : Prime := 2, Identities := [ f ] );
 #I  Evaluated 192 instances.
 #I  Class 5 with 12 generators.
 <pc group of size 4096 with 12 generators>
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "B2-4-SP-i" . . . based on: isom/B2-4.com
-#I  #Computes standard presentation for B(2,4)
-#I  F, a, b, procId are local to `PqExample'
+gap> PqQuitAll();
+gap> ##Example: "B2-4-SP-i" . . . based on: isom/B2-4.com
+gap> ##Computes standard presentation for B(2,4)
 gap> F := FreeGroup("a", "b"); a := F.1; b := F.2;
 <free group on the generators [ a, b ]>
 a
@@ -46414,23 +46299,21 @@ gap> procId := PqStart(F : Prime := 2, Exponent := 4);
 1
 gap> PqSPComputePcpAndPCover(procId : ClassBound := 1);
 gap> PqSPStandardPresentation(procId, [ [[0,1],
->                                        [1,1]],
->    
->                                       [[0,1],
->                                        [1,0]] ]
->    
->                             : # options
->                               ClassBound := 6,
->                               PcgsAutomorphisms);
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "B2-5" . . . based on: examples/B2-5
-#I  #Construction of B(2,5)
-#I  #i.e. largest finite 2-generator group of exponent 5
-#I  F, procId are local to `PqExample'
+>                                     [1,1]],
+> 
+>                                    [[0,1],
+>                                     [1,0]] ]
+> 
+>                          : # options
+>                            ClassBound := 6,
+>                            PcgsAutomorphisms);
+gap> ##Example: "B2-5" . . . based on: examples/B2-5
+gap> ##Construction of B(2,5)
+gap> ##i.e. largest finite 2-generator group of exponent 5
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> Pq( F : Prime := 5, ClassBound := 14, Exponent := 5,
->            OutputLevel := 1 );
+>         OutputLevel := 1 );
 #I  Lower exponent-5 central series for <grp>
 #I  Group: <grp> to lower exponent-5 central class 1 has order 5^2
 #I  Group: <grp> to lower exponent-5 central class 2 has order 5^3
@@ -46446,18 +46329,16 @@ gap> Pq( F : Prime := 5, ClassBound := 14, Exponent := 5,
 #I  Group: <grp> to lower exponent-5 central class 12 has order 5^34
 #I  Group completed. Lower exponent-5 central class = 12, Order = 5^34
 <pc group of size 582076609134674072265625 with 34 generators>
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  Executing interactive variant of example: "B2-5"
-#I  #Example: "B2-5" . . . based on: examples/B2-5
-#I  #Construction of B(2,5)
-#I  #i.e. largest finite 2-generator group of exponent 5
-#I  F, procId are local to `PqExample'
+gap> # Executing interactive variant of example: "B2-5"
+gap> ##Example: "B2-5" . . . based on: examples/B2-5
+gap> ##Construction of B(2,5)
+gap> ##i.e. largest finite 2-generator group of exponent 5
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> procId := PqStart( F );
 2
 gap> Pq( procId : Prime := 5, ClassBound := 14, Exponent := 5,
->            OutputLevel := 1 );
+>         OutputLevel := 1 );
 #I  Lower exponent-5 central series for <grp>
 #I  Group: <grp> to lower exponent-5 central class 1 has order 5^2
 #I  Group: <grp> to lower exponent-5 central class 2 has order 5^3
@@ -46473,16 +46354,14 @@ gap> Pq( procId : Prime := 5, ClassBound := 14, Exponent := 5,
 #I  Group: <grp> to lower exponent-5 central class 12 has order 5^34
 #I  Group completed. Lower exponent-5 central class = 12, Order = 5^34
 <pc group of size 582076609134674072265625 with 34 generators>
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "B2-5-i" . . . based on: examples/B2-5
-#I  #Construction of B(2,5)
-#I  F, procId are local to `PqExample'
+gap> ##Example: "B2-5-i" . . . based on: examples/B2-5
+gap> ##Construction of B(2,5)
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> procId := PqStart(F : Prime := 5, Exponent := 5);
 3
 gap> PqPcPresentation(procId : ClassBound := 15, 
->                              OutputLevel := 1);
+>                           OutputLevel := 1);
 #I  Lower exponent-5 central series for <grp>
 #I  Group: <grp> to lower exponent-5 central class 1 has order 5^2
 #I  Group: <grp> to lower exponent-5 central class 2 has order 5^3
@@ -46498,16 +46377,14 @@ gap> PqPcPresentation(procId : ClassBound := 15,
 #I  Group: <grp> to lower exponent-5 central class 12 has order 5^34
 #I  Group completed. Lower exponent-5 central class = 12, Order = 5^34
 gap> PqSavePcPresentation(procId, ANUPQData.outfile);
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "B2-8-i" . . . based on: examples/B2-8
-#I  #Construction of B(2,8)
-#I  F, procId are local to `PqExample'
+gap> ##Example: "B2-8-i" . . . based on: examples/B2-8
+gap> ##Construction of B(2,8)
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> procId := PqStart(F : Prime := 2, Exponent := 8);
 4
 gap> PqPcPresentation(procId : ClassBound := 10, 
->                              OutputLevel := 1);
+>                           OutputLevel := 1);
 #I  Lower exponent-2 central series for <grp>
 #I  Group: <grp> to lower exponent-2 central class 1 has order 2^2
 #I  Group: <grp> to lower exponent-2 central class 2 has order 2^5
@@ -46520,16 +46397,14 @@ gap> PqPcPresentation(procId : ClassBound := 10,
 #I  Group: <grp> to lower exponent-2 central class 9 has order 2^139
 #I  Group: <grp> to lower exponent-2 central class 10 has order 2^238
 gap> PqSavePcPresentation(procId, ANUPQData.outfile);
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "B4-4-a-i" . . . based on: examples/B4-4A
-#I  #Construction of B(4,4)
-#I  F, procId, class are local to `PqExample'
+gap> ##Example: "B4-4-a-i" . . . based on: examples/B4-4A
+gap> ##Construction of B(4,4)
 gap> F := FreeGroup("a", "b", "c", "d");
 <free group on the generators [ a, b, c, d ]>
 gap> procId := PqStart(F : Prime := 2, Exponent := 4);
 5
 gap> PqPcPresentation(procId : ClassBound := 6, 
->                              OutputLevel := 1);
+>                           OutputLevel := 1);
 #I  Lower exponent-2 central series for <grp>
 #I  Group: <grp> to lower exponent-2 central class 1 has order 2^4
 #I  Group: <grp> to lower exponent-2 central class 2 has order 2^14
@@ -46538,17 +46413,17 @@ gap> PqPcPresentation(procId : ClassBound := 6,
 #I  Group: <grp> to lower exponent-2 central class 5 has order 2^188
 #I  Group: <grp> to lower exponent-2 central class 6 has order 2^272
 gap> PqSupplyAutomorphisms(procId, [ [[0,0,0,1],
->                                     [1,0,0,0],
->                                     [0,1,0,0],
->                                     [0,0,1,0]],
->    
->                                    [[1,1,0,0],
->                                     [0,1,0,0],
->                                     [0,0,1,0],
->                                     [0,0,0,1]] ]);
+>                                  [1,0,0,0],
+>                                  [0,1,0,0],
+>                                  [0,0,1,0]],
+> 
+>                                 [[1,1,0,0],
+>                                  [0,1,0,0],
+>                                  [0,0,1,0],
+>                                  [0,0,0,1]] ]);
 gap> for class in [7 .. 11] do
->      PqNextClass(procId : QueueFactor := 20);
->    od;
+>   PqNextClass(procId : QueueFactor := 20);
+> od;
 #I  Group: <grp> to lower exponent-2 central class 7 has order 2^352
 #I  Group: <grp> to lower exponent-2 central class 8 has order 2^392
 #I  Group: <grp> to lower exponent-2 central class 9 has order 2^412
@@ -46556,16 +46431,14 @@ gap> for class in [7 .. 11] do
 #I  Group completed. Lower exponent-2 central class = 10, Order = 2^422
 #I  Group: <grp> to lower exponent-2 central class 10 has order 2^422
 gap> PqSavePcPresentation(procId, ANUPQData.outfile);
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "B4-4-i" . . . based on: examples/B4-4
-#I  #Construction of B(4,4)
-#I  F, procId, class are local to `PqExample'
+gap> ##Example: "B4-4-i" . . . based on: examples/B4-4
+gap> ##Construction of B(4,4)
 gap> F := FreeGroup("a", "b", "c", "d");
 <free group on the generators [ a, b, c, d ]>
 gap> procId := PqStart(F : Prime := 2, Exponent := 4);
 6
 gap> PqPcPresentation(procId : ClassBound := 6, 
->                              OutputLevel := 1);
+>                           OutputLevel := 1);
 #I  Lower exponent-2 central series for <grp>
 #I  Group: <grp> to lower exponent-2 central class 1 has order 2^4
 #I  Group: <grp> to lower exponent-2 central class 2 has order 2^14
@@ -46574,15 +46447,13 @@ gap> PqPcPresentation(procId : ClassBound := 6,
 #I  Group: <grp> to lower exponent-2 central class 5 has order 2^188
 #I  Group: <grp> to lower exponent-2 central class 6 has order 2^272
 gap> PqSavePcPresentation(procId, ANUPQData.outfile);
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "B5-4.g" . . . by Werner Nickel
-#I  #. . . . . . . . . . . . and based on a pq input file by M.F.Newman
-#I  #(constructs the Burnside group B(5,4), which is the largest group of 
-#I  # exponent 4 generated by 5 elements; it has order 2^2728 and p-central
-#I  # class 13)
-#I  #Note: It is a construction only and makes use of specialised knowledge
-#I  #gained by Newman & O'Brien in their investigations of B(5,4).
-#I  procId, Relations, class, w, smallclass are local to `PqExample'
+gap> ##Example: "B5-4.g" . . . by Werner Nickel
+gap> ##. . . . . . . . . . . . and based on a pq input file by M.F.Newman
+gap> ##(constructs the Burnside group B(5,4), which is the largest group of 
+gap> ## exponent 4 generated by 5 elements; it has order 2^2728 and p-central
+gap> ## class 13)
+gap> ##Note: It is a construction only and makes use of specialised knowledge
+gap> ##gained by Newman & O'Brien in their investigations of B(5,4).
 gap> RequirePackage( "anupq" );
 true
 gap> #You might like to try setting: `SetInfoLevel( InfoANUPQ, 3 );'
@@ -46592,48 +46463,48 @@ gap> procId := PqStart( FreeGroup(5) : Exponent := 4, Prime := 2 );
 gap> Pq( procId : ClassBound := 2 );
 <pc group of size 1048576 with 20 generators>
 gap> PqSupplyAutomorphisms( procId,
->          [
->            [ [ 1, 1, 0, 0, 0],      #1st automorphism
->              [ 0, 1, 0, 0, 0],
->              [ 0, 0, 1, 0, 0],
->              [ 0, 0, 0, 1, 0],
->              [ 0, 0, 0, 0, 1] ],
->    
->            [ [ 0, 0, 0, 0, 1],      #2nd automorphism
->              [ 1, 0, 0, 0, 0],
->              [ 0, 1, 0, 0, 0],
->              [ 0, 0, 1, 0, 0],
->              [ 0, 0, 0, 1, 0] ]
->                                 ] );
+>       [
+>         [ [ 1, 1, 0, 0, 0],      #1st automorphism
+>           [ 0, 1, 0, 0, 0],
+>           [ 0, 0, 1, 0, 0],
+>           [ 0, 0, 0, 1, 0],
+>           [ 0, 0, 0, 0, 1] ],
+> 
+>         [ [ 0, 0, 0, 0, 1],      #2nd automorphism
+>           [ 1, 0, 0, 0, 0],
+>           [ 0, 1, 0, 0, 0],
+>           [ 0, 0, 1, 0, 0],
+>           [ 0, 0, 0, 1, 0] ]
+>                              ] );
 gap> 
 gap> Relations :=
->      [ [],          ## class 1
->        [],          ## class 2
->        [],          ## class 3
->        [],          ## class 4
->        [],          ## class 5
->        [],          ## class 6
->        ## class 7     
->        [ [ "x2","x1","x1","x3","x4","x4","x4" ] ],
->        ## class 8
->        [ [ "x2","x1","x1","x3","x4","x5","x5","x5" ] ],
->        ## class 9
->        [ [ "x2","x1","x1","x3","x4","x4","x5","x5","x5" ],
->          [ "x2","x1","x1","x2","x3","x4","x5","x5","x5" ],
->          [ "x2","x1","x1","x3","x3","x4","x5","x5","x5" ] ],
->        ## class 10
->        [ [ "x2","x1","x1","x2","x3","x3","x4","x5","x5","x5" ],
->          [ "x2","x1","x1","x3","x3","x4","x4","x5","x5","x5" ] ],
->        ## class 11
->        [ [ "x2","x1","x1","x2","x3","x3","x4","x4","x5","x5","x5" ],
->          [ "x2","x1","x1","x2","x3","x1","x3","x4","x2","x4","x3" ] ],
->        ## class 12
->        [ [ "x2","x1","x1","x2","x3","x1","x3","x4","x2","x5","x5","x5" ],
->          [ "x2","x1","x1","x3","x2","x4","x3","x5","x4","x5","x5","x5" ] ],
->        ## class 13
->        [ [ "x2","x1","x1","x2","x3","x1","x3","x4","x2","x4","x5","x5","x5" 
->            ] ]
->    ];
+>   [ [],          ## class 1
+>     [],          ## class 2
+>     [],          ## class 3
+>     [],          ## class 4
+>     [],          ## class 5
+>     [],          ## class 6
+>     ## class 7     
+>     [ [ "x2","x1","x1","x3","x4","x4","x4" ] ],
+>     ## class 8
+>     [ [ "x2","x1","x1","x3","x4","x5","x5","x5" ] ],
+>     ## class 9
+>     [ [ "x2","x1","x1","x3","x4","x4","x5","x5","x5" ],
+>       [ "x2","x1","x1","x2","x3","x4","x5","x5","x5" ],
+>       [ "x2","x1","x1","x3","x3","x4","x5","x5","x5" ] ],
+>     ## class 10
+>     [ [ "x2","x1","x1","x2","x3","x3","x4","x5","x5","x5" ],
+>       [ "x2","x1","x1","x3","x3","x4","x4","x5","x5","x5" ] ],
+>     ## class 11
+>     [ [ "x2","x1","x1","x2","x3","x3","x4","x4","x5","x5","x5" ],
+>       [ "x2","x1","x1","x2","x3","x1","x3","x4","x2","x4","x3" ] ],
+>     ## class 12
+>     [ [ "x2","x1","x1","x2","x3","x1","x3","x4","x2","x5","x5","x5" ],
+>       [ "x2","x1","x1","x3","x2","x4","x3","x5","x4","x5","x5","x5" ] ],
+>     ## class 13
+>     [ [ "x2","x1","x1","x2","x3","x1","x3","x4","x2","x4","x5","x5","x5" 
+>         ] ]
+> ];
 [ [  ], [  ], [  ], [  ], [  ], [  ], 
   [ [ "x2", "x1", "x1", "x3", "x4", "x4", "x4" ] ], 
   [ [ "x2", "x1", "x1", "x3", "x4", "x5", "x5", "x5" ] ], 
@@ -46651,43 +46522,43 @@ gap> Relations :=
           "x5" ] ] ]
 gap> 
 gap> for class in [ 3 .. 13 ] do
->        Print( "Computing class ", class, "\n" );
->        PqSetupTablesForNextClass( procId );
->    
->        for w in [ class, class-1 .. 7 ] do
->    
->            PqAddTails( procId, w );   
->            PqDisplayPcPresentation( procId );
->    
->            if Relations[ w ] <> [] then
->                # recalculate automorphisms
->                PqExtendAutomorphisms( procId );
->    
->                for r in Relations[ w ] do
->                    Print( "Collecting ", r, "\n" );
->                    PqCommutator( procId, r, 1 );
->                    PqEchelonise( procId );
->                    PqApplyAutomorphisms( procId, 15 ); #queue factor = 15
->                od;
->    
->                PqEliminateRedundantGenerators( procId );
->            fi;   
->            PqComputeTails( procId, w );
->        od;
->        PqDisplayPcPresentation( procId );
->    
->        smallclass := Minimum( class, 6 );
->        for w in [ smallclass, smallclass-1 .. 2 ] do
->            PqTails( procId, w );
->        od;
->        # recalculate automorphisms
->        PqExtendAutomorphisms( procId );
->        PqCollect( procId, "x5^4" );
->        PqEchelonise( procId );
->        PqApplyAutomorphisms( procId, 15 ); #queue factor = 15
->        PqEliminateRedundantGenerators( procId );
->        PqDisplayPcPresentation( procId );
->    od;
+>     Print( "Computing class ", class, "\n" );
+>     PqSetupTablesForNextClass( procId );
+> 
+>     for w in [ class, class-1 .. 7 ] do
+> 
+>         PqAddTails( procId, w );   
+>         PqDisplayPcPresentation( procId );
+> 
+>         if Relations[ w ] <> [] then
+>             # recalculate automorphisms
+>             PqExtendAutomorphisms( procId );
+> 
+>             for r in Relations[ w ] do
+>                 Print( "Collecting ", r, "\n" );
+>                 PqCommutator( procId, r, 1 );
+>                 PqEchelonise( procId );
+>                 PqApplyAutomorphisms( procId, 15 ); #queue factor = 15
+>             od;
+> 
+>             PqEliminateRedundantGenerators( procId );
+>         fi;   
+>         PqComputeTails( procId, w );
+>     od;
+>     PqDisplayPcPresentation( procId );
+> 
+>     smallclass := Minimum( class, 6 );
+>     for w in [ smallclass, smallclass-1 .. 2 ] do
+>         PqTails( procId, w );
+>     od;
+>     # recalculate automorphisms
+>     PqExtendAutomorphisms( procId );
+>     PqCollect( procId, "x5^4" );
+>     PqEchelonise( procId );
+>     PqApplyAutomorphisms( procId, 15 ); #queue factor = 15
+>     PqEliminateRedundantGenerators( procId );
+>     PqDisplayPcPresentation( procId );
+> od;
 Computing class 3
 Computing class 4
 Computing class 5
@@ -46760,11 +46631,8 @@ Collecting [ "x2", "x1", "x1", "x3", "x4", "x4", "x4" ]
 gap> 
 gap> PqWritePcPresentation( procId, "/tmp/B54" );
 gap> PqQuit( procId );
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "EpimorphismStandardPresentation" . . . based on manual example
-#I  #(demonstrates `EpimorphismStandardPresentation' usage)
-#I  F, x, y, z, w, a, b, R, Q, procId, G, f1, f2, f3, f4, f5, f6, phi are
-#I  local to `PqExample'
+gap> ##Example: "EpimorphismStandardPresentation" . . . based on manual example
+gap> ##(demonstrates `EpimorphismStandardPresentation' usage)
 gap> F := FreeGroup(6, "F");
 <free group on the generators [ F1, F2, F3, F4, F5, F6 ]>
 gap> # For printing GAP uses the symbols F1, ... for the generators of F
@@ -46776,7 +46644,7 @@ F4
 F5
 F6
 gap> R := [x^3 / w, y^3 / w * a^2 * b^2, w^3 / b,
->          Comm (y, x) / z, Comm (z, x), Comm (z, y) / a, z^3 ];
+>       Comm (y, x) / z, Comm (z, x), Comm (z, y) / a, z^3 ];
 [ F1^3*F4^-1, F2^3*F4^-1*F5^2*F6^2, F4^3*F6^-1, F2^-1*F1^-1*F2*F1*F3^-1, 
   F3^-1*F1^-1*F3*F1, F3^-1*F2^-1*F3*F2*F5^-1, F3^3 ]
 gap> Q := F / R;
@@ -46788,7 +46656,7 @@ false
 gap> G := Pq( Q : Prime := 3, ClassBound := 3 );
 <pc group of size 729 with 6 generators>
 gap> phi := EpimorphismStandardPresentation( Q : Prime := 3,
->                                                ClassBound := 3 );
+>                                             ClassBound := 3 );
 [ F1, F2, F3, F4, F5, F6 ] -> [ f1*f2^2*f3*f4^2*f5^2, f1*f2*f3*f5, f3^2, 
   f4*f6^2, f5, f6 ]
 gap> NamesOfComponents(phi);
@@ -46804,13 +46672,9 @@ gap> Group([ f1*f2^2*f3, f1*f2*f3*f4*f5^2*f6^2, f3^2, f4, f5, f6 ]) = G;
 true
 gap> Size( Image(phi) );
 729
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  Executing interactive variant of example: "EpimorphismStandardPresentation\
-"
-#I  #Example: "EpimorphismStandardPresentation" . . . based on manual example
-#I  #(demonstrates `EpimorphismStandardPresentation' usage)
-#I  F, x, y, z, w, a, b, R, Q, procId, G, f1, f2, f3, f4, f5, f6, phi are
-#I  local to `PqExample'
+gap> # Executing interactive variant of example: "EpimorphismStandardPresentation"
+gap> ##Example: "EpimorphismStandardPresentation" . . . based on manual example
+gap> ##(demonstrates `EpimorphismStandardPresentation' usage)
 gap> F := FreeGroup(6, "F");
 <free group on the generators [ F1, F2, F3, F4, F5, F6 ]>
 gap> # For printing GAP uses the symbols F1, ... for the generators of F
@@ -46822,7 +46686,7 @@ F4
 F5
 F6
 gap> R := [x^3 / w, y^3 / w * a^2 * b^2, w^3 / b,
->          Comm (y, x) / z, Comm (z, x), Comm (z, y) / a, z^3 ];
+>       Comm (y, x) / z, Comm (z, x), Comm (z, y) / a, z^3 ];
 [ F1^3*F4^-1, F2^3*F4^-1*F5^2*F6^2, F4^3*F6^-1, F2^-1*F1^-1*F2*F1*F3^-1, 
   F3^-1*F1^-1*F3*F1, F3^-1*F2^-1*F3*F2*F5^-1, F3^3 ]
 gap> Q := F / R;
@@ -46836,7 +46700,7 @@ gap> procId := PqStart( Q );
 gap> G := Pq( procId : Prime := 3, ClassBound := 3 );
 <pc group of size 729 with 6 generators>
 gap> phi := EpimorphismStandardPresentation( procId : Prime := 3,
->                                                ClassBound := 3 );
+>                                             ClassBound := 3 );
 [ F1, F2, F3, F4, F5, F6 ] -> [ f1*f2^2*f3*f4^2*f5^2, f1*f2*f3*f5, f3^2, 
   f4*f6^2, f5, f6 ]
 gap> NamesOfComponents(phi);
@@ -46846,73 +46710,26 @@ gap> phi!.Source; # This is the group Q (GAP uses F1, ... for gen'r symbols)
 gap> phi!.Range;  # This is the group G (GAP uses f1, ... for gen'r symbols)
 <fp group on the generators [ f1, f2, f3, f4, f5, f6 ]>
 gap> AssignGeneratorVariables(G); # so f1, ... are now variables
+#I  Global variable `f1' is already defined and will be overwritten
+#I  Global variable `f2' is already defined and will be overwritten
+#I  Global variable `f3' is already defined and will be overwritten
+#I  Global variable `f4' is already defined and will be overwritten
+#I  Global variable `f5' is already defined and will be overwritten
+#I  Global variable `f6' is already defined and will be overwritten
 #I  Assigned the global variables [ f1, f2, f3, f4, f5, f6 ]
 gap> # Just to see that the images of [F1, ..., F6] do generate G
 gap> Group([ f1*f2^2*f3, f1*f2*f3*f4*f5^2*f6^2, f3^2, f4, f5, f6 ]) = G;
 true
 gap> Size( Image(phi) );
 729
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "EpimorphismStandardPresentation-i" . . based on manual example
-#I  #(demonstrates interactive `EpimorphismStandardPresentation' usage)
-#I  F, x, y, z, w, a, b, R, Q, procId, G, phi, lev are local to `PqExample'
-gap> F := FreeGroup(6, "F");
-<free group on the generators [ F1, F2, F3, F4, F5, F6 ]>
-gap> # For printing GAP uses the symbols F1, ... for the generators of F
-gap> x := F.1; y := F.2; z := F.3; w := F.4; a := F.5; b := F.6;
-F1
-F2
-F3
-F4
-F5
-F6
-gap> R := [x^3 / w, y^3 / w * a^2 * b^2, w^3 / b,
->          Comm (y, x) / z, Comm (z, x), Comm (z, y) / a, z^3 ];
-[ F1^3*F4^-1, F2^3*F4^-1*F5^2*F6^2, F4^3*F6^-1, F2^-1*F1^-1*F2*F1*F3^-1, 
-  F3^-1*F1^-1*F3*F1, F3^-1*F2^-1*F3*F2*F5^-1, F3^3 ]
-gap> Q := F / R;
-<fp group on the generators [ F1, F2, F3, F4, F5, F6 ]>
-gap> procId := PqStart( Q );
-8
-gap> G := Pq( procId : Prime := 3, ClassBound := 3 );
-<pc group of size 729 with 6 generators>
-gap> lev := InfoLevel(InfoANUPQ); # Save current InfoANUPQ level
-1
-gap> SetInfoLevel(InfoANUPQ, 2); # To see computation time data
-gap> # It is not necessary to pass the `Prime' option to
-gap> # `EpimorphismStandardPresentation' since it was previously
-gap> # passed to `Pq':
-gap> phi := EpimorphismStandardPresentation( procId : ClassBound := 3 );
-#I  Class 1 3-quotient and its 3-covering group computed in 0.00 seconds
-#I  Order of GL subgroup is 48
-#I  No. of soluble autos is 0
-#I    dim U = 1  dim N = 3  dim M = 3
-#I    nice stabilizer with perm rep
-#I  Computing standard presentation for class 2 took 0.00 seconds
-#I  Computing standard presentation for class 3 took 0.03 seconds
-[ F1, F2, F3, F4, F5, F6 ] -> [ f1*f2^2*f3*f4^2*f5^2, f1*f2*f3*f5, f3^2, 
-  f4*f6^2, f5, f6 ]
-gap> # Image of phi should be isomorphic to G ...
-gap> # let's check the order is correct:
-gap> Size( Image(phi) );
-729
-gap> # `StandardPresentation' and `EpimorphismStandardPresentation'
-gap> # behave like attributes, so no computation is done when
-gap> # either is called again for the same process ...
-gap> StandardPresentation( procId : ClassBound := 3 );
-<fp group of size 729 on the generators [ f1, f2, f3, f4, f5, f6 ]>
-gap> # No timing data was Info-ed since no computation was done
-gap> SetInfoLevel(InfoANUPQ, lev); # Restore previous InfoANUPQ level
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "F2-5-i" . . . based on: examples/F2-5
-#I  #Construction of 5-quotient of a 2-generator free group
-#I  F, procId are local to `PqExample'
+gap> ##Example: "F2-5-i" . . . based on: examples/F2-5
+gap> ##Construction of 5-quotient of a 2-generator free group
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> procId := PqStart(F : Prime := 5);
-9
+8
 gap> PqPcPresentation(procId : ClassBound := 6, 
->                              OutputLevel := 1);
+>                           OutputLevel := 1);
 #I  Lower exponent-5 central series for <grp>
 #I  Group: <grp> to lower exponent-5 central class 1 has order 5^2
 #I  Group: <grp> to lower exponent-5 central class 2 has order 5^5
@@ -46926,125 +46743,116 @@ gap> PqNextClass(procId); #class 8
 #I  Group: <grp> to lower exponent-5 central class 8 has order 5^167
 gap> PqNextClass(procId); #class 9
 #I  Group: <grp> to lower exponent-5 central class 9 has order 5^294
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "G2-SP-Rel-i" . . . based on: isom/G_2.com
-#I  F, rels, procId are local to `PqExample'
+gap> ##Example: "G2-SP-Rel-i" . . . based on: isom/G_2.com
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> rels := ["b^4", "b^2 * [b, a, a]^-1", "b * (a^2 * b^-1 * a^2)^-1" ];
 [ "b^4", "b^2 * [b, a, a]^-1", "b * (a^2 * b^-1 * a^2)^-1" ]
 gap> procId := PqStart(F : Prime := 2, Relators := rels);
-1
+9
 gap> PqSPComputePcpAndPCover(procId : ClassBound := 1);
 gap> PqSPStandardPresentation(procId, [ [[0,1],
->                                        [1,1]],
->    
->                                       [[0,1],
->                                        [1,0]] ]
->    
->                             : # options
->                               ClassBound := 12,
->                               PcgsAutomorphisms);
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "G3-SP-Rel-i" . . . based on: isom/G_3.com
-#I  F, rels, procId are local to `PqExample'
+>                                     [1,1]],
+> 
+>                                    [[0,1],
+>                                     [1,0]] ]
+> 
+>                          : # options
+>                            ClassBound := 12,
+>                            PcgsAutomorphisms);
+gap> PqQuitAll();
+gap> ##Example: "G3-SP-Rel-i" . . . based on: isom/G_3.com
 gap> F := FreeGroup("x", "y");
 <free group on the generators [ x, y ]>
 gap> rels := ["(x * y * x)^3"];
 [ "(x * y * x)^3" ]
 gap> procId := PqStart(F : Prime := 3, Relators := rels);
-2
+1
 gap> PqSPComputePcpAndPCover(procId : ClassBound := 1);
 gap> PqSPStandardPresentation(procId, [ [[2,0],
->                                        [0,2]],
->    
->                                       [[0,2],
->                                        [1,0]],
->    
->                                       [[1,2],
->                                        [2,2]],
->    
->                                       [[1,0],
->                                        [2,1]],
->    
->                                       [[2,0],
->                                        [0,1]] ]
->    
->                             : # options
->                               ClassBound := 5,
->                               PcgsAutomorphisms);
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "G5-SP-Rel-i" . . . based on: isom/G_5.com
-#I  F, rels, procId are local to `PqExample'
+>                                     [0,2]],
+> 
+>                                    [[0,2],
+>                                     [1,0]],
+> 
+>                                    [[1,2],
+>                                     [2,2]],
+> 
+>                                    [[1,0],
+>                                     [2,1]],
+> 
+>                                    [[2,0],
+>                                     [0,1]] ]
+> 
+>                          : # options
+>                            ClassBound := 5,
+>                            PcgsAutomorphisms);
+gap> ##Example: "G5-SP-Rel-i" . . . based on: isom/G_5.com
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> rels := ["[a, b, b, b]", "[b, a, b, b, b]", "[a, b, a]", "b^5"];
 [ "[a, b, b, b]", "[b, a, b, b, b]", "[a, b, a]", "b^5" ]
 gap> procId := PqStart(F : Prime := 5, Relators := rels);
-3
+2
 gap> PqSPComputePcpAndPCover(procId : ClassBound := 2);
 gap> PqSPStandardPresentation(procId, [ [[1,0,0,1],
->                                        [0,1,0,0]],
->    
->                                       [[1,0,0,0],
->                                        [0,1,0,1]],
->    
->                                       [[1,3,0,0],
->                                        [0,1,0,0]],
->    
->                                       [[1,3,0,0],
->                                        [0,4,0,0]],
->    
->                                       [[1,2,0,0],
->                                        [0,3,0,0]],
->    
->                                       [[4,0,0,0],
->                                        [0,1,0,0]],
->    
->                                       [[3,0,0,0],
->                                        [0,1,0,0]] ]
->    
->                             : # options
->                               ClassBound := 10,
->                               PcgsAutomorphisms);
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "G5-SP-a-Rel-i" . . . based on: isom/G_5A.com
-#I  F, rels, procId are local to `PqExample'
+>                                     [0,1,0,0]],
+> 
+>                                    [[1,0,0,0],
+>                                     [0,1,0,1]],
+> 
+>                                    [[1,3,0,0],
+>                                     [0,1,0,0]],
+> 
+>                                    [[1,3,0,0],
+>                                     [0,4,0,0]],
+> 
+>                                    [[1,2,0,0],
+>                                     [0,3,0,0]],
+> 
+>                                    [[4,0,0,0],
+>                                     [0,1,0,0]],
+> 
+>                                    [[3,0,0,0],
+>                                     [0,1,0,0]] ]
+> 
+>                          : # options
+>                            ClassBound := 10,
+>                            PcgsAutomorphisms);
+gap> ##Example: "G5-SP-a-Rel-i" . . . based on: isom/G_5A.com
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> rels := ["[a, b, b, a]", "[a, b, a]", "b^5"];
 [ "[a, b, b, a]", "[a, b, a]", "b^5" ]
 gap> procId := PqStart(F : Prime := 5, Relators := rels);
-4
+3
 gap> PqSPComputePcpAndPCover(procId : ClassBound := 2);
 gap> PqSPStandardPresentation(procId, [ [[1,0,0,1],
->                                        [0,1,0,0]],
->    
->                                       [[1,0,0,0],
->                                        [0,1,0,1]],
->    
->                                       [[1,3,0,0],
->                                        [0,1,0,0]],
->    
->                                       [[1,3,0,0],
->                                        [0,4,0,0]],
->    
->                                       [[1,2,0,0],
->                                        [0,3,0,0]],
->    
->                                       [[4,0,0,0],
->                                        [0,1,0,0]],
->    
->                                       [[3,0,0,0],
->                                        [0,1,0,0]] ]
->    
->                             : # options
->                               ClassBound := 10,
->                               PcgsAutomorphisms);
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "IsIsomorphicPGroup-ni" . . . based on manual example
-#I  #(demonstrates `IsIsomorphicPGroup' usage)
-#I  G, P1, P2, P3, P4 are local to `PqExample'
+>                                     [0,1,0,0]],
+> 
+>                                    [[1,0,0,0],
+>                                     [0,1,0,1]],
+> 
+>                                    [[1,3,0,0],
+>                                     [0,1,0,0]],
+> 
+>                                    [[1,3,0,0],
+>                                     [0,4,0,0]],
+> 
+>                                    [[1,2,0,0],
+>                                     [0,3,0,0]],
+> 
+>                                    [[4,0,0,0],
+>                                     [0,1,0,0]],
+> 
+>                                    [[3,0,0,0],
+>                                     [0,1,0,0]] ]
+> 
+>                          : # options
+>                            ClassBound := 10,
+>                            PcgsAutomorphisms);
+gap> ##Example: "IsIsomorphicPGroup-ni" . . . based on manual example
+gap> ##(demonstrates `IsIsomorphicPGroup' usage)
 gap> G := Group( (1,2,3,4), (1,3) );
 Group([ (1,2,3,4), (1,3) ])
 gap> P1 := Image( IsomorphismPcGroup( G ) );
@@ -47061,19 +46869,17 @@ gap> P4 := SmallGroup( 8, 3 );
 <pc group of size 8 with 3 generators>
 gap> IsIsomorphicPGroup( P1, P4 );
 true
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "Nott-APG-Rel-i" . . . based on: examples/pga_interactive
-#I  #Start point for Nottingham group
-#I  #Interactive construction of 40 5-groups of order 5^7
-#I  F, rels, procId are local to `PqExample'
+gap> ##Example: "Nott-APG-Rel-i" . . . based on: examples/pga_interactive
+gap> ##Start point for Nottingham group
+gap> ##Interactive construction of 40 5-groups of order 5^7
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> rels := ["a^5", "b^5", "[b, a, b]"];
 [ "a^5", "b^5", "[b, a, b]" ]
 gap> procId := PqStart(F : Prime := 5, Relators := rels);
-5
+4
 gap> PqPcPresentation(procId : ClassBound := 3, 
->                              OutputLevel := 1);
+>                           OutputLevel := 1);
 #I  Lower exponent-5 central series for <grp>
 #I  Group: <grp> to lower exponent-5 central class 1 has order 5^2
 #I  Group: <grp> to lower exponent-5 central class 2 has order 5^3
@@ -47082,27 +46888,27 @@ gap> PqComputePCover(procId);
 #I  Group: <grp> to lower exponent-5 central class 4 has order 5^8
 gap> PqSavePcPresentation(procId, ANUPQData.outfile);
 gap> PqPGSupplyAutomorphisms(procId, [ [[1,0,0,0],
->                                       [0,1,0,1]],
->    
->                                      [[1,1,0,0],
->                                       [0,1,0,1]],
->    
->                                      [[1,0,0,0],
->                                       [0,4,0,0]],
->    
->                                      [[1,0,0,0],
->                                       [0,2,0,0]],
->    
->                                      [[4,0,0,0],
->                                       [0,1,0,0]],
->    
->                                      [[2,0,0,0],
->                                       [0,1,0,0]] ]);
+>                                    [0,1,0,1]],
+> 
+>                                   [[1,1,0,0],
+>                                    [0,1,0,1]],
+> 
+>                                   [[1,0,0,0],
+>                                    [0,4,0,0]],
+> 
+>                                   [[1,0,0,0],
+>                                    [0,2,0,0]],
+> 
+>                                   [[4,0,0,0],
+>                                    [0,1,0,0]],
+> 
+>                                   [[2,0,0,0],
+>                                    [0,1,0,0]] ]);
 gap> PqPGConstructDescendants(procId : ClassBound := 4,
->                                      CapableDescendants,
->                                      StepSize := 1,
->                                      PcgsAutomorphisms,
->                                      RankInitialSegmentSubgroups := 4);
+>                                   CapableDescendants,
+>                                   StepSize := 1,
+>                                   PcgsAutomorphisms,
+>                                   RankInitialSegmentSubgroups := 4);
 #I  **************************************************
 #I  Starting group: <grp>
 #I  Order: 5^4
@@ -47153,7 +46959,7 @@ gap> PqDisplayPcPresentation(procId);
 #I  [ .5, .1 ] = .6
 #I  [ .5, .2 ] = .7
 gap> PqAPGSingleStage(procId : StepSize:=2, BasicAlgorithm, 
->                              CustomiseOutput := rec());
+>                           CustomiseOutput := rec());
 #I  **************************************************
 #I  Starting group: <grp> #1;1
 #I  Order: 5^5
@@ -47161,18 +46967,16 @@ gap> PqAPGSingleStage(procId : StepSize:=2, BasicAlgorithm,
 #I  5-multiplicator rank: 4
 #I  # of immediate descendants of order 5^7 is 40
 #I  # of capable immediate descendants is 5
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "Nott-PG-Rel-i" . . . based on: examples/pga_nott
-#I  #Start point for Nottingham group
-#I  F, rels, procId are local to `PqExample'
+gap> ##Example: "Nott-PG-Rel-i" . . . based on: examples/pga_nott
+gap> ##Start point for Nottingham group
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> rels := ["a^5", "b^5", "[b, a, b]"];
 [ "a^5", "b^5", "[b, a, b]" ]
 gap> procId := PqStart(F : Prime := 5, Relators := rels);
-6
+5
 gap> PqPcPresentation(procId : ClassBound := 3, 
->                              OutputLevel := 1);
+>                           OutputLevel := 1);
 #I  Lower exponent-5 central series for <grp>
 #I  Group: <grp> to lower exponent-5 central class 1 has order 5^2
 #I  Group: <grp> to lower exponent-5 central class 2 has order 5^3
@@ -47181,27 +46985,27 @@ gap> PqComputePCover(procId);
 #I  Group: <grp> to lower exponent-5 central class 4 has order 5^8
 gap> PqSavePcPresentation(procId, ANUPQData.outfile);
 gap> PqPGSupplyAutomorphisms(procId, [ [[1,0,0,0],
->                                       [0,1,0,1]],
->    
->                                      [[1,1,0,0],
->                                       [0,1,0,1]],
->    
->                                      [[1,0,0,0],
->                                       [0,4,0,0]],
->    
->                                      [[1,0,0,0],
->                                       [0,2,0,0]],
->    
->                                      [[4,0,0,0],
->                                       [0,1,0,0]],
->    
->                                      [[2,0,0,0],
->                                       [0,1,0,0]] ]);
+>                                    [0,1,0,1]],
+> 
+>                                   [[1,1,0,0],
+>                                    [0,1,0,1]],
+> 
+>                                   [[1,0,0,0],
+>                                    [0,4,0,0]],
+> 
+>                                   [[1,0,0,0],
+>                                    [0,2,0,0]],
+> 
+>                                   [[4,0,0,0],
+>                                    [0,1,0,0]],
+> 
+>                                   [[2,0,0,0],
+>                                    [0,1,0,0]] ]);
 gap> PqPGConstructDescendants(procId : ClassBound := 4,
->                                      CapableDescendants,
->                                      StepSize := 1,
->                                      PcgsAutomorphisms,
->                                      RankInitialSegmentSubgroups := 4);
+>                                   CapableDescendants,
+>                                   StepSize := 1,
+>                                   PcgsAutomorphisms,
+>                                   RankInitialSegmentSubgroups := 4);
 #I  **************************************************
 #I  Starting group: <grp>
 #I  Order: 5^4
@@ -47210,41 +47014,37 @@ gap> PqPGConstructDescendants(procId : ClassBound := 4,
 #I  # of immediate descendants of order 5^5 is 9
 #I  # of capable immediate descendants is 2
 #I  **************************************************
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "Nott-SP-Rel-i" . . . based on: isom/nott.com
-#I  F, rels, procId are local to `PqExample'
+2
+gap> ##Example: "Nott-SP-Rel-i" . . . based on: isom/nott.com
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> rels := ["a^5", "b^5", "[b, a, b]"];
 [ "a^5", "b^5", "[b, a, b]" ]
 gap> procId := PqStart(F : Prime := 5, Relators := rels);
-7
+6
 gap> PqSPComputePcpAndPCover(procId : ClassBound := 3);
 gap> PqSPStandardPresentation(procId, [ [[1,0,0,0],
->                                        [0,1,0,1]],
->    
->                                       [[1,1,0,0],
->                                        [0,1,0,0]],
->    
->                                       [[1,0,0,0],
->                                        [0,4,0,0]],
->    
->                                       [[1,0,0,0],
->                                        [0,2,0,0]],
->    
->                                       [[4,0,0,0],
->                                        [0,1,0,0]],
->    
->                                       [[2,0,0,0],
->                                        [0,1,0,0]] ]
->    
->                             : # options
->                               ClassBound := 10,
->                               PcgsAutomorphisms);
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "Pq" . . . based on manual example illustrating `Pq' usage
-#I  F, a, b, procId1, procId2, procId3, procId4, G, R, H, rels are
-#I  local to `PqExample'
+>                                     [0,1,0,1]],
+> 
+>                                    [[1,1,0,0],
+>                                     [0,1,0,0]],
+> 
+>                                    [[1,0,0,0],
+>                                     [0,4,0,0]],
+> 
+>                                    [[1,0,0,0],
+>                                     [0,2,0,0]],
+> 
+>                                    [[4,0,0,0],
+>                                     [0,1,0,0]],
+> 
+>                                    [[2,0,0,0],
+>                                     [0,1,0,0]] ]
+> 
+>                          : # options
+>                            ClassBound := 10,
+>                            PcgsAutomorphisms);
+gap> ##Example: "Pq" . . . based on manual example illustrating `Pq' usage
 gap> F := FreeGroup("a", "b"); a := F.1; b := F.2;
 <free group on the generators [ a, b ]>
 a
@@ -47260,7 +47060,7 @@ gap> Pq( G : Prime := 2, ClassBound := 3 );
 gap> 
 gap> # Now let's get a different p-quotient of the same group
 gap> Pq( G : Prime := 2, ClassBound := 3,
->                  Exponent := 4 );
+>               Exponent := 4 );
 <pc group of size 128 with 7 generators>
 gap> 
 gap> # Now we'll get a p-quotient of another fp group
@@ -47285,7 +47085,7 @@ gap> R := PqGAPRelators(F, rels);
 gap> H := F / R;
 <fp group on the generators [ a, b ]>
 gap> Pq( H : Prime := 5, ClassBound := 5, Metabelian, 
->                  Relators := rels );
+>               Relators := rels );
 <pc group of size 78125 with 7 generators>
 gap> 
 gap> # Above we could have just passed `F' (rather than `H'):
@@ -47294,19 +47094,16 @@ gap> F := FreeGroup("a", "b");
 gap> rels := [ "a^25", "[b, a, a]", "b^5" ];
 [ "a^25", "[b, a, a]", "b^5" ]
 gap> Pq( F : Prime := 5, ClassBound := 5, Metabelian, 
->            Relators := rels );
+>         Relators := rels );
 <pc group of size 78125 with 7 generators>
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  Executing interactive variant of example: "Pq"
-#I  #Example: "Pq" . . . based on manual example illustrating `Pq' usage
-#I  F, a, b, procId1, procId2, procId3, procId4, G, R, H, rels are
-#I  local to `PqExample'
+gap> # Executing interactive variant of example: "Pq"
+gap> ##Example: "Pq" . . . based on manual example illustrating `Pq' usage
 gap> F := FreeGroup("a", "b"); a := F.1; b := F.2;
 <free group on the generators [ a, b ]>
 a
 b
 gap> procId1 := PqStart( F );
-8
+7
 gap> Pq( procId1 : Prime := 2, ClassBound := 3 );
 <pc group of size 1024 with 10 generators>
 gap> 
@@ -47314,14 +47111,14 @@ gap> # Now let us get a p-quotient of an fp group
 gap> G := F / [a^4, b^4];
 <fp group on the generators [ a, b ]>
 gap> procId2 := PqStart( G );
-9
+8
 gap> Pq( procId2 : Prime := 2, ClassBound := 3 );
 <pc group of size 256 with 8 generators>
 gap> 
 gap> # Now let's get a different p-quotient of the same group
 gap> Pq( procId2 : Prime := 2, ClassBound := 3,
->                  RedoPcp,
->                  Exponent := 4 );
+>               RedoPcp,
+>               Exponent := 4 );
 <pc group of size 128 with 7 generators>
 gap> 
 gap> # Now we'll get a p-quotient of another fp group
@@ -47331,7 +47128,7 @@ gap> R := [ a^25, Comm(Comm(b, a), a), b^5 ];
 gap> H := F / R;
 <fp group on the generators [ a, b ]>
 gap> procId3 := PqStart( H );
-10
+9
 gap> Pq( procId3 : Prime := 5, ClassBound := 5, Metabelian );
 <pc group of size 78125 with 7 generators>
 gap> 
@@ -47348,8 +47145,8 @@ gap> R := PqGAPRelators(F, rels);
 gap> H := F / R;
 <fp group on the generators [ a, b ]>
 gap> Pq( procId3 : Prime := 5, ClassBound := 5, Metabelian, 
->                  RedoPcp,
->                  Relators := rels );
+>               RedoPcp,
+>               Relators := rels );
 <pc group of size 78125 with 7 generators>
 gap> 
 gap> # Above we could have just passed `F' (rather than `H'):
@@ -47358,14 +47155,12 @@ gap> F := FreeGroup("a", "b");
 gap> rels := [ "a^25", "[b, a, a]", "b^5" ];
 [ "a^25", "[b, a, a]", "b^5" ]
 gap> procId4 := PqStart( F );
-11
+10
 gap> Pq( procId4 : Prime := 5, ClassBound := 5, Metabelian, 
->            Relators := rels );
+>         Relators := rels );
 <pc group of size 78125 with 7 generators>
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "Pq-ni" . . . based on manual example illustrating `Pq' usage
-#I  #(demonstrates the alternative ways of passing options non-interactively)
-#I  F, a, b, R, H, rels are local to `PqExample'
+gap> ##Example: "Pq-ni" . . . based on manual example illustrating `Pq' usage
+gap> ##(demonstrates the alternative ways of passing options non-interactively)
 gap> F := FreeGroup("a", "b"); a := F.1; b := F.2;
 <free group on the generators [ a, b ]>
 a
@@ -47382,10 +47177,8 @@ gap> Pq( H, rec( Prime := 5, ClassBound := 5, Metabelian := true ) );
 gap> # This demonstrates how the options may be passed as additional arguments
 gap> Pq( H, "Prime", 5, "ClassBound", 5, "Metabelian" );
 <pc group of size 78125 with 7 generators>
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "PqDescendants-1" . . . based on manual example
-#I  #(demonstrates `PqDescendants' usage)
-#I  F, a, b, procId, G, des are local to `PqExample'
+gap> ##Example: "PqDescendants-1" . . . based on manual example
+gap> ##(demonstrates `PqDescendants' usage)
 gap> F := FreeGroup( "a", "b" ); a := F.1; b := F.2;
 <free group on the generators [ a, b ]>
 a
@@ -47489,11 +47282,9 @@ gap> List(des, d -> Length( PCentralSeries( d, 2 ) ) - 1 );
   3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 
   4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 
   4, 4, 4, 5, 5, 5, 5, 5 ]
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  Executing interactive variant of example: "PqDescendants-1"
-#I  #Example: "PqDescendants-1" . . . based on manual example
-#I  #(demonstrates `PqDescendants' usage)
-#I  F, a, b, procId, G, des are local to `PqExample'
+gap> # Executing interactive variant of example: "PqDescendants-1"
+gap> ##Example: "PqDescendants-1" . . . based on manual example
+gap> ##(demonstrates `PqDescendants' usage)
 gap> F := FreeGroup( "a", "b" ); a := F.1; b := F.2;
 <free group on the generators [ a, b ]>
 a
@@ -47501,7 +47292,7 @@ b
 gap> G := PcGroupFpGroup( F / [ a^2, b^2, Comm(b, a) ] );
 <pc group of size 4 with 2 generators>
 gap> procId := PqStart( G );
-1
+11
 gap> des := PqDescendants( procId : OrderBound := 6, ClassBound := 5 );
 [ <pc group of size 8 with 3 generators>, 
   <pc group of size 8 with 3 generators>, 
@@ -47599,14 +47390,13 @@ gap> List(des, d -> Length( PCentralSeries( d, 2 ) ) - 1 );
   3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 
   4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 
   4, 4, 4, 5, 5, 5, 5, 5 ]
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "PqDescendants-1-i" . . . based on manual example
-#I  #(demonstrates `PqSetPQuotientToGroup' usage)
-#I  F, procId, G, des are local to `PqExample'
+gap> PqQuitAll();
+gap> ##Example: "PqDescendants-1-i" . . . based on manual example
+gap> ##(demonstrates `PqSetPQuotientToGroup' usage)
 gap> F := FreeGroup( "a", "b" );
 <free group on the generators [ a, b ]>
 gap> procId := PqStart( F : Prime := 2 );
-2
+1
 gap> Pq( procId : ClassBound := 1 );
 <pc group of size 4 with 2 generators>
 gap> PqSetPQuotientToGroup( procId );
@@ -47707,18 +47497,16 @@ gap> List(des, d -> Length( PCentralSeries( d, 2 ) ) - 1 );
   3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 
   4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 
   4, 4, 4, 5, 5, 5, 5, 5 ]
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "PqDescendants-2" . . . based on manual example
-#I  #(demonstrates `PqDescendants' usage)
-#I  #We compute all capable descendants of order 27
-#I  #of an elementary abelian group of order 9.
-#I  F, procId, G, A, des are local to `PqExample'
+gap> ##Example: "PqDescendants-2" . . . based on manual example
+gap> ##(demonstrates `PqDescendants' usage)
+gap> ##We compute all capable descendants of order 27
+gap> ##of an elementary abelian group of order 9.
 gap> F := FreeGroup( 2, "g" );
 <free group on the generators [ g1, g2 ]>
 gap> G := PcGroupFpGroup( F / [ F.1^3, F.2^3, Comm(F.1, F.2) ] );
 <pc group of size 9 with 2 generators>
 gap> des := PqDescendants( G : OrderBound := 3, ClassBound := 2,
->                              CapableDescendants );
+>                           CapableDescendants );
 [ <pc group of size 27 with 3 generators>, 
   <pc group of size 27 with 3 generators> ]
 gap> List(des, d -> Length( PCentralSeries( d, 3 ) ) - 1 );
@@ -47728,21 +47516,19 @@ gap> PqDescendants( G : OrderBound := 3, ClassBound := 2);
 [ <pc group of size 27 with 3 generators>, 
   <pc group of size 27 with 3 generators>, 
   <pc group of size 27 with 3 generators> ]
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  Executing interactive variant of example: "PqDescendants-2"
-#I  #Example: "PqDescendants-2" . . . based on manual example
-#I  #(demonstrates `PqDescendants' usage)
-#I  #We compute all capable descendants of order 27
-#I  #of an elementary abelian group of order 9.
-#I  F, procId, G, A, des are local to `PqExample'
+gap> # Executing interactive variant of example: "PqDescendants-2"
+gap> ##Example: "PqDescendants-2" . . . based on manual example
+gap> ##(demonstrates `PqDescendants' usage)
+gap> ##We compute all capable descendants of order 27
+gap> ##of an elementary abelian group of order 9.
 gap> F := FreeGroup( 2, "g" );
 <free group on the generators [ g1, g2 ]>
 gap> G := PcGroupFpGroup( F / [ F.1^3, F.2^3, Comm(F.1, F.2) ] );
 <pc group of size 9 with 2 generators>
 gap> procId := PqStart( G );
-3
+2
 gap> des := PqDescendants( procId : OrderBound := 3, ClassBound := 2,
->                              CapableDescendants );
+>                           CapableDescendants );
 [ <pc group of size 27 with 3 generators>, 
   <pc group of size 27 with 3 generators> ]
 gap> List(des, d -> Length( PCentralSeries( d, 3 ) ) - 1 );
@@ -47752,18 +47538,16 @@ gap> PqDescendants( G : OrderBound := 3, ClassBound := 2);
 [ <pc group of size 27 with 3 generators>, 
   <pc group of size 27 with 3 generators>, 
   <pc group of size 27 with 3 generators> ]
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "PqDescendants-3" . . . based on manual example
-#I  #(demonstrates `PqDescendants' usage)
-#I  #We compute all capable descendants of order 25 which have
-#I  #exponent-5 class at most 3, exponent 5 and are metabelian.
-#I  F, procId, G, des are local to `PqExample'
+gap> ##Example: "PqDescendants-3" . . . based on manual example
+gap> ##(demonstrates `PqDescendants' usage)
+gap> ##We compute all capable descendants of order 25 which have
+gap> ##exponent-5 class at most 3, exponent 5 and are metabelian.
 gap> F := FreeGroup( 2, "g" );
 <free group on the generators [ g1, g2 ]>
 gap> G := PcGroupFpGroup( F / [ F.1^5, F.2^5, Comm(F.2, F.1) ] );
 <pc group of size 25 with 2 generators>
 gap> des := PqDescendants( G : Metabelian, ClassBound := 3,
->                              Exponent := 5, CapableDescendants );
+>                           Exponent := 5, CapableDescendants );
 [ <pc group of size 125 with 3 generators>, 
   <pc group of size 625 with 4 generators>, 
   <pc group of size 3125 with 5 generators> ]
@@ -47773,21 +47557,19 @@ gap> List(des, d -> Length( DerivedSeries( d ) ) );
 [ 3, 3, 3 ]
 gap> List(des, d -> Maximum( List( Elements(d), Order ) ) );
 [ 5, 5, 5 ]
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  Executing interactive variant of example: "PqDescendants-3"
-#I  #Example: "PqDescendants-3" . . . based on manual example
-#I  #(demonstrates `PqDescendants' usage)
-#I  #We compute all capable descendants of order 25 which have
-#I  #exponent-5 class at most 3, exponent 5 and are metabelian.
-#I  F, procId, G, des are local to `PqExample'
+gap> # Executing interactive variant of example: "PqDescendants-3"
+gap> ##Example: "PqDescendants-3" . . . based on manual example
+gap> ##(demonstrates `PqDescendants' usage)
+gap> ##We compute all capable descendants of order 25 which have
+gap> ##exponent-5 class at most 3, exponent 5 and are metabelian.
 gap> F := FreeGroup( 2, "g" );
 <free group on the generators [ g1, g2 ]>
 gap> G := PcGroupFpGroup( F / [ F.1^5, F.2^5, Comm(F.2, F.1) ] );
 <pc group of size 25 with 2 generators>
 gap> procId := PqStart( G );
-4
+3
 gap> des := PqDescendants( procId : Metabelian, ClassBound := 3,
->                              Exponent := 5, CapableDescendants );
+>                           Exponent := 5, CapableDescendants );
 [ <pc group of size 125 with 3 generators>, 
   <pc group of size 625 with 4 generators>, 
   <pc group of size 3125 with 5 generators> ]
@@ -47797,31 +47579,24 @@ gap> List(des, d -> Length( DerivedSeries( d ) ) );
 [ 3, 3, 3 ]
 gap> List(des, d -> Maximum( List( Elements(d), Order ) ) );
 [ 5, 5, 5 ]
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "PqEpimorphism" . . . based on `PqEpimorphism' manual example
-#I  F, procId, phi are local to `PqExample'
+gap> ##Example: "PqEpimorphism" . . . based on `PqEpimorphism' manual example
 gap> F := FreeGroup (2, "F");
 <free group on the generators [ F1, F2 ]>
 gap> phi := PqEpimorphism( F : Prime := 5, ClassBound := 2 );
 [ F1, F2 ] -> [ f1, f2 ]
 gap> Image( phi );
 <pc group of size 3125 with 5 generators>
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  Executing interactive variant of example: "PqEpimorphism"
-#I  #Example: "PqEpimorphism" . . . based on `PqEpimorphism' manual example
-#I  F, procId, phi are local to `PqExample'
+gap> # Executing interactive variant of example: "PqEpimorphism"
+gap> ##Example: "PqEpimorphism" . . . based on `PqEpimorphism' manual example
 gap> F := FreeGroup (2, "F");
 <free group on the generators [ F1, F2 ]>
 gap> procId := PqStart( F );
-5
+4
 gap> phi := PqEpimorphism( procId : Prime := 5, ClassBound := 2 );
 [ F1, F2 ] -> [ f1, f2 ]
 gap> Image( phi );
 <pc group of size 3125 with 5 generators>
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "PqPCover" . . . based on `PqPCover' manual example
-#I  F, a, b, procId1, procId2, procId3, procId4, G, R, H, rels are
-#I  local to `PqExample'
+gap> ##Example: "PqPCover" . . . based on `PqPCover' manual example
 gap> F := FreeGroup("a", "b"); a := F.1; b := F.2;
 <free group on the generators [ a, b ]>
 a
@@ -47837,7 +47612,7 @@ gap> PqPCover( G : Prime := 2, ClassBound := 3 );
 gap> 
 gap> # Now let's get a p-cover of a different p-quotient of the same group
 gap> PqPCover( G : Prime := 2, ClassBound := 3, 
->                  Exponent := 4 );
+>               Exponent := 4 );
 <pc group of size 8192 with 13 generators>
 gap> 
 gap> # Now we'll get a p-cover of a p-quotient of another fp group
@@ -47855,19 +47630,16 @@ gap> F := FreeGroup("a", "b");
 gap> rels := [ "a^25", "[b, a, a]", "b^5" ];
 [ "a^25", "[b, a, a]", "b^5" ]
 gap> PqPCover( F : Prime := 5, ClassBound := 5, Metabelian, 
->                  Relators := rels );
+>               Relators := rels );
 <pc group of size 48828125 with 11 generators>
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  Executing interactive variant of example: "PqPCover"
-#I  #Example: "PqPCover" . . . based on `PqPCover' manual example
-#I  F, a, b, procId1, procId2, procId3, procId4, G, R, H, rels are
-#I  local to `PqExample'
+gap> # Executing interactive variant of example: "PqPCover"
+gap> ##Example: "PqPCover" . . . based on `PqPCover' manual example
 gap> F := FreeGroup("a", "b"); a := F.1; b := F.2;
 <free group on the generators [ a, b ]>
 a
 b
 gap> procId1 := PqStart( F );
-6
+5
 gap> PqPCover( procId1 : Prime := 2, ClassBound := 3 );
 <pc group of size 262144 with 18 generators>
 gap> 
@@ -47875,14 +47647,14 @@ gap> # Now let's get a p-cover of a p-quotient of an fp group
 gap> G := F / [a^4, b^4];
 <fp group on the generators [ a, b ]>
 gap> procId2 := PqStart( G );
-7
+6
 gap> PqPCover( procId2 : Prime := 2, ClassBound := 3 );
 <pc group of size 16384 with 14 generators>
 gap> 
 gap> # Now let's get a p-cover of a different p-quotient of the same group
 gap> PqPCover( procId2 : Prime := 2, ClassBound := 3, 
->                  RedoPcp,
->                  Exponent := 4 );
+>               RedoPcp,
+>               Exponent := 4 );
 <pc group of size 8192 with 13 generators>
 gap> 
 gap> # Now we'll get a p-cover of a p-quotient of another fp group
@@ -47892,7 +47664,7 @@ gap> R := [ a^25, Comm(Comm(b, a), a), b^5 ];
 gap> H := F / R;
 <fp group on the generators [ a, b ]>
 gap> procId3 := PqStart( H );
-8
+7
 gap> PqPCover( procId3 : Prime := 5, ClassBound := 5, Metabelian );
 <pc group of size 48828125 with 11 generators>
 gap> 
@@ -47902,30 +47674,28 @@ gap> F := FreeGroup("a", "b");
 gap> rels := [ "a^25", "[b, a, a]", "b^5" ];
 [ "a^25", "[b, a, a]", "b^5" ]
 gap> procId4 := PqStart( F );
-9
+8
 gap> PqPCover( procId4 : Prime := 5, ClassBound := 5, Metabelian, 
->                  Relators := rels );
+>               Relators := rels );
 <pc group of size 48828125 with 11 generators>
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "R2-5-i" . . . based on: examples/R2-5
-#I  #Construction of R(2,5)
-#I  F, procId, class are local to `PqExample'
+gap> ##Example: "R2-5-i" . . . based on: examples/R2-5
+gap> ##Construction of R(2,5)
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> procId := PqStart(F : Prime := 5, Exponent := 5);
-10
+9
 gap> PqPcPresentation(procId : ClassBound := 1, 
->                              OutputLevel := 1);
+>                           OutputLevel := 1);
 #I  Lower exponent-5 central series for <grp>
 #I  Group: <grp> to lower exponent-5 central class 1 has order 5^2
 gap> PqSupplyAutomorphisms(procId, [ [[2,0],
->                                     [0,1]],
->    
->                                    [[4,1],
->                                     [4,0]] ]);
+>                                  [0,1]],
+> 
+>                                 [[4,1],
+>                                  [4,0]] ]);
 gap> for class in [2 .. 13] do
->      PqNextClass(procId : QueueFactor := 20);
->    od;
+>   PqNextClass(procId : QueueFactor := 20);
+> od;
 #I  Group: <grp> to lower exponent-5 central class 2 has order 5^3
 #I  Group: <grp> to lower exponent-5 central class 3 has order 5^5
 #I  Group: <grp> to lower exponent-5 central class 4 has order 5^8
@@ -47940,18 +47710,16 @@ gap> for class in [2 .. 13] do
 #I  Group completed. Lower exponent-5 central class = 12, Order = 5^34
 #I  Group: <grp> to lower exponent-5 central class 12 has order 5^34
 gap> PqSavePcPresentation(procId, ANUPQData.outfile);
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "R2-5-x-i" . . . based on: GrpFP_2_pQuotient7
-#I  #Construction of R(2,5) extended to see how many
-#I  #words starting with the first pc generator squared
-#I  #need to be considered when doing the exponent law checks
-#I  F, procId are local to `PqExample'
+gap> ##Example: "R2-5-x-i" . . . based on: GrpFP_2_pQuotient7
+gap> ##Construction of R(2,5) extended to see how many
+gap> ##words starting with the first pc generator squared
+gap> ##need to be considered when doing the exponent law checks
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> procId := PqStart(F : Prime := 5, Exponent := 5);
-11
+10
 gap> PqPcPresentation(procId : ClassBound := 6, 
->                              OutputLevel := 1);
+>                           OutputLevel := 1);
 #I  Lower exponent-5 central series for <grp>
 #I  Group: <grp> to lower exponent-5 central class 1 has order 5^2
 #I  Group: <grp> to lower exponent-5 central class 2 has order 5^3
@@ -48011,11 +47779,8 @@ gap> PqDoExponentChecks(procId);
 4 .27^3 .28 .29^3
 #I  Collected power 5 of the following word: 1^1 2^3 4^1 
 #I  1 relation of class 7 collected
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "StandardPresentation" . . . based on manual example
-#I  #(demonstrates `StandardPresentation' usage)
-#I  F, a, b, procId1, procId2, procId3, G, S, Spc, H, F4, c, d, G4, K are
-#I  local to `PqExample'
+gap> ##Example: "StandardPresentation" . . . based on manual example
+gap> ##(demonstrates `StandardPresentation' usage)
 gap> F := FreeGroup( "a", "b" ); a := F.1; b := F.2;
 <free group on the generators [ a, b ]>
 a
@@ -48032,10 +47797,10 @@ gap> Spc := PcGroupFpGroup( S );
 <pc group of size 1490116119384765625 with 26 generators>
 gap> 
 gap> H := F / [ a^625, Comm(Comm(Comm(Comm(b, a), a), a), a)/Comm(b, a)^5,
->               Comm(Comm(b, a), b), b^625 ];
+>            Comm(Comm(b, a), b), b^625 ];
 <fp group on the generators [ a, b ]>
 gap> StandardPresentation( H : Prime := 5, ClassBound := 15, 
->                              Metabelian );
+>                           Metabelian );
 <fp group on the generators [ f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, 
   f12, f13, f14, f15, f16, f17, f18, f19, f20 ]>
 gap> 
@@ -48047,18 +47812,15 @@ b
 c
 d
 gap> G4 := F4 / [ b^4, b^2 / Comm(Comm (b, a), a), d^16,
->                 a^16 / (c * d), b^8 / (d * c^4) ];
+>              a^16 / (c * d), b^8 / (d * c^4) ];
 <fp group on the generators [ a, b, c, d ]>
 gap> K := Pq( G4 : Prime := 2, ClassBound := 1 );
 <pc group of size 4 with 2 generators>
 gap> StandardPresentation( G4 : pQuotient := K, ClassBound := 14 );
 <fp group with 53 generators>
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  Executing interactive variant of example: "StandardPresentation"
-#I  #Example: "StandardPresentation" . . . based on manual example
-#I  #(demonstrates `StandardPresentation' usage)
-#I  F, a, b, procId1, procId2, procId3, G, S, Spc, H, F4, c, d, G4, K are
-#I  local to `PqExample'
+gap> # Executing interactive variant of example: "StandardPresentation"
+gap> ##Example: "StandardPresentation" . . . based on manual example
+gap> ##(demonstrates `StandardPresentation' usage)
 gap> F := FreeGroup( "a", "b" ); a := F.1; b := F.2;
 <free group on the generators [ a, b ]>
 a
@@ -48066,7 +47828,7 @@ b
 gap> G := F / [a^25, Comm(Comm(b, a), a), b^5];
 <fp group on the generators [ a, b ]>
 gap> procId1 := PqStart( G );
-12
+11
 gap> S := StandardPresentation( procId1 : Prime := 5, ClassBound := 10 );
 <fp group on the generators [ f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, 
   f12, f13, f14, f15, f16, f17, f18, f19, f20, f21, f22, f23, f24, f25, f26 ]>
@@ -48077,12 +47839,12 @@ gap> Spc := PcGroupFpGroup( S );
 <pc group of size 1490116119384765625 with 26 generators>
 gap> 
 gap> H := F / [ a^625, Comm(Comm(Comm(Comm(b, a), a), a), a)/Comm(b, a)^5,
->               Comm(Comm(b, a), b), b^625 ];
+>            Comm(Comm(b, a), b), b^625 ];
 <fp group on the generators [ a, b ]>
 gap> procId2 := PqStart( H );
-13
+12
 gap> StandardPresentation( procId2 : Prime := 5, ClassBound := 15, 
->                              Metabelian );
+>                           Metabelian );
 <fp group on the generators [ f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, 
   f12, f13, f14, f15, f16, f17, f18, f19, f20 ]>
 gap> 
@@ -48094,18 +47856,16 @@ b
 c
 d
 gap> G4 := F4 / [ b^4, b^2 / Comm(Comm (b, a), a), d^16,
->                 a^16 / (c * d), b^8 / (d * c^4) ];
+>              a^16 / (c * d), b^8 / (d * c^4) ];
 <fp group on the generators [ a, b, c, d ]>
 gap> procId3 := PqStart( G4 );
-14
+13
 gap> K := Pq( procId3 : Prime := 2, ClassBound := 1 );
 <pc group of size 4 with 2 generators>
 gap> StandardPresentation( procId3 : pQuotient := K, ClassBound := 14 );
 <fp group with 53 generators>
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "StandardPresentation-i" . . . based on manual example
-#I  #(demonstrates `StandardPresentation' interactive usage)
-#I  F4, a, b, c, d, G4, procId, lev are local to `PqExample'
+gap> ##Example: "StandardPresentation-i" . . . based on manual example
+gap> ##(demonstrates `StandardPresentation' interactive usage)
 gap> F4 := FreeGroup( "a", "b", "c", "d" );
 <free group on the generators [ a, b, c, d ]>
 gap> a := F4.1; b := F4.2; c := F4.3; d := F4.4;
@@ -48114,10 +47874,10 @@ b
 c
 d
 gap> G4 := F4 / [ b^4, b^2 / Comm(Comm (b, a), a), d^16,
->                 a^16 / (c * d), b^8 / (d * c^4) ];
+>              a^16 / (c * d), b^8 / (d * c^4) ];
 <fp group on the generators [ a, b, c, d ]>
 gap> procId := PqStart( G4 );
-15
+14
 gap> Pq( procId : Prime := 2, ClassBound := 1 );
 <pc group of size 4 with 2 generators>
 gap> # the computed p-quotient is ``remembered'' and supplies the
@@ -48135,28 +47895,26 @@ gap> EpimorphismStandardPresentation( procId : ClassBound := 14 );
 gap> # No timing data was Info-ed since no computation was done
 gap> SetInfoLevel(InfoANUPQ, lev); # Restore previous InfoANUPQ level
 gap> 
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
-#I  #Example: "gp-256-SP-Rel-i" . . . based on: isom/gp_256
-#I  F, rels, procId are local to `PqExample'
+gap> ##Example: "gp-256-SP-Rel-i" . . . based on: isom/gp_256
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> rels := ["a^4 * [b, a, a, a, a, a]^-1", 
->             "b * a^2 * b^-1 * a^-2 * [b, a, a, a, a, a]^-1", 
->             "b^2 * [b, a, a, a, a, a]^-1" ];
+>          "b * a^2 * b^-1 * a^-2 * [b, a, a, a, a, a]^-1", 
+>          "b^2 * [b, a, a, a, a, a]^-1" ];
 [ "a^4 * [b, a, a, a, a, a]^-1", 
   "b * a^2 * b^-1 * a^-2 * [b, a, a, a, a, a]^-1", 
   "b^2 * [b, a, a, a, a, a]^-1" ]
 gap> procId := PqStart(F : Prime := 2, Relators := rels);
-1
+15
 gap> PqSPComputePcpAndPCover(procId : ClassBound := 1);
 gap> PqSPStandardPresentation(procId, [ [[0,1],
->                                        [1,1]],
->    
->                                       [[0,1],
->                                        [1,0]] ]
->    
->                             : # options
->                               ClassBound := 8,
->                               PcgsAutomorphisms);
-#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
+>                                     [1,1]],
+> 
+>                                    [[0,1],
+>                                     [1,0]] ]
+> 
+>                          : # options
+>                            ClassBound := 8,
+>                            PcgsAutomorphisms);
+gap> PqQuitAll();
 gap> STOP_TEST( "anupqeg.tst", 1000000 );
