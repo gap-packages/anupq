@@ -300,10 +300,10 @@ F 5.4. PqPGSetDescendantToPcp
 F 5.4. PqPGSetDescendantToPcp
 F 5.4. PqPGSetDescendantToPcp
 F 5.4. PqPGSetDescendantToPcp
-F 5.4. PqPGRestoreGroupFromFile
-F 5.4. PqPGRestoreGroupFromFile
-F 5.4. PqPGRestoreGroupFromFile
-F 5.4. PqPGRestoreGroupFromFile
+F 5.4. PqPGRestoreDescendantFromFile
+F 5.4. PqPGRestoreDescendantFromFile
+F 5.4. PqPGRestoreDescendantFromFile
+F 5.4. PqPGRestoreDescendantFromFile
 F 5.4. PqAPGDegree
 F 5.4. PqAPGDegree
 F 5.4. PqAPGPermutations
