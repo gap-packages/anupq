@@ -10,6 +10,9 @@
 *Y  Copyright 1995-1997,  School of Mathematical Sciences, ANU,     Australia
 **
 *H  $Log$
+*H  Revision 1.12  2002/02/15 10:09:57  gap
+*H  Change due to anustab.gi being moved up a directory from gap/lib to lib. - GG
+*H
 *H  Revision 1.11  2001/12/21 11:50:01  gap
 *H  Missing semicolon in last commit, added. - GG
 *H
@@ -216,7 +219,7 @@ void insoluble_stab_gens ( rep, orbit_length, pga, pcp )
      fprintf( GAP_rep, "  DeclareInfoClass(\"InfoANUPQ\");\n" );
      fprintf( GAP_rep, "  DeclareGlobalFunction(" );
      fprintf( GAP_rep,        "\"PqStabiliserOfAllowableSubgroup\");\n" );
-     fprintf( GAP_rep, "  ReadPkg(\"anupq\", \"gap/lib/anustab.gi\");\n");
+     fprintf( GAP_rep, "  ReadPkg(\"anupq\", \"lib/anustab.gi\");\n");
      fprintf( GAP_rep, "fi;\n");
      fprintf( GAP_rep, "SetInfoLevel(InfoANUPQ, 2);\n" );
    }
