@@ -11,6 +11,4 @@ Q := Pq( FreeGroup(2) : Prime := 3, ClassBound := 1 );
 #alt: sub <procId> for <Q>
 des := PqDescendants( Q : StepSize := 1 );
 S := PqSupplementInnerAutomorphisms( des[3] );
-Size( S );
-A := AutomorphismGroup( des[3] );
-Size( A );
+A := AutomorphismGroupPGroup( des[3] );
