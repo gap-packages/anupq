@@ -669,12 +669,25 @@ three examples (see~"PqExample").
 
 This function returns  a subgroup of the automorphism  group of <D> which
 is  a supplement  to the  inner automorphism  group of  <D> in  the whole
-automorphism group.   The descendant <D>  must have been computed  by the
-function `PqDescendants' (see~"PqDescendants").
+automorphism group.  The group of  automorphisms returned may be a proper
+subgroup of  the full automorphism  group.  The descendant <D>  must have
+been computed by the function `PqDescendants' (see~"PqDescendants").
 
 \beginexample
-gap>
-gap>
+gap> q := Pq( FreeGroup(2) : Prime := 3, ClassBound := 1 );
+<pc group of size 9 with 2 generators>
+gap> desc := PqDescendants( q : StepSize := 1 );
+[ <pc group of size 27 with 3 generators>, 
+  <pc group of size 27 with 3 generators>, 
+  <pc group of size 27 with 3 generators> ]
+gap> S := PqSupplementInnerAutomorphisms( desc[3] );
+<group with 2 generators>
+gap> Size( S );
+18
+gap> A := AutomorphismGroup( desc[3] );
+<group of size 54 with 4 generators>
+gap> Size( A );
+54
 \endexample
 
 \>PqList( <filename> [: SubList := <sub> ]) F
