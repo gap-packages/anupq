@@ -701,19 +701,20 @@ three examples (see~"PqExample").
 
 \>PqSupplementInnerAutomorphisms( <D> ) F
 
-returns   a   record   analogous   to   what   is   returned    by    the
-`AutomorphismGroupPGroup' function of the {\AutPGrp} package, except that
-only  the  fields  `agAutos',  `agOrder'  and  `glAutos'  are  set.   The
-automorphisms generate a subgroup of the automorphism  group  of  the  pc
-group <D> that supplements the inner automorphism group  of  <D>  in  the
-whole automorphism group of <D>. The group of automorphisms returned  may
-be a proper subgroup of the full automorphism group. The  descendant  <D>
-must   have   been   computed    by    the    function    `PqDescendants'
-(see~"PqDescendants").
+returns a generating set for a supplement to the inner  automorphisms  of
+<D>, in the form  of  a  record  with  fields  `agAutos',  `agOrder'  and
+`glAutos', as provided by the `pq' program. One should be very careful in
+using these automorphisms for a descendant calculation.
+%The automorphisms generate a subgroup of the automorphism group of the pc
+%group <D> that supplements the inner automorphism group  of  <D>  in  the
+%whole automorphism group of <D>. The group of automorphisms returned  may
+%be a proper subgroup of the full automorphism group. The  descendant  <D>
+%must   have   been   computed    by    the    function    `PqDescendants'
+%(see~"PqDescendants").
 
-It was hoped that this function would be useful for generating  the  full
-automorphism group of a descendant when  doing  descendant  calculations.
-However, currently it *cannot* be used for this purpose.
+*Note:*
+In principle there must be a way to use those automorphisms in  order  to
+compute descendants but we don't know how to do it properly.
 
 \beginexample
 gap> Q := Pq( FreeGroup(2) : Prime := 3, ClassBound := 1 );
