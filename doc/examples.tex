@@ -79,14 +79,14 @@ gap> PqExample();
 #I    general:
 #I     "PqDescendants-1"      "PqDescendants-2"      "PqDescendants-3"
 #I     "PqDescendants-1-i"
-#I    2-groups:
-#I     "2gp-PG-i"             "2gp-PG-2-i"           "2gp-PG-3-i"
-#I     "2gp-PG-4-i"           "2gp-PG-e4-i"
+#I     "PqDescendantsTreeCoclassOne-16-i"
 #I    3-groups:
 #I     "3gp-PG-i"             "3gp-PG-4-i"           "3gp-PG-x-i"
-#I     "3gp-PG-x-1-i"
+#I     "3gp-PG-x-1-i"         "PqDescendants-treetraverse-i"
+#I     "PqDescendantsTreeCoclassOne-9-i"
 #I    5-groups:
 #I     "5gp-PG-i"             "Nott-PG-Rel-i"        "Nott-APG-Rel-i"
+#I     "PqDescendantsTreeCoclassOne-25-i"
 #I    7,11-groups:
 #I     "7gp-PG-i"             "11gp-PG-i"
 #I  
@@ -491,6 +491,234 @@ for class in [ 3 .. 13 ] do
     PqDisplayPcPresentation( procId );
 od;
 \endtt
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\Section{Developing descendants trees}
+
+In the following example we will explore  the  3-groups  of  rank  2  and
+3-coclass 1 up to 3-class 5.  This  will  be  done  using  the  $p$-group
+generation machinery of the package. We start with the elementary abelian
+3-group   of   rank   2.   From   within   {\GAP},   run   the    example
+`"PqDescendants-treetraverse-i"' via `PqExample' (see~"PqExample").
+
+\beginexample
+gap> G := ElementaryAbelianGroup( 9 );
+<pc group of size 9 with 2 generators>
+gap> procId := PqStart( G );
+5
+gap> #
+gap> #  Below, we use the option StepSize in order to construct descendants
+gap> #  of coclass 1. This is equivalent to setting the StepSize to 1 in
+gap> #  each descendant calculation.
+gap> #
+gap> #  The elementary abelian group of order 9 has 3 descendants of
+gap> #  3-class 2 and 3-coclass 1, as the result of the next command
+gap> #  shows. 
+gap> #
+gap> PqDescendants( procId : StepSize := 1 );
+[ <pc group of size 27 with 3 generators>, 
+  <pc group of size 27 with 3 generators>, 
+  <pc group of size 27 with 3 generators> ]
+gap> #
+gap> #  Now we will compute the descendants of coclass 1 for each of the
+gap> #  groups above. Then we will compute the descendants  of coclass 1
+gap> #  of each descendant and so  on.  Note  that the  pq program keeps
+gap> #  one file for each class at a time.  For example, the descendants
+gap> #  calculation for  the  second  group  of class  2  overwrites the
+gap> #  descendant file  obtained  from  the  first  group  of  class 2.
+gap> #  Hence,  we have to traverse the descendants tree  in depth first
+gap> #  order.
+gap> #
+gap> PqPGSetDescendantToPcp( procId, 2, 1 );
+gap> PqPGExtendAutomorphisms( procId );
+gap> PqPGConstructDescendants( procId : StepSize := 1 );
+2
+gap> PqPGSetDescendantToPcp( procId, 3, 1 );
+gap> PqPGExtendAutomorphisms( procId );
+gap> PqPGConstructDescendants( procId : StepSize := 1 );
+2
+gap> PqPGSetDescendantToPcp( procId, 4, 1 );
+gap> PqPGExtendAutomorphisms( procId );
+gap> PqPGConstructDescendants( procId : StepSize := 1 );
+2
+gap> #
+gap> #  At this point we stop traversing the ``left most'' branch of the
+gap> #  descendants tree and move upwards.
+gap> #
+gap> PqPGSetDescendantToPcp( procId, 4, 2 );
+gap> PqPGExtendAutomorphisms( procId );
+gap> PqPGConstructDescendants( procId : StepSize := 1 );
+#I  group restored from file is incapable
+0
+gap> PqPGSetDescendantToPcp( procId, 3, 2 );
+gap> PqPGExtendAutomorphisms( procId );
+gap> PqPGConstructDescendants( procId : StepSize := 1 );
+#I  group restored from file is incapable
+0
+gap> #  
+gap> #  The computations above indicate that the descendants subtree under
+gap> #  the first descendant of the elementary abelian group of order 9
+gap> #  will have only one path of infinite length.
+gap> #
+gap> PqPGSetDescendantToPcp( procId, 2, 2 );
+gap> PqPGExtendAutomorphisms( procId );
+gap> PqPGConstructDescendants( procId : StepSize := 1 );
+4
+gap> #
+gap> #  We get four descendants here, three of which will turn out to be
+gap> #  incapable, i.e., they have no descendants and are terminal nodes
+gap> #  in the descendants tree.
+gap> #
+gap> PqPGSetDescendantToPcp( procId, 2, 3 );
+gap> PqPGExtendAutomorphisms( procId );
+gap> PqPGConstructDescendants( procId : StepSize := 1 );
+#I  group restored from file is incapable
+0
+gap> #
+gap> #  The third descendant of class three is incapable.  Let us return
+gap> #  to the second descendant of class 2.
+gap> #
+gap> PqPGSetDescendantToPcp( procId, 2, 2 );
+gap> PqPGExtendAutomorphisms( procId );
+gap> PqPGConstructDescendants( procId : StepSize := 1 );
+4
+gap> PqPGSetDescendantToPcp( procId, 3, 1 );
+gap> PqPGExtendAutomorphisms( procId );
+gap> PqPGConstructDescendants( procId : StepSize := 1 );
+#I  group restored from file is incapable
+0
+gap> PqPGSetDescendantToPcp( procId, 3, 2 );
+gap> PqPGExtendAutomorphisms( procId );
+gap> PqPGConstructDescendants( procId : StepSize := 1 );
+#I  group restored from file is incapable
+0
+gap> #
+gap> #  We skip the third descendant for the moment ... 
+gap> #
+gap> PqPGSetDescendantToPcp( procId, 3, 4 );
+gap> PqPGExtendAutomorphisms( procId );
+gap> PqPGConstructDescendants( procId : StepSize := 1 );
+#I  group restored from file is incapable
+0
+gap> #
+gap> #  ... and look at it now.
+gap> #
+gap> PqPGSetDescendantToPcp( procId, 3, 3 );
+gap> PqPGExtendAutomorphisms( procId );
+gap> PqPGConstructDescendants( procId : StepSize := 1 );
+6
+gap> #
+gap> #  In this branch of the descendant tree we get 6 descendants of class
+gap> #  three.  Of those 5 will turn out to be incapable and one will have
+gap> #  7 descendants.
+gap> #
+gap> PqPGSetDescendantToPcp( procId, 4, 1 );
+gap> PqPGExtendAutomorphisms( procId );
+gap> PqPGConstructDescendants( procId : StepSize := 1 );
+#I  group restored from file is incapable
+0
+gap> PqPGSetDescendantToPcp( procId, 4, 2 );
+gap> PqPGExtendAutomorphisms( procId );
+gap> PqPGConstructDescendants( procId : StepSize := 1 );
+7
+gap> PqPGSetDescendantToPcp( procId, 4, 3 );
+gap> PqPGExtendAutomorphisms( procId );
+gap> PqPGConstructDescendants( procId : StepSize := 1 );
+#I  group restored from file is incapable
+0
+\endexample
+
+To automate the above procedure to some extent we provide:
+
+\>PqDescendantsTreeCoclassOne( <i> ) F
+\>PqDescendantsTreeCoclassOne() F
+
+for the  <i>th  or  default  interactive  {\ANUPQ}  process,  generate  a
+descendant tree for the  group  of  the  process  (which  must  be  a  pc
+$p$-group) consisting of descendants of $p$-coclass 1  and  extending  to
+the class determined by the option `TreeDepth' (or 6  if  the  option  is
+omitted). In an  {\XGAP}  session,  a  graphical  representation  of  the
+descendants tree appears  in  a  separate  window.  Subsequent  calls  to
+`PqDescendantsTreeCoclassOne' for the same process may be used to  extend
+the descendant tree from the last descendant  computed  that  itself  has
+more than one descendant. `PqDescendantsTreeCoclassOne' also accepts  the
+options  `CapableDescendants'  (or  `AllDescendants')  and  any   options
+accepted     by     the     interactive     `PqDescendants'      function
+(see~"PqDescendants!interactive").
+
+*Notes*
+
+\beginlist%ordered
+
+\item{1.}
+`PqDescendantsTreeCoclassOne'    first    calls    `PqDescendants'.    If
+`PqDescendants' has already been called for  the  process,  the  previous
+value computed is used and a warning is `Info'-ed at `InfoANUPQ' level 1.
+
+\item{2.}
+As each descendant is processed its unique  label  defined  by  the  `pq'
+program and number of descendants is `Info'-ed at `InfoANUPQ' level 1.
+
+\item{3.}
+`PqDescendantsTreeCoclassOne' is an  ``experimental''  function  that  is
+included to demonstrate the sort of things that  are  possible  with  the
+$p$-group generation machinery.
+
+\endlist
+
+Ignoring  the  extra  functionality  provided  in  an  {\XGAP}   session,
+`PqDescendantsTreeCoclassOne', with one argument that is the index of  an
+interactive {\ANUPQ} process, is approximately equivalent to:
+
+\begintt
+PqDescendantsTreeCoclassOne := function( procId )
+    local   des,  i;
+
+    des := PqDescendants( procId : StepSize := 1 );
+    RecurseDescendants( procId, 2, Length(des) );
+end;
+\endtt
+
+where `RecurseDescendants' is (approximately) defined as follows:
+
+\begintt
+RecurseDescendants := function( procId, class, n )
+    local   i,  nr;
+
+    if class > ValueOption("TreeDepth") then return; fi;
+
+    for i in [1..n] do
+        PqPGSetDescendantToPcp( procId, class, i );
+        PqPGExtendAutomorphisms( procId );
+        nr := PqPGConstructDescendants( procId : StepSize := 1 );
+        Print( "Number of descendants of group ", i,
+               " at class ", class, ": ", nr, "\n" );
+        RecurseDescendants( procId, class+1, nr );
+    od;
+    return;
+end;
+\endtt
+
+The  following  examples  (executed  via  `PqExample';  see~"PqExample"),
+demonstrate the use of `PqDescendantsTreeCoclassOne':
+
+\beginitems
+
+`"PqDescendantsTreeCoclassOne-9-i"'&
+approximately  redoes  example   `"PqDescendants-treetraverse-i"'   using
+`PqDescendantsTreeCoclassOne';
+
+`"PqDescendantsTreeCoclassOne-16-i"'&
+uses the option `CapableDescendants'; and
+
+`"PqDescendantsTreeCoclassOne-25-i"'&
+calculates all descendants by omitting the `CapableDescendants' option.
+
+\enditems
+
+The numbers `9', `16' and `25' respectively, indicate the  order  of  the
+elementary  abelian  group  to  which  `PqDescendantsTreeCoclassOne'   is
+applied for these examples.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%

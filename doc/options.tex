@@ -26,11 +26,11 @@ package:
 gap> AllANUPQoptions();
 [ "AllDescendants", "BasicAlgorithm", "Bounds", "CapableDescendants", 
   "ClassBound", "CustomiseOutput", "Exponent", "Filename", "GroupName", 
-  "Identities", "Metabelian", "OrderBound", "OutputLevel", 
-  "PcgsAutomorphisms", "PqWorkspace", "Prime", "PrintAutomorphisms", 
-  "PrintPermutations", "QueueFactor", "RankInitialSegmentSubgroups", 
-  "RedoPcp", "Relators", "SetupFile", "SpaceEfficient", 
-  "StandardPresentationFile", "StepSize", "SubList", "pQuotient" ]
+  "Identities", "Metabelian", "OrderBound", "OutputLevel", "PcgsAutomorphisms", 
+  "PqWorkspace", "Prime", "PrintAutomorphisms", "PrintPermutations", 
+  "QueueFactor", "RankInitialSegmentSubgroups", "RedoPcp", "Relators", 
+  "SetupFile", "SpaceEfficient", "StandardPresentationFile", "StepSize", 
+  "SubList", "TreeDepth", "pQuotient" ]
 \endexample
 
 The following global variable gives a  partial  breakdown  of  where  the
@@ -285,7 +285,6 @@ process, `SpaceEfficient' defaults to a previously supplied value for the
 process.   Otherwise  (and  non-interactively),  `SpaceEfficient'  is  by
 default `false'.
 
-
 \>`CapableDescendants'{option CapableDescendants}@{option `CapableDescendants'|indexit}&
 By default, *all* (i.e.~capable and terminal) descendants  are  computed.
 If this flag is set, only capable descendants are computed. Setting  this
@@ -301,6 +300,11 @@ superfluous. This option is provided only for backward compatibility with
 the  {\GAP}  3  version  of  the  {\ANUPQ}  package,  where  by   default
 `AllDescendants'  was  set  to  `false'  (rather  than  `true').  It   is
 preferable to use `CapableDescendants' (see~"option CapableDescendants").
+
+\>`TreeDepth := <class>'{option TreeDepth}@{option `TreeDepth'|indexit}&
+Specifies     that     the     descendants     tree     developed      by
+`PqDescendantsTreeCoclassOne' (see~"PqDescendantsTreeCoclassOne")  should
+be extended to class <class>, where <class> is a positive integer.
 
 \>`SubList := <sub>'{option SubList}@{option `SubList'|indexit}&
 Suppose that <L> is the list of descendants generated, then  for  a  list

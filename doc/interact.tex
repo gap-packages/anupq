@@ -527,9 +527,10 @@ initiate  the  process  with  an  fp  group,   use   `Pq'   interactively
 (see~"Pq!interactive")    to    create    a    pc    group    and     use
 `PqSetPQuotientToGroup'  (see~"PqSetPQuotientToGroup"),  which   involves
 *no* computation, to set the pc group returned by `Pq' as  the  group  of
-the process. Note that the list of descendants accumulate;  i.e.~repeated
-calls to  `PqDescendants'  for  the  same  interactive  {\ANUPQ}  process
-progressively add to the list of descendants already calculated.
+the process. Note that repeating a call to `PqDescendants' for  the  same
+interactive {\ANUPQ} process  simply  returns  the  list  of  descendants
+originally calculated; a  warning  is  emitted  at  `InfoANUPQ'  level  1
+reminding you of this should you do this.
 
 Following the colon <options> a selection of the options listed  for  the
 non-interactive `PqDescendants' function (see~"PqDescendants") should  be

@@ -201,10 +201,13 @@ starts up an interactive {\ANUPQ} process);
 same as those passed to the `pq' program);
 
 \quad`name'& the name of the group whose pc presentation is defined by  a
-call to the `pq' program (according to the `pq' program -- unless you  have
-used the `GroupName' option  (see  e.g.~"Pq")  or  applied  the  function
+call to the `pq' program (according to the `pq'  program  --  unless  you
+have used the `GroupName' option (see e.g.~"Pq") or applied the  function
 `SetName'  (see~"ref:SetName")  to  the  group,  the   ``generic''   name
 `"\<grp>"' is set as a default);
+
+\quad`gpnum'& if not a null string, the ``number'' (i.e.~the unique label
+assigned by the `pq' program) of the last descendant processed;
 
 \quad`class'& the largest lower exponent-$p$ central class of a  quotient
 group of the group (usually `group') found by a call to the `pq' program;
@@ -244,13 +247,32 @@ time);
 \quad`SP' & is set to the value returned by  `PqStandardPresentation'  or
 `StandardPresentation'  (see~"PqStandardPresentation!interactive")   when
 called interactively, for process <i> (the field `SPepi' is also  set  at
-the same time); and
+the same time);
 
 \quad`SPepi'    &    is    set    to    the     value     returned     by
 `EpimorphismPqStandardPresentation' or  `EpimorphismStandardPresentation'
 (see~"EpimorphismPqStandardPresentation!interactive")     when     called
 interactively, for process <i> (the field `SP' is also set  at  the  same
-time).
+time);
+
+\quad`descendants' & is    set    to    the     value     returned     by
+`PqDescendants' (see~"PqDescendants");
+
+\quad`treepos' &  if  set  by  a  call  to  `PqDescendantsTreeCoclassOne'
+(see~"PqDescendantsTreeCoclassOne"), it contains  a  record  with  fields
+`class', `node' and `ndes' being the information that determines the last
+descendant with a non-zero number of descendants processed;
+
+\quad`xgapsheet' & if set  by  a  call  to  `PqDescendantsTreeCoclassOne'
+(see~"PqDescendantsTreeCoclassOne")  during  an   {\XGAP}   session,   it
+contains the {\XGAP} `Sheet' on which the descendants tree is  displayed;
+and
+
+\quad`nextX'  &  if  set  by  a  call  to   `PqDescendantsTreeCoclassOne'
+(see~"PqDescendantsTreeCoclassOne")  during  an   {\XGAP}   session,   it
+contains  a  list  of  integers,  the  <i>th  entry  of  which   is   the
+<x>-coordinate of the next node (representing a descendant) for the <i>th
+class.
 
 \enditems
 
