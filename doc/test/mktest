@@ -48,8 +48,7 @@ options=$*
 
 #############################################################################
 ##
-##  Run the test for all documentation files in the order in which they occur
-##  in the manual.
+##  Run the test for all documentation files (in some arbitrary order).
 ##
 $mktest $options intro
 $mktest $options basics
