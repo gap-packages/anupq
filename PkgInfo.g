@@ -183,13 +183,6 @@ SetPackageInfo( rec(
 
   AvailabilityTest := 
     function()
-      # The following 5 lines should no longer be required
-      if not CompareVersionNumbers( VERSION, "4.3fix4" ) then
-          Info( InfoWarning, 1,
-                "Package ``ANUPQ'': requires at least GAP 4.3fix4" );
-          return fail;
-      fi;
-
       # test for existence of the compiled binary
       if Filename( DirectoriesPackagePrograms( "anupq" ), "pq" ) = fail then
           Info( InfoWarning, 1,
