@@ -1,0 +1,12 @@
+#!/usr/bin/env perl
+$version = `cat VERSION`;
+chomp $version;
+system( "( make distclean; ".
+        "  cp README ../README.anupq; ".
+        "  cd ..; rm -f anupq-$version.zoo; ".
+        "  find anupq -type f | ".
+        "  egrep -v 'CVS|zoo|make_|[.]cvs|[.]bbl|[.]aux|[.]toc|[.][ib]lg".
+                    "|[.]log|[.]lab|[.]ind|[.]idx|[._]tst|[.]swp|[.]bak|~".
+                    "|[.]\#|Gap3|gap/doc|-bak|pack_it|anupq.html|replace".
+                    "|[.]tgz|magma/|-gg|-4gap' |".
+        "  zoo ahI anupq-$version.zoo )" );
