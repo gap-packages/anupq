@@ -16,7 +16,10 @@ PqPCover( G : Prime := 2, ClassBound := 3 );
 
 ## Now let's get a p-cover of a different p-quotient of the same group
 #alt: sub <procId2> for <G>
-PqPCover( G : Prime := 2, ClassBound := 3, Exponent := 4);
+PqPCover( G : Prime := 2, ClassBound := 3, 
+#alt: do
+#              RedoPcp,
+              Exponent := 4);
 
 ## Now we'll get a p-cover of a p-quotient of another fp group
 ## which we will redo using the `Relators' option
@@ -36,7 +39,10 @@ rels := [ "a^25", "[b, a, a]", "b^5" ];
 R := PqGAPRelators(F, rels);
 H := F / R;
 #alt: sub <procId3> for <H>
-PqPCover( H : Prime := 5, ClassBound := 5, Metabelian, Relators := rels);
+PqPCover( H : Prime := 5, ClassBound := 5, Metabelian,
+#alt: do
+#              RedoPcp,
+              Relators := rels);
 
 ## Above we could have just passed `F' (rather than `H'):
 F := FreeGroup("a", "b");
