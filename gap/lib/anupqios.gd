@@ -101,6 +101,12 @@ DeclareGlobalFunction( "IS_PQ_REQUEST" );
 
 #############################################################################
 ##
+#F  IS_ALL_PQ_LINE( <line> ) . checks whether line is a complete line from pq
+##
+DeclareGlobalFunction( "IS_ALL_PQ_LINE" );
+
+#############################################################################
+##
 #F  PQ_READ_ALL_LINE . . read a line from a stream until a sentinel character
 ##
 DeclareGlobalFunction( "PQ_READ_ALL_LINE" );

@@ -326,68 +326,50 @@ end);
 ##
 #F  IS_PQ_REQUEST( <line> ) . .  checks whether the line is a request from pq
 ##
-##  returns `true' if the string <line> ends in `"!\n"' or otherwise  returns
-##  `false'.
+##  returns `true' if the string <line>  starts  with  `"GAP"'  and  ends  in
+##  `"!\n"' (i.e. is a request from `pq' to {\GAP} to compute stabilisers) or
+##  otherwise returns `false'.
 ##
 InstallGlobalFunction(IS_PQ_REQUEST, function(line)
 local len;
   len := Length(line);
-  return 2 < len  and line{[1 .. 3]} = "GAP" and line{[len - 1 .. len]} = "!\n";
-end);
-
-# UNIXSelect may disappear!
-if not("UNIXSelect" in NamesGVars()) then
-  BindGlobal("UNIXSelect", function(arg) Sleep(1); end); #avoid chewing up CPU
-fi;
-#############################################################################
-##
-#F  PQ_READ_ALL_LINE(<iostream>) . read line from stream until sentinel char.
-##
-##  Essentially, like `ReadLine' but does not return a line fragment; if  the
-##  initial `ReadLine' call doesn't return `fail', it waits until it has  all
-##  the line (i.e. a line that ends with a '\n',  or  "? "  or  ": ")  before
-##  returning.
-##
-InstallGlobalFunction(PQ_READ_ALL_LINE, function(iostream)
-local fd, line, moreOfline;
-
-  fd := FileDescriptorOfStream( iostream );
-  line := "";
-  repeat
-    moreOfline := ReadLine(iostream);
-    if moreOfline = fail then 
-      UNIXSelect([fd], [], [], fail, fail);
-      moreOfline := ReadLine(iostream);
-    fi;
-    if moreOfline <> fail then
-      Append(line, moreOfline);
-      # Do I want to keep the following line?
-      Info(InfoANUPQ, 6, "PQ_READ_ALL_LINE moreOfline: ", moreOfline);
-    fi;
-    Info(InfoANUPQ, 5, "PQ_READ_ALL_LINE line: ", line);
-  until 0 < Length(line) and ( line[Length(line)] = '\n' or 
-                               IS_PQ_PROMPT(line) or 
-                               IS_PQ_REQUEST(line) );
-  return line;
+  return 4 < len  and line{[1 .. 3]} = "GAP" and line{[len - 1 .. len]} = "!\n";
 end);
 
 #############################################################################
 ##
-#F  PQ_READ_NEXT_LINE .  read complete line from stream but never return fail
+#F  IS_ALL_PQ_LINE( <line> ) . checks whether line is a complete line from pq
+##
+##  returns `true' if the string <line> ends in a `\n' or is a `pq' prompt or
+##  a  request  from  `pq'  to  {\GAP}  to  compute  stabilisers;  otherwise,
+##  `IS_ALL_PQ_LINE' returns `false'.
+##
+InstallGlobalFunction(IS_ALL_PQ_LINE, 
+  line -> 0 < Length(line) and ( line[Length(line)] = '\n' or 
+                                 IS_PQ_PROMPT(line) or 
+                                 IS_PQ_REQUEST(line) )
+);
+
+#############################################################################
+##
+#F  PQ_READ_ALL_LINE( <iostream> ) .  read line from pq but poss. return fail
+##
+##  reads a complete line from <iostream> or return `fail'.
+##
+InstallGlobalFunction(PQ_READ_ALL_LINE, 
+  iostream -> ReadAllLine(iostream, false, IS_ALL_PQ_LINE)
+);
+
+#############################################################################
+##
+#F  PQ_READ_NEXT_LINE( <iostream> ) . read line from pq but never return fail
 ##
 ##  Essentially, like `PQ_READ_ALL_LINE' but we know there is a complete line
 ##  to be got, so we wait for it, before returning.
 ##
-InstallGlobalFunction(PQ_READ_NEXT_LINE, function(iostream)
-local line;
-
-  line := PQ_READ_ALL_LINE(iostream);
-  while line = fail do
-    #Sleep(1);
-    line := PQ_READ_ALL_LINE(iostream);
-  od;
-  return line;
-end);
+InstallGlobalFunction(PQ_READ_NEXT_LINE, 
+  iostream -> ReadAllLine(iostream, true, IS_ALL_PQ_LINE)
+);
 
 #############################################################################
 ##

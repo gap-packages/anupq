@@ -10,6 +10,12 @@
 #Y  Copyright 1992-1994,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.19  2001/08/19 20:57:20  gap
+#H  Now more careful with the compatibility with GAP 4.2 (ensure that some
+#H  other function hasn't already defined the GAP 4.3 functions we need).
+#H  `PQ_READ_ALL_LINE' and `PQ_READ_NEXT_LINE' now use the library function
+#H  `ReadAllLine' just committed. - GG
+#H
 #H  Revision 1.18  2001/08/17 20:10:53  gap
 #H  Added options `BasicAlgorithm' and `TailorOutput' used in descendants
 #H  functions, allowing now the full generality of the sub-options available
@@ -938,12 +944,12 @@ local name, file, instream, line, input, doPqStart, vars, var, printonly,
           if line <> "\n" then
             Append(input, line);
             if iscompoundStatement then
-              if compoundDepth = 0 and PositionSublist(input, ";") <> fail then
+              if compoundDepth = 0 and Position(input, ';') <> fail then
                 Read( InputTextString(input) );           
                 iscompoundStatement := false;
                 input := "";
               fi;
-            elif PositionSublist(input, ";") <> fail then
+            elif Position(input, ';') <> fail then
               PQ_EVALUATE(input);
               input := "";
             fi;
