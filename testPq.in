@@ -63,7 +63,7 @@ print GAPIN
       "fi;\n";
 close GAPIN;
 print " Starting GAP to determine version and package availability ...\n"; 
-system("$gap -q -r < $tmpdir/gapinput > $tmpdir/gapout");
+system("$gap -A -q -r < $tmpdir/gapinput > $tmpdir/gapout");
 #print "$tmpdir/gapinput:\n";
 #system("more $tmpdir/gapinput");
 #print "$tmpdir/gapoutput:\n";

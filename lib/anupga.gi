@@ -14,6 +14,16 @@
 #Y  Copyright 1992-1994,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.4  2002/11/19 08:47:30  gap
+#H  init.g:    now use `StringFile' rather than iostreams to read `VERSION'
+#H  testPq.in: Added -A option to GAP command.
+#H  lib/{anusp.gi,anupga.gi}: As suggested by AH added `IsSyllableWordsFamily'
+#H    as first argument to `FreeGroup' commands when the group is subsequently
+#H    converted to a pc group
+#H  tst/anupqeg.tst: Remade.
+#H  README, VERSION, PkgInfo.g, doc/{install,intro,infra}.tex:
+#H    Version 1.2 -> Version 1.3.                                         - GG
+#H
 #H  Revision 1.3  2002/10/31 13:56:38  werner
 #H  Adjust to changes in autpgrp (GeneralizedPcgs)
 #H
@@ -744,7 +754,8 @@ InstallGlobalFunction( SavePqList, function( file, list )
         AppendTo( file, "## group number: ", l, "\n"                     );
         AppendTo( file, "ANUPQgroups[", l, "] := function( L )\n"        );
         AppendTo( file, "local   G,  A,  B;\n"                           );
-        AppendTo( file, "G := FreeGroup( ", Length(pcgs), ", \"G\" );\n" );
+        AppendTo( file, "G := FreeGroup( IsSyllableWordsFamily,\n"       );
+        AppendTo( file, "                ", Length(pcgs), ", \"G\" );\n" );
         AppendTo( file, "G := G / [\n"                                   );
 
         # at first the power relators

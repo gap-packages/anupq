@@ -10,6 +10,16 @@
 #Y  Copyright 1993-2001,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.2  2002/11/19 08:47:30  gap
+#H  init.g:    now use `StringFile' rather than iostreams to read `VERSION'
+#H  testPq.in: Added -A option to GAP command.
+#H  lib/{anusp.gi,anupga.gi}: As suggested by AH added `IsSyllableWordsFamily'
+#H    as first argument to `FreeGroup' commands when the group is subsequently
+#H    converted to a pc group
+#H  tst/anupqeg.tst: Remade.
+#H  README, VERSION, PkgInfo.g, doc/{install,intro,infra}.tex:
+#H    Version 1.2 -> Version 1.3.                                         - GG
+#H
 #H  Revision 1.1  2002/02/15 08:53:47  gap
 #H  Moving `gap/lib' files to `lib'. - GG
 #H
@@ -363,7 +373,7 @@ function( args )
                         y -> y = datarec.Prime );
 
         # construct free group with <rank> generators
-        Q := FreeGroup( rank, "q" );
+        Q := FreeGroup( IsSyllableWordsFamily, rank, "q" );
     
         # construct power-relation
         Q := Q / List( GeneratorsOfGroup(Q), x -> x^datarec.Prime );

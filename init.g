@@ -1,30 +1,31 @@
 #############################################################################
 ##
 #W  init.g                   ANUPQ package                      Werner Nickel
+#W                                                                Greg Gamble
 ##
 ##  @(#)$Id$
 ##
 
+##  ANUPQ package 1.2 requires GAP 4.3fix4 ... compatibility with 4.2 futile
 ##  Compatibility with GAP 4.2
-if not IsBound( PolycyclicFactorGroupNC ) then
-    PolycyclicFactorGroupNC := PolycyclicFactorGroup;
-fi;
-
-if not IsBound( PcGroupFpGroupNC ) then
-    PcGroupFpGroupNC := PcGroupFpGroup;
-fi;
+#if not IsBound( PolycyclicFactorGroupNC ) then
+#    PolycyclicFactorGroupNC := PolycyclicFactorGroup;
+#fi;
+#
+#if not IsBound( PcGroupFpGroupNC ) then
+#    PcGroupFpGroupNC := PcGroupFpGroup;
+#fi;
 
 ANUPQPackageVersion := function()
-  local versionfile, stream, version;
+  local versionfile, version;
   versionfile := Filename( DirectoriesPackageLibrary("anupq", ""), "VERSION" );
-  stream := InputTextFile( versionfile );
-  version := ReadAll(stream);
-  CloseStream(stream);
+  version := StringFile(versionfile);
   return version{[1..Length(version) - 1]};
 end;
 
 ##  Install the documentation
-DeclarePackageAutoDocumentation( "anupq", "doc" );
+DeclarePackageAutoDocumentation( "ANUPQ", "doc", "ANUPQ",
+                                 "GAP Package for computing p-Quotients" );
 
 ##
 ##  Announce the package version and test for the existence of the binary.
@@ -33,9 +34,9 @@ DeclarePackage( "anupq", ANUPQPackageVersion(),
   function()
     local path;
 
-    if not CompareVersionNumbers( VERSION, "4.2" ) then
+    if not CompareVersionNumbers( VERSION, "4.3fix4" ) then
         Info( InfoWarning, 1,
-              "Package ``ANUPQ'': requires at least GAP 4.2" );
+              "Package ``ANUPQ'': requires at least GAP 4.3fix4" );
         return fail;
     fi;
 
@@ -72,10 +73,11 @@ ReadPkg( "anupq", "lib/anupqi.gd" );
 ReadPkg( "anupq", "lib/anupqid.gd" );
 ReadPkg( "anupq", "lib/anustab.gd" );
 ReadPkg( "anupq", "lib/anupqxdesc.gd" );
-if not CompareVersionNumbers( VERSION, "4.3" ) then
-    ReadPkg( "anupq", "lib/anupq4r2cpt.gd" );
-    ReadPkg( "anupq", "lib/anupq4r2cpt.gi" );
-fi;
+##  ANUPQ package 1.2 requires GAP 4.3fix4 ... compatibility with 4.2 futile
+#if not CompareVersionNumbers( VERSION, "4.3" ) then
+#    ReadPkg( "anupq", "lib/anupq4r2cpt.gd" );
+#    ReadPkg( "anupq", "lib/anupq4r2cpt.gi" );
+#fi;
 ReadPkg( "anupq", "lib/anupqhead.g" );
 
 #E  init.g . . . . . . . . . . . . . . . . . . . . . . . . . . . .  ends here
