@@ -96,6 +96,12 @@ DeclareGlobalFunction( "PQ_DISPLAY_PRESENTATION" );
 
 #############################################################################
 ##
+#F  PQ_POST_DISPLAY( <datarec>, <infolev> ) . . . . . .  flush display output
+##
+DeclareGlobalFunction( "PQ_POST_DISPLAY" );
+
+#############################################################################
+##
 #F  PQ_CURRENT_GROUP(<datarec>) .  uses p-Q menu opt 4 to set the current grp
 ##
 DeclareGlobalFunction( "PQ_CURRENT_GROUP" );

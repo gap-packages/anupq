@@ -10,6 +10,11 @@
 #Y  Copyright 1992-1994,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.15  2001/08/10 16:46:04  gap
+#H  Enhanced `PqExample' to work with more complicated files. Fixed minor bug
+#H  in `...Display..' functions (ensured prompt was Info-ed at the right level).
+#H  - GG
+#H
 #H  Revision 1.14  2001/08/08 21:37:06  gap
 #H  Some fine-tuning of `PqExample' and `PQ_EVALUATE'. - GG
 #H
@@ -601,8 +606,8 @@ local from, pos, statement, parts, var;
       Read( InputTextString(statement) );
       from := pos + 1;
     else
-      parts := SplitString(statement, "", " ");
-      if 2 < Length(parts) and parts[2] = ":=" then
+      parts := SplitString(statement, "", " \n");
+      if 1 < Length(parts) and parts[2] = ":=" then
         Read( InputTextString(statement) );
         Read( InputTextString( 
                   Concatenation( "View(", parts[1], "); Print(\"\\n\");" ) ) );
@@ -610,10 +615,12 @@ local from, pos, statement, parts, var;
       else
         var := TemporaryGlobalVarName();
         Read( InputTextString( Concatenation(var, ":=", statement) ) );
-        View( VALUE_GLOBAL(var) );
-        Print( "\n" );
-        ANUPQData.example.last := VALUE_GLOBAL(var);
-        UNBIND_GLOBAL(var);
+        if ISBOUND_GLOBAL(var) then
+          View( VALUE_GLOBAL(var) );
+          Print( "\n" );
+          ANUPQData.example.last := VALUE_GLOBAL(var);
+          UNBIND_GLOBAL(var);
+        fi;
       fi;
       from := pos;
     fi;
@@ -664,7 +671,8 @@ end );
 InstallGlobalFunction(PqExample, function(arg)
 local name, file, instream, line, input, doPqStart, vars, var, printonly,
       filename, DoAltAction, GetNextLine, PrintLine, action, datarec, optname,
-      linewidth, sizescreen;
+      linewidth, sizescreen, CheckForCompoundKeywords, iscompoundStatement,
+      compoundDepth;
 
   sizescreen := SizeScreen();
   if sizescreen[1] < 80 then
@@ -702,8 +710,9 @@ local name, file, instream, line, input, doPqStart, vars, var, printonly,
       # string then it is assumed to be a filename and we `LogTo' that filename.
       printonly := arg[Minimum(3, Length(arg))];
       if arg[2] = PqStart then
-        if name[Length(name)] = 'i' then
-          Error( "example does not have an interactive form\n" );
+        if 2 < Length(name) and 
+           name{[Length(name) - 1 .. Length(name)]} in ["-i", "ni", ".g"] then
+          Error( "example does not have a (different) interactive form\n" );
         fi;
         doPqStart := true;
       fi;
@@ -766,6 +775,19 @@ local name, file, instream, line, input, doPqStart, vars, var, printonly,
       printonly := false;
       ANUPQData.example := rec(options := rec());
       datarec := ANUPQData.example.options;
+
+      CheckForCompoundKeywords := function()
+        local compoundkeywords;
+        compoundkeywords := Filtered( SplitString(line, "", " ;\n"),
+                                      w -> w in ["do", "od", "if", "fi",
+                                                 "repeat", "until"] );
+        compoundDepth := compoundDepth 
+                         + Number(compoundkeywords,
+                                  w -> w in ["do", "if", "repeat"])
+                         - Number(compoundkeywords,
+                                  w -> w in ["od", "fi", "until"]);
+        return not IsEmpty(compoundkeywords);
+      end;
 
       GetNextLine := function()
         local from, to, bhsinput;
@@ -846,6 +868,8 @@ local name, file, instream, line, input, doPqStart, vars, var, printonly,
   
   instream := InputTextFile(file);
   if name <> "index" then
+    FLUSH_PQ_STREAM_UNTIL( instream, 10, 1, ReadLine,
+                           line -> IsMatchingSublist(line, "#Example") );
     line := FLUSH_PQ_STREAM_UNTIL( instream, 1, 10, ReadLine,
                                    line -> IsMatchingSublist(line, "#vars:") );
     if Length(line) + 21 < linewidth then
@@ -871,10 +895,25 @@ local name, file, instream, line, input, doPqStart, vars, var, printonly,
       PrintLine();
       if line[1] <> '#' then
         if not printonly then
-          Append(input, line);
-          if 1 < Length(input) and input[Length(input) - 1] = ';' then
-            PQ_EVALUATE(input);
-            input := "";
+          if input = "" then
+            compoundDepth := 0;
+            iscompoundStatement := CheckForCompoundKeywords();
+          elif iscompoundStatement and compoundDepth > 0 then
+            CheckForCompoundKeywords();
+          fi;
+          if line <> "\n" then
+            Append(input, line);
+            if iscompoundStatement then
+              if compoundDepth = 0 and 
+                 1 < Length(input) and input[Length(input) - 1] = ';' then
+                Read( InputTextString(input) );           
+                iscompoundStatement := false;
+                input := "";
+              fi;
+            elif 1 < Length(input) and input[Length(input) - 1] = ';' then
+              PQ_EVALUATE(input);
+              input := "";
+            fi;
           fi;
         fi;
       fi;

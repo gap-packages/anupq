@@ -399,8 +399,28 @@ end );
 InstallGlobalFunction( PQ_DISPLAY_PRESENTATION, function( datarec, menu )
 local infolev;
   infolev := PQ_PRE_DISPLAY(datarec, menu);
-  ToPQ(datarec, [ "4  #display presentation" ]);
-  SetInfoLevel(InfoANUPQ, infolev);
+  ToPQk(datarec, [ "4  #display presentation" ]);
+  PQ_POST_DISPLAY( datarec, infolev );
+end );
+
+#############################################################################
+##
+#F  PQ_POST_DISPLAY( <datarec>, <infolev> ) . . . . . .  flush display output
+##
+##  flushes the display output at at least `InfoANUPQ' level  2  but  ensures
+##  the following prompt is displayed  at  `InfoANUPQ'  level  <infolev>  and
+##  resets the `InfoANUPQ' level to <infolev>.
+##
+InstallGlobalFunction( PQ_POST_DISPLAY, function( datarec, infolev )
+local line;
+  line := FLUSH_PQ_STREAM_UNTIL( 
+              datarec.stream, 2, 3, PQ_READ_NEXT_LINE,
+              line -> IsMatchingSublist( line, "Select option:" ) );
+  if infolev = 2 then
+    Info(InfoANUPQ, infolev, Chomp(line) );
+  else
+    SetInfoLevel(InfoANUPQ, infolev);
+  fi;
 end );
 
 #############################################################################
@@ -1448,10 +1468,10 @@ end );
 InstallGlobalFunction( PQ_PRINT_STRUCTURE, function( datarec, m, n )
 local infolev;
   infolev := PQ_PRE_DISPLAY(datarec, "ApQ");
-  ToPQ(datarec, [ "20  #print structure" ]);
-  ToPQ(datarec, [ m, "  #no. of first generator" ]);
-  ToPQ(datarec, [ n, "  #no. of last generator"  ]);
-  SetInfoLevel(InfoANUPQ, infolev);
+  ToPQ( datarec, [ "20  #print structure" ]);
+  ToPQ( datarec, [ m, "  #no. of first generator" ]);
+  ToPQk(datarec, [ n, "  #no. of last generator"  ]);
+  PQ_POST_DISPLAY( datarec, infolev );
 end );
 
 #############################################################################
@@ -1508,10 +1528,10 @@ end );
 InstallGlobalFunction( PQ_DISPLAY_AUTOMORPHISMS, function( datarec, m, n )
 local infolev;
   infolev := PQ_PRE_DISPLAY(datarec, "ApQ");
-  ToPQ(datarec, [ "21 #display automorphisms" ]);
-  ToPQ(datarec, [ m, "  #no. of first generator" ]);
-  ToPQ(datarec, [ n, "  #no. of last generator"  ]);
-  SetInfoLevel(InfoANUPQ, infolev);
+  ToPQ( datarec, [ "21 #display automorphisms" ]);
+  ToPQ( datarec, [ m, "  #no. of first generator" ]);
+  ToPQk(datarec, [ n, "  #no. of last generator"  ]);
+  PQ_POST_DISPLAY( datarec, infolev );
 end );
 
 #############################################################################
@@ -1630,7 +1650,7 @@ local filename, datarec;
   Unbind( arg[ Length(arg) ] );
   ANUPQ_IOINDEX_ARG_CHK(arg);
   datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  if not IsBound(datarec.pcp) then
+  if not IsBound(datarec.pQpcp) then
     Info(InfoANUPQ, 1, "pq had not previously computed a pc presentation");
     Info(InfoANUPQ, 1, "... remedying that now.");
     PQ_PC_PRESENTATION( datarec, "pQ" );
