@@ -170,76 +170,10 @@ a
 b
 c
 gap> R := [PqLeftNormComm([b, a, a, b, c])^11, 
->          PqLeftNormComm([a, b, b, a, b, c])^11, (a * b)^11];
-[ b^-1*a^-2*b^-1*a*b*a*b^-1*a^-1*b*a*b*a^-1*b^-1*a*b*a^-1*b^-1*a^-1*b*a^2*c^
-    -1*a^-2*b^-1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b*a^-1*b^-1*a^-1*b*a^
-    2*b*c*b^-1*a^-2*b^-1*a*b*a*b^-1*a^-1*b*a*b*a^-1*b^-1*a*b*a^-1*b^-1*a^
-    -1*b*a^2*c^-1*a^-2*b^-1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b*a^-1*b^
-    -1*a^-1*b*a^2*b*c*b^-1*a^-2*b^-1*a*b*a*b^-1*a^-1*b*a*b*a^-1*b^-1*a*b*a^
-    -1*b^-1*a^-1*b*a^2*c^-1*a^-2*b^-1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^
-    -1*a*b*a^-1*b^-1*a^-1*b*a^2*b*c*b^-1*a^-2*b^-1*a*b*a*b^-1*a^-1*b*a*b*a^
-    -1*b^-1*a*b*a^-1*b^-1*a^-1*b*a^2*c^-1*a^-2*b^-1*a*b*a*b^-1*a^-1*b*a*b^
-    -1*a^-1*b^-1*a*b*a^-1*b^-1*a^-1*b*a^2*b*c*b^-1*a^-2*b^-1*a*b*a*b^-1*a^
-    -1*b*a*b*a^-1*b^-1*a*b*a^-1*b^-1*a^-1*b*a^2*c^-1*a^-2*b^-1*a*b*a*b^-1*a^
-    -1*b*a*b^-1*a^-1*b^-1*a*b*a^-1*b^-1*a^-1*b*a^2*b*c*b^-1*a^-2*b^-1*a*b*a*b^
-    -1*a^-1*b*a*b*a^-1*b^-1*a*b*a^-1*b^-1*a^-1*b*a^2*c^-1*a^-2*b^-1*a*b*a*b^
-    -1*a^-1*b*a*b^-1*a^-1*b^-1*a*b*a^-1*b^-1*a^-1*b*a^2*b*c*b^-1*a^-2*b^
-    -1*a*b*a*b^-1*a^-1*b*a*b*a^-1*b^-1*a*b*a^-1*b^-1*a^-1*b*a^2*c^-1*a^-2*b^
-    -1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b*a^-1*b^-1*a^-1*b*a^2*b*c*b^-1*a^
-    -2*b^-1*a*b*a*b^-1*a^-1*b*a*b*a^-1*b^-1*a*b*a^-1*b^-1*a^-1*b*a^2*c^-1*a^
-    -2*b^-1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b*a^-1*b^-1*a^-1*b*a^2*b*c*b^
-    -1*a^-2*b^-1*a*b*a*b^-1*a^-1*b*a*b*a^-1*b^-1*a*b*a^-1*b^-1*a^-1*b*a^2*c^
-    -1*a^-2*b^-1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b*a^-1*b^-1*a^-1*b*a^
-    2*b*c*b^-1*a^-2*b^-1*a*b*a*b^-1*a^-1*b*a*b*a^-1*b^-1*a*b*a^-1*b^-1*a^
-    -1*b*a^2*c^-1*a^-2*b^-1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b*a^-1*b^
-    -1*a^-1*b*a^2*b*c*b^-1*a^-2*b^-1*a*b*a*b^-1*a^-1*b*a*b*a^-1*b^-1*a*b*a^
-    -1*b^-1*a^-1*b*a^2*c^-1*a^-2*b^-1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^
-    -1*a*b*a^-1*b^-1*a^-1*b*a^2*b*c, b^-1*a^-1*b^-2*a^-1*b*a*b*a^-1*b^
-    -1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b*a^-1*b*a*b*a^-1*b^-1*a*b*a^-1*b^
-    -1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^2*a*c^-1*a^-1*b^-2*a^-1*b*a*b*a^-1*b^
-    -1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^-1*a^-1*b*a*b*a^-1*b^-1*a*b*a^
-    -1*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^2*a*b*c*b^-1*a^-1*b^-2*a^-1*b*a*b*a^
-    -1*b^-1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b*a^-1*b*a*b*a^-1*b^-1*a*b*a^
-    -1*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^2*a*c^-1*a^-1*b^-2*a^-1*b*a*b*a^-1*b^
-    -1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^-1*a^-1*b*a*b*a^-1*b^-1*a*b*a^
-    -1*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^2*a*b*c*b^-1*a^-1*b^-2*a^-1*b*a*b*a^
-    -1*b^-1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b*a^-1*b*a*b*a^-1*b^-1*a*b*a^
-    -1*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^2*a*c^-1*a^-1*b^-2*a^-1*b*a*b*a^-1*b^
-    -1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^-1*a^-1*b*a*b*a^-1*b^-1*a*b*a^
-    -1*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^2*a*b*c*b^-1*a^-1*b^-2*a^-1*b*a*b*a^
-    -1*b^-1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b*a^-1*b*a*b*a^-1*b^-1*a*b*a^
-    -1*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^2*a*c^-1*a^-1*b^-2*a^-1*b*a*b*a^-1*b^
-    -1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^-1*a^-1*b*a*b*a^-1*b^-1*a*b*a^
-    -1*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^2*a*b*c*b^-1*a^-1*b^-2*a^-1*b*a*b*a^
-    -1*b^-1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b*a^-1*b*a*b*a^-1*b^-1*a*b*a^
-    -1*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^2*a*c^-1*a^-1*b^-2*a^-1*b*a*b*a^-1*b^
-    -1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^-1*a^-1*b*a*b*a^-1*b^-1*a*b*a^
-    -1*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^2*a*b*c*b^-1*a^-1*b^-2*a^-1*b*a*b*a^
-    -1*b^-1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b*a^-1*b*a*b*a^-1*b^-1*a*b*a^
-    -1*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^2*a*c^-1*a^-1*b^-2*a^-1*b*a*b*a^-1*b^
-    -1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^-1*a^-1*b*a*b*a^-1*b^-1*a*b*a^
-    -1*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^2*a*b*c*b^-1*a^-1*b^-2*a^-1*b*a*b*a^
-    -1*b^-1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b*a^-1*b*a*b*a^-1*b^-1*a*b*a^
-    -1*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^2*a*c^-1*a^-1*b^-2*a^-1*b*a*b*a^-1*b^
-    -1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^-1*a^-1*b*a*b*a^-1*b^-1*a*b*a^
-    -1*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^2*a*b*c*b^-1*a^-1*b^-2*a^-1*b*a*b*a^
-    -1*b^-1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b*a^-1*b*a*b*a^-1*b^-1*a*b*a^
-    -1*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^2*a*c^-1*a^-1*b^-2*a^-1*b*a*b*a^-1*b^
-    -1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^-1*a^-1*b*a*b*a^-1*b^-1*a*b*a^
-    -1*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^2*a*b*c*b^-1*a^-1*b^-2*a^-1*b*a*b*a^
-    -1*b^-1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b*a^-1*b*a*b*a^-1*b^-1*a*b*a^
-    -1*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^2*a*c^-1*a^-1*b^-2*a^-1*b*a*b*a^-1*b^
-    -1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^-1*a^-1*b*a*b*a^-1*b^-1*a*b*a^
-    -1*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^2*a*b*c*b^-1*a^-1*b^-2*a^-1*b*a*b*a^
-    -1*b^-1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b*a^-1*b*a*b*a^-1*b^-1*a*b*a^
-    -1*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^2*a*c^-1*a^-1*b^-2*a^-1*b*a*b*a^-1*b^
-    -1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^-1*a^-1*b*a*b*a^-1*b^-1*a*b*a^
-    -1*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^2*a*b*c*b^-1*a^-1*b^-2*a^-1*b*a*b*a^
-    -1*b^-1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b*a^-1*b*a*b*a^-1*b^-1*a*b*a^
-    -1*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^2*a*c^-1*a^-1*b^-2*a^-1*b*a*b*a^-1*b^
-    -1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^-1*a^-1*b*a*b*a^-1*b^-1*a*b*a^
-    -1*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^2*a*b*c, 
-  a*b*a*b*a*b*a*b*a*b*a*b*a*b*a*b*a*b*a*b*a*b ]
+>          PqLeftNormComm([a, b, b, a, b, c])^11, (a * b)^11];;
+gap> Length(R[1]); Length(R[2]);
+506
+946
 gap> procId := PqStart(F/R : Prime := 11);
 1
 gap> PqPcPresentation(procId : ClassBound := 7, 
@@ -325,13 +259,16 @@ gap> Pq( F : Prime := 2, Identities := [ f ] );
 #I  Evaluated 192 instances.
 #I  Class 5 with 12 generators.
 <pc group of size 4096 with 12 generators>
+gap> time;
+1110
 #I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
 \endtt
 
 Since the identity used in the above construction of $B(2, 4)$ is just an
-exponent law, the ``right'' way to  compute  it  is  via  the  `Exponent'
-option (see~"option Exponent"), which is implemented at the C  level  and
-*is* highly optimised:
+exponent  law, the  ``right'' way  to compute  it is  via  the `Exponent'
+option (see~"option Exponent"),  which is implemented at the  C level and
+*is* highly optimised.  Consequently,  the `Exponent' option is faster by
+several orders of magnitude:
 
 \begintt
 gap> PqExample("B2-4");   

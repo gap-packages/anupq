@@ -192,6 +192,25 @@ This method of passing options permits abbreviation; the only restriction
 is that the abbreviation must be  unique.  So  `"Pr"'  may  be  used  for
 `"Prime"', `"Class"' or even just `"C"' for `"ClassBound"', etc.
 
+\atindex{option Identities!example of usage}%
+The following examples illustrates the use of the option
+`Identities'.  We compute the largest finite Burnside group of
+exponent $5$ that also satisfies the $3$-Engel identity.  Each
+identity is defined by a function whose arguments corrspond to the
+variables of the identity.  The return value of each of those
+functions is the identity evaluated on the arguments of the function.
+
+\beginexample
+gap> G := FreeGroup(2);                                                        
+<free group on the generators [ f1, f2 ]>
+gap> Burnside5 := x->x^5;
+function( x ) ... end
+gap> Engel3 := function( x,y ) return LeftNormedComm( [x,y,y,y] ); end;        
+function( x, y ) ... end
+gap> Pq( G : Prime := 5, Identities := [ Burnside5, Engel3 ] );
+<pc group of size 3125 with 5 generators>
+\endexample
+
 The above examples can be run  from  {\GAP}  via  `PqExample( "Pq-ni" );'
 (see~"PqExample").
 

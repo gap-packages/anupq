@@ -1693,11 +1693,11 @@ descriptions.
 \>PqAPGDegree( <i>, <step>, <rank> [: Exponent := <n> ]) F
 \>PqAPGDegree( <step>, <rank> [: Exponent := <n> ]) F
 
-for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
-program  to  compute  definition  sets  and  return  the  degree  of  the
-permutation group. Here the step-size <step> and the rank <rank>  of  the
-initial segment subgroup are positive integers. See~"option Exponent" for
-the one recognised option `Exponent'.
+%for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
+%program  to  compute  definition  sets  and  return  the  degree  of  the
+%permutation group. Here the step-size <step> and the rank <rank>  of  the
+%initial segment subgroup are positive integers. See~"option Exponent" for
+%the one recognised option `Exponent'.
 
 *Note:* For those familiar with the `pq' program,  `PqAPGDegree'  performs
 menu item 6 of the Advanced $p$-Group Generation menu.
@@ -1705,11 +1705,11 @@ menu item 6 of the Advanced $p$-Group Generation menu.
 \>PqAPGPermutations( <i> : <options> ) F
 \>PqAPGPermutations( : <options> ) F
 
-for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
-program to compute permutations of subgroups. Here the options  <options>
-recognised       are        `PcgsAutomorphisms',        `SpaceEfficient',
-`PrintAutomorphisms' and `PrintPermutations' (see Chapter~"ANUPQ Options"
-for details).
+%for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
+%program to compute permutations of subgroups. Here the options  <options>
+%recognised       are        `PcgsAutomorphisms',        `SpaceEfficient',
+%`PrintAutomorphisms' and `PrintPermutations' (see Chapter~"ANUPQ Options"
+%for details).
 
 *Note:* For those familiar  with  the  `pq'  program,  `PqAPGPermutations'
 performs menu item 7 of the Advanced $p$-Group Generation menu.
@@ -1717,14 +1717,14 @@ performs menu item 7 of the Advanced $p$-Group Generation menu.
 \>PqAPGOrbits( <i> : <options> ) F
 \>PqAPGOrbits( : <options> ) F
 
-for the  <i>th or default  interactive {\ANUPQ} process, direct  the `pq'
-program to compute  the orbits of the automorphism  group, and return the
-number of orbits, if either a  summary or a complete listing (or both) of
-orbit information  was requested.  Here the options  <options> recognised
-are  `PcgsAutomorphisms',  `SpaceEfficient',  and `CustomiseOutput'  (see
-Chapter~"ANUPQ  Options" for details).  For the  `CustomiseOutput' option
-only the  setting of the `orbit'  is recognised (all other  fields if set
-are ignored).
+%for the  <i>th or default  interactive {\ANUPQ} process, direct  the `pq'
+%program to compute  the orbits of the automorphism  group, and return the
+%number of orbits, if either a  summary or a complete listing (or both) of
+%orbit information  was requested.  Here the options  <options> recognised
+%are  `PcgsAutomorphisms',  `SpaceEfficient',  and `CustomiseOutput'  (see
+%Chapter~"ANUPQ  Options" for details).  For the  `CustomiseOutput' option
+%only the  setting of the `orbit'  is recognised (all other  fields if set
+%are ignored).
 
 *Note:* For those familiar with the `pq' program,  `PqAPGOrbits'  performs
 menu item 8 of the Advanced $p$-Group Generation menu.
@@ -1732,14 +1732,14 @@ menu item 8 of the Advanced $p$-Group Generation menu.
 \>PqAPGOrbitRepresentatives( <i> : <options> ) F
 \>PqAPGOrbitRepresentatives(: <options> ) F
 
-for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
-program to process the  orbit  representatives  and  output  the  reduced
-$p$-cover to a file. The options <options> may be any of  the  following:
-are  `PcgsAutomorphisms',  `SpaceEfficient',  `Exponent',   `Metabelian',
+for the  <i>th or default  interactive {\ANUPQ} process, direct  the `pq'
+program  to process  the  orbit representatives  and  output the  reduced
+$p$-cover to a  file. The options <options> may be  any of the following:
+`PcgsAutomorphisms',    `SpaceEfficient',    `Exponent',    `Metabelian',
 `CapableDescendants' (or `AllDescendants'), `CustomiseOutput' (where only
-the `group' and `autgroup' fields are  recognised)  and  `Filename'  (see
-Chapter~"ANUPQ Options"  for  details).  If  `Filename'  is  omitted  the
-reduced $p$-cover is written to the file `"redPCover"' in  the  temporary
+the  `group' and `autgroup'  fields are  recognised) and  `Filename' (see
+Chapter~"ANUPQ  Options"  for details).   If  `Filename'  is omitted  the
+reduced $p$-cover is  written to the file `"redPCover"'  in the temporary
 directory whose name is stored in `ANUPQData.tmpdir'.
 
 *Note:*
