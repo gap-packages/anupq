@@ -642,7 +642,6 @@ local interactive, ioArgs, datarec, optrec, optnames, opts;
     datarec.calltype := "non-interactive";
   else
     # GAP 3 way of passing options is supported in non-interactive use
-    datarec := ANUPQData.ni;
     if IsRecord(args[len + 1]) then
       optrec := ShallowCopy(args[len + 1]);
       optnames := Set( REC_NAMES(optrec) );
@@ -656,6 +655,7 @@ local interactive, ioArgs, datarec, optrec, optnames, opts;
     PushOptions(optrec);
     PQ_FUNCTION.(funcname)( args{[1..len]} );
     PopOptions();
+    datarec := ANUPQData.ni;
     datarec.calltype := "GAP3compatible";
   fi;
   return datarec;
