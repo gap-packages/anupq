@@ -242,7 +242,7 @@ local gens, rels, pcp, p, pcgs, len, strp, i, j, Rel, line;
                          end ),
                    factor -> factor <> "");
         Append(rel, "=");
-        Append(rel, JoinStringsWithSeparator(factors));
+        Append(rel, JoinStringsWithSeparator(factors, "*"));
       fi;
       return rel;
     end;
