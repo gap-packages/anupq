@@ -12,7 +12,13 @@
 
 Here we describe the interactive functions defined by the {\ANUPQ}  share
 package, i.e.~the functions  that  manipulate  and  initiate  interactive
-{\ANUPQ} processes.
+{\ANUPQ} processes. These are functions that extract  information  via  a
+dialogue with a running `pq' process (process used in  the  UNIX  sense).
+Occasionally, a user needs the ``next step''; the functions  provided  in
+this chapter make use of data from previous steps retained  by  the  `pq'
+binary, thus allowing the user to interact with the `pq' binary like  one
+can when one uses the `pq' binary as a  stand-alone  (see~`guide.dvi'  in
+the `standalone-doc' directory).
 
 An  interactive  {\ANUPQ}  process  is  initiated  by   `PqStart'   and
 terminated  via  `PqQuit';   these   functions   are   described   in
@@ -24,7 +30,7 @@ integer <i> returned by the initiating `PqStart' command,  and  a  second
 form with one argument fewer (where the integer <i> is  discovered  by  a
 default mechanism, namely by determining the least integer <i> for  which
 there is a currently active interactive {\ANUPQ} process). We  will  thus
-commonly say that  ``for  the  <i>th  (or  default)  interactive  {ANUPQ}
+commonly say that ``for  the  <i>th  (or  default)  interactive  {\ANUPQ}
 process'' a certain function performs a given action. In each case, it is
 an error, if <i> is not the index of an active  interactive  process,  or
 there are no current active interactive processes.
@@ -324,9 +330,9 @@ gap> Size( Image(phi) );
 
 returns for the the pc-group <G>, of the  <i>th  or  default  interactive
 {\ANUPQ} process, which must be of prime power  order  with  a  confluent
-power-commutator presentation (see~"ref:IsConfluent!for  pc  groups"),  a
-list of descendants (pc groups) of <G>. The group <G> is the group  given
-as first argument to `PqStart' to start the interactive {\ANUPQ}  process
+pc-presentation  (see~"ref:IsConfluent!for  pc  groups"),   a   list   of
+descendants (pc groups) of <G>. The group <G> is the group given as first
+argument  to  `PqStart'  to  start  the  interactive   {\ANUPQ}   process
 (see~"PqStart"). Behind the colon <options> a selection  of  the  options
 listed    for    the     non-interactive     `PqDescendants'     function
 (see~"PqDescendants") should be given, separated by  commas  like  record

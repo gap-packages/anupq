@@ -21,8 +21,8 @@ program consists of implementations of the following algorithms:
 \beginlist
 
 \item{1.}
-A *$p$-quotient algorithm* to compute power-commutator presentations  for
-$p$-factor groups of finitely presented groups.
+A *$p$-quotient algorithm* to  compute  pc-presentations  for  $p$-factor
+groups of finitely presented groups.
 
 %The algorithm implemented here is based on that described by  Newman  and
 %O'Brien \cite{NO96}, Havas and Newman~\cite{HN80}, and papers referred to
@@ -32,8 +32,8 @@ $p$-factor groups of finitely presented groups.
 %of that implementation are retained.
 
 \item{2.} 
-A  *$p$-group  generation   algorithm*   to   generate   power-commutator
-presentations of groups of prime power order.
+A *$p$-group generation algorithm* to generate pc-presentations of groups
+of prime power order.
 
 %The algorithm implemented here is based on the  algorithms  described  by
 %Newman~\cite{New77} and O'Brien~\cite{OBr90}. A FORTRAN implementation of
@@ -41,7 +41,7 @@ presentations of groups of prime power order.
 
 \item{3.}
 A  *standard  presentation  algorithm*  used  to  compute   a   canonical
-power-commutator presentation of a $p$-group.
+pc-presentation of a $p$-group.
 
 %The algorithm implemented here is described in~\cite{OBr94}.
 
@@ -49,11 +49,12 @@ power-commutator presentation of a $p$-group.
 An algorithm which can be used to compute the *automorphism group*  of  a
 $p$-group.
 
+\item{}
+This part of the `pq' program is  not  accessible  through  the  {\ANUPQ}
+share package. Instead, users are advised to consider the {\GAP}~4  share
+package {\AutPGrp}, which implements a better algorithm in {\GAP} for the
+computation of automorphism groups of $p$-groups.
 %The algorithm implemented here is described in~\cite{OBr94}. 
-%This part of  the  standalone  program  is  not  accessible  through  the
-%{\ANUPQ} share package.  Instead,  users  are  advised  to  consider  the
-%{\GAP}~4 share package {\AutPGrp}, which implements a better algorithm in
-%{\GAP} for the computation of automorphism groups of $p$-groups.
 
 \endlist
 
@@ -61,9 +62,10 @@ $p$-group.
 %and~\cite{NNN98}.
 
 A comprehensive description of the background  and  terminology  used  is
-given in Chapter~"Basics", which also cites a number  of  references  for
-further reading. Section~"Authors" gives contact details for the  authors
-of the components of the {\ANUPQ} share package.
+given in Chapter~"Mathematical Background and  Terminology",  which  also
+cites a number of references for further reading. Section~"Authors" gives
+contact details for the authors of the components of the  {\ANUPQ}  share
+package.
 
 Instructions on how to install the {\ANUPQ} share package are located  in
 Chapter~"Installing the ANUPQ Share  Package"  and  Section~"Loading  the
@@ -72,23 +74,27 @@ ANUPQ Share Package" describes how to load the {\ANUPQ} share package.
 Section~"The ANUPQData Record" describes the global variable  `ANUPQData'
 in which various data including the temporary directory in which  various
 input and output files are created for and by the `pq' binary and various
-results of functions are retained.
+results of functions are retained. On an initial reading you can probably
+skip this section.
 
 Section~"Setting the Verbosity of ANUPQ via Info and InfoANUPQ" describes
 an `Info' class which when set to appropriate levels allows one to see if
 desired all the dialogue that passes between {\GAP} and the `pq' binary.
 
 Chapter~"Non-interactive   ANUPQ    functions"    describes    all    the
-non-interactive functions of the {\ANUPQ} share  package,  i.e.~functions
-that invoke the `pq' binary in such a way that once {\GAP} has  got  what
-it needs, the `pq' is allowed to exit.
+non-interactive functions  of  the  {\ANUPQ}  share  package;  these  are
+``one-shot'' functions that invoke the `pq' binary in  such  a  way  that
+once {\GAP} has got what it needs, the `pq' is allowed  to  exit.  It  is
+expected that most of the time users will only need these functions.
 
 Finally,  Chapter~"Interactive  ANUPQ  functions"   describes   all   the
-interactive functions of the {\ANUPQ} share package, i.e.~functions  that
-extract information via a dialogue with  a  running  `pq'  process,  thus
-allowing the user to interact with the `pq' binary like one can when  one
-uses  the  `pq'  binary  as  a  stand-alone   (see~`guide.dvi'   in   the
-`standalone-doc' directory).
+interactive functions of the {\ANUPQ} share package; these are  functions
+that extract information via a dialogue  with  a  running  `pq'  process.
+Occasionally, a user needs the ``next step''; the functions  provided  in
+this chapter make use of data from previous steps retained  by  the  `pq'
+binary, thus allowing the user to interact with the `pq' binary like  one
+can when one uses the `pq' binary as a  stand-alone  (see~`guide.dvi'  in
+the `standalone-doc' directory).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Authors}
@@ -128,7 +134,7 @@ assistance of Werner Nickel by
 
 %The authors would like to thank and acknowledge the careful proof-reading
 %and advice provided by Joachim Neub\"user; we would like  to  also  thank
-%him for formulating Chapter~"Basics".
+%him for formulating Chapter~"Mathematical Background and Terminology".
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%

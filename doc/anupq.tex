@@ -11,10 +11,11 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Chapter{Non-interactive ANUPQ functions}
 
-Here we describe the non-interactive functions defined  by  the  {\ANUPQ}
-share package (i.e.~these functions work by creating  a  script  that  is
-passed to the `pq' binary, the output from which is later interpreted  by
-{\GAP}). The functions interface with three of the four  algorithms  (see
+Here we describe all the non-interactive functions of the {\ANUPQ}  share
+package; i.e.~``one-shot'' functions that invoke the `pq' binary in  such
+a way that once {\GAP} has got what it needs, the `pq' binary is  allowed
+to exit. It is expected that most of the time users will only need  these
+functions. The functions interface with three of the four algorithms (see
 Chapter~"Introduction") provided by the  ANU  `pq'  C  program,  and  are
 mainly grouped according to the algorithm of the `pq' binary they  relate
 to.
@@ -358,8 +359,8 @@ ANUPQ Share Package".)
 \>PqDescendants( <G> : <options> ) F
 
 returns, for the pc-group <G> which must be of prime power order  with  a
-confluent  power-commutator  presentation  (see~"ref:IsConfluent!for   pc
-groups"), a list of descendants (pc groups) of <G>.
+confluent pc-presentation (see~"ref:IsConfluent!for pc groups"),  a  list
+of descendants (pc groups) of <G>.
 
 If <G> does *not* have $p$-class 1, then the automorphism  group  of  <G>
 must be known. In practice, the automorphism group  of  <G>  is  computed

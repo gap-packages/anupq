@@ -1,7 +1,7 @@
 C intro.tex 1. Introduction
 I 1.0. ANUPQ
 S 1.1. Authors
-C basics.tex 2. Basics
+C basics.tex 2. Mathematical Background and Terminology
 I 2.0. capable
 C infra.tex 3. Infrastructure
 S 3.1. Loading the ANUPQ Share Package

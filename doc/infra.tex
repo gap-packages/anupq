@@ -10,6 +10,30 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Chapter{Infrastructure}
 
+Most of the details in this chapter are of a technical nature;  the  user
+need only skim over this chapter on a first reading. Mostly, it is enough
+to know that
+
+\beginlist
+
+\item{$\bullet$} 
+you must do a `RequirePackage("anupq");' before you can expect to  use  a
+command  defined  by  the  {\ANUPQ}  Share  Package   (details   are   in
+Section~"Loading the ANUPQ Share Package");
+
+\item{$\bullet$}
+partial results of {\ANUPQ} commands and some other data  are  stored  in
+the `ANUPQData' global variable (details are  in  Section~"The  ANUPQData
+Record"); and
+
+\item{$\bullet$} 
+doing `SetInfoLevel(InfoANUPQ, <n>);' for <n> greater  than  the  default
+value 1 will give progressively more information  of  what  is  going  on
+``behind the scenes'' (details are in Section~"Setting the  Verbosity  of
+ANUPQ via Info and InfoANUPQ").
+
+\endlist
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Loading the ANUPQ Share Package}
 
@@ -41,7 +65,7 @@ messages by temporarily setting the `InfoLevel' of  `InfoWarning'  to  0,
 and a duplicated semicolon will suppress the `true' result:
 
 \beginexample
-gap> SetInfoLevel(InfoWarning, 0); RequirePackage( "ace" );;
+gap> SetInfoLevel(InfoWarning, 0); RequirePackage( "anupq" );;
 gap> SetInfoLevel(InfoWarning, 1);
 \endexample
 
@@ -51,6 +75,9 @@ If you want to load the {\ANUPQ} package by  default,  you  can  put  the
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{The ANUPQData Record}
+
+This section contains fairly technical details which may be skipped on an
+initial reading.
 
 \>`ANUPQData' V
 
