@@ -107,7 +107,7 @@ close GAPIN;
 system("$gap -b < $tmpdir/gapinput > $tmpdir/gapout");
 open(GAPOUT, "<$tmpdir/gapout");
 while (<GAPOUT>) {
-  if ( /^(GAP4, Version|(gap> )*([+] |$)|true$)/ ) {
+  if ( /^(GAP4, Version|(gap> )*(\#I --|[+] |$)|true$)/ ) {
     next;
   } else {
     print " error.\n";
