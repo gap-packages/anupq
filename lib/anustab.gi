@@ -120,9 +120,6 @@ if IsBound( LOADED_PACKAGES.autpgrp ) then
     if InfoLevel( InfoANUPQ ) >= 2 then
       SetInfoLevel( InfoAutGrp, 3 );
     fi;
-    if aut.glOrder = 720 then
-      Error("!\n");
-    fi;
     PGOrbitStabilizer( aut, baseU, baseN, false );    
   
     if (Length (aut.glAutos) = 0) then 
