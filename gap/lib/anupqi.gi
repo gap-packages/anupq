@@ -208,6 +208,8 @@ local gens, rels, p, identities, pcgs, len, strp, i, j, Rel, line;
       rels := List( Filtered( RelatorsOfFpGroup(datarec.group), 
                               rel -> not IsOne(rel) ),
                     String );
+    elif ForAll( rels, rel -> PqParseWord(datarec.group, rel) ) then
+      Info(InfoANUPQ, 2, "Relators parsed ok.");
     fi;
   else
     pcgs := PcgsPCentralSeriesPGroup(datarec.group);
@@ -948,14 +950,86 @@ end );
 #F  PQ_COLLECT( <datarec>, <word> ) . . . . . . . . . . . A p-Q menu option 1
 ##
 ##  instructs the  `pq'  binary  to  do  a  collection  on  <word>  a  string
-##  representing the product of three generators, e.g. `"x3*x2*x1"' (option 1
-##  of the interactive $p$-Quotient menu).
+##  representing a word in the  current  pc  generators,  e.g.  `"x3*x2*x1"',
+##  using option 1 of the interactive $p$-Quotient menu.
 ##
 InstallGlobalFunction( PQ_COLLECT, function( datarec, word )
 
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
   ToPQ(datarec, [ "1  #do individual collection" ]);
+  datarec.match := "The result of collection is";
   ToPQ(datarec, [ word, ";  #word to be collected" ]);
+  return PQ_WORD(datarec);
+end );
+
+#############################################################################
+##
+#F  PQ_CHECK_WORD( <datarec>, <wordOrList>, <ngens> ) . .  check word or list
+##
+##  checks that <wordOrList> is a valid word in  the  current  pc  generators
+##  (<ngens> is the number of current pc  generators)  or  a  valid  list  of
+##  generator number-exponent pairs that  will  generate  such  a  word,  and
+##  either emits an error or returns the valid word.
+##
+InstallGlobalFunction( PQ_CHECK_WORD, function( datarec, wordOrList, ngens )
+local parts, gens;
+  if not IsList(wordOrList) or 
+     not IsString(wordOrList) and 
+     not ForAll(wordOrList, pair -> IsList(pair) and 2 = Length(pair) and
+                                    ForAll(pair, IsInt) ) then
+    Error( "argument <wordOrList> should be a string e.g. \"x3*x2^2*x1\",\n",
+           "or a list of gen'r no.-exponent pairs from which such a word ",
+           "may be generated\n" );
+  fi;
+  if IsString(wordOrList) then
+    #check word makes sense
+    PqParseWord(ngens, wordOrList);
+    
+  elif IsList(wordOrList) then
+    if not ForAll(wordOrList, 
+                  pair -> IsPosInt(pair[1]) and pair[1] <= ngens) then
+      Error( "generator numbers in argument <wordOrList> must be in the ",
+             "range: ", "[1 .. ", ngens, "]\n" );
+    fi;
+    wordOrList := JoinStringsWithSeparator(
+                      List( wordOrList, 
+                            pair -> Concatenation( "x", String(pair[1]),
+                                                   "^", String(pair[2]) ) ),
+                      "*" );
+  fi;
+  if IsEmpty(wordOrList) then
+    wordOrList := "x1^0";
+  fi;
+  return wordOrList;
+end );
+
+#############################################################################
+##
+#F  PQ_WORD( <datarec> ) . . . .  parse pq output for a word in pc generators
+##
+##  parses `<datarec>.matchedline' for a word in the  current  pc  generators
+##  and returns it as a list of gen'r no.-exponent  pairs;  `<datarec>.match'
+##  must have previously been set.
+##
+InstallGlobalFunction( PQ_WORD, function( datarec )
+local word;
+  word := SplitString( datarec.matchedline{[Length(datarec.match) + 1 ..
+                                            Length(datarec.matchedline)]},
+                       "", " \n" );
+  if word = [ "IDENTITY" ] then
+    word := [];
+  else
+    word := List( word, 
+                  function(syl)
+                    syl := List( SplitString(syl, "", ".^"), Int );
+                    if 1 = Length(syl) then
+                      Add(syl, 1);
+                    fi;
+                    return syl;
+                  end );
+  fi;
+  PQ_UNBIND(datarec, ["match", "matchedline"]);
+  return word;
 end );
 
 #############################################################################
@@ -966,16 +1040,15 @@ end );
 ##  generates an error.
 ##
 InstallGlobalFunction( PQ_CHK_COLLECT_COMMAND_ARGS, function( args )
-local datarec, word;
+local datarec, wordOrList, ngens;
   if IsEmpty(args) or 2 < Length(args) then
     Error( "1 or 2 arguments expected\n");
   fi;
-  word := args[Length(args)];
-  if not IsString(word) then
-    Error( "argument <word> should be a string e.g. \"x3*x2*x1\"\n" );
-  fi;
+  wordOrList := args[Length(args)];
   datarec := CallFuncList(ANUPQDataRecord, args{[1..Length(args) - 1]});
-  return [datarec, word];
+  ngens := datarec.ngens[ Length(datarec.ngens) ];
+  wordOrList := PQ_CHECK_WORD(datarec, wordOrList, ngens);
+  return [datarec, wordOrList];
 end );
 
 #############################################################################
@@ -983,15 +1056,37 @@ end );
 #F  PqCollect( <i>, <word> ) . . . . . .  user version of A p-Q menu option 1
 #F  PqCollect( <word> )
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, instructs the `pq'
-##  binary to do a collection on <word> a string representing the product  of
-##  three generators, e.g. `"x3*x2*x1"'.
+##  for the <i>th or default interactive {\ANUPQ} process, instruct the  `pq'
+##  program to do a collection on <word>, a word in the current pc generators
+##  (the form of <word> required is described below). `PqCollect' returns the
+##  resulting word of the collection as a list of generator number,  exponent
+##  pairs (the same form as the second allowed  input  form  of  <word>;  see
+##  below).
 ##
-##  *Note:* For those familiar with the  `pq'  binary,  `PqCollect'  performs
-##  option 1 of the Advanced $p$-Quotient menu.
+##  The argument <word> may be input in either of the following ways:
+##
+##  \beginlist%ordered
+##
+##  \item{1.}
+##  <word> may be a string, where the <i>th pc generator  is  represented  by
+##  `x<i>', e.g.~`"x3*x2^2*x1"'. This way is quite versatile  as  parentheses
+##  and left-normed commutators -- using square brackets, in the same way  as
+##  `PqGAPRelators' (see~"PqGAPRelators") -- are permitted; <word> is checked
+##  for correct syntax via `PqParseWord' (see~"PqParseWord").
+##
+##  \item{2.}
+##  Otherwise, <word> must be a list of generator number, exponent  pairs  of
+##  integers, i.e.~ each pair represents a ``syllable'' so that  `[  [3,  1],
+##  [2, 2], [1, 1] ]' represents the same word as that of the  example  given
+##  for the first allowed form of <word>.
+##
+##  \endlist
+##
+##  *Note:* For those familiar with the  `pq'  program,  `PqCollect'  performs
+##  menu item 1 of the Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqCollect, function( arg )
-  CallFuncList( PQ_COLLECT, PQ_CHK_COLLECT_COMMAND_ARGS(arg) );
+  return CallFuncList( PQ_COLLECT, PQ_CHK_COLLECT_COMMAND_ARGS(arg) );
 end );
 
 #############################################################################
@@ -1036,7 +1131,7 @@ end );
 #F  PQ_COMMUTATOR( <datarec>, <words>, <pow>, <item> ) . A p-Q menu opts 3/24
 ##
 ##  inputs data to the `pq' binary  for  option  3  or  24  of  the  Advanced
-##  $p$-Quotient menu, to compute  the  left  norm  commutator  of  the  list
+##  $p$-Quotient menu, to compute the left  normed  commutator  of  the  list
 ##  <words> of words in the generators raised to  the  integer  power  <pow>,
 ##  where <item> is `"3 #commutator"' for option 3  or  `"24  #commutator  of
 ##  defining genrs"' for option 24.
@@ -1045,12 +1140,13 @@ InstallGlobalFunction( PQ_COMMUTATOR, function( datarec, words, pow, item )
 local i;
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
   ToPQ(datarec, [ item ]);
-  # @add argument checking@
   ToPQ(datarec, [ Length(words), "  #no. of components" ]);
   for i in [1..Length(words)] do
     ToPQ(datarec, [ words[i], ";  #word ", i ]);
   od;
+  datarec.match := "The commutator is";
   ToPQ(datarec, [ pow, "  #power" ]);
+  return PQ_WORD(datarec);
 end );
 
 #############################################################################
@@ -1061,23 +1157,25 @@ end );
 ##  generates an error.
 ##
 InstallGlobalFunction( PQ_COMMUTATOR_CHK_ARGS, function( args )
-local len, words, pow, datarec;
+local len, words, pow, item, datarec, ngens;
   len := Length(args);
-  if not(len in [2, 3]) then
+  if not(len in [3, 4]) then
     Error("expected 2 or 3 arguments\n");
   fi;
-  words := args[len - 1];
-  pow   := args[len];
-  if not(IsList(words) and ForAll(words, IsString)) then
-    #@need to add more checking for words@
-    Error( "argument <words> must be a list of strings,\n",
-           "where each string represents a word in the generators\n" );
-  fi;
+  words := args[len - 2];
+  pow   := args[len - 1];
+  item  := args[len];
   if not IsPosInt(pow) then
     Error( "argument <pow> must be a positive integer\n" );
   fi;
-  datarec := CallFuncList(ANUPQDataRecord, args{[1 .. len - 2]});
-  return [datarec, words, pow];
+  datarec := CallFuncList(ANUPQDataRecord, args{[1 .. len - 3]});
+  if item[1] = '3' then
+    ngens := datarec.ngens[ Length(datarec.ngens) ];
+  else
+    ngens := datarec.ngens[ 1 ];
+  fi;
+  words := List( words, w -> PQ_CHECK_WORD(datarec, w, ngens) );
+  return [datarec, words, pow, item];
 end );
 
 #############################################################################
@@ -1085,17 +1183,29 @@ end );
 #F  PqCommutator( <i>, <words>, <pow> ) . user version of A p-Q menu option 3
 #F  PqCommutator( <words>, <pow> )
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
-##  binary to compute the left norm commutator of the list <words>  of  words
-##  in the generators raised to the integer power <pow>.
+##  for  the  <i>th  or  default  interactive  {\ANUPQ}  process,  compute  a
+##  user-defined commutator in the pc generators of  the  class  1  quotient,
+##  i.e.~the pc generators that correspond to the original fp or pc group  of
+##  the process, and return  the  result  as  a  list  of  generator  number,
+##  exponent pairs. The form required for each word of <words> is the same as
+##  that required for the <word> argument of  `PqCollect'  (see~"PqCollect").
+##  The form of  the  output  word  is  also  the  same  as  for  `PqCollect'
+##  (see~"PqCollect").
 ##
-##  *Note:*
-##  For those familiar with the `pq' binary, `PqCommutator' performs option 3
-##  of the Advanced $p$-Quotient menu.
+##  *Notes*
+##
+##  It is illegal for any word of <words> to contain pc generators of  weight
+##  larger      than      1.      Except      for      this      distinction,
+##  `PqCommutatorDefiningGenerators'   works   just    like    `PqCommutator'
+##  (see~"PqCommutator"). 
+##
+##  For those familiar with the `pq' program, `PqCommutatorDefiningGenerators'
+##  performs menu item 24 of the Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqCommutator, function( arg )
-  CallFuncList( PQ_COMMUTATOR, Concatenation( PQ_COMMUTATOR_CHK_ARGS(arg), 
-                                              [ "3  #commutator" ] ) );
+  return CallFuncList( PQ_COMMUTATOR, 
+                       PQ_COMMUTATOR_CHK_ARGS( 
+                           Concatenation( arg, [ "3  #commutator" ] ) ) );
 end );
 
 #############################################################################
@@ -1655,9 +1765,19 @@ end );
 ##  menu, to echelonise.
 ##
 InstallGlobalFunction( PQ_ECHELONISE, function( datarec )
+local line, redgen;
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
-  #@dependence@
+  datarec.match := "Generator";
   ToPQ(datarec, [ "17 #echelonise" ]);
+  if IsBound(datarec.matchedline) and 
+     PositionSublist(datarec.matchedline, "redundant") <> fail then
+    line := SplitString(datarec.matchedline, "", " \n");
+    redgen := Int( line[2] );
+  else
+    redgen := fail;
+  fi;
+  PQ_UNBIND(datarec, ["match", "matchedline"]);
+  return redgen;
 end );
 
 #############################################################################
@@ -1666,10 +1786,12 @@ end );
 #F  PqEchelonise()
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
-##  binary to echelonise the word most recently collected by  `PqCollect'  or
-##  `PqCommutator' against the relations of the current  pc  presentation.  A
-##  call    to    `PqCollect'     (see~"PqCollect")     or     `PqCommutator'
-##  (see~"PqCommutator") needs to be performed prior to using this command.
+##  program to echelonise the word most recently collected by `PqCollect'  or
+##  `PqCommutator' against the relations of the current pc presentation,  and
+##  return the number of  the  generator  made  redundant  or  `fail'  if  no
+##  generator was made redundant. A call to `PqCollect' (see~"PqCollect")  or
+##  `PqCommutator' (see~"PqCommutator") needs to be performed prior to  using
+##  this command.
 ##
 ##  *Note:*
 ##  For those familiar with the `pq'  binary,  `PqEchelonise'  performs  menu
@@ -1678,7 +1800,7 @@ end );
 InstallGlobalFunction( PqEchelonise, function( arg )
 local datarec;
   datarec := CallFuncList(ANUPQDataRecord, arg);
-  PQ_ECHELONISE( datarec );
+  return PQ_ECHELONISE( datarec );
 end );
 
 #############################################################################
@@ -1889,14 +2011,16 @@ end );
 ##
 #F  PQ_COLLECT_DEFINING_GENERATORS( <datarec>, <word> ) . . A p-Q menu opt 23
 ##
-##  inputs data to the `pq' binary for option 23 of the Advanced $p$-Quotient
-##  menu, to collect defining generators for <word> a string representing the
-##  product of three generators, e.g. `"x3*x2*x1"'.
+##  instructs the  `pq'  binary  to  do  a  collection  on  <word>  a  string
+##  representing a word in the  weight 1  pc  generators,  e.g.  `"x2^2*x1"',
+##  using option 23 of the interactive $p$-Quotient menu.
 ##
 InstallGlobalFunction( PQ_COLLECT_DEFINING_GENERATORS, function( datarec, word )
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
   ToPQ(datarec, [ "23 #collect defining generators" ]);
+  datarec.match := "The result of collection is";
   ToPQ(datarec, [ word, ";  #word to be collected" ]);
+  return PQ_WORD(datarec);
 end );
 
 #############################################################################
@@ -1904,17 +2028,25 @@ end );
 #F  PqCollectWordInDefiningGenerators(<i>,<word>) . u ver of A p-Q menu op 23
 #F  PqCollectWordInDefiningGenerators( <word> )
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
-##  binary to do a collection on <word> a string representing the product  of
-##  three generators, e.g. `"x3*x2*x1"'.
+##  for  the  <i>th  or  default  interactive  {\ANUPQ}  process,  collect  a
+##  user-defined word in the pc generators of the class 1 quotient,  i.e.~the
+##  pc generators that correspond to the original  fp  or  pc  group  of  the
+##  process, with respect to the current pc presentation, in the  context  of
+##  finding the next class (see~"PqNextClass"), and return the result of  the
+##  collection as a list of generator  number,  exponent  pairs.  The  <word>
+##  argument may be input in either of the two ways described for `PqCollect'
+##  (see~"PqCollect"). It is not illegal for <word> to contain pc  generators
+##  of weight larger than 1, but they are  intrepreted  as  representing  the
+##  identity;   `PqCollectWordInDefiningGenerators'   works   exactly    like
+##  `PqCollect' except for this distinction.
 ##
-##  *Note:*    For    those    familiar     with     the     `pq'     binary,
-##  `PqCollectWordInDefiningGenerators' performs option 23  of  the  Advanced
-##  $p$-Quotient menu.
+##  *Note:*
+##  For those familiar with the  `pq'  program,  `PqCollectDefiningGenerators'
+##  performs menu item 23 of the Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqCollectWordInDefiningGenerators, function( arg )
-  CallFuncList( PQ_COLLECT_DEFINING_GENERATORS, 
-                PQ_CHK_COLLECT_COMMAND_ARGS(arg) );
+  return CallFuncList( PQ_COLLECT_DEFINING_GENERATORS, 
+                       PQ_CHK_COLLECT_COMMAND_ARGS(arg) );
 end );
 
 #############################################################################
@@ -1931,9 +2063,11 @@ end );
 ##  performs option 24 of the Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqCommutatorDefiningGenerators, function( arg )
-  CallFuncList( PQ_COMMUTATOR, 
-                Concatenation( PQ_COMMUTATOR_CHK_ARGS(arg), 
-                               [ "24 #commutator of defining genrs" ] ) );
+  return CallFuncList( PQ_COMMUTATOR, 
+                       PQ_COMMUTATOR_CHK_ARGS(
+                           Concatenation(
+                               arg, [ "24 #commutator of defining genrs" ] )
+                           ) );
 end );
 
 #############################################################################
@@ -2374,13 +2508,15 @@ end );
 #F  PqSPIsomorphism( <i> ) . . . . . . . . . user version of SP menu option 8
 #F  PqSPIsomorphism()
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
-##  binary to compute the isomorphism from the generators of the automorphism
-##  group of `ANUPQData.io[<i>].pQuotient' to the generators for the standard
-##  presentation.
+##  for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
+##  program to compute the isomorphism mapping  from  the  $p$-group  of  the
+##  process  to  its  standard  presentation.  This   function   provides   a
+##  description      only;      for      a      {\GAP}      object,       use
+##  `EpimorphismStandardPresentation'
+##  (see~"EpimorphismStandardPresentation!interactive").
 ##
-##  *Note:* For  those  familiar  with  the  `pq'  binary,  `PqSPIsomorphism'
-##  performs option 8 of the Standard Presentation menu.
+##  *Note:* For  those  familiar  with  the  `pq'  program,  `PqSPIsomorphism'
+##  performs menu item 8 of the Standard Presentation menu.
 ##
 InstallGlobalFunction( PqSPIsomorphism, function( arg )
 local datarec;

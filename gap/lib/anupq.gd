@@ -110,9 +110,16 @@ DeclareGlobalFunction( "PqLeftNormComm" );
 
 #############################################################################
 ##
-#F  PqGAPRelators( <group>, <rels> ) . . . . . . . . pq relators as GAP words
+#F  PqParseWord( <F>, <word> ) . . . . . . . . . . . . parse word through GAP
+#F  PqParseWord( <n>, <word> )
 ##
 DeclareGlobalFunction( "PqGAPRelators" );
+
+#############################################################################
+##
+#F  PqParseWord( <word>, <n> ) . . . . . . . . . . . . parse word through GAP
+##
+DeclareGlobalFunction( "PqParseWord" );
 
 #############################################################################
 ##
@@ -132,5 +139,11 @@ DeclareGlobalFunction( "PqExample" );
 #F  AllPqExamples() . . . . . . . . . .  list the names of all ANUPQ examples
 ##
 DeclareGlobalFunction( "AllPqExamples" );
+
+#############################################################################
+##
+#F  GrepPqExamples( <string> ) . . . . . . . grep ANUPQ examples for a string
+##
+DeclareGlobalFunction( "GrepPqExamples" );
 
 #E  anupq.gd  . . . . . . . . . . . . . . . . . . . . . . . . . . . ends here 

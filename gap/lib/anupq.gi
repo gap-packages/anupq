@@ -10,6 +10,19 @@
 #Y  Copyright 1992-1994,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.28  2001/10/27 10:18:17  gap
+#H  - Added `GrepPqExamples' and `PqParseWord'.
+#H  - `Relators' option is now checked by being parsed by `PqParseWord'.
+#H  - Modified `PqCollect', `PqCommutator', `PqCollectWordInDefiningGenerators',
+#H    `PqCommutatorDefiningGenerators' to accept a word or words as a list of
+#H    generator no., exponent pairs. The old method of word input is still
+#H    available, since it is actually more versatile, but there is now a
+#H    detailed explanation of both means of input in the manual. Each of this
+#H    functions also now returns the resultant collected word as a list of
+#H    generator no., exponent pairs.
+#H  - `PqEchelonise' now returns the number of the generator made redundant
+#H    or else `fail'.                                                    - GG
+#H
 #H  Revision 1.27  2001/10/22 08:25:13  gap
 #H  Added code to implement the `Identities' option and rationalised and
 #H  generalised code that identifies the data record (now the interactive
@@ -689,15 +702,15 @@ end );
 ##  norm commutator of <words>, e.g.~if <w1>, <w2>, <w3>  are  words  in  the
 ##  generators of some free or fp group then  `PqLeftNormComm(  [<w1>,  <w2>,
 ##  <w3>] );' is equivalent to `Comm( Comm( <w1>, <w2> ), <w3> );'. Actually,
-##  the only restriction on <words> is that they must constitute a  non-empty
-##  list of group elements of the same group (so a list  of  permutations  is
-##  allowed, for example).
+##  the only restrictions on <words> are that <words> must constitute a  list
+##  of group elements of the  same  group  (so  a  list  of  permutations  is
+##  allowed, for example) and that <words> must contain at least *two* words.
 ##
 InstallGlobalFunction( PqLeftNormComm, function( words )
 local fam, comm, word;
-  if not IsList(words) or IsEmpty(words) or 
+  if not IsList(words) or 2 > Length(words) or 
      not ForAll(words, IsMultiplicativeElementWithInverse) then
-    Error( "<words> should be a non-empty list of group elements\n" );
+    Error( "<words> should be a list of at least 2 group elements\n" );
   else
     fam := FamilyObj(words[1]);
     if not ForAll(words, w -> IsIdenticalObj(FamilyObj(w), fam)) then
@@ -767,6 +780,81 @@ local gens, relgens, diff, g;
                                      ) ) );
   CallFuncList(UnhideGlobalVariables, gens);
   return rels;
+end );
+
+#############################################################################
+##
+#F  PqParseWord( <F>, <word> ) . . . . . . . . . . . . parse word through GAP
+#F  PqParseWord( <n>, <word> )
+##
+##  parse <word> through {\GAP}, where <word> is a string representing a word
+##  in the generators of <F> (the first form  of  `PqParseWord')  or  <n>  pc
+##  generators `x1,...,x<n>'. `PqParseWord' is provided as a  rough-and-ready
+##  check of <word> for syntax errors. A syntax error will cause the entering
+##  of a `break'-loop,  in  which  the  error  message  may  or  may  not  be
+##  meaningful (depending on whether the syntax  error  gets  caught  at  the
+##  {\GAP} or kernel level).
+##
+##  *Note:*
+##  The reason the generators *must* be `x1,...,x<n>' in the second  form  of
+##  `PqParseWord' is that these are the pc generator names used by  the  `pq'
+##  program (as distinct from the generator names for the group  provided  by
+##  the user to a function like `Pq' that invokes the `pq' program).
+##
+InstallGlobalFunction( PqParseWord, function( n, word )
+local ParseOnBreak, ParseOnBreakMessage, NormalOnBreak, NormalOnBreakMessage,
+      parts, gens;
+
+  if IsGroup(n) or
+     Position(word, '[') <> fail or Position(word, '(') <> fail then
+    #pass word through GAP's parser to see if it's ok
+      
+    NormalOnBreak := OnBreak;
+    ParseOnBreak := function()
+      Where(0);
+      OnBreak := NormalOnBreak;
+    end;
+    OnBreak := ParseOnBreak;
+
+    if IsFunction(OnBreakMessage) then
+      NormalOnBreakMessage := OnBreakMessage;
+      ParseOnBreakMessage := function()
+        Print( " syntax error in: ", word, "\n" );
+        Print( " you can type: 'quit;' to quit to outer loop.\n" );
+        OnBreakMessage := NormalOnBreakMessage;
+      end;
+      OnBreakMessage := ParseOnBreakMessage;
+    fi;
+
+    if IsGroup(n) then
+      PqGAPRelators(n, [ word ]);
+    else
+      PqGAPRelators(FreeGroup(n, "x"), [ word ]);
+    fi;
+
+    OnBreak := NormalOnBreak;
+    if IsFunction(OnBreakMessage) then
+      OnBreakMessage := NormalOnBreakMessage;
+    fi;
+    
+  else
+    parts := List( SplitString(word, "*"), part -> SplitString(part, "^") );
+    if ForAny( parts, part -> 2 < Length(part) or
+                              2 = Length(part) and not IsInt( Int(part[2]) ) )
+       then
+      Error( "detected invalid exponent in argument <word>: ", word, "\n");
+    fi;
+    if ForAny( parts, part -> IsEmpty( part[1] ) or part[1][1] <> 'x' ) then
+      Error( "generators in argument <word> must all be of form:\n",
+             "`x<i>' for some integer <i>\n" );
+    fi;
+    gens := List( parts, part -> Int( part[1]{[2 .. Length(part[1])]} ) );
+    if not ForAll(gens, gen -> IsPosInt(gen) and gen <= n) then
+      Error( "generators in argument <word> must be in the range: ",
+             "x1,...,x", n, "\n" );
+    fi;
+  fi;
+  return true;
 end );
 
 #############################################################################
@@ -1152,6 +1240,33 @@ InstallGlobalFunction( AllPqExamples, function()
                    file -> not( file in ["index", "README", "CVS", 
                                          "7gp-a-x-Rel-i"] 
                                 or file[ Length(file) ] = '~' ) );
+end );
+
+#############################################################################
+##
+#F  GrepPqExamples( <string> ) . . . . . . . grep ANUPQ examples for a string
+##
+##  runs the UNIX command `grep <string>'  over  the  {\ANUPQ}  examples  and
+##  returns the list of examples for which  there  is  a  match.  The  actual
+##  matches are `Info'-ed at `InfoANUPQ' level 2.
+##
+InstallGlobalFunction( GrepPqExamples, function( string )
+  local dir,  str,  grep,  out,  opts,  lines,  matches,  line;
+
+  dir := DirectoriesPackageLibrary( "anupq", "gap/examples" )[1];
+  grep := Filename( DirectoriesSystemPrograms(), "grep" );
+  str := "";
+  out := OutputTextString( str, true );
+  opts := Concatenation( [ string ], AllPqExamples() );
+  Process( dir, grep, InputTextNone(), out, opts );
+  CloseStream( out );
+  lines := SplitString( str, "",  "\n" );
+  matches := [];
+  for line in lines do
+    Info(InfoANUPQ, 2, line);
+    Add( matches, SplitString(line, "", ":")[1] );
+  od;
+  return Set(matches);
 end );
 
 #E  anupq.gi  . . . . . . . . . . . . . . . . . . . . . . . . . . . ends here 

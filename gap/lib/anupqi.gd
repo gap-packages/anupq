@@ -239,6 +239,18 @@ DeclareGlobalFunction( "PQ_COLLECT" );
 
 #############################################################################
 ##
+#F  PQ_CHECK_WORD( <datarec>, <wordOrList>, <ngens> ) . .  check word or list
+##
+DeclareGlobalFunction( "PQ_CHECK_WORD" );
+
+#############################################################################
+##
+#F  PQ_WORD( <datarec> ) . . . .  parse pq output for a word in pc generators
+##
+DeclareGlobalFunction( "PQ_WORD" );
+
+#############################################################################
+##
 #F  PQ_CHK_COLLECT_COMMAND_ARGS( <args> ) . . check args for a collect cmd ok
 ##
 DeclareGlobalFunction( "PQ_CHK_COLLECT_COMMAND_ARGS" );
