@@ -16,7 +16,8 @@ GeneratorsOfGroup(F) = GeneratorsOfGroup(Q);
 #alt: sub <procId> for <Q>
 G := Pq( Q : Prime := 3, ClassBound := 3 );
 #alt: sub <procId> for <Q>
-phi := EpimorphismStandardPresentation( Q, 3 : ClassBound := 3 );
+phi := EpimorphismStandardPresentation( Q : Prime := 3,
+                                            ClassBound := 3 );
 NamesOfComponents(phi);
 phi!.Source; # This is the group Q (GAP uses F1, ... for gen'r symbols)
 phi!.Range;  # This is the group G (GAP uses f1, ... for gen'r symbols)

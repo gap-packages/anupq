@@ -7,7 +7,7 @@ G := F / [a^25, Comm(Comm(b, a), a), b^5];
 #alt: do
 #procId1 := PqStart( G );
 #alt: sub <procId1> for <G>
-S := StandardPresentation( G, 5 : ClassBound := 10 );
+S := StandardPresentation( G : Prime := 5, ClassBound := 10 );
 IsPcGroup( S );
 ## if we need to compute with S we should convert it to a pc group
 Spc := PcGroupFpGroup( S );
@@ -17,7 +17,8 @@ H := F / [ a^625, Comm(Comm(Comm(Comm(b, a), a), a), a)/Comm(b, a)^5,
 #alt: do
 #procId2 := PqStart( H );
 #alt: sub <procId2> for <H>
-StandardPresentation( H, 5 : ClassBound := 15, Metabelian );
+StandardPresentation( H : Prime := 5, ClassBound := 15, 
+                          Metabelian );
 
 F4 := FreeGroup( "a", "b", "c", "d" );
 a := F4.1; b := F4.2; c := F4.3; d := F4.4;
@@ -28,4 +29,4 @@ G4 := F4 / [ b^4, b^2 / Comm(Comm (b, a), a), d^16,
 #alt: sub <procId3> for <G4>
 K := Pq( G4 : Prime := 2, ClassBound := 1 );
 #alt: sub <procId3> for <G4>
-StandardPresentation( G4, K : ClassBound := 14 );
+StandardPresentation( G4 : pQuotient := K, ClassBound := 14 );

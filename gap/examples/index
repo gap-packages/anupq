@@ -55,8 +55,9 @@ The following ANUPQ examples are available:
 
  Standard Presentation examples:
   general:
-   "StandardPresentation" "EpimorphismStandardPresentation"
-   "IsIsomorphicPGroup-ni"
+   "StandardPresentation" "StandardPresentation-i"
+   "EpimorphismStandardPresentation"
+   "EpimorphismStandardPresentation-i"           "IsIsomorphicPGroup-ni"
   2-groups:
    "2gp-SP-Rel-i"         "2gp-SP-1-Rel-i"       "2gp-SP-2-Rel-i"
    "2gp-SP-3-Rel-i"       "2gp-SP-4-Rel-i"       "2gp-SP-d-Rel-i"
