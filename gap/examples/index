@@ -39,6 +39,7 @@ The following ANUPQ examples are available:
  p-Group Generation examples:
   general:
    "PqDescendants-1"      "PqDescendants-2"      "PqDescendants-3"
+   "PqDescendants-1-i"
   2-groups:
    "2gp-PG-i"             "2gp-PG-2-i"           "2gp-PG-3-i"
    "2gp-PG-4-i"           "2gp-PG-e4-i"
