@@ -2487,7 +2487,8 @@ end );
 ##  descendants, using option 5 of the main $p$-Group Generation menu.
 ##
 InstallGlobalFunction( PQ_PG_CONSTRUCT_DESCENDANTS, function( datarec )
-local nodescendants, class, firstStep, expectedNsteps, optrec, line, ngroups;
+local nodescendants, class, firstStep, expectedNsteps, optrec, line, ngroups,
+      cls, totngroups;
 
   datarec.des := rec();
   # deal with the easy answer
@@ -2640,15 +2641,20 @@ local nodescendants, class, firstStep, expectedNsteps, optrec, line, ngroups;
   else
     ToPQ(datarec, [ "1  #default output" ]);
   fi;
-  line := SplitString(datarec.matchedlines[ Length(datarec.matchedlines) ],
-                      "", " \n");
-  ngroups := Int( line[1] );
   if not IsBound(datarec.ndescendants) then
     datarec.ndescendants := [];
   fi;
-  datarec.ndescendants[ datarec.class ] := [ngroups, line[2] = "capable"];
+  totngroups := 0;
+  for line in datarec.matchedlines do
+    line := SplitString(line, "", " \n");
+    ngroups := Int( line[1] );
+    cls := SplitString( line[ Length(line) ], "", "_" );
+    cls := Int( cls[2]{[6 .. Length( cls[2] )]} );
+    datarec.ndescendants[cls] := [ngroups, line[2] = "capable"];
+    totngroups := totngroups + ngroups;
+  od;
   PQ_UNBIND(datarec, ["matchlist", "matchedlines"]);
-  return ngroups;
+  return totngroups;
 end );
 
 #############################################################################
