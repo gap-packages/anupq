@@ -19,8 +19,8 @@ F 3.2. PqStandardPresentation
 F 3.2. PqStandardPresentation
 F 3.2. StandardPresentation
 F 3.2. StandardPresentation
-F 3.2. PqEpimorphismStandardPresentation
-F 3.2. PqEpimorphismStandardPresentation
+F 3.2. EpimorphismPqStandardPresentation
+F 3.2. EpimorphismPqStandardPresentation
 F 3.2. EpimorphismStandardPresentation
 F 3.2. EpimorphismStandardPresentation
 S 3.3. Testing p-Groups upon Isomorphism
@@ -71,6 +71,14 @@ F 4.4. StandardPresentation!interactive
 F 4.4. StandardPresentation!interactive
 F 4.4. StandardPresentation!interactive
 F 4.4. StandardPresentation!interactive
+F 4.4. EpimorphismPqStandardPresentation!interactive
+F 4.4. EpimorphismPqStandardPresentation!interactive
+F 4.4. EpimorphismPqStandardPresentation!interactive
+F 4.4. EpimorphismPqStandardPresentation!interactive
+F 4.4. EpimorphismStandardPresentation!interactive
+F 4.4. EpimorphismStandardPresentation!interactive
+F 4.4. EpimorphismStandardPresentation!interactive
+F 4.4. EpimorphismStandardPresentation!interactive
 S 4.5. Primitive Interactive ANUPQ Process Read/Write Functions
 F 4.5. PqRead
 F 4.5. PqRead

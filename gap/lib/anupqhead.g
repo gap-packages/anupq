@@ -25,6 +25,7 @@ Revision.anupqhead_g :=
 ##    "io"  . . . . list of data records for ANUPQStart IO Streams
 ##    "infile"  . . the path of the ANUPQ input file
 ##    "outfile" . . the path of the ANUPQ output file
+##    "SPimages"  . the path of the ANUPQ GAP_library file
 ##    "version" . . the version of the current ANUPQ binary
 ##
 ANUPQData := rec( binary := Filename( DirectoriesPackagePrograms( "anupq" ),
@@ -34,6 +35,7 @@ ANUPQData := rec( binary := Filename( DirectoriesPackagePrograms( "anupq" ),
                   );
 ANUPQData.infile  := Filename( ANUPQData.tmpdir, "PQ_INPUT" ); 
 ANUPQData.outfile := Filename( ANUPQData.tmpdir, "PQ_OUTPUT" );
+ANUPQData.SPimages := Filename( ANUPQData.tmpdir, "GAP_library" );
 
 # Fire up ANUPQ with the code for exit 
 # ... to generate a banner (which has ANUPQ's current version)

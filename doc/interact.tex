@@ -246,13 +246,14 @@ gap> G := F / [a^4, b^4];
 gap> PqStart(G);     
 1
 gap> SetInfoLevel(InfoANUPQ, 3); # To see behind the scenes
-gap> Pq(: Prime := 2, ClassBound := 3 );         
-#I  ToPQ> 7 #to (Main) p-Quotient Menu
+gap> Pq(: Prime := 2, ClassBound := 3 );
+#I  ToPQ> 7  #to (Main) p-Quotient Menu
 #I  Select option: 
-#I  ToPQ> 1 #define group
+#I  ToPQ> 1  #define group
 #I  ToPQ> prime 2
 #I  ToPQ> class 3
 #I  ToPQ> exponent 0
+#I  ToPQ> output 1
 #I  ToPQ> generators { a,b }
 #I  ToPQ> relations  { a^4,b^4 };
 #I  
@@ -266,11 +267,11 @@ gap> Pq(: Prime := 2, ClassBound := 3 );
 #I  Computation of presentation took 0.00 seconds
 #I  
 #I  Select option: 
-#I  ToPQ> 8 #to Interactive p-Quotient Menu
+#I  ToPQ> 8  #to Interactive p-Quotient Menu
 #I  Select option: 
 #I  ToPQ> 25 #set output file
 #I  Enter output file name: 
-#I  ToPQ> /tmp/fileDDpYBf.2/PQ_OUTPUT
+#I  ToPQ> /tmp/fileEHbOqq.2/PQ_OUTPUT
 #I  Output file in CAYLEY (1) or GAP (2) or Magma (3) format? 
 #I  ToPQ> 2  #output in GAP format
 #I  Group presentation written in GAP format to file
@@ -327,6 +328,69 @@ readily available when <G> is an  elementary  abelian  group.  Where  the
 necessary information is available for a $p$-quotient  of  higher  class,
 one can  apply  the  standard  presentation  algorithm  from  that  class
 onwards.
+
+Taking  one  of  the  examples  for  the   non-interactive   version   of
+`StandardPresentation'  (see~"StandardPresentation")  that  required  two
+separate calls to the `pq' binary, we now show that with the  interactive
+version of `StandardPresentation' how it can be  done  by  setting  up  a
+dialogue with just the one `pq' process:
+
+\beginexample
+gap> F4 := FreeGroup( "a", "b", "c", "d" );;
+gap> a := F4.1;; b := F4.2;; c := F4.3;; d := F4.4;;
+gap> G4 := F4 / [ b^4, b^2 / Comm(Comm (b, a), a), d^16,
+>                 a^16 / (c * d), b^8 / (d * c^4) ];
+<fp group on the generators [ a, b, c, d ]>
+gap> PqStart(G4); #Start a new interactive process for a new group
+2
+gap> SetInfoLevel(InfoANUPQ, 1); #Only essential Info please
+gap> K := Pq( 2 : Prime := 2, ClassBound := 1 ); #`pq' process no. is 2
+<pc group of size 4 with 2 generators>
+gap> AutomorphismGroup( K );     #Make sure Aut. group is known
+<group with 4 generators>
+gap> StandardPresentation( 2, K : ClassBound := 14, PcgsAutomorphisms );
+<fp group with 53 generators>
+\endexample
+
+\>EpimorphismPqStandardPresentation( <i>, <p> : <options> )!{interactive} F
+\>EpimorphismPqStandardPresentation( <p> : <options> )!{interactive} F
+\>EpimorphismPqStandardPresentation( <i>, <G> : <options> )!{interactive} F
+\>EpimorphismPqStandardPresentation( <G> : <options> )!{interactive} F
+\>EpimorphismStandardPresentation( <i>, <p> : <options> )!{interactive} M
+\>EpimorphismStandardPresentation( <p> : <options> )!{interactive} M
+\>EpimorphismStandardPresentation( <i>, <G> : <options> )!{interactive} M
+\>EpimorphismStandardPresentation( <G> : <options> )!{interactive} M
+
+Each of the above functions accepts the same arguments and options as the
+function `StandardPresentation' (see~"StandardPresentation") and  returns
+an epimorphism from the finitely presented group  <F>  of  the  <i>th  or
+default interactive {\ANUPQ} process onto the  finitely  presented  group
+given  by  a  standard  presentation,  i.e.~if  <S>   is   the   standard
+presentation   computed   for   <F>   by   `StandardPresentation'    then
+`EpimorphismStandardPresentation' returns the epimorphism from <F> to the
+group with presentation <S>. The group <F> is the group  given  as  first
+argument  to  `PqStart'  to  start  the  interactive   {\ANUPQ}   process
+(see~"PqStart").
+
+%Taking        our         earlier         non-interactive         example
+%(see~"EpimorphismPqStandardPresentation")   we   again   illustrate   how
+%something thta required two separate calls to the `pq' binary can now  be
+%achieved with a dialogue with just one `pq' process.
+
+%\beginexample
+%gap> F := FreeGroup (6);;
+%gap> x := F.1;; y := F.2;; z := F.3;; w := F.4;; a := F.5;; b := F.6;;
+%gap> R := [x^3 / w, y^3 / w * a^2 * b^2, w^3 / b,
+%>          Comm (y, x) / z, Comm (z, x), Comm (z, y) / a, z^3 ];;
+%gap> Q := F / R;;
+%gap> G := Pq ( Q : Prime := 3, ClassBound := 3 );
+%<pc group of size 729 with 6 generators>
+%gap> phi := EpimorphismStandardPresentation( Q, 3 : ClassBound := 3 );
+%[ f1, f2, f3, f4, f5, f6 ] -> [ f1*f2^2*f3*f4^2*f5^2, f1*f2*f3*f5, f3^2, 
+%  f4*f6^2, f5, f6 ]
+%gap> Size( Image(phi) );
+%729
+%\endexample
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Primitive Interactive ANUPQ Process Read/Write Functions}

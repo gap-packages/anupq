@@ -282,12 +282,6 @@ gap> G := F / [a^25, Comm(Comm(b, a), a), b^5];
 gap> StandardPresentation( G, 5 : ClassBound := 10 );  
 <fp group on the generators [ f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, 
   f12, f13, f14, f15, f16, f17, f18, f19, f20, f21, f22, f23, f24, f25, f26 ]>
-gap> H := F / [ a^625,
->               Comm(Comm(Comm(Comm(b, a), a), a), a)/Comm(b, a)^5,
->               Comm(Comm(b, a), b), b^625 ];;
-gap> StandardPresentation( H, 5 : ClassBound := 15, Metabelian );
-<fp group on the generators [ f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, 
-  f12, f13, f14, f15, f16, f17, f18, f19, f20 ]>
 gap> H := F / [ a^625, Comm(Comm(Comm(Comm(b, a), a), a), a)/Comm(b, a)^5,
 >               Comm(Comm(b, a), b), b^625 ];;                     
 gap> StandardPresentation( H, 5 : ClassBound := 15, Metabelian );
@@ -311,8 +305,8 @@ gap> StandardPresentation( G4, K : ClassBound := 14, PcgsAutomorphisms );
 (These functions require the {\ANUPQ}  share  package;  see~"Loading  the
 ANUPQ Share Package".)
 
-\>PqEpimorphismStandardPresentation( <F>, <p> : <options> ) F
-\>PqEpimorphismStandardPresentation( <F>, <G> : <options> ) F
+\>EpimorphismPqStandardPresentation( <F>, <p> : <options> ) F
+\>EpimorphismPqStandardPresentation( <F>, <G> : <options> ) F
 \>EpimorphismStandardPresentation( <F>, <p> : <options> ) M
 \>EpimorphismStandardPresentation( <F>, <G> : <options> ) M
 

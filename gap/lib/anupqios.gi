@@ -16,24 +16,52 @@ Revision.anupqios_gi :=
 ##
 #F  PqStart( <G>, <workspace> )  . . .  Initiate an interactive ANUPQ session
 #F  PqStart( <G> )
+#T  #F  PqStart( <i>, <G> )
+#T  I would have liked to have this possibility, but the `pq' binary would
+#T  need to reset its counter for the `ANUPQgroups' and `ANUPQautos' lists
+#T  for this to work.
 ##
-##  activates an iostream for an interactive {\ANUPQ} process, i.e. it starts
-##  up the `pq' binary and opens an iostream to ``talk'' to it;  and  returns
-##  an integer <i> that can be used to  identify  that  process.  The  record
-##  `ANUPQData.io[<i>]' stores information that is important for the  process
-##  (see~"ANUPQData"). The argument <G> should be an fp group that  the  user
-##  intends to manipute using interactive {\ANUPQ} functions. If `PqStart' is
-##  given a second argument <workspace> then the `pq' binary  is  started  up
-##  with a workspace (an integer array) of size <workspace> (i.e.  $4  \times
-##  <workspace>$ bytes in a 32-bit environment); otherwise, the  `pq'  binary
-##  sets a default workspace of $10000000$.
+##  In  the (first) two  forms,  `PqStart'  activates  an  iostream  for   an
+##  interactive {\ANUPQ} process, i.e. it starts up the `pq' binary and opens
+##  an iostream to ``talk'' to it; and returns an integer  <i>  that  can  be
+##  used to identify that  process.  The  record  `ANUPQData.io[<i>]'  stores
+##  information that is important  for  the  process  (see~"ANUPQData").  The
+##  argument <G> should be an fp group that  the  user  intends  to  manipute
+##  using interactive {\ANUPQ} functions. If  `PqStart'  is  given  a  second
+##  argument <workspace> then the `pq' binary is started up with a  workspace
+##  (an integer array) of size <workspace> (i.e. $4 \times <workspace>$ bytes
+##  in a 32-bit environment); otherwise,  the  `pq'  binary  sets  a  default
+##  workspace of $10000000$.
+##
+#T  In the third form, `PqStart' redefines the  starting  group  <G>  for  an
+#T  existing interactive {\ANUPQ} process identified by the positive  integer
+#T  <i>.
 ##
 InstallGlobalFunction(PqStart, function(arg)
-local stream, opts, workspace, G;
+local opts, workspace, G, ioIndex, datarec, field, stream;
 
   opts := [ "-i", "-k", "-g" ];
   if IsEmpty(arg) or 2 < Length(arg) then
     Error("one or two arguments expected.\n");
+  ## The following is for the `third' form of `PqStart' (needs a change to
+  ## the `pq' binary to enable it to work, as mentioned above).
+  #elif IsPosInt(arg[1]) then
+  #  ANUPQ_IOINDEX_ARG_CHK(arg{[1]});
+  #  ioIndex := ANUPQ_IOINDEX(arg{[1]});
+  #  if not IsFpGroup(arg[2]) then
+  #    Error("second argument must be an fp group\n");
+  #  fi;
+  #  datarec := ANUPQData.io[ioIndex];
+  #  datarec.group := arg[2];
+  #  for field in Difference( REC_NAMES(datarec),
+  #                           ["stream", "group", "workspace", "menu"] ) do
+  #    Unbind(datarec.(field)); # unbind all the fields not associated with
+  #                             # the new group
+  #  od;
+  #  # The following is what the `pq' binary puts in the GAP_library file
+  #  # when it starts up
+  #  PrintTo(ANUPQData.SPimages, "ANUPQmagic := \"groups saved to file\";\n"); 
+  #  return ioIndex;
   elif not IsFpGroup(arg[1]) then
     Error("first argument must be an fp group\n");
   elif 2 = Length(arg) then
@@ -47,7 +75,8 @@ local stream, opts, workspace, G;
   fi;
   G := arg[1];
 
-  stream := InputOutputLocalProcess(DirectoryCurrent(), ANUPQData.binary, opts);
+  PrintTo(ANUPQData.SPimages, ""); #to ensure it's empty
+  stream := InputOutputLocalProcess(ANUPQData.tmpdir, ANUPQData.binary, opts);
   if stream = fail then
     Error("sorry! Run out of pseudo-ttys. Can't initiate stream.\n");
   fi;
@@ -529,11 +558,12 @@ end);
 ##
 InstallGlobalFunction(ANUPQ_ARG_CHK, 
 function(len, funcname, arg1, arg1type, arg1err, args)
-local interactive, datarec, optrec, optnames;
+local interactive, ioArgs, datarec, optrec, optnames;
   interactive := Length(args) < len or IsInt( args[1] );
   if interactive then
-    ANUPQ_IOINDEX_ARG_CHK(args{[1..Length(args) - 1]});
-    datarec := ANUPQData.io[ ANUPQ_IOINDEX(args{[1..Length(args) - 1]}) ];
+    ioArgs := args{[1..Length(args) - len + 1]};
+    ANUPQ_IOINDEX_ARG_CHK(ioArgs);
+    datarec := ANUPQData.io[ ANUPQ_IOINDEX(ioArgs) ];
     datarec.outfname := ANUPQData.outfile;
     datarec.calltype := "interactive";
   elif Length(args) = len then

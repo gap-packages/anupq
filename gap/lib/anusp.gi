@@ -10,6 +10,9 @@
 #Y  Copyright 1993-2001,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.3  2001/05/25 17:44:40  gap
+#H  Bug fixes and additions to documentation. - GG
+#H
 #H  Revision 1.2  2001/05/24 22:05:03  gap
 #H  Added interactive versions of `[Epimorphism][Pq]StandardPresentation' and
 #H  factored out as separate functions the various menu items these functions
@@ -219,7 +222,7 @@ InstallMethod( FpGroupPcGroup, "pc group", [IsPcGroup], 0, PqFpGroupPcGroup );
 InstallGlobalFunction( PQ_EPIMORPHISM_STANDARD_PRESENTATION, 
 function( args )
     local   datarec, p_or_G, rank, p, G, automorphisms, generators, x,
-            images, i, r, j, aut, success, outfile, result, desc, k;
+            images, i, r, j, aut, success, result, desc, k;
 
     datarec := ANUPQ_ARG_CHK(2, "StandardPresentation", "group", 
                              IsFpGroup,  "an fp group", args);
@@ -291,6 +294,7 @@ function( args )
     PQ_SP_ISOMORPHISM(datarec);
 
     if datarec.calltype <> "interactive" then
+        PrintTo(ANUPQData.SPimages, ""); #to ensure it's empty
         success := PQ_COMPLETE_NONINTERACTIVE_FUNC_CALL(datarec);
         if success = true then
             return true;
@@ -300,8 +304,7 @@ function( args )
     fi;
 
     # try to read output
-    outfile := Filename( ANUPQData.tmpdir, "GAP_library" );
-    result := ANUPQReadOutput( outfile, ANUSPGlobalVariables );
+    result := ANUPQReadOutput( ANUPQData.SPimages, ANUSPGlobalVariables );
 
     if not IsBound(result.ANUPQmagic)  then
         Error("something wrong with `pq' binary. Please check installation\n");
@@ -347,7 +350,7 @@ InstallGlobalFunction( PqStandardPresentation, function( arg )
     if spEpi = true then
       return true; # the SetupFile case
     fi;
-    return Image( spEpi );
+    return Range( spEpi );
 end );
 
 #############################################################################
