@@ -35,20 +35,35 @@ end );
 ##  the library function knowing its limitations.
 ##
 InstallGlobalFunction( PQ_AUT_GROUP, function( G )
-  if not IsPGroup(G) then
-    Error("group <G> must be a p-group\n");
-  fi;
-  if HasANUPQAutomorphisms(G) then
-      return PqSupplementInnerAutomorphisms(G);
-  elif HasAutomorphismGroup(G) or 
-    RequirePackage("autpgrp") = true or
-    IsAbelian(G) then
-      return AutomorphismGroup(G);
-  else
-    Error( "since package `AutPGrp' is not installed\n",
-           "<G> must have class 1 or <G>'s aut. group must be known.\n",
-           "Please install the `AutPGrp' package\n" );
-  fi;
+
+    local autgrp;
+
+    if not IsPGroup(G) then
+        Error("group <G> must be a p-group\n");
+    fi;
+    if false and HasANUPQAutomorphisms(G) then
+        # Can't use this because we currently don't know how to interpret
+        # the automorphism information returned by the standalone properly.
+
+        autgrp := PqSupplementInnerAutomorphisms(G);
+    
+    elif false and HasAutomorphismGroup(G) then
+
+        # Can't use existing automorphism information because it does not
+        # contain the information required by the standalone.
+
+        autgrp := AutomorphismGroup( G );
+
+    elif RequirePackage("autpgrp") = true or IsAbelian(G) then
+
+        autgrp := AutomorphismGroupPGroup(G);
+
+    else
+        return Error( "since package `AutPGrp' is not installed\n",
+                      "<G> must have class 1 or <G>'s aut. group must be known.\n",
+                      "Please install the `AutPGrp' package\n" );
+    fi;
+    return autgrp;
 end );
 
 #############################################################################
@@ -60,34 +75,68 @@ end );
 ##  $p$-Group Generation menu and option 2 of the Standard Presentation menu).
 ##
 InstallGlobalFunction( PQ_AUT_INPUT, function( datarec, G )
-local autGrp, rank, automorphisms, gens, i, j, aut, g, exponents;
-  autGrp := PQ_AUT_GROUP( G );
-  if VALUE_PQ_OPTION("PcgsAutomorphisms", 
-                     HasIsSolvableGroup(autGrp) and IsSolvableGroup(autGrp),
-                     datarec) then
-    automorphisms := GeneralizedPcgs( autGrp );
-    if automorphisms = fail then
-      Error( "option \"PcgsAutomorphisms\" used with insoluble",
-             "automorphism group\n" );
-    fi;
-    automorphisms := Reversed( automorphisms );
-  else
-    automorphisms := GeneratorsOfGroup( autGrp );
-  fi;
 
-  rank := RankPGroup( G );
-  gens := PcgsPCentralSeriesPGroup( G );
-  ToPQ(datarec, [ Length(automorphisms) ], [ "  #number of automorphisms" ]);
-  for i in [1..Length(automorphisms)] do
-    aut := automorphisms[i];
-    for j in [1..rank] do
-      g := gens[j];
-      exponents := Flat( List( ExponentsOfPcElement( gens, Image( aut, g ) ),
-                               e -> [ String(e), " "] ) );
-      ToPQ(datarec, [ exponents ],
-                    [ " #gen'r exp'ts of im(aut ", i, ", gen ", j, ")" ]);
+    local   autrec,  nrautos,  rank,  gens,  i,  aut,  j,  g, exponents;
+    
+    autrec  := PQ_AUT_GROUP( G );
+    nrautos := Length( autrec.glAutos ) + Length( autrec.agAutos );
+
+    ## the automorphisms have to be in a special form which PQ_AUT_GROUP()
+    ## *must* deliver.
+  
+    rank := RankPGroup( G );
+    gens := PcgsPCentralSeriesPGroup( G );
+
+    ToPQ(datarec, [ nrautos ], [ "  #number of automorphisms" ]);
+
+    ##  First write out the automorphisms generating a soluble normal subgroup 
+    ##  of the automorphism group of the p-group.  These automorphisms may
+    ##  not have a faithful representation on the Frattini quotient of the
+    ##  p-group and are treated accordingly by the standalone.
+    ##
+    ##  The are written out in bottom up fashion as this is the order in
+    ##  which the orbit algorithm for a group given by an ag-system needs
+    ##  them.  
+    for i in Reversed([1..Length(autrec.agAutos)]) do
+        aut := autrec.agAutos[i];
+
+        for j in [1..rank] do
+            g := gens[j];
+            exponents := Flat( List( ExponentsOfPcElement( gens, Image( aut, g ) ),
+                                 e -> [ String(e), " "] ) );
+
+            ToPQ(datarec, [ exponents ],
+                 [ " #gen'r exp'ts of im(aut ", i, ", gen ", j, ")" ]);
+        od;
     od;
-  od;
+
+    ##  Now output the automorphisms from the insoluble quotient of the
+    ##  automorphism group of the p-group.  These have a faithful
+    ##  representation on the Frattini quotient of the p-group and are
+    ##  treated accordingly by the standalone.
+    for i in Reversed( [1..Length(autrec.glAutos)] ) do
+        aut := autrec.glAutos[i];
+
+        for j in [1..rank] do
+            g := gens[j];
+            exponents := Flat( List( ExponentsOfPcElement( gens, Image( aut, g ) ),
+                                 e -> [ String(e), " "] ) );
+
+            ToPQ(datarec, [ exponents ],
+                 [ " #gen'r exp'ts of im(aut ", i, ", gen ", j, ")" ]);
+        od;
+    od;
+
+    ##  Finally, tell the standalone the number of soluble automorphisms and
+    ##  the relative order of each automorphism.
+    ToPQ(datarec, [ Length(autrec.agOrder) ], [ "  #number of soluble automorphisms" ]);
+    
+    for i in Reversed( [1..Length( autrec.agOrder )] ) do
+        ToPQ( datarec, [ autrec.agOrder[i] ], 
+              [ "  #order of ", i, "th ag automorphism" ] );
+    od;
+    
+
 end );
 
 #############################################################################

@@ -10,6 +10,9 @@
 *Y  Copyright 1995-1997,  School of Mathematical Sciences, ANU,     Australia
 **
 *H  $Log$
+*H  Revision 1.8  2004/01/26 20:01:53  werner
+*H  Fixed outstanding bug, reported by Boris Girnat
+*H
 *H  Revision 1.7  2001/09/22 20:20:33  gap
 *H  Now we don't lose the IsCapable, NuclearRank and MultiplicatorRank info. - GG
 *H
@@ -236,7 +239,7 @@ void write_GAP_library ( file, pcp )
    /* write function call to <countcall>.th position of <ANUPQgroups>     */
    fprintf( file, "## group number: %d\n", countcall              );
    fprintf( file, "ANUPQgroups[%d] := function( L )\n", countcall );
-   fprintf( file, "local   MapImages,  F;\n\n"                    );
+   fprintf( file, "local   MapImages,  F;\n\n"        );
 
    /* write the GAP presentation to file                                  */
    GAP_presentation( file, pcp, 0 );
@@ -288,19 +291,19 @@ void GAP_auts ( file, central, stabiliser, pga, pcp )
    /* write function call to <countcall>.th position of <ANUPQgroups>     */
    fprintf( file, "## automorphisms number: %d\n", countcall             );
    fprintf( file, "ANUPQautos[%d] := function( G )\n", countcall         );
-   fprintf( file, "local   A,  B;\n"                                     );
+   fprintf( file, "local   frattGens,\n"                                 );
+   fprintf( file, "        relOrders,\n"                                 );
+   fprintf( file, "        centralAutos,\n"                              );
+   fprintf( file, "        otherAutos;\n"                                );
 
-   /*
-   fprintf (file, "G.nrCentralAutomorphisms := %d;\n", pga->nmr_centrals );
-   */
 
    /* write information about automorphisms to file                       */
    ngens= y[pcp->clend + 1];
    fprintf(file,"SetIsPcgsAutomorphisms(G,%s);\n",pga->soluble?"true":"false");
    fprintf(file,"SetIsCapable(G,%s);\n", pga->capable ? "true" : "false"  );
-   fprintf(file,"A := [];\nB := ["                                        );
 
    /* first write the Frattini generators                                 */
+   fprintf( file, "frattGens := ["                                        );
    for ( k = 1;  k <= ngens; k++ )
    {
       if ( k != 1 )
@@ -309,10 +312,13 @@ void GAP_auts ( file, central, stabiliser, pga, pcp )
    }
    fprintf( file, "];\n" );
 
+   fprintf (file, "centralAutos := [];  # nr of central autos: %d\n", 
+            pga->nmr_centrals );
+
    /* write out all central automorphisms                                 */
    for ( i = 1;  i <= pga->nmr_centrals;  ++i )
    {
-      fprintf( file, "Add( A, [" );
+      fprintf( file, "Add( centralAutos, [" );
       for ( j = 1;  j <= pga->ndgen;  ++j )
       {
 	 if ( j != 1 )
@@ -340,10 +346,14 @@ void GAP_auts ( file, central, stabiliser, pga, pcp )
       fprintf( file, "] );\n" );
    }
 
+   
+   fprintf (file, "otherAutos := [];  # nr of other autos: %d\n", 
+            pga->nmr_stabilisers );
+
    /* write out all other automorphisms                                   */
    for ( i = 1;  i <= pga->nmr_stabilisers;  ++i )
    {
-      fprintf( file, "Add( A, [" );
+      fprintf( file, "Add( otherAutos, [" );
       for ( j = 1;  j <= pga->ndgen;  ++j )
       {
 	 if ( j != 1 )
@@ -370,7 +380,19 @@ void GAP_auts ( file, central, stabiliser, pga, pcp )
       }
       fprintf( file, "] );\n" );
    }
-   fprintf( file, "ANUPQSetAutomorphismGroup( G, B, A, %s );\n",
-                                          pga->soluble?"true":"false"); 
+
+
+   fprintf( file , "relOrders := [");
+   if (pga->nmr_soluble > 0) {
+     for (i = 1; i <= pga->nmr_soluble; ++i)
+       fprintf (file, "%d, ", pga->relative[i]);
+     fprintf (file, "%d", pga->relative[pga->nmr_soluble]);
+   }
+   fprintf (file, "];\n");
+
+
+   fprintf( file, "ANUPQSetAutomorphismGroup( " );
+   fprintf( file, "G, frattGens, centralAutos, otherAutos, relOrders, " );
+   fprintf( file, "%s );\n", pga->soluble?"true":"false"); 
    fprintf( file, "end;\n\n\n" );
 }

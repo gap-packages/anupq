@@ -14,6 +14,9 @@
 #Y  Copyright 1992-1994,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.5  2004/01/26 20:01:53  werner
+#H  Fixed outstanding bug, reported by Boris Girnat
+#H
 #H  Revision 1.4  2002/11/19 08:47:30  gap
 #H  init.g:    now use `StringFile' rather than iostreams to read `VERSION'
 #H  testPq.in: Added -A option to GAP command.
@@ -449,11 +452,14 @@ end );
 #F  ANUPQSetAutomorphismGroup( <G>, <gens>, <automs>, <isSoluble> ) 
 ##
 InstallGlobalFunction( ANUPQSetAutomorphismGroup, 
-function( G, gens, automs, isSoluble )
-    local   A;
+function( G, gens, centralAutos, otherAutos, relativeOrders, isSoluble )
 
     SetANUPQAutomorphisms( G, 
-            rec( gens := gens, automs := automs, isSoluble := isSoluble ) );
+            rec( gens := gens, 
+                 centralAutos   := centralAutos, 
+                 otherAutos     := otherAutos, 
+                 relativeOrders := relativeOrders,
+                 isSoluble      := isSoluble ) );
 
     return;
 
@@ -463,34 +469,33 @@ end );
 ##  The following method does not return the full automorphisms group,
 ##  but only a supplement to the inner automorphism.
 ##
+
+##!!  Muss angepasst werden auf die jetzt besser verstandenen Anforderungen
+##!!  an Automorphismen, nämlich der Unterscheideung zwischen solchen, die
+##!!  auf der Frattinigruppe treu operieren und solche, die dies nicht tuen.
+
 InstallGlobalFunction( "PqSupplementInnerAutomorphisms",
 function( G )
-    local   gens,  automs,  A;
+    local   gens,  automs,  A, centralAutos, otherAutos;
+
+Print( "Attention: the function PqSupplementInnerAutomorphisms()",
+       " is outdated and dangerous\n" );
 
     if not HasANUPQAutomorphisms( G ) then
         return Error( "group does not carry automorphism information" );
     fi;
 
-    gens := ANUPQAutomorphisms( G ).gens;
-    automs := Reversed( ANUPQAutomorphisms( G ).automs );
+    automs := ANUPQAutomorphisms( G );
 
-    automs := ANUPQautoList( G, gens, automs );
-    if automs <> [] then
-        A := GroupByGenerators( automs );
-    else
-        A := GroupByGenerators( [ ANUPQauto( G, GeneratorsOfGroup(G),
-                     GeneratorsOfGroup(G) ) ] );
-    fi;
+    gens := automs.gens;
 
-    SetIsAutomorphismGroup( A, true );
-    SetIsFinite( A, true );
+    centralAutos := ANUPQautoList( G, gens, automs.centralAutos );
+    otherAutos   := ANUPQautoList( G, gens, automs.otherAutos );
+    
+    return rec( agAutos := centralAutos,
+                agOrder := automs.relativeOrders,
+                glAutos := otherAutos );
 
-    if ANUPQAutomorphisms(G).isSoluble then 
-        SetGeneralizedPcgs( A, automs );
-        SetIsSolvableGroup( A, true );
-    fi;
-
-    return A;
 end );
 
 #############################################################################

@@ -75,13 +75,34 @@ struct pcp_vars *pcp;
 	 break;
 
       case SUPPLY_AUTOMORPHISMS:
-	 auts = read_auts (PGA, &pga.m, &nmr_of_exponents, pcp);
-#if defined (LARGE_INT) 
-	 autgp_order (&pga, pcp);
-#endif 
-	 new_group = TRUE;
-	 start_group (&StartFile, auts, &pga, pcp);
-	 break;
+
+        auts = read_auts (PGA, &pga.m, &nmr_of_exponents, pcp);
+
+#if defined (LARGE_INT)
+        autgp_order (&pga, pcp);
+#endif
+
+        new_group = TRUE;
+
+        read_value (TRUE, "Enter number of soluble generators for automorphism group?\n", 
+                    &pga.nmr_soluble, INT_MIN);
+
+        if( pga.nmr_soluble > 0 ) {
+
+          int k;
+
+          pga.relative = allocate_vector (pga.nmr_soluble, 1, FALSE);
+
+          for (k = 1; k < pga.nmr_soluble; ++k)
+            read_value (FALSE, "Enter next relative order\n", &pga.relative[k], 0);
+        
+          read_value (TRUE, "Enter last relative order\n", &pga.relative[k], 0);
+        }
+        
+        start_group (&StartFile, auts, &pga, pcp);
+        
+        break;
+
 
       case EXTEND_AUTOMORPHISMS:
 	 extend_automorphisms (auts, pga.m, pcp);
