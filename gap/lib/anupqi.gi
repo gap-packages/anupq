@@ -1021,8 +1021,8 @@ end );
 
 #############################################################################
 ##
-#F  PqSupplyAutomorphisms( <i>, <mlist> ) . supply auts via A p-Q menu opt 18
-#F  PqSupplyAutomorphisms( <mlist> )
+#F  PqSPSupplyAutomorphisms(<i>, <mlist>) . supply auts via A p-Q menu opt 18
+#F  PqSPSupplyAutomorphisms( <mlist> )
 ##
 ##  for the <i>th or  default  interactive  {\ANUPQ}  process,  supplies  the
 ##  automorphism  data  provided  by  the  list  <mlist>  of  matrices   with
@@ -1031,10 +1031,11 @@ end );
 ##  the rank of the $p$-quotient of the group associated with the interactive
 ##  {\ANUPQ} process.
 ##
-##  *Note:* For those familiar with the `pq' binary,  `PqSupplyAutomorphisms'
-##  uses option 18 of the Advanced $p$-Quotient menu.
+##  *Note:*
+##  For those familiar with the `pq' binary,  `PqSPSupplyAutomorphisms'  uses
+##  option 18 of the Advanced $p$-Quotient menu.
 ##
-InstallGlobalFunction( PqSupplyAutomorphisms, function( arg )
+InstallGlobalFunction( PqSPSupplyAutomorphisms, function( arg )
 local datarec, mlist, rank, nauts, nexpts;
   if IsEmpty(arg) or 2 < Length(arg) then
     Error("expected 1 or 2 arguments\n");
@@ -1045,7 +1046,7 @@ local datarec, mlist, rank, nauts, nexpts;
   datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
   if IsBound(datarec.hasAuts) and datarec.hasAuts then
     Error("huh! already have automorphisms.\n",
-          "Perhaps you wanted to use `PqExtendAutomorphisms'\n");
+          "Perhaps you wanted to use `PqSPExtendAutomorphisms'\n");
   fi;
   if not( IsList(mlist) and ForAll(mlist, IsMatrix) and
           ForAll(Flat(mlist), i -> IsInt(i) and i >= 0) ) then
@@ -1066,22 +1067,23 @@ end );
 
 #############################################################################
 ##
-#F  PqExtendAutomorphisms( <i> ) . . . . .  extend auts via A p-Q menu opt 18
-#F  PqExtendAutomorphisms()
+#F  PqSPExtendAutomorphisms( <i> ) . . . .  extend auts via A p-Q menu opt 18
+#F  PqSPExtendAutomorphisms()
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, inputs data to the
 ##  `pq' binary to extend previously-supplied automorphisms.
 ##
-##  *Note:* For those familiar with the `pq' binary,  `PqExtendAutomorphisms'
-##  uses option 18 of the Advanced $p$-Quotient menu.
+##  *Note:*
+##  For those familiar with the `pq' binary,  `PqSPExtendAutomorphisms'  uses
+##  option 18 of the Advanced $p$-Quotient menu.
 ##
-InstallGlobalFunction( PqExtendAutomorphisms, function( arg )
+InstallGlobalFunction( PqSPExtendAutomorphisms, function( arg )
 local datarec;
   ANUPQ_IOINDEX_ARG_CHK(arg);
   datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
   if not(IsBound(datarec.hasAuts) and datarec.hasAuts) then
     Error("huh! don't have any automorphisms to extend.\n",
-          "Perhaps you wanted to use `PqSupplyAutomorphisms'\n");
+          "Perhaps you wanted to use `PqSPSupplyAutomorphisms'\n");
   fi;
   PQ_SUPPLY_OR_EXTEND_AUTOMORPHISMS( datarec );
 end );

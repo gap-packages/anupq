@@ -345,17 +345,17 @@ DeclareSynonym( "PQ_SUPPLY_AND_EXTEND_AUTOMORPHISMS",
 
 #############################################################################
 ##
-#F  PqSupplyAutomorphisms( <i>, <mlist> ) . supply auts via A p-Q menu opt 18
-#F  PqSupplyAutomorphisms( <mlist> )
+#F  PqSPSupplyAutomorphisms(<i>, <mlist>) . supply auts via A p-Q menu opt 18
+#F  PqSPSupplyAutomorphisms( <mlist> )
 ##
-DeclareGlobalFunction( "PqSupplyAutomorphisms" );
+DeclareGlobalFunction( "PqSPSupplyAutomorphisms" );
 
 #############################################################################
 ##
-#F  PqExtendAutomorphisms( <i> ) . . . . .  extend auts via A p-Q menu opt 18
-#F  PqExtendAutomorphisms()
+#F  PqSPExtendAutomorphisms( <i> ) . . . .  extend auts via A p-Q menu opt 18
+#F  PqSPExtendAutomorphisms()
 ##
-DeclareGlobalFunction( "PqExtendAutomorphisms" );
+DeclareGlobalFunction( "PqSPExtendAutomorphisms" );
 
 #############################################################################
 ##
