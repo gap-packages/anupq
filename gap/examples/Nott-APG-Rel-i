@@ -36,12 +36,12 @@ PqPGConstructDescendants(procId : ClassBound := 4,
                                   StepSize := 1,
                                   PcgsAutomorphisms,
                                   RankInitialSegmentSubgroups := 4);
-PqPGRestoreGroupFromFile(procId, 4, 1);;
+PqPGSetDescendantToPcp(procId, 4, 1);;
 PqAPGDegree(procId, 2, 3);
 PqAPGPermutations(procId);;
 PqAPGOrbits(procId : CustomiseOutput := rec(orbit := [1]));
 PqAPGOrbitRepresentatives(procId);;
-PqPGRestoreGroupFromFile(procId);;
+PqPGSetDescendantToPcp(procId);;
 PqDisplayPcPresentation(procId);;
 PqAPGSingleStage(procId : StepSize:=2, BasicAlgorithm, 
                           CustomiseOutput := rec());;
