@@ -22,10 +22,8 @@ Revision.anupqi_gi :=
 ##  $p$-Group Generation menu and option 2 of the Standard Presentation menu).
 ##
 InstallGlobalFunction( PQ_AUT_INPUT, function( datarec, G )
-local rank, automorphisms, gens, i, j, aut, g, exponents, pcgs;
-
-  if VALUE_PQ_OPTION("PcgsAutomorphisms") = true then
-    pcgs := "1  #do ";
+local rank, automorphisms, gens, i, j, aut, g, exponents;
+  if VALUE_PQ_OPTION("PcgsAutomorphisms", false, datarec) then
     automorphisms := Pcgs( AutomorphismGroup(G) );
     if automorphisms = fail then
       Error( "option \"PcgsAutomorphisms\" used with insoluble",
@@ -33,7 +31,6 @@ local rank, automorphisms, gens, i, j, aut, g, exponents, pcgs;
     fi;
     automorphisms := Reversed( automorphisms );
   else
-    pcgs := "0  #do not ";
     automorphisms := GeneratorsOfGroup( AutomorphismGroup( G ) );
   fi;
 
@@ -50,7 +47,6 @@ local rank, automorphisms, gens, i, j, aut, g, exponents, pcgs;
            [ exponents, " #gen'r exp'ts of im(aut ", i, ", gen ", j, ")" ]);
     od;
   od;
-  ToPQ(datarec, [ pcgs, "compute pcgs gen. seq. for auts." ]);
 end );
 
 #############################################################################
@@ -1388,6 +1384,8 @@ local savefile;
   ToPQ(datarec, [ VALUE_PQ_OPTION("ClassBound", 63), "  #class bound" ]);
 
   PQ_AUT_INPUT( datarec, datarec.pQuotient );
+  ToPQ(datarec, [ PQ_BOOL(datarec.PcgsAutomorphisms), 
+                  "compute pcgs gen. seq. for auts." ]);
 end );
 
 #############################################################################
@@ -1543,7 +1541,7 @@ end );
 #F  PQ_PG_SUPPLY_AUTS( <datarec> ) . . . . . . . . . . . . . pG menu option 1
 ##
 ##  defines the automorphism group of `<datarec>.group', using  option  1  of
-##  the main p-Group Generation menu.
+##  the main $p$-Group Generation menu.
 ##
 InstallGlobalFunction( PQ_PG_SUPPLY_AUTS, function( datarec )
 local gens;
@@ -1562,7 +1560,7 @@ end );
 ##
 ##  *Note:*
 ##  For  those  familiar  with  the  `pq'  binary,  `PqPGSupplyAutomorphisms'
-##  performs option 1 of the main p-Group Generation menu.
+##  performs option 1 of the main $p$-Group Generation menu.
 ##
 InstallGlobalFunction( PqPGSupplyAutomorphisms, function( arg )
 local datarec;
@@ -1660,14 +1658,13 @@ end );
 
 #############################################################################
 ##
-#F  PQ_PG_CONSTRUCT_DESCENDANTS( <datarec> : <options> ) . . pG menu option 5
+#F  PQ_PG_CONSTRUCT_DESCENDANTS( <datarec> : <options> ) .  p-G menu option 5
 ##
 ##  inputs  data  given  by  <options>  to  the  `pq'  binary  to   construct
-##  descendants, using option 5 of the main p-Group Generation menu.
+##  descendants, using option 5 of the main $p$-Group Generation menu.
 ##
 InstallGlobalFunction( PQ_PG_CONSTRUCT_DESCENDANTS, function( datarec )
-local expectedNsteps,
-      G, firstStep,  ANUPQbool,  CR,  f,  i,  RF1,  RF2, pqi;
+local firstStep, expectedNsteps;
 
   datarec.des := rec();
   # deal with the easy answer
@@ -1683,9 +1680,21 @@ local expectedNsteps,
     Error( "\"SpaceEfficient\" is only allowed in conjunction with ",
            "\"PcgsAutomorphisms\"\n");
   fi;
-  if VALUE_PQ_OPTION("StepSize", datarec.des) <> fail and 
-     datarec.des.OrderBound <> 0 then
-    Error( "\"StepSize\" and \"OrderBound\" must not be set simultaneously\n" );
+  if VALUE_PQ_OPTION("StepSize", datarec.des) <> fail then
+    if datarec.des.OrderBound <> 0 then
+      Error("\"StepSize\" and \"OrderBound\" must not be set simultaneously\n");
+    fi;
+    if IsList(datarec.des.StepSize) then
+      firstStep := datarec.des.StepSize[1];
+    else
+      firstStep := datarec.des.StepSize;
+    fi;
+    if HasNuclearRank(datarec.group) and 
+       firstStep > NuclearRank(datarec.group) then
+      Error("the first \"StepSize\" element (= ", firstStep, ") must not be\n",
+            "greater than the \"Nuclear Rank\" (= ",
+            NuclearRank(datarec.group), ")\n");
+    fi;
   fi;
 
   PQ_MENU(datarec, "pG");
@@ -1696,7 +1705,7 @@ local expectedNsteps,
                    "  #class bound" ]);
 
   #Construct all descendants?
-  if datarec.des.StepSize = fail then
+  if not IsBound(datarec.des.StepSize) then
     ToPQ(datarec, [ "1  #do construct all descendants" ]);
     #Set an order bound for descendants?
     if datarec.des.OrderBound <> 0 then
@@ -1724,37 +1733,49 @@ local expectedNsteps,
                        "  #step sizes" ]);
     fi;
   fi;
-  ToPQ(datarec, [ PQ_BOOL(datarec.des.PcgsAutomorphisms),
-                  "compute pcgs gen. seq. for auts." ]);
-  ToPQ(datarec, [ "1  #set variable step size" ]);
+  ToPQ(datarec, [ PQ_BOOL(
+                      VALUE_PQ_OPTION("PcgsAutomorphisms", false, datarec.des)
+                      ),
+                   "compute pcgs gen. seq. for auts." ]);
   ToPQ(datarec, [ "0  #do not use default algorithm" ]);
   ToPQ(datarec, [ VALUE_PQ_OPTION("RankInitialSegmentSubgroups", 0,
                                   datarec.des),
                    "  #rank of initial segment subgrp" ]);
-    pqi:="";
-    G:=datarec.group;
-    CR := rec();
-    CR.Verbose                     := false;
-    CR.AllDescendants              := false;
-    CR.ExpSet                      := false;
-    CR.Exponent                    := 0;
-    CR.Metabelian                  := false;
+  if datarec.des.PcgsAutomorphisms then
+    ToPQ(datarec, [ PQ_BOOL(datarec.des.SpaceEfficient),
+                   "be space efficient" ]);
+  fi;
+  ToPQ(datarec, [ PQ_BOOL(
+                      VALUE_PQ_OPTION( "AllDescendants", false, datarec.des ) ),
+                   "completely process terminal descendants" ]);
+  ToPQ(datarec, [ VALUE_PQ_OPTION("Exponent", 0, datarec.des), "  #exponent" ]);
+  ToPQ(datarec, [ PQ_BOOL( VALUE_PQ_OPTION("Metabelian", false, datarec.des) ),
+                   "enforce metabelian law" ]);
+  ToPQ(datarec, [ "1  #default output" ]); # There are > 18 questions to deal
+                                           # with by not taking the default
+                                           # ... maybe in the future we will
+                                           # give the user more control
+end );
 
-    AppendTo( pqi, ANUPQbool(CR.PcgsAutomorphisms), "\n0\n",
-                   CR.RankInitialSegmentSubgroups, "\n" );
-    if CR.PcgsAutomorphisms  then
-        AppendTo( pqi, ANUPQbool(CR.SpaceEfficient), "\n" );
-    fi;
-    if HasNuclearRank(G) and firstStep <> 0  and
-        firstStep > NuclearRank(G) then
-            f := Concatenation( "\"StepSize\" (=", String(firstStep),
-                   ") must be smaller or equal the \"Nuclear Rank\" (=",
-                   String(NuclearRank(G)), ")" );
-            return f;
-    fi;
-    AppendTo( pqi, ANUPQbool(CR.AllDescendants), "\n" );
-    AppendTo( pqi, CR.Exponent, "\n" );
-    AppendTo( pqi, ANUPQbool(CR.Metabelian), "\n", "1\n" );
+#############################################################################
+##
+#F  PqPGConstructDescendants( <i> : <options> ) . user ver. of p-G menu op. 5
+#F  PqPGConstructDescendants( : <options> )
+##
+##  for the <i>th or default interactive {\ANUPQ} process, inputs data  given
+##  by <options> to the `pq' binary to  construct  descendants.  The  options
+##  possible are all those given  for  `PqDescendants'  (see~"PqDescendants")
+##  except for `SubList' and `SetupFile'.
+##
+##  *Note:* 
+##  For those  familiar  with  the  `pq'  binary,  `PqPGConstructDescendants'
+##  performs option 5 of the main $p$-Group Generation menu.
+##
+InstallGlobalFunction( PqPGConstructDescendants, function( arg )
+local datarec;
+  ANUPQ_IOINDEX_ARG_CHK(arg);
+  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
+  PQ_PG_CONSTRUCT_DESCENDANTS( datarec );
 end );
 
 #############################################################################

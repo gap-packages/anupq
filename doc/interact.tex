@@ -55,12 +55,12 @@ activates an iostream for an interactive {\ANUPQ} process, i.e. it starts
 up the `pq' binary and opens an iostream to ``talk'' to it;  and  returns
 an integer <i> that can be used to  identify  that  process.  The  record
 `ANUPQData.io[<i>]' stores information that is important for the  process
-(see~"ANUPQData"). The argument <G> should be an *fp group* that the user
-intends to manipute using interactive {\ANUPQ} functions. If `PqStart' is
-given a second argument <workspace> then the `pq' binary  is  started  up
-with a workspace (an integer array) of size <workspace> (i.e.  $4  \times
-<workspace>$ bytes in a 32-bit environment); otherwise, the  `pq'  binary
-sets a default workspace of $10000000$.
+(see~"ANUPQData"). The argument <G> should be an *fp group* or *pc group*
+that the user intends to manipute using interactive  {\ANUPQ}  functions.
+If `PqStart' is given a second argument <workspace> then the `pq'  binary
+is started up with a workspace (an integer  array)  of  size  <workspace>
+(i.e. $4 \times <workspace>$ bytes in a 32-bit  environment);  otherwise,
+the `pq' binary sets a default workspace of $10000000$.
 
 \>PqQuit( <i> ) F
 \>PqQuit() F
@@ -319,6 +319,109 @@ gap> Size( Image(phi) );
 729
 \endexample
 
+\>PqDescendants( <i> : <options> )!{interactive} F
+\>PqDescendants( : <options> )!{interactive} F
+
+returns for the the pc-group <G>, of the  <i>th  or  default  interactive
+{\ANUPQ} process, which must be of prime power  order  with  a  confluent
+power-commutator presentation (see~"ref:IsConfluent!for  pc  groups"),  a
+list of descendants (pc groups) of <G>. The group <G> is the group  given
+as first argument to `PqStart' to start the interactive {\ANUPQ}  process
+(see~"PqStart"). Behind the colon <options> a selection  of  the  options
+listed    for    the     non-interactive     `PqDescendants'     function
+(see~"PqDescendants") should be given, separated by  commas  like  record
+components  (see~"ref:function  call  with  options"),  except  that  the
+options `SetupFile',  `Verbose'  or  `PqWorkspace'  are  ignored  by  the
+interactive `PqDescendants'.
+
+If <G> does *not* have $p$-class 1, then the automorphism  group  of  <G>
+must be known. In practice, the automorphism group  of  <G>  is  computed
+using the {\GAP} command `AutomorphismGroup'. Note that the {\GAP}  share
+package {\AutPGrp} provides an algorithm for computing  the  automorphism
+group of a $p$-group which performs better than the  standard  method  in
+{\GAP}.
+
+If the automorphism group  of  <G>  is  not  soluble  or  if  the  option
+`PcgsAutomorphisms' (see below) is not used, then the  `pq'  binary  will
+call {\GAP} together with the {\AutPGrp}  package  as  a  subprocess  for
+certain orbit-stabilizer calculations.
+
+Let us now repeat the examples previously given for  the  non-interactive
+`PqDescendants',  but  this  time  with  the   interactive   version   of
+`PqDescendants':
+
+\beginexample
+gap> F := FreeGroup( "a", "b" );; a := F.1;; b := F.2;;
+gap> G := PcGroupFpGroup( F / [ a^2, b^2, Comm(b, a) ] );
+<pc group of size 4 with 2 generators>
+gap> PqStart(G);
+4
+gap> #This is now the 4th interactive process running
+gap> des := PqDescendants( 4 : OrderBound := 6, ClassBound := 5,
+>                              AllDescendants );;
+gap> Length(des);
+83
+gap> List(des, Size);
+[ 8, 8, 8, 16, 16, 16, 32, 16, 16, 16, 16, 16, 32, 32, 64, 64, 32, 32, 32, 
+  32, 32, 32, 32, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 32, 32, 32, 32, 
+  64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 32, 32, 32, 32, 32, 64, 64, 64, 
+  64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 
+  64, 64, 64, 64, 64, 64, 64 ]
+gap> List(des, d -> Length( PCentralSeries( d, 2 ) ) - 1 );
+[ 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 
+  3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 
+  4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 
+  4, 4, 4, 5, 5, 5, 5, 5 ]
+\endexample
+
+In the second example we compute all  capable descendants of order  27 of
+the  elementary abelian group of order 9.  
+
+\beginexample
+gap> F := FreeGroup( 2, "g" );;                                 
+gap> G := PcGroupFpGroup( F / [ F.1^3, F.2^3, Comm(F.1, F.2) ] );
+<pc group of size 9 with 2 generators>
+gap> A := AutomorphismGroup( G );
+<group with 4 generators>
+gap> IsSolvable(A);
+true
+gap> Pcgs(A);
+Pcgs([ [ g1, g2 ] -> [ g1, g2^2 ], [ g1, g2 ] -> [ g1, g1*g2 ], 
+  [ g1, g2 ] -> [ g1^2*g2, g1*g2 ], [ g1, g2 ] -> [ g2^2, g1 ], 
+  [ g1, g2 ] -> [ g1^2, g2^2 ] ])
+gap> PqStart(G); #This will now be the 5th interactive process running
+5
+gap> des := PqDescendants( 5 : OrderBound := 3, ClassBound := 2,
+>                              PcgsAutomorphisms );
+[ <pc group of size 27 with 3 generators>, 
+  <pc group of size 27 with 3 generators> ]
+gap> List(des, d -> Length( PCentralSeries( d, 3 ) ) - 1 );
+[ 2, 2 ]
+\endexample
+
+In  the  third  example,  we  compute  all  capable  descendants  of  the
+elementary abelian group of order  $5^2$ which have exponent-$5$ class at
+most $3$, exponent $5$, and are metabelian.
+
+\beginexample
+gap> F := FreeGroup( 2, "g" );;
+gap> G := PcGroupFpGroup( F / [ F.1^5, F.2^5, Comm(F.2, F.1) ] );
+<pc group of size 25 with 2 generators>
+gap> PqStart(G); #This will now be the 6th interactive process running
+6
+gap> des := PqDescendants( 6 : Metabelian, ClassBound := 3,
+>                              Exponent := 5 );
+[ <pc group of size 125 with 3 generators>, 
+  <pc group of size 625 with 4 generators>, 
+  <pc group of size 3125 with 5 generators> ]
+gap> List(des, d -> Length( PCentralSeries( d, 5 ) ) - 1 );
+[ 2, 3, 3 ]
+gap> List(des, d -> Length( DerivedSeries( d ) ) );
+[ 3, 3, 3 ]
+gap> List(des, d -> Maximum( List( Elements(d), Order ) ) );
+[ 5, 5, 5 ]
+\endexample
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Low-level Interactive ANUPQ Functions based on menu items of the
 pq binary}
@@ -471,8 +574,6 @@ been previously computed a class 1 $p$-quotient is computed.
 *Note:* For those familiar with  the  `pq'  binary,  `PqSPPcPresentation'
 performs option 2 of the Standard Presentation menu.
 
-*Main $p$-Group Generation menu commands*
-
 \>PqSPIsomorphism( <i> ) F
 \>PqSPIsomorphism() F
 
@@ -484,6 +585,8 @@ presentation.
 *Note:* For  those  familiar  with  the  `pq'  binary,  `PqSPIsomorphism'
 performs option 8 of the Standard Presentation menu.
 
+*Main $p$-Group Generation menu commands*
+
 \>PqPGSupplyAutomorphisms( <i> ) F
 \>PqPGSupplyAutomorphisms() F
 
@@ -492,7 +595,19 @@ binary with the automorphism group data needed for `<datarec>.group'.
 
 *Note:*
 For  those  familiar  with  the  `pq'  binary,  `PqPGSupplyAutomorphisms'
-performs option 1 of the main p-Group Generation menu.
+performs option 1 of the main $p$-Group Generation menu.
+
+\>PqPGConstructDescendants( <i> : <options> ) F
+\>PqPGConstructDescendants( : <options> ) F
+
+for the <i>th or default interactive {\ANUPQ} process, inputs data  given
+by <options> to the `pq' binary to  construct  descendants.  The  options
+possible are all those given  for  `PqDescendants'  (see~"PqDescendants")
+except for `SubList' and `SetupFile'.
+
+*Note:* 
+For those  familiar  with  the  `pq'  binary,  `PqPGConstructDescendants'
+performs option 5 of the main $p$-Group Generation menu.
 
 %*Advanced $p$-Group Generation menu commands*
 %none done yet

@@ -593,6 +593,13 @@ DeclareGlobalFunction( "PQ_PG_CONSTRUCT_DESCENDANTS" );
 
 #############################################################################
 ##
+#F  PqPGConstructDescendants( <i> : <options> ) . user ver. of p-G menu op. 5
+#F  PqPGConstructDescendants( : <options> )
+##
+DeclareGlobalFunction( "PqPGConstructDescendants" );
+
+#############################################################################
+##
 #F PQ_APG_SUPPLY_AUTOMORPHISMS( <datarec> ) . . . . . . . A p-G menu option 1
 ##
 DeclareGlobalFunction( "PQ_APG_SUPPLY_AUTOMORPHISMS" );

@@ -31,8 +31,6 @@ F 4.3. IsIsomorphicPGroup
 S 4.4. Computing Descendants of a p-Group
 F 4.4. PqDescendants
 F 4.4. PqList
-F 4.4. PqList
-F 4.4. PqList
 F 4.4. SavePqList
 C interact.tex 5. Interactive ANUPQ functions
 S 5.1. Starting and Stopping Interactive ANUPQ Processes
@@ -70,6 +68,8 @@ F 5.3. EpimorphismStandardPresentation!interactive
 F 5.3. EpimorphismStandardPresentation!interactive
 F 5.3. EpimorphismStandardPresentation!interactive
 F 5.3. EpimorphismStandardPresentation!interactive
+F 5.3. PqDescendants!interactive
+F 5.3. PqDescendants!interactive
 S 5.4. Low-level Interactive ANUPQ Functions based on menu items of the pq binary
 F 5.4. PqPcPresentation
 F 5.4. PqPcPresentation
@@ -97,6 +97,8 @@ F 5.4. PqSPIsomorphism
 F 5.4. PqSPIsomorphism
 F 5.4. PqPGSupplyAutomorphisms
 F 5.4. PqPGSupplyAutomorphisms
+F 5.4. PqPGConstructDescendants
+F 5.4. PqPGConstructDescendants
 S 5.5. Primitive Interactive ANUPQ Process Read/Write Functions
 F 5.5. PqRead
 F 5.5. PqRead

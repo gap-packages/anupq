@@ -14,6 +14,18 @@
 #Y  Copyright 1992-1994,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.4  2001/06/13 21:34:25  gap
+#H  - The non-interactive `PqDescendants' and `PqList' have been modified.
+#H    o `PqList' now takes the option `SubList' which enables `PqDescendants'
+#H      to call `PqList' and pass its `SubList' recursively (much neater).
+#H    o The non-interactive `PqDescendants' no longer has `TmpDir' as an option,
+#H      but it now has `PqWorkspace' like the other non-interactive functions.
+#H  - There is now an interactive `PqDescendants'.
+#H  - Menu item function: `PqPGConstructDescendants' has been added.
+#H    (This does most of the work for `PqDescendants'.)
+#H  - `PqStart' now accepts either an *fp group* or a *pc group*.
+#H    (`PqDescendants' expects the group to be a pc group.)               - GG
+#H
 #H  Revision 1.3  2001/06/05 16:42:24  gap
 #H  Up-to-the-minute changes. - GG
 #H
@@ -444,14 +456,14 @@ InstallValue( ANUPGAGlobalVariables,
 
 #############################################################################
 ##
-#F  PqList( <file> ) . . . . . . . . . . . . . . .  get a list of descendants
+#F  PqList( <file> [: SubList := <sub>]) . . . . .  get a list of descendants
 ##
-InstallGlobalFunction( PqList, function( arg )
+InstallGlobalFunction( PqList, function( file )
     local   var,  lst,  groups,  autos,  sublist,  func;
 
     # check arguments
-    if 2 < Length(arg) or Length(arg) < 1  then
-        Error( "usage: PqList( <file> )" );
+    if not IsString(file) then
+        Error( "usage: PqList( <file> [: SubList := <sub>])\n" );
     fi;
 
     for var in ANUPGAGlobalVariables do
@@ -459,7 +471,7 @@ InstallGlobalFunction( PqList, function( arg )
     od;
 
     # try to read <file>
-    if not READ(arg[1]) or not IsBoundGlobal( "ANUPQmagic" )  then
+    if not READ(file) or not IsBoundGlobal( "ANUPQmagic" )  then
 
         for var in ANUPGAGlobalVariables do
             UnhideGlobalVariables( var );
@@ -475,15 +487,11 @@ InstallGlobalFunction( PqList, function( arg )
             autos := ValueGlobal( "ANUPQautos" );
         fi;
 
-        if Length(arg) = 2  then
-            if IsList(arg[2])  then
-                sublist := arg[2];
-            else
-                sublist := [arg[2]];
-            fi;
-        else
-            sublist := [ 1 .. Length( groups ) ];
+        sublist := VALUE_PQ_OPTION("SubList", [ 1 .. Length( groups ) ]);
+        if not IsList(sublist) then
+            sublist := [ sublist ];
         fi;
+
         for func  in sublist  do
             groups[func](lst);
             if IsBound( autos) and IsBound( autos[func] )  then
@@ -531,21 +539,16 @@ end );
 
 #############################################################################
 ##
-#F  PQ_DESCENDANTS( <args> )  . . . . . . . . .  construct descendants of <G>
+#F  PQ_DESCENDANTS( <args> ) . . . . . . . . . construct descendants of group
 ##
 InstallGlobalFunction( PQ_DESCENDANTS, function( args )
-    local   datarec, success, G, p, rank,
-            CR, pqi,  dir,  i,  pcgs,  lst,  j,  
-            auto_pcgs,  gens,  aut,  g,  res,  pq,  input,  output,  
-            desc;
+    local   datarec, success, G;
+
     datarec := ANUPQ_ARG_CHK(1, "PqDescendants", "group", IsPcGroup, 
                              "a pc group", args);
-    if datarec.calltype = "interactive" then      
-    elif datarec.calltype = "GAP3compatible" then
-        #return ANUPQData.pQepi;
+    if datarec.calltype = "GAP3compatible" then
+        return datarec.descendants;
     fi;
-
-    p    := PrimePGroup( datarec.group );
 
     # if automorphisms are not supplied and group has p-class 1, 
     # construct automorphisms, else signal Error 
@@ -579,285 +582,24 @@ InstallGlobalFunction( PQ_DESCENDANTS, function( args )
             Error( "process did not succeed\n" );
         fi;
     fi;
-            
-    # read group and images from file
-###OLD
-
-
-    # the next two lines were added by EOB 
-    CR := res[2];
-    res := CR.Verbose;
-
-    AppendTo( pqi, "0\n0\n" );
-
-    # return if we only want to set up a input file
-    if not IsBound(dir)  then
-    	Print( "#I  input file '", pqi, "' written, ",
-    	       "run 'pq' with '-k' flag\n" );
-        return true;
-    fi;
-
-    # Find the pq executable
-    pq := Filename( DirectoriesPackagePrograms( "anupq" ), "pq" );
-    if pq = fail then
-        Error( "Could not find the pq executable" );
-    fi;
-
-#    Print( "pqi: ", pqi, "\n" );
-
-    # and finally start the pq
-    input := InputTextFile( pqi );
-    if res then 
-        output := OutputTextFile( "*stdout*", false );
-    else 
-        output := OutputTextFile( "PQ_LOG", false );
-    fi;
-
-    # Call pq, ignore exit status.
-    Process( Directory( dir ), pq, input, output, [ "-k", "-g"  ] );
-    CloseStream( output );
-    CloseStream( input );
-    
-    # read in the library file written by pq
-    if CR.SubList <> -1 then 
-       desc := PqList( Concatenation(dir,"/GAP_library"), CR.SubList );
-    else 
-       desc := PqList( Concatenation(dir,"/GAP_library") );
-    fi;
-
-    # add 'isCapable'
-    for G  in desc  do
+    datarec.descendants 
+        := PqList( Filename( ANUPQData.tmpdir, "GAP_library" ) );
+    for G in datarec.descendants do
         if not HasIsCapable(G)  then
-           SetIsCapable( G, false );
+            SetIsCapable( G, false );
         fi;
     od;
-
-    return desc;
-
+    return datarec.descendants;
 end );
 
 #############################################################################
 ##
 #F  PqDescendants( <G> ... )  . . . . . . . . .  construct descendants of <G>
+#F  PqDescendants( <i> )
+#F  PqDescendants()
 ##
 InstallGlobalFunction( PqDescendants, function( arg )
-    local   G,  CR,  p,  rank,  pqi,  dir,  i,  pcgs,  lst,  j,  
-            auto_pcgs,  gens,  aut,  g,  res,  pq,  input,  output,  
-            desc;
-
-    # check arguments, return if <G> is not capable
-    if 0 = Length (arg)  then
-        Error( "usage: PqDescendants( <G> : <options> )" );
-    fi;
-    G := arg[1];
-    if not IsPcGroup(G)  then
-        Error( "<G> must be a pc-group" );
-    fi;
-
-    # set options
-    if Length(arg) = 1 then
-        CR := SET_ANUPQ_OPTIONS( "PqDescendants", "PqDescendants" );
-        CR.group := G;
-    elif IsRecord(arg[2])  then
-    	CR := ShallowCopy(arg[2]);
-        CR.group := G;
-    else
-        CR := ANUPQextractArgs( arg );
-    fi;
-
-    p    := PrimePGroup( G );
-    rank := RankPGroup( G );
-
-    # if automorphisms are not supplied and group has p-class 1, 
-    # construct automorphisms, else signal Error 
-    if not HasAutomorphismGroup(G) then 
-        if (PClassPGroup(G) = 1) then 
-            AutomorphismGroup( G );
-        else 
-            Error ("<G> must have class 1 or ",
-                   "<G>'s automorphism group must be known\n");
-        fi;
-    fi;
-
-    # if <G> is not capable and we want to compute something, return
-    if HasIsCapable(G) and not IsCapable(G) and 
-       not IsBound(CR.SetupFile) then
-        return [];
-    fi;
-
-    # we only want to set up an input file for ANU pq
-    if IsBound(CR.SetupFile)  then
-        pqi := CR.SetupFile;
-        Unbind(CR.SetupFile);
-
-    # otherwise construct a temporary directory
-    elif not IsBound(CR.TmpDir) and ANUPQtmpDir = "ThisIsAHack"  then
-        dir := TmpName();
-
-        # create the directory
-        Exec( Concatenation( "mkdir ", dir ) );
-        pqi := Concatenation( dir, "/PQ_INPUT" );
-
-    # use a given directory and try to construct a random subdir
-    else
-        if IsBound(CR.TmpDir)  then
-            dir := CR.TmpDir;
-            Unbind(CR.TmpDir);
-        else
-            dir := ANUPQtmpDir;
-        fi;
-
-        # try to get a random directory name
-        i := Runtime();
-        i := i + RandomList( [ 1 .. 2^16 ] ) * RandomList( [ 1 .. 2^16 ] );
-        i := i * Runtime();
-        i := i mod 19^8;
-        dir := Concatenation( dir, "/", PqLetterInt(i), ".apq" );
-
-        # create the directory
-        Exec( Concatenation( "mkdir ", dir ) );
-        pqi := Concatenation( dir, "/PQ_INPUT" );
-    fi;
-
-    # write first instruction to start ANU pq p-group generation
-    PrintTo(  pqi, "1\n"                     );
-    AppendTo( pqi, "prime ", p, " \n"        );
-    AppendTo( pqi, "class ", PClassPGroup(G), "\n" );
-
-    pcgs := PcgsPCentralSeriesPGroup(G);
-
-    # print generators of <G>
-    AppendTo( pqi, "generators {" );
-    for i  in [ 1 .. Length(pcgs) ]  do
-        AppendTo( pqi, "g", i );
-        if i <> Length(pcgs)  then
-            AppendTo( pqi, ", " );
-        fi;
-    od;
-    AppendTo( pqi, " }\n" );
-
-    # print relators of <G>
-    AppendTo( pqi, "relations {" );
-    for i  in [ 1 .. Length(pcgs) ]  do
-        if i <> 1  then
-            AppendTo( pqi, ", " );
-        fi;
-        lst := ExponentsOfPcElement( pcgs, pcgs[i]^p );
-        AppendTo( pqi, "g", i, "^", p );
-        if ForAny( lst, x -> x<>0 )  then
-            AppendTo( pqi, "=" );
-            ANUPQprintExps( pqi, lst );
-        fi;
-    od;
-    for j  in [ 1 .. Length(pcgs) ]  do
-        for i  in [ 1 .. j-1 ]  do
-            lst := ExponentsOfPcElement( pcgs, Comm( pcgs[j], pcgs[i] ) );
-            AppendTo( pqi, ", [g", j, ", g", i, "]" );
-            if ForAny( lst, x -> x<>0 )  then
-                AppendTo( pqi, "=" );
-                ANUPQprintExps( pqi, lst );
-            fi;
-        od;
-    od;
-    AppendTo( pqi, "} \n" );
-
-   
-    # enter p-group generation
-    AppendTo( pqi, "; \n7\n9\n1\n" );
-
-    # print automorphisms of <G>, 
-    # check if the automorphism group has a pcgs
-    if IsBound(CR.PcgsAutomorphisms) and CR.PcgsAutomorphisms then
-        auto_pcgs := Pcgs( AutomorphismGroup(G) );
-        if auto_pcgs = fail then
-            Error( "\"PcgsAutomorphisms\" used with insoluble", 
-                   " automorphism group" );
-        fi;
-        gens := Reversed( auto_pcgs );
-    else
-        gens := GeneratorsOfGroup( AutomorphismGroup(G) );
-    fi;
-    AppendTo( pqi, Length( gens ), "\n" );
-    for aut in gens do
-        for g  in [ 1 .. rank ]  do
-            for i in ExponentsOfPcElement( pcgs, Image(aut, pcgs[g]) )  do
-                AppendTo( pqi, i, " " );
-            od;
-            AppendTo( pqi, "\n" );
-        od;
-    od;
-
-    # now construct the instruction from the args
-    res := ANUPQinstructions( pqi, CR, p );
-    if IsString(res)  then
-        if IsBound(dir)  then
-            Exec( Concatenation( "rm -rf ", dir ) );
-        fi;
-        Error(res);
-    elif not res[1]  then
-        if IsBound(dir)  then
-            Exec( Concatenation( "rm -rf ", dir ) );
-            return [];
-        fi;
-        return;
-    fi;
-
-    # the next two lines were added by EOB 
-    CR := res[2];
-    res := CR.Verbose;
-
-    AppendTo( pqi, "0\n0\n" );
-
-    # return if we only want to set up a input file
-    if not IsBound(dir)  then
-    	Print( "#I  input file '", pqi, "' written, ",
-    	       "run 'pq' with '-k' flag\n" );
-        return true;
-    fi;
-
-    # Find the pq executable
-    pq := Filename( DirectoriesPackagePrograms( "anupq" ), "pq" );
-    if pq = fail then
-        Error( "Could not find the pq executable" );
-    fi;
-
-#    Print( "pqi: ", pqi, "\n" );
-
-    # and finally start the pq
-    input := InputTextFile( pqi );
-    if res then 
-        output := OutputTextFile( "*stdout*", false );
-    else 
-        output := OutputTextFile( "PQ_LOG", false );
-    fi;
-
-    # Call pq, ignore exit status.
-    Process( Directory( dir ), pq, input, output, [ "-k", "-g"  ] );
-    CloseStream( output );
-    CloseStream( input );
-    
-    # read in the library file written by pq
-    if CR.SubList <> -1 then 
-       desc := PqList( Concatenation(dir,"/GAP_library"), CR.SubList );
-    else 
-       desc := PqList( Concatenation(dir,"/GAP_library") );
-    fi;
-    if desc = false  then
-        Exec( Concatenation( "rm -rf ", dir ) );
-        Error( "cannot execute ANU pq,  please check installation" );
-    fi;
-
-    # add 'isCapable'
-    for G  in desc  do
-        if not HasIsCapable(G)  then
-           SetIsCapable( G, false );
-        fi;
-    od;
-
-    # remove temporary directory and return
-    Exec( Concatenation( "rm -rf ", dir ) );
-    return desc;
-
+    return PQ_DESCENDANTS(arg);
 end );
 
 #############################################################################

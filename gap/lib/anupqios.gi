@@ -26,12 +26,12 @@ Revision.anupqios_gi :=
 ##  an iostream to ``talk'' to it; and returns an integer  <i>  that  can  be
 ##  used to identify that  process.  The  record  `ANUPQData.io[<i>]'  stores
 ##  information that is important  for  the  process  (see~"ANUPQData").  The
-##  argument <G> should be an fp group that  the  user  intends  to  manipute
-##  using interactive {\ANUPQ} functions. If  `PqStart'  is  given  a  second
-##  argument <workspace> then the `pq' binary is started up with a  workspace
-##  (an integer array) of size <workspace> (i.e. $4 \times <workspace>$ bytes
-##  in a 32-bit environment); otherwise,  the  `pq'  binary  sets  a  default
-##  workspace of $10000000$.
+##  argument <G> should be an *fp group* or *pc group* that the user  intends
+##  to manipute using interactive {\ANUPQ} functions. If `PqStart' is given a
+##  second argument <workspace> then the `pq' binary is  started  up  with  a
+##  workspace  (an  integer  array)  of  size  <workspace>  (i.e.  $4  \times
+##  <workspace>$ bytes in a 32-bit environment); otherwise, the  `pq'  binary
+##  sets a default workspace of $10000000$.
 ##
 #T  In the third form, `PqStart' redefines the  starting  group  <G>  for  an
 #T  existing interactive {\ANUPQ} process identified by the positive  integer
@@ -62,8 +62,8 @@ local opts, workspace, G, ioIndex, datarec, field, stream;
   #  # when it starts up
   #  PrintTo(ANUPQData.SPimages, "ANUPQmagic := \"groups saved to file\";\n"); 
   #  return ioIndex;
-  elif not IsFpGroup(arg[1]) then
-    Error("first argument must be an fp group\n");
+  elif not( IsFpGroup(arg[1]) or IsPcGroup(arg[1]) ) then
+    Error("first argument must be an fp group or a pc group\n");
   elif 2 = Length(arg) then
     if not IsPosInt(arg[2]) then
       Error("argument (workspace) should be a positive integer.\n");
