@@ -113,7 +113,7 @@ gap> # First we get a p-quotient of a free group of rank 2
 gap> F := FreeGroup("a", "b");; a := F.1;; b := F.2;;
 gap> Pq( F : Prime := 2, ClassBound := 3 ); 
 <pc group of size 1024 with 10 generators>
-gap> # Now let us get a p-quotient of a finitely generated group
+gap> # Now let us get a p-quotient of an fp group
 gap> G := F / [a^4, b^4];
 <fp group on the generators [ a, b ]>
 gap> Pq( G : Prime := 2, ClassBound := 3 ); 
@@ -121,7 +121,7 @@ gap> Pq( G : Prime := 2, ClassBound := 3 );
 gap> # Now let's get a different p-quotient of the same group
 gap> Pq( G : Prime := 2, ClassBound := 3, Exponent := 4); 
 <pc group of size 128 with 7 generators>
-gap> # Now we'll get a p-quotient of another finitely generated group 
+gap> # Now we'll get a p-quotient of another fp group
 gap> # which we will redo using the `Relators' option
 gap> R := [ a^25, Comm(Comm(b, a), a), b^5 ];
 [ a^25, a^-1*b^-1*a*b*a^-1*b^-1*a^-1*b*a^2, b^5 ]
@@ -227,6 +227,70 @@ See Section~"Attributes and a Property for fp and pc  p-groups"  for  the
 attributes   and   property   `NuclearRank',   `MultiplicatorRank'    and
 `IsCapable' which may be applied to the image group  of  the  epimorphism
 returned by `PqEpimorphism'.
+
+\>PqPCover( <F> : <options> ) F
+
+returns for the finitely presented group <F>, the $p$-covering  group  of
+the $p$-quotient of <F> specified by <options>, as a pc  group,  i.e.~the
+$p$-covering group of the $p$-quotient `Pq( <F> : <options> )'. Thus  the
+options that `PqPCover' accepts are exactly those expected for `Pq'  (and
+hence as a minimum the user *must* supply  values  for  the  `Prime'  and
+`ClassBound' options; see~"Pq" for more details).  The  same  alternative
+methods of passing options  to  the  non-interactive  `Pq'  function  are
+available to the non-interactive version of `PqPCover'.
+
+We now give a few examples of the use of `PqPCover'. These  examples  are
+just the same as the ones we gave for `Pq'  (see~"Pq"),  except  that  in
+each instance  the  command  `Pq'  has  been  replaced  with  `PqPCover'.
+Essentially  the  same  examples  may  be  run  by  typing:   `PqExample(
+"PqPCover" );' (see~"PqExample").
+
+\beginexample
+gap> F := FreeGroup("a", "b");; a := F.1;; b := F.2;;
+gap> PqPCover( F : Prime := 2, ClassBound := 3 );
+<pc group of size 262144 with 18 generators>
+gap> 
+gap> # Now let's get a p-cover of a p-quotient of an fp group
+gap> G := F / [a^4, b^4];
+<fp group on the generators [ a, b ]>
+gap> PqPCover( G : Prime := 2, ClassBound := 3 );
+<pc group of size 16384 with 14 generators>
+gap> 
+gap> # Now let's get a p-cover of a different p-quotient of the same group
+gap> PqPCover( G : Prime := 2, ClassBound := 3, Exponent := 4);
+<pc group of size 8192 with 13 generators>
+gap> 
+gap> # Now we'll get a p-cover of a p-quotient of another fp group
+gap> # which we will redo using the `Relators' option
+gap> R := [ a^25, Comm(Comm(b, a), a), b^5 ];
+[ a^25, a^-1*b^-1*a*b*a^-1*b^-1*a^-1*b*a^2, b^5 ]
+gap> H := F / R;
+<fp group on the generators [ a, b ]>
+gap> PqPCover( H : Prime := 5, ClassBound := 5, Metabelian);
+<pc group of size 48828125 with 11 generators>
+gap> 
+gap> # Now we redo the previous example using the `Relators' option
+gap> F := FreeGroup("a", "b");;
+gap> # `F' was defined for `Relators'. We use the same strings that GAP uses
+gap> # for printing the free group generators. It is *not* necessary to
+gap> # predefine: a := F.1; etc. (as it was above).
+gap> rels := [ "a^25", "[b, a, a]", "b^5" ];
+[ "a^25", "[b, a, a]", "b^5" ]
+gap> R := PqGAPRelators(F, rels);
+[ a^25, a^-1*b^-1*a*b*a^-1*b^-1*a^-1*b*a^2, b^5 ]
+gap> H := F / R;
+<fp group on the generators [ a, b ]>
+gap> PqPCover( H : Prime := 5, ClassBound := 5, Metabelian, Relators := rels);
+<pc group of size 48828125 with 11 generators>
+gap> 
+gap> # Above we could have just passed `F' (rather than `H'):
+gap> F := FreeGroup("a", "b");
+<free group on the generators [ a, b ]>
+gap> rels := [ "a^25", "[b, a, a]", "b^5" ];
+[ "a^25", "[b, a, a]", "b^5" ]
+gap> PqPCover( F : Prime := 5, ClassBound := 5, Metabelian, Relators := rels);
+<pc group of size 48828125 with 11 generators>
+\endexample
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Computing Standard Presentations}

@@ -39,6 +39,7 @@ I 4.1. option SetupFile
 I 4.1. option PqWorkspace
 I 4.1. option Relators!example of usage
 F 4.1. PqEpimorphism
+F 4.1. PqPCover
 S 4.2. Computing Standard Presentations
 I 4.2. automorphisms!of $p$-groups
 F 4.2. PqStandardPresentation
@@ -108,6 +109,8 @@ I 5.3. option GroupName
 I 5.3. option OutputLevel
 F 5.3. PqEpimorphism!interactive
 F 5.3. PqEpimorphism!interactive
+F 5.3. PqPCover!interactive
+F 5.3. PqPCover!interactive
 I 5.3. automorphisms!of $p$-groups
 F 5.3. PqStandardPresentation!interactive
 F 5.3. PqStandardPresentation!interactive

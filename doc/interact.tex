@@ -257,6 +257,20 @@ attributes   and   property   `NuclearRank',   `MultiplicatorRank'    and
 `IsCapable' which may be applied to the image group  of  the  epimorphism
 returned by `PqEpimorphism'.
 
+\>PqPCover( <i> : <options> )!{interactive} F
+\>PqPCover( : <options> )!{interactive} F
+
+return, for  the  finitely  presented  group  of  the  <i>th  or  default
+interactive {\ANUPQ} process (let us call it <F>), the $p$-covering group
+of the $p$-quotient of  <F>  specified  by  <options>,  as  a  pc  group,
+i.e.~the group  returned  by  `PqPCover(  <i>  :  <options>  );'  is  the
+$p$-covering group of the $p$-quotient `Pq( <i> : <options> )'. Thus  the
+arguments and options that the interactive `PqPCover' accepts are exactly
+those expected for the interactive  `Pq'  (see~"Pq!interactive"),  except
+that if the $p$-quotient  `Pq(  <i>  :  <options>  )'  has  already  been
+computed, the $p$-cover of that $p$-quotient is returned irrespective  of
+any options that may have been supplied.
+
 \index{automorphisms!of $p$-groups}
 \>PqStandardPresentation( <i>, <p> : <options> )!{interactive} F
 \>PqStandardPresentation( <p> : <options> )!{interactive} F
@@ -592,7 +606,6 @@ for the <i>th or default interactive {\ANUPQ} process, return  the  lower
 exponent $p$-class of the quotient  group  currently  determined  by  the
 process.
 
-
 \>PqNrPcGenerators( <i> ) F
 \>PqNrPcGenerators() F
 
@@ -611,9 +624,10 @@ numbered pc generator.
 \>PqCurrentGroup( <i> ) F
 \>PqCurrentGroup() F
 
-for the <i>th or default interactive {\ANUPQ} process, return  the  lower
-exponent $p$-class quotient of the  group  currently  determined  by  the
-process as a {\GAP} pc group.
+for the <i>th or default interactive {\ANUPQ} process, return  the  group
+whose pc presentation is determined by the process as a {\GAP}  pc  group
+(either a lower exponent $p$-class quotient of the  start  group  or  the
+$p$-cover of such a quotient).
 
 *Notes:*
 See Section~"Attributes and a Property for fp and pc  p-groups"  for  the
@@ -719,6 +733,7 @@ The single command: `PqNextClass(<i>);' is equivalent to executing
 \){\kernttindent}PqSetupTablesForNextClass(<i>);
 \){\kernttindent}PqTails(<i>, 0);
 \){\kernttindent}PqDoConsistencyChecks(<i>, 0, 0);
+\){\kernttindent}PqEliminateRedundantGenerators(<i>);
 \){\kernttindent}PqCollectDefiningRelations(<i>);
 \){\kernttindent}PqDoExponentChecks(<i>);
 \){\kernttindent}PqEliminateRedundantGenerators(<i>);
