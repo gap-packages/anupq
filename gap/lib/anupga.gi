@@ -14,6 +14,12 @@
 #Y  Copyright 1992-1994,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.19  2001/11/20 17:16:49  werner
+#H  Delay setting up the automorphism group for descendants.  We store the
+#H  information returned by the ANUPQ in an attribute ANUPQAUtomorphisms and
+#H  install a method for AutomorphismGroup() which uses that information.
+#H  Also we now set IsPGroup for descendants.                             WN
+#H
 #H  Revision 1.18  2001/10/18 02:52:09  gap
 #H  Now correctly detect when p-cover has been computed (for interactive
 #H  use of `Pq', `PqPCover' etc.) - GG
@@ -403,8 +409,24 @@ InstallGlobalFunction( ANUPQSetAutomorphismGroup,
 function( G, gens, automs, isSoluble )
     local   A;
 
+    SetANUPQAutomorphisms( G, 
+            rec( gens := gens, automs := automs, isSoluble := isSoluble ) );
+
+    return;
+
+end );
+
+InstallMethod( AutomorphismGroup,
+        "automorphism from ANUPQ output",
+        [ IsPGroup and HasANUPQAutomorphisms ],
+        100,
+function( G )
+    local   gens,  automs,  A;
+
+    gens := ANUPQAutomorphisms( G ).gens;
+    automs := Reversed( ANUPQAutomorphisms( G ).automs );
+
     automs := ANUPQautoList( G, gens, automs );
-    
     if automs <> [] then
         A := GroupByGenerators( automs );
     else
@@ -415,13 +437,14 @@ function( G, gens, automs, isSoluble )
     SetIsAutomorphismGroup( A, true );
     SetIsFinite( A, true );
 
-    if isSoluble then 
+    if ANUPQAutomorphisms(G).isSoluble then 
         SetPcgs( A, automs );
         SetIsSolvableGroup( A, true );
     fi;
 
     SetAutomorphismGroup( G, A );
 
+    return A;
 end );
 
 #############################################################################
@@ -595,6 +618,7 @@ InstallGlobalFunction( PQ_DESCENDANTS, function( args )
         if not HasIsCapable(G)  then
             SetIsCapable( G, false );
         fi;
+        SetFeatureObj( G, IsPGroup, true );
     od;
 
     return datarec.descendants;

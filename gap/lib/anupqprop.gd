@@ -31,6 +31,8 @@ DeclareAttribute( "MultiplicatorRank", IsGroup );
 
 DeclareAttribute( "ANUPQIdentity", IsGroup );
 
+DeclareAttribute( "ANUPQAutomorphisms", IsGroup );
+
 DeclareProperty( "IsPcgsAutomorphisms", IsGroup );
 
 #E  anupqprop.gd  . . . . . . . . . . . . . . . . . . . . . . . . . ends here 
