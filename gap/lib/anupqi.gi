@@ -1245,13 +1245,34 @@ end );
 
 #############################################################################
 ##
+#F  PQ_PATH_CURRENT_DIRECTORY() . . . . . . . . . .  essentially the UNIX pwd
+##
+##  returns a string that is the path of the current directory.
+##
+InstallGlobalFunction( PQ_PATH_CURRENT_DIRECTORY, function()
+local path, stream;
+  path := "";
+  stream := OutputTextString(path, true);
+  if 0 = Process( DirectoryCurrent(), 
+                  Filename(DirectoriesSystemPrograms(), "pwd"),
+                  InputTextNone(), 
+                  stream,
+                  [] ) then
+    CloseStream(stream);
+    return Chomp(path);
+  fi;
+  Error("could not determine the path of the current directory!?!\n");
+end );
+
+#############################################################################
+##
 #F  PQ_WRITE_PC_PRESENTATION( <datarec>, <outfile> ) . . A p-Q menu option 25
 ##
 ##  tells the `pq' binary to write a pc presentation to <outfile>  for  group
 ##  `<datarec>.group' (option 25 of the interactive $p$-Quotient menu).
 ##
 InstallGlobalFunction( PQ_WRITE_PC_PRESENTATION, function( datarec, outfile )
-  PrintTo(outfile, ""); #to ensure it's empty
+  PrintTo(outfile, ""); #to ensure it's empty and to be sure we can write to it
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
   ToPQ(datarec, [ "25 #set output file" ]);
   ToPQ(datarec, [ outfile ]);
@@ -1268,12 +1289,15 @@ end );
 ##  process for which a pc presentation has been previously  computed,  where
 ##  the group of a process is the one given as first argument when  `PqStart'
 ##  was called to initiate that process (for process <i> the group is  stored
-##  as  `ANUPQData.io[<i>].group').  If  a  pc  presentation  has  not   been
-##  previously computed by the `pq' binary, then `pq' is called to compute it
-##  first, effectively invoking `PqPcPresentation' (see~"PqPcPresentation").
+##  as `ANUPQData.io[<i>].group'). If  the  first  character  of  the  string
+##  <outfile> is not `/' <outfile> is assumed to be the path  of  a  writable
+##  file relative to the directory in which  {\GAP}  was  started.  If  a  pc
+##  presentation has not been previously computed by the  `pq'  binary,  then
+##  `pq'   is   called   to   compute   it   first,   effectively    invoking
+##  `PqPcPresentation' (see~"PqPcPresentation").
 ##
 ##  *Note:* For those familiar with the `pq' binary,  `PqPcWritePresentation'
-##  performs option 25 of the interactive $p$-Quotient menu.
+##  performs option 25 of the Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqWritePcPresentation, function( arg )
 local outfile, datarec;
@@ -1281,8 +1305,12 @@ local outfile, datarec;
     Error("expected one or two arguments.\n");
   fi;
   outfile := arg[ Length(arg) ];
-  if not IsString(outfile) then
-    Error("last argument must be a string (filename).\n");
+  if not IsString(outfile) or outfile = "" then
+    Error("last argument must be a non-empty string (filename).\n");
+  fi;
+  if outfile[1] <> "/" then
+    # we need to do this as pq executes in ANUPQData.tmpdir
+    outfile := Concatenation(PQ_PATH_CURRENT_DIRECTORY(), "/", outfile);
   fi;
   Unbind( arg[ Length(arg) ] );
   ANUPQ_IOINDEX_ARG_CHK(arg);

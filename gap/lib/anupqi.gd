@@ -424,6 +424,12 @@ DeclareGlobalFunction( "PqCommutatorDefiningGenerators" );
 
 #############################################################################
 ##
+#F  PQ_PATH_CURRENT_DIRECTORY() . . . . . . . . . .  essentially the UNIX pwd
+##
+DeclareGlobalFunction( "PQ_PATH_CURRENT_DIRECTORY" );
+
+#############################################################################
+##
 #F  PQ_WRITE_PC_PRESENTATION( <datarec> : <options> ) .  A p-Q menu option 25
 ##
 DeclareGlobalFunction( "PQ_WRITE_PC_PRESENTATION" );
