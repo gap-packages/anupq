@@ -1,6 +1,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
-%A  anupq.tex       ANUPQ documentation - functions            Eamonn O'Brien
+%A  anupq.tex    ANUPQ documentation - non-interactive f'ns    Eamonn O'Brien
 %A                                                             & Frank Celler
 %A                                                           & Benedikt Rothe
 %%
@@ -9,13 +9,15 @@
 %%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\Chapter{The functions of the ANUPQ share package}
+\Chapter{Non-interactive ANUPQ functions}
 
-Here we describe the functions defined by the {\ANUPQ} share package  and
-which   interface   with   three   of   the    four    algorithms    (see
-Chapter~"Introduction") provided by the ANU `pq' C program. The functions
-are mainly grouped according to the algorithm of  the  `pq'  binary  they
-relate to.
+Here we describe the non-interactive functions defined  by  the  {\ANUPQ}
+share package (i.e.~these functions work by creating  a  script  that  is
+passed to the `pq' binary, the output from which is later interpreted  by
+{\GAP}). The functions interface with three of the four  algorithms  (see
+Chapter~"Introduction") provided by the  ANU  `pq'  C  program,  and  are
+mainly grouped according to the algorithm of the `pq' binary they  relate
+to.
 
 In Section~"Computing p-Quotients", we describe the functions  that  give
 access to the $p$-quotient algorithm.

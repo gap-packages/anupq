@@ -16,6 +16,12 @@ Revision.anupq_gd :=
 
 #############################################################################
 ##
+#F  ANUPQDirectoryTemporary( <dir> ) . . . . .  redefine ANUPQ temp directory
+##
+DeclareGlobalFunction( "ANUPQDirectoryTemporary" );
+
+#############################################################################
+##
 #F  ANUPQerrorPq( <param> ) . . . . . . . . . . . . . . . . . report an error
 ##
 DeclareGlobalFunction( "ANUPQerrorPq" );

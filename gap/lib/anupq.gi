@@ -10,6 +10,17 @@
 #Y  Copyright 1992-1994,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.2  2001/05/10 17:33:23  gap
+#H  gap/lib/anupqios.g[id], doc/interact.tex:
+#H    - defined and documented various interactive functions, in particular,
+#H      `PqStart', `PqQuit', `PqQuitAll' and an interactive version of `Pq'.
+#H  doc/intro.tex:
+#H    - now describes `ANUPQData' and `InfoANUPQ'.
+#H    - the Authors are in their own section.
+#H  gap/lib/anupq4r2cpt.g[id]:
+#H    - define functions as required for GAP 4.2 compatibility.
+#H  - GG
+#H
 #H  Revision 1.1  2001/04/21 21:15:40  gap
 #H  lib/
 #H     *.g,*.gd:
@@ -73,6 +84,42 @@
 Revision.anupq_gi :=
     "@(#)$Id$";
 
+
+#############################################################################
+##
+#F  ANUPQDirectoryTemporary( <dir> ) . . . . .  redefine ANUPQ temp directory
+##
+##  calls the UNIX command `mkdir' to create <dir>, which must be  a  string,
+##  and if successful a directory  object  for  <dir>  is  both  assigned  to
+##  `ANUPQData.tmpdir'  and  returned.  The  fields  `ANUPQData.infile'   and
+##  `ANUPQData.outfile' are also set to be files in  `ANUPQData.tmpdir',  and
+##  on exit from {\GAP} <dir> is removed.
+##
+InstallGlobalFunction(ANUPQDirectoryTemporary, function(dir)
+local created;
+
+  # check arguments
+  if not IsString(dir) then
+    Error(
+      "usage: ANUPQDirectoryTemporary( <dir> ) : <dir> must be a string.\n");
+  fi; 
+
+  # create temporary directory
+  created := Process(DirectoryCurrent(),
+                     Filename( DirectoriesSystemPrograms(), "sh" ),
+                     InputTextUser(),
+                     OutputTextUser(),
+                     [ "-c", Concatenation("mkdir ", dir) ]);
+  if created = fail then
+    return fail;
+  fi;
+
+  Add( DIRECTORIES_TEMPORARY, dir );
+  ANUPQData.tmpdir  := Directory(dir);
+  ANUPQData.infile  := Filename(ANUPQData.tmpdir, "PQ_INPUT");
+  ANUPQData.outfile := Filename(ANUPQData.tmpdir, "PQ_OUTPUT");
+  return ANUPQData.tmpdir;
+end);
 
 #############################################################################
 ##
@@ -341,10 +388,11 @@ end );
 InstallGlobalFunction( Pq, function( arg )
     local   phi,  x,  CR,  F;
 
-    # check arguments
-    if Length(arg) < 1  then
-    	Error( "usage: Pq( <F> : <control-options> )" );
+    # Is it an interactive Pq call?
+    if Length(arg) < 1 or IsInt( arg[1] ) then
+    	return PQ_INTERACTIVE( arg );
     fi;
+
     F := arg[1];
     if not IsFpGroup( F ) then
     	Error( "first argument must be a finitely presented group" );

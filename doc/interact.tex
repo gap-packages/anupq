@@ -1,0 +1,268 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%A  interact.tex    ANUPQ documentation - interactive f'ns      Werner Nickel
+%A                                                                Greg Gamble
+%%
+%A  @(#)$Id$
+%%
+%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\Chapter{Interactive ANUPQ functions}
+
+Here we describe the interactive functions defined by the {\ANUPQ}  share
+package, i.e.~the functions  that  manipulate  and  initiate  interactive
+{\ANUPQ} processes.
+
+An  interactive  {\ANUPQ}  process  is  initiated  by   `PqStart'   and
+terminated  via  `PqQuit';   these   functions   are   described   in
+Section~"Starting and Stopping Interactive ANUPQ Processes".
+
+Each interactive {\ANUPQ} function that  manipulate  an  already  started
+interactive {\ANUPQ} process, have a form where the first argument is the
+integer <i> returned by the initiating `PqStart' command,  and  a  second
+form with one argument fewer (where the integer <i> is  discovered  by  a
+default mechanism, namely by determining the least integer <i> for  which
+there is a currently active interactive {\ANUPQ} process). We  will  thus
+commonly say that  ``for  the  <i>th  (or  default)  interactive  {ANUPQ}
+process'' a certain function performs a given action. In each case, it is
+an error, if <i> is not the index of an active  interactive  process,  or
+there are no current active interactive processes.
+
+*Notes*: 
+The global method of passing options (via `PushOptions'), should  not  be
+used with any of the interactive functions. In fact,  the  `OptionsStack'
+should be empty at the time any of the interactive functions is called.
+
+On `quit'ting {\GAP}, `PqQuitAll();' is executed,  which  terminates  all
+active interactive  {\ANUPQ}  processes.  If  {\GAP}  is  killed  without
+`quit'ting, before all interactive  {\ANUPQ}  processes  are  terminated,
+*zombie* processes (still living *child* processes whose  *parents*  have
+died), will result. Since zombie processes do consume resources, in  such
+an event, the responsible computer user should  seek  out  and  kill  the
+still living `ace' children (e.g.~by piping the output  of  a  `ps'  with
+appropriate options, usually `aux' or `ef', to `grep ace',  to  find  the
+process ids, and then using `kill'; try `man ps' and `man kill' if  these
+hints are unhelpful).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\Section{Starting and Stopping Interactive ANUPQ Processes}
+
+\>PqStart( <G>, <workspace> ) F
+\>PqStart( <G> ) F
+
+activates an iostream for an interactive {\ANUPQ} process, i.e. it starts
+up the `pq' binary and opens an iostream to ``talk'' to it;  and  returns
+an integer <i> that can be used to  identify  that  process.  The  record
+`ANUPQData.io[<i>]' stores information that is important for the  process
+(see~"ANUPQData"). The argument <G> should be an fp group that  the  user
+intends to manipute using interactive {\ANUPQ} functions. If `PqStart' is
+given a second argument <workspace> then the `pq' binary  is  started  up
+with a workspace (an integer array) of size <workspace> (i.e.  $4  \times
+<workspace>$ bytes in a 32-bit environment); otherwise, the  `pq'  binary
+sets a default workspace of $10000000$.
+
+\>PqQuit( <i> ) F
+\>PqQuit() F
+
+closes the stream of the <i>th or default  interactive  {\ANUPQ}  process
+and unbinds its `ANUPQData.io' record.
+
+*Note:*
+It can happen that the `pq' binary process, and hence the {\GAP} iostream
+assigned to communicate with it, can  die,  e.g.~by  the  user  typing  a
+`Ctrl-C' while the `pq' binary process is engaged in a long  calculation.
+`IsPqProcessAlive' (see~"IsPqProcessAlive")  is  provided  to  check  the
+status of the {\GAP} iostream (and hence the status of  the  `pq'  binary
+process it was communicating with).
+
+\>PqQuitAll() F
+
+is provided  as  a  convenience,  to  terminate  all  active  interactive
+{\ANUPQ} processes with a single command. It is equivalent  to  executing
+`PqQuit(<i>)'  for  all  active  interactive   {\ANUPQ}   processes   <i>
+(see~"PqQuit").
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\Section{Interactive ANUPQ Process Utility Functions and Interruption of
+an Interactive ANUPQ Process}
+
+\>PqProcessIndex( <i> ) F
+\>PqProcessIndex() F
+
+With argument <i>, which must be  a  positive  integer,  `PqProcessIndex'
+returns <i> if it corresponds to an active interactive process, or raises
+an error. With no arguments it returns  the  default  active  interactive
+process or returns `fail' and  emits  a  warning  message  to  `Info'  at
+`InfoANUPQ' or `InfoWarning' level 1.
+
+*Note:*
+Essentially,  an  interactive  {\ANUPQ}  process  <i>  is  ``active''  if
+`ANUPQData.io[<i>]' is bound (i.e.~we still have  some  data  telling  us
+about it). Also see~"PqStart".
+
+\>PqProcessIndices() F
+
+returns the list of integer indices of all  active  interactive  {\ANUPQ}
+processes (see~"PqProcessIndex" for the meaning of ``active'').
+
+\>IsPqProcessAlive( <i> ) F
+\>IsPqProcessAlive() F
+
+return  `true'  if  the  {\GAP}  iostream  of  the  <i>th  (or   default)
+interactive {\ANUPQ} process started  by  `PqStart'  is  alive  (i.e.~can
+still be written to), or `false', otherwise. (See the notes for~"PqStart"
+and~"PqQuit".)
+
+\atindex{interruption}{@interruption of an interactive ANUPQ process}
+If the user does not yet have a  `gap>'  prompt  then  usually  the  `pq'
+binary is still away doing something and an {\ANUPQ}  interface  function
+is still waiting for a reply. Typing a `Ctrl-C'  (i.e.~holding  down  the
+`Ctrl' key and typing `c') will stop the waiting and send {\GAP}  into  a
+`break'-loop, from which one has no option but to `quit;'. The typing  of
+`Ctrl-C', in such a  circumstance,  usually  causes  the  stream  of  the
+interactive  {\ANUPQ}  process  to  die;  to  check   this   we   provide
+`IsPqProcessAlive' (see~"IsPqProcessAlive").
+
+The {\GAP} iostream of an interactive {\ANUPQ} process will also  die  if
+the {\ANUPQ} binary has a segmentation fault. We do hope that this  never
+happens to you, but if it does and the failure is reproducible, then it's
+a bug and we'd like to know about it. Please read the `README' that comes
+with the {\ANUPQ} share package to find out what  to  include  in  a  bug
+report and who to email it to.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\Section{Interactive Versions of Non-interactive ANUPQ Functions}
+
+\>Pq( <i> : <options> )!{interactive} F
+\>Pq( : <options> )!{interactive} F
+
+returns for the finitely presented group <G>, of  the  <i>th  or  default
+interactive {\ANUPQ}  process,  the  $p$-quotient  of  <G>  specified  by
+<options>, as a pc-group. The group <G>  is  the  group  given  as  first
+argument  to  `PqStart'  to  start  the  interactive   {\ANUPQ}   process
+(see~"PqStart"). Behind the colon <options> a selection  of  the  options
+from the following list should be given, separated by commas like  record
+components (see~"ref:function call with options"). This version  of  `Pq'
+performs the same function as its non-interactive counterpart and  except
+that it doesn't recognise the `SetupFile' or `Verbose' option it uses the
+same options (see~"Pq"). The following is one of the examples for the non-interactive
+`Pq' redone with the interactive version:
+
+\beginexample
+gap> F := FreeGroup("a", "b");; a := F.1;; b := F.2;;
+gap> G := F / [a^4, b^4];         
+<fp group on the generators [ a, b ]>
+gap> PqStart(G);     
+1
+gap> SetInfoLevel(InfoANUPQ, 3); # To see behind the scenes
+gap> Pq(: Prime := 2, ClassBound := 3 );         
+#I  ToPQ> 7 #to (Main) p-Quotient Menu
+#I  Select option: 
+#I  ToPQ> 1 #define group
+#I  ToPQ> prime 2
+#I  ToPQ> class 3
+#I  ToPQ> exponent 0
+#I  ToPQ> generators { a,b }
+#I  ToPQ> relations  { a^4,b^4 };
+#I  
+#I  Lower exponent-2 central series for G
+#I  
+#I  Group: G to lower exponent-2 central class 1 has order 2^2
+#I  
+#I  Group: G to lower exponent-2 central class 2 has order 2^5
+#I  
+#I  Group: G to lower exponent-2 central class 3 has order 2^8
+#I  Computation of presentation took 0.00 seconds
+#I  
+#I  Select option: 
+#I  ToPQ> 8 #to Interactive p-Quotient Menu
+#I  Select option: 
+#I  ToPQ> 25 #set output file
+#I  Enter output file name: 
+#I  ToPQ> /tmp/fileDDpYBf.2/PQ_OUTPUT
+#I  Output file in CAYLEY (1) or GAP (2) or Magma (3) format? 
+#I  ToPQ> 2  #output in GAP format
+#I  Group presentation written in GAP format to file
+#I  
+#I  Select option: 
+<pc group of size 256 with 8 generators>
+\endexample
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\Section{Primitive Interactive ANUPQ Process Read/Write Functions}
+
+For those familiar with using the `pq' binary as a standalone we  provide
+primitive read/write tools to communicate directly  with  an  interactive
+{\ANUPQ} process, started via `PqStart'. For the most part, it is  up  to
+the user to translate the output strings from `pq'  binary  into  a  form
+useful in {\GAP}.
+
+\>PqRead( <i> ) F
+\>PqRead() F
+
+read a complete line of  {\ANUPQ}  output,  from  the  <i>th  or  default
+interactive {\ANUPQ} process, if there is output to be read  and  returns
+`fail' otherwise. When successful, the  line  is  returned  as  a  string
+complete with trailing newline, colon, or question-mark character. Please
+note that it is possible to be ``too  quick''  (i.e.~the  return  can  be
+`fail' purely because the output from {\ANUPQ} is not there yet), but  if
+`PqRead' finds any output at all, it waits for a complete line.  `PqRead'
+also writes the line read via `Info' at `InfoANUPQ' level 2.  It  doesn't
+try to distinguish banner and menu output from other output of  the  `pq'
+binary.
+
+\>PqReadAll( <i> ) F
+\>PqReadAll() F
+
+read and return as many *complete* lines of  {\ANUPQ}  output,  from  the
+<i>th or default interactive {\ANUPQ} process, as there are to  be  read,
+*at the time of the call*,  as  a  list  of  strings  with  any  trailing
+newlines removed and returns the empty list otherwise.  `PqReadAll'  also
+writes each line read via `Info' at `InfoANUPQ' level 2. It  doesn't  try
+to distinguish banner and menu output  from  other  output  of  the  `pq'
+binary. Whenever `PqReadAll' finds only a partial line, it waits for  the
+complete line, thus increasing the probability that it has  captured  all
+the output to be had from {\ANUPQ}.
+
+\>PqReadUntil( <i>, <IsMyLine> ) F
+\>PqReadUntil( <IsMyLine> ) F
+\>PqReadUntil( <i>, <IsMyLine>, <Modify> ) F
+\>PqReadUntil( <IsMyLine>, <Modify> ) F
+
+read complete lines  of  {\ANUPQ}  output,  from  the  <i>th  or  default
+interactive {\ANUPQ} process, ``chomps'' them (i.e.~removes any  trailing
+newline character), emits them to `Info' at `InfoANUPQ' level 2  (without
+trying to distinguish banner and menu output from  other  output  of  the
+`pq' binary), and applies the function <Modify> (where <Modify>  is  just
+the identity map/function for the first two forms)  until  a  ``chomped''
+line  <line>  for  which  `<IsMyLine>(  <Modify>(<line>)  )'   is   true.
+`PqReadUntil' returns the list of <Modify>-ed ``chomped'' lines read.
+
+*Notes:* 
+When provided by the user, <Modify> should be a function that  accepts  a
+single string argument.
+
+<IsMyLine> should be a function that is able  to  accept  the  output  of
+<Modify> (or take a single string argument when <Modify> is not provided)
+and should return a boolean.
+
+If `<IsMyLine>( <Modify>(<line>) )' is  never  true,  `PqReadUntil'  will
+wait indefinitely.
+
+\>PqWrite( <i>, <string> ) F
+\>PqWrite( <string> ) F
+
+write <string> to the <i>th  or  default  interactive  {\ANUPQ}  process;
+<string> must be in exactly the form the {\ANUPQ} standalone expects. The
+command is echoed via `Info' at `InfoANUPQ' level 3 (with a  ```ToPQ> '''
+prompt); i.e.~do `SetInfoLevel(InfoANUPQ, 3);' to see what is transmitted
+to the `pq' binary. `PqWrite' returns `true' if successful in writing  to
+the stream of the interactive {\ANUPQ} process, and `fail' otherwise.
+
+*Note:*
+If `PqWrite' returns `fail' it means that the {\ANUPQ} process has died.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%E

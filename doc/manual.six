@@ -1,9 +1,15 @@
 C intro.tex 1. Introduction
 S 1.1. How to read this manual
 I 1.1. ANUPQ
+S 1.2. The ANUPQData Record
+F 1.2. ANUPQData
+F 1.2. ANUPQDirectoryTemporary
+S 1.3. Setting the Verbosity of ANUPQ via Info and InfoANUPQ
+F 1.3. InfoANUPQ
+S 1.4. Authors
 C basics.tex 2. Basics
 I 2.0. capable
-C anupq.tex 3. The functions of the ANUPQ share package
+C anupq.tex 3. Non-interactive ANUPQ functions
 S 3.1. Computing p-Quotients
 F 3.1. Pq
 F 3.1. PqEpimorphism
@@ -26,6 +32,34 @@ F 3.4. PqList
 F 3.4. PqList
 F 3.4. PqList
 F 3.4. SavePqList
-C install.tex 4. Installing and Loading the ANUPQ Share Package
-S 4.1. Installing the ANUPQ Share Package
-S 4.2. Loading the ANUPQ Share Package
+C interact.tex 4. Interactive ANUPQ functions
+S 4.1. Starting and Stopping Interactive ANUPQ Processes
+F 4.1. PqStart
+F 4.1. PqStart
+F 4.1. PqQuit
+F 4.1. PqQuit
+F 4.1. PqQuitAll
+S 4.2. Interactive ANUPQ Process Utility Functions and Interruption of an Interactive ANUPQ Process
+F 4.2. PqProcessIndex
+F 4.2. PqProcessIndex
+F 4.2. PqProcessIndices
+F 4.2. IsPqProcessAlive
+F 4.2. IsPqProcessAlive
+I 4.2. interruption
+S 4.3. Interactive Versions of Non-interactive ANUPQ Functions
+F 4.3. Pq!interactive
+F 4.3. Pq!interactive
+S 4.4. Primitive Interactive ANUPQ Process Read/Write Functions
+F 4.4. PqRead
+F 4.4. PqRead
+F 4.4. PqReadAll
+F 4.4. PqReadAll
+F 4.4. PqReadUntil
+F 4.4. PqReadUntil
+F 4.4. PqReadUntil
+F 4.4. PqReadUntil
+F 4.4. PqWrite
+F 4.4. PqWrite
+C install.tex 5. Installing and Loading the ANUPQ Share Package
+S 5.1. Installing the ANUPQ Share Package
+S 5.2. Loading the ANUPQ Share Package
