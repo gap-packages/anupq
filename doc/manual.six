@@ -64,10 +64,12 @@ I 3.4. option!of pq program is a menu item
 S 3.5. Utility Functions
 F 3.5. PqLeftNormComm
 F 3.5. PqGAPRelators
+F 3.5. PqParseWord
 F 3.5. PqExample
 F 3.5. PqExample
 F 3.5. PqExample
 F 3.5. AllPqExamples
+F 3.5. GrepPqExamples
 S 3.6. Attributes and a Property for fp and pc p-groups
 F 3.6. NuclearRank
 F 3.6. MultiplicatorRank

@@ -41,10 +41,12 @@ in Section~"Hints and Warnings regarding the use of Options");
 \item{$\bullet$} 
 in Section~"Utility functions" we describe functions `PqLeftNormComm' for
 computing  left  normed  commutators  in  {\GAP},  `PqGAPRelators'  which
-converts strings representing relators from  a  format  the  `pq'  program
-understands to a form that  {\GAP}  understands,  and  `PqExample'  which
-executes examples for the  {\ANUPQ}  package  or  displays  an  index  of
-examples; and
+converts strings representing relators from a  format  the  `pq'  program
+understands  to  a  form  that  {\GAP}   understands,   `PqParseWord'   a
+syntax-checker for words in pc generators, `PqExample' which executes  or
+displays examples for the  {\ANUPQ}  package  or  displays  an  index  of
+examples, `AllPqExamples' a command for listing available  examples,  and
+`GrepPqExample' an example search tool; and
 
 \item{$\bullet$} 
 in Section~"Attributes and a Property for fp and pc p-groups" we describe
@@ -364,6 +366,8 @@ commutator of <elts>, e.g.~if <w1>, <w2>, <w3>  are  such  elements  then
 `PqLeftNormComm( [<w1>, <w2>, <w3>] );' is  equivalent  to  `Comm(  Comm(
 <w1>, <w2> ), <w3> );'.
 
+*Note:* <elts> must contain at least two elements.
+
 \>PqGAPRelators( <group>, <rels> ) F
 
 returns a list of words that {\GAP} understands, given a list  <rels>  of
@@ -387,6 +391,21 @@ gap> PqGAPRelators(F, [ "a*b^2", "[a,b]^2*a", "([a,b,a,b,b]*a*b)^2*a" ]);
     -1*a*b*a*b*a^-1*b*a*b^-1*a*b*a^-1*b*a^-1*b^-1*a*b*a*b^-1*a^-1*b^-1*a^
     -1*b*a*b^-1*a*b^-1*a^-1*b*a^-1*b^-1*a*b*a*b^2*a*b*a ]
 \endexample
+
+\>PqParseWord( <word>, <n> ) F
+
+parses a <word>, a string  representing  a  word  in  the  pc  generators
+`x1,...,x<n>',  through  {\GAP}.  This  function   is   provided   as   a
+rough-and-ready check of <word> for syntax errors. A  syntax  error  will
+cause the entering of a `break'-loop, in which the error message  may  or
+may not be meaningful (depending on whether the syntax error gets  caught
+at the {\GAP} or kernel level).
+
+*Note:*
+The reason the generators *must* be `x1,...,x<n>' is that these  are  the
+pc generator names used  by  the  `pq'  program  (as  distinct  from  the
+generator names for the group provided by the user  to  a  function  like
+`Pq' that invokes the `pq' program).
 
 \>PqExample() F
 \>PqExample( <example>[, PqStart][, Display] ) F
@@ -431,6 +450,12 @@ has finished as `ANUPQData.examples.vars.F'.
 
 returns  a  list  of  all  currently  available   examples   in   default
 UNIX-listing (i.e.~alphabetic) order.
+
+\>GrepPqExamples( <string> ) F
+
+runs the UNIX command `grep <string>'  over  the  {\ANUPQ}  examples  and
+returns the list of examples for which  there  is  a  match.  The  actual
+matches are `Info'-ed at `InfoANUPQ' level 2.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Attributes and a Property for fp and pc p-groups}

@@ -109,9 +109,9 @@ must  be  written  as  `<w1>*(<w2>)^-1'  and  then  put  in  a  pair   of
 double-quotes to make it a string. See the example below.
 
 \item{2.}
-To ensure there are no syntax errors in <rels>, it  is  recommended  that
-the user test the relators are valid by  expansion  with  `PqGAPRelators'
-(see~"PqGAPRelators").
+To ensure there are no syntax errors in <rels>, each  relator  is  parsed
+for validity via `PqParseWord' (see~"PqParseWord"). If  they  are  ok,  a
+message to say so is `Info'-ed at `InfoANUPQ' level 2.
 
 \endlist
 

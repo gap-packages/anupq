@@ -904,10 +904,30 @@ item 7 of the main $p$-Quotient menu.
 \>PqCollect( <word> ) F
 
 for the <i>th or default interactive {\ANUPQ} process, instruct the  `pq'
-program to do a collection on <word>, a string representing the product of
-pc generators, e.g. `"x3*x2*x1"'.
+program to do a collection on <word>, a word in the current pc generators
+(the form of <word> required is described below). `PqCollect' returns the
+resulting word of the collection as a list of generator number,  exponent
+pairs (the same form as the second allowed  input  form  of  <word>;  see
+below).
 
-*FORM OF* <word> *WILL CHANGE*
+The argument <word> may be input in either of the following ways:
+
+\beginlist%ordered
+
+\item{1.}
+<word> may be a string, where the <i>th pc generator  is  represented  by
+`x<i>', e.g.~`"x3*x2^2*x1"'. This way is quite versatile  as  parentheses
+and left-normed commutators -- using square brackets, in the same way  as
+`PqGAPRelators' (see~"PqGAPRelators") -- are permitted; <word> is checked
+for correct syntax via `PqParseWord' (see~"PqParseWord").
+
+\item{2.}
+Otherwise, <word> must be a list of generator number, exponent  pairs  of
+integers, i.e.~ each pair represents a ``syllable'' so that  `[  [3,  1],
+[2, 2], [1, 1] ]' represents the same word as that of the  example  given
+for the first allowed form of <word>.
+
+\endlist
 
 *Note:* For those familiar with the  `pq'  program,  `PqCollect'  performs
 menu item 1 of the Advanced $p$-Quotient menu.
@@ -926,12 +946,16 @@ menu item 2 of the Advanced $p$-Quotient menu.
 \>PqCommutator( <i>, <words>, <pow> ) F
 \>PqCommutator( <words>, <pow> ) F
 
-for the <i>th or default interactive {\ANUPQ} process, direct  the  `pq'
-program to compute the left normed commutator of the list <words> of words
-in the pc generators raised to the integer power <pow>.
+for the <i>th or default interactive {\ANUPQ} process, instruct the  `pq'
+program to compute the left normed commutator  of  the  list  <words>  of
+words in the current pc generators raised to the integer power <pow>, and
+return the resulting word as a list of generator number, exponent  pairs.
+The form required for each word of <words> is the same as  that  required
+for the <word> argument of `PqCollect' (see~"PqCollect"). The form of the
+output word is also the same as for `PqCollect'.
 
 *Note:*
-For those familiar with the `pq'  program,  `PqCommutator'  performs  menu
+For those familiar with the `pq' program,  `PqCommutator'  performs  menu
 item 3 of the Advanced $p$-Quotient menu.
 
 \>PqSetupTablesForNextClass( <i> ) F
@@ -1064,14 +1088,17 @@ performs menu item 9 of the Advanced $p$-Quotient menu.
 \>PqCollectWordInDefiningGenerators( <i>, <word> ) F
 \>PqCollectWordInDefiningGenerators( <word> ) F
 
-for the <i>th or default interactive {\ANUPQ} process, this can  be  used
-in      the      same      way      as       `PqCollectDefiningRelations'
-(see~"PqCollectDefiningRelations") to collect a user-defined word in  the
-generators of the original fp group of the process, with respect  to  the
-current pc presentation,  in  the  context  of  finding  the  next  class
-(see~"PqNextClass").
-
-*EXPLAIN FORM OF* <word>
+for  the  <i>th  or  default  interactive  {\ANUPQ}  process,  collect  a
+user-defined word in the pc generators of the class 1 quotient,  i.e.~the
+pc generators that correspond to the original  fp  or  pc  group  of  the
+process, with respect to the current pc presentation, in the  context  of
+finding the next class (see~"PqNextClass"), and return the result of  the
+collection as a list of generator  number,  exponent  pairs.  The  <word>
+argument may be input in either of the two ways described for `PqCollect'
+(see~"PqCollect"). It is not illegal for <word> to contain pc  generators
+of weight larger than 1, but they are  intrepreted  as  representing  the
+identity;   `PqCollectWordInDefiningGenerators'   works   exactly    like
+`PqCollect' except for this distinction.
 
 *Note:*
 For those familiar with the  `pq'  program,  `PqCollectDefiningGenerators'
@@ -1080,16 +1107,22 @@ performs menu item 23 of the Advanced $p$-Quotient menu.
 \>PqCommutatorDefiningGenerators( <i>, <words>, <pow> ) F
 \>PqCommutatorDefiningGenerators( <words>, <pow> ) F
 
-for the <i>th or default interactive {\ANUPQ} process, this can  be  used
-in      the      same      way      as       `PqCollectDefiningRelations'
-(see~"PqCollectDefiningRelations") to collect a  user-defined  commutator
-in the generators of the original fp group of the process,  with  respect
-to the current pc presentation, in the context of finding the next  class
-(see~"PqNextClass").
+for  the  <i>th  or  default  interactive  {\ANUPQ}  process,  compute  a
+user-defined commutator in the pc generators of  the  class  1  quotient,
+i.e.~the pc generators that correspond to the original fp or pc group  of
+the process, and return  the  result  as  a  list  of  generator  number,
+exponent pairs. The form required for each word of <words> is the same as
+that required for the <word> argument of  `PqCollect'  (see~"PqCollect").
+The form of  the  output  word  is  also  the  same  as  for  `PqCollect'
+(see~"PqCollect").
 
-*EXPLAIN FORM OF* <words>, <pow>
+*Notes*
 
-*Note:*
+It is illegal for any word of <words> to contain pc generators of  weight
+larger      than      1.      Except      for      this      distinction,
+`PqCommutatorDefiningGenerators'   works   just    like    `PqCommutator'
+(see~"PqCommutator").
+
 For those familiar with the `pq' program, `PqCommutatorDefiningGenerators'
 performs menu item 24 of the Advanced $p$-Quotient menu.
 
@@ -1215,10 +1248,12 @@ For those familiar with the `pq' program, `PqCompact' performs  menu  item
 \>PqEchelonise() F
 
 for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
-program to echelonise the word most recently collected by  `PqCollect'  or
-`PqCommutator' against the relations of the current  pc  presentation.  A
-call    to    `PqCollect'     (see~"PqCollect")     or     `PqCommutator'
-(see~"PqCommutator") needs to be performed prior to using this command.
+program to echelonise the word most recently collected by `PqCollect'  or
+`PqCommutator' against the relations of the current pc presentation,  and
+return the number of  the  generator  made  redundant  or  `fail'  if  no
+generator was made redundant. A call to `PqCollect' (see~"PqCollect")  or
+`PqCommutator' (see~"PqCommutator") needs to be performed prior to  using
+this command.
 
 *Note:*
 For those familiar with the `pq'  program,  `PqEchelonise'  performs  menu
@@ -1309,7 +1344,7 @@ powers as above, e.g.
         
 Here, generator 19 is defined as  the  commutator  of  generator  11  and
 generator  1  which  is  the   same   as   the   left-normed   commutator
-`[g2, g1, g1, g1, g1]'. One can check this by tracing back the definition
+`[x2, x1, x1, x1, x1]'. One can check this by tracing back the definition
 of generator 11 until one gets to a generator of class 1.
 
 \begintt
@@ -1319,7 +1354,7 @@ of generator 11 until one gets to a generator of class 1.
 In this example, generator 25 is defined as commutator  of  generator  14
 and generator 1. The left-normed commutator is
 $$
-[(`g1'^{11})^{11}, `g2', `g1', `g1']
+[(`x1'^{11})^{11}, `x2', `x1', `x1']
 $$
 Again, this can be verified by tracing back the definitions.
 
@@ -1485,12 +1520,11 @@ Presentation menu.
 \>PqSPIsomorphism() F
 
 for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
-program to compute the isomorphism mapping from the pc  $p$-group  of  the
-process to its standard presentation.
-
-*CHECK THAT THIS DOES SOMETHING USEFUL*
-
-The ``given'' group is `ANUPQData.io[<i>].pQuotient'.
+program to compute the isomorphism mapping  from  the  $p$-group  of  the
+process  to  its  standard  presentation.  This   function   provides   a
+description      only;      for      a      {\GAP}      object,       use
+`EpimorphismStandardPresentation'
+(see~"EpimorphismStandardPresentation!interactive").
 
 *Note:* For  those  familiar  with  the  `pq'  program,  `PqSPIsomorphism'
 performs menu item 8 of the Standard Presentation menu.
@@ -1498,7 +1532,7 @@ performs menu item 8 of the Standard Presentation menu.
 *Commands from the Main $p$-Group Generation menu*
 
 Note that the $p$-group generation commands can only be applied once  the
-`pq' program has produced a pc presentation of some quotient group of  the
+`pq' program has produced a pc presentation of some quotient group of the
 ``group of the process''.
 
 \>PqPGSupplyAutomorphisms( <i>[, <mlist>] ) F
