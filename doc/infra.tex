@@ -170,6 +170,13 @@ the same purpose as for a `ANUPQData.io[<ioIndex>]' record.
 `PqEpimorphism',  `PqDescendants'  or  `PqStandardPresentation'  (or  any
 synonymous methods);
 
+\quad`haspcp'& is bound and set to `true' when a pc presentation is first
+set   inside   the   `pq'   program   (e.g.~by   `PqPcPresentation'    or
+`PqRestorePcPresentation'  or  a  higher  order   function   like   `Pq',
+`PqEpimorphism', `PqPCover', `PqDescendants' or  `PqStandardPresentation'
+that does a `PqPcPresentation' operation, but *not* `PqStart' which  only
+starts up an interactive {\ANUPQ} process);
+
 \quad`gens'& a list of the generators of the  group  `group'  as  strings
 (the same as those passed to the `pq' program);
 
