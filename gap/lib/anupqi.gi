@@ -270,6 +270,7 @@ local gens, rels, p, fpgrp, identities, pcgs, len, strp, i, j, Rel, line;
   od;
   datarec.match := true;
   ToPQ(datarec, [ rels ]);
+  datarec.haspcp := true;
   PQ_SET_GRP_DATA(datarec);
   if identities and datarec.ngens[1] <> 0 then
     PQ_EVALUATE_IDENTITIES(datarec);
@@ -421,6 +422,7 @@ InstallGlobalFunction( PQ_RESTORE_PC_PRESENTATION, function( datarec, filename )
   ToPQ(datarec, [ "3  #restore pc presentation from file" ]);
   datarec.match := true;
   ToPQ(datarec, [ filename, "  #filename" ]);
+  datarec.haspcp := true;
   PQ_SET_GRP_DATA(datarec);
 end );
 
@@ -554,6 +556,10 @@ end );
 ##
 InstallGlobalFunction( PQ_DATA, function( datarec )
 local menu, lev, ngen, i, line, class;
+  if not( IsBound(datarec.haspcp) and datarec.haspcp ) then
+    Error( "a pc presentation for the group of the process ",
+           "has not yet been defined\n" );
+  fi;
   PushOptions(rec(nonuser := true));
   datarec.inPQ_DATA := true;
   if datarec.menu[ Length(datarec.menu) ] <> 'Q' then
