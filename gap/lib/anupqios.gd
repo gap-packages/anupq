@@ -160,7 +160,7 @@ DeclareGlobalFunction( "ToPQ" );
 
 #############################################################################
 ##
-#F  ANUPQ_ARG_CHK( <len>, <funcname>, <arg1>, <arg1type>, <arg1err>, <args> )
+#F  ANUPQ_ARG_CHK(<len>,<funcname>,<arg1>,<arg1type>,<arg1err>,<args>,<opts>)
 ##
 DeclareGlobalFunction( "ANUPQ_ARG_CHK" );
 

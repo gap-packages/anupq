@@ -14,6 +14,11 @@
 #Y  Copyright 1992-1994,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.10  2001/07/05 21:14:26  gap
+#H  Bug fixes. ANUPQ_ARG_CHK now checks required options are set ... all
+#H  functions that call it have been adjusted. The option `StepSize' had
+#H  been mis-spelt `Stepsize' twice. - GG
+#H
 #H  Revision 1.9  2001/06/26 09:44:27  gap
 #H  Just cleaning house. - GG
 #H
@@ -456,7 +461,7 @@ InstallGlobalFunction( PQ_DESCENDANTS, function( args )
     local   datarec,  G,  pd,  desc;
 
     datarec := ANUPQ_ARG_CHK(1, "PqDescendants", "group", IsPcGroup, 
-                             "a pc group", args);
+                             "a pc group", args, []);
     if datarec.calltype = "GAP3compatible" then
         # ANUPQ_ARG_CHK calls PQ_DESCENDANTS itself in this case
         # (so datarec.descendants has already been computed)

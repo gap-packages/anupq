@@ -10,6 +10,11 @@
 #Y  Copyright 1992-1994,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.9  2001/07/05 21:14:26  gap
+#H  Bug fixes. ANUPQ_ARG_CHK now checks required options are set ... all
+#H  functions that call it have been adjusted. The option `StepSize' had
+#H  been mis-spelt `Stepsize' twice. - GG
+#H
 #H  Revision 1.8  2001/06/21 23:04:20  gap
 #H  src/*, include/*, Makefile.in:
 #H   - pq binary now calls itself version 1.5 (global variable PQ_VERSION
@@ -338,7 +343,8 @@ end );
 InstallGlobalFunction( PQ_EPIMORPHISM, function( args )
     local   datarec;
 
-    datarec := ANUPQ_ARG_CHK(1, "Pq", "group", IsFpGroup, "an fp group", args);
+    datarec := ANUPQ_ARG_CHK(1, "Pq", "group", IsFpGroup, 
+                             "an fp group", args, ["Prime", "ClassBound"]);
     if datarec.calltype = "interactive" then      
         if IsBound(datarec.pQepi) then
             return datarec.pQepi; # it's already been computed

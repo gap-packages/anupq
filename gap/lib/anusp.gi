@@ -10,6 +10,11 @@
 #Y  Copyright 1993-2001,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.9  2001/07/05 21:14:26  gap
+#H  Bug fixes. ANUPQ_ARG_CHK now checks required options are set ... all
+#H  functions that call it have been adjusted. The option `StepSize' had
+#H  been mis-spelt `Stepsize' twice. - GG
+#H
 #H  Revision 1.8  2001/06/26 09:44:27  gap
 #H  Just cleaning house. - GG
 #H
@@ -263,7 +268,7 @@ function( args )
             images, i, r, j, aut, result, desc, k;
 
     datarec := ANUPQ_ARG_CHK(2, "StandardPresentation", "group", 
-                             IsFpGroup,  "an fp group", args);
+                             IsFpGroup,  "an fp group", args, []);
     p_or_G := args[ Length(args) ];
     if IsInt(p_or_G)  then
     	p := p_or_G;

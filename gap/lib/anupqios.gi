@@ -597,7 +597,7 @@ end);
 
 #############################################################################
 ##
-#F  ANUPQ_ARG_CHK( <len>, <funcname>, <arg1>, <arg1type>, <arg1err>, <args> )
+#F  ANUPQ_ARG_CHK(<len>,<funcname>,<arg1>,<arg1type>,<arg1err>,<args>,<opts>)
 ##
 ##  This checks the  argument  list  <args>  for  functions  that  have  both
 ##  interactive and non-interactive versions; <len> is the length  of  <args>
@@ -614,11 +614,21 @@ end);
 ##  `ANUPQ_ARG_CHK' returns <datarec> which  is  either  `ANUPQData'  in  the
 ##  non-interactive  case  or  `ANUPQData.io[<i>]'  for  some  <i>   in   the
 ##  interactive  case,  after   setting   <datarec>.calltype'   to   one   of
-##  `"interactive"', `"non-interactive"' or `"GAP3compatible"'.
+##  `"interactive"', `"non-interactive"' or `"GAP3compatible"'.  When  called
+##  with options (i.e. not in the `"GAP3compatible"' way) it is checked  that
+##  each option name (string) in the list <opts> is supplied (these represent
+##  the minimal list of options the user must supply).
 ##
 InstallGlobalFunction(ANUPQ_ARG_CHK, 
-function(len, funcname, arg1, arg1type, arg1err, args)
-local interactive, ioArgs, datarec, optrec, optnames, opts;
+function(len, funcname, arg1, arg1type, arg1err, args, opts)
+local interactive, ioArgs, datarec, optrec, optname, optnames;
+  if Length(args) <= len then
+    for optname in opts do
+      if ValueOption(optname) = fail then
+        Error( "option \"", optname, "\" must be supplied\n" );
+      fi;
+    od;
+  fi;
   interactive := Length(args) < len or IsInt( args[1] );
   if interactive then
     ioArgs := args{[1..Length(args) - len + 1]};
