@@ -1,0 +1,16 @@
+#Example: "EpimorphismStandardPresentation" . . . based on manual example
+#(demonstrates `EpimorphismStandardPresentation' usage)
+#vars: F, x, y, z, w, a, b, R, Q, procId, G, phi;
+#options: 
+F := FreeGroup (6);
+x := F.1; y := F.2; z := F.3; w := F.4; a := F.5; b := F.6;
+R := [x^3 / w, y^3 / w * a^2 * b^2, w^3 / b,
+      Comm (y, x) / z, Comm (z, x), Comm (z, y) / a, z^3 ];
+Q := F / R;
+#alt: do
+#procId := PqStart( Q );
+#alt: sub <procId> for <Q>
+G := Pq( Q : Prime := 3, ClassBound := 3 );
+#alt: sub <procId> for <Q>
+phi := EpimorphismStandardPresentation( Q, 3 : ClassBound := 3 );
+Size( Image(phi) );

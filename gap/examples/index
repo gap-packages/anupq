@@ -1,0 +1,35 @@
+                 PqExample Index (Table of Contents)
+                 -----------------------------------
+This table of possible examples is displayed when calling `PqExample'
+with no arguments, or with the argument: "index" (meant in the  sense
+of ``list''), or with a non-existent example name.
+
+Examples that have a name ending in `-ni' are  non-interactive  only.
+Examples that have a name ending in `-i' are interactive only.  Other
+examples have both a non-interactive and an  interactive  form;  call
+`PqExample' with 2nd argument `PqStart' to get the  interactive  form
+of the example. The substring `SP' in an  example  name  indicates  a
+Standard  Presentation  example  and  `Rel'  indicates  it  uses  the
+`Relators' option.
+
+The following ANUPQ examples are available:
+
+   "Pq"      "Pq-ni"      "PqEpimorphism"     "IsIsomorphicPGroup-ni"
+   "PqDescendants-1"      "PqDescendants-2"   "PqDescendants-3"
+   "StandardPresentation" "EpimorphismStandardPresentation"
+   "11gp-SP-a-i"
+   "11gp-SP-a-Rel-i"
+   "11gp-SP-b-i"
+   "11gp-SP-b-Rel-i"
+
+Notes
+-----
+1. The example (first) argument of  `PqExample'  is  a  string;  each
+   example above is in double quotes to remind you to include them.
+2. Some examples accept options. To find  out  whether  a  particular
+   example accepts options, display it first (by including  `Display'
+   as  last  argument)  which  will  also  indicate  how  `PqExample'
+   interprets the options, e.g. `PqExample("11gp-SP-a-i", Display);'.
+3. Try `SetInfoLevel(InfoANUPQ, <n>);' for  some  <n>  in  [2  ..  4]
+   before calling PqExample, to see what's going on behind the scenes.
+
