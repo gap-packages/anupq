@@ -30,7 +30,7 @@
 \begin{document}
 \title{A guide to the ANU {\it p}-Quotient Program\\Version 1.5}
 \author{Eamonn O'Brien}
-\date{June 2001}
+\date{July 2001}
 \maketitle
 \tableofcontents
 \pagebreak
@@ -259,7 +259,7 @@ The program may be invoked with the following runtime parameters:
       The presentation may be defined and supplied using certain
       key words. Examples of this format can be found in those 
       files in the \texttt{examples} directory whose names commence with 
-      \texttt{keywords\_}.
+      \texttt{keywords\_}. This option cannot be used with \texttt{-b}.
 
 \item[\texttt{-m}\hspace*{1em}]
       If groups are generated using $p$-group generation, then 
@@ -467,32 +467,56 @@ We now discuss each of these options.
 \begin{description}
 \item[\texttt{1.\ Compute pc presentation}]\ \\ 
  When you select this option, you will be given the following sequence
- of prompts for input.
+ of prompts for input. [If you start the pq program with the \texttt{-k}
+ switch (see Section~\ref{sec:runtime}), you will not be prompted;
+ instead you must supply input in the form:
+ \begin{quote}
+ \textit{keyword} \textit{value}
+ \end{quote}
+ where \textit{value} is the input you would otherwise have been prompted
+ for. The last input for this option must also be terminated by a semicolon
+ (\texttt{;}). Some data have default values if omitted, and there is no
+ restriction on the order in which the data are supplied. The keyword
+ \textit{keyword} needed and default value if there is one, for the
+ corresponding \texttt{-k} input is given in square brackets after describing
+ each prompt (but not after describing the prompts obtained when the pq
+ program is called with \texttt{-b} --- the \texttt{-k} and \texttt{-b}
+ switches cannot be used together). Actually, only the first 3 letters
+ of each keyword are significant; so, in fact, \texttt{prime}, for example,
+ may be abbreviated to \texttt{pri}.]
  %
  \begin{description}
  \item[\texttt{Input group identifier:}]\ \\
   you may supply any sequence of characters, 
   excluding spaces, as a valid identifier for the group.
+  [keyword: \texttt{name}, default: \texttt{G}.]
  \item[\texttt{Input prime:}]\ \\
   supply the prime $p$ used in computing the {\it p}-quotient.
+  [keyword: \texttt{prime}.]
  \item[\texttt{Input maximum class:}]\ \\
   supply the maximum exponent-{\it p} class of the quotient to be constructed.
+  [keyword: \texttt{classbound}, default: \texttt{10}.]
  \item[\texttt{Input print level:}]\ \\
   see option \texttt{5} below.
+  [keyword: \texttt{outputlevel}, default: \texttt{1}.]
  \end{description}
  %
  If the default format is used (i.e.\ pq was not called with the \texttt{-b}
- switch) then you will be prompted as follows.
+ switch) then you will be prompted as follows. 
  %
  \begin{description}
  \item[\texttt{Input generating set}]\hspace*{-0.5em}\verb| (in { }):|\\
   supply generating set. 
+  [keyword: \texttt{generators}.]
  \item[\texttt{Input defining set of relations}]\hspace*{-0.5em}\verb| (in { }):|\\
   supply defining set of relations.
+  [keyword: \texttt{relators}, default: \verb|{}|.]
  \end{description}
  %
  Otherwise, if the basic format is used (i.e.\ pq was called with the 
- \texttt{-b} switch) then you will be given the following prompts.
+ \texttt{-b} switch; see Section~\ref{sec:runtime}), you will not be
+ prompted; instead you must supply input in the) then you will be given the 
+ following prompts.
  %
  \begin{description}
  \item[\texttt{Input number of generators:}]\ \\
@@ -508,6 +532,7 @@ We now discuss each of these options.
  \item[\texttt{Input exponent law (0 if none):}]\ \\
   if the group is to satisfy a particular exponent law, supply a positive
   value for that exponent.
+  [keyword: \texttt{exponentlaw}, default: \texttt{0}.]
  \end{description}
  %
  In the basic format case, you will finally also be prompted to input each 
@@ -628,15 +653,21 @@ is now automatically invoked for the rest of the computation.
 
 \subsection{Saving group descriptions}
 The constructed groups of a particular class, $c$, are saved to a file,
-whose name is obtained by concatenating the following strings:
-``\texttt{starting group identifier}" and ``\texttt{class\_c}". As before, the 
+whose name is obtained by concatenating: 
+\textit{starting-group-identifier} and $c$, where
+\textit{starting-group-identifier} is the group identifier defined at option
+\texttt{1} of the Basic Menu (see Section~\ref{sec:basic-menu})
+e.g.~if you use the \texttt{-k} switch (see Section~\ref{sec:runtime})
+when you started the pq program and settled for the default group identifier
+\texttt{G} then for class 2, the groups will be saved to a file with name:
+\texttt{G\_class2}. As before, the 
 program does not query the user before overwriting an existing file.
 
 \subsection{The (Main) Menu for {\it p}-Group Generation}
 \label{sec:pgrp-gen-main-menu}
 The main Menu for {\it p}-Group Generation, given below, is selected by
 choosing option \texttt{9} from the Basic Menu (see~\ref{sec:basic-menu}).
-\enlargethispage*{1\baselineskip}
+\pagebreak
 \begin{verbatim}
 Menu for p-Group Generation
 -----------------------------
@@ -979,7 +1010,7 @@ We now describe each of these options.
  option \texttt{1} of the Basic Menu [for $p$-Quotient Program] 
  (see~\ref{sec:basic-menu}). All of the valid formats for
  supplying a presentation can be accessed, 
- using the \texttt{-b} and \texttt{-k} run-time switches 
+ using the \texttt{-b} or \texttt{-k} run-time switches 
  (see Section~\ref{sec:runtime}). 
  If the class supplied is $c$, then standardisation 
  (selected under option \texttt{2}) begins at class $c + 1$ only. 
@@ -1790,5 +1821,5 @@ E-mail address: obrien@math.auckland.ac.nz
 
 \vspace*{0.35cm}
 \noindent 
-Last revised June 2001
+Last revised July 2001
 \end{document}
