@@ -658,7 +658,8 @@ InstallGlobalFunction(ToPQ, function(datarec, list)
       Read( Filename( ANUPQData.tmpdir, "GAP_rep" ) );
       UnhideGlobalVariables( "ANUPQglb", "F", "gens", "relativeOrders",
                              "ANUPQsize", "ANUPQagsize" );
-      ToPQ( datarec, [ "pq, stabiliser is ready!" ] );
+      ToPQk( datarec, [ "pq, stabiliser is ready!" ] );
+      FILTER_PQ_STREAM_UNTIL_PROMPT(datarec);
     od;
   fi;
 end);
