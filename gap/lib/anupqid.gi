@@ -34,7 +34,6 @@ InstallGlobalFunction( PqEvalSingleRelation, function( proc, r, instances )
         PqEchelonise( proc );
 #        PqSetOutputLevel( proc, 0 );
     fi;
-    return false;
 end );
 
 #############################################################################
@@ -63,9 +62,8 @@ InstallGlobalFunction( PqEnumerateWords, function( proc, data, r )
     save_g  := g;
 
     if wt = 0 then
-        if PqEvalSingleRelation( proc, r, data.instances ) then
-            Info( InfoANUPQ, 1, "essential: ", data ); 
-        fi;
+        PqEvalSingleRelation( proc, r, data.instances );
+        Info( InfoANUPQ, 2, "Instance: ", data.instances[ n ] ); 
         return;
     fi;
     
@@ -97,9 +95,9 @@ end );
 
 #############################################################################
 ##
-#F  PqEvaluateIdentity( <proc>, <r>, <nridgens> )
+#F  PqEvaluateIdentity( <proc>, <r>, <arity> )
 ##
-InstallGlobalFunction( PqEvaluateIdentity, function( proc, r, nridgens )
+InstallGlobalFunction( PqEvaluateIdentity, function( proc, r, arity )
     local   n,  class,  gens,  data,  c;
 
     n     := PqNrPcGenerators( proc );
@@ -111,7 +109,7 @@ InstallGlobalFunction( PqEvaluateIdentity, function( proc, r, nridgens )
     if n = 0 then return; fi;
 
     gens := GeneratorsOfGroup( FreeGroup( n, "x" ) );
-    data := rec( instances   := List( [1..nridgens], i->gens[1]^0 ),
+    data := rec( instances   := List( [1..arity], i->gens[1]^0 ),
                  currentinst := 1,
                  currentgen  := 1,
                  weightleft  := 0,
@@ -130,9 +128,64 @@ end );
 
 #############################################################################
 ##
-#F  PqIdentity( <G>, <p>, <Cl>, <identity> )
+#F  PqWithIdentity( <G>, <p>, <Cl>, <identity> )
 ##
-InstallGlobalFunction( PqIdentity, function( G, p, Cl, identity )
+##  constructs a <p>-quotient <Q> of the fp or pc group <G> of class at  most
+##  <Cl> that satisfies $<identity>(<w1>, \dots, <wn>) =  1$  for  all  words
+##  $<w1>, \dots, <wn>$ in the pc generators of <Q>. The  following  examples
+##  demonstrate its usage.
+##
+##  \beginexample
+##  gap> F := FreeGroup(2);                    
+##  <free group on the generators [ f1, f2 ]>
+##  gap> f := w -> w^4;
+##  function( w ) ... end
+##  gap> PqWithIdentity( F, 2, 20, f );
+##  #I  Evaluated 5 instances.
+##  #I  Class 2 with 5 generators.
+##  #I  Evaluated 18 instances.
+##  #I  Class 3 with 7 generators.
+##  #I  Evaluated 44 instances.
+##  #I  Class 4 with 10 generators.
+##  #I  Evaluated 95 instances.
+##  #I  Class 5 with 12 generators.
+##  #I  Evaluated 192 instances.
+##  #I  Class 6 with 12 generators.
+##  <pc group of size 4096 with 12 generators>
+##  gap> 
+##  gap> G := F/[ F.1^11, F.2^11 ];
+##  <fp group on the generators [ f1, f2 ]>
+##  gap> f := function(u, v) return PqLeftNormComm( [u, v, v, v] ); end;
+##  function( u, v ) ... end
+##  gap> H := PqWithIdentity( G, 11, 20, f );
+##  #I  Evaluated 14 instances.
+##  #I  Class 2 with 3 generators.
+##  #I  Evaluated 44 instances.
+##  #I  Class 3 with 5 generators.
+##  #I  Evaluated 122 instances.
+##  #I  Class 4 with 5 generators.
+##  <pc group of size 161051 with 5 generators>
+##  gap> f( Random(H), Random(H) );
+##  <identity> of ...
+##  gap> f( H.1, H.2 );
+##  <identity> of ...
+##  \endexample
+##
+##  Compare    the    above    examples    with    those    generated     by:
+##  `PqExample("B2-4-Id");' and `PqExample("11gp-3-Engel-Id");' which do  the
+##  same as above using the function `Pq' with the `Identities' option.
+##
+##  `PqWithIdentity' and the functions it calls,  with  minor  modifications,
+##  constitute the prototype provided by Werner Nickel,  for  constructing  a
+##  quotient that satisfies an identity. The prototype  functions  have  been
+##  merged into the single function `PQ_EVALUATE_IDENTITY' which is called by
+##  `PQ_EVALUATE_IDENTITIES'    which    in     turn     is     called     by
+##  `PQ_FINISH_NEXT_CLASS'   which   is   called   by   `PQ_NEXT_CLASS'   and
+##  `PQ_EPI_OR_PCOVER',  if   the   `Identities'   option   has   been   set.
+##  `PQ_EPI_OR_PCOVER' is the function called  by  `Pq',  `PqEpimorphism'  or
+##  `PqPCover'.
+##
+InstallGlobalFunction( PqWithIdentity, function( G, p, Cl, identity )
     local   proc,  datarec,  prev_n,  class,  grp, arity;
 
     arity := NumberArgumentsFunction( identity );
@@ -163,15 +216,14 @@ InstallGlobalFunction( PqIdentity, function( G, p, Cl, identity )
         
         datarec.nwords := 0;
         PqEvaluateIdentity( proc, identity, arity );
-        Info(InfoANUPQ, "evaluated ", datarec.nwords, " instances." );
+        Info(InfoANUPQ, 1, "Evaluated ", datarec.nwords, " instances." );
 
         PqEliminateRedundantGenerators( proc );
 
         class := class + 1;
         
-        Print( "#  class ", class, " with ", PqNrPcGenerators(proc),
-               " generators\n" );
-
+        Info(InfoANUPQ, 1, "Class ", class, " with ",
+                           PqNrPcGenerators(proc), " generators." );
     od;
 
     grp := PqCurrentGroup( proc );
@@ -181,4 +233,90 @@ InstallGlobalFunction( PqIdentity, function( G, p, Cl, identity )
     return grp;
 end );
     
+#############################################################################
+##
+#F  PQ_EVALUATE_IDENTITY( <proc>, <identity> )
+##
+InstallGlobalFunction( PQ_EVALUATE_IDENTITY, function( proc, identity )
+    local   EnumerateWords, data, datarec, nwords, arity, c;
+
+    EnumerateWords := function()
+      local   i,  g,  wt,  u,  w,  save_wt,  save_u,  save_g;
+
+      i  := data.currentinst;
+      g  := data.currentgen;
+      wt := data.weightleft;
+      u  := data.instances[ i ];
+
+      save_wt := wt;
+      save_u  := u;
+      save_g  := g;
+
+      if wt = 0 then
+        #evaluate a single relation
+        nwords := nwords + 1;
+        w := CallFuncList( identity, data.instances );
+        if w <> w^0 then 
+#         Print( w );
+#         Print( "\n" );
+#         PqSetOutputLevel( proc, 3 );
+          PqCollect( proc, String(w) ); 
+          PqEchelonise( proc );
+#         PqSetOutputLevel( proc, 0 );
+        fi;
+        Info( InfoANUPQ, 2, "Instance: ", data.instances[ i ] ); 
+        return;
+      fi;
+    
+      while g <= data.nrpcgens and data.pcweights[g] <= wt do
+        while data.pcweights[g] <= wt do
+            u  := u * data.pcgens[g];
+            wt := wt - data.pcweights[g];
+
+            data.instances[ i ] := u;
+            data.weightleft     := wt;
+            data.currentgen     := g+1; 
+            EnumerateWords();
+
+            if i < Length(data.instances) then
+                data.currentinst := i+1;
+                data.currentgen  := 1;
+                EnumerateWords();
+                data.currentinst := i;
+            fi;
+        od;
+        u  := save_u; wt := save_wt; g := g+1;
+      od;
+      data.instances[ i ] := save_u;
+      data.weightleft     := save_wt;
+      data.currentgen     := save_g;
+    end;
+  
+    data := rec( nrpcgens := PqNrPcGenerators( proc ) );
+    if data.nrpcgens = 0 then 
+      return; 
+    fi;
+
+    datarec  := ANUPQDataRecord( proc );
+    if datarec.class > 1 then
+      data.nrpcgens := datarec.ngens[ Length(datarec.ngens) - 1 ];
+    fi;
+
+    nwords := 0;
+    arity  := NumberArgumentsFunction(identity);
+
+    data.pcgens      := GeneratorsOfGroup( FreeGroup( data.nrpcgens, "x" ) );
+    data.instances   := List( [1 .. arity], i -> data.pcgens[1]^0 );
+    data.currentinst := 1;
+    data.currentgen  := 1;
+    data.pcweights   := List( [1 .. data.nrpcgens], i -> PqWeight( proc, i ) );
+    
+    for c in [1 .. datarec.class] do
+#        Print( "words of class ", c, "\n" );
+      data.weightleft := c;
+      EnumerateWords();
+    od;
+    Info(InfoANUPQ, 1, "Evaluated ", nwords, " instances." );
+end );
+
 #E  anupqid.gi  . . . . . . . . . . . . . . . . . . . . . . . . . . ends here 

@@ -71,6 +71,12 @@ DeclareGlobalFunction( "PQ_GROUP_FROM_PCP" );
 
 #############################################################################
 ##
+#F  TRIVIAL_PQ_GROUP(<datarec>, <out>) . . . extract gp when trivial into GAP
+##
+DeclareGlobalFunction( "TRIVIAL_PQ_GROUP" );
+
+#############################################################################
+##
 #F  PQ_EPI_OR_PCOVER(<args>:<options>) .  p-quotient, its epi. or its p-cover
 ##
 DeclareGlobalFunction( "PQ_EPI_OR_PCOVER" );

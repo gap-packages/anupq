@@ -28,14 +28,20 @@ DeclareGlobalFunction( "PqEnumerateWords" );
 
 #############################################################################
 ##
-#F  PqEvaluateIdentity( <proc>, <r>, <nridgens> )
+#F  PqEvaluateIdentity( <proc>, <r>, <arity> )
 ##
 DeclareGlobalFunction( "PqEvaluateIdentity" );
 
 #############################################################################
 ##
-#F  PqIdentity( <G>, <p>, <Cl>, <identity> )
+#F  PqWithIdentity( <G>, <p>, <Cl>, <identity> )
 ##
-DeclareGlobalFunction( "PqIdentity" );
+DeclareGlobalFunction( "PqWithIdentity" );
+
+#############################################################################
+##
+#F  PQ_EVALUATE_IDENTITY( <proc>, <identity> )
+##
+DeclareGlobalFunction( "PQ_EVALUATE_IDENTITY" );
     
 #E  anupqid.gd  . . . . . . . . . . . . . . . . . . . . . . . . . . ends here 

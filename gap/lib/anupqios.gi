@@ -255,8 +255,7 @@ end);
 ##  `false', otherwise.
 ##
 InstallGlobalFunction(IsPqProcessAlive, function(arg)
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  return not IsEndOfStream( ANUPQData.io[ ANUPQ_IOINDEX(arg) ].stream );
+  return not IsEndOfStream( ANUPQData.io[ PqProcessIndex(arg) ].stream );
 end);
 
 #############################################################################
@@ -536,8 +535,7 @@ end);
 InstallGlobalFunction(PqRead, function(arg)
 local line;
 
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  line := PQ_READ_ALL_LINE( ANUPQData.io[ ANUPQ_IOINDEX(arg) ].stream );
+  line := PQ_READ_ALL_LINE( ANUPQData.io[ PqProcessIndex(arg) ].stream );
   Info(InfoANUPQ, 2, Chomp(line));
   return line;
 end);
@@ -560,9 +558,8 @@ end);
 InstallGlobalFunction(PqReadAll, function(arg)
 local lines, stream, line;
 
-  ANUPQ_IOINDEX_ARG_CHK(arg);
+  stream := ANUPQData.io[ PqProcessIndex(arg) ].stream;
   lines := [];
-  stream := ANUPQData.io[ ANUPQ_IOINDEX(arg) ].stream;
   line := PQ_READ_ALL_LINE(stream);
   while line <> fail do
     line := Chomp(line);
@@ -687,7 +684,7 @@ end);
 ##  `"non-interactive"' or `"GAP3compatible"'.
 ##
 InstallGlobalFunction(ANUPQ_ARG_CHK, function(len, funcname, args)
-local interactive, ioArgs, datarec, group, posNonGroup, p,
+local interactive, ioArgs, ioIndex, datarec, group, posNonGroup, p,
       optrec, optname, optnames;
   interactive := IsEmpty(args) or not IsGroup( args[1] );
   if interactive then
@@ -695,8 +692,9 @@ local interactive, ioArgs, datarec, group, posNonGroup, p,
     if not IsEmpty(ioArgs) and IsInt( ioArgs[1] ) and IsPrime( ioArgs[1] ) then
       ioArgs := [];
     fi;
-    ANUPQ_IOINDEX_ARG_CHK(ioArgs);
-    datarec := ANUPQData.io[ ANUPQ_IOINDEX(ioArgs) ];
+    ioIndex := CallFuncList( PqProcessIndex, ioArgs );
+    datarec := ANUPQData.io[ ioIndex ];
+    datarec.procId := ioIndex;
     group := datarec.group;
     posNonGroup := 1;
   else
@@ -745,6 +743,7 @@ local interactive, ioArgs, datarec, group, posNonGroup, p,
     datarec := ANUPQData.ni;
     datarec.group := group;
     datarec.calltype := "non-interactive";
+    datarec.procId := 0;
     PQ_OPTION_CHECK( funcname, datarec ); # Check for Prime, ClassBound if nec.
     if IsBound( datarec.setupfile ) then
       datarec.outfname := "PQ_OUTPUT";
@@ -768,6 +767,7 @@ local interactive, ioArgs, datarec, group, posNonGroup, p,
     PopOptions();
     datarec := ANUPQData.ni;
     datarec.calltype := "GAP3compatible";
+    datarec.procId := 0;
   fi;
   if IsBound(p) then
     datarec.p := p;

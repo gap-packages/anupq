@@ -10,6 +10,11 @@
 #Y  Copyright 1992-1994,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.27  2001/10/22 08:25:13  gap
+#H  Added code to implement the `Identities' option and rationalised and
+#H  generalised code that identifies the data record (now the interactive
+#H  functions may be called by a non-interactive `pq' process). - GG
+#H
 #H  Revision 1.26  2001/10/11 13:07:13  gap
 #H  Fixed some bugs. The group data should now be set correctly in all cases.
 #H  - GG
@@ -493,18 +498,42 @@ end );
 
 #############################################################################
 ##
+#F  TRIVIAL_PQ_GROUP(<datarec>, <out>) . . . extract gp when trivial into GAP
+##
+InstallGlobalFunction( TRIVIAL_PQ_GROUP, function( datarec, out )
+local Q;
+    Q := TrivialGroup( IsPcGroup );
+    if out = "pCover" then
+      datarec.pCover := Q;
+      IsPGroup( datarec.pCover );
+    else
+      datarec.pQepi := GroupHomomorphismByFunction( 
+                           datarec.group, Q, g -> One(Q) );
+      SetFeatureObj( datarec.pQepi, IsSurjective, true );
+      datarec.pQuotient := Image( datarec.pQepi );
+      IsPGroup( datarec.pQuotient );
+    fi;
+end );
+
+#############################################################################
+##
 #F  PQ_EPI_OR_PCOVER(<args>:<options>) .  p-quotient, its epi. or its p-cover
 ##
 InstallGlobalFunction( PQ_EPI_OR_PCOVER, function( args )
-    local   datarec, out, AtClass;
+    local   out, datarec, AtClass, trivial;
 
     out := ValueOption("PqEpiOrPCover");
     datarec := ANUPQ_ARG_CHK(1, "Pq", args);
     datarec.filter := ["Output file in", "Group presentation"];
+    VALUE_PQ_OPTION("Identities", [], datarec);
     if datarec.calltype = "GAP3compatible" then
         # ANUPQ_ARG_CHK calls PQ_EPI_OR_PCOVER itself in this case
         # (so datarec.(out) has already been computed)
         return datarec.(out);
+    fi;
+    trivial := IsEmpty( datarec.group!.GeneratorsOfMagmaWithInverses );
+    if trivial then
+        ; #the `pq' binary spits out nonsense if given a trivial gp pres'n
     elif datarec.calltype = "interactive" and IsBound( datarec.(out) ) then
         AtClass := function()
           return IsBound(datarec.complete) and datarec.complete or
@@ -514,14 +543,12 @@ InstallGlobalFunction( PQ_EPI_OR_PCOVER, function( args )
         if IsBound(datarec.pcoverclass) and 
            datarec.pcoverclass = datarec.class and not AtClass() then
             # ``reduce'' the p-cover to a p-class
-            PQ_COLLECT_DEFINING_RELATIONS( datarec );
-            PQ_DO_EXPONENT_CHECKS( datarec, [1, datarec.class] );
-            PQ_ELIMINATE_REDUNDANT_GENERATORS( datarec );
+            PQ_FINISH_NEXT_CLASS( datarec );
         fi;
         while not AtClass() do
             PQ_NEXT_CLASS( datarec );
         od;
-        # the following if is not executed if the while-loop is 
+        # the following is not executed if the while-loop is 
         # executed at least once
         if IsBound( datarec.(out) ) then
             return datarec.(out); # it had already been computed
@@ -530,23 +557,33 @@ InstallGlobalFunction( PQ_EPI_OR_PCOVER, function( args )
         PQ_PC_PRESENTATION(datarec, "pQ");
     fi;
 
-    if out = "pCover" then
-      PQ_P_COVER( datarec );
-    fi;
+    trivial := trivial or datarec.ngens[1] = 0;
+    if not trivial then
+        if out = "pCover" then
+          PQ_P_COVER( datarec );
+        fi;
 
-    PushOptions( rec(nonuser := true) );
-    PQ_WRITE_PC_PRESENTATION(datarec, datarec.outfname);
-    PopOptions();
+        PushOptions( rec(nonuser := true) );
+        PQ_WRITE_PC_PRESENTATION(datarec, datarec.outfname);
+        PopOptions();
+    fi;
     
     if datarec.calltype = "non-interactive" then
-      PQ_COMPLETE_NONINTERACTIVE_FUNC_CALL(datarec);
-      if IsBound( datarec.setupfile ) then
-        return true;
-      fi;
+        PQ_COMPLETE_NONINTERACTIVE_FUNC_CALL(datarec);
+        if IsBound( datarec.setupfile ) then
+          if trivial then
+            return fail;
+          fi;
+          return true;
+        fi;
     fi;
             
-    # read group and images from file
-    PQ_GROUP_FROM_PCP( datarec, out );
+    if trivial then
+        TRIVIAL_PQ_GROUP( datarec, out );
+    else
+        # read group and images from file
+        PQ_GROUP_FROM_PCP( datarec, out );
+    fi;
     return datarec.(out);
 end );
 
@@ -820,8 +857,8 @@ end );
 InstallGlobalFunction(PqExample, function(arg)
 local name, file, instream, line, input, doPqStart, vars, var, printonly,
       filename, DoAltAction, GetNextLine, PrintLine, action, datarec, optname,
-      linewidth, sizescreen, CheckForCompoundKeywords, iscompoundStatement,
-      compoundDepth;
+      linewidth, sizescreen, CheckForCompoundKeywords, hasFunctionExpr, parts,
+      iscompoundStatement, compoundDepth;
 
   sizescreen := SizeScreen();
   if sizescreen[1] < 80 then
@@ -927,14 +964,16 @@ local name, file, instream, line, input, doPqStart, vars, var, printonly,
 
       CheckForCompoundKeywords := function()
         local compoundkeywords;
-        compoundkeywords := Filtered( SplitString(line, "", " ;\n"),
+        compoundkeywords := Filtered( SplitString(line, "", "( ;\n"),
                                       w -> w in ["do", "od", "if", "fi",
-                                                 "repeat", "until"] );
+                                                 "repeat", "until",
+                                                 "function", "end"] );
+        hasFunctionExpr := "function" in compoundkeywords;
         compoundDepth := compoundDepth 
                          + Number(compoundkeywords,
-                                  w -> w in ["do", "if", "repeat"])
+                                  w -> w in ["do", "if", "repeat", "function"])
                          - Number(compoundkeywords,
-                                  w -> w in ["od", "fi", "until"]);
+                                  w -> w in ["od", "fi", "until",  "end"]);
         return not IsEmpty(compoundkeywords);
       end;
 
@@ -1028,8 +1067,8 @@ local name, file, instream, line, input, doPqStart, vars, var, printonly,
       #this assumes one has been careful to ensure the `#vars:' line is not
       #longer than 72 characters.
       Info(InfoANUPQ, 1, line{[Position(line, ' ')+1..Position(line, ';')-1]},
-                         " are local");
-      Info(InfoANUPQ, 1, "to `PqExample'");
+                         " are");
+      Info(InfoANUPQ, 1, "local to `PqExample'");
     fi;
     vars := SplitString(line, "", " ,;\n");
     vars := vars{[2 .. Length(vars)]};
@@ -1055,6 +1094,13 @@ local name, file, instream, line, input, doPqStart, vars, var, printonly,
             if iscompoundStatement then
               if compoundDepth = 0 and Position(input, ';') <> fail then
                 Read( InputTextString(input) );           
+                if hasFunctionExpr then
+                  parts := SplitString(input, "", ":= \n");
+                  Read( InputTextString( 
+                            Concatenation( 
+                                "View(", parts[1], "); Print(\"\\n\");" ) ) );
+                  ANUPQData.example.last := parts[1];
+                fi;
                 iscompoundStatement := false;
                 input := "";
               fi;
