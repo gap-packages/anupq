@@ -3,8 +3,18 @@ Here we describe the format of the examples.
 Firstly, each file *can* be read using `Read', but `PqExample' does a
 little more (by echoing to the screen) and requires the following:
 
+0. Blank lines are ok, but must consist of only a  new-line  (and  no
+other white-space.
+
 1. The file can start with any number of commented out lines followed
 by a line of form:
+
+#Example <example-name> . . . <comment>
+
+where  <example-name>  is  the  name  of  the  file  in  a  pair   of
+double-quotes and <comment> should say something like `based on ...'.
+This line can be followed  by  any  number  of  commented  out  lines
+followed by:
 
 #vars: <list>;
 

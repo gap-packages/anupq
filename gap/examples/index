@@ -5,7 +5,8 @@ with no arguments, or with the argument: "index" (meant in the  sense
 of ``list''), or with a non-existent example name.
 
 Examples that have a name ending in `-ni' are  non-interactive  only.
-Examples that have a name ending in `-i' are interactive only.  Other
+Examples that have a  name  ending  in  `-i'  are  interactive  only.
+Examples with names ending in `.g' also have  only  one  form.  Other
 examples have both a non-interactive and an  interactive  form;  call
 `PqExample' with 2nd argument `PqStart' to get the  interactive  form
 of the example. The substring `SP' in an  example  name  indicates  a
@@ -17,8 +18,8 @@ The following ANUPQ examples are available:
    "Pq"      "Pq-ni"      "PqEpimorphism"     "IsIsomorphicPGroup-ni"
    "PqDescendants-1"      "PqDescendants-2"   "PqDescendants-3"
    "StandardPresentation" "EpimorphismStandardPresentation"
-   "11gp-SP-a-i"
-   "11gp-SP-a-Rel-i"
+   "B5-4.g"
+   "11gp-SP-a-i"          "11gp-SP-a-Rel-i"   "11gp-SP-a-Rel-1-i"
    "11gp-SP-b-i"
    "11gp-SP-b-Rel-i"
 
