@@ -38,10 +38,12 @@ InstallGlobalFunction( PQ_AUT_GROUP, function( G )
   if not IsPGroup(G) then
     Error("group <G> must be a p-group\n");
   fi;
-  if HasAutomorphismGroup(G) or 
-     RequirePackage("autpgrp") = true or
-     IsAbelian(G) then
-    return AutomorphismGroup(G);
+  if HasANUPQAutomorphisms(G) then
+      return AutomorphismGroup(G);
+  elif HasAutomorphismGroup(G) or 
+    RequirePackage("autpgrp") = true or
+    IsAbelian(G) then
+      return AutomorphismGroup(G);
   else
     Error( "since package `AutPGrp' is not installed\n",
            "<G> must have class 1 or <G>'s aut. group must be known.\n",
