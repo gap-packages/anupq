@@ -128,12 +128,12 @@ normally need to know about -- the `menu' field remembers which menu  the
 \quad`outfname' & is the file to which `pq' output is directed, which  is
 always `ANUPQData.outfile' (see above) for an interactive process;
 
-\quad`pcp' & If this field is bound it is a record containing the options
-used the last time that `pq' computed  a  pc  presentation  for  `group',
-i.e.~if it is bound then there has been such a call. (It is  used  mainly
-to avoid re-computing a pc presentation  that's  been  done  already,  by
-functions that require that a  pc  presentation  is  known  to  the  `pq'
-binary.)
+\quad`pQpcp' & If this field is bound  it  is  a  record  containing  the
+options used the last time that  `pq'  computed  a  pc  presentation  for
+`group', while computing a $p$-quotient i.e.~if it is  bound  then  there
+has been such a call. (It is used  mainly  to  avoid  re-computing  a  pc
+presentation that's been done already, by functions that require  that  a
+pc presentation is known to the `pq' binary.)
 
 \quad`pQuotient'  &  This  is  set  to  the  value   returned   by   `Pq'
 (see~"Pq!interactive") when called interactively, for process  <i>.  (The
@@ -143,15 +143,22 @@ field `pQepi' is also set at the same time.)
 (see~"PqEpimorphism!interactive") when called interactively, for  process
 <i>. (The field `pQuotient' is also set at the same time.)
 
-\quad`sp' & This is set to the value returned by `PqStandardPresentation'
+\quad`SPpcp' & If this field is bound  it  is  a  record  containing  the
+options used the last time that  `pq'  computed  a  pc  presentation  for
+`group', while computing a standard presentation i.e.~if it is bound then
+there has been such a call. (It is used mainly to avoid re-computing a pc
+presentation that's been done already, by functions that require  that  a
+pc presentation is known to the `pq' binary.)
+
+\quad`SP' & This is set to the value returned by `PqStandardPresentation'
 or `StandardPresentation' (see~"PqStandardPresentation!interactive") when
-called interactively, for process <i>. (The field `spEpi' is also set  at
+called interactively, for process <i>. (The field `SPepi' is also set  at
 the same time.)
 
-\quad`spEpi'   &   This   is   set   to    the    value    returned    by
+\quad`SPepi'   &   This   is   set   to    the    value    returned    by
 `EpimorphismPqStandardPresentation' or  `EpimorphismStandardPresentation'
 (see~"EpimorphismPqStandardPresentation!interactive")     when     called
-interactively, for process <i>. (The field `sp' is also set at  the  same
+interactively, for process <i>. (The field `SP' is also set at  the  same
 time.)
 
 \enditems
