@@ -1,4 +1,5 @@
-#5gp with a "large" number of relations
+#Call pq with flag: '-b'
+#5gp with a "large" number of (basic format) relations
 
 1
 5gp
