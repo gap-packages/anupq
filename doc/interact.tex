@@ -1714,8 +1714,14 @@ any amplified descriptions.
 %initial segment subgroup are positive integers. See~"option Exponent" for
 %the one recognised option `Exponent'.
 
-*Note:* For those familiar with the `pq' program,  `PqAPGDegree'  performs
-menu item 6 of the Advanced $p$-Group Generation menu.
+for the  <i>th or default  interactive {\ANUPQ} process, direct  the `pq'
+program to invoke menu item  6 of the Advanced $p$-Group Generation menu.
+Here the step-size  <step> and the rank <rank>  are positive integers and
+are the  arguments required by  the `pq' program.   See~"option Exponent"
+for the one recognised option `Exponent'.
+
+%*Note:* For those familiar with the `pq' program,  `PqAPGDegree'  performs
+%menu item 6 of the Advanced $p$-Group Generation menu.
 
 \>PqAPGPermutations( <i> : <options> ) F
 \>PqAPGPermutations( : <options> ) F
@@ -1723,12 +1729,14 @@ menu item 6 of the Advanced $p$-Group Generation menu.
 %for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
 %program to compute permutations of subgroups. 
 
+for the  <i>th or default  interactive {\ANUPQ} process, direct  the `pq'
+program to perform menu item 7 of the Advanced $p$-Group Generation menu.
 Here   the   options   <options>  recognised   are   `PcgsAutomorphisms',
 `SpaceEfficient',   `PrintAutomorphisms'  and   `PrintPermutations'  (see
 Chapter~"ANUPQ Options" for details).
 
-*Note:* For those familiar  with  the  `pq'  program,  `PqAPGPermutations'
-performs menu item 7 of the Advanced $p$-Group Generation menu.
+%*Note:* For those familiar  with  the  `pq'  program,  `PqAPGPermutations'
+%performs menu item 7 of the Advanced $p$-Group Generation menu.
 
 \>PqAPGOrbits( <i> : <options> ) F
 \>PqAPGOrbits( : <options> ) F
@@ -1738,13 +1746,16 @@ performs menu item 7 of the Advanced $p$-Group Generation menu.
 %number of orbits, if either a  summary or a complete listing (or both) of
 %orbit information  was requested.  
 
+for the  <i>th or default  interactive {\ANUPQ} process, direct  the `pq'
+to perform menu item 8 of the Advanced $p$-Group Generation menu.
+
 Here   the   options   <options>  recognised   are   `PcgsAutomorphisms',
 `SpaceEfficient', and `CustomiseOutput'  (see Chapter~"ANUPQ Options" for
 details).   For the  `CustomiseOutput'  option only  the  setting of  the
 `orbit' is recognised (all other fields if set are ignored).
 
-*Note:* For those familiar with the `pq' program,  `PqAPGOrbits'  performs
-menu item 8 of the Advanced $p$-Group Generation menu.
+%*Note:* For those familiar with the `pq' program,  `PqAPGOrbits'  performs
+%menu item 8 of the Advanced $p$-Group Generation menu.
 
 \>PqAPGOrbitRepresentatives( <i> : <options> ) F
 \>PqAPGOrbitRepresentatives(: <options> ) F
@@ -1752,6 +1763,9 @@ menu item 8 of the Advanced $p$-Group Generation menu.
 %for the  <i>th or default  interactive {\ANUPQ} process, direct  the `pq'
 %program  to process  the  orbit representatives  and  output the  reduced
 %$p$-cover to a  file. 
+
+%for the  <i>th or default  interactive {\ANUPQ} process, direct  the `pq'
+to perform item 9 of the Advanced $p$-Group Generation menu.
 
 The options  <options> may be any of  the following: `PcgsAutomorphisms',
 `SpaceEfficient',  `Exponent',   `Metabelian',  `CapableDescendants'  (or
@@ -1761,9 +1775,9 @@ Options" for details).  If `Filename' is omitted the reduced $p$-cover is
 written to the  file `"redPCover"' in the temporary  directory whose name
 is stored in `ANUPQData.tmpdir'.
 
-*Note:*
-For those familiar  with  the  `pq'  program,  `PqAPGOrbitRepresentatives'
-performs option 9 of the Advanced $p$-Group Generation menu.
+%*Note:*
+%For those familiar  with  the  `pq'  program,  `PqAPGOrbitRepresentatives'
+%performs option 9 of the Advanced $p$-Group Generation menu.
 
 \>PqAPGSingleStage( <i> : <options> ) F
 \>PqAPGSingleStage( : <options> ) F
@@ -1772,15 +1786,18 @@ performs option 9 of the Advanced $p$-Group Generation menu.
 %program to do a single stage of the descendants construction algorithm as
 %prescribed  by  <options>.   
 
+for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
+to perform option 5 of the Advanced $p$-Group Generation menu.
+
 The    possible     options    are    `StepSize',    `PcgsAutomorphisms',
 `RankInitialSegmentSubgroups',   `SpaceEfficient',  `CapableDescendants',
 `AllDescendants',   `Exponent',    `Metabelian',   `BasicAlgorithm'   and
 `CustomiseOutput'. (Detailed  descriptions of these options  may be found
 in Chapter~"ANUPQ Options".)
 
-*Note:*
-For those familiar with  the  `pq'  program,  `PqAPGSingleStage'  performs
-option 5 of the Advanced $p$-Group Generation menu.
+%*Note:*
+%For those familiar with  the  `pq'  program,  `PqAPGSingleStage'  performs
+%option 5 of the Advanced $p$-Group Generation menu.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Primitive Interactive ANUPQ Process Read/Write Functions}
