@@ -17,7 +17,7 @@ gap> PqDescendants( G : OrderBound := 16 );
 [ <pc group of size 16 with 4 generators>, 
   <pc group of size 16 with 4 generators>, 
   <pc group of size 16 with 4 generators> ]
-gap> H := StandardPresentation(G, 2);
+gap> H := StandardPresentation(G : Prime := 2);
 <fp group on the generators [ f1, f2, f3 ]>
 gap> MultiplicatorRank(H);
 3

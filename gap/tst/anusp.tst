@@ -32,7 +32,7 @@ gap> F := FreeGroup( "a", "b" );; a := F.1;; b := F.2;;
 gap> G := F / [ a^625,
 >               Comm(Comm(Comm(Comm(b,a), a), a), a) / Comm(b, a)^5,
 >               Comm(Comm(b,a), b), b^625 ];;
-gap> H := StandardPresentation( G, 5 : ClassBound := 20, Metabelian );
+gap> H := StandardPresentation( G : Prime := 5, ClassBound := 20, Metabelian );
 <fp group on the generators [ f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, 
   f12, f13, f14, f15, f16, f17, f18, f19, f20 ]>
 gap> F := FreeGroup( "a", "b", "c", "d" );;
@@ -50,7 +50,7 @@ gap> A := GroupByGenerators( [hom] );
 gap> Order( A );
 3
 gap> SetAutomorphismGroup( H, A );
-gap> S := StandardPresentation( G, H : ClassBound := 14, PcgsAutomorphisms );
+gap> S := StandardPresentation( G : pQuotient := H, ClassBound := 14 );
 <fp group with 53 generators>
 gap> RelatorsOfFpGroup(S);
 [ f1^2*f4^-1, f2^2*f5^-1, f3^2*f53^-1*f52^-1*f49^-1*f46^-1*f42^-1*f41^-1*f40^
