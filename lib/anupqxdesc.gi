@@ -161,7 +161,8 @@ local   i,  node,  nr;
         Info(InfoANUPQ, 1, "Number of descendants of group ", datarec.gpnum,
                            " to class ", class, ": ", nr);
         if nr > 0 then
-            if not IsBound(datarec.nextX[class + 1]) then
+            if IsBound(datarec.nextX) and 
+               not IsBound(datarec.nextX[class + 1]) then
                 datarec.nextX[class + 1] := 0;
             fi;
             PQX_RECURSE_DESCENDANTS( datarec, class+1, node, nr );
