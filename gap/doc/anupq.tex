@@ -325,17 +325,12 @@ A  finitely-presented group <F> must be  supplied  as input. Usually, the
 user will  also  supply a prime  <p> and  the  program will  compute  the
 standard presentation for the desired $p$-quotient of <F>.
 
-Alternatively, a user  may supply a pc group <G> which  is the class 1
-$p$-quotient of <F>. If this is so, the automorphism group of <G> must
-be known.  The  presentation for <G> can be  constructed by an initial
-call to Pq (see "Pq").
-
-Of course, <G> need not be  the class 1 $p$-quotient of <F>.  However,
-the automorphism group  of <G> must be known and  this is most readily
-available  when  <G>  is  an  elementary  abelian  group.   Where  the
-necessary information is available for a $p$-quotient of higher class,
-one  can apply  the standard  presentation algorithm  from  that class
-onwards.
+Alternatively, a  user may  supply a pc  group <G>  which is the  class k
+$p$-quotient  of <F>.   If  this  is so,  the  function standardizes  the
+presentation only from class k +  1 onwards. If <G> is supplied, then the
+automorphism group of <G> must be known;  it can be computed by a call to
+AutomorphismGroup (see "AutomorphismGroup").   A presentation for <G> can
+be constructed by an initial call to Pq (see "Pq").
 
 The following parameters or parameter pairs are supported.
 

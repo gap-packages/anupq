@@ -18,6 +18,7 @@ struct pcp_vars {
    int     clend;		/* end current class */
 
    int     newgen;		/* number of generators of nucleus */
+   int     multiplicator_rank;  /* rank of multiplicator */
    int     lastg;		/* last generator of group */
    int     first_pseudo;	/* first pseudo-generator */
    int     redgen;              /* redundant generator */
@@ -56,7 +57,6 @@ struct pcp_vars {
    Logical dummy1;              /* dummy variables which can be used later */
    Logical dummy2;
    Logical dummy3;
-   Logical dummy4;
 
    Logical metabelian;          /* is the group metabelian? */
    Logical fullop;		/* indicate nature of output */

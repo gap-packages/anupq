@@ -9,6 +9,10 @@
 #A  @(#)$Id$
 ##
 #H  $Log$
+#H  Revision 1.2  2001/04/16 11:04:04  werner
+#H  Incorporated Eamonn's changes to report the rank of the
+#H  p-multiplicator.						WN
+#H
 #H  Revision 1.1.1.1  2001/04/15 15:09:32  werner
 #H  Try again to import ANUPQ. WN
 #H
@@ -373,7 +377,7 @@ EpimorphismStandardPresentation := function( arg )
     fi;
 
     # remove intermediate files and return
-    Exec( Concatenation( "rm -rf ", dir ) );
+#    Exec( Concatenation( "rm -rf ", dir ) );
 
     # last presentation in file is the Standard Presentation
     

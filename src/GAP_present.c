@@ -10,6 +10,10 @@
 *Y  Copyright 1995-1997,  School of Mathematical Sciences, ANU,     Australia
 **
 *H  $Log$
+*H  Revision 1.2  2001/04/16 11:04:04  werner
+*H  Incorporated Eamonn's changes to report the rank of the
+*H  p-multiplicator.						WN
+*H
 *H  Revision 1.1.1.1  2001/04/15 15:09:32  werner
 *H  Try again to import ANUPQ. WN
 *H
@@ -236,7 +240,8 @@ void write_GAP_library ( file, pcp )
 
    /* add information whether group is capable and its nuclear rank       */
    fprintf( file, "SetIsCapable(F, %s);\n", (pcp->newgen)?"true":"false" );
-   fprintf( file, "SetNuclearRank(F, %d);\n", pcp->newgen               );
+   fprintf( file, "SetNuclearRank(F, %d);\n", pcp->newgen                  );
+   fprintf( file, "SetMultiplicatorRank (F, %d);\n", pcp->multiplicator_rank );
 
    /* add the pq identitfier                                              */
    MakeNameList( file, pcp->ident );
