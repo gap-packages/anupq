@@ -9,6 +9,7 @@
 ##
 #R  Read the install files.
 ##
+ReadPkg( "anupq", "gap/lib/anupqprop.gi" );
 ReadPkg( "anupq", "gap/lib/anupq.gi" );
 ReadPkg( "anupq", "gap/lib/anupga.gi" );
 ReadPkg( "anupq", "gap/lib/anusp.gi" );

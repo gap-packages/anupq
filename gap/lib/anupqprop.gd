@@ -15,10 +15,14 @@ Revision.anupqprop_gd :=
 
 #############################################################################
 ##
+#F  SET_PQ_PROPS_AND_ATTRS( <G>, <fpG> )
+##
+DeclareGlobalFunction( "SET_PQ_PROPS_AND_ATTRS" );
+
+#############################################################################
+##
 #D  Declare properties and  attributes
 ##    
-##
-
 DeclareProperty( "IsCapable", IsGroup );
 
 DeclareAttribute( "NuclearRank", IsGroup );
