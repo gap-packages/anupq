@@ -146,14 +146,15 @@ testPq
 \endtt
 
 Some of the tests the script runs take a while. Please be  patient.  Note
-that since version 1.2, the {\ANUPQ} package requires at least {\GAP} 4.3fix4
-and updates to the {\AutPGrp} package provided at the time fix4 of {\GAP}
-4.3 was released (the `testPq' script checks for these). The  output  you
-see should be something like the following:
+that since version 1.2, the {\ANUPQ} package  requires  at  least  {\GAP}
+4.3fix4 and (at  least)  version  1.1  of  the  {\AutPGrp}  package  (the
+`testPq' script checks  for  these  conditions  and  hopefully  gives  an
+informative message if they are not met). The output you  see  should  be
+something like the following:
 
 \begintt
 Made dir: /tmp/testPq
-Testing installation of ANUPQ Package (version 1.3)
+Testing installation of ANUPQ Package (version 1.4)
 
 The first two tests check that the pq C program compiled ok.
 Testing the pq binary ... OK.
@@ -161,16 +162,15 @@ Testing the pq binary's stack size ... OK.
 The pq C program compiled ok!
 
 The next tests check that you have the right version of GAP
-for version 1.3 of the ANUPQ package and that GAP is finding
+for version 1.4 of the ANUPQ package and that GAP is finding
 the right versions of the ANUPQ and AutPGrp packages.
 
 Checking GAP ...
  pq binary made with GAP set to: /usr/local/bin/gap
  Starting GAP to determine version and package availability ...
   GAP version (4.3fix4) ... OK.
-  GAP found ANUPQ package (1.3) ... good.
-  GAP has AutPGrp package installed ...
-   checking AutPGrp package includes recent updates ... yes.
+  GAP found ANUPQ package (version 1.4) ... good.
+  GAP found AutPGrp package (version 1.1) ... good.
  GAP is OK.
 
 Checking the link between the pq binary and GAP ... OK.

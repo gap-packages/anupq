@@ -11,6 +11,7 @@ system("rm -rf $tmpdir; mkdir $tmpdir");
 print "Made dir: $tmpdir\n";
 
 $ANUPQversion = `cat VERSION`;
+$AutPGrpversion = "1.1";
 chomp $ANUPQversion;
 
 $GAPversion = "4.3fix4"; # required GAP version for ANUPQ
@@ -56,10 +57,19 @@ print GAPIN
       "fi;\n",
       "CompareVersionNumbers(VERSION, \"$GAPversion\");\n",
       "VERSION;\n",
+      "SetInfoLevel(InfoWarning, 0); # switch off warning messages\n",
+      "UPDATED_PACKAGES.anupq.safeversion := \"\";; # avoid unsafe message\n",
+      "UPDATED_PACKAGES.autpgrp.safeversion := \"\";; # avoid unsafe message\n",
       "TestPackageAvailability(\"anupq\", \"$ANUPQversion\");\n",
-      "TestPackageAvailability(\"autpgrp\", \"1.1\");\n",
-      "if RequirePackage(\"autpgrp\", \"1.1\") = true then\n",
-      "  Print(ConvertHybridAutGroup);\n",
+      "if RequirePackage(\"anupq\", \"$ANUPQversion\") = true then\n",
+      "  Print(PACKAGES_VERSIONS.anupq, \"\\n\");\n",
+      "fi;\n",
+      "TestPackageAvailability(\"autpgrp\", \"\");\n",
+      "TestPackageAvailability(\"autpgrp\", \"$AutPGrpversion\");\n",
+      "if RequirePackage(\"autpgrp\", \"$AutPGrpversion\") = true then\n",
+      "  Print(PACKAGES_VERSIONS.autpgrp);\n",
+      "elif RequirePackage(\"autpgrp\") = true then\n",
+      "  Print(PACKAGES_VERSIONS.autpgrp, \"\\n\");\n",
       "fi;\n";
 close GAPIN;
 print " Starting GAP to determine version and package availability ...\n"; 
@@ -70,6 +80,9 @@ system("$gap -A -q -r < $tmpdir/gapinput > $tmpdir/gapout");
 #system("more $tmpdir/gapoutput");
 open(GAPOUT, "<$tmpdir/gapout");
 $line = <GAPOUT>;
+while ( $line =~ /^\#W/ ) {
+  $line = <GAPOUT>;
+}
 $version = <GAPOUT>;
 if ( $line !~ /(true|false)/ ) { # the GAP 3 case
   $version = $line;
@@ -89,40 +102,34 @@ if ( $line =~ /true/ ) {
       "    make GAP=/usr/local/bin/gap4\n";
 }
 if ( ($line = <GAPOUT>) !~ /(fail|#I  Error)/ ) {
-  print "  GAP found ANUPQ package ($ANUPQversion) ... good.\n";
+  while ( ($line = <GAPOUT>) =~ /^#I/ ) { }
+  chomp ($ANUPQfoundversion = $line);
+  if ($ANUPQfoundversion == $ANUPQversion) {
+    print "  GAP found ANUPQ package (version $ANUPQfoundversion) ... good.\n";
+  } else { # $ANUPQfoundversion > $ANUPQversion
+    print "  GAP found ANUPQ package in a more recent version ",
+            "($ANUPQfoundversion) ...\n",
+          "   Please check your installation!\n";
+  }
 } else {
-  die "  GAP did not find ANUPQ package ($ANUPQversion) ... \n".
-      "  Please check installation instructions for ANUPQ package.\n";
+  die "  GAP did not find version $ANUPQversion of ANUPQ package ... \n".
+      "   Please check installation instructions for ANUPQ package.\n";
 }
 if ( ($line = <GAPOUT>) !~ /(fail|#I  Error)/ ) {
-  print "  GAP has AutPGrp package installed ... \n";
-  syswrite STDOUT, "   checking AutPGrp package includes recent updates ...",
-           length( "   checking AutPGrp package includes recent updates ...");
-  $autpgrpok = 0;
-  while ($line = <GAPOUT>) {
-    if ($line =~ /Set(Generalized|)Pcgs/) {
-      $autpgrpok = ($1 eq "Generalized");
-      last;
-    }
-  }
-  if ($autpgrpok) {
-    print(" yes.\n");
+  if ( ($line = <GAPOUT>) !~ /(fail|#I  Error)/ ) {
+    chomp ($AutPGrpfoundversion = <GAPOUT>);
+    print "  GAP found AutPGrp package (version $AutPGrpfoundversion) ... good.\n";
   } else {
-    print(" no.\n\n");
-    die "   A version of AutPGrp package with the recent updates is required.\n",
-        "   The AutPGrp package has the recent updates if the first line of its\n",
-        "   banner reads:\n\n",
-        "   #I ------------ The AutPGrp package -------------- \n\n",
-        "   and function ConvertHybridAutGroup in file autpgrp/gap/autos.gi\n",
-        "   has a line:\n\n",
-        "           SetGeneralizedPcgs( B, pcgs );\n\n",
-        "   and not a line:\n\n",
-        "           SetPcgs( B, pcgs );\n\n";
+    chomp ($AutPGrpfoundversion = <GAPOUT>);
+    die "  GAP found AutPGrp package (version $AutPGrpfoundversion) ... too old!\n",
+        "   The ANUPQ package requires at least version $AutPGrpversion of ",
+           "the AutPGrp package.\n";
   }
 } else {
-  die "  GAP does not have AutPGrp package installed ... \n",
-      "  the ANUPQ package requires the AutPGrp package for ",
-      "  the computation of automorphism groups.\n";
+  die "  GAP does not have the AutPGrp package installed ... \n",
+      "   The ANUPQ package requires the AutPGrp package \n",
+      "   (at least version $AutPGrpversion) for the computation of \n",
+      "   automorphism groups.\n";
 }
 close GAPOUT;
 print " GAP is OK.\n\n";
@@ -177,7 +184,15 @@ sub check {
   # run pq over test file and clean out system-dependent stuff
   system("( cd $tmpdir; ".
          "  $pq $opts< $tstdir/$file ".
-         "  | grep -v seconds | grep -v '#I --' > $outfile )");
+         "  | grep -v seconds | grep -v '#I --' ".
+         # sometimes emitted by gap-dev if a C source file CRC is out-of-date
+         "  | grep -v '#W ' ". 
+         # sometimes Info-ed by other packages
+         "  | grep -v 'GAPDoc not available' ".
+         "  | grep -v '#I  default' | grep -v '#I  a method' ".
+         "  | grep -v '#I  underly' | grep -v '#I  probably' ".
+         "  | grep -v ' g1, g2' | grep -v '  g18, g19, g20' ".
+         "  > $outfile )");
 
   # now the only differences with the master copy should be due to pq's banner
   my @diff = `diff $tstdir/out/$outfile $tmpdir/$outfile`;

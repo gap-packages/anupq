@@ -8,10 +8,10 @@
 SetPackageInfo( rec(
 
   PkgName := "ANUPQ",
-  Version := "1.3",
-  Date    := "19/11/2002",
+  Version := "1.4",
+  Date    := "18/12/2002",
   ArchiveURL 
-          := "http://www.math.rwth-aachen.de/~Greg.Gamble/ANUPQ/anupq-1.3",
+          := "http://www.math.rwth-aachen.de/~Greg.Gamble/ANUPQ/anupq-1.4",
   ArchiveFormats 
           := ".zoo",
 
@@ -137,7 +137,7 @@ SetPackageInfo( rec(
     BookName  := "ANUPQ",
     # format/extension can be one of .zoo, .tar.gz, .tar.bz2, -win.zip
     Archive   := 
-      "http://www.math.rwth-aachen.de/~Greg.Gamble/ANUPQ/anupq-1.3.zoo",
+      "http://www.math.rwth-aachen.de/~Greg.Gamble/ANUPQ/anupq-1.4.zoo",
     HTMLStart := "htm/chapters.htm",
     PDFFile   := "doc/manual.pdf",
     # the path to the .six file used by GAP's help system
