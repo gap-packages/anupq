@@ -404,13 +404,13 @@ false
 gap> # if we need to compute with S we should convert it to a pc group
 gap> Spc := PcGroupFpGroup( S );
 <pc group of size 1490116119384765625 with 26 generators>
-
+gap> 
 gap> H := F / [ a^625, Comm(Comm(Comm(Comm(b, a), a), a), a)/Comm(b, a)^5,
 >               Comm(Comm(b, a), b), b^625 ];;                     
 gap> StandardPresentation( H, 5 : ClassBound := 15, Metabelian );
 <fp group on the generators [ f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, 
   f12, f13, f14, f15, f16, f17, f18, f19, f20 ]>
-
+gap> 
 gap> F4 := FreeGroup( "a", "b", "c", "d" );;                        
 gap> a := F4.1;; b := F4.2;; c := F4.3;; d := F4.4;;
 gap> G4 := F4 / [ b^4, b^2 / Comm(Comm (b, a), a), d^16,                

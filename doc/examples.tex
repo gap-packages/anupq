@@ -1,0 +1,484 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%W  examples.tex       ANUPQ documentation - examples       Werner Nickel
+%W                                                            Greg Gamble
+%%
+%H  $Id$
+%%
+%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\Chapter{Examples}
+
+There are a large number of examples provided with the {\ANUPQ}  package.
+These  may  be  executed  or  displayed  via  the  function   `PqExample'
+(see~"PqExample"). Each example resides in a file of the same name in the
+directory `gap/examples'. Most of the examples are translations to {\GAP}
+of examples provided for the  `pq'  standalone  by  Eamonn  O'Brien;  the
+standalone examples are found in the directories `examples' ($p$-quotient
+and $p$-group generation  examples)  and  `isom'  (standard  presentation
+examples). The first line of each example indicates its origin.  All  the
+examples seen in earlier chapters of this manual are  also  available  as
+examples, in a  slightly  modified  form  (the  example  to  run  to  see
+something very close to the text example  ``live''  is  always  indicated
+near -- usually immediately after -- the text example). The format of the
+(`PqExample') examples is such that they can  be  read  by  the  standard
+`Read'  function  of  {\GAP},  but  certain  features  and  comments  are
+interpreted by the function `PqExample' to do somewhat more  than  `Read'
+would do. In particular, any function  without  a  `-i',  `-ni'  or  `.g'
+suffix has both a non-interactive and interactive form; in  these  cases,
+the default form is the non-interactive form,  and  giving  `PqStart'  as
+second argument generates the interactive form.
+
+Running `PqExample' without an argument or with  a  non-existent  example
+`Info's the available examples and some hints on usage:
+
+\beginexample
+gap> PqExample();
+#I                   PqExample Index (Table of Contents)
+#I                   -----------------------------------
+#I  This table of possible examples is displayed when calling `PqExample'
+#I  with no arguments, or with the argument: "index" (meant in the  sense
+#I  of ``list''), or with a non-existent example name.
+#I  
+#I  Examples that have a name ending in `-ni' are  non-interactive  only.
+#I  Examples that have a  name  ending  in  `-i'  are  interactive  only.
+#I  Examples with names ending in `.g' also have  only  one  form.  Other
+#I  examples have both a non-interactive and an  interactive  form;  call
+#I  `PqExample' with 2nd argument `PqStart' to get the  interactive  form
+#I  of the example. The substring `SP' in an  example  name  indicates  a
+#I  Standard  Presentation  example  and  `Rel'  indicates  it  uses  the
+#I  `Relators' option.
+#I  
+#I  The following ANUPQ examples are available:
+#I  
+#I   p-Quotient examples:
+#I    general:
+#I     "Pq"                   "Pq-ni"                "PqEpimorphism"        
+#I     "PqPCover"
+#I    2-groups:
+#I     "2gp-Rel"              "2gp-Rel-i"            "2gp-a-Rel-i"
+#I     "B2-4"                 "B2-4-Id"              "B2-8-i"
+#I     "B4-4-i"               "B4-4-a-i"             "B5-4.g"
+#I    3-groups:
+#I     "3gp-Rel-i"            "3gp-a-Rel"            "3gp-a-Rel-i"
+#I     "3gp-a-x-Rel-i"        "3gp-maxoccur-Rel-i"
+#I    5-groups:
+#I     "5gp-Rel-i"            "5gp-a-Rel-i"          "5gp-b-Rel-i"
+#I     "5gp-c-Rel-i"          "5gp-metabelian-Rel-i" "5gp-maxoccur-Rel-i"
+#I     "F2-5-i"               "B2-5-i"               "R2-5-i"
+#I     "R2-5-x-i"
+#I    7-groups:
+#I     "7gp-Rel-i"
+#I    11-groups:
+#I     "11gp-i"               "11gp-Rel-i"           "11gp-a-Rel-i"
+#I     "11gp-3-Engel-Id"      "11gp-3-Engel-Id-i"
+#I  
+#I   p-Group Generation examples:
+#I    general:
+#I     "PqDescendants-1"      "PqDescendants-2"      "PqDescendants-3"
+#I     "PqDescendants-1-i"
+#I    2-groups:
+#I     "2gp-PG-i"             "2gp-PG-2-i"           "2gp-PG-3-i"
+#I     "2gp-PG-4-i"           "2gp-PG-e4-i"
+#I    3-groups:
+#I     "3gp-PG-i"             "3gp-PG-4-i"           "3gp-PG-x-i"
+#I     "3gp-PG-x-1-i"
+#I    5-groups:
+#I     "5gp-PG-i"             "Nott-PG-Rel-i"        "Nott-APG-Rel-i"
+#I    7,11-groups:
+#I     "7gp-PG-i"             "11gp-PG-i"
+#I  
+#I   Standard Presentation examples:
+#I    general:
+#I     "StandardPresentation" "EpimorphismStandardPresentation"
+#I     "IsIsomorphicPGroup-ni"
+#I    2-groups:
+#I     "2gp-SP-Rel-i"         "2gp-SP-1-Rel-i"       "2gp-SP-2-Rel-i"
+#I     "2gp-SP-3-Rel-i"       "2gp-SP-4-Rel-i"       "2gp-SP-d-Rel-i"
+#I     "gp-256-SP-Rel-i"      "B2-4-SP-i"            "G2-SP-Rel-i"
+#I    3-groups:
+#I     "3gp-SP-Rel-i"         "3gp-SP-1-Rel-i"       "3gp-SP-2-Rel-i"
+#I     "3gp-SP-3-Rel-i"       "3gp-SP-4-Rel-i"       "G3-SP-Rel-i"
+#I    5-groups:
+#I     "5gp-SP-Rel-i"         "5gp-SP-a-Rel-i"       "5gp-SP-b-Rel-i"
+#I     "5gp-SP-big-Rel-i"     "5gp-SP-d-Rel-i"       "G5-SP-Rel-i"
+#I     "G5-SP-a-Rel-i"        "Nott-SP-Rel-i"
+#I    7-groups:
+#I     "7gp-SP-Rel-i"         "7gp-SP-a-Rel-i"       "7gp-SP-b-Rel-i"
+#I    11-groups:
+#I     "11gp-SP-a-i"          "11gp-SP-a-Rel-i"      "11gp-SP-a-Rel-1-i"
+#I     "11gp-SP-b-i"          "11gp-SP-b-Rel-i"      "11gp-SP-c-Rel-i"
+#I  
+#I  Notes
+#I  -----
+#I  1. The example (first) argument of  `PqExample'  is  a  string;  each
+#I     example above is in double quotes to remind you to include them.
+#I  2. Some examples accept options. To find  out  whether  a  particular
+#I     example accepts options, display it first (by including  `Display'
+#I     as  last  argument)  which  will  also  indicate  how  `PqExample'
+#I     interprets the options, e.g. `PqExample("11gp-SP-a-i", Display);'.
+#I  3. Try `SetInfoLevel(InfoANUPQ, <n>);' for  some  <n>  in  [2  ..  4]
+#I     before calling PqExample, to see what's going on behind the scenes.
+#I  
+\endexample
+
+If on your terminal you are unable to  scroll  back,  an  alternative  to
+typing `PqExample();' to see the displayed examples  is  to  use  on-line
+help, i.e.~ you may type:
+
+\beginexample
+gap> ?anupq:examples
+\endexample
+
+which will display this appendix in a {\GAP}  session.  If  you  are  not
+fussed  about  the  order  in   which   the   examples   are   organised,
+`AllPqExamples();' lists the available examples relatively compactly:
+
+\beginexample
+gap> AllPqExamples();
+[ "11gp-3-Engel-Id", "11gp-3-Engel-Id-i", "11gp-PG-i", "11gp-Rel-i", 
+  "11gp-SP-a-Rel-1-i", "11gp-SP-a-Rel-i", "11gp-SP-a-i", "11gp-SP-b-Rel-i", 
+  "11gp-SP-b-i", "11gp-SP-c-Rel-i", "11gp-a-Rel-i", "11gp-i", "2gp-PG-2-i", 
+  "2gp-PG-3-i", "2gp-PG-4-i", "2gp-PG-e4-i", "2gp-PG-i", "2gp-Rel", 
+  "2gp-Rel-i", "2gp-SP-1-Rel-i", "2gp-SP-2-Rel-i", "2gp-SP-3-Rel-i", 
+  "2gp-SP-4-Rel-i", "2gp-SP-Rel-i", "2gp-SP-d-Rel-i", "2gp-a-Rel-i", 
+  "3gp-PG-4-i", "3gp-PG-i", "3gp-PG-x-1-i", "3gp-PG-x-i", "3gp-Rel-i", 
+  "3gp-SP-1-Rel-i", "3gp-SP-2-Rel-i", "3gp-SP-3-Rel-i", "3gp-SP-4-Rel-i", 
+  "3gp-SP-Rel-i", "3gp-a-Rel", "3gp-a-Rel-i", "3gp-a-x-Rel-i", 
+  "3gp-maxoccur-Rel-i", "5gp-PG-i", "5gp-Rel-i", "5gp-SP-Rel-i", 
+  "5gp-SP-a-Rel-i", "5gp-SP-b-Rel-i", "5gp-SP-big-Rel-i", "5gp-SP-d-Rel-i", 
+  "5gp-a-Rel-i", "5gp-b-Rel-i", "5gp-c-Rel-i", "5gp-maxoccur-Rel-i", 
+  "5gp-metabelian-Rel", "5gp-metabelian-Rel-i", "7gp-PG-i", "7gp-Rel-i", 
+  "7gp-SP-Rel-i", "7gp-SP-a-Rel-i", "7gp-SP-b-Rel-i", "B2-4", "B2-4-Id", 
+  "B2-4-SP-i", "B2-5", "B2-5-i", "B2-8-i", "B4-4-a-i", "B4-4-i", "B5-4.g", 
+  "EpimorphismStandardPresentation", "F2-5-i", "G2-SP-Rel-i", "G3-SP-Rel-i", 
+  "G5-SP-Rel-i", "G5-SP-a-Rel-i", "IsIsomorphicPGroup-ni", "Nott-APG-Rel-i", 
+  "Nott-PG-Rel-i", "Nott-SP-Rel-i", "Pq", "Pq-ni", "PqDescendants-1", 
+  "PqDescendants-1-i", "PqDescendants-2", "PqDescendants-3", "PqEpimorphism", 
+  "PqPCover", "R2-5-i", "R2-5-x-i", "StandardPresentation", "gp-256-SP-Rel-i" 
+ ]
+\endexample
+
+In the remainder of this appendix  we  will  discuss  particular  aspects
+related  to  the  `Relators'  (see~"option  Relators")  and  `Identities'
+(see~"option Identities") options, and the construction of  the  Burnside
+group $B(5, 4)$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\Section{The Relators Option}
+
+The `Relators' option was included because computations  involving  words
+containing commutators that  are  pre-expanded  by  {\GAP}  before  being
+passed to the `pq' program may run considerably  more  slowly,  than  the
+same computations being  run  with  {\GAP}  pre-expansions  avoided.  The
+following examples demonstrate a case where the performance  hit  due  to
+pre-expansion of commutators by {\GAP} is a factor of order 100 (in order
+to see timing information from the `pq' program, we set  the  `InfoANUPQ'
+level to 2).
+
+Firstly, we run the example that allows pre-expansion of commutators (the
+function  `PqLeftNormComm'  is  provided   by   the   {\ANUPQ}   package;
+see~"PqLeftNormComm"):
+
+\beginexample
+gap> SetInfoLevel(InfoANUPQ, 2); #to see timing information
+gap> PqExample("11gp-i");
+#I  #Example: "11gp-i" . . . based on: examples/11gp
+#I  F, a, b, c, R, procId are local to `PqExample'
+gap> F := FreeGroup("a", "b", "c"); a := F.1; b := F.2; c := F.3;
+<free group on the generators [ a, b, c ]>
+a
+b
+c
+gap> R := [PqLeftNormComm([b, a, a, b, c])^11, 
+>          PqLeftNormComm([a, b, b, a, b, c])^11, (a * b)^11];
+[ b^-1*a^-2*b^-1*a*b*a*b^-1*a^-1*b*a*b*a^-1*b^-1*a*b*a^-1*b^-1*a^-1*b*a^2*c^
+    -1*a^-2*b^-1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b*a^-1*b^-1*a^-1*b*a^
+    2*b*c*b^-1*a^-2*b^-1*a*b*a*b^-1*a^-1*b*a*b*a^-1*b^-1*a*b*a^-1*b^-1*a^
+    -1*b*a^2*c^-1*a^-2*b^-1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b*a^-1*b^
+    -1*a^-1*b*a^2*b*c*b^-1*a^-2*b^-1*a*b*a*b^-1*a^-1*b*a*b*a^-1*b^-1*a*b*a^
+    -1*b^-1*a^-1*b*a^2*c^-1*a^-2*b^-1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^
+    -1*a*b*a^-1*b^-1*a^-1*b*a^2*b*c*b^-1*a^-2*b^-1*a*b*a*b^-1*a^-1*b*a*b*a^
+    -1*b^-1*a*b*a^-1*b^-1*a^-1*b*a^2*c^-1*a^-2*b^-1*a*b*a*b^-1*a^-1*b*a*b^
+    -1*a^-1*b^-1*a*b*a^-1*b^-1*a^-1*b*a^2*b*c*b^-1*a^-2*b^-1*a*b*a*b^-1*a^
+    -1*b*a*b*a^-1*b^-1*a*b*a^-1*b^-1*a^-1*b*a^2*c^-1*a^-2*b^-1*a*b*a*b^-1*a^
+    -1*b*a*b^-1*a^-1*b^-1*a*b*a^-1*b^-1*a^-1*b*a^2*b*c*b^-1*a^-2*b^-1*a*b*a*b^
+    -1*a^-1*b*a*b*a^-1*b^-1*a*b*a^-1*b^-1*a^-1*b*a^2*c^-1*a^-2*b^-1*a*b*a*b^
+    -1*a^-1*b*a*b^-1*a^-1*b^-1*a*b*a^-1*b^-1*a^-1*b*a^2*b*c*b^-1*a^-2*b^
+    -1*a*b*a*b^-1*a^-1*b*a*b*a^-1*b^-1*a*b*a^-1*b^-1*a^-1*b*a^2*c^-1*a^-2*b^
+    -1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b*a^-1*b^-1*a^-1*b*a^2*b*c*b^-1*a^
+    -2*b^-1*a*b*a*b^-1*a^-1*b*a*b*a^-1*b^-1*a*b*a^-1*b^-1*a^-1*b*a^2*c^-1*a^
+    -2*b^-1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b*a^-1*b^-1*a^-1*b*a^2*b*c*b^
+    -1*a^-2*b^-1*a*b*a*b^-1*a^-1*b*a*b*a^-1*b^-1*a*b*a^-1*b^-1*a^-1*b*a^2*c^
+    -1*a^-2*b^-1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b*a^-1*b^-1*a^-1*b*a^
+    2*b*c*b^-1*a^-2*b^-1*a*b*a*b^-1*a^-1*b*a*b*a^-1*b^-1*a*b*a^-1*b^-1*a^
+    -1*b*a^2*c^-1*a^-2*b^-1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b*a^-1*b^
+    -1*a^-1*b*a^2*b*c*b^-1*a^-2*b^-1*a*b*a*b^-1*a^-1*b*a*b*a^-1*b^-1*a*b*a^
+    -1*b^-1*a^-1*b*a^2*c^-1*a^-2*b^-1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^
+    -1*a*b*a^-1*b^-1*a^-1*b*a^2*b*c, b^-1*a^-1*b^-2*a^-1*b*a*b*a^-1*b^
+    -1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b*a^-1*b*a*b*a^-1*b^-1*a*b*a^-1*b^
+    -1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^2*a*c^-1*a^-1*b^-2*a^-1*b*a*b*a^-1*b^
+    -1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^-1*a^-1*b*a*b*a^-1*b^-1*a*b*a^
+    -1*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^2*a*b*c*b^-1*a^-1*b^-2*a^-1*b*a*b*a^
+    -1*b^-1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b*a^-1*b*a*b*a^-1*b^-1*a*b*a^
+    -1*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^2*a*c^-1*a^-1*b^-2*a^-1*b*a*b*a^-1*b^
+    -1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^-1*a^-1*b*a*b*a^-1*b^-1*a*b*a^
+    -1*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^2*a*b*c*b^-1*a^-1*b^-2*a^-1*b*a*b*a^
+    -1*b^-1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b*a^-1*b*a*b*a^-1*b^-1*a*b*a^
+    -1*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^2*a*c^-1*a^-1*b^-2*a^-1*b*a*b*a^-1*b^
+    -1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^-1*a^-1*b*a*b*a^-1*b^-1*a*b*a^
+    -1*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^2*a*b*c*b^-1*a^-1*b^-2*a^-1*b*a*b*a^
+    -1*b^-1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b*a^-1*b*a*b*a^-1*b^-1*a*b*a^
+    -1*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^2*a*c^-1*a^-1*b^-2*a^-1*b*a*b*a^-1*b^
+    -1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^-1*a^-1*b*a*b*a^-1*b^-1*a*b*a^
+    -1*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^2*a*b*c*b^-1*a^-1*b^-2*a^-1*b*a*b*a^
+    -1*b^-1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b*a^-1*b*a*b*a^-1*b^-1*a*b*a^
+    -1*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^2*a*c^-1*a^-1*b^-2*a^-1*b*a*b*a^-1*b^
+    -1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^-1*a^-1*b*a*b*a^-1*b^-1*a*b*a^
+    -1*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^2*a*b*c*b^-1*a^-1*b^-2*a^-1*b*a*b*a^
+    -1*b^-1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b*a^-1*b*a*b*a^-1*b^-1*a*b*a^
+    -1*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^2*a*c^-1*a^-1*b^-2*a^-1*b*a*b*a^-1*b^
+    -1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^-1*a^-1*b*a*b*a^-1*b^-1*a*b*a^
+    -1*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^2*a*b*c*b^-1*a^-1*b^-2*a^-1*b*a*b*a^
+    -1*b^-1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b*a^-1*b*a*b*a^-1*b^-1*a*b*a^
+    -1*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^2*a*c^-1*a^-1*b^-2*a^-1*b*a*b*a^-1*b^
+    -1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^-1*a^-1*b*a*b*a^-1*b^-1*a*b*a^
+    -1*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^2*a*b*c*b^-1*a^-1*b^-2*a^-1*b*a*b*a^
+    -1*b^-1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b*a^-1*b*a*b*a^-1*b^-1*a*b*a^
+    -1*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^2*a*c^-1*a^-1*b^-2*a^-1*b*a*b*a^-1*b^
+    -1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^-1*a^-1*b*a*b*a^-1*b^-1*a*b*a^
+    -1*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^2*a*b*c*b^-1*a^-1*b^-2*a^-1*b*a*b*a^
+    -1*b^-1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b*a^-1*b*a*b*a^-1*b^-1*a*b*a^
+    -1*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^2*a*c^-1*a^-1*b^-2*a^-1*b*a*b*a^-1*b^
+    -1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^-1*a^-1*b*a*b*a^-1*b^-1*a*b*a^
+    -1*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^2*a*b*c*b^-1*a^-1*b^-2*a^-1*b*a*b*a^
+    -1*b^-1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b*a^-1*b*a*b*a^-1*b^-1*a*b*a^
+    -1*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^2*a*c^-1*a^-1*b^-2*a^-1*b*a*b*a^-1*b^
+    -1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^-1*a^-1*b*a*b*a^-1*b^-1*a*b*a^
+    -1*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^2*a*b*c*b^-1*a^-1*b^-2*a^-1*b*a*b*a^
+    -1*b^-1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b*a^-1*b*a*b*a^-1*b^-1*a*b*a^
+    -1*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^2*a*c^-1*a^-1*b^-2*a^-1*b*a*b*a^-1*b^
+    -1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^-1*a^-1*b*a*b*a^-1*b^-1*a*b*a^
+    -1*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^2*a*b*c, 
+  a*b*a*b*a*b*a*b*a*b*a*b*a*b*a*b*a*b*a*b*a*b ]
+gap> procId := PqStart(F/R : Prime := 11);
+1
+gap> PqPcPresentation(procId : ClassBound := 7, 
+>                              OutputLevel := 1);
+#I  Lower exponent-11 central series for <grp>
+#I  Group: <grp> to lower exponent-11 central class 1 has order 11^3
+#I  Group: <grp> to lower exponent-11 central class 2 has order 11^8
+#I  Group: <grp> to lower exponent-11 central class 3 has order 11^19
+#I  Group: <grp> to lower exponent-11 central class 4 has order 11^42
+#I  Group: <grp> to lower exponent-11 central class 5 has order 11^98
+#I  Group: <grp> to lower exponent-11 central class 6 has order 11^228
+#I  Group: <grp> to lower exponent-11 central class 7 has order 11^563
+#I  Computation of presentation took 44.27 seconds
+gap> PqSavePcPresentation(procId, ANUPQData.outfile);
+#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
+\endexample
+
+Now we do the same calculation using the `Relators' option. In this  way,
+the commutators are passed directly as strings to the  `pq'  program,  so
+that {\GAP} does not ``see'' them and pre-expand them.
+
+\beginexample
+#I  #Example: "11gp-Rel-i" . . . based on: examples/11gp
+#I  #(equivalent to "11gp-i" example but uses `Relators' option)
+#I  F, rels, procId are local to `PqExample'
+gap> F := FreeGroup("a", "b", "c");
+<free group on the generators [ a, b, c ]>
+gap> rels := ["[b, a, a, b, c]^11", "[a, b, b, a, b, c]^11", "(a * b)^11"];
+[ "[b, a, a, b, c]^11", "[a, b, b, a, b, c]^11", "(a * b)^11" ]
+gap> procId := PqStart(F : Prime := 11, Relators := rels);
+4
+gap> PqPcPresentation(procId : ClassBound := 7, 
+>                              OutputLevel := 1);
+#I  Lower exponent-11 central series for <grp>
+#I  Group: <grp> to lower exponent-11 central class 1 has order 11^3
+#I  Group: <grp> to lower exponent-11 central class 2 has order 11^8
+#I  Group: <grp> to lower exponent-11 central class 3 has order 11^19
+#I  Group: <grp> to lower exponent-11 central class 4 has order 11^42
+#I  Group: <grp> to lower exponent-11 central class 5 has order 11^98
+#I  Group: <grp> to lower exponent-11 central class 6 has order 11^228
+#I  Group: <grp> to lower exponent-11 central class 7 has order 11^563
+#I  Computation of presentation took 0.52 seconds
+gap> PqSavePcPresentation(procId, ANUPQData.outfile);
+#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
+\endexample
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\Section{The Identities Option and PqEvaluateIdentities Function}
+
+Please pay heed  to  the  warnings  given  for  the  `Identities'  option
+(see~"option Identities"); it is written mainly at the {\GAP}  level  and
+is not particularly optimised. The  `Identities'  option  allows  one  to
+compute $p$-quotients that satisfy an identity. A trivial example  better
+done using the `Exponent' option, but which nevertheless demonstrates the
+usage of the `Identities' option, is as follows:
+
+\beginexample
+gap> PqExample("B2-4-Id");
+#I  #Example: "B2-4-Id" . alternative way to generate B(2, 4) by Werner Nickel
+#I  #Generates B(2, 4) by using the `Identities' option
+#I  #... this is not as efficient as using `Exponent' but
+#I  #demonstrates the usage of the `Identities' option.
+#I  F, f, procId are local to `PqExample'
+gap> F := FreeGroup("a", "b");
+<free group on the generators [ a, b ]>
+gap> # All words w in the pc generators of B(2, 4) satisfy f(w) = 1 
+gap> f := w -> w^4;
+function( w ) ... end
+gap> Pq( F : Prime := 2, Identities := [ f ] );
+#I  Evaluated 2 instances.
+#I  Class 1 with 2 generators.
+#I  Evaluated 5 instances.
+#I  Class 2 with 5 generators.
+#I  Evaluated 18 instances.
+#I  Class 3 with 7 generators.
+#I  Evaluated 44 instances.
+#I  Class 4 with 10 generators.
+#I  Evaluated 95 instances.
+#I  Class 5 with 12 generators.
+#I  Evaluated 192 instances.
+#I  Class 5 with 12 generators.
+<pc group of size 4096 with 12 generators>
+#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
+\endexample
+
+Since the identity used in the above construction of $B(2, 4)$ is just an
+exponent law, the ``right'' way to  compute  it  is  via  the  `Exponent'
+option (see~"option Exponent"), which is implemented at the C  level  and
+*is* highly optimised:
+
+\beginexample
+gap> PqExample("B2-4");   
+#I  #Example: "B2-4" . . . the ``right'' way to generate B(2, 4)
+#I  #Generates B(2, 4) by using the `Exponent' option
+#I  F, procId are local to `PqExample'
+gap> F := FreeGroup("a", "b");
+<free group on the generators [ a, b ]>
+gap> Pq( F : Prime := 2, Exponent := 4 );
+<pc group of size 4096 with 12 generators>
+#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
+\endexample
+
+The following example uses the `Identities' option to compute  a  3-Engel
+group for the prime 11. As is the case for the example  `"B2-4-Id"',  the
+example has both a non-interactive and an  interactive  form;  below,  we
+demonstrate the interactive form.
+
+\beginexample
+gap> PqExample("11gp-3-Engel-Id", PqStart);
+#I  #Example: "11gp-3-Engel-Id" . 3-Engel group for prime 11 by Werner Nickel
+#I  #Non-trivial example of using the `Identities' option
+#I  F, a, b, G, f, procId, Q are local to `PqExample'
+gap> F := FreeGroup("a", "b"); a := F.1; b := F.2;
+<free group on the generators [ a, b ]>
+a
+b
+gap> G := F/[ a^11, b^11 ];
+<fp group on the generators [ a, b ]>
+gap> # All word pairs u, v in the pc generators of the 11-quotient Q of G 
+gap> # must satisfy the Engel identity: [u, v, v, v] = 1.
+gap> f := function(u, v) return PqLeftNormComm( [u, v, v, v] ); end;
+function( u, v ) ... end
+gap> procId := PqStart( G );
+6
+gap> Q := Pq( procId : Prime := 11, Identities := [ f ] );
+#I  Evaluated 4 instances.
+#I  Class 1 with 2 generators.
+#I  Evaluated 14 instances.
+#I  Class 2 with 3 generators.
+#I  Evaluated 44 instances.
+#I  Class 3 with 5 generators.
+#I  Evaluated 122 instances.
+#I  Class 3 with 5 generators.
+<pc group of size 161051 with 5 generators>
+gap> # We do a ``sample'' check that pairs of elements of Q do satisfy
+gap> # the given identity:
+gap> f( Random(Q), Random(Q) );
+<identity> of ...
+gap> f( Q.1, Q.2 );
+<identity> of ...
+#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
+\endexample
+
+The (interactive) call to `Pq' above, is essentially equivalent to a call
+to `PqPcPresentation' with the same arguments and options followed  by  a
+call to `PqCurrentGroup'. Moreover, the call  to  `PqPcPresentation'  (as
+described in~"PqPcPresentation") is equivalent to a ``class 1''  call  to
+`PqPcPresentation'  followed  by  the  requisite  number  of   calls   to
+`PqNextClass',   and   with   the   `Identities'   option    set,    both
+`PqPcPresentation' and `PqNextClass' ``quietly'' perform  the  equivalent
+of a `PqEvaluateIdentities' call. In the following example we break  down
+the `Pq' call into its low-level  equivalents,  and  set  and  unset  the
+`Identities' option to show where `PqEvaluateIdentities' fits  into  this
+scheme.
+
+\beginexample
+gap> PqExample("11gp-3-Engel-Id-i");
+#I  #Example: "11gp-3-Engel-Id-i" . 3-Engel grp for prime 11 by Werner Nickel
+#I  #Variation of "11gp-3-Engel-Id" broken down into its lower-level component
+#I  #command parts.
+#I  F, a, b, G, f, procId, Q are local to `PqExample'
+gap> F := FreeGroup("a", "b"); a := F.1; b := F.2;
+<free group on the generators [ a, b ]>
+a
+b
+gap> G := F/[ a^11, b^11 ];
+<fp group on the generators [ a, b ]>
+gap> # All word pairs u, v in the pc generators of the 11-quotient Q of G 
+gap> # must satisfy the Engel identity: [u, v, v, v] = 1.
+gap> f := function(u, v) return PqLeftNormComm( [u, v, v, v] ); end;
+function( u, v ) ... end
+gap> procId := PqStart( G : Prime := 11 );
+8
+gap> PqPcPresentation( procId : ClassBound := 1);
+gap> PqEvaluateIdentities( procId : Identities := [f] );
+#I  Evaluated 4 instances.
+#I  Class 1 with 2 generators.
+gap> for c in [2 .. 4] do
+>      PqNextClass( procId : Identities := [] ); #reset `Identities' option
+>      PqEvaluateIdentities( procId : Identities := [f] );
+>    od;
+#I  Evaluated 14 instances.
+#I  Class 2 with 3 generators.
+#I  Evaluated 44 instances.
+#I  Class 3 with 5 generators.
+#I  Evaluated 122 instances.
+#I  Class 3 with 5 generators.
+gap> Q := PqCurrentGroup( procId );
+<pc group of size 161051 with 5 generators>
+gap> # We do a ``sample'' check that pairs of elements of Q do satisfy
+gap> # the given identity:
+gap> f( Random(Q), Random(Q) );
+<identity> of ...
+gap> f( Q.1, Q.2 );
+<identity> of ...
+#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
+\endexample
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\Section{A Large Example}
+
+\atindex{B(5,4)}{@$B(5, 4)$}
+An example which demonstrates in a big way just what the `pq' program via
+the {\ANUPQ} package can do, is the computation  of  the  Burnside  group
+$B(5, 4)$, the largest group of exponent 4 generated by  5  elements.  It
+has order $2^{2728}$ and lower exponent-$p$ central class 13. The example
+`"B5-4.g"' computes $B(5, 4)$; it was written by Werner Nickel, based  on
+a `pq' standalone input file written by M.~F.~Newman.
+
+Please note that the construction uses the knowledge gained by Newman and
+O'Brien in their  initial  construction  of  $B(5,  4)$,  in  particular,
+insight into the commutator structure of the group and the  knowledge  of
+the $p$-central  class  and  the  order  of  $B(5,  4)$.  Therefore,  the
+construction cannot be used to prove that $B(5, 4)$  has  the  order  and
+class mentioned above. It is merely a reconstruction of the  group.  More
+information is contained in the header of the file `gap/examples/B5-4.g'.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%E

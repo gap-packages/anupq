@@ -89,22 +89,31 @@ for the process. Otherwise (and non-interactively),  the  default  is  0,
 which means that no exponent law is enforced.
 
 \>`Relators := <rels>'{option Relators}@{option `Relators'|indexit}&
-Specifies that the relators sent to the  `pq'  program  should  be  <rels>
+Specifies that the relators sent to the `pq'  program  should  be  <rels>
 instead of the relators of the group <F>; <rels>  should  be  a  list  of
-*strings* in the string representations of the generators  of  <F>.  This
-option provides a way of giving relators  to  the  `pq'  program,  without
-having  them  pre-expanded  by  {\GAP},  which  can  sometimes  effect  a
-performance loss of the order of 100.
+*strings* in the string representations of  the  generators  of  <F>.  
+ This option provides a way of giving  relators  to
+the `pq' program, without having them pre-expanded by {\GAP},  which  can
+sometimes effect a performance loss of the order of 100 (see Section~"The
+Relators Option").
 
-*POINT TO 11-group EXAMPLE*
+*Notes*
+\beginlist%ordered
 
-*Note:*
-The `pq' program does not use `/' to indicate multiplication by an inverse
-and uses square brackets to represent (left  normed)  commutators.  Also,
-even though the `pq' program accepts relations,  all  elements  of  <rels>
-*must* be in relator form, i.e.~a relation of form `<w1> = <w2>' must  be
-written as `<w1>*(<w2>)^-1' and then put in a pair  of  double-quotes  to
-make it a string. See the example below.
+\item{1.}
+The `pq' program does not  use  `/'  to  indicate  multiplication  by  an
+inverse and uses square brackets to represent (left normed)  commutators.
+Also, even though the `pq' program accepts  relations,  all  elements  of
+<rels> *must* be in relator form, i.e.~a relation of form `<w1>  =  <w2>'
+must  be  written  as  `<w1>*(<w2>)^-1'  and  then  put  in  a  pair   of
+double-quotes to make it a string. See the example below.
+
+\item{2.}
+To ensure there are no syntax errors in <rels>, it  is  recommended  that
+the user test the relators are valid by  expansion  with  `PqGAPRelators'
+(see~"PqGAPRelators").
+
+\endlist
 
 \>`Metabelian'{option Metabelian}@{option `Metabelian'|indexit}&
 Specifies that the largest metabelian $p$-quotient subject to  any  other
@@ -112,11 +121,11 @@ conditions specified by other options be  constructed.  By  default  this
 restriction is not enforced.
 
 \>`GroupName := <name>'{option GroupName}@{option `GroupName'|indexit}&
-Specifies that the `pq' program should refer to  the  group  by  the  name
+Specifies that the `pq' program should refer to the  group  by  the  name
 <name> (a string). If `GroupName' is not  set  and  the  group  has  been
 assigned a name via `SetName' (see~"ref:SetName") it is set as  the  name
-the `pq' program should use. Otherwise, the ``generic'' name `"\<grp>"' is
-set as a default.
+the `pq' program should use. Otherwise, the ``generic''  name  `"\<grp>"'
+is set as a default.
 
 \>`Identities := <funcs>'{option Identities}@{option `Identities'|indexit}&
 Specifies that the pc presentation should satisfy  the  laws  defined  by
@@ -135,7 +144,9 @@ memory usage), of which there is generally a *lot* of,  is  `Info'-ed  at
 which demonstrate the usage of the `Identities'  option;  these  are  run
 using `PqExample'  (see~"PqExample").  Take  note  of  Note  1.~below  in
 relation to the  example  `"B2-4-Id"';  the  companion  example  `"B2-4"'
-generates the same group using the `Exponent' option.
+generates the same group using the `Exponent' option. These examples  are
+discussed   at   length   in   Section~"The   Identities    Option    and
+PqEvaluateIdentities Function".
 
 *Notes*
 
@@ -171,7 +182,7 @@ set to at least 1 (see~"InfoANUPQ").
 
 \>`RedoPcp'{option RedoPcp}@{option `RedoPcp'|indexit}&
 Specifies that the current pc presentation (for an  interactive  process)
-stored by the `pq' program be  scrapped  and  clears  the  current  values
+stored by the `pq' program be scrapped  and  clears  the  current  values
 stored for the options `Prime', `ClassBound', `Exponent' and `Metabelian'
 and also clears the `pQuotient', `pQepi' and `pCover' fields of the  data
 record of the process.
@@ -181,13 +192,18 @@ Non-interactively, this option directs that `pq' should not be called and
 that an input file  with  name  <filename>  (a  string),  containing  the
 commands necessary for the  ANU  `pq'  standalone,  be  constructed.  The
 commands written to <filename> are also `Info'-ed behind  a  ```ToPQ> '''
-prompt at `InfoANUPQ' level  4  (see~"InfoANUPQ").  In  this  case,  `Pq'
-returns `true'. Interactively, `SetupFile' is ignored.
+prompt at `InfoANUPQ' level  4  (see~"InfoANUPQ").  Except  in  the  case
+following, the calling function returns `true'. If the  calling  function
+is  the  non-interactive  version  of  one   of   `Pq',   `PqPCover'   or
+`PqEpimorphism' and the group provided as  argument  has  no  generators,
+then no setup file is written and `fail' is returned  (the  `pq'  program
+cannot do anything useful with such a group). Interactively,  `SetupFile'
+is ignored.
 
 \>`PqWorkspace := <workspace>'{option PqWorkspace}@{option `PqWorkspace'|indexit}&
-Non-interactively, this option sets the memory used by the  `pq'  program.
+Non-interactively, this option sets the memory used by the `pq'  program.
 It sets the maximum number of integer-sized elements to allocate  in  its
-main storage array. By default, the  `pq'  program  sets  this  figure  to
+main storage array. By default, the `pq'  program  sets  this  figure  to
 10000000. Interactively, `PqWorkspace' is ignored;  the  memory  used  in
 this  case  may  be  set  by   giving   `PqStart'   a   second   argument
 (see~"PqStart").

@@ -1,6 +1,6 @@
 C intro.tex 1. Introduction
 I 1.0. ANUPQ
-S 1.1. Authors
+S 1.1. Authors and Acknowledgements
 C basics.tex 2. Mathematical Background and Terminology
 S 2.1. Basic notions
 I 2.1. power-commutator presentation
@@ -67,6 +67,7 @@ F 3.5. PqGAPRelators
 F 3.5. PqExample
 F 3.5. PqExample
 F 3.5. PqExample
+F 3.5. AllPqExamples
 S 3.6. Attributes and a Property for fp and pc p-groups
 F 3.6. NuclearRank
 F 3.6. MultiplicatorRank
@@ -218,6 +219,8 @@ F 5.4. PqDisplayPcPresentation
 F 5.4. PqDisplayPcPresentation
 F 5.4. PqSetOutputLevel
 F 5.4. PqSetOutputLevel
+F 5.4. PqEvaluateIdentities
+F 5.4. PqEvaluateIdentities
 F 5.4. PqPcPresentation
 F 5.4. PqPcPresentation
 F 5.4. PqSavePcPresentation
@@ -368,3 +371,8 @@ S 7.1. Testing your ANUPQ installation
 I 7.1. ANUPQ_GAP_EXEC!environment variable
 S 7.2. Running the pq program as a standalone
 I 7.2. ANUPQ_GAP_EXEC!environment variable
+C examples.tex 8. Examples
+S 8.1. The Relators Option
+S 8.2. The Identities Option and PqEvaluateIdentities Function
+S 8.3. A Large Example
+I 8.3. B(5,4)

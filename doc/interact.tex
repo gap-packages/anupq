@@ -400,10 +400,10 @@ gap> G4 := F4 / [ b^4, b^2 / Comm(Comm (b, a), a), d^16,
 <fp group on the generators [ a, b, c, d ]>
 gap> SetInfoLevel(InfoANUPQ, 1); #Only essential Info please
 gap> PqStart(G4); #Start a new interactive process for a new group
-2
-gap> K := Pq( 2 : Prime := 2, ClassBound := 1 ); #`pq' process no. is 2
+4
+gap> K := Pq( 4 : Prime := 2, ClassBound := 1 ); #`pq' process no. is 4
 <pc group of size 4 with 2 generators>
-gap> StandardPresentation( 2, K : ClassBound := 14 );
+gap> StandardPresentation( 4, K : ClassBound := 14 );
 <fp group with 53 generators>
 \endexample
 
@@ -448,10 +448,10 @@ gap> R := [x^3 / w, y^3 / w * a^2 * b^2, w^3 / b,
 gap> Q := F / R;
 <fp group on the generators [ F1, F2, F3, F4, F5, F6 ]>
 gap> PqStart(Q); #Start a new interactive process for a new group       
-3
-gap> G := Pq( 3 : Prime := 3, ClassBound := 3 );
+6
+gap> G := Pq( 6 : Prime := 3, ClassBound := 3 );
 <pc group of size 729 with 6 generators>
-gap> phi := EpimorphismStandardPresentation( procId, 3 : ClassBound := 3 );
+gap> phi := EpimorphismStandardPresentation( 6, 3 : ClassBound := 3 );
 [ F1, F2, F3, F4, F5, F6 ] -> [ f1^2*f2*f4^2*f6, f1^2*f2^2*f3^2*f4*f5, f3^2, 
   f4^2*f6^2, f5^2, f6^2 ]
 gap> Size( Image(phi) );
@@ -550,9 +550,10 @@ gap> F := FreeGroup( "a", "b" );; a := F.1;; b := F.2;;
 gap> G := PcGroupFpGroup( F / [ a^2, b^2, Comm(b, a) ] );
 <pc group of size 4 with 2 generators>
 gap> PqStart(G);
-4
+8
 gap> #This is now the 4th interactive process running
-gap> des := PqDescendants( 4 : OrderBound := 6, ClassBound := 5 );;
+gap> #... its id. no. is 8 (the 4th non-prime number)
+gap> des := PqDescendants( 8 : OrderBound := 6, ClassBound := 5 );;
 gap> Length(des);
 83
 gap> List(des, Size);
@@ -576,8 +577,8 @@ gap> F := FreeGroup( 2, "g" );;
 gap> G := PcGroupFpGroup( F / [ F.1^3, F.2^3, Comm(F.1, F.2) ] );
 <pc group of size 9 with 2 generators>
 gap> PqStart(G); #This will now be the 5th interactive process running
-5
-gap> des := PqDescendants( 5 : OrderBound := 3, ClassBound := 2,
+9
+gap> des := PqDescendants( 9 : OrderBound := 3, ClassBound := 2,
 >                              CapableDescendants );
 [ <pc group of size 27 with 3 generators>, 
   <pc group of size 27 with 3 generators> ]
@@ -600,9 +601,9 @@ gap> F := FreeGroup( 2, "g" );;
 gap> G := PcGroupFpGroup( F / [ F.1^5, F.2^5, Comm(F.2, F.1) ] );
 <pc group of size 25 with 2 generators>
 gap> PqStart(G); #This will now be the 6th interactive process running
-6
-gap> des := PqDescendants( 6 : Metabelian, ClassBound := 3,
->                              Exponent := 5, CapableDescendants );
+10
+gap> des := PqDescendants( 10 : Metabelian, ClassBound := 3,
+>                               Exponent := 5, CapableDescendants );
 [ <pc group of size 125 with 3 generators>, 
   <pc group of size 625 with 4 generators>, 
   <pc group of size 3125 with 5 generators> ]
@@ -635,7 +636,7 @@ four group).
 gap> F := FreeGroup( "a", "b" );
 <free group on the generators [ a, b ]>
 gap> procId := PqStart( F : Prime := 2 );
-7
+12
 gap> Pq( procId : ClassBound := 1 );
 <pc group of size 4 with 2 generators>
 gap> PqSetPQuotientToGroup( procId );
@@ -643,14 +644,16 @@ gap> des := PqDescendants( procId : OrderBound := 6, ClassBound := 5 );;
 gap> Length(des);
 83
 gap> List(des, Size);
-[ 8, 8, 8, 16, 16, 16, 32, 16, 16, 16, 16, 16, 32, 32, 64, 64, 32, 32, 32, 32, 32, 32, 32, 
-  64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 32, 32, 32, 32, 64, 64, 64, 64, 64, 64, 64, 
-  64, 64, 64, 64, 32, 32, 32, 32, 32, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 
-  64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64 ]
+[ 8, 8, 8, 16, 16, 16, 32, 16, 16, 16, 16, 16, 32, 32, 64, 64, 32, 32, 32, 
+  32, 32, 32, 32, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 32, 32, 32, 32, 
+  64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 32, 32, 32, 32, 32, 64, 64, 64, 
+  64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 
+  64, 64, 64, 64, 64, 64, 64 ]
 gap> List(des, d -> Length( PCentralSeries( d, 2 ) ) - 1 );
-[ 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 
-  3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 
-  4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5 ]
+[ 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 
+  3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 
+  4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 
+  4, 4, 4, 5, 5, 5, 5, 5 ]
 \endexample
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -769,31 +772,59 @@ program to set the output level of the `pq' program to <lev>.
 performs menu item 5 of the main (or advanced) $p$-Quotient menu, or  the
 Standard Presentation menu.
 
+\>PqEvaluateIdentities( <i> [: Identities := <funcs> ]) F
+\>PqEvaluateIdentities([: Identities := <funcs> ]) F
+
+for the  <i>th  or  default  interactive  {\ANUPQ}  process,  invoke  the
+evaluation  of  identities  defined  by  the  `Identities'  option,   and
+eliminate any redundant pc generators formed. Since a previous  value  of
+`Identities'  is  saved  in  the  data  record  of  the  process,  it  is
+unnecessary to pass the `Identities' if set previously.
+
+*Note:* This function is mainly implemented at the {\GAP} level. It  does
+not correspond to a menu item of the `pq' program.
+
+\goodbreak%
 *Commands from the Main $p$-Quotient menu*
 
 \>PqPcPresentation( <i> : <options> ) F
 \>PqPcPresentation( : <options> ) F
 
 for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
-program to compute the pc presentation  of  the  quotient  (determined  by
+program to compute the pc presentation of  the  quotient  (determined  by
 <options>) of the group of the process, which for process <i>  is  stored
 as `ANUPQData.io[<i>].group'.
 
 The  possible  <options>  are  the  same  as  for  the  interactive  `Pq'
 (see~"Pq!interactive")   function,   namely:    `Prime',    `ClassBound',
-`Exponent', `Relators', `GroupName', `Metabelian' and `OutputLevel'  (see
-Chapter~"ANUPQ options" for a detailed description  for  these  options).
-The option `Prime' is required  unless  already  provided  to  `PqStart'.
-Also, option `ClassBound' *must* be supplied.
+`Exponent',  `Relators',  `GroupName',  `Metabelian',  `Identities'   and
+`OutputLevel' (see Chapter~"ANUPQ options" for a detailed description for
+these options). The option `Prime' is required unless already provided to
+`PqStart'.
 
 *Notes* 
 
-The pc presentation is held by the `pq' program. There is no output  of  a
+The pc presentation is held by the `pq' program. There is no output of  a
 {\GAP} pc group; see~`PqCurrentGroup' ("PqCurrentGroup") if you need  the
 corresponding {\GAP} pc group.
 
-For those familiar with the `pq' program, `PqPcPresentation' performs menu
-item 1 of the main $p$-Quotient menu.
+`PqPcPresentation(<i>:  <options>);'  is  roughly   equivalent   to   the
+following sequence of low-level commands:
+
+\){\kernttindent}PqPcPresentation(<i>: <opts>); \#class 1 call
+\){\kernttindent}for c in [2 .. <class>] do
+\){\kernttindent}{\quad}PqNextClass(<i>);
+\){\kernttindent}od;
+
+where <opts> is <options> except with the `ClassBound' option set  to  1,
+and <class> is either the maximum class of a <p>-quotient of the group of
+the process  or  the  user-supplied  value  of  the  option  `ClassBound'
+(whichever is smaller). If the `Identities' option has been set, both the
+first `PqPcPresentation' class 1 call and the `PqNextClass' calls  invoke
+`PqEvaluateIdentities(<i>);' as their final step.
+
+For those familiar with the  `pq'  program,  `PqPcPresentation'  performs
+menu item 1 of the main $p$-Quotient menu.
 
 \>PqSavePcPresentation( <i>, <filename> ) F
 \>PqSavePcPresentation( <filename> ) F
@@ -837,13 +868,14 @@ none is supplied via the option `QueueFactor' a default of 15 is taken.
 
 The single command: `PqNextClass(<i>);' is equivalent to executing
 
-\){\kernttindent}PqSetupTablesForNextClass(<i>);
-\){\kernttindent}PqTails(<i>, 0);
-\){\kernttindent}PqDoConsistencyChecks(<i>, 0, 0);
-\){\kernttindent}PqEliminateRedundantGenerators(<i>);
+\){\kernttindent}PqComputePCover(<i>);
 \){\kernttindent}PqCollectDefiningRelations(<i>);
 \){\kernttindent}PqDoExponentChecks(<i>);
 \){\kernttindent}PqEliminateRedundantGenerators(<i>);
+
+If the `Identities' option is set the `PqEliminateRedundantGenerators(<i>);'
+step is essentially replaced by `PqEvaluateIdentities(<i>);' (which invokes
+its own elimination of redundant generators).
 
 For those familiar with the `pq' program, `PqNextClass' performs menu item
 6 of the main $p$-Quotient menu.
