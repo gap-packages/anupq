@@ -68,4 +68,33 @@ InstallGlobalFunction("EvalString", function( expr )
   return ReadAsFunction( InputTextString( tmp ) )();
 end );
 
+#############################################################################
+##
+#M  IsMatchingSublist( <list>,<sub>[,<ind>] )
+##
+InstallMethod( IsMatchingSublist,"list,sub,pos",IsFamFamX,
+  [IsList,IsList,IS_INT], 0,
+function( list,sub,first )
+local last;
+
+  last:=first+Length(sub)-1;
+  return Length(list) >= last and list{[first..last]} = sub;
+end);
+
+# no installation restrictions to avoid extra installations for empty list
+InstallOtherMethod( IsMatchingSublist,"list, sub",true,
+  [IsObject,IsObject], 0,
+function( list,sub )
+  return IsMatchingSublist(list,sub,1);
+end);
+
+InstallOtherMethod( IsMatchingSublist,"empty list,sub,pos",true,
+  [IsEmpty,IsList,IS_INT], 0,
+function(list,sub,first )
+  return not IsEmpty(sub);
+end);
+
+InstallOtherMethod( IsMatchingSublist,"list,empty,pos",true,
+  [IsList,IsEmpty,IS_INT], 0, ReturnTrue);
+
 #E  anupq4r2cpt.gi  . . . . . . . . . . . . . . . . . . . . . . . . ends here 

@@ -70,4 +70,16 @@ DeclareGlobalFunction( "ResetOptionsStack");
 ##
 DeclareGlobalFunction( "EvalString" );
 
+#############################################################################
+##
+#O  IsMatchingSublist( <list>, <sub> )
+#O  IsMatchingSublist( <list>, <sub>, <at> )
+##
+##  returns `true' if <sub> matches a sublist of <list> from position  1  (or
+##  position <at>, in the case of the second version), or `false', otherwise.
+##  If <sub> is empty `true' is returned. If <list> is  empty  but  <sub>  is
+##  non-empty `false' is returned.
+##
+DeclareOperation( "IsMatchingSublist", [ IsList, IsList, IS_INT ] );
+
 #E  anupq4r2cpt.gd  . . . . . . . . . . . . . . . . . . . . . . . . ends here 

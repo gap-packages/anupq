@@ -21,6 +21,18 @@ DeclareGlobalFunction( "PQ_AUT_INPUT" );
 
 #############################################################################
 ##
+#F  PQ_MANUAL_AUT_INPUT(<datarec>,<mlist>) . automorphism input w/o an Aut gp
+##
+DeclareGlobalFunction( "PQ_MANUAL_AUT_INPUT" );
+
+#############################################################################
+##
+#F  PQ_AUT_ARG_CHK(<datarec>, <mlist>) .  checks a matrix list look like auts
+##
+DeclareGlobalFunction( "PQ_AUT_ARG_CHK" );
+
+#############################################################################
+##
 #F  PQ_PC_PRESENTATION( <datarec>, <menu> ) . . . . . .  p-Q/SP menu option 1
 ##
 DeclareGlobalFunction( "PQ_PC_PRESENTATION" );
@@ -37,6 +49,18 @@ DeclareGlobalFunction( "PqPcPresentation" );
 #F  PQ_SAVE_PC_PRESENTATION( <datarec>, <filename> ) . . .  p-Q menu option 2
 ##
 DeclareGlobalFunction( "PQ_SAVE_PC_PRESENTATION" );
+
+#############################################################################
+##
+#F  PQ_PATH_CURRENT_DIRECTORY() . . . . . . . . . .  essentially the UNIX pwd
+##
+DeclareGlobalFunction( "PQ_PATH_CURRENT_DIRECTORY" );
+
+#############################################################################
+##
+#F  PQ_CHK_PATH(<filename>, <rw>) . add curr dir path if nec. & check file ok
+##
+DeclareGlobalFunction( "PQ_CHK_PATH" );
 
 #############################################################################
 ##
@@ -469,20 +493,14 @@ DeclareGlobalFunction( "PqCommutatorDefiningGenerators" );
 
 #############################################################################
 ##
-#F  PQ_PATH_CURRENT_DIRECTORY() . . . . . . . . . .  essentially the UNIX pwd
-##
-DeclareGlobalFunction( "PQ_PATH_CURRENT_DIRECTORY" );
-
-#############################################################################
-##
-#F  PQ_WRITE_PC_PRESENTATION( <datarec> : <options> ) .  A p-Q menu option 25
+#F  PQ_WRITE_PC_PRESENTATION( <datarec>, <filename> ) .  A p-Q menu option 25
 ##
 DeclareGlobalFunction( "PQ_WRITE_PC_PRESENTATION" );
 
 #############################################################################
 ##
-#F  PqWritePcPresentation( <i> : <options> ) . user ver. of A p-Q menu op. 25
-#F  PqWritePcPresentation( )
+#F  PqWritePcPresentation( <i>, <filename> ) . user ver. of A p-Q menu opt 25
+#F  PqWritePcPresentation( <filename> )
 ##
 DeclareGlobalFunction( "PqWritePcPresentation" );
 
@@ -560,27 +578,27 @@ DeclareGlobalFunction( "PqSPPcPresentation" );
 
 #############################################################################
 ##
-#F  PQ_SP_STANDARD_PRESENTATION( <datarec> : <options> ) . . SP menu option 2
+#F  PQ_SP_STANDARD_PRESENTATION(<datarec>[,<mlist>] :<options>) SP menu opt 2
 ##
 DeclareGlobalFunction( "PQ_SP_STANDARD_PRESENTATION" );
 
 #############################################################################
 ##
-#F  PqSPStandardPresentation( <i> : <options> ) . user ver. of SP menu opt. 2
-#F  PqSPStandardPresentation( : <options> )
+#F  PqSPStandardPresentation(<i>[,<mlist>]:<options>)  user ver SP menu opt 2
+#F  PqSPStandardPresentation([<mlist>] : <options> )
 ##
 DeclareGlobalFunction( "PqSPStandardPresentation" );
 
 #############################################################################
 ##
-#F PQ_SP_SAVE_PRESENTATION( <datarec> ) . . . . . . . . . .  SP menu option 3
+#F  PQ_SP_SAVE_PRESENTATION( <datarec>, <filename> ) . . . . SP menu option 3
 ##
 DeclareGlobalFunction( "PQ_SP_SAVE_PRESENTATION" );
 
 #############################################################################
 ##
-#F PqSPSavePresentation( <i> ) . . . . . . . user version of SP menu option 3
-#F PqSPSavePresentation()
+#F  PqSPSavePresentation( <i>, <filename> ) . .  user ver of SP menu option 3
+#F  PqSPSavePresentation( <filename> )
 ##
 DeclareGlobalFunction( "PqSPSavePresentation" );
 
@@ -600,14 +618,14 @@ DeclareGlobalFunction( "PqSPSetPrintLevel" );
 
 #############################################################################
 ##
-#F PQ_SP_COMPARE_TWO_FILE_PRESENTATIONS( <datarec> ) . . . . SP menu option 6
+#F  PQ_SP_COMPARE_TWO_FILE_PRESENTATIONS(<datarec>,<f1>,<f2>) . SP menu opt 6
 ##
 DeclareGlobalFunction( "PQ_SP_COMPARE_TWO_FILE_PRESENTATIONS" );
 
 #############################################################################
 ##
-#F PqSPCompareTwoFilePresentations( <i> ) .  user version of SP menu option 6
-#F PqSPCompareTwoFilePresentations()
+#F  PqSPCompareTwoFilePresentations(<i>,<f1>,<f2>)  user ver of SP menu opt 6
+#F  PqSPCompareTwoFilePresentations(<f1>,<f2>)
 ##
 DeclareGlobalFunction( "PqSPCompareTwoFilePresentations" );
 

@@ -22,16 +22,17 @@ Revision.anupqi_gi :=
 ##  $p$-Group Generation menu and option 2 of the Standard Presentation menu).
 ##
 InstallGlobalFunction( PQ_AUT_INPUT, function( datarec, G )
-local rank, automorphisms, gens, i, j, aut, g, exponents;
+local autGrp, rank, automorphisms, gens, i, j, aut, g, exponents;
+  autGrp := AutomorphismGroup(G); # GAP better be able to provide this
   if VALUE_PQ_OPTION("PcgsAutomorphisms", false, datarec) then
-    automorphisms := Pcgs( AutomorphismGroup(G) );
+    automorphisms := Pcgs( autGrp );
     if automorphisms = fail then
       Error( "option \"PcgsAutomorphisms\" used with insoluble",
              "automorphism group\n" );
     fi;
     automorphisms := Reversed( automorphisms );
   else
-    automorphisms := GeneratorsOfGroup( AutomorphismGroup( G ) );
+    automorphisms := GeneratorsOfGroup( autGrp );
   fi;
 
   rank := RankPGroup( G );
@@ -47,6 +48,63 @@ local rank, automorphisms, gens, i, j, aut, g, exponents;
            [ exponents, " #gen'r exp'ts of im(aut ", i, ", gen ", j, ")" ]);
     od;
   od;
+end );
+
+#############################################################################
+##
+#F  PQ_MANUAL_AUT_INPUT(<datarec>,<mlist>) . automorphism input w/o an Aut gp
+##
+##  inputs automorphism data for `<datarec>.group' given by  <mlist>  to  the
+##  `pq' binary.
+##
+InstallGlobalFunction( PQ_MANUAL_AUT_INPUT, function( datarec, mlist )
+local line, nauts, rank, nexpts, i, j, aut, exponents;
+  nauts  := Length(mlist);
+  rank   := Length(mlist[1]);
+  ToPQk(datarec, [ nauts,  "  #no. of auts" ]);
+  line := FLUSH_PQ_STREAM_UNTIL( datarec.stream, 2, 2, PQ_READ_NEXT_LINE,
+                                 IS_PQ_PROMPT );
+  if line = "Input the number of exponents: " then
+    nexpts := Length(mlist[1][1]);
+    ToPQ(datarec, [ nexpts, "  #no. of exponents" ]);
+  fi;
+  for i in [1..nauts] do
+    aut := mlist[i];
+    for j in [1..rank] do
+      exponents := Flat( List( aut[j], e -> [ String(e), " "] ) );
+      ToPQ(datarec, 
+           [ exponents, " #gen'r exp'ts of im(aut ", i, ", gen ", j, ")" ]);
+    od;
+  od;
+end );
+
+#############################################################################
+##
+#F  PQ_AUT_ARG_CHK(<datarec>, <mlist>) .  checks a matrix list look like auts
+##
+##  checks as much as is possible that a list of matrices will be valid input
+##  as automorphisms for the `pq' binary.
+##
+InstallGlobalFunction( PQ_AUT_ARG_CHK, function( datarec, mlist )
+local rank, nexpts;
+  if not( IsList(mlist) and ForAll(mlist, IsMatrix) and
+          ForAll(Flat(mlist), i -> IsInt(i) and i >= 0) ) then
+    Error("<mlist> must be a list of matrices with ",
+          "non-negative integer coefficients\n");
+  fi;
+  if IsBound( datarec.pQuotient ) then
+    rank := RankPGroup( datarec.pQuotient );
+  else
+    rank := Length(mlist[1]); # Should we allow this?
+  fi;
+  if not ForAll(mlist, mat -> Length(mat) = rank) then
+    Error("no. of rows in each matrix of <mlist> must be the rank of ",
+          "p-quotient (", rank, ")\n");
+  fi;
+  nexpts := Length(mlist[1][1]);
+  if not ForAll(mlist, mat -> Length(mat[1]) = nexpts) then
+    Error("each matrix of <mlist> must have the same no. of columns\n");
+  fi;
 end );
 
 #############################################################################
@@ -152,6 +210,11 @@ end );
 ##  as first argument when `PqStart' was called to initiate that process (for
 ##  process <i> the group is stored as `ANUPQData.io[<i>].group').
 ##
+##  The   possible   <options>   are   `Prime',   `ClassBound',   `Exponent',
+##  `Metabelian' and `OutputLevel', which are as described for  the  function
+##  `Pq' (see~"Pq"). The option `Prime' is required unless  already  provided
+##  to `PqStart'. Also, option `ClassBound' *must* be supplied.
+##
 ##  *Note:* For those  familiar  with  the  `pq'  binary,  `PqPcPresentation'
 ##  performs option 1 of the main $p$-Quotient menu.
 ##
@@ -178,13 +241,68 @@ end );
 
 #############################################################################
 ##
+#F  PQ_PATH_CURRENT_DIRECTORY() . . . . . . . . . .  essentially the UNIX pwd
+##
+##  returns a string that is the path of the current directory.
+##
+InstallGlobalFunction( PQ_PATH_CURRENT_DIRECTORY, function()
+local path, stream;
+  path := "";
+  stream := OutputTextString(path, true);
+  if 0 = Process( DirectoryCurrent(), 
+                  Filename(DirectoriesSystemPrograms(), "pwd"),
+                  InputTextNone(), 
+                  stream,
+                  [] ) then
+    CloseStream(stream);
+    return Chomp(path);
+  fi;
+  Error("could not determine the path of the current directory!?!\n");
+end );
+
+#############################################################################
+##
+#F  PQ_CHK_PATH(<filename>, <rw>) . add curr dir path if nec. & check file ok
+##
+##  checks <filename> is a non-empty string, if it doesn't begin with  a  `/'
+##  prepends a path for the current directory, and checks the result  is  the
+##  name of a readable (resp. writable) if <rw> is `"r"' (resp.  if  <rw>  is
+##  `"w"') and if there is no error returns the result.
+##
+InstallGlobalFunction( PQ_CHK_PATH, function( filename, rw )
+  if not IsString(filename) or filename = "" then
+    Error( "argument <filename> must be a non-empty string\n" );
+  fi;
+  if filename[1] <> "/" then
+    # we need to do this as pq executes in ANUPQData.tmpdir
+    filename := Concatenation(PQ_PATH_CURRENT_DIRECTORY(), "/", filename);
+  fi;
+  if rw = "r" then
+    if IsReadableFile(filename) <> true then
+      Error( "file with name <filename> is not readable\n" );
+    fi;
+  else # rw = "w"
+    PrintTo(filename, ""); # This is what will generate the error
+                           # but it also ensures it's empty
+    if IsWritableFile(filename) <> true then
+      Error( "file with name <filename> cannot be written to\n" );
+    fi;
+  fi;
+  return filename;
+end );
+
+#############################################################################
+##
 #F  PqSavePcPresentation( <i>, <filename> ) . .  user ver. of p-Q menu opt. 2
 #F  PqSavePcPresentation( <filename> )
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
 ##  binary to save the pc presentation previously computed for the  group  of
-##  that process, where the group of a process is  the  one  given  as  first
-##  argument when `PqStart' was called to initiate that process.
+##  that process to the file with name  <filename>,  where  the  group  of  a
+##  process is the one given as first argument when `PqStart' was  called  to
+##  initiate that process. If the first character of the string <filename> is
+##  not `/' <filename> is assumed to be the path of a writable file  relative
+##  to the directory in which {\GAP} was started.
 ##
 ##  *Note:* For those familiar with the `pq'  binary,  `PqSavePcPresentation'
 ##  performs option 2 of the main $p$-Quotient menu.
@@ -194,10 +312,7 @@ local datarec, filename;
   if 0 = Length(arg) or Length(arg) > 2 then
     Error( "expected 1 or 2 arguments\n" );
   fi;
-  filename := arg[Length(arg)];
-  if not IsString( filename ) then
-    Error( "argument <filename> must be a string\n" );
-  fi;
+  filename := PQ_CHK_PATH( arg[Length(arg)], "w" );
   arg := arg{[1..Length(arg) - 1]};
   ANUPQ_IOINDEX_ARG_CHK(arg);
   datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
@@ -226,7 +341,10 @@ end );
 ##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
 ##  binary to restore the pc presentation previously saved to <filename>  for
 ##  the group of that process, where the group of a process is the one  given
-##  as first argument when `PqStart' was called to initiate that process.
+##  as first argument when `PqStart' was called to initiate that process.  If
+##  the first character of the string <filename> is  not  `/'  <filename>  is
+##  assumed to be the path of a readable file relative to  the  directory  in
+##  which {\GAP} was started.
 ##
 ##  *Note:*
 ##  For  those  familiar  with  the  `pq'  binary,  `PqRestorePcPresentation'
@@ -237,10 +355,7 @@ local datarec, filename;
   if 0 = Length(arg) or Length(arg) > 2 then
     Error( "expected 1 or 2 arguments\n" );
   fi;
-  filename := arg[Length(arg)];
-  if not IsString( filename ) then
-    Error( "argument <filename> must be a string\n" );
-  fi;
+  filename := PQ_CHK_PATH( arg[Length(arg)], "r" );
   arg := arg{[1..Length(arg) - 1]};
   ANUPQ_IOINDEX_ARG_CHK(arg);
   datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
@@ -303,8 +418,7 @@ local lev, line;
   fi;
   ToPQk(datarec, [ "4  #display presentation" ]);
   line := FLUSH_PQ_STREAM_UNTIL( datarec.stream, 2, 2, PQ_READ_NEXT_LINE,
-                                 line -> 5 < Length(line) and 
-                                         line{[1..6]} = "Group:");
+                                 line -> IsMatchingSublist( line, "Group:" ) );
   line := SplitString(line, "", ": ");
   datarec.pQ.currGrp := rec( name := line[2], 
                              class := Int( line[8] ),
@@ -1215,27 +1329,14 @@ end );
 ##  otherwise, previously supplied automorphisms are ``extended''.
 ##
 InstallGlobalFunction( PQ_SUPPLY_OR_EXTEND_AUTOMORPHISMS, function( arg )
-local datarec, mlist, rank, nauts, nexpts, i, j, aut, exponents;
+local datarec;
   datarec := arg[1];
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
   if 1 = Length(arg) then
     ToPQ(datarec, [ "18  #extend auts" ]);
   else
     ToPQ(datarec, [ "18  #supply auts" ]);
-    mlist := arg[2];
-    rank  := RankPGroup( datarec.pQuotient );
-    nauts := Length(mlist);
-    nexpts := Length(mlist[1][1]);
-    ToPQ(datarec, [ nauts,  "  #no. of auts" ]);
-    ToPQ(datarec, [ nexpts, "  #no. of exponents" ]);
-    for i in [1..nauts] do
-      aut := mlist[i];
-      for j in [1..rank] do
-        exponents := Flat( List( aut[j], e -> [ String(e), " "] ) );
-        ToPQ(datarec, 
-             [ exponents, " #gen'r exp'ts of im(aut ", i, ", gen ", j, ")" ]);
-      od;
-    od;
+    CallFuncList(PQ_MANUAL_AUT_INPUT, arg);
   fi;
   datarec.hasAuts := true;
 end );
@@ -1257,7 +1358,7 @@ end );
 ##  option 18 of the Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqSupplyAutomorphisms, function( arg )
-local datarec, mlist, rank, nauts, nexpts;
+local datarec, mlist;
   if IsEmpty(arg) or 2 < Length(arg) then
     Error("expected 1 or 2 arguments\n");
   fi;
@@ -1269,21 +1370,8 @@ local datarec, mlist, rank, nauts, nexpts;
     Error("huh! already have automorphisms.\n",
           "Perhaps you wanted to use `PqExtendAutomorphisms'\n");
   fi;
-  if not( IsList(mlist) and ForAll(mlist, IsMatrix) and
-          ForAll(Flat(mlist), i -> IsInt(i) and i >= 0) ) then
-    Error("<mlist> must be a list of matrices with ",
-          "non-negative integer coefficients\n");
-  fi;
-  rank := RankPGroup( datarec.pQuotient );
-  if not ForAll(mlist, mat -> Length(mat) = rank) then
-    Error("no. of rows in each matrix of <mlist> must be the rank of ",
-          "p-quotient (", rank, ")\n");
-  fi;
-  nexpts := Length(mlist[1][1]);
-  if not ForAll(mlist, mat -> Length(mat[1]) = nexpts) then
-    Error("each matrix of <mlist> must have the same no. of columns\n");
-  fi;
-  PQ_SUPPLY_OR_EXTEND_AUTOMORPHISMS( datarec, mlist, rank );
+  PQ_AUT_ARG_CHK(datarec, mlist);
+  PQ_SUPPLY_OR_EXTEND_AUTOMORPHISMS(datarec, mlist);
 end );
 
 #############################################################################
@@ -1495,73 +1583,45 @@ end );
 
 #############################################################################
 ##
-#F  PQ_PATH_CURRENT_DIRECTORY() . . . . . . . . . .  essentially the UNIX pwd
+#F  PQ_WRITE_PC_PRESENTATION( <datarec>, <filename> ) .  A p-Q menu option 25
 ##
-##  returns a string that is the path of the current directory.
+##  tells the `pq' binary to write a pc presentation to the  file  with  name
+##  <filename> for group `<datarec>.group'  (option  25  of  the  interactive
+##  $p$-Quotient menu).
 ##
-InstallGlobalFunction( PQ_PATH_CURRENT_DIRECTORY, function()
-local path, stream;
-  path := "";
-  stream := OutputTextString(path, true);
-  if 0 = Process( DirectoryCurrent(), 
-                  Filename(DirectoriesSystemPrograms(), "pwd"),
-                  InputTextNone(), 
-                  stream,
-                  [] ) then
-    CloseStream(stream);
-    return Chomp(path);
-  fi;
-  Error("could not determine the path of the current directory!?!\n");
-end );
-
-#############################################################################
-##
-#F  PQ_WRITE_PC_PRESENTATION( <datarec>, <outfile> ) . . A p-Q menu option 25
-##
-##  tells the `pq' binary to write a pc presentation to <outfile>  for  group
-##  `<datarec>.group' (option 25 of the interactive $p$-Quotient menu).
-##
-InstallGlobalFunction( PQ_WRITE_PC_PRESENTATION, function( datarec, outfile )
-  PrintTo(outfile, ""); #to ensure it's empty and to be sure we can write to it
+InstallGlobalFunction( PQ_WRITE_PC_PRESENTATION, function( datarec, filename )
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
   ToPQ(datarec, [ "25 #set output file" ]);
-  ToPQ(datarec, [ outfile ]);
+  ToPQ(datarec, [ filename ]);
   ToPQ(datarec, [ "2  #output in GAP format" ]);
 end );
 
 #############################################################################
 ##
-#F  PqWritePcPresentation( <i>, <outfile> ) .  user ver. of A p-Q menu op. 25
-#F  PqWritePcPresentation( <outfile> )
+#F  PqWritePcPresentation( <i>, <filename> ) . user ver. of A p-Q menu opt 25
+#F  PqWritePcPresentation( <filename> )
 ##
 ##  for the <i>th or default interactive {\ANUPQ}  process,  tells  the  `pq'
-##  binary to write a pc presentation to <outfile>  for  the  group  of  that
-##  process for which a pc presentation has been previously  computed,  where
-##  the group of a process is the one given as first argument when  `PqStart'
-##  was called to initiate that process (for process <i> the group is  stored
-##  as `ANUPQData.io[<i>].group'). If  the  first  character  of  the  string
-##  <outfile> is not `/' <outfile> is assumed to be the path  of  a  writable
-##  file relative to the directory in which  {\GAP}  was  started.  If  a  pc
-##  presentation has not been previously computed by the  `pq'  binary,  then
-##  `pq'   is   called   to   compute   it   first,   effectively    invoking
+##  binary to write a pc presentation to the file with  name  <filename>  for
+##  the group of that process for which a pc presentation has been previously
+##  computed, where the group of a process is the one given as first argument
+##  when `PqStart' was called to initiate that process (for process  <i>  the
+##  group is stored as `ANUPQData.io[<i>].group'). If the first character  of
+##  the string <filename> is not `/' <filename> is assumed to be the path  of
+##  a writable file relative to the directory in which {\GAP} was started. If
+##  a pc presentation has not been previously computed by  the  `pq'  binary,
+##  then  `pq'  is  called  to  compute  it   first,   effectively   invoking
 ##  `PqPcPresentation' (see~"PqPcPresentation").
 ##
 ##  *Note:* For those familiar with the `pq' binary,  `PqPcWritePresentation'
 ##  performs option 25 of the Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqWritePcPresentation, function( arg )
-local outfile, datarec;
+local filename, datarec;
   if 2 < Length(arg) or IsEmpty(arg) then
     Error("expected one or two arguments.\n");
   fi;
-  outfile := arg[ Length(arg) ];
-  if not IsString(outfile) or outfile = "" then
-    Error("last argument must be a non-empty string (filename).\n");
-  fi;
-  if outfile[1] <> "/" then
-    # we need to do this as pq executes in ANUPQData.tmpdir
-    outfile := Concatenation(PQ_PATH_CURRENT_DIRECTORY(), "/", outfile);
-  fi;
+  filename := PQ_CHK_PATH( arg[Length(arg)], "w" );
   Unbind( arg[ Length(arg) ] );
   ANUPQ_IOINDEX_ARG_CHK(arg);
   datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
@@ -1570,7 +1630,7 @@ local outfile, datarec;
     Info(InfoANUPQ, 1, "... remedying that now.");
     PQ_PC_PRESENTATION( datarec, "pQ" );
   fi;
-  PQ_WRITE_PC_PRESENTATION( datarec, outfile );
+  PQ_WRITE_PC_PRESENTATION( datarec, filename );
 end );
 
 #############################################################################
@@ -1736,6 +1796,11 @@ end );
 ##  as first argument when `PqStart' was called to initiate that process (for
 ##  process <i> the group is stored as `ANUPQData.io[<i>].group').
 ##
+##  The   possible   <options>   are   `Prime',   `ClassBound',   `Exponent',
+##  `Metabelian' and `OutputLevel', which are as described for  the  function
+##  `Pq' (see~"Pq"). The option `Prime' is required unless  already  provided
+##  to `PqStart'. Also, option `ClassBound' *must* be supplied.
+##
 ##  *Note:* For those familiar with  the  `pq'  binary,  `PqSPPcPresentation'
 ##  performs option 1 of the Standard Presentation menu.
 ##
@@ -1748,83 +1813,150 @@ end );
 
 #############################################################################
 ##
-#F  PQ_SP_STANDARD_PRESENTATION( <datarec> : <options> ) . . SP menu option 2
+#F  PQ_SP_STANDARD_PRESENTATION(<datarec>[,<mlist>] :<options>) SP menu opt 2
 ##
 ##  inputs data given by <options> to the `pq' binary to compute  a  standard
-##  presentation  for  group  `<datarec>.group'  using  `<datarec>.pQuotient'
-##  which must have been  previously  computed  and  option  2  of  the  main
-##  Standard Presentation menu.
+##  presentation for group `<datarec>.group'. If argument <mlist> is given it
+##  is assumed to be the automorphism group data required.  Otherwise  it  is
+##  assumed that `<datarec>.pQuotient' exists and that {\GAP} can compute its
+##  automorphism group and the  necessary  automorphism  group  data  can  be
+##  derived from `<datarec>.pQuotient'. This uses option 2  of  the  Standard
+##  Presentation menu.
 ##
-InstallGlobalFunction( PQ_SP_STANDARD_PRESENTATION, function( datarec )
-local savefile;
+InstallGlobalFunction( PQ_SP_STANDARD_PRESENTATION, function( arg )
+local datarec, savefile;
+  datarec := arg[1];
+  savefile := PQ_CHK_PATH( 
+                  VALUE_PQ_OPTION( "StandardPresentationFile",
+                                   Filename( ANUPQData.tmpdir, "SPres" ) ),
+                  "w");
   PQ_MENU(datarec, "SP");
-
   ToPQ(datarec, [ "2  #compute standard presentation" ]);
-  savefile := VALUE_PQ_OPTION("StandardPresentationFile",
-                              Filename( ANUPQData.tmpdir, "SPres" ));
   ToPQ(datarec, [ savefile, "  #file for saving pres'n" ]);
   ToPQ(datarec, [ VALUE_PQ_OPTION("ClassBound", 63), "  #class bound" ]);
 
-  PQ_AUT_INPUT( datarec, datarec.pQuotient );
-  ToPQ(datarec, [ PQ_BOOL(datarec.PcgsAutomorphisms), 
-                  "compute pcgs gen. seq. for auts." ]);
+  if 1 = Length(arg) then
+    PQ_AUT_INPUT( datarec, datarec.pQuotient );
+  else
+    PQ_MANUAL_AUT_INPUT( datarec, arg[2] );
+  fi;
+  ToPQ(datarec, 
+       [ PQ_BOOL( VALUE_PQ_OPTION("PcgsAutomorphisms", false, datarec) ), 
+         "compute pcgs gen. seq. for auts." ]);
 end );
 
 #############################################################################
 ##
-#F  PqSPStandardPresentation( <i> : <options> ) . user ver. of SP menu opt. 2
-#F  PqSPStandardPresentation( : <options> )
+#F  PqSPStandardPresentation(<i>[,<mlist>]:<options>)  user ver SP menu opt 2
+#F  PqSPStandardPresentation([<mlist>] : <options> )
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, inputs data  given
 ##  by <options> to compute a standard presentation for  the  group  of  that
-##  process and a previously computed $p$-quotient of the  group,  where  the
-##  group of a process is the one given as first argument when `PqStart'  was
-##  called to initiate that process (for process <i> the group is  stored  as
-##  `ANUPQData.io[<i>].group'   and   the   $p$-quotient   is    stored    as
-##  `ANUPQData.io[<i>].pQuotient'). If a $p$-quotient of the  group  has  not
-##  been previously computed a class 1 $p$-quotient is computed.
+##  process.  If  argument  <mlist>  is  given  it  is  assumed  to  be   the
+##  automorphism group data required. Otherwise it is assumed that a call  to
+##  either      `Pq'      (see~"Pq!interactive")      or      `PqEpimorphism'
+##  (see~"PqEpimorphism!interactive") has generated a $p$-quotient  and  that
+##  {\GAP} can compute  its  automorphism  group  from  which  the  necessary
+##  automorphism group data can be derived. The group of the process  is  the
+##  one given as first argument when `PqStart' was  called  to  initiate  the
+##  process (for process <i> the group is stored as `ANUPQData.io[<i>].group'
+##  and     the     $p$-quotient     if     existent     is     stored     as
+##  `ANUPQData.io[<i>].pQuotient').  If  <mlist>   is   not   given   and   a
+##  $p$-quotient of the group has not been  previously  computed  a  class  1
+##  $p$-quotient is computed.
+##
+##  `PqSPStandardPresentation' accepts three options, all optional:
+##  
+##  \beginitems
+##  
+##  `StandardPresentationFile := <filename>'&
+##  Specifies that the file to which the standard presentation is written has
+##  name <filename>. If the first character of the string <filename>  is  not
+##  `/', <filename> is assumed to be the path of a writable file relative  to
+##  the directory in which {\GAP} was started. If this option is  omitted  it
+##  is written to the file with the name generated by the command  `Filename(
+##  ANUPQData.tmpdir, "SPres" );', i.e.~the file with name  `"SPres"' in  the
+##  temporary directory in which the `pq' binary executes.
+##  
+##  `ClassBound := <n>' &
+##  Specifies that the $p$-quotient computed has lower exponent-$p$ class  at
+##  most <n>. If this option is omitted a default of 63 is used.
+##  
+##  `PcgsAutomorphisms' &
+##  Specifies that a polycyclic  generating  sequence  for  the  automorphism
+##  group of the group of the process (which must be *soluble*), be  computed
+##  and passed to the `pq' binary.  This  increases  the  efficiency  of  the
+##  computation;  it  also  prevents  the  `pq'  from  calling   {\GAP}   for
+##  orbit-stabilizer calculations. See section "Computing  Descendants  of  a
+##  p-Group" for further explanations.
+##  
+##  \enditems
 ##
 ##  *Note:* For those familiar with  the  `pq'  binary,  `PqSPPcPresentation'
 ##  performs option 2 of the Standard Presentation menu.
 ##
 InstallGlobalFunction( PqSPStandardPresentation, function( arg )
-local ioIndex, datarec;
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  ioIndex := ANUPQ_IOINDEX(arg);
-  datarec := ANUPQData.io[ ioIndex ];
-  if not IsBound(datarec.pQuotient) then
-    PQ_EPIMORPHISM(ioIndex);
+local ioIndex, datarec, mlist;
+  if 2 < Length(arg) then
+    Error("expected at most 2 arguments\n");
   fi;
-  PQ_SP_STANDARD_PRESENTATION( datarec );
-end );
-
-#############################################################################
-##
-#F  PQ_SP_SAVE_PRESENTATION( <datarec> ) . . . . . . . . . . SP menu option 3
-##
-##  inputs data to the `pq' binary for option 3 of the
-##  Standard Presentation menu.
-##
-InstallGlobalFunction( PQ_SP_SAVE_PRESENTATION, function( datarec )
-end );
-
-#############################################################################
-##
-#F  PqSPSavePresentation( <i> ) . . . . . .  user version of SP menu option 3
-#F  PqSPSavePresentation()
-##
-##  for the <i>th or default interactive {\ANUPQ} process, inputs data
-##  to the `pq' binary
-##
-##  *Note:* For those  familiar  with  the  `pq'  binary, 
-##  `PqSPSavePresentation' performs option 3 of the
-##  Standard Presentation menu.
-##
-InstallGlobalFunction( PqSPSavePresentation, function( arg )
-local datarec;
+  if not IsEmpty(arg) and IsList(arg[ Length(arg) ]) then
+    mlist := arg[ Length(arg) ];
+    arg := arg{[1 .. Length(arg) - 1]};
+  fi;
   ANUPQ_IOINDEX_ARG_CHK(arg);
   datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  PQ_SP_SAVE_PRESENTATION( datarec );
+  if IsBound(mlist) then
+    PQ_AUT_ARG_CHK( datarec, mlist );
+    PQ_SP_STANDARD_PRESENTATION( datarec, mlist );
+  else
+    if not IsBound(datarec.pQuotient) then
+      PQ_EPIMORPHISM(ioIndex);
+    fi;
+    PQ_SP_STANDARD_PRESENTATION( datarec );
+  fi;
+end );
+
+#############################################################################
+##
+#F  PQ_SP_SAVE_PRESENTATION( <datarec>, <filename> ) . . . . SP menu option 3
+##
+##  directs the `pq' binary to  save  the  standard  presentation  previously
+##  computed for `<datarec>.group'  to  <filename>  using  option  3  of  the
+##  Standard Presentation menu.
+##
+InstallGlobalFunction( PQ_SP_SAVE_PRESENTATION, function( datarec, filename )
+  PQ_MENU(datarec, "SP");
+  ToPQ(datarec, [ "3  #save standard presentation to file" ]);
+  ToPQ(datarec, [ filename, "  #filename" ]);
+end );
+
+#############################################################################
+##
+#F  PqSPSavePresentation( <i>, <filename> ) . .  user ver of SP menu option 3
+#F  PqSPSavePresentation( <filename> )
+##
+##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+##  binary to save the standard  presentation  previously  computed  for  the
+##  group of that process to the file with name <filename>, where  the  group
+##  of a process is the one given as first argument when `PqStart' was called
+##  to initiate that process. If the first character of the string <filename>
+##  is not `/' <filename> is assumed to  be  the  path  of  a  writable  file
+##  relative to the directory in which {\GAP} was started.
+##
+##  *Note:* For those familiar with the `pq'  binary,  `PqSPSavePresentation'
+##  performs option 3 of the Standard Presentation menu.
+##
+InstallGlobalFunction( PqSPSavePresentation, function( arg )
+local datarec, filename;
+  if 0 = Length(arg) or Length(arg) > 2 then
+    Error( "expected 1 or 2 arguments\n" );
+  fi;
+  filename := PQ_CHK_PATH( arg[Length(arg)], "w" );
+  arg := arg{[1..Length(arg) - 1]};
+  ANUPQ_IOINDEX_ARG_CHK(arg);
+  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
+  PQ_SP_SAVE_PRESENTATION( datarec, filename );
 end );
 
 #############################################################################
@@ -1869,31 +2001,58 @@ end );
 
 #############################################################################
 ##
-#F  PQ_SP_COMPARE_TWO_FILE_PRESENTATIONS( <datarec> ) . . .  SP menu option 6
+#F  PQ_SP_COMPARE_TWO_FILE_PRESENTATIONS(<datarec>,<f1>,<f2>) . SP menu opt 6
 ##
-##  inputs data to the `pq' binary for option 6 of the
-##  Standard Presentation menu.
+##  inputs data to the `pq' binary for option 6 of the Standard  Presentation
+##  menu, to compare the presentations in the files with names <f1> and  <f2>
+##  and returns `true' if they are identical and `false' otherwise.
 ##
-InstallGlobalFunction( PQ_SP_COMPARE_TWO_FILE_PRESENTATIONS, function( datarec )
+InstallGlobalFunction( PQ_SP_COMPARE_TWO_FILE_PRESENTATIONS, 
+function( datarec, f1, f2 )
+local line;
+  PQ_MENU(datarec, "SP");
+  ToPQ( datarec, [ "6  #compare to file presentations" ]);
+  ToPQ( datarec, [ f1, "  #1st filename" ]);
+  ToPQk(datarec, [ f2, "  #2nd filename" ]);
+  line := FLUSH_PQ_STREAM_UNTIL( datarec.stream, 2, 2, PQ_READ_NEXT_LINE,
+                                 line -> IsMatchingSublist(line, "Identical") );
+  FLUSH_PQ_STREAM_UNTIL(datarec.stream, 2, 2, PQ_READ_NEXT_LINE, IS_PQ_PROMPT);
+  return EvalString( LowercaseString( SplitString(line, "", "? \n")[3] ) );
 end );
 
 #############################################################################
 ##
-#F  PqSPCompareTwoFilePresentations( <i> ) . user version of SP menu option 6
-#F  PqSPCompareTwoFilePresentations()
+#F  PqSPCompareTwoFilePresentations(<i>,<f1>,<f2>)  user ver of SP menu opt 6
+#F  PqSPCompareTwoFilePresentations(<f1>,<f2>)
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, inputs data
-##  to the `pq' binary
+##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+##  binary to compare the presentations in the files with names <f1> and <f2>
+##  and returns `true' if they are identical and `false' otherwise. For  each
+##  of the strings <f1> and <f2>, if the first character is not a `/' then it
+##  is assumed to be the path of a readable file relative to the directory in
+##  which {\GAP} was started.
 ##
-##  *Note:* For those  familiar  with  the  `pq'  binary, 
-##  `PqSPCompareTwoFilePresentations' performs option 6 of the
-##  Standard Presentation menu.
+##  *Notes*
+##
+##  The presentations in files <f1> and <f2> must have been generated by  the
+##  `pq' binary but they do *not* need to be *standard* presentations.
+##
+##   For      those      familiar      with      the       `pq'       binary,
+##   `PqSPCompareTwoFilePresentations' performs  option  6  of  the  Standard
+##   Presentation menu.
 ##
 InstallGlobalFunction( PqSPCompareTwoFilePresentations, function( arg )
-local datarec;
+local len, datarec, f1, f2;
+  len := Length(arg);
+  if not(len in [2, 3]) then
+    Error( "expected 2 or 3 arguments\n" );
+  fi;
+  f1 := PQ_CHK_PATH( arg[len - 1], "r" );
+  f2 := PQ_CHK_PATH( arg[len], "r" );
+  arg := arg{[1..len - 2]};
   ANUPQ_IOINDEX_ARG_CHK(arg);
   datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  PQ_SP_COMPARE_TWO_FILE_PRESENTATIONS( datarec );
+  return PQ_SP_COMPARE_TWO_FILE_PRESENTATIONS( datarec, f1, f2 );
 end );
 
 #############################################################################
@@ -2198,7 +2357,8 @@ end );
 #F  PqAPGSupplyAutomorphisms()
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, supplies the  `pq'
-##  binary with the automorphism group  data  needed  for  `<datarec>.group'.
+##  binary    with    the    automorphism    group    data     needed     for
+##  `ANUPQData.io[<i>].group'.
 ##
 ##  *Note:*
 ##  For those  familiar  with  the  `pq'  binary,  `PqAPGSupplyAutomorphisms'

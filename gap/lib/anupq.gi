@@ -10,6 +10,10 @@
 #Y  Copyright 1992-1994,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.10  2001/07/25 20:04:01  gap
+#H  Now treat all save/restore commands in a consistent way. All Standard
+#H  Presentation menu commands are now there. - GG
+#H
 #H  Revision 1.9  2001/07/05 21:14:26  gap
 #H  Bug fixes. ANUPQ_ARG_CHK now checks required options are set ... all
 #H  functions that call it have been adjusted. The option `StepSize' had
@@ -473,6 +477,30 @@ InstallGlobalFunction( PqAutomorphism, function( epi, autoimages )
     SetFeatureObj( phi, IsBijective, true );
 
     return phi;
+end );
+
+#############################################################################
+##
+#F  PqLeftNormComm( <words> ) . . . . . . . . . . . . .  left norm commutator
+##
+##  returns for a list <words> of words in the generators of a free group  or
+##  an fp group and <pow> is a positive integer, the left norm commutator  of
+##  <words>, e.g.~if <w1>, <w2>, <w3> are words in  the  generators  of  some
+##  free or  fp  group  then  `PqLeftNormComm(  [<w1>,  <w2>,  <w3>]  );'  is
+##  equivalent to `Comm( Comm( <w1>, <w2> ), <w3> );'.
+##
+InstallGlobalFunction( PqLeftNormComm, function( words )
+local comm, word;
+  if not IsList(words) or IsEmpty(words) or 
+     not ForAll(words, 
+                w -> IsElementOfFreeGroup(w) or IsElementOfFpGroup(w)) then
+    Error( "<words> should be a non-empty list of group elements\n" );
+  fi;
+  comm := words[1];
+  for word in words{[2 .. Length(words)]} do
+    comm := Comm(comm, word);
+  od;
+  return comm;
 end );
 
 #E  anupq.gi  . . . . . . . . . . . . . . . . . . . . . . . . . . . ends here 

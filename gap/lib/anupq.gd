@@ -84,4 +84,10 @@ DeclareGlobalFunction( "PqRecoverDefinitions" );
 ##
 DeclareGlobalFunction( "PqAutomorphism" );
 
+#############################################################################
+##
+#F  PqLeftNormComm( <words> ) . . . . . . . . . . . . .  left norm commutator
+##
+DeclareGlobalFunction( "PqLeftNormComm" );
+
 #E  anupq.gd  . . . . . . . . . . . . . . . . . . . . . . . . . . . ends here 
