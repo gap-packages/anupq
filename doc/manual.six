@@ -36,6 +36,8 @@ C interact.tex 5. Interactive ANUPQ functions
 S 5.1. Starting and Stopping Interactive ANUPQ Processes
 F 5.1. PqStart
 F 5.1. PqStart
+F 5.1. PqStart
+F 5.1. PqStart
 F 5.1. PqQuit
 F 5.1. PqQuit
 F 5.1. PqQuitAll

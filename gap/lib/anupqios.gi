@@ -29,10 +29,6 @@ Revision.anupqios_gi :=
 ##  <workspace> (i.e. $4 \times <workspace>$ bytes in a 32-bit  environment);
 ##  otherwise, the `pq' binary sets a default workspace of $10000000$.
 ##
-#T  In the fifth form, `PqStart' redefines the  starting  group  <G>  for  an
-#T  existing interactive {\ANUPQ} process identified by the positive  integer
-#T  <i>.
-##
 InstallGlobalFunction(PqStart, function(arg)
 local opts, iorec, G, workspace;
 
