@@ -10,6 +10,11 @@
 #Y  Copyright 1992-1994,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.30  2001/11/14 16:52:05  gap
+#H  `Pq' now works for trivial groups (with non-trivial presentations).
+#H  `PQ_PC_PRESENTATION' and hence `Pq' et al. now accept non-p-group pc groups.
+#H  - GG
+#H
 #H  Revision 1.29  2001/10/27 13:43:18  gap
 #H  `AllPqExamples' avoids uncommitted example `5gp-PG-e5-i' for which the
 #H  `pq' binary seems to have a bug. - GG
@@ -550,7 +555,7 @@ InstallGlobalFunction( PQ_EPI_OR_PCOVER, function( args )
     fi;
     trivial := IsEmpty( datarec.group!.GeneratorsOfMagmaWithInverses );
     if trivial then
-        ; #the `pq' binary spits out nonsense if given a trivial gp pres'n
+        ; #the `pq' binary spits out nonsense if given a trivial pres'n
     elif datarec.calltype = "interactive" and IsBound( datarec.(out) ) then
         AtClass := function()
           return IsBound(datarec.complete) and datarec.complete or
@@ -574,7 +579,7 @@ InstallGlobalFunction( PQ_EPI_OR_PCOVER, function( args )
         PQ_PC_PRESENTATION(datarec, "pQ");
     fi;
 
-    trivial := trivial or datarec.ngens[1] = 0;
+    trivial := trivial or IsEmpty(datarec.ngens) or datarec.ngens[1] = 0;
     if not trivial then
         if out = "pCover" then
           PQ_P_COVER( datarec );

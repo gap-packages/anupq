@@ -171,7 +171,7 @@ end );
 ##  `"pQ"' (main $p$-Quotient menu) or `"SP' (Standard Presentation menu).
 ##
 InstallGlobalFunction( PQ_PC_PRESENTATION, function( datarec, menu )
-local gens, rels, p, identities, pcgs, len, strp, i, j, Rel, line;
+local gens, rels, p, fpgrp, identities, pcgs, len, strp, i, j, Rel, line;
 
   p := VALUE_PQ_OPTION("Prime", fail, datarec); # "Prime" is a `global' option
 
@@ -211,6 +211,12 @@ local gens, rels, p, identities, pcgs, len, strp, i, j, Rel, line;
     elif ForAll( rels, rel -> PqParseWord(datarec.group, rel) ) then
       Info(InfoANUPQ, 2, "Relators parsed ok.");
     fi;
+  elif not( IsPGroup(datarec.group) ) then
+    fpgrp := FpGroupPcGroup( datarec.group );
+    gens := List( FreeGeneratorsOfFpGroup(fpgrp), String );
+    rels := List( Filtered( RelatorsOfFpGroup(fpgrp),
+                            rel -> not IsOne(rel) ),
+                  String );
   else
     pcgs := PcgsPCentralSeriesPGroup(datarec.group);
     len  := Length(pcgs);
