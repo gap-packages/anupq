@@ -87,12 +87,16 @@ F 5.4. PqPCover
 F 5.4. PqPCover
 F 5.4. PqCollect
 F 5.4. PqCollect
+F 5.4. PqAPQSetPrintLevel
+F 5.4. PqAPQSetPrintLevel
 F 5.4. PqWritePcPresentation
 F 5.4. PqWritePcPresentation
 F 5.4. PqSPPcPresentation
 F 5.4. PqSPPcPresentation
 F 5.4. PqSPStandardPresentation
 F 5.4. PqSPStandardPresentation
+F 5.4. PqSPSetPrintLevel
+F 5.4. PqSPSetPrintLevel
 F 5.4. PqSPIsomorphism
 F 5.4. PqSPIsomorphism
 F 5.4. PqPGSupplyAutomorphisms

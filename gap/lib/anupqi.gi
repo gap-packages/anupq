@@ -301,28 +301,37 @@ end );
 
 #############################################################################
 ##
+#F  PQ_CHK_PRINT_ARGS( <args> ) . . . . . . check args for print level cmd ok
+##
+InstallGlobalFunction( PQ_CHK_PRINT_ARGS, function( args )
+local lev;
+  if IsEmpty(args) or 2 < Length(args) then
+    Error( "1 or 2 arguments expected\n");
+  fi;
+  lev := args[Length(args)];
+  if not(lev in [0..3]) then
+    Error( "argument <lev> should be an integer in [0 .. 3]\n" );
+  fi;
+  args := args{[1..Length(args) - 1]};
+  ANUPQ_IOINDEX_ARG_CHK(args);
+  return ANUPQData.io[ ANUPQ_IOINDEX(args) ];
+end );
+
+#############################################################################
+##
 #F  PqSetPrintLevel( <i>, <lev> ) . . . . . user version of p-Q menu option 5
 #F  PqSetPrintLevel( <lev> )
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, inputs data to the
-##  `pq' binary, to set the print level in the main $p$-Quotient menu.
+##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+##  binary to set the print level to <lev>, in the main $p$-Quotient menu.
 ##
 ##  *Note:* For  those  familiar  with  the  `pq'  binary,  `PqSetPrintLevel'
 ##  performs option 5 of the main $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqSetPrintLevel, function( arg )
-local datarec, lev;
-  if IsEmpty(arg) or 2 < Length(arg) then
-    Error( "1 or 2 arguments expected\n");
-  fi;
-  lev := arg[Length(arg)];
-  if not(lev in [0..3]) then
-    Error( "argument <lev> should be an integer in [0 .. 3]\n" );
-  fi;
-  arg := arg{[1..Length(arg) - 1]};
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
-  PQ_SET_PRINT_LEVEL( datarec, "SP", lev );
+local datarec;
+  datarec := PQ_CHK_PRINT_ARGS( arg );
+  PQ_SET_PRINT_LEVEL( datarec, "pQ", arg[Length(arg)] );
 end );
 
 #############################################################################
@@ -515,31 +524,51 @@ end );
 
 #############################################################################
 ##
-#F  PQ_DISPLAY_PRESENTATION( <datarec> ) . . . . . . . .  A p-Q menu option 4
+#F  PQ_DISPLAY_PRESENTATION( <datarec>, <lev> ) . . . . . A p-Q menu option 4
 ##
-##  inputs data to the `pq' binary for option 4 of the
-##  Advanced $p$-Quotient menu.
+##  directs the `pq' binary to display the presentation of  the  $p$-quotient
+##  using option 4 of the Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PQ_DISPLAY_PRESENTATION, function( datarec )
+  PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
+  ToPQ(datarec, [ "4  #display presentation" ]);
 end );
 
 #############################################################################
 ##
-#F  PqDisplayPresentation( <i> ) . . . .  user version of A p-Q menu option 4
-#F  PqDisplayPresentation()
+#F  PqDisplayPresentation( <i>, <lev> ) . user version of A p-Q menu option 4
+#F  PqDisplayPresentation( <lev> )
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, inputs data
-##  to the `pq' binary
+##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+##  binary to display the presentation of the $p$-quotient.
 ##
-##  *Note:* For those  familiar  with  the  `pq'  binary, 
-##  `PqDisplayPresentation' performs option 4 of the
-##  Advanced $p$-Quotient menu.
+##  *Note:* 
+##  For those familiar with the `pq' binary, `PqDisplayPresentation' performs
+##  option 4 of the Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqDisplayPresentation, function( arg )
 local datarec;
   ANUPQ_IOINDEX_ARG_CHK(arg);
   datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
   PQ_DISPLAY_PRESENTATION( datarec );
+end );
+
+#############################################################################
+##
+#F  PqAPQSetPrintLevel( <i>, <lev> ) . . .  user version of p-Q menu option 5
+#F  PqAPQSetPrintLevel( <lev> )
+##
+##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+##  binary to set the print level to  <lev>,  in  the  Advanced  $p$-Quotient
+##  menu.
+##
+##  *Note:* For those familiar with  the  `pq'  binary,  `PqAPQSetPrintLevel'
+##  performs option 5 of the Advanced $p$-Quotient menu.
+##
+InstallGlobalFunction( PqAPQSetPrintLevel, function( arg )
+local datarec;
+  datarec := PQ_CHK_PRINT_ARGS( arg );
+  PQ_SET_PRINT_LEVEL( datarec, "ApQ", arg[Length(arg)] );
 end );
 
 #############################################################################
@@ -1472,6 +1501,24 @@ local datarec;
   ANUPQ_IOINDEX_ARG_CHK(arg);
   datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
   PQ_SP_DISPLAY_PRESENTATION( datarec );
+end );
+
+#############################################################################
+##
+#F  PqSPSetPrintLevel( <i>, <lev> ) . . . .  user version of SP menu option 5
+#F  PqSPSetPrintLevel( <lev> )
+##
+##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+##  binary to set the print level to  <lev>,  in  the  Standard  Presentation
+##  menu.
+##
+##  *Note:* For those familiar  with  the  `pq'  binary,  `PqSPSetPrintLevel'
+##  performs option 5 of the Standard Presentation menu.
+##
+InstallGlobalFunction( PqSPSetPrintLevel, function( arg )
+local datarec;
+  datarec := PQ_CHK_PRINT_ARGS( arg );
+  PQ_SET_PRINT_LEVEL( datarec, "SP", arg[Length(arg)] );
 end );
 
 #############################################################################

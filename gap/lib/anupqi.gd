@@ -79,6 +79,12 @@ DeclareGlobalFunction( "PQ_SET_PRINT_LEVEL" );
 
 #############################################################################
 ##
+#F  PQ_CHK_PRINT_ARGS( <args> ) . . . . . . check args for print level cmd ok
+##
+DeclareGlobalFunction( "PQ_CHK_PRINT_ARGS" );
+
+#############################################################################
+##
 #F  PqSetPrintLevel( <i>, <lev> ) . . . . . user version of p-Q menu option 5
 #F  PqSetPrintLevel( <lev> )
 ##
@@ -161,6 +167,13 @@ DeclareGlobalFunction( "PQ_DISPLAY_PRESENTATION" );
 #F PqDisplayPresentation()
 ##
 DeclareGlobalFunction( "PqDisplayPresentation" );
+
+#############################################################################
+##
+#F  PqAPQSetPrintLevel( <i>, <lev> ) . . .  user version of p-Q menu option 5
+#F  PqAPQSetPrintLevel( <lev> )
+##
+DeclareGlobalFunction( "PqAPQSetPrintLevel" );
 
 #############################################################################
 ##
@@ -506,6 +519,12 @@ DeclareGlobalFunction( "PQ_SP_DISPLAY_PRESENTATION" );
 #F PqSPDisplayPresentation()
 ##
 DeclareGlobalFunction( "PqSPDisplayPresentation" );
+
+#############################################################################
+##
+#F  PqSPSetPrintLevel( <i>, <lev> ) . . . .  user version of SP menu option 5
+#F  PqSPSetPrintLevel( <lev> )
+DeclareGlobalFunction( "PqSPSetPrintLevel" );
 
 #############################################################################
 ##
