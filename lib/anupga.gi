@@ -14,6 +14,9 @@
 #Y  Copyright 1992-1994,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.2  2002/03/25 15:16:25  gap
+#H  Added `PqDescendantsTreeCoclassOne' and supporting changes. - GG
+#H
 #H  Revision 1.1  2002/02/15 08:53:47  gap
 #H  Moving `gap/lib' files to `lib'. - GG
 #H
@@ -598,7 +601,13 @@ InstallGlobalFunction( PQ_DESCENDANTS, function( args )
     local   datarec, p, class, G, ndescendants;
 
     datarec := ANUPQ_ARG_CHK("PqDescendants", args);
-    if datarec.calltype = "GAP3compatible" then
+    if datarec.calltype = "interactive" and IsBound(datarec.descendants) then
+        Info(InfoANUPQ, 1, 
+             "`PqDescendants' should not be called more than once for the");
+        Info(InfoANUPQ, 1, 
+             "same process ... returning previously computed descendants.");
+        return datarec.descendants;
+    elif datarec.calltype = "GAP3compatible" then
         # ANUPQ_ARG_CHK calls PQ_DESCENDANTS itself in this case
         # (so datarec.descendants has already been computed)
         return datarec.descendants;
@@ -609,7 +618,8 @@ InstallGlobalFunction( PQ_DESCENDANTS, function( args )
     # if <G> is not capable and we want to compute something, return
     if HasIsCapable(datarec.group) and not IsCapable(datarec.group) and 
        VALUE_PQ_OPTION("SetupFile") = fail then
-        return [];
+        datarec.descendants := [];
+        return datarec.descendants;
     fi;
 
     PushOptions(rec(nonuser := true));
@@ -622,25 +632,26 @@ InstallGlobalFunction( PQ_DESCENDANTS, function( args )
             p = PrimePGroup(datarec.pCover) and
             IsBound(datarec.pcoverclass) and 
             class = datarec.pcoverclass - 1 ) then
-      PQ_PC_PRESENTATION( datarec, "pQ" : Prime := p, ClassBound := class );
+        PQ_PC_PRESENTATION( datarec, "pQ" : Prime := p, ClassBound := class );
     fi;
     if not( IsBound(datarec.pCover) and p = PrimePGroup(datarec.pCover) and
             class = datarec.pcoverclass - 1 ) then
-      PQ_P_COVER( datarec );
+        PQ_P_COVER( datarec );
     fi;
     PQ_PG_SUPPLY_AUTS( datarec, "pG" );
     ndescendants := PQ_PG_CONSTRUCT_DESCENDANTS( datarec );
     PopOptions();
 
     if datarec.calltype = "non-interactive" then
-      PQ_COMPLETE_NONINTERACTIVE_FUNC_CALL(datarec);
-      if IsBound( datarec.setupfile ) then
-        return true;
-      fi;
+        PQ_COMPLETE_NONINTERACTIVE_FUNC_CALL(datarec);
+        if IsBound( datarec.setupfile ) then
+            return true;
+        fi;
     fi;
         
     if ndescendants = 0 then
-      return [];
+        datarec.descendants := [];
+        return datarec.descendants;
     fi;
 
     datarec.descendants 

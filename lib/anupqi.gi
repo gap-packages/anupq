@@ -532,6 +532,8 @@ local line, classpos;
   else
     # Only the ``incomplete'' form of datarec.matchedline gives the name
     datarec.name := line[2];
+    datarec.gpnum := JoinStringsWithSeparator( 
+                         line{[3 .. Position(line, "to") - 1]}, " " );
     classpos := Position(line, "class") + 1;
   fi;
   datarec.class  := Int( line[classpos] );

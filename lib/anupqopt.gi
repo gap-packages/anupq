@@ -23,7 +23,8 @@ Revision.anupqopt_gi :=
 InstallValue( PQ_FUNCTION, 
               rec( Pq                   := PQ_EPI_OR_PCOVER,
                    PqDescendants        := PQ_DESCENDANTS,
-                   StandardPresentation := PQ_EPIMORPHISM_STANDARD_PRESENTATION
+                   StandardPresentation := PQ_EPIMORPHISM_STANDARD_PRESENTATION,
+                   PqDescendantsTreeCoclassOne := PqDescendantsTreeCoclassOne
                   )
              );
 
@@ -82,6 +83,27 @@ InstallValue( ANUPQoptions,
                             "Metabelian", 
                             "OutputLevel", 
                             "StandardPresentationFile", 
+                            "SetupFile",
+                            "PqWorkspace" ],
+
+                   # options for `PqDescendantsTreeCoclassOne'
+                   PqDescendantsTreeCoclassOne
+                       := [ "ClassBound", 
+                            "OrderBound", 
+                            "Relators", 
+                            "GroupName", 
+                            "StepSize", 
+                            "PcgsAutomorphisms", 
+                            "RankInitialSegmentSubgroups", 
+                            "SpaceEfficient", 
+                            "CapableDescendants", 
+                            "AllDescendants", 
+                            "Exponent", 
+                            "Metabelian", 
+                            "SubList", 
+                            "BasicAlgorithm",
+                            "CustomiseOutput",
+                            "TreeDepth",
                             "SetupFile",
                             "PqWorkspace" ],
 
@@ -230,7 +252,8 @@ InstallValue( ANUPQoptionChecks,
                    RedoPcp := IsBool,
                    PrintAutomorphisms := IsBool,
                    PrintPermutations := IsBool,
-                   Filename := IsString
+                   Filename := IsString,
+                   TreeDepth := IsPosInt
                    )
              );
 
@@ -270,7 +293,8 @@ InstallValue( ANUPQoptionTypes,
                    RedoPcp := "boolean",
                    PrintAutomorphisms := "boolean",
                    PrintPermutations := "boolean",
-                   Filename := "string"
+                   Filename := "string",
+                   TreeDepth := "positive integer"
                    )
              );
 

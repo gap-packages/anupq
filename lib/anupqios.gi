@@ -735,7 +735,7 @@ local ioIndex, datarec, optrec, optnames;
     #datarec.calltype := "interactive";    # PqStart sets this
     if not IsBound(datarec.group) then
       Error( "huh! Interactive process has no group\n" );
-    elif funcname = "PqDescendants" then
+    elif IsMatchingSublist(funcname, "PqDescendants") then
       if not IsPcGroup( datarec.group ) then
         Error( "group of process must be a pc group\n" );
       fi;
@@ -744,7 +744,7 @@ local ioIndex, datarec, optrec, optnames;
     fi;
   elif 1 = Length(args) then
     if not IsPcGroup( args[1] ) then
-      if funcname = "PqDescendants" then
+      if IsMatchingSublist(funcname, "PqDescendants") then
         Error( "first argument <args[1]> must be a pc group\n" );
       elif not IsFpGroup( args[1] ) then
         Error( "first argument <args[1]> must be a pc group or an fp group\n" );
@@ -764,7 +764,9 @@ local ioIndex, datarec, optrec, optnames;
     fi;
   else
     # GAP 3 way of passing options is supported in non-interactive use
-    if IsRecord(args[2]) then
+    if funcname = "PqDescendantsTreeCoclassOne" then
+      Error("GAP 3-compatible ways of passing options not supported");
+    elif IsRecord(args[2]) then
       optrec := ShallowCopy(args[2]);
       optnames := Set( REC_NAMES(optrec) );
       SubtractSet( optnames, Set( ANUPQoptions.(funcname) ) );
