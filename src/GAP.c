@@ -9,6 +9,9 @@
 *Y  Copyright 1997-1997,  School of Mathematical Sciences, ANU,     Australia
 **
 *H  $Log$
+*H  Revision 1.6  2002/02/15 15:08:49  gap
+*H  Included -r option in GAP call as per suggestion by SL. - GG
+*H
 *H  Revision 1.5  2001/06/15 14:31:51  werner
 *H  fucked up revision numbers.   WN
 *H
@@ -141,7 +144,7 @@ void    start_GAP_file (auts, pga)
 #           else
 	 path = "gap";
 #           endif
-	 if ( execlp( path, path, "-q", 0 ) == -1 )
+	 if ( execlp( path, path, "-r -q", 0 ) == -1 )
 	 {
             perror( "Error in system call to GAP" );
             exit( FAILURE );
