@@ -1,9 +1,9 @@
 #Example: "11gp-SP-a-Rel-1-i" . . . based on: isom/11gp_a.com
 #(like "11gp-SP-a-Rel-i" but the initial input presentation
 # is only to class 1).
-#vars: F, a, b, rels, procId;
+#vars: F, rels, procId;
 #options: OutputLevel, ClassBound, StandardPresentationFile
-F := FreeGroup("a", "b"); a := F.1; b := F.2;
+F := FreeGroup("a", "b");
 rels := ["a^11", "b^11*[b, a, a]^-2", "[b, a, b, b, b, b]"];
 procId := PqStart(F : Prime := 11, Relators := rels);
 #comment: set a different print level by supplying <OutputLevel>

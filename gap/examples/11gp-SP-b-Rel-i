@@ -1,8 +1,8 @@
 #Example: "11gp-SP-b-Rel-i" . . . based on: isom/11gp_b.com
 #(equivalent to "11gp-SP-b-i" but uses the `Relators' option)
-#vars: F, a, b, c, R, procId;
+#vars: F, rels, procId;
 #options: OutputLevel, ClassBound, StandardPresentationFile
-F := FreeGroup("a", "b", "c"); a := F.1; b := F.2; c := F.3;
+F := FreeGroup("a", "b", "c");
 rels := ["a^11", "b^11", "c^11", "[b, a, a, a, b, a]", 
          "[c, a]", "[c, b]", "[b, a, b]"];
 procId := PqStart(F : Prime := 11, Relators := rels);
