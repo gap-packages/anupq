@@ -583,7 +583,7 @@ local interactive, ioArgs, datarec, optrec, optnames, opts;
     else
       datarec.workspace := 10000000;
     fi;
-    opts := JoinStrinsWithSeparator(datarec.opts, " ");
+    opts := JoinStringsWithSeparator(datarec.opts, " ");
     if datarec.setupfile = fail then
       datarec.stream := OutputTextFile(ANUPQData.infile, false);
       ToPQk(datarec, [ "#pq called with flags: '", opts, "'" ]);
