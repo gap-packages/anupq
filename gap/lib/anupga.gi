@@ -14,6 +14,9 @@
 #Y  Copyright 1992-1994,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.2  2001/06/05 12:09:22  gap
+#H  Mainly half-baked changes, just to ensure CVS and me don't differ. - GG
+#H
 #H  Revision 1.1  2001/04/21 21:15:40  gap
 #H  lib/
 #H     *.g,*.gd:
@@ -521,6 +524,139 @@ InstallGlobalFunction( PqLetterInt, function ( n )
         fi;
     until n < 1;
     return str;
+end );
+
+#############################################################################
+##
+#F  PQ_DESCENDANTS( <args> )  . . . . . . . . .  construct descendants of <G>
+##
+InstallGlobalFunction( PQ_DESCENDANTS, function( args )
+    local   datarec, success, G, p, rank,
+            CR, pqi,  dir,  i,  pcgs,  lst,  j,  
+            auto_pcgs,  gens,  aut,  g,  res,  pq,  input,  output,  
+            desc;
+    datarec := ANUPQ_ARG_CHK(1, "PqDescendants", "group", IsPcGroup, 
+                             "a pc group", args);
+    if datarec.calltype = "interactive" then      
+    elif datarec.calltype = "GAP3compatible" then
+        #return ANUPQData.pQepi;
+    fi;
+
+    p    := PrimePGroup( datarec.group );
+
+    # if automorphisms are not supplied and group has p-class 1, 
+    # construct automorphisms, else signal Error 
+    if not HasAutomorphismGroup(datarec.group) then 
+        if (PClassPGroup(datarec.group) = 1) then 
+            AutomorphismGroup( datarec.group );
+        else 
+            G := datarec.group;
+            Error ("<G> must have class 1 or ",
+                   "<G>'s automorphism group must be known\n");
+        fi;
+    fi;
+
+    # if <G> is not capable and we want to compute something, return
+    if HasIsCapable(datarec.group) and not IsCapable(datarec.group) and 
+       VALUE_PQ_OPTION("SetupFile") = fail then
+        return [];
+    fi;
+
+    PQ_PC_PRESENTATION( datarec, "pQ" 
+                        : Prime      := PrimePGroup(datarec.group),
+                          ClassBound := PClassPGroup(datarec.group) );
+    PQ_PG_SUPPLY_AUTS( datarec );
+
+    if datarec.calltype <> "interactive" then
+        success := PQ_COMPLETE_NONINTERACTIVE_FUNC_CALL(datarec);
+        if success = true then
+            return true;
+        elif success <> 0 then
+            Error( "process did not succeed\n" );
+        fi;
+    fi;
+            
+    # read group and images from file
+    HideGlobalVariables( "F", "MapImages" );
+    Read( ANUPQData.outfile );
+    datarec.pQuotient := ValueGlobal( "F" );
+    datarec.pQepi := GroupHomomorphismByImages( 
+                       datarec.group,
+                       datarec.pQuotient,
+                       GeneratorsOfGroup( datarec.group ),
+                       ValueGlobal( "MapImages" )
+                       );
+    SetFeatureObj( datarec.pQepi, IsSurjective, true );
+    UnhideGlobalVariables( "F", "MapImages" );
+    return datarec.pQepi;
+###OLD
+
+   
+    # now construct the instruction from the args
+    res := ANUPQinstructions( pqi, CR, p );
+    if IsString(res)  then
+        if IsBound(dir)  then
+            Exec( Concatenation( "rm -rf ", dir ) );
+        fi;
+        Error(res);
+    elif not res[1]  then
+        if IsBound(dir)  then
+            Exec( Concatenation( "rm -rf ", dir ) );
+            return [];
+        fi;
+        return;
+    fi;
+
+    # the next two lines were added by EOB 
+    CR := res[2];
+    res := CR.Verbose;
+
+    AppendTo( pqi, "0\n0\n" );
+
+    # return if we only want to set up a input file
+    if not IsBound(dir)  then
+    	Print( "#I  input file '", pqi, "' written, ",
+    	       "run 'pq' with '-k' flag\n" );
+        return true;
+    fi;
+
+    # Find the pq executable
+    pq := Filename( DirectoriesPackagePrograms( "anupq" ), "pq" );
+    if pq = fail then
+        Error( "Could not find the pq executable" );
+    fi;
+
+#    Print( "pqi: ", pqi, "\n" );
+
+    # and finally start the pq
+    input := InputTextFile( pqi );
+    if res then 
+        output := OutputTextFile( "*stdout*", false );
+    else 
+        output := OutputTextFile( "PQ_LOG", false );
+    fi;
+
+    # Call pq, ignore exit status.
+    Process( Directory( dir ), pq, input, output, [ "-k", "-g"  ] );
+    CloseStream( output );
+    CloseStream( input );
+    
+    # read in the library file written by pq
+    if CR.SubList <> -1 then 
+       desc := PqList( Concatenation(dir,"/GAP_library"), CR.SubList );
+    else 
+       desc := PqList( Concatenation(dir,"/GAP_library") );
+    fi;
+
+    # add 'isCapable'
+    for G  in desc  do
+        if not HasIsCapable(G)  then
+           SetIsCapable( G, false );
+        fi;
+    od;
+
+    return desc;
+
 end );
 
 #############################################################################

@@ -24,9 +24,21 @@ Revision.anupqi_gi :=
 InstallGlobalFunction( PQ_AUT_INPUT, function( datarec, G )
 local rank, automorphisms, gens, i, j, aut, g, exponents, pcgs;
 
+  if VALUE_PQ_OPTION("PcgsAutomorphisms") = true then
+    pcgs := "1  #do";
+    automorphisms := Pcgs( AutomorphismGroup(G) );
+    if automorphisms = fail then
+      Error( "option \"PcgsAutomorphisms\" used with insoluble",
+             "automorphism group\n" );
+    fi;
+    automorphisms := Reversed( automorphisms );
+  else
+    pcgs := "0  #do not";
+    automorphisms := GeneratorsOfGroup( AutomorphismGroup( G ) );
+  fi;
+
   rank := RankPGroup( G );
   gens := PcgsPCentralSeriesPGroup( G );
-  automorphisms := GeneratorsOfGroup( AutomorphismGroup( G ) );
   ToPQ(datarec, [ Length(automorphisms), "  #number of automorphisms" ]);
   for i in [1..Length(automorphisms)] do
     aut := automorphisms[i];
@@ -38,11 +50,6 @@ local rank, automorphisms, gens, i, j, aut, g, exponents, pcgs;
            [ exponents, " #gen'r exp'ts of im(aut ", i, ", gen ", j, ")" ]);
     od;
   od;
-  if VALUE_PQ_OPTION("PcgsAutomorphisms") = true then
-    pcgs := "1  #do";
-  else
-    pcgs := "0  #do not";
-  fi;
   ToPQ(datarec, [ pcgs, " compute pcgs gen. seq. for auts." ]);
 end );
 
@@ -56,7 +63,7 @@ end );
 ##  `"pQ"' (Basic p-Quotient menu) or `"SP' (Standard Presentation menu).
 ##
 InstallGlobalFunction( PQ_PC_PRESENTATION, function( datarec, menu )
-local gens, rels, pcp;
+local gens, rels, pcp, p, pcgs, len, strp, i, j, Rel;
 
   pcp := Concatenation( menu, "pcp");
   if datarec.calltype = "interactive" and IsBound(datarec.(pcp)) and
@@ -81,7 +88,8 @@ local gens, rels, pcp;
 
   # Option 1 of p-Quotient/Standard Presentation Menu: defining the group
   ToPQk(datarec, ["1  #define group"]);
-  ToPQk(datarec, ["prime ",    VALUE_PQ_OPTION("Prime", fail, datarec.(pcp))]);
+  p := VALUE_PQ_OPTION("Prime", fail, datarec.(pcp));
+  ToPQk(datarec, ["prime ",    p]);
   ToPQk(datarec, ["class ",    VALUE_PQ_OPTION("ClassBound", fail, 
                                                               datarec.(pcp))]);
   ToPQk(datarec, ["exponent ", VALUE_PQ_OPTION("Exponent", 0, datarec.(pcp))]);
@@ -89,13 +97,51 @@ local gens, rels, pcp;
     ToPQk(datarec, [ "metabelian" ]);
   fi;
   ToPQk(datarec, ["output ", VALUE_PQ_OPTION("OutputLevel", 1, datarec.(pcp))]);
-  gens := JoinStringsWithSeparator(
-              List( FreeGeneratorsOfFpGroup( datarec.group ), String ) );
+
+  if IsFpGroup(datarec.group) then
+    gens := FreeGeneratorsOfFpGroup(datarec.group);
+    rels := Filtered( RelatorsOfFpGroup(datarec.group), rel -> not IsOne(rel) );
+  else
+    pcgs := PcgsPCentralSeriesPGroup(datarec.group);
+    len  := Length(pcgs);
+    gens := List( [1..len], i -> Concatenation( "g", String(i) ) );
+    strp := String(p);
+
+    Rel := function(elt, eltstr)
+      local rel, expts, factors;
+
+      rel := eltstr;
+      expts := ExponentsOfPcElement( pcgs, elt );
+      if ForAny( expts, x -> x<>0 )  then
+        factors 
+            := Filtered(
+                   List( [1..len], 
+                         function(i)
+                           if expts[i] = 0 then
+                             return "";
+                           fi;
+                           return Concatenation(gens[i], "^", String(expts[i]));
+                         end ),
+                   factor -> factor <> "");
+        Append(rel, "=");
+        Append(rel, JoinStringsWithSeparator(factors));
+      fi;
+      return rel;
+    end;
+
+    rels := List( [1..len], 
+                  i -> Rel( pcgs[i]^p, Concatenation(gens[i], "^", strp) ) );
+    for i in [1..len] do
+      for j in [1..i-1]  do
+        Add(rels, Rel( Comm( pcgs[i], pcgs[j] ), 
+                       Concatenation("[", gens[i], ",", gens[j], "]") ));
+      od;
+    od;
+  fi;
+  gens := JoinStringsWithSeparator(gens, String);
+  rels := JoinStringsWithSeparator(rels, String);
   ToPQk(datarec, ["generators { ", gens, " }"]);
-  rels := JoinStringsWithSeparator(
-              List( Filtered( RelatorsOfFpGroup( datarec.group ), 
-                              rel -> not IsOne(rel) ), String ) );
-  ToPQ(datarec,  ["relations  { ", rels, " };"]);
+  ToPQ (datarec, ["relations  { ", rels, " };"]);
 end );
 
 #############################################################################
@@ -274,6 +320,39 @@ local datarec;
   ANUPQ_IOINDEX_ARG_CHK(arg);
   datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
   PQ_SP_ISOMORPHISM( datarec );
+end );
+
+#############################################################################
+##
+#F  PQ_PG_SUPPLY_AUTS( <datarec> ) . . . . . . . . . . . . . pG menu option 1
+##
+##  defines the automorphism group of `<datarec>.group', using  option  1  of
+##  the main p-Group Generation menu.
+##
+InstallGlobalFunction( PQ_PG_SUPPLY_AUTS, function( datarec )
+local gens;
+  PQ_MENU(datarec, "pG");
+  ToPQk(datarec, [ "1  #supply automorphism data" ]);
+  PQ_AUT_INPUT( datarec, datarec.group );
+end );
+
+#############################################################################
+##
+#F  PqPGSupplyAutomorphisms( <i> ) . . . . . user version of pG menu option 1
+#F  PqPGSupplyAutomorphisms()
+##
+##  for the <i>th or default interactive {\ANUPQ} process, supplies the  `pq'
+##  binary with the automorphism group  data  needed  for  `<datarec>.group'.
+##
+##  *Note:*
+##  For  those  familiar  with  the  `pq'  binary,  `PqPGSupplyAutomorphisms'
+##  performs option 1 of the main p-Group Generation menu.
+##
+InstallGlobalFunction( PqPGSupplyAutomorphisms, function( arg )
+local datarec;
+  ANUPQ_IOINDEX_ARG_CHK(arg);
+  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
+  PQ_PG_SUPPLY_AUTS( datarec );
 end );
 
 #E  anupqi.gi . . . . . . . . . . . . . . . . . . . . . . . . . . . ends here 

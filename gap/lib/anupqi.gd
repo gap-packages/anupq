@@ -49,6 +49,7 @@ DeclareGlobalFunction( "PqWritePcPresentation" );
 ##
 #F  PqSPPcPresentation( <i> : <options> ) . . user version of p-Q menu opt. 1
 #F  PqSPPcPresentation( : <options> )
+##
 DeclareGlobalFunction( "PqSPPcPresentation" );
 
 #############################################################################
@@ -76,5 +77,18 @@ DeclareGlobalFunction( "PQ_SP_ISOMORPHISM" );
 #F  PqSPIsomorphism()
 ##
 DeclareGlobalFunction( "PqSPIsomorphism" );
+
+#############################################################################
+##
+#F  PQ_PG_SUPPLY_AUTS( <datarec> ) . . . . . . . . . . . . . pG menu option 1
+##
+DeclareGlobalFunction( "PQ_PG_SUPPLY_AUTS" );
+
+#############################################################################
+##
+#F  PqPGSupplyAutomorphisms( <i> ) . . . . . user version of pG menu option 1
+#F  PqPGSupplyAutomorphisms()
+##
+DeclareGlobalFunction( "PqPGSupplyAutomorphisms" );
 
 #E  anupqi.gd . . . . . . . . . . . . . . . . . . . . . . . . . . . ends here 
