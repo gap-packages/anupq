@@ -97,8 +97,7 @@ is provided  as  a  convenience,  to  terminate  all  active  interactive
 (see~"PqQuit").
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\Section{Interactive ANUPQ Process Utility Functions and Interruption of
-an Interactive ANUPQ Process}
+\Section{Interactive ANUPQ Process Utility Functions}
 
 \>PqProcessIndex( <i> ) F
 \>PqProcessIndex() F
@@ -184,38 +183,44 @@ gap> G := F / [a^4, b^4];
 <fp group on the generators [ a, b ]>
 gap> PqStart(G);
 1
-gap> SetInfoLevel(InfoANUPQ, 3); # To see behind the scenes
+gap> SetInfoLevel(InfoANUPQ, 3); #To see what the `pq' binary is doing
 gap> Pq(: Prime := 2, ClassBound := 3 );
-#I  ToPQ> 7  #to (Main) p-Quotient Menu
-#I  Select option: 
-#I  ToPQ> 1  #define group
-#I  ToPQ> prime 2
-#I  ToPQ> class 3
-#I  ToPQ> exponent 0
-#I  ToPQ> output 1
-#I  ToPQ> generators { a,b }
-#I  ToPQ> relators   { a^4,b^4 };
-#I  
-#I  Lower exponent-2 central series for G
-#I  
-#I  Group: G to lower exponent-2 central class 1 has order 2^2
-#I  
-#I  Group: G to lower exponent-2 central class 2 has order 2^5
-#I  
-#I  Group: G to lower exponent-2 central class 3 has order 2^8
 #I  Computation of presentation took 0.00 seconds
-#I  
-#I  Select option: 
-#I  ToPQ> 8  #to Advanced p-Quotient Menu
-#I  Select option: 
-#I  ToPQ> 25 #set output file
-#I  Enter output file name: 
-#I  ToPQ> /tmp/file2v1O8X.2/PQ_OUTPUT
-#I  Output file in CAYLEY (1) or GAP (2) or Magma (3) format? 
-#I  ToPQ> 2  #output in GAP format
-#I  Group presentation written in GAP format to file
-#I  
-#I  Select option: 
+#I  Group: <grp> to lower exponent-2 central class 3 has order 2^8
+#I  Group: <grp> to lower exponent-2 central class 3 has order 2^8
+#I  Group defining relations:
+#I  4 1
+#I  0
+#I  4 2
+#I  0
+#I  Relationship between group defining generators and consistent
+#I  power-commutator presentation generators:
+#I  1    = .1
+#I  1^-1 = .1 .4
+#I  2    = .2
+#I  2^-1 = .2 .5
+#I  Values of power-commutator presentation generators
+#I  Class 1
+#I  1 is defined on image of defining generator 1
+#I  2 is defined on image of defining generator 2
+#I  Class 2
+#I  3 is defined on [2, 1] = 2 1 
+#I  4 is defined on 1^2 = 1 1 
+#I  5 is defined on 2^2 = 2 2 
+#I  Class 3
+#I  6 is defined on [3, 1] = 2 1 1 
+#I  7 is defined on [3, 2] = 2 1 2 
+#I  8 is defined on [4, 2] = 1 1 2 
+#I  Non-trivial powers:
+#I   .1^2 = .4
+#I   .2^2 = .5
+#I   .3^2 = .6 .8
+#I  Non-trivial commutators:
+#I  [ .2, .1 ] = .3
+#I  [ .3, .1 ] = .6
+#I  [ .3, .2 ] = .7
+#I  [ .4, .2 ] = .8
+#I  [ .5, .1 ] = .6 .7 .8
 <pc group of size 256 with 8 generators>
 \endexample
 
@@ -500,40 +505,88 @@ which {\GAP} was started.
 For  those  familiar  with  the  `pq'  binary,  `PqRestorePcPresentation'
 performs option 3 of the main $p$-Quotient menu.
 
+\>PqFactoredOrder( <i> ) F
+\>PqFactoredOrder() F
+
+for the <i>th  or  default  interactive  {\ANUPQ}  process,  returns  the
+factored order as a list `[<p>, <n>]' of the current class group  of  the
+`pq' binary.
+
+*Note:* The order of each $p$-class quotient is taken as $p^n$ where  $n$
+is the number of generators for the class; this may be  an  over-estimate
+if tails have been added and the necessary consistency  checks,  relation
+collections, exponent law checks  and  redundant  generator  eliminations
+have not been done for a class.
+
+\>PqOrder( <i> ) F
+\>PqOrder() F
+
+for the <i>th or default interactive {\ANUPQ} process, returns the  order
+of the current class group of the `pq' binary.
+
+*Note:* The order of each $p$-class quotient is taken as $p^n$ where  $n$
+is the number of generators for the class; this may be  an  over-estimate
+if tails have been added and the necessary consistency  checks,  relation
+collections, exponent law checks  and  redundant  generator  eliminations
+have not been done for a class.
+
+\>PqPClass( <i> ) F
+\>PqPClass() F
+
+for the <i>th  or  default  interactive  {\ANUPQ}  process,  returns  the
+current lower exponent-$p$ class group of the `pq' binary.
+
+\>PqNrPcGenerators( <i> ) F
+\>PqNrPcGenerators() F
+
+for the <i>th or default interactive {\ANUPQ} process, returns the number
+of pc generators of the current exponent-$p$  class  group  of  the  `pq'
+binary.
+
+\>PqWeight( <i>, <j> ) F
+\>PqWeight( <j> ) F
+
+for the <i>th or default interactive {\ANUPQ} process, returns the weight
+of the <j>th pc generator of the current exponent-$p$ class group of  the
+`pq' binary, or `fail' if there is no such numbered pc generator.
+
 \>PqCurrentGroup( <i> ) F
 \>PqCurrentGroup() F
 
 for the <i>th or default interactive {\ANUPQ} process, returns  a  record
 with fields `name', `class' and `order' which are respectively  the  name
-(known to the `pq' binary, which is by default `"G"'), the class and  the
-order of the current group.
+(known to the `pq' binary, which is by default `"<grp>"'), the class  and
+the order of the current group.
 
-\>PqDisplayPcPresentation( <i> [: OutputLevel := <lev>]) F
-\>PqDisplayPcPresentation([: OutputLevel := <lev>]) F
+*Not currently useful -- check back in a day or so*
+
+\>PqDisplayPcPresentation( <i> ) F
+\>PqDisplayPcPresentation() F
 
 for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
-binary  to  display  the  pc   presentation   previously   computed   (by
-`PqPcPresentation'; see~"PqPcPresentation") or  restored  from  file  (by
-`PqRestorePcPresentation'; see~"PqRestorePcPresentation") for  the  group
-of that process, where the group of a process is the one given  as  first
-argument when `PqStart' was called to initiate that process. To  set  the
-amount of  information  this  command  displays  you  may  wish  to  call
-`PqSetPrintLevel' first (see~"PqSetPrintLevel"), or equivalently  include
-the option  `OutputLevel'  with  a  value  <lev>  in  the  integer  range
-`[0..3]'.
+binary to display the pc presentation to the current class known  to  the
+`pq' binary for the group of that process, where the group of  a  process
+is the one given as first argument when `PqStart' was called to  initiate
+that process. Except if the last  command  communicating  with  the  `pq'
+binary was a $p$-group generation command (for  which  there  is  only  a
+verbose output level), to set the  amount  of  information  this  command
+displays   you   may    wish    to    call    `PqSetOutputLevel'    first
+(see~"PqSetOutputLevel"), or equivalently pass the  option  `OutputLevel'
+(see e.g.~"Pq" where the option is described).
 
 *Note:*
 For  those  familiar  with  the  `pq'  binary,  `PqDisplayPcPresentation'
-performs option 4 of the main $p$-Quotient menu.
+performs option 4 of the current menu of the `pq' binary.
 
-\>PqSetPrintLevel( <i>, <lev> ) F
-\>PqSetPrintLevel( <lev> ) F
+\>PqSetOutputLevel( <i>, <lev> ) F
+\>PqSetOutputLevel( <lev> ) F
 
 for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
-binary to set the print level to <lev>, in the main $p$-Quotient menu.
+binary to set the output level of the `pq' binary to <lev>.
 
-*Note:* For  those  familiar  with  the  `pq'  binary,  `PqSetPrintLevel'
-performs option 5 of the main $p$-Quotient menu.
+*Note:* For those  familiar  with  the  `pq'  binary,  `PqSetOutputLevel'
+performs option 5 of the main (or advanced)  $p$-Quotient  menu,  or  the
+Standard Presentation menu.
 
 \>PqNextClass( <i> ) F
 \>PqNextClass() F
@@ -591,31 +644,6 @@ in the generators raised to the integer power <pow>.
 *Note:*
 For those familiar with the `pq' binary, `PqCommutator' performs option 3
 of the Advanced $p$-Quotient menu.
-
-\>PqAPQDisplayPresentation( <i> [: OutputLevel := <lev>]) F
-\>PqAPQDisplayPresentation([: OutputLevel := <lev>]) F
-
-for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
-binary to display the presentation of the $p$-quotient. To set the amount
-of  information  this   command   displays   you   may   wish   to   call
-`PqAPQSetPrintLevel' first  (see~"PqAPQSetPrintLevel"),  or  equivalently
-include the option `OutputLevel' with a value <lev> in the integer  range
-`[0..3]'.
-
-
-*Note:*
-For those  familiar  with  the  `pq'  binary,  `PqAPQDisplayPresentation'
-performs option 4 of the Advanced $p$-Quotient menu.
-
-\>PqAPQSetPrintLevel( <i>, <lev> ) F
-\>PqAPQSetPrintLevel( <lev> ) F
-
-for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
-binary to set the print level to  <lev>,  in  the  Advanced  $p$-Quotient
-menu.
-
-*Note:* For those familiar with  the  `pq'  binary,  `PqAPQSetPrintLevel'
-performs option 5 of the Advanced $p$-Quotient menu.
 
 \>PqSetupTablesForNextClass( <i> ) F
 \>PqSetupTablesForNextClass() F
@@ -683,16 +711,15 @@ binary to collect defining relations.
 For those familiar with  the  `pq'  binary,  `PqCollectDefiningRelations'
 performs option 9 of the Advanced $p$-Quotient menu.
 
-\>PqDoExponentChecks( <i>, <w1>, <w2> ) F
-\>PqDoExponentChecks( <w1>, <w2> ) F
+\>PqDoExponentChecks(<i>[: Bounds := <list>]) F
+\>PqDoExponentChecks([: Bounds := <list>]) F
 
 for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
-binary to do exponent checks between weights <w1> and <w2>, where $0  \le
-<w1> \< <w2> \le <class>$ and <class> is the maximum class.
-
-*Note:*
-For those familiar with the `pq'  binary,  `PqDoExponentChecks'  performs
-option 10 of the Advanced $p$-Quotient menu.
+binary to do exponent checks for weights (inclusively) between the bounds
+of `Bounds' or for all weights if `Bounds' is not given. The value <list>
+of `Bounds' (assuming the interactive process is numbered <i>) should  be
+a list of  two  integers  <low>,  <high>  satisfying  $1  \le  <low>  \le
+`PqPClass(<i>) + 1'$ (see~"PqPClass").
 
 \>PqEliminateRedundantGenerators( <i> ) F
 \>PqEliminateRedundantGenerators() F
@@ -714,15 +741,18 @@ binary to abandon the current class and revert to the previous class.
 For  those  familiar  with  the  `pq'  binary,  `PqRevertToPreviousClass'
 performs option 12 of the Advanced $p$-Quotient menu.
 
-\>PqSetMaximalOccurrences( <i>, <weights> ) F
-\>PqSetMaximalOccurrences( <weights> ) F
+\>PqSetMaximalOccurrences( <i>, <noccur> ) F
+\>PqSetMaximalOccurrences( <noccur> ) F
 
 for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
-binary to set maximal occurrences; <weights> must be a list  of  integers
-of length the number of generators of weight 1 of the $p$-quotient  which
-must have been previously computed.
+binary to set maximal occurrences of  the  weight  1  generators  in  the
+definitions of pcp generators of the group of the process; <noccur>  must
+be a list of non-negative integers of  length  the  number  of  weight  1
+generators (i.e.~the rank of the class 1 $p$-quotient of the group of the
+process). An entry of `0' for a particular generator indicates that there
+is no limit on the number of occurrences for the generator.
 
-*Note:* 
+*Note:*
 For  those  familiar  with  the  `pq'  binary,  `PqSetMaximalOccurrences'
 performs option 13 of the Advanced $p$-Quotient menu.
 
@@ -802,32 +832,35 @@ binary to apply automorphisms; <qfac> is the queue factor e.g. `15'.
 For those familiar with  the  `pq'  binary,  `PqCloseRelations'  performs
 option 19 of the Advanced $p$-Quotient menu.
 
-\>PqPrintStructure( <i>, <m>, <n> [: OutputLevel := <lev>]) F
-\>PqPrintStructure( <m>, <n> [: OutputLevel := <lev>]) F
+\>PqDisplayStructure(<i>[: Bounds := <list>]) F
+\>PqDisplayStructure([: Bounds := <list>]) F
 
 for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
-binary to print the structure for the pcp generators numbered from <m> to
-<n>. To set the amount of information this command displays you may  wish
-to  call  `PqAPQSetPrintLevel'   first   (see~"PqAPQSetPrintLevel"),   or
-equivalently include the option `OutputLevel' with a value <lev>  in  the
-integer range `[0..3]'.
+binary  to  display  the  structure  for  the  pcp  generators   numbered
+(inclusively) between the bounds of `Bounds' or  for  all  generators  if
+`Bounds' is not  given.  The  value  <list>  of  `Bounds'  (assuming  the
+interactive process is numbered <i>) should be a  list  of  two  integers
+<low>,  <high>  satisfying  $1  \le  <low>  \le  `PqNrPcGenerators(<i>)'$
+(see~"PqNrPcGenerators"). `PqDisplayStructure' also  accepts  the  option
+`OutputLevel' (see e.g.~"Pq" where the option is listed).
 
-
-*Note:* 
-For those familiar with  the  `pq'  binary,  `PqPrintStructure'  performs
+*Note:*
+For those familiar with the `pq'  binary,  `PqDisplayStructure'  performs
 option 20 of the Advanced $p$-Quotient menu.
 
-\>PqDisplayAutomorphisms( <i>, <m>, <n> [: OutputLevel := <lev>]) F
-\>PqDisplayAutomorphisms( <m>, <n> [: OutputLevel := <lev>]) F
+\>PqDisplayAutomorphisms(<i>[: Bounds := <list>]) F
+\>PqDisplayAutomorphisms([: Bounds := <list>]) F
 
 for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
-binary to display automorphisms for the generators numbered from  <m>  to
-<n>. To set the amount of information this command displays you may  wish
-to  call  `PqAPQSetPrintLevel'   first   (see~"PqAPQSetPrintLevel"),   or
-equivalently include the option `OutputLevel' with a value <lev>  in  the
-integer range `[0..3]'.
+binary to display the  automorphisms  for  the  pcp  generators  numbered
+(inclusively) between the bounds of `Bounds' or  for  all  generators  if
+`Bounds' is not  given.  The  value  <list>  of  `Bounds'  (assuming  the
+interactive process is numbered <i>) should be a  list  of  two  integers
+<low>,  <high>  satisfying  $1  \le  <low>  \le  `PqNrPcGenerators(<i>)'$
+(see~"PqNrPcGenerators"). `PqDisplayStructure' also  accepts  the  option
+`OutputLevel' (see e.g.~"Pq" where the option is listed).
 
-*Note:* 
+*Note:*
 For  those  familiar  with  the  `pq'  binary,   `PqDisplayAutomorphisms'
 performs option 21 of the Advanced $p$-Quotient menu.
 
@@ -925,20 +958,6 @@ binary to restore group <n> of class <cls> from a temporary  file,  where
 For those  familiar  with  the  `pq'  binary,  `PqPGRestoreGroupFromFile'
 performs option 3 of the main $p$-Group Generation menu.
 
-\>PqPGDisplayPresentation( <i> ) F
-\>PqPGDisplayPresentation() F
-
-for the <i>th or default interactive {\ANUPQ} process, inputs data to the
-`pq' binary for the <i>th or default interactive {\ANUPQ} process, inputs
-data to the `pq' binary for the <i>th  or  default  interactive  {\ANUPQ}
-process, directs the `pq' binary to display the presentation of  a  group
-previously         selected         by         `PqPGRestoreGroupFromFile'
-(see~"PqPGRestoreGroupFromFile").
-
-*Note:*
-For  those  familiar  with  the  `pq'  binary,  `PqPGDisplayPresentation'
-performs option 4 of the main $p$-Group Generation menu.
-
 \>PqPGConstructDescendants( <i> : <options> ) F
 \>PqPGConstructDescendants( : <options> ) F
 
@@ -997,20 +1016,6 @@ binary to restore group <n> of class <cls> from a temporary  file,  where
 *Note:*
 For those familiar  with  the  `pq'  binary,  `PqAPGRestoreGroupFromFile'
 performs option 3 of the Advanced $p$-Group Generation menu.
-
-\>PqAPGDisplayPresentation( <i> ) F
-\>PqAPGDisplayPresentation() F
-
-for the <i>th or default interactive {\ANUPQ} process, inputs data to the
-`pq' binary for the <i>th or default interactive {\ANUPQ} process, inputs
-data to the `pq' binary for the <i>th  or  default  interactive  {\ANUPQ}
-process, directs the `pq' binary to display the presentation of  a  group
-previously        selected         by         `PqAPGRestoreGroupFromFile'
-(see~"PqAPGRestoreGroupFromFile").
-
-*Note:*
-For those  familiar  with  the  `pq'  binary,  `PqAPGDisplayPresentation'
-performs option 4 of the Advanced $p$-Group Generation menu.
 
 *Standard Presentation menu commands*
 
@@ -1096,32 +1101,6 @@ relative to the directory in which {\GAP} was started.
 
 *Note:* For those familiar with the `pq'  binary,  `PqSPSavePresentation'
 performs option 3 of the Standard Presentation menu.
-
-\>PqSPDisplayPresentation( <i> [: OutputLevel := <lev>]) F
-\>PqSPDisplayPresentation([: OutputLevel := <lev>]) F
-
-for the <i>th or default interactive {\ANUPQ} process, inputs data to the
-`pq' binary for  the  <i>th  or  default  interactive  {\ANUPQ}  process,
-directs the `pq' binary to  display  the  standard  presentation  of  the
-$p$-quotient. To set the amount of information this command displays  you
-may wish to call `PqSPSetPrintLevel' first (see~"PqSPSetPrintLevel"),  or
-equivalently include the option `OutputLevel' with a value <lev>  in  the
-integer range `[0..2]'. (Actually, `<lev> = 3' is allowed, but  the  `pq'
-binary quietly sets it back to `2'.)
-
-*Note:*
-For  those  familiar  with  the  `pq'  binary,  `PqSPDisplayPresentation'
-performs option 4 of the Standard Presentation menu.
-
-\>PqSPSetPrintLevel( <i>, <lev> ) F
-\>PqSPSetPrintLevel( <lev> ) F
-
-for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
-binary to set the print level to  <lev>,  in  the  Standard  Presentation
-menu.
-
-*Note:* For those familiar  with  the  `pq'  binary,  `PqSPSetPrintLevel'
-performs option 5 of the Standard Presentation menu.
 
 \>PqSPCompareTwoFilePresentations( <i>, <f1>, <f2> ) F
 \>PqSPCompareTwoFilePresentations( <f1>, <f2> ) F

@@ -105,17 +105,20 @@ default this restriction is not enforced.
 \atindex{option GroupName}{@option \noexpand`GroupName'}
 `GroupName := <name>' &
 Specifies that the `pq' binary should refer to  the  group  by  the  name
-<name> (a string). By default the `pq' binary uses `"G"'.
+<name> (a string). If `GroupName' is not  set  and  the  group  has  been
+assigned a name via `SetName' (see~"ref:SetName") it is set as  the  name
+the `pq' binary should use. Otherwise, the ``generic'' name `"\<grp>"' is
+set as a default.
 
 \atindex{option OutputLevel}{@option \noexpand`OutputLevel'}
 `OutputLevel := <n>' &
 Specifies the level of ``verbosity'' of the information output by the ANU
 `pq' binary when computing a pc presentation; <n> must be an  integer  in
-the range 0 to 3. `OutputLevel := 0' displays no output, `OutputLevel  :=
-1' displays minimal output (which  is  the  `pq'  binary's  default)  and
-`OutputLevel's for <n> greater than `1' give progressively  more  output.
-To see these messages from the `pq' binary, the `InfoANUPQ' level must be
-set to 2 (see~"InfoANUPQ").
+the range 0 to 3. `OutputLevel := 0' displays at most one line of  output
+and is the default; `OutputLevel := 1' displays (usually)  slightly  more
+output and `OutputLevel's of 2 and 3 are two levels of verbose output. To
+see these messages from the `pq' binary, the `InfoANUPQ'  level  must  be
+set to at least 1 (see~"InfoANUPQ").
 
 \atindex{option SetupFile}{@option \noexpand`SetupFile'}
 `SetupFile := <filename>' &
@@ -123,7 +126,7 @@ Non-interactively, this option directs that `pq' should not be called and
 that an input file  with  name  <filename>  (a  string),  containing  the
 commands necessary for the  ANU  `pq'  standalone,  be  constructed.  The
 commands written to <filename> are also `Info'-ed behind  a  ```ToPQ> '''
-prompt at `InfoANUPQ' level  3  (see~"InfoANUPQ").  In  this  case,  `Pq'
+prompt at `InfoANUPQ' level  4  (see~"InfoANUPQ").  In  this  case,  `Pq'
 returns `true'. Interactively, `SetupFile' is ignored.
 
 \atindex{option PqWorkspace}{@option \noexpand`PqWorkspace'}
@@ -315,7 +318,10 @@ restriction is not enforced.
 \atindex{option GroupName}{@option \noexpand`GroupName'}
 `GroupName := <name>' &
 Specifies that the `pq' binary should refer to  the  group  by  the  name
-<name> (a string). By default the `pq' binary uses `"G"'.
+<name> (a string). If `GroupName' is not  set  and  the  group  has  been
+assigned a name via `SetName' (see~"ref:SetName") it is set as  the  name
+the `pq' binary should use. Otherwise, the ``generic'' name `"\<grp>"' is
+set as a default.
 
 \atindex{option PcgsAutomorphisms}{@option \noexpand`PcgsAutomorphisms'}
 `PcgsAutomorphisms' &
@@ -335,11 +341,11 @@ insoluble, an error message occurs.
 `OutputLevel := <n>' &
 Specifies the level of ``verbosity'' of the information output by the ANU
 `pq' binary when computing a pc presentation; <n> must be an  integer  in
-the range 0 to 3. `OutputLevel := 0' displays no output, `OutputLevel  :=
-1' displays minimal output (which  is  the  `pq'  binary's  default)  and
-`OutputLevel's for <n> greater than `1' give progressively  more  output.
-To see these messages from the `pq' binary, the `InfoANUPQ' level must be
-set to 2 (see~"InfoANUPQ").
+the range 0 to 3. `OutputLevel := 0' displays at most one line of  output
+and is the default; `OutputLevel := 1' displays (usually)  slightly  more
+output and `OutputLevel's of 2 and 3 are two levels of verbose output. To
+see these messages from the `pq' binary, the `InfoANUPQ'  level  must  be
+set to at least 1 (see~"InfoANUPQ").
 
 \atindex{option SetupFile}{@option \noexpand`SetupFile'}
 `SetupFile := <filename>' &
@@ -347,7 +353,7 @@ Non-interactively, this option directs that `pq' should not be called and
 that an input file  with  name  <filename>  (a  string),  containing  the
 commands necessary for the  ANU  `pq'  standalone,  be  constructed.  The
 commands written to <filename> are also `Info'-ed behind  a  ```ToPQ> '''
-prompt at `InfoANUPQ' level  3  (see~"InfoANUPQ").  In  this  case,  `Pq'
+prompt at `InfoANUPQ' level  4  (see~"InfoANUPQ").  In  this  case,  `Pq'
 returns `true'. Interactively, `SetupFile' is ignored.
 
 \atindex{option PqWorkspace}{@option \noexpand`PqWorkspace'}
@@ -590,7 +596,10 @@ this restriction is not enforced.
 \atindex{option GroupName}{@option \noexpand`GroupName'}
 `GroupName := <name>' &
 Specifies that the `pq' binary should refer to  the  group  by  the  name
-<name> (a string). By default the `pq' binary uses `"G"'.
+<name> (a string). If `GroupName' is not  set  and  the  group  has  been
+assigned a name via `SetName' (see~"ref:SetName") it is set as  the  name
+the `pq' binary should use. Otherwise, the ``generic'' name `"\<grp>"' is
+set as a default.
 
 \atindex{option SubList}{@option \noexpand`SubList'}
 `SubList := <sub>' &
@@ -663,7 +672,7 @@ Non-interactively, this option directs that `pq' should not be called and
 that an input file  with  name  <filename>  (a  string),  containing  the
 commands necessary for the  ANU  `pq'  standalone,  be  constructed.  The
 commands written to <filename> are also `Info'-ed behind  a  ```ToPQ> '''
-prompt at `InfoANUPQ' level  3  (see~"InfoANUPQ").  In  this  case,  `Pq'
+prompt at `InfoANUPQ' level  4  (see~"InfoANUPQ").  In  this  case,  `Pq'
 returns `true'. Interactively, `SetupFile' is ignored.
 
 \atindex{option PqWorkspace}{@option \noexpand`PqWorkspace'}
@@ -752,9 +761,9 @@ gap> List(des, d -> Maximum( List( Elements(d), Order ) ) );
 [ 5, 5, 5 ]
 \endexample
 
-The above three examples are essentially the same as `"PqDescendants-1"',
-`"PqDescendants-2"' and `"PqDescendants-3"', respectively, which  can  be
-run using `PqExample' (see~"PqExample").
+The     examples     `"PqDescendants-1"',     `"PqDescendants-2"'     and
+`"PqDescendants-3"' (in order) are essentially  the  same  as  the  above
+three examples (see~"PqExample").
 
 (The function requires the {\ANUPQ} share package; see~"Loading the ANUPQ
 Share Package".)

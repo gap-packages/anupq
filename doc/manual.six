@@ -86,7 +86,7 @@ F 5.1. PqStart
 F 5.1. PqQuit
 F 5.1. PqQuit
 F 5.1. PqQuitAll
-S 5.2. Interactive ANUPQ Process Utility Functions and Interruption of an Interactive ANUPQ Process
+S 5.2. Interactive ANUPQ Process Utility Functions
 F 5.2. PqProcessIndex
 F 5.2. PqProcessIndex
 F 5.2. PqProcessIndices
@@ -124,12 +124,22 @@ F 5.4. PqSavePcPresentation
 F 5.4. PqSavePcPresentation
 F 5.4. PqRestorePcPresentation
 F 5.4. PqRestorePcPresentation
+F 5.4. PqFactoredOrder
+F 5.4. PqFactoredOrder
+F 5.4. PqOrder
+F 5.4. PqOrder
+F 5.4. PqPClass
+F 5.4. PqPClass
+F 5.4. PqNrPcGenerators
+F 5.4. PqNrPcGenerators
+F 5.4. PqWeight
+F 5.4. PqWeight
 F 5.4. PqCurrentGroup
 F 5.4. PqCurrentGroup
 F 5.4. PqDisplayPcPresentation
 F 5.4. PqDisplayPcPresentation
-F 5.4. PqSetPrintLevel
-F 5.4. PqSetPrintLevel
+F 5.4. PqSetOutputLevel
+F 5.4. PqSetOutputLevel
 F 5.4. PqNextClass
 F 5.4. PqNextClass
 I 5.4. option QueueFactor
@@ -141,10 +151,6 @@ F 5.4. PqSolveEquation
 F 5.4. PqSolveEquation
 F 5.4. PqCommutator
 F 5.4. PqCommutator
-F 5.4. PqAPQDisplayPresentation
-F 5.4. PqAPQDisplayPresentation
-F 5.4. PqAPQSetPrintLevel
-F 5.4. PqAPQSetPrintLevel
 F 5.4. PqSetupTablesForNextClass
 F 5.4. PqSetupTablesForNextClass
 F 5.4. PqAddTails
@@ -179,8 +185,8 @@ F 5.4. PqExtendAutomorphisms
 F 5.4. PqExtendAutomorphisms
 F 5.4. PqApplyAutomorphisms
 F 5.4. PqApplyAutomorphisms
-F 5.4. PqPrintStructure
-F 5.4. PqPrintStructure
+F 5.4. PqDisplayStructure
+F 5.4. PqDisplayStructure
 F 5.4. PqDisplayAutomorphisms
 F 5.4. PqDisplayAutomorphisms
 F 5.4. PqCollectDefiningGenerators
@@ -197,8 +203,6 @@ F 5.4. PqPGExtendAutomorphisms
 F 5.4. PqPGExtendAutomorphisms
 F 5.4. PqPGRestoreGroupFromFile
 F 5.4. PqPGRestoreGroupFromFile
-F 5.4. PqPGDisplayPresentation
-F 5.4. PqPGDisplayPresentation
 F 5.4. PqPGConstructDescendants
 F 5.4. PqPGConstructDescendants
 F 5.4. PqAPGSupplyAutomorphisms
@@ -207,8 +211,6 @@ F 5.4. PqAPGExtendAutomorphisms
 F 5.4. PqAPGExtendAutomorphisms
 F 5.4. PqAPGRestoreGroupFromFile
 F 5.4. PqAPGRestoreGroupFromFile
-F 5.4. PqAPGDisplayPresentation
-F 5.4. PqAPGDisplayPresentation
 F 5.4. PqSPPcPresentation
 F 5.4. PqSPPcPresentation
 F 5.4. PqSPStandardPresentation
@@ -218,10 +220,6 @@ I 5.4. option ClassBound
 I 5.4. option PcgsAutomorphisms
 F 5.4. PqSPSavePresentation
 F 5.4. PqSPSavePresentation
-F 5.4. PqSPDisplayPresentation
-F 5.4. PqSPDisplayPresentation
-F 5.4. PqSPSetPrintLevel
-F 5.4. PqSPSetPrintLevel
 F 5.4. PqSPCompareTwoFilePresentations
 F 5.4. PqSPCompareTwoFilePresentations
 F 5.4. PqSPIsomorphism

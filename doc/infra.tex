@@ -151,22 +151,22 @@ same as those passed to the `pq' binary);
 
 \quad`name'& the name of the group whose pc presentation is defined by  a
 call to the `pq' binary (according to the `pq' binary -- unless you  have
-used the `GroupName' option (see e.g.~"Pq") this  will  be  the  default:
-`"G"');
+used the `GroupName' option  (see  e.g.~"Pq")  or  applied  the  function
+`SetName'  (see~"ref:SetName")  to  the  group,  the   ``generic''   name
+`"\<grp>"' is set as a default);
 
 \quad`class'& the largest lower exponent-$p$ central class found for  the
 group (usually `group') whose pc presentation is defined by a call to the
 `pq' binary;
 
-\quad`order'& the order of the largest lower exponent-$p$  central  class
-found the group (usually `group') whose pc presentation is defined  by  a
-call to the `pq' binary;
+\quad`forder'& the factored  order  of  the  largest  lower  exponent-$p$
+central class found for the group (usually `group') whose pc presentation
+is defined by a  call  to  the  `pq'  binary,  as  a  list  `[$p$,  $n$]'
+(indicating an order of $p^n$;
 
-\quad`pcoverclass'& the class of the  $p$-covering  group  last  computed
-(determined from `pq' binary output);
-
-\quad`pcoverorder'& the order of the  $p$-covering  group  last  computed
-(determined from `pq' binary output);
+\quad`pcoverclass'& the lower exponent-$p$ central class  found  for  the
+$p$-covering group of a $p$-quotient of the group (usually `group') whose
+pc presentation is defined by a call to the `pq' binary;
 
 \quad`workspace'& the workspace set for the `pq' process (either given as
 a second argument to `PqStart', or set by default to 10000000);
@@ -241,39 +241,46 @@ purpose,  there  is  the  <InfoClass>  `InfoANUPQ'.  Each  line  of  `pq'
 input/output is directed to a call to `Info' and will  be  displayed  for
 the user to see if the `InfoLevel' of  `InfoANUPQ'  is  high  enough.  By
 default, the `InfoLevel' of `InfoANUPQ' is 1, and it is recommended  that
-you leave it at this level, or higher. Only messages which we think  that
-the user will really want to see are directed to  `Info'  at  `InfoANUPQ'
-level 1. To turn off *all* `InfoANUPQ'  messaging,  set  the  `InfoANUPQ'
-level to 0.
+you leave it at this level, or higher. Messages which we think  that  the
+user will really want to see and output from the `pq'  binary  influenced
+by the value of the option  `OutputLevel'  (see  the  options  listed  in
+Section~"Pq"), other than timing and memory usage are directed to  `Info'
+at `InfoANUPQ' level 1.
 
-Currently, information from the `pq' binary is directed to `Info' at four
-user-intended `InfoANUPQ' levels: 1, 2, 3 and 4. The command
+To turn off *all* `InfoANUPQ' messaging, set the `InfoANUPQ' level to 0.
+
+There are four other user-intended `InfoANUPQ' levels:
+ 2, 3, 4 and 5.
 
 \beginexample
 gap> SetInfoLevel(InfoANUPQ, 2);
 \endexample
 
-enables the display of results from the `pq'  binary.
+enables the display of timing and memory usage data from the `pq' binary.
 
 \beginexample
 gap> SetInfoLevel(InfoANUPQ, 3);
 \endexample
 
-enables the display of all the input sent to the `pq'  binary,  behind  a
-```ToPQ> ''' prompt (so that you can distinguish it from the output  from
-the `pq' binary). Finally,
+enables the display of output of the nature of the first two  `InfoANUPQ'
+that was not directly invoked by the user (some commands  require  {\GAP}
+to discover something about the current state known to the `pq' binary).
 
 \beginexample
 gap> SetInfoLevel(InfoANUPQ, 4);
 \endexample
 
-enables the display of all other output from the `pq' binary, namely  the
-banner and menus. However, the timing data printed when the  `pq'  binary
-exits can never be observed.
+enables the display of all the commands  directed  to  the  `pq'  binary,
+behind a ```ToPQ> ''' prompt (so that you can  distinguish  it  from  the
+output from the `pq' binary). Finally,
 
-Higher `InfoANUPQ' levels (in particular, levels 5 and  6)  are  intended
-only for debugging purposes, and give all  partial  results  of  commands
-read from an iostream.
+\beginexample
+gap> SetInfoLevel(InfoANUPQ, 5);
+\endexample
+
+enables the display of all other output from the `pq' binary, namely  the
+banner, prompts for input, and menus. However, the  timing  data  printed
+when the `pq' binary exits can never be observed.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Hints and Warnings regarding the use of Options}
