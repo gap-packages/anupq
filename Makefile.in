@@ -56,7 +56,7 @@ unix-gmp: bindir
 	LDLIBS="-lm -L$(GNULIB) -lgmp" )
 
 unix: bindir
-	@( cd $(SRC) ; cd $(SRC) ; $(MAKE) -f $(MAKEFILE) $(EFILE) CC=cc \
+	@( cd $(SRC) ; $(MAKE) -f $(MAKEFILE) $(EFILE) CC=cc \
 	CFLAGS="$(COPTS) $(PQFLAGS) -DUNIX -DNO_GETRUSAGE" \
 	GAP=$(GAP) \
 	EXT=$(EXT) \
@@ -340,7 +340,7 @@ OBJECTS=\
 	tails.o                        	tails_filter.o                \
 	text.o                         	update.o                      \
 	update_generators.o            	update_name.o                 \
-	vsystem.o                      	write.o                       \
+	vsystem.o                      	write.o                       
 
 
 #@ENDOBJ@
