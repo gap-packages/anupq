@@ -1,7 +1,7 @@
 #############################################################################
 ####
 ##
-#W  anupqprop.gd            ANUPQ Share Package                 Werner Nickel
+#W  anupqprop.gd               ANUPQ package                    Werner Nickel
 ##
 ##
 ##  Declares properties and attributes needed for ANUPQ.

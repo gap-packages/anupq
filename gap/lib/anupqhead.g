@@ -1,7 +1,7 @@
 #############################################################################
 ####
 ##
-#W  anupqhead.g             ANUPQ Share Package                 Werner Nickel
+#W  anupqhead.g                ANUPQ package                    Werner Nickel
 #W                                                                Greg Gamble
 ##
 ##  `Head' file for the GAP interface to the ANU pq binary by Eamonn O'Brien.
@@ -17,7 +17,7 @@ Revision.anupqhead_g :=
 
 #############################################################################
 ##
-#V  ANUPQData . . record used by various functions of the ANUPQ share package
+#V  ANUPQData . . record used by various functions of the ANUPQ package
 ##
 ##  The fields of ANUPQData are:
 ##
@@ -29,7 +29,7 @@ Revision.anupqhead_g :=
 ##    "version" . . the version of the current pq binary
 ##
 DeclareGlobalVariable( "ANUPQData",
-  "A record containing various data associated with the ANUPQ share package."
+  "A record containing various data associated with the ANUPQ package."
 );
 InstallValue( ANUPQData,
   rec( binary := Filename( DirectoriesPackagePrograms( "anupq" ), "pq"),
@@ -64,7 +64,7 @@ SetInfoLevel( InfoANUPQ, 1 );
 ##
 if not QUIET and BANNER then
 
-Info(InfoWarning,1,"  Loading the ANUPQ (ANU p-Quotient) share package");
+Info(InfoWarning,1,"  Loading the ANUPQ (ANU p-Quotient) package");
 Info(InfoWarning,1,"  C code by  Eamonn O'Brien <obrien@math.auckland.ac.nz>");
 Info(InfoWarning,1,"              ANU pq binary version: ", ANUPQData.version);
 Info(InfoWarning,1,"  GAP code by Werner Nickel <nickel@mathematik.tu-darmstadt.de>");

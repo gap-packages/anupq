@@ -1,7 +1,7 @@
 #############################################################################
 ####
 ##
-#W  anupqios.gd         ANUPQ Share Package                       Greg Gamble
+#W  anupqios.gd            ANUPQ package                          Greg Gamble
 ##
 ##  This file declares core functions used with streams.
 ##    

@@ -1,7 +1,7 @@
 #############################################################################
 ####
 ##
-#W  anupq4r2cpt.gd      ANUPQ Share Package                       Greg Gamble
+#W  anupq4r2cpt.gd         ANUPQ package                          Greg Gamble
 ##
 ##  This file declares functions not in GAP 4.2, unless already provided, for
 ##  backward compatibility.

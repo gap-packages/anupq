@@ -1,7 +1,7 @@
 #############################################################################
 ####
 ##
-#W  anupqios.gi         ANUPQ Share Package                       Greg Gamble
+#W  anupqios.gi            ANUPQ package                          Greg Gamble
 ##
 ##  This file installs core functions used with iostreams.
 ##    

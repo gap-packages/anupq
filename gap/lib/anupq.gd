@@ -1,7 +1,7 @@
 #############################################################################
 ####
 ##
-#A  anupq.gd                 ANUPQ share package               Eamonn O'Brien
+#A  anupq.gd                    ANUPQ package                  Eamonn O'Brien
 #A                                                             & Frank Celler
 ##
 ##  Declaration file for ``general'' group functions and variables.

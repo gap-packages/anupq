@@ -1,7 +1,7 @@
 #############################################################################
 ####
 ##
-#W  anupqi.gi           ANUPQ Share Package                       Greg Gamble
+#W  anupqi.gi              ANUPQ package                          Greg Gamble
 ##
 ##  This file installs interactive functions that execute individual pq  menu
 ##  options.
@@ -278,19 +278,26 @@ end );
 #F  PqPcPresentation( <i> : <options> ) . . user version of p-Q menu option 1
 #F  PqPcPresentation( : <options> )
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, inputs data  given
-##  by <options> for the group of  that  process  so  that  the  `pq'  binary
-##  computes a pc presentation, where the group of a process is the one given
-##  as first argument when `PqStart' was called to initiate that process (for
-##  process <i> the group is stored as `ANUPQData.io[<i>].group').
+##  for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
+##  binary to compute the pc presentation  of  the  quotient  (determined  by
+##  <options>) of the group of the process, which for process <i>  is  stored
+##  as `ANUPQData.io[<i>].group'.
 ##
-##  The possible <options> are `Prime', `ClassBound', `Relators', `Exponent',
-##  `Metabelian' and `OutputLevel', which are as described for  the  function
-##  `Pq' (see~"Pq"). The option `Prime' is required unless  already  provided
-##  to `PqStart'. Also, option `ClassBound' *must* be supplied.
+##  The  possible  <options>  are  the  same  as  for  the  interactive  `Pq'
+##  (see~"Pq!interactive")   function,   namely:    `Prime',    `ClassBound',
+##  `Exponent', `Relators', `GroupName', `Metabelian' and `OutputLevel'  (see
+##  Chapter~"ANUPQ options" for a detailed description  for  these  options).
+##  The option `Prime' is required  unless  already  provided  to  `PqStart'.
+##  Also, option `ClassBound' *must* be supplied.
 ##
-##  *Note:* For those  familiar  with  the  `pq'  binary,  `PqPcPresentation'
-##  performs option 1 of the main $p$-Quotient menu.
+##  *Notes*
+##
+##  The pc presentation is held by the `pq' binary. There is no output  of  a
+##  {\GAP} pc group; see~`PqCurrentGroup' ("PqCurrentGroup") if you need  the
+##  corresponding {\GAP} pc group.
+##
+##  For those familiar with the `pq' binary, `PqPcPresentation' performs menu
+##  item 1 of the main $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqPcPresentation, function( arg )
 local datarec;
@@ -372,16 +379,15 @@ end );
 #F  PqSavePcPresentation( <i>, <filename> ) . .  user ver. of p-Q menu opt. 2
 #F  PqSavePcPresentation( <filename> )
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
-##  binary to save the pc presentation previously computed for the  group  of
-##  that process to the file with name  <filename>,  where  the  group  of  a
-##  process is the one given as first argument when `PqStart' was  called  to
-##  initiate that process. If the first character of the string <filename> is
-##  not `/' <filename> is assumed to be the path of a writable file  relative
-##  to the directory in which {\GAP} was started.
+##  for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
+##  binary to save the pc presentation previously computed for  the  quotient
+##  of the group of that process to the file with  name  <filename>.  If  the
+##  first character of the  string  <filename>  is  not  `/',  <filename>  is
+##  assumed to be the path of a writable file relative to  the  directory  in
+##  which {\GAP} was started.
 ##
 ##  *Note:* For those familiar with the `pq'  binary,  `PqSavePcPresentation'
-##  performs option 2 of the main $p$-Quotient menu.
+##  performs menu item 2 of the main $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqSavePcPresentation, function( arg )
 local datarec, filename;
@@ -416,17 +422,15 @@ end );
 #F  PqRestorePcPresentation( <i>, <filename> ) . user ver. of p-Q menu opt. 3
 #F  PqRestorePcPresentation( <filename> )
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
-##  binary to restore the pc presentation previously saved to <filename>  for
-##  the group of that process, where the group of a process is the one  given
-##  as first argument when `PqStart' was called to initiate that process.  If
-##  the first character of the string <filename> is  not  `/'  <filename>  is
+##  for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
+##  binary to restore the pc presentation previously saved to <filename>.  If
+##  the first character of the string <filename> is not  `/',  <filename>  is
 ##  assumed to be the path of a readable file relative to  the  directory  in
 ##  which {\GAP} was started.
 ##
 ##  *Note:*
 ##  For  those  familiar  with  the  `pq'  binary,  `PqRestorePcPresentation'
-##  performs option 3 of the main $p$-Quotient menu.
+##  performs menu item 3 of the main $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqRestorePcPresentation, function( arg )
 local datarec, filename;
@@ -602,15 +606,15 @@ end );
 #F  PqFactoredOrder( <i> ) . the `pq' binary's current group's factored order
 #F  PqFactoredOrder()
 ##
-##  for the <i>th  or  default  interactive  {\ANUPQ}  process,  returns  the
-##  factored order as a list `[<p>, <n>]' of the current class group  of  the
-##  `pq' binary.
+##  for the <i>th or default interactive {\ANUPQ} process, return an estimate
+##  of the factored order of the lower exponent  $p$-class  quotient  of  the
+##  group currently determined by the process as a list `[<p>, <n> ]'.
 ##
 ##  *Note:* The order of each $p$-class quotient is taken as $p^n$ where  $n$
 ##  is the number of generators for the class; this may be  an  over-estimate
 ##  if tails have been added and the necessary consistency  checks,  relation
 ##  collections, exponent law checks  and  redundant  generator  eliminations
-##  have not been done for a class.
+##  have not yet been done for a class.
 ##
 InstallGlobalFunction( PqFactoredOrder, function( arg )
   return PQ_DATA_CHK(arg).forder;
@@ -621,8 +625,9 @@ end );
 #F  PqOrder( <i> ) . . . .  the order of the current group of the `pq' binary
 #F  PqOrder()
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, returns the  order
-##  of the current class group of the `pq' binary.
+##  for the <i>th or default interactive {\ANUPQ} process, return an estimate
+##  of the order of the  lower  exponent  $p$-class  quotient  of  the  group
+##  currently determined by the process.
 ##
 ##  *Note:* The order of each $p$-class quotient is taken as $p^n$ where  $n$
 ##  is the number of generators for the class; this may be  an  over-estimate
@@ -641,8 +646,9 @@ end );
 #F  PqPClass( <i> ) . . . the p class of the current group of the `pq' binary
 #F  PqPClass()
 ##
-##  for the <i>th  or  default  interactive  {\ANUPQ}  process,  returns  the
-##  current lower exponent-$p$ class group of the `pq' binary.
+##  for the <i>th or default interactive {\ANUPQ} process, return  the  lower
+##  exponent $p$-class of the quotient  group  currently  determined  by  the
+##  process.
 ##
 InstallGlobalFunction( PqPClass, function( arg )
   return PQ_DATA_CHK(arg).class;
@@ -653,9 +659,9 @@ end );
 #F  PqNrPcGenerators( <i> ) . number of pc gen'rs of `pq' binary's current gp
 #F  PqNrPcGenerators()
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, returns the number
-##  of pc generators of the current exponent-$p$  class  group  of  the  `pq'
-##  binary.
+##  for the <i>th or default interactive {\ANUPQ} process, return the  number
+##  of pc generators of the lower exponent $p$-class quotient  of  the  group
+##  currently determined by the process.
 ##
 InstallGlobalFunction( PqNrPcGenerators, function( arg )
   return PQ_DATA_CHK(arg).forder[2];
@@ -666,9 +672,10 @@ end );
 #F  PqWeight( <i>, <j> ) . . . . . . . . . . . . . . .  weight of a generator
 #F  PqWeight( <j> )
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, returns the weight
-##  of the <j>th pc generator of the current exponent-$p$ class group of  the
-##  `pq' binary, or `fail' if there is no such numbered pc generator.
+##  for the <i>th or default interactive {\ANUPQ} process, return the  weight
+##  of the <j>th pc generator of the lower exponent $p$-class quotient of the
+##  group currently determined by the process, or `fail' if there is no  such
+##  numbered pc generator.
 ##
 InstallGlobalFunction( PqWeight, function( arg )
 local ngens, i, j;
@@ -681,7 +688,7 @@ local ngens, i, j;
   fi;
   Unbind( arg[ Length(arg) ] );
   ngens := PQ_DATA_CHK(arg).ngens;
-  return First([1 .. Length(ngens)], i -> ngens[i] > j);
+  return First([1 .. Length(ngens)], i -> ngens[i] >= j);
 end );
 
 #############################################################################
@@ -689,9 +696,9 @@ end );
 #F  PqCurrentGroup( <i> ) . . . . extracts the current quotient as a pc group
 #F  PqCurrentGroup()
 ##
-##  for the <i>th  or  default  interactive  {\ANUPQ}  process,  returns  the
-##  current lower exponent $p$-class quotient of the group of the process  as
-##  a pc group.
+##  for the <i>th or default interactive {\ANUPQ} process, return  the  lower
+##  exponent $p$-class quotient of the  group  currently  determined  by  the
+##  process as a {\GAP} pc group.
 ##
 InstallGlobalFunction( PqCurrentGroup, function( arg )
 local datarec;
@@ -709,20 +716,19 @@ end );
 #F  PqDisplayPcPresentation( <i> ) . . . .  user version of any menu option 4
 #F  PqDisplayPcPresentation()
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
-##  binary to display the pc presentation to the current class known  to  the
-##  `pq' binary for the group of that process, where the group of  a  process
-##  is the one given as first argument when `PqStart' was called to  initiate
-##  that process. Except if the last  command  communicating  with  the  `pq'
-##  binary was a $p$-group generation command (for  which  there  is  only  a
-##  verbose output level), to set the  amount  of  information  this  command
-##  displays   you   may    wish    to    call    `PqSetOutputLevel'    first
-##  (see~"PqSetOutputLevel"), or equivalently pass the  option  `OutputLevel'
-##  (see e.g.~"Pq" where the option is described).
+##  for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
+##  binary to display the pc presentation of  the  lower  exponent  $p$-class
+##  quotient of the group currently determined by the process.
 ##
-##  *Note:* 
+##  Except if the last command communicating  with  the  `pq'  binary  was  a
+##  $p$-group generation command (for which there is only  a  verbose  output
+##  level), to set the amount of information this command  displays  you  may
+##  wish  to  call  `PqSetOutputLevel'  first  (see~"PqSetOutputLevel"),   or
+##  equivalently pass the option `OutputLevel' (see~"option OutputLevel").
+##
+##  *Note:*
 ##  For  those  familiar  with  the  `pq'  binary,  `PqDisplayPcPresentation'
-##  performs option 4 of the current menu of the `pq' binary.
+##  performs menu item 4 of the current menu of the `pq' binary.
 ##
 InstallGlobalFunction( PqDisplayPcPresentation, function( arg )
 local datarec;
@@ -754,11 +760,11 @@ end );
 #F  PqSetOutputLevel( <i>, <lev> ) .  user version of p-Q/SP/A p-Q menu opt 5
 #F  PqSetOutputLevel( <lev> )
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+##  for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
 ##  binary to set the output level of the `pq' binary to <lev>.
 ##
 ##  *Note:* For those  familiar  with  the  `pq'  binary,  `PqSetOutputLevel'
-##  performs option 5 of the main (or advanced)  $p$-Quotient  menu,  or  the
+##  performs menu item 5 of the main (or advanced) $p$-Quotient menu, or  the
 ##  Standard Presentation menu.
 ##
 InstallGlobalFunction( PqSetOutputLevel, function( arg )
@@ -802,16 +808,28 @@ end );
 #F  PqNextClass( <i> [: <option>]) . . . .  user version of p-Q menu option 6
 #F  PqNextClass( [: <option>])
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
-##  to calculate the next class of `<datarec>.group'.
+##  for the <i>th or default interactive {\ANUPQ} process, direct the `pq' to
+##  calculate the next class of `ANUPQData.io[<i>].group'.
 ##
-##  `PqNextClass'  accepts  the  option  `QueueFactor'  which  should  be   a
-##  positive integer if automorphisms have been previously supplied.  If  the
-##  `pq' binary requires a queue factor and none is supplied via  the  option
-##  `QueueFactor' a default of 15 is taken.
+##  \atindex{option QueueFactor}{@option \noexpand`QueueFactor'}
+##  `PqNextClass'  accepts  the  option   `QueueFactor'   (see   also~"option
+##  QueueFactor") which should be a positive integer  if  automorphisms  have
+##  been previously supplied. If the `pq' binary requires a queue factor  and
+##  none is supplied via the option `QueueFactor' a default of 15 is taken.
 ##
-##  *Note:* For those familiar with the `pq' binary,  `PqNextClass'  performs
-##  option 6 of the main $p$-Quotient menu.
+##  *Notes*
+##
+##  The single command: `PqNextClass(<i>);' is equivalent to executing
+##
+##  \){\kernttindent}PqSetupTablesForNextClass(<i>);
+##  \){\kernttindent}PqTails(<i>, 0);
+##  \){\kernttindent}PqDoConsistencyChecks(<i>, 0, 0);
+##  \){\kernttindent}PqCollectDefiningRelations(<i>);
+##  \){\kernttindent}PqDoExponentChecks(<i>);
+##  \){\kernttindent}PqEliminateRedundantGenerators(<i>);
+##
+##  For those familiar with the `pq' binary, `PqNextClass' performs menu item
+##  6 of the main $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqNextClass, function( arg )
 local datarec;
@@ -842,11 +860,20 @@ end );
 #F  PqPCover( <i> ) . . . . . . . . . . . . user version of p-Q menu option 7
 #F  PqPCover()
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
-##  to compute the $p$-covering group of `<datarec>.group'.
+##  for the <i>th or default interactive {\ANUPQ} process, direct the `pq' to
+##  compute the $p$-covering group of `ANUPQData.io[<i>].group'.
 ##
-##  *Note:* For those familiar with  the  `pq'  binary,  `PqPCover'  performs
-##  option 7 of the main $p$-Quotient menu.
+##  *Notes*
+##
+##  The single command: `PqPCover(<i>);' is equivalent to executing
+##
+##  \){\kernttindent}PqSetupTablesForNextClass(<i>);
+##  \){\kernttindent}PqTails(<i>, 0);
+##  \){\kernttindent}PqDoConsistencyChecks(<i>, 0, 0);
+##  \){\kernttindent}PqEliminateRedundantGenerators(<i>);
+##
+##  For those familiar with the `pq' binary, `PqPCover' performs menu item  7
+##  of the main $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqPCover, function( arg )
 local datarec;
@@ -928,12 +955,12 @@ end );
 #F  PqSolveEquation( <i>, <a>, <b> ) . .  user version of A p-Q menu option 2
 #F  PqSolveEquation( <a>, <b> )
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+##  for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
 ##  binary to solve $<a> * <x> = <b>$ for <x>.
 ##
-##  *Note:* 
+##  *Note:*
 ##  For those familiar  with  the  `pq'  binary,  `PqSolveEquation'  performs
-##  option 2 of the Advanced $p$-Quotient menu.
+##  menu item 2 of the Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqSolveEquation, function( arg )
 local len, datarec;
@@ -1028,7 +1055,7 @@ InstallGlobalFunction( PQ_SETUP_TABLES_FOR_NEXT_CLASS, function( datarec )
   ToPQ(datarec, [ "6  #set up tables for next class" ]);
   datarec.match := true;
   PQ_SET_GRP_DATA(datarec); #Just to be sure it's up-to-date
-  datarec.setupclass := datarec.class + 1;
+  datarec.setupclass := datarec.class;
 end );
 
 #############################################################################
@@ -1036,13 +1063,14 @@ end );
 #F  PqSetupTablesForNextClass( <i> ) . .  user version of A p-Q menu option 6
 #F  PqSetupTablesForNextClass()
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
-##  binary to set up tables for the next class.
+##  for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
+##  binary  to  set  up  tables  for  the  next  class.  As  as  side-effect,
+##  after   `PqSetupTablesForNextClass(<i>)'   the    value    returned    by
+##  `PqPClass(<i>)' will be one more than it was previously.
 ##
-##  *Note:* 
-##  For those  familiar  with  the  `pq'  binary, 
-##  `PqSetupTablesForNextClass' performs option 6 of the
-##  Advanced $p$-Quotient menu.
+##  *Note:*
+##  For those familiar  with  the  `pq'  binary,  `PqSetupTablesForNextClass'
+##  performs menu item 6 of the Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqSetupTablesForNextClass, function( arg )
 local datarec;
@@ -1076,18 +1104,23 @@ end );
 #F  PQ_CHK_TAILS_ARGS( <args> ) . . . . .  check args for insert tails cmd ok
 ##
 InstallGlobalFunction( PQ_CHK_TAILS_ARGS, function( args )
-local weight;
+local weight, datarec;
   if IsEmpty(args) or 2 < Length(args) then
     Error( "1 or 2 arguments expected\n");
   fi;
   weight := args[Length(args)];
   args := args{[1..Length(args) - 1]};
   ANUPQ_IOINDEX_ARG_CHK(args);
-  if not IsInt(weight) or weight < 0 then
-    #@check weight in [0..class]@
-    Error( "argument <weight> should be a non-negative integer\n" );
+  datarec := ANUPQData.io[ ANUPQ_IOINDEX(args) ];
+  if not IsBound(datarec.setupclass) or datarec.class <> datarec.setupclass then
+    Error( "tables to start next class have not been set up.\n",
+           "Please call `PqSetupTablesForNextClass' first\n" );
   fi;
-  return ANUPQData.io[ ANUPQ_IOINDEX(args) ];
+  if not(weight = 0 or weight in [2 .. datarec.class]) then
+    Error( "argument <weight> should be an integer in [0] U [2 .. <class>],\n",
+           "where <class> is the current class (", datarec.class, ")\n" );
+  fi;
+  return datarec;
 end );
 
 #############################################################################
@@ -1095,12 +1128,14 @@ end );
 #F  PqAddTails( <i>, <weight> ) . . . .  adds tails using A p-Q menu option 7
 #F  PqAddTails( <weight> )
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
-##  binary to add tails of weight <weight>, where <weight> is a  non-negative
-##  integer (a <weight> of `0' means all weights).
+##  for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
+##  binary to add tails of weight <weight> if  <weight>  is  in  the  integer
+##  range `[2 .. PqPClass(<i>)]' (assuming <i> is the number of the  process)
+##  or for all weights if `<weight> = 0'. See `PqTails' ("PqTails") for  more
+##  details.
 ##
 ##  *Note:*
-##  For those familiar with the `pq' binary, `PqAddTails' uses  option  7  of
+##  For those familiar with the `pq' binary, `PqAddTails' uses menu item 7 of
 ##  the Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqAddTails, function( arg )
@@ -1112,13 +1147,15 @@ end );
 #F  PqComputeTails( <i>, <weight> ) . . computes tails using A p-Q menu opt 7
 #F  PqComputeTails( <weight> )
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
-##  binary  to  compute  tails  of  weight  <weight>,  where  <weight>  is  a
-##  non-negative integer (a <weight> of `0' means all weights).
+##  for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
+##  binary to compute tails of weight <weight> if <weight> is in the  integer
+##  range `[2 .. PqPClass(<i>)]' (assuming <i> is the number of the  process)
+##  or for all weights if `<weight> = 0'. See `PqTails' ("PqTails") for  more
+##  details.
 ##
 ##  *Note:*
-##  For those familiar with the `pq' binary, `PqComputeTails' uses  option  7
-##  of the Advanced $p$-Quotient menu.
+##  For those familiar with the `pq' binary, `PqComputeTails' uses menu  item
+##  7 of the Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqComputeTails, function( arg )
   PQ_INSERT_TAILS( PQ_CHK_TAILS_ARGS(arg), arg[Length(arg)], "compute" );
@@ -1129,13 +1166,32 @@ end );
 #F  PqTails( <i>, <weight> ) . computes and adds tails using A p-Q menu opt 7
 #F  PqTails( <weight> )
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
-##  binary to compute and add tails of weight <weight>, where <weight>  is  a
-##  non-negative integer (a <weight> of `0' means all weights).
+##  for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
+##  binary to compute and add tails of weight <weight> if <weight> is in  the
+##  integer range `[2 .. PqPClass(<i>)]' (assuming <i> is the number  of  the
+##  process) or for all weights if `<weight> = 0'.
 ##
-##  *Note:*
-##  For those familiar with the `pq' binary, `PqTails' uses option 7  of  the
-##  Advanced $p$-Quotient menu.
+##  If <weight> is non-zero, then tails that  introduce  new  generators  for
+##  only weight <weight> are computed and added, and  in  this  case  and  if
+##  `<weight> \< PqPClass(<i>)', it is assumed that the tails that  introduce
+##  new  generators  for  each  weight  from  `PqPClass(<i>)'  downto  weight
+##  `<weight>  +  1'  have  already  been  added.  You  may  wish   to   call
+##  `PqSetMetabelian' (see~"PqSetMetabelian") prior to calling `PqTails'.
+##
+##  *Notes*
+##
+##  For its use in the context of finding the next class  see  "PqNextClass";
+##  in     particular,     a     call     to      `PqSetupTablesForNextClass'
+##  (see~"PqSetupTablesForNextClass")  needs  to  have  been  made  prior  to
+##  calling `PqTails'.
+##
+##  The single command: `PqTails(<i>, <weight>);' is equivalent to
+##
+##  \){\kernttindent}PqComputeTails(<i>, <weight>);
+##  \){\kernttindent}PqAddTails(<i>, <weight>);
+##
+##  For those familiar with the `pq' binary, `PqTails' uses menu  item  7  of
+##  the Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqTails, function( arg )
   PQ_INSERT_TAILS(PQ_CHK_TAILS_ARGS(arg), arg[Length(arg)], "compute and add");
@@ -1143,7 +1199,7 @@ end );
 
 #############################################################################
 ##
-#F  PQ_DO_CONSISTENCY_CHECKS( <datarec>, <weight>, <type> ) . A p-Q menu opt 8
+#F  PQ_DO_CONSISTENCY_CHECKS(<datarec>, <weight>, <type>) .  A p-Q menu opt 8
 ##
 ##  inputs data to the `pq' binary for option 8 of the Advanced  $p$-Quotient
 ##  menu, to do consistency checks.
@@ -1162,14 +1218,45 @@ end );
 #F  PqDoConsistencyChecks( <weight>, <type> )
 ##
 ##  for the <i>th or default interactive  {\ANUPQ}  process,  do  consistency
-##  checks of type <type> for weight <weight>; <type> should be an integer in
-##  `[0,1,2,3]' (`0' means do  *all*  checks),  and  <weight>  should  be  an
-##  integer in `[0 .. <class>]' where <class> is the maximum class (`0' means
-##  all weights).
+##  checks for weight <weight> if <weight> is in the  integer  range  `[3  ..
+##  PqPClass(<i>)]' (assuming <i> is the number of the process)  or  for  all
+##  weights if `<weight> = 0', and for type <type> if <type> is in the  range
+##  `[1, 2, 3]' (see below) or for all types if `<type> = 0'. (For its use in
+##  the context of finding the next class see "PqNextClass".)
 ##
-##  *Note:*
+##  The  *type*   of   a   consistency   check   is   defined   as   follows.
+##  `PqDoConsistencyChecks(<i>, <weight>, <type>)' for  <weight>  in  `[3  ..
+##  PqPClass(<i>)]' and the given  value  of  <type>  invokes  the  following
+##  `PqJacobi' checks (see~"PqDoConsistencyCheck"):
+##
+##  \beginitems
+##
+##  `<type> = 1':&
+##  `PqJacobi(<i>, <a>, <a>, <a>)' checks for  pc  generators  of  index  <a>
+##  satisfying `2 * PqWeight(<i>, <a>) + 1 = <weight>'.
+##
+##  `<type> = 2':&
+##  `PqJacobi(<i>, <b>, <b>, <a>)' checks for pc generators of  indices  <b>,
+##  <a> satisfying `<b> > <a>' and `PqWeight(<i>, <b>) + PqWeight(<i>, <a>) +
+##  1 = <weight>'.
+##
+##  `<type> = 3':&
+##  `PqJacobi(<i>, <c>, <b>, <a>)' checks for pc generators of  indices  <c>,
+##  <b>, <a> satisfying `<c> > <b> > <a>' and the sum of the weights of these
+##  generators equals <weight>.
+##
+##  \enditems
+##
+##  *Notes*
+##
+##  `PqWeight(<i>, <j>)' returns the weight of the <j>th  pc  generator,  for
+##  process <i> (see~"PqWeight").
+##
+##  It is assumed that tails for the given weight (or weights)  have  already
+##  been added (see~"PqTails").
+##
 ##  For those familiar with the `pq' binary, `PqDoConsistencyChecks' performs
-##  option 8 of the Advanced $p$-Quotient menu.
+##  menu item 8 of the Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqDoConsistencyChecks, function( arg )
 local len, datarec, weight, type;
@@ -1179,16 +1266,20 @@ local len, datarec, weight, type;
   fi;
   weight := arg[len - 1];
   type   := arg[len];
-  if not IsInt(weight) or weight < 0 then
-    #@check weight in [0..class]@
-    Error( "argument <weight> should be a non-negative integer\n" );
+  arg := arg{[1 .. len - 2]};
+  ANUPQ_IOINDEX_ARG_CHK(arg);
+  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
+  if not IsBound(datarec.setupclass) or datarec.class <> datarec.setupclass then
+    Error( "tables to start next class have not been set up.\n",
+           "Please call `PqSetupTablesForNextClass' first\n" );
+  fi;
+  if not(weight = 0 or weight in [3 .. datarec.class]) then
+    Error( "argument <weight> should be an integer in [0] U [3 .. <class>],\n",
+           "where <class> is the current class (", datarec.class, ")\n" );
   fi;
   if not(type in [0..3]) then
     Error( "argument <type> should be in [0,1,2,3]\n" );
   fi;
-  arg := arg{[1 .. len - 2]};
-  ANUPQ_IOINDEX_ARG_CHK(arg);
-  datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
   PQ_DO_CONSISTENCY_CHECKS( datarec, weight, type );
 end );
 
@@ -1209,12 +1300,16 @@ end );
 #F  PqCollectDefiningRelations( <i> ) . . user version of A p-Q menu option 9
 #F  PqCollectDefiningRelations()
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
-##  binary to collect defining relations.
+##  for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
+##  binary to collect the images of the defining relations of the original fp
+##  group of the process, with respect to the current pc presentation, in the
+##  context of finding the  next  class  (see~"PqNextClass").  If  the  tails
+##  operation  is  not  complete  then  the  relations   may   be   evaluated
+##  incorrectly.
 ##
 ##  *Note:*
 ##  For those familiar with  the  `pq'  binary,  `PqCollectDefiningRelations'
-##  performs option 9 of the Advanced $p$-Quotient menu.
+##  performs menu item 9 of the Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqCollectDefiningRelations, function( arg )
 local datarec;
@@ -1248,16 +1343,16 @@ end );
 #F  PqDoExponentChecks(<i>[: Bounds := <list>]) . user ver A p-Q menu opt. 10
 #F  PqDoExponentChecks([: Bounds := <list>])
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+##  for the <i>th or default interactive {\ANUPQ} process, direct  the  `pq'
 ##  binary to do exponent checks for weights (inclusively) between the bounds
 ##  of `Bounds' or for all weights if `Bounds' is not given. The value <list>
 ##  of `Bounds' (assuming the interactive process is numbered <i>) should  be
-##  a list of  two  integers  <low>,  <high>  satisfying  `1  \<=  <low>  \<=
-##  PqPClass(<i>) + 1' (see~"PqPClass").
+##  a list of  two  integers  <low>,  <high>  satisfying  $1  \le  <low>  \le
+##  <high> \le `PqPClass(<i>)'$ (see~"PqPClass").
 ##
-##  *Note:* 
+##  *Note:*
 ##  For those familiar with the `pq'  binary,  `PqDoExponentChecks'  performs
-##  option 10 of the Advanced $p$-Quotient menu.
+##  menu item 10 of the Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqDoExponentChecks, function( arg )
 local datarec;
@@ -1284,12 +1379,12 @@ end );
 #F  PqEliminateRedundantGenerators( <i> ) .  user ver of A p-Q menu option 11
 #F  PqEliminateRedundantGenerators()
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
-##  binary to eliminate redundant generators.
+##  for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
+##  binary to eliminate redundant generators of the current $p$-quotient.
 ##
-##  *Note:* 
+##  *Note:*
 ##  For those familiar with the `pq' binary, `PqEliminateRedundantGenerators'
-##  performs option 11 of the Advanced $p$-Quotient menu.
+##  performs menu item 11 of the Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqEliminateRedundantGenerators, function( arg )
 local datarec;
@@ -1311,7 +1406,7 @@ InstallGlobalFunction( PQ_REVERT_TO_PREVIOUS_CLASS, function( datarec )
   Unbind( datarec.ngens[ datarec.class ] );
   datarec.match := true;
   PQ_SET_GRP_DATA(datarec); #Just to be sure it's up-to-date
-  datarec.setupclass := datarec.class;
+  datarec.setupclass := datarec.class - 1;
 end );
 
 #############################################################################
@@ -1319,12 +1414,12 @@ end );
 #F  PqRevertToPreviousClass( <i> ) . . . user version of A p-Q menu option 12
 #F  PqRevertToPreviousClass()
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+##  for the <i>th or default interactive {\ANUPQ} process, direct  the  `pq'
 ##  binary to abandon the current class and revert to the previous class.
 ##
 ##  *Note:*
 ##  For  those  familiar  with  the  `pq'  binary,  `PqRevertToPreviousClass'
-##  performs option 12 of the Advanced $p$-Quotient menu.
+##  performs menu item 12 of the Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqRevertToPreviousClass, function( arg )
 local datarec;
@@ -1363,7 +1458,7 @@ end );
 ##
 ##  *Note:*
 ##  For  those  familiar  with  the  `pq'  binary,  `PqSetMaximalOccurrences'
-##  performs option 13 of the Advanced $p$-Quotient menu.
+##  performs menu item 13 of the Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqSetMaximalOccurrences, function( arg )
 local len, noccur, datarec;
@@ -1401,12 +1496,12 @@ end );
 #F  PqSetMetabelian( <i> ) . . . . . . . user version of A p-Q menu option 14
 #F  PqSetMetabelian()
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+##  for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
 ##  binary to enforce metabelian-ness.
 ##
 ##  *Note:* 
 ##  For those familiar  with  the  `pq'  binary,  `PqSetMetabelian'  performs
-##  option 14 of the Advanced $p$-Quotient menu.
+##  menu item 14 of the Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqSetMetabelian, function( arg )
 local datarec;
@@ -1432,14 +1527,18 @@ end );
 ##
 #F  PqDoConsistencyCheck(<i>, <c>, <b>, <a>) .  user ver of A p-Q menu opt 15
 #F  PqDoConsistencyCheck( <c>, <b>, <a> )
+#F  PqJacobi(<i>, <c>, <b>, <a>)
+#F  PqJacobi( <c>, <b>, <a> )
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
-##  binary to do a consistency check; the generator  indices  <c>,  <b>,  <a>
-##  should be non-increasing positive integers, i.e.~$<c> \ge <b> \ge <a>$.
+##  for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
+##  binary to do the Jacobi consistency check  for  the  pc  generators  with
+##  indices <c>, <b>, <a> which should be non-increasing  positive  integers,
+##  i.e.~$<c>   \ge   <b>   \ge   <a>$.   For   further   explanation,    see
+##  `PqDoConsistencyChecks' ("PqDoConsistencyChecks").
 ##
-##  *Note:* 
-##  For those familiar with the `pq' binary, `PqDoConsistencyCheck'  performs
-##  option 15 of the Advanced $p$-Quotient menu.
+##  *Note:*
+##  For those familiar  with  the  `pq'  binary,  `PqDoConsistencyCheck'  and
+##  `PqJacobi' perform menu item 15 of the Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqDoConsistencyCheck, function( arg )
 local len, c, b, a, datarec;
@@ -1450,13 +1549,18 @@ local len, c, b, a, datarec;
   c := arg[len - 2];
   b := arg[len - 1];
   a := arg[len];
-  if not ForAll([c, b, a], IsPosInt) or c < b or b < a then
-    Error( "generator indices must be non-increasing positive integers\n" );
-  fi;
-  #@more checking required here@
   arg := arg{[1 .. len - 3]};
   ANUPQ_IOINDEX_ARG_CHK(arg);
   datarec := ANUPQData.io[ ANUPQ_IOINDEX(arg) ];
+  if not IsBound(datarec.setupclass) or datarec.class <> datarec.setupclass then
+    Error( "tables to start next class have not been set up.\n",
+           "Please call `PqSetupTablesForNextClass' first\n" );
+  fi;
+  if not ForAll([c, b, a], IsPosInt) or datarec.class < c or c < b or b < a then
+    Error( "pc generator indices must be non-increasing ",
+           "integers in [1 .. <class>],\n",
+           "where <class> is the current class (", datarec.class, ")\n" );
+  fi;
   PQ_DO_CONSISTENCY_CHECK( datarec, c, b, a );
 end );
 
@@ -1477,12 +1581,12 @@ end );
 #F  PqCompact( <i> ) . . . . . . . . . . user version of A p-Q menu option 16
 #F  PqCompact()
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+##  for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
 ##  binary to do a compaction.
 ##
 ##  *Note:*
-##  For those familiar with the `pq' binary, `PqCompact' performs  option  16
-##  of the Advanced $p$-Quotient menu.
+##  For those familiar with the `pq' binary, `PqCompact' performs  menu  item
+##  16 of the Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqCompact, function( arg )
 local datarec;
@@ -1509,13 +1613,15 @@ end );
 #F  PqEchelonise( <i> ) . . . . . . . .  user version of A p-Q menu option 17
 #F  PqEchelonise()
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
-##  binary to echelonise relation. A call to `PqCollect' (see~"PqCollect") or
-##  `PqCommutator' needs to be performed prior to using this command.
+##  for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
+##  binary to echelonise the word most recently collected by  `PqCollect'  or
+##  `PqCommutator' against the relations of the current  pc  presentation.  A
+##  call    to    `PqCollect'     (see~"PqCollect")     or     `PqCommutator'
+##  (see~"PqCommutator") needs to be performed prior to using this command.
 ##
 ##  *Note:*
-##  For those familiar with the `pq' binary, `PqEchelonise'  performs  option
-##  17 of the Advanced $p$-Quotient menu.
+##  For those familiar with the `pq'  binary,  `PqEchelonise'  performs  menu
+##  item 17 of the Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqEchelonise, function( arg )
 local datarec;
@@ -1551,16 +1657,16 @@ end );
 #F  PqSupplyAutomorphisms(<i>, <mlist>) . . supply auts via A p-Q menu opt 18
 #F  PqSupplyAutomorphisms( <mlist> )
 ##
-##  for the <i>th or  default  interactive  {\ANUPQ}  process,  supplies  the
+##  for the  <i>th  or  default  interactive  {\ANUPQ}  process,  supply  the
 ##  automorphism  data  provided  by  the  list  <mlist>  of  matrices   with
 ##  non-negative integer coefficients. Each matrix in <mlist> must  have  the
 ##  same dimensions; in particular, the number of rows of each matrix must be
-##  the rank of the $p$-quotient of the group associated with the interactive
-##  {\ANUPQ} process.
+##  the number of pc generators of the  current  $p$-quotient  of  the  group
+##  associated with the interactive {\ANUPQ} process.
 ##
 ##  *Note:*
 ##  For those familiar with the  `pq'  binary,  `PqSupplyAutomorphisms'  uses
-##  option 18 of the Advanced $p$-Quotient menu.
+##  menu item 18 of the Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqSupplyAutomorphisms, function( arg )
 local args;
@@ -1578,12 +1684,12 @@ end );
 #F  PqExtendAutomorphisms( <i> ) . . . . .  extend auts via A p-Q menu opt 18
 #F  PqExtendAutomorphisms()
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, inputs data to the
-##  `pq' binary to extend previously-supplied automorphisms.
+##  for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
+##  binary to extend previously-supplied automorphisms.
 ##
 ##  *Note:*
 ##  For those familiar with the  `pq'  binary,  `PqExtendAutomorphisms'  uses
-##  option 18 of the Advanced $p$-Quotient menu.
+##  menu item 18 of the Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqExtendAutomorphisms, function( arg )
 local datarec;
@@ -1614,12 +1720,12 @@ end );
 #F  PqApplyAutomorphisms( <i>, <qfac> ) . .  user ver of A p-Q menu option 19
 #F  PqApplyAutomorphisms( <qfac> )
 ##
-##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
+##  for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
 ##  binary to apply automorphisms; <qfac> is the queue factor e.g. `15'.
 ##
-##  *Note:* 
+##  *Note:*
 ##  For those familiar with  the  `pq'  binary,  `PqCloseRelations'  performs
-##  option 19 of the Advanced $p$-Quotient menu.
+##  menu item 19 of the Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqApplyAutomorphisms, function( arg )
 local len, datarec, qfac;
@@ -1711,17 +1817,17 @@ end );
 #F  PqDisplayAutomorphisms([: Bounds := <list>])
 ##
 ##  for the <i>th or default interactive {\ANUPQ} process, directs  the  `pq'
-##  binary to display the  automorphisms  for  the  pcp  generators  numbered
+##  binary to display the automorphism actions on the pcp generators numbered
 ##  (inclusively) between the bounds of `Bounds' or  for  all  generators  if
 ##  `Bounds' is not  given.  The  value  <list>  of  `Bounds'  (assuming  the
 ##  interactive process is numbered <i>) should be a  list  of  two  integers
-##  <low>,  <high>  satisfying  `1  \<=  <low>   \<=   PqNrPcGenerators(<i>)'
-##  (see~"PqNrPcGenerators"). `PqDisplayStructure' also  accepts  the  option
-##  `OutputLevel' (see e.g.~"Pq" where the option is listed).
+##  <low>,   <high>   satisfying   $1    \le    <low>    \le    <high>    \le
+##  `PqNrPcGenerators(<i>)'$  (see~"PqNrPcGenerators").  `PqDisplayStructure'
+##  also accepts the option `OutputLevel' (see "option OutputLevel").
 ##
 ##  *Note:*
 ##  For  those  familiar  with  the  `pq'  binary,   `PqDisplayAutomorphisms'
-##  performs option 21 of the Advanced $p$-Quotient menu.
+##  performs menu item 21 of the Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqDisplayAutomorphisms, function( arg )
 local datarec;
@@ -1802,20 +1908,20 @@ end );
 #F  PqWritePcPresentation( <i>, <filename> ) . user ver. of A p-Q menu opt 25
 #F  PqWritePcPresentation( <filename> )
 ##
-##  for the <i>th or default interactive {\ANUPQ}  process,  tells  the  `pq'
+##  for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
 ##  binary to write a pc presentation to the file with  name  <filename>  for
 ##  the group of that process for which a pc presentation has been previously
 ##  computed, where the group of a process is the one given as first argument
 ##  when `PqStart' was called to initiate that process (for process  <i>  the
 ##  group is stored as `ANUPQData.io[<i>].group'). If the first character  of
-##  the string <filename> is not `/' <filename> is assumed to be the path  of
+##  the string <filename> is not `/', <filename> is assumed to be the path of
 ##  a writable file relative to the directory in which {\GAP} was started. If
 ##  a pc presentation has not been previously computed by  the  `pq'  binary,
 ##  then  `pq'  is  called  to  compute  it   first,   effectively   invoking
 ##  `PqPcPresentation' (see~"PqPcPresentation").
 ##
 ##  *Note:* For those familiar with the `pq' binary,  `PqPcWritePresentation'
-##  performs option 25 of the Advanced $p$-Quotient menu.
+##  performs menu item 25 of the Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqWritePcPresentation, function( arg )
 local filename, datarec;
@@ -1850,12 +1956,12 @@ end );
 #F  PqWriteCompactDescription( <i> ) . . user version of A p-Q menu option 26
 #F  PqWriteCompactDescription()
 ##
-##  for the <i>th or default interactive {\ANUPQ}  process,  tells  the  `pq'
+##  for the <i>th or default interactive {\ANUPQ} process,  direct  the  `pq'
 ##  binary to write a compact description to a file.
 ##
-##  *Note:* 
+##  *Note:*
 ##  For those familiar  with  the  `pq'  binary,  `PqWriteCompactDescription'
-##  performs option 26 of the Advanced $p$-Quotient menu.
+##  performs menu item 26 of the Advanced $p$-Quotient menu.
 ##
 InstallGlobalFunction( PqWriteCompactDescription, function( arg )
   ANUPQ_IOINDEX_ARG_CHK(arg);
@@ -2067,9 +2173,9 @@ end );
 ##  $p$-quotient is computed.
 ##
 ##  `PqSPStandardPresentation' accepts three options, all optional:
-##  
+##
 ##  \beginitems
-##  
+##
 ##  `StandardPresentationFile := <filename>'&
 ##  Specifies that the file to which the standard presentation is written has
 ##  name <filename>. If the first character of the string <filename>  is  not
@@ -2078,11 +2184,11 @@ end );
 ##  is written to the file with the name generated by the command  `Filename(
 ##  ANUPQData.tmpdir, "SPres" );', i.e.~the file with name  `"SPres"' in  the
 ##  temporary directory in which the `pq' binary executes.
-##  
+##
 ##  `ClassBound := <n>' &
 ##  Specifies that the $p$-quotient computed has lower exponent-$p$ class  at
 ##  most <n>. If this option is omitted a default of 63 is used.
-##  
+##
 ##  `PcgsAutomorphisms' &
 ##  Specifies that a polycyclic  generating  sequence  for  the  automorphism
 ##  group of the group of the process (which must be *soluble*), be  computed
@@ -2090,7 +2196,7 @@ end );
 ##  computation;  it  also  prevents  the  `pq'  from  calling   {\GAP}   for
 ##  orbit-stabilizer calculations. See section "Computing  Descendants  of  a
 ##  p-Group" for further explanations.
-##  
+##
 ##  \enditems
 ##
 ##  *Note:* For those familiar with  the  `pq'  binary,  `PqSPPcPresentation'

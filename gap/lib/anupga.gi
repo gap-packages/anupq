@@ -1,7 +1,7 @@
 #############################################################################
 ####
 ##
-#A  anupga.gi                ANUPQ share package                 Frank Celler
+#A  anupga.gi                   ANUPQ package                    Frank Celler
 #A                                                           & Eamonn O'Brien
 #A                                                           & Benedikt Rothe
 ##
@@ -14,6 +14,9 @@
 #Y  Copyright 1992-1994,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.14  2001/09/19 14:40:58  gap
+#H  Bugfix for `PqWeight'. Various improvements. Got rid of `share'. - GG
+#H
 #H  Revision 1.13  2001/09/06 22:37:48  gap
 #H  Now compute the aut. grp behind the scenes according to suggestion by
 #H  Bettina. - GG

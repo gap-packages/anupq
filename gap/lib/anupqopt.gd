@@ -1,7 +1,7 @@
 #############################################################################
 ####
 ##
-#W  anupqopt.gd             ANUPQ Share Package                 Werner Nickel
+#W  anupqopt.gd                ANUPQ package                    Werner Nickel
 #W                                                                Greg Gamble
 ##
 ##  Declares functions to do with option manipulation.
@@ -37,7 +37,7 @@ DeclareGlobalVariable( "ANUPQoptions",
 
 #############################################################################
 ##
-#F  AllANUPQoptions() . . . . .  lists all options of the ANUPQ share package
+#F  AllANUPQoptions() . . . . . . . .  lists all options of the ANUPQ package
 ##
 DeclareGlobalFunction( "AllANUPQoptions" );
 

@@ -1,7 +1,7 @@
 #############################################################################
 ####
 ##
-#A  anustab.gi               ANUPQ share package               Eamonn O'Brien
+#A  anustab.gi                  ANUPQ package                  Eamonn O'Brien
 #A                                                              Werner Nickel
 ##
 #A  @(#)$Id$
@@ -164,11 +164,9 @@ if IsBound( LOADED_PACKAGES.autpgrp ) then
 else
 
   InstallGlobalFunction( PqStabiliserOfAllowableSubgroup, function(arg)
-    Error( "share package ``AutPGrp'' is not available.\n",
-           "Please install the package so that GAP can compute\n",
-           "the stabilisers needed by the pq binary.\n",
-           "See the installation instructions for the ",
-           "``ANUPQ'' share package.\n" );
+    Error( "package ``AutPGrp'' is not available ... please install it so\n",
+           "that GAP can compute the stabilisers needed by the pq binary,\n",
+           "e.g. see note for ?PqDescendants\n" );
   end );
 
 fi;

@@ -1,7 +1,7 @@
 #############################################################################
 ####
 ##
-#W  anupqi.gd           ANUPQ Share Package                       Greg Gamble
+#W  anupqi.gd              ANUPQ package                          Greg Gamble
 ##
 ##  This file declares interactive functions that execute individual pq  menu
 ##  options.
@@ -311,7 +311,7 @@ DeclareGlobalFunction( "PqTails" );
 
 #############################################################################
 ##
-#F  PQ_DO_CONSISTENCY_CHECKS( <datarec>, <weight>, <type> ) . A p-Q menu opt 8
+#F  PQ_DO_CONSISTENCY_CHECKS(<datarec>, <weight>, <type>) .  A p-Q menu opt 8
 ##
 DeclareGlobalFunction( "PQ_DO_CONSISTENCY_CHECKS" );
 
@@ -410,8 +410,11 @@ DeclareGlobalFunction( "PQ_DO_CONSISTENCY_CHECK" );
 ##
 #F  PqDoConsistencyCheck(<i>, <c>, <b>, <a>) .  user ver of A p-Q menu opt 15
 #F  PqDoConsistencyCheck( <c>, <b>, <a> )
+#F  PqJacobi(<i>, <c>, <b>, <a>)
+#F  PqJacobi( <c>, <b>, <a> )
 ##
 DeclareGlobalFunction( "PqDoConsistencyCheck" );
+DeclareSynonym( "PqJacobi", PqDoConsistencyCheck );
 
 #############################################################################
 ##

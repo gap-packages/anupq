@@ -1,7 +1,7 @@
 #############################################################################
 ####
 ##
-#A  anustab.gd               ANUPQ share package               Eamonn O'Brien
+#A  anustab.gd                  ANUPQ package                  Eamonn O'Brien
 #A                                                              Werner Nickel
 ##
 #A  @(#)$Id$

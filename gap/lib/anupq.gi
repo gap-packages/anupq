@@ -1,7 +1,7 @@
 #############################################################################
 ####
 ##
-#A  anupq.gi                 ANUPQ share package               Eamonn O'Brien
+#A  anupq.gi                    ANUPQ package                  Eamonn O'Brien
 #A                                                             & Frank Celler
 ##
 #A  @(#)$Id$
@@ -10,6 +10,9 @@
 #Y  Copyright 1992-1994,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.23  2001/09/19 14:40:58  gap
+#H  Bugfix for `PqWeight'. Various improvements. Got rid of `share'. - GG
+#H
 #H  Revision 1.22  2001/08/30 21:21:16  gap
 #H  `PqCurrentGroup' is now useful and returns a pc group, not just data.
 #H  `PqEliminateRedundantGenerators' now updates the `ngens' and `forder'

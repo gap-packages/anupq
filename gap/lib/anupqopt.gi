@@ -1,7 +1,7 @@
 #############################################################################
 ####
 ##
-#W  anupqopt.gi             ANUPQ Share Package                 Werner Nickel
+#W  anupqopt.gi                ANUPQ package                    Werner Nickel
 #W                                                                Greg Gamble
 ##
 ##  Install file for functions to do with option manipulation.
@@ -91,9 +91,9 @@ InstallValue( ANUPQoptions,
 
 #############################################################################
 ##
-#F  AllANUPQoptions() . . . . .  lists all options of the ANUPQ share package
+#F  AllANUPQoptions() . . . . . . . .  lists all options of the ANUPQ package
 ##
-##  lists all the {\GAP} options defined for functions of the {\ANUPQ}  share
+##  lists all the {\GAP}  options  defined  for  functions  of  the  {\ANUPQ}
 ##  package.
 ##
 InstallGlobalFunction( AllANUPQoptions, function()

@@ -1,7 +1,7 @@
 #############################################################################
 ####
 ##
-#A  anusp.gi                 ANUPQ share package               Eamonn O'Brien
+#A  anusp.gi                    ANUPQ package                  Eamonn O'Brien
 #A                                                             Alice Niemeyer 
 ##
 #A  @(#)$Id$
@@ -10,6 +10,9 @@
 #Y  Copyright 1993-2001,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.13  2001/09/19 14:40:58  gap
+#H  Bugfix for `PqWeight'. Various improvements. Got rid of `share'. - GG
+#H
 #H  Revision 1.12  2001/09/12 13:27:46  gap
 #H  Improvements due to Bettina + improvements in Info-ed output control. - GG
 #H

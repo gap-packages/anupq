@@ -1,7 +1,7 @@
 #############################################################################
 ####
 ##
-#A  anusp.gd                 ANUPQ share package               Eamonn O'Brien
+#A  anusp.gd                    ANUPQ package                  Eamonn O'Brien
 #A                                                             Alice Niemeyer 
 ##
 #A  @(#)$Id$

@@ -1,7 +1,7 @@
 #############################################################################
 ####
 ##
-#A  anupga.gd                ANUPQ share package                 Frank Celler
+#A  anupga.gd                   ANUPQ package                    Frank Celler
 #A                                                           & Eamonn O'Brien
 #A                                                           & Benedikt Rothe
 ##
