@@ -50,6 +50,8 @@ struct pcp_vars *pcp;
       flag->step_size = step_sequence[call_depth];
    }
 
+   CreateName (name, call_depth, pcp);
+
    if (call_depth == 1) {
       first = nmr_of_descendants;
       if (nmr_of_descendants > 1) {
@@ -59,7 +61,6 @@ struct pcp_vars *pcp;
       }
    }
 
-   CreateName (name, call_depth, pcp);
    descendant_file = OpenFile (name, "w+");
 
    for (group_nmr = first; group_nmr <= nmr_of_descendants; ++group_nmr)
