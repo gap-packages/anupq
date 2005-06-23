@@ -21,22 +21,26 @@ examples := Difference(examples, ["EpimorphismStandardPresentation-i"]);
 nexamples := Length( examples );
 LogTo();
 Exec("grep -e \"^gap> \" anupqeg.tst-new0 > anupqeg.tst-new");
-for i in [1, 11 .. 91] do
-     for example in examples{[i .. Minimum(i + 9, nexamples)]} do
-       PqExample( example, "anupqeg.tst-new0" );
-       ResetOptionsStack();
-       Exec( "grep -v -e \"^#I  [^#]\" anupqeg.tst-new0 >> anupqeg.tst-new" );
-       len := Length(example);
-       if not( example{[len - 1 .. len]} in ["-i", ".g", "ni"] ) then
+
+for i in [1..nexamples] do
+    example := examples[i];
+    PqExample( example, "anupqeg.tst-new0" );
+    ResetOptionsStack();
+    Exec( "grep -v -e \"^#I  [^#]\" anupqeg.tst-new0 >> anupqeg.tst-new" );
+    len := Length(example);
+    if not( example{[len - 1 .. len]} in ["-i", ".g", "ni"] ) then
          AppendTo("anupqeg.tst-new",
                   "# Executing interactive variant of example: \"",
                   example, "\"\n");
          PqExample( example, PqStart, "anupqeg.tst-new0" );
          ResetOptionsStack();
          Exec( "grep -v -e \"^#I  [^#]\" anupqeg.tst-new0 >> anupqeg.tst-new" );
-       fi;
-     od;
-     AppendTo("anupqeg.tst-new", "PqQuitAll();\n");
-   od;
+    fi;
+
+    if i mod 3 = 0 then 
+         AppendTo("anupqeg.tst-new", "PqQuitAll();\n"); 
+    fi;
+
+od;
 AppendTo("anupqeg.tst-new", "STOP_TEST( \"anupqeg.tst\", 1000000 );\n");
 quit;
