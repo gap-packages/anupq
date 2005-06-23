@@ -2908,7 +2908,7 @@ local nodescendants, class, firstStep, expectedNsteps, optrec, line, ngroups,
       ToPQ(datarec, [ 0 ], [ "  #do not construct all descendants" ]);
       if expectedNsteps = 1 then
         # Input step size
-        ToPQ(datarec, [ 1 ], [ "  #step size" ]);
+        ToPQ(datarec, [ firstStep ], [ "  #step size" ]);
 
         # Constant step size?
       elif IsInt(datarec.des.StepSize) then
