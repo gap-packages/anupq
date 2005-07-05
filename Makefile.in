@@ -17,6 +17,7 @@ MAKEFILE=../Makefile
 SRC=./src
 PKGNAME=anupq
 
+
 linux-iX86-gcc2-gmp: bindir
 	@( cd $(SRC) ; $(MAKE) -f $(MAKEFILE) $(EFILE) CC=gcc \
 	CFLAGS="$(COPTS) -DLARGE_INT -DGNUINC -I$(GNUINC) -O2 $(PQFLAGS) \
@@ -45,6 +46,21 @@ linux-iX86-cc: bindir
 	CFLAGS="$(COPTS) -O $(PQFLAGS) -DUNIX -DUSE_BIT_OPS" \
 	GAP=$(GAP) \
 	EXT=$(EXT) \
+	LDLIBS="-lm" )
+
+i686-pc-cygwin-gcc-gmp: bindir
+	@( cd $(SRC) ; $(MAKE) -f $(MAKEFILE) $(EFILE) CC=gcc \
+	CFLAGS="$(COPTS) -DLARGE_INT -DGNUINC -I$(GNUINC) -O2 $(PQFLAGS) \
+		-DUNIX -DUSE_BIT_OPS" \
+	GAP=$(GAP) \
+	EXT=".exe" \
+	LDLIBS="-lm -L$(GNULIB) -lgmp" )
+
+i686-pc-cygwin-gcc: bindir
+	@( cd $(SRC) ; $(MAKE) -f $(MAKEFILE) $(EFILE) CC=gcc \
+	CFLAGS="$(COPTS) -O2 $(PQFLAGS) -DUNIX -DUSE_BIT_OPS" \
+	GAP=$(GAP) \
+	EXT=".exe" \
 	LDLIBS="-lm" )
 
 unix-gmp: bindir
@@ -220,6 +236,8 @@ unknown:
 	@echo "'linux-iX86-cc-gmp'        for IBM x86 PCs under linux/BSD with cc and GNU mp"
 	@echo "'linux-iX86-gcc2'          for IBM x86 PCs under linux/BSD with GNU cc 2"
 	@echo "'linux-iX86-cc'            for IBM x86 PCs under linux/BSD with cc (GNU)"
+	@echo "'i686-pc-cygwin-gcc'       for IBM x86 PCs under CYGWIN with GNU cc and mp"
+	@echo "'i686-pc-cygwin-gcc-gmp'   for IBM x86 PCs under CYGWIN with GNU cc and GNU mp"
 	@echo "'dec-mips-ultrix-gcc2-gmp' for DECstations under Ultrix with GNU cc 2 and GNU mp"
 	@echo "'dec-mips-ultrix-cc-gmp'   for DECstations under Ultrix with cc and GNU mp"
 	@echo "'dec-mips-ultrix-gcc2'     for DECstations under Ultrix with GNU cc 2"

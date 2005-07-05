@@ -249,7 +249,7 @@ local gens, rels, p, fpgrp, identities, pcgs, len, strp, i, j, Rel, line;
 
   # Option 1 of p-Quotient/Standard Presentation Menu: defining the group
   ToPQk(datarec, [1], ["  #define group"]);
-  if VALUE_PQ_OPTION("GroupName", "<grp>", datarec) = "<grp>" and
+  if VALUE_PQ_OPTION("GroupName", "[grp]", datarec) = "[grp]" and
      IsBound(datarec.group) and IsBound(datarec.group!.Name) then
     datarec.GroupName := datarec.group!.Name;
   fi;
@@ -586,7 +586,7 @@ local line, classpos;
   fi;
   # Either datarec.matchedline is of one of the following forms:
   # Group completed. Lower exponent-<p> central class = <c>, Order = <p>^<n>
-  # Group: <grp> to lower exponent-<p> central class <c> has order <p>^<n>
+  # Group: [grp] to lower exponent-<p> central class <c> has order <p>^<n>
   if not IsBound(datarec.matchedline) then
     PushOptions(rec(nonuser := true));
     ToPQ(datarec, [ 4 ], [ "  #display presentation" ]);
@@ -596,7 +596,7 @@ local line, classpos;
   if line[2] = "completed" then
     classpos := Position(line, "class") + 2;
     #if not IsBound(datarec.name) then #do we need to bother?
-    #  datarec.name := "<grp>";
+    #  datarec.name := "[grp]";
     #fi;
   else
     # Only the ``incomplete'' form of datarec.matchedline gives the name

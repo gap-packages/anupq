@@ -215,7 +215,7 @@ same as those passed to the `pq' program);
 call to the `pq' program (according to the `pq'  program  --  unless  you
 have used the `GroupName' option (see e.g.~"Pq") or applied the  function
 `SetName'  (see~"ref:SetName")  to  the  group,  the   ``generic''   name
-`"\<grp>"' is set as a default);
+`"\[grp]"' is set as a default);
 
 \quad`gpnum'& if not a null string, the ``number'' (i.e.~the unique label
 assigned by the `pq' program) of the last descendant processed;
@@ -694,19 +694,19 @@ provides information on each class quotient as it is generated:
 gap> ANUPQWarnOfOtherOptions := false;; # Set back to normal
 gap> F := FreeGroup( "a", "b" );;
 gap> Pq( F : Prime := 2, Classbound := 1, OutputLevel := 1 ); 
-#I  Lower exponent-2 central series for <grp>
-#I  Group: <grp> to lower exponent-2 central class 1 has order 2^2
-#I  Group: <grp> to lower exponent-2 central class 2 has order 2^5
-#I  Group: <grp> to lower exponent-2 central class 3 has order 2^10
-#I  Group: <grp> to lower exponent-2 central class 4 has order 2^18
-#I  Group: <grp> to lower exponent-2 central class 5 has order 2^32
-#I  Group: <grp> to lower exponent-2 central class 6 has order 2^55
-#I  Group: <grp> to lower exponent-2 central class 7 has order 2^96
-#I  Group: <grp> to lower exponent-2 central class 8 has order 2^167
-#I  Group: <grp> to lower exponent-2 central class 9 has order 2^294
-#I  Group: <grp> to lower exponent-2 central class 10 has order 2^520
-#I  Group: <grp> to lower exponent-2 central class 11 has order 2^932
-#I  Group: <grp> to lower exponent-2 central class 12 has order 2^1679
+#I  Lower exponent-2 central series for [grp]
+#I  Group: [grp] to lower exponent-2 central class 1 has order 2^2
+#I  Group: [grp] to lower exponent-2 central class 2 has order 2^5
+#I  Group: [grp] to lower exponent-2 central class 3 has order 2^10
+#I  Group: [grp] to lower exponent-2 central class 4 has order 2^18
+#I  Group: [grp] to lower exponent-2 central class 5 has order 2^32
+#I  Group: [grp] to lower exponent-2 central class 6 has order 2^55
+#I  Group: [grp] to lower exponent-2 central class 7 has order 2^96
+#I  Group: [grp] to lower exponent-2 central class 8 has order 2^167
+#I  Group: [grp] to lower exponent-2 central class 9 has order 2^294
+#I  Group: [grp] to lower exponent-2 central class 10 has order 2^520
+#I  Group: [grp] to lower exponent-2 central class 11 has order 2^932
+#I  Group: [grp] to lower exponent-2 central class 12 has order 2^1679
 [... output truncated ...]
 \endtt
 
@@ -728,7 +728,7 @@ gap> SetInfoLevel(InfoANUPQ, 4);
 gap> Pq( F : Prime := 2, Classbound := 1 );                  
 #I  ToPQ> 7  #to (Main) p-Quotient Menu
 #I  ToPQ> 1  #define group
-#I  ToPQ> name <grp>
+#I  ToPQ> name [grp]
 #I  ToPQ> prime 2
 #I  ToPQ> class 63
 #I  ToPQ> exponent 0

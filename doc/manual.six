@@ -358,6 +358,8 @@ F 6.1. option CapableDescendants
 F 6.1. option AllDescendants
 F 6.1. option TreeDepth
 F 6.1. option SubList
+F 6.1. option NumberOfSolubleAutomorphisms
+F 6.1. option RelativeOrders
 F 6.1. option BasicAlgorithm
 F 6.1. option CustomiseOutput
 F 6.1. option StandardPresentationFile
