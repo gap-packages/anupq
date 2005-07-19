@@ -45,11 +45,12 @@ e-mail: obrien@math.auckland.ac.nz
                        Obtaining the ANUPQ package
                        ---------------------------
 
-Note that, owing to its C code component, the ANUPQ package can  only  be
-installed under UNIX. It has been tested on DECstation running Ultrix,  a
-HP 9000/700 and  HP  9000/800  running  HP-UX,  a  MIPS  running  RISC/os
-Berkeley, a NeXTstation running NeXTSTEP  3.0,  SUNs  running  SunOS  and
-Intel Pentium based PCs running Linux.
+Note  that, owing  to its  C  code component,  the ANUPQ  package can  be
+installed  under UNIX or  in environments  similar to  UNIX. It  has been
+tested  on DECstation  running  Ultrix,  a HP  9000/700  and HP  9000/800
+running  HP-UX, a MIPS  running RISC/os  Berkeley, a  NeXTstation running
+NeXTSTEP  3.0, SUNs  running SunOS  and Intel  Pentium based  PCs running
+Linux or Windows equipped with cygwin.
 
 You can download  `anupq-XXX.zoo' (where `XXX'  is  the  package  version
 number) from the home page for the ANUPQ package
