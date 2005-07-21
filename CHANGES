@@ -1,22 +1,30 @@
 In this file we record the changes since the first GAP 4 release of
 the ANUPQ package.
 
-VERSION 2.1:
+Version 2.1:
    o lib/anupqi, tst/anupqeg.tst
        fix for a bug discovered by Tobias Roﬂmann: this bug was caused
        in the ANUPQ package's interface by not passing on the parameter
        StepSize to the standalone properly.  This bug could result in
        computing the wrong number of descendants.  Produced a new
        test file
-
-   o lib/anupqi.gi, makefile.in, tst/anupqeg.tsk, tst/anupqeg.tst
+   o lib/anupqi.gi, Makefile.in, tst/anupqeg.tsk, tst/anupqeg.tst
        changes suggested by Gary Zablacki in order to make the package
        run under Windows:
          - use '[grp]' as intermediate filename instead of '<grp>'
          - add target to the makefile for compiling the standalone
            with cygwin 
          - run PqQuitAll() more often in test example
-
+   o src/store_definition_sets.c:
+       binomial coefficient algorithm modified to avoid overflow
+   o include/pq_author.h:
+       pq program is now version 1.7
+   o standalone-doc/{README,guide.tex}:
+       modified for version 1.7 of the pq program
+   o PackageInfo.g, README, VERSION, 
+     doc/{manual,intro,infra,anupq,options,install}.tex:
+       - package version changed from 2.0 to 2.1
+       - pq program version changed from 1.6 to 1.7
 Version 2.0:
    o include/pq_author.h:
        pq program is now version 1.6
