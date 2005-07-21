@@ -1,7 +1,7 @@
 ##  anupqeg.tst skeleton
 ##  To create new `anupqeg.tst' do:
 ##     make_anupqeg
-RequirePackage("anupq");
+LoadPackage("anupq");
 LogTo("anupqeg.tst-new0");
 #############################################################################
 ##
