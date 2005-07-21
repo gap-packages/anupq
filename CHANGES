@@ -9,7 +9,7 @@ Version 2.1:
        computing the wrong number of descendants.  Produced a new
        test file
    o lib/anupqi.gi, Makefile.in, tst/anupqeg.tsk, tst/anupqeg.tst
-       changes suggested by Gary Zablacki in order to make the package
+       changes suggested by Gary Zablackis in order to make the package
        run under Windows:
          - use '[grp]' as intermediate filename instead of '<grp>'
          - add target to the makefile for compiling the standalone
