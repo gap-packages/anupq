@@ -10,7 +10,7 @@ SetPackageInfo( rec(
   PackageName := "ANUPQ",
   Subtitle    := "ANU p-Quotient",
   Version     := "2.1",
-  Date        := "19/07/2005",
+  Date        := "20/07/2005",
   ArchiveURL  := "http://www.math.rwth-aachen.de/~Greg.Gamble/ANUPQ/anupq-2.1",
   ArchiveFormats 
               := ".zoo",
@@ -201,7 +201,7 @@ SetPackageInfo( rec(
     " (", ~.PackageDoc.LongTitle, " package)\n",
     "C code by  ", ~.Persons[3].FirstNames, " ", ~.Persons[3].LastName,
                   " <", ~.Persons[3].Email, ">\n",
-    "           (ANU pq binary version: 1.6)\n",
+    "           (ANU pq binary version: 1.7)\n",
     "GAP code by ", ~.Persons[2].FirstNames, " ", ~.Persons[2].LastName,
                   " <", ~.Persons[2].Email, ">\n",
     "        and   ", ~.Persons[1].FirstNames, " ", ~.Persons[1].LastName,
