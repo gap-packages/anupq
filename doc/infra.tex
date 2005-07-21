@@ -63,9 +63,9 @@ requested explicitly. This is done by calling
 \beginexample
 gap> LoadPackage( "anupq" );
 -------------------------------------------------------------
-Loading ANUPQ 2.0 (ANU p-Quotient package)
+Loading ANUPQ 2.1 (ANU p-Quotient package)
 C code by  Eamonn O'Brien <obrien@math.auckland.ac.nz>
-           (ANU pq binary version: 1.6)
+           (ANU pq binary version: 1.7)
 GAP code by Werner Nickel <nickel@mathematik.tu-darmstadt.de>
         and   Greg Gamble  <gregg@math.rwth-aachen.de>
 
@@ -75,7 +75,7 @@ true
 \endexample
 
 \index{banner!suppression}
-The banner may be suppressed by providing the version string (`"2.0"') as
+The banner may be suppressed by providing the version string (`"2.1"') as
 second argument and  `false'  as  third  argument  to  the  `LoadPackage'
 command.    The     `LoadPackage'     command     is     described     in
 Section~"ref:LoadPackage" in the {\GAP} Reference Manual.
@@ -83,7 +83,7 @@ Section~"ref:LoadPackage" in the {\GAP} Reference Manual.
 Note  that  since  {\ANUPQ}  package  functions  often  need  to  compute
 automorphism groups of $p$-groups, and uses the functionality provided by
 the {\AutPGrp} package to do so. Therefore, the user should  ensure  that
-the {\AutPGrp} package is also  installed,  preferrably  version  1.2  or
+the {\AutPGrp} package is  also  installed,  preferably  version  1.2  or
 better (when present {\AutPGrp} is normally  autoloaded  when  {\GAP}  is
 started up). If the {\AutPGrp} package is  not  installed,  the  {\ANUPQ}
 package will still load but  an  error  will  arise  the  first  time  an
@@ -138,7 +138,7 @@ Finally (with {\GAP} 4.3), the full banner is  replaced  by  a  ``short''
 
 \begintt
 gap> RequirePackage( "anupq" : pkgbanner := "short" );
-#I  Loading ANUPQ Package Version 2.0
+#I  Loading ANUPQ Package Version 2.1
 true
 \endtt
 
@@ -512,21 +512,21 @@ call (see~"EpimorphismPqStandardPresentation"); or
 
 \endlist
 
-If <G> is an fp group or a pc $p$-group and not one of the above and
-the attribute or property has not otherwise been set for <G>, then
-`PqStandardPresentation' is called to set all three of `NuclearRank',
-`MultiplicatorRank' and `IsCapable', before returning the value of the
-attribute or property actually called.  Such a group <G> must know in
-advance that it is a $p$-group; this is the case for the groups
-returned by the functions `Pq' and `PqPCover', and the image group of
-the epimorphism returned by `PqEpimorphism'.  Otherwise, if you know
-the group to be a $p$-group, then this can be set by typing 
+If <G> is an fp group or a pc $p$-group and not one of the above and  the
+attribute  or  property  has  not  otherwise  been  set  for  <G>,   then
+`PqStandardPresentation' is called to set  all  three  of  `NuclearRank',
+`MultiplicatorRank' and `IsCapable', before returning the  value  of  the
+attribute or property actually called. Such a  group  <G>  must  know  in
+advance that it is a $p$-group; this is the case for the groups  returned
+by the functions  `Pq'  and  `PqPCover',  and  the  image  group  of  the
+epimorphism returned by `PqEpimorphism'. Otherwise, if you know the group
+to be a $p$-group, then this can be set by typing
 
 \){\kernttindent}SetFeatureObj( <G>, IsPGroup, true );
 
-or by invoking `IsPGroup( <G> )'.  Note that for an fp group <G>, the
-latter may result in a coset enumeration which might not
-terminate in a reasonable time.
+or by invoking `IsPGroup( <G> )'. Note that for  an  fp  group  <G>,  the
+latter may result in a coset enumeration which might not terminate  in  a
+reasonable time.
 
 *Note:* For <G> such that `HasNuclearRank(<G>) = true',  `IsCapable(<G>)'
 is equivalent to (the truth or falsity of) `NuclearRank( <G> ) = 0'.
@@ -578,10 +578,9 @@ successfully, i.e.~it runs into error and the user `quit's the  resulting
 `break' loop (see Section~"ref:Break  loops"  in  the  Reference  Manual)
 rather than attempting to repair the problem and  typing  `return;'  then
 usually  (so  long  as  your  {\GAP}  is  at  least  version   4.3)   the
-`OptionsStack' is reset. If, however, you have {\GAP} 4.2  or  the  error
-was detected inside the kernel (hopefully, this should occur only rarely,
-if at all) then the options of that function will *not* be  cleared  from
-`OptionsStack'; in such cases:
+`OptionsStack' is reset. If the error  was  detected  inside  the  kernel
+(hopefully, this should occur only rarely, if at all) then the options of
+that function will *not* be cleared from `OptionsStack'; in such cases:
 
 \beginexample
 gap> ResetOptionsStack();

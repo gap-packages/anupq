@@ -180,26 +180,31 @@ Below we list the main changes between versions of the {\ANUPQ} package.
 \beginlist
 
 \atindex{option pkgbanner}{@option \noexpand`pkgbanner'}
-\item{`2.1'}
   
-A bug discovered  by Tobias Ro{\ss}mann was fixed.  It  was caused in the
-ANUPQ package's interface by not passing on the parameter StepSize to the
-standalone properly.  This bug could result in computing the wrong number
-of descendants if a StepSize different from 1 was chosen.
+\item{`2.1'}
+Binomial coefficient algorithm in `pq' program (now version 1.7) modified
+to avoid overflow.
 
+\item{}
+A bug discovered by Tobias Ro{\ss}mann was fixed. It was  caused  in  the
+{\ANUPQ} package's interface by not passing on the  parameter  `StepSize'
+to the `pq' program properly. This bug  could  result  in  computing  the
+wrong number of descendants if a `StepSize' different from 1 was chosen.
+
+\item{}
 Changes suggested by Gary Zablacki  were implemented in order to make the
 package run under Windows with cygwin:
 
-\itemitem{--} 
-use '[grp]' as intermediate filename instead of '<grp>'
+\itemitem{--}%unordered
+use `[grp]' as default filename instead of `\<grp>',
 
 \itemitem{--}
-add target to the makefile for compiling the standalone with cygwin  
+add target to the makefile for compiling the `pq'  program  with  cygwin,
+and
 
 \itemitem{--} 
-run PqQuitAll() more often in  test examples.  This reduces the number of
+run `PqQuitAll()' more often in test examples. This reduces the number of
 simultaneously running processes and avoids bumping into system limits.
-
 
 \item{`2.0'}
 Changes to `pq' program (now version 1.6) and  {\GAP}  code  to  fix  bug
