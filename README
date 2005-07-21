@@ -57,22 +57,22 @@ number) from the home page for the ANUPQ package
 
 http://www.math.rwth-aachen.de/~Greg.Gamble/ANUPQ/ (Germany)
 
-or the Australian mirrors
+or the Australian mirror
 
-http://www.maths.curtin.edu.au/~gregg/ANUPQ/       (Perth, Australia)
-http://www.itee.uq.edu.au/~gregg/ANUPQ/            (Queensland, Australia)
+http://www.maths.uwa.edu.au/~gregg/ANUPQ/          (Perth, Australia)
 
 or via the Packages links from the GAP sites
 
 http://www.gap-system.org/                         (UK)
 http://www.math.rwth-aachen.de/~GAP/               (Germany)
-http://mirrors.ccs.neu.edu/GAP/NEU/                (USA)
 
 or the GAP ftp servers
 
-ftp://ftp-gap.dcs.st-and.ac.uk/pub/gap/gap4/accpkg/
-ftp://ftp.math.rwth-aachen.de/pub/gap4/accpkg/
-ftp://ftp.ccs.neu.edu/pub/mirrors/ftp-gap.dcs.st-and.ac.uk/pub/gap/gap4/accpkg/
+ftp://ftp-gap.dcs.st-and.ac.uk/pub/gap/gap4/zoo/packages/
+ftp://ftp.math.rwth-aachen.de/pub/gap4/zoo/packages/
+
+If you prefer tar.gz or tar.bz2 to zoo  archives,  substitute  tar.gz  or
+tar.bz2 (as appropriate) for zoo in the above paths.
 
                       Installing the ANUPQ package
                       ----------------------------
@@ -121,6 +121,8 @@ An abbreviation of the target list is as follows:
 'linux-iX86-cc-gmp'        for IBM x86 PCs under linux/BSD with cc and GNU mp
 'linux-iX86-gcc2'          for IBM x86 PCs under linux/BSD with GNU cc 2
 'linux-iX86-cc'            for IBM x86 PCs under linux/BSD with cc (GNU)
+'iX86-pc-cygwin-gcc-gmp'   for IBM x86 PCs under CYGWIN with GNU cc and GNU mp
+'iX86-pc-cygwin-gcc'       for IBM x86 PCs under CYGWIN with GNU cc
 [... 16 lines deleted ...]
 'sunos-gcc2-gmp'           for SunOS with GNU cc 2 and gmp
 'sunos-cc-gmp'             for SunOS with cc and GNU mp
@@ -229,7 +231,7 @@ for these).  For GAP 4.4 one requires version 1.2 of the AutPGrp package.
 The output you see should be something like the following:
 
   Made dir: /tmp/testPq
-  Testing installation of ANUPQ Package (version 2.0)
+  Testing installation of ANUPQ Package (version 2.1)
   
   The first two tests check that the pq C program compiled ok.
   Testing the pq binary ... OK.
@@ -237,14 +239,14 @@ The output you see should be something like the following:
   The pq C program compiled ok!
   
   The next tests check that you have the right version of GAP
-  for version 2.0 of the ANUPQ package and that GAP is finding
+  for version 2.1 of the ANUPQ package and that GAP is finding
   the right versions of the ANUPQ and AutPGrp packages.
   
   Checking GAP ...
    pq binary made with GAP set to: /usr/local/bin/gap
    Starting GAP to determine version and package availability ...
-    GAP version (4.4) ... OK.
-    GAP found ANUPQ package (version 2.0) ... good.
+    GAP version (4.4.5) ... OK.
+    GAP found ANUPQ package (version 2.1) ... good.
     GAP found AutPGrp package (version 1.2) ... good.
    GAP is OK.
 
@@ -284,5 +286,6 @@ the problem; so please include:
     e-mail: gregg@math.rwth-aachen.de)
     www:    http://www.math.rwth-aachen.de/~Greg.Gamble
   -- 9 October, 2001; 18 February, 2002; 16 April, 2002; 
-     3 November, 2002; 13 April, 2003; 28 January, 2004.
+     3 November, 2002; 13 April, 2003; 28 January, 2004;
+     20 July, 2005.
 
