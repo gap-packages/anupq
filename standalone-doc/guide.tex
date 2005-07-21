@@ -28,9 +28,9 @@
 %
 \def\pq{the $p$-quotient implementation}
 \begin{document}
-\title{A guide to the ANU {\it p}-Quotient Program\\Version 1.6}
+\title{A guide to the ANU {\it p}-Quotient Program\\Version 1.7}
 \author{Eamonn O'Brien}
-\date{February 2004}
+\date{July 2005}
 \maketitle
 \tableofcontents
 \pagebreak
@@ -117,7 +117,7 @@ necessary code can be found in the \texttt{gap} directory of these
 distributions.
 The program is also distributed as part of Quotpic.
 
-Version 1.6 of the pq program (i.e.~the version you are currently reading
+Version 1.7 of the pq program (i.e.~the version you are currently reading
 the documentation for) is configured to call {\sf GAP} 4 to compute
 stabilisers when needed.
 
@@ -1788,6 +1788,8 @@ Total user time in seconds is 0.10
 
 \section{Changes}
 \begin{description}
+  \item[\texttt{Version 1.7}]\ \\
+     Binomial coefficient algorithm modified to avoid overflow.
   \item[\texttt{Version 1.6}]\ \\
      In main Menu for {\it p}-Group Generation, when asking for 
      automorphisms, now ask for the number of soluble automorphisms
