@@ -374,6 +374,11 @@ S 7.1. Testing your ANUPQ installation
 I 7.1. ANUPQ_GAP_EXEC!environment variable
 S 7.2. Running the pq program as a standalone
 I 7.2. ANUPQ_GAP_EXEC!environment variable
+S 7.3. Setting the Verbosity of ANUPQ via Info and InfoANUPQ
+F 7.3. InfoANUPQ
+S 7.4. Utility Functions
+F 7.4. PqLeftNormComm
+F 7.4. PqGAPRelators
 C examples.tex 8. Examples
 S 8.1. The Relators Option
 S 8.2. The Identities Option and PqEvaluateIdentities Function
