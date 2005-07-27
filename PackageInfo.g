@@ -9,9 +9,9 @@ SetPackageInfo( rec(
 
   PackageName := "ANUPQ",
   Subtitle    := "ANU p-Quotient",
-  Version     := "2.1",
-  Date        := "20/07/2005",
-  ArchiveURL  := "http://www.math.rwth-aachen.de/~Greg.Gamble/ANUPQ/anupq-2.1",
+  Version     := "2.2",
+  Date        := "28/07/2005",
+  ArchiveURL  := "http://www.math.rwth-aachen.de/~Greg.Gamble/ANUPQ/anupq-2.2",
   ArchiveFormats 
               := ".zoo",
 
@@ -137,7 +137,7 @@ SetPackageInfo( rec(
     BookName  := "ANUPQ",
     # format/extension can be one of .zoo, .tar.gz, .tar.bz2, -win.zip
     Archive   := 
-      "http://www.math.rwth-aachen.de/~Greg.Gamble/ANUPQ/anupq-2.1.zoo",
+      "http://www.math.rwth-aachen.de/~Greg.Gamble/ANUPQ/anupq-2.2.zoo",
     ArchiveURLSubset
               := ["doc", "htm"],
     HTMLStart := "htm/chapters.htm",
@@ -219,7 +219,7 @@ SetPackageInfo( rec(
 ##  *Optional*, but recommended: path relative to package root to a file which 
 ##  contains as many tests of the package functionality as sensible.
 
-  TestFile := "tst/anupqeg.g",
+  TestFile := "tst/anupqeg.tst",
 
 ##  *Optional*: Here you can list some keyword related to the topic 
 ##  of the package.

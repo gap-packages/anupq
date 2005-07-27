@@ -231,7 +231,7 @@ for these).  For GAP 4.4 one requires version 1.2 of the AutPGrp package.
 The output you see should be something like the following:
 
   Made dir: /tmp/testPq
-  Testing installation of ANUPQ Package (version 2.1)
+  Testing installation of ANUPQ Package (version 2.2)
   
   The first two tests check that the pq C program compiled ok.
   Testing the pq binary ... OK.
@@ -239,14 +239,14 @@ The output you see should be something like the following:
   The pq C program compiled ok!
   
   The next tests check that you have the right version of GAP
-  for version 2.1 of the ANUPQ package and that GAP is finding
+  for version 2.2 of the ANUPQ package and that GAP is finding
   the right versions of the ANUPQ and AutPGrp packages.
   
   Checking GAP ...
    pq binary made with GAP set to: /usr/local/bin/gap
    Starting GAP to determine version and package availability ...
     GAP version (4.4.5) ... OK.
-    GAP found ANUPQ package (version 2.1) ... good.
+    GAP found ANUPQ package (version 2.2) ... good.
     GAP found AutPGrp package (version 1.2) ... good.
    GAP is OK.
 
@@ -287,5 +287,5 @@ the problem; so please include:
     www:    http://www.math.rwth-aachen.de/~Greg.Gamble
   -- 9 October, 2001; 18 February, 2002; 16 April, 2002; 
      3 November, 2002; 13 April, 2003; 28 January, 2004;
-     20 July, 2005.
+     20 July, 2005; 28 July, 2005.
 
