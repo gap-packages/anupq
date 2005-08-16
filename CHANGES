@@ -1,6 +1,13 @@
 In this file we record the changes since the first GAP 4 release of
 the ANUPQ package.
 
+Version 3.0:
+   o lib/{anupga.gi,anupq.gi,anupqprop.gi,anupqxdesc.gi}:
+       deprecated `PrimeOfPGroup' replaced by `PrimePGroup'
+Version 2.2:
+   o PackageInfo.g, README, VERSION, doc/{intro,infra,install}.tex:
+       - fixed typo. in PackageInfo.g: test file is tst/anupqeg.tst
+       - package version changed from 2.1 to 2.2
 Version 2.1:
    o lib/anupqi, tst/anupqeg.tst
        fix for a bug discovered by Tobias Roﬂmann: this bug was caused

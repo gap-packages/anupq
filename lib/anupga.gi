@@ -14,6 +14,12 @@
 #Y  Copyright 1992-1994,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.7  2005/08/16 18:48:50  gap
+#H  lib/{anupga.gi,anupq.gi,anupqprop.gi,anupqxdesc.gi}:
+#H     deprecated `PrimeOfPGroup' replaced by `PrimePGroup'
+#H  VERSION: new version will be 3.0
+#H  CHANGES: keeping track of changes so far                               - GG
+#H
 #H  Revision 1.6  2004/02/03 18:49:04  gap
 #H  anupga.gi: commented out dangerous warning, changed documentation of
 #H             `PqSupplementInnerAutomorphisms' to reflect that it now returns
@@ -776,7 +782,7 @@ InstallGlobalFunction( SavePqList, function( file, list )
     for l  in [ 1 .. Length(list) ]  do
         G    := list[l];
         pcgs := PcgsPCentralSeriesPGroup( G );
-        p    := PrimeOfPGroup( G );
+        p    := PrimePGroup( G );
         AppendTo( file, "## group number: ", l, "\n"                     );
         AppendTo( file, "ANUPQgroups[", l, "] := function( L )\n"        );
         AppendTo( file, "local   G,  A,  B;\n"                           );

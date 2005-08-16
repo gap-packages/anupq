@@ -63,7 +63,7 @@ InstallGlobalFunction( PqDescendantsTreeCoclassOne, function( arg )
     des := PqDescendants( datarec.procId : StepSize := 1 );
     if IsBound(LOADED_PACKAGES.xgap) then
         title := Concatenation( "Descendants Tree, p=",
-                     String( PrimeOfPGroup(datarec.group) ),
+                     String( PrimePGroup(datarec.group) ),
                      ", order: ",
                      String( Size(datarec.group) ),
                      ", class <= ",

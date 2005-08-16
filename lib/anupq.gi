@@ -10,6 +10,12 @@
 #Y  Copyright 1992-1994,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.6  2005/08/16 18:48:50  gap
+#H  lib/{anupga.gi,anupq.gi,anupqprop.gi,anupqxdesc.gi}:
+#H     deprecated `PrimeOfPGroup' replaced by `PrimePGroup'
+#H  VERSION: new version will be 3.0
+#H  CHANGES: keeping track of changes so far                               - GG
+#H
 #H  Revision 1.5  2004/02/03 18:49:04  gap
 #H  anupga.gi: commented out dangerous warning, changed documentation of
 #H             `PqSupplementInnerAutomorphisms' to reflect that it now returns
@@ -728,7 +734,7 @@ InstallGlobalFunction( PqAutomorphism, function( epi, autoimages )
             phi;
 
     G      := Image( epi );
-    p      := PrimeOfPGroup( G );
+    p      := PrimePGroup( G );
     gens   := GeneratorsOfGroup( G );
     
     autoimages := List( autoimages, im->Image( epi, im ) );
