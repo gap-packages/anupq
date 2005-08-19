@@ -10,6 +10,9 @@
 #Y  Copyright 1993-2001,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.3  2005/08/19 10:41:40  werner
+#H  Improve non-isomorphism test as suggested by Marco Constantini
+#H
 #H  Revision 1.2  2002/11/19 08:47:30  gap
 #H  init.g:    now use `StringFile' rather than iostreams to read `VERSION'
 #H  testPq.in: Added -A option to GAP command.
@@ -541,12 +544,12 @@ InstallGlobalFunction( IsPqIsomorphicPGroup, function( G, H )
         return false;
     fi;
 
-    # check the exponent-p-length
-    class := Length(PCentralSeries(G,p))-1;
-    if class <> Length(PCentralSeries(H,p))-1  then
+    # check the exponent-p length and the sizes of the groups in the
+    # p-central series of both groups 
+    if List(PCentralSeries(G,p), Size) <> List(PCentralSeries(H,p), Size) then
         return false;
     fi;
-    
+
     # if the groups are elementary abelian they are isomorphic
     if class = 1  then
         return true;
