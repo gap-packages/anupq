@@ -2877,9 +2877,10 @@ local nodescendants, class, firstStep, expectedNsteps, optrec, line, ngroups,
       fi;
       if HasNuclearRank(datarec.group) and 
          firstStep > NuclearRank(datarec.group) then
-        Error("the first \"StepSize\" element (= ", firstStep, ") must not be\n",
-              "greater than the \"Nuclear Rank\" (= ",
-              NuclearRank(datarec.group), ")\n");
+#          Error("the first \"StepSize\" element (= ", firstStep, ") must not be\n",
+#                "greater than the \"Nuclear Rank\" (= ",
+#                NuclearRank(datarec.group), ")\n");
+          return 0;
       fi;
     fi;
 
