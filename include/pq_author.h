@@ -9,14 +9,14 @@
 **
 */
 
-#define PQ_VERSION "ANU p-Quotient Program Version 1.7"
+#define PQ_VERSION "ANU p-Quotient Program Version 1.8"
 
 /* 
 ###############################################################################
 #
 #     Australian National University p-Quotient Program 
 #
-#     Version 1.7
+#     Version 1.8
 #
 #     June 2001 (-v and -G options added and adapted to GAP 4)
 #

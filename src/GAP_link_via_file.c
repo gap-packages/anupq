@@ -10,6 +10,14 @@
 *Y  Copyright 1995-1997,  School of Mathematical Sciences, ANU,     Australia
 **
 *H  $Log$
+*H  Revision 1.14  2006/01/24 04:50:24  gap
+*H  src/GAP_link_via_file.c:
+*H    deprecated GAP code updated for version 4.4
+*H  include/pq_author.h:
+*H    pq program is now version 1.8
+*H  standalone-doc/{README,guide.tex}:
+*H    modified for version 1.8 of the pq program                           - GG
+*H
 *H  Revision 1.13  2004/01/26 16:45:56  werner
 *H  output a newline after data
 *H
@@ -216,13 +224,14 @@ void insoluble_stab_gens ( rep, orbit_length, pga, pcp )
    free_matrix (S, pga->s, 0);
    free_vector (subset, 0);                                                     
    if ( !GAP4iostream ) {
-     fprintf( GAP_rep, "RequirePackage(\"autpgrp\");\n" );
-     fprintf( GAP_rep, "if not IsBound(LOADED_PACKAGES.anupq) then\n" );
+     fprintf( GAP_rep, "LoadPackage(\"autpgrp\", \"1.2\");\n" );
+     fprintf( GAP_rep, "if TestPackageAvailability(" );
+     fprintf( GAP_rep,        "\"anupq\", \"3.0\") <> true then\n" );
      fprintf( GAP_rep, "  ANUPQData := rec(tmpdir := DirectoryCurrent());\n" );
      fprintf( GAP_rep, "  DeclareInfoClass(\"InfoANUPQ\");\n" );
      fprintf( GAP_rep, "  DeclareGlobalFunction(" );
      fprintf( GAP_rep,        "\"PqStabiliserOfAllowableSubgroup\");\n" );
-     fprintf( GAP_rep, "  ReadPkg(\"anupq\", \"lib/anustab.gi\");\n");
+     fprintf( GAP_rep, "  ReadPackage(\"anupq\", \"lib/anustab.gi\");\n");
      fprintf( GAP_rep, "fi;\n");
      fprintf( GAP_rep, "SetInfoLevel(InfoANUPQ, 2);\n" );
    }

@@ -28,9 +28,9 @@
 %
 \def\pq{the $p$-quotient implementation}
 \begin{document}
-\title{A guide to the ANU {\it p}-Quotient Program\\Version 1.7}
+\title{A guide to the ANU {\it p}-Quotient Program\\Version 1.8}
 \author{Eamonn O'Brien}
-\date{July 2005}
+\date{January 2006}
 \maketitle
 \tableofcontents
 \pagebreak
@@ -117,9 +117,9 @@ necessary code can be found in the \texttt{gap} directory of these
 distributions.
 The program is also distributed as part of Quotpic.
 
-Version 1.7 of the pq program (i.e.~the version you are currently reading
-the documentation for) is configured to call {\sf GAP} 4 to compute
-stabilisers when needed.
+Version 1.8 of the pq program (i.e.~the version you are currently reading
+the documentation for) is configured to call {\sf GAP}, at least version
+4.4, to compute stabilisers when needed.
 
 The FORTRAN version of this program was known as the 
 Nilpotent Quotient Program.
@@ -136,13 +136,15 @@ package, i.e. in the directory above, do:
 
 If you are running Linux you may omit \textit{TARGET}. The path 
 \textit{GAPPATH} should be the path of a \emph{shell script} that runs
-{\sf GAP} 4 and the package {\sf ANUPQ} Version 1.1 (or later)
-must be installed. If the {\sf ANUPQ} package is not installed
+{\sf GAP} 4 with packages {\sf AutPGrp} (at least version 1.2) and
+{\sf ANUPQ} (at least version 3.0)
+installed. If the {\sf ANUPQ} and/or {\sf AutPGrp} packages are not installed
 in the \texttt{pkg} directory of the {\sf GAP} 4 distribution, then
 the \texttt{-l} option (last line of the \emph{shell script} previously
 mentioned) \emph{must} be set to be a semicolon-separated list of
 paths of the main {\sf GAP} directory and the path of the \texttt{pkg}
-directory containing the \texttt{anupq} package directory.
+directory containing those packages of {\sf ANUPQ} and {\sf AutPGrp}
+that are missing from the {\sf GAP} 4 distribution \texttt{pkg} directory.
 
 The pq program only needs {\sf GAP} for computing stabilisers when you
 answer ``No'' (\texttt{0}) to the question 
@@ -1788,6 +1790,8 @@ Total user time in seconds is 0.10
 
 \section{Changes}
 \begin{description}
+  \item[\texttt{Version 1.8}]\ \\
+     \textsf{GAP} link code updated for \textsf{GAP} 4.4.
   \item[\texttt{Version 1.7}]\ \\
      Binomial coefficient algorithm modified to avoid overflow.
   \item[\texttt{Version 1.6}]\ \\
