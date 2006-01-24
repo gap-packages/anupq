@@ -10,6 +10,10 @@
 #Y  Copyright 1993-2001,  School of Mathematical Sciences, ANU,     Australia
 ##
 #H  $Log$
+#H  Revision 1.4  2006/01/24 06:01:41  gap
+#H  Fixed bug pointed out by Jack Schmidt. The last `improvement' removed a
+#H  case where the class was calculated.                                   - GG
+#H
 #H  Revision 1.3  2005/08/19 10:41:40  werner
 #H  Improve non-isomorphism test as suggested by Marco Constantini
 #H
@@ -551,6 +555,7 @@ InstallGlobalFunction( IsPqIsomorphicPGroup, function( G, H )
     fi;
 
     # if the groups are elementary abelian they are isomorphic
+    class := PClassPGroup(G);
     if class = 1  then
         return true;
     fi;
