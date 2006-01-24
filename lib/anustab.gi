@@ -30,7 +30,7 @@ Revision.anustab_gi :=
 ##  `PqStabiliserOfAllowableSubgroup' are essentially the variables  assigned
 ##  to by `GAP_link_via_file.c' in the `pq' source code.
 ##
-if IsBound( LOADED_PACKAGES.autpgrp ) then
+if TestPackageAvailability("autpgrp", "1.2") = true then
 
   InstallGlobalFunction( PqStabiliserOfAllowableSubgroup, 
   function( ANUPQglb, F, gens, relativeOrders, ANUPQsize, ANUPQagsize )
@@ -173,8 +173,9 @@ if IsBound( LOADED_PACKAGES.autpgrp ) then
 else
 
   InstallGlobalFunction( PqStabiliserOfAllowableSubgroup, function(arg)
-    Error( "package ``AutPGrp'' is not available ... please install it so\n",
-           "that GAP can compute the stabilisers needed by the pq binary,\n",
+    Error( "package ``AutPGrp'' is not available ... please \n",
+           "install (at least) version 1.2 in order that GAP \n",
+           "can compute the stabilisers needed by the pq binary,\n",
            "e.g. see note for ?PqDescendants\n" );
   end );
 

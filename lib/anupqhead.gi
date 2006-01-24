@@ -1,17 +1,16 @@
 #############################################################################
 ####
 ##
-#W  anupqhead.g                ANUPQ package                    Werner Nickel
+#W  anupqhead.gi               ANUPQ package                    Werner Nickel
 #W                                                                Greg Gamble
 ##
 ##  `Head' file for the GAP interface to the ANU pq binary by Eamonn O'Brien.
-#T  This should be split into `.gd' and `.gi' files.
 ##    
 #H  @(#)$Id$
 ##
-#Y  Copyright (C) 2001  Lehrstuhl D fuer Mathematik,  RWTH Aachen,  Germany
+#Y  Copyright (C) 2006  Lehrstuhl D fuer Mathematik,  RWTH Aachen,  Germany
 ##
-Revision.anupqhead_g :=
+Revision.anupqhead_gi :=
     "@(#)$Id$";
 
 
@@ -28,9 +27,6 @@ Revision.anupqhead_g :=
 ##    "SPimages"  . the path of the pq GAP_library file
 ##    "version" . . the version of the current pq binary
 ##
-DeclareGlobalVariable( "ANUPQData",
-  "A record containing various data associated with the ANUPQ package."
-);
 InstallValue( ANUPQData,
   rec( binary := Filename( DirectoriesPackagePrograms( "anupq" ), "pq"),
        tmpdir := DirectoryTemporary(),
@@ -53,8 +49,6 @@ ANUPQData.version :=
 ##  
 #I  InfoClass
 ##
-DeclareInfoClass( "InfoANUPQ" );
-
 # Set the default level of InfoANUPQ
 SetInfoLevel( InfoANUPQ, 1 );
 
@@ -66,37 +60,9 @@ ANUPQWarnOfOtherOptions := false;
 
 #############################################################################
 ##
-##  Print a banner . . . . . .  using InfoWarning (so a user can turn it off)
-##
-if not CompareVersionNumbers( VERSION, "4.4" ) and not QUIET and BANNER then
-
-ANUPQData.banner := ValueOption("pkgbanner");
-if ANUPQData.banner = "short" then
-
-Info(InfoWarning,1,"Loading ANUPQ Package Version ", PACKAGES_VERSIONS.anupq);
-
-elif ANUPQData.banner <> "none" then
-
-Info(InfoWarning,1,"  Loading the ANUPQ (ANU p-Quotient) package");
-Info(InfoWarning,1,"  C code by  Eamonn O'Brien <obrien@math.auckland.ac.nz>");
-Info(InfoWarning,1,"              ANU pq binary version: ", ANUPQData.version);
-Info(InfoWarning,1,"  GAP code by Werner Nickel <nickel@mathematik.tu-darmstadt.de>");
-Info(InfoWarning,1,"          and   Greg Gamble  <gregg@math.rwth-aachen.de>");
-Info(InfoWarning,1,"              ANUPQ package version: ",
-                                    PACKAGES_VERSIONS.anupq);
-Info(InfoWarning,1,"");
-Info(InfoWarning,1,"              For help, type: ?ANUPQ");
-
-fi;
-Unbind(ANUPQData.banner);
-
-fi;
-
-#############################################################################
-##
 ##  Ensure no zombie `pq' processes from interactive (`PqStart') sessions are 
 ##  left lying around when user quits GAP.
 ##
 InstallAtExit( PqQuitAll );
 
-#E  anupqhead.g . . . . . . . . . . . . . . . . . . . . . . . . . . ends here 
+#E  anupqhead.gi . . . . . . . . . . . . . . . . . . . . . . . . .  ends here 
