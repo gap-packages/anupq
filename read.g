@@ -1,6 +1,7 @@
 #############################################################################
 ##
 #W  read.g                   ANUPQ package                      Werner Nickel
+#W                                                                Greg Gamble
 ##
 ##  @(#)$Id$
 ##
@@ -9,21 +10,16 @@
 ##
 #R  Read the install files.
 ##
-ReadPkg( "anupq", "lib/anupqprop.gi" );
-ReadPkg( "anupq", "lib/anupq.gi" );
-ReadPkg( "anupq", "lib/anupga.gi" );
-ReadPkg( "anupq", "lib/anusp.gi" );
-ReadPkg( "anupq", "lib/anupqopt.gi" );
-ReadPkg( "anupq", "lib/anupqios.gi" );
-ReadPkg( "anupq", "lib/anupqi.gi" );
-ReadPkg( "anupq", "lib/anupqid.gi" );
-ReadPkg( "anupq", "lib/anustab.gi" );
-ReadPkg( "anupq", "lib/anupqxdesc.gi" );
-if not IsBound( GAPInfo.PackagesLoaded.autpgrp ) then
-    Info(InfoWarning + InfoANUPQ,1, "Package ``AutPGrp'' is not available.");
-    Info(InfoWarning + InfoANUPQ,1, "You may run into trouble later if the pq");
-    Info(InfoWarning + InfoANUPQ,1, "binary needs GAP to compute stabilisers.");
-    Info(InfoWarning + InfoANUPQ,1, "E.g. see the note for ?PqDescendants");
-fi;
+ReadPackage( "anupq", "lib/anupqhead.gi" );
+ReadPackage( "anupq", "lib/anupqprop.gi" );
+ReadPackage( "anupq", "lib/anupq.gi" );
+ReadPackage( "anupq", "lib/anupga.gi" );
+ReadPackage( "anupq", "lib/anusp.gi" );
+ReadPackage( "anupq", "lib/anupqopt.gi" );
+ReadPackage( "anupq", "lib/anupqios.gi" );
+ReadPackage( "anupq", "lib/anupqi.gi" );
+ReadPackage( "anupq", "lib/anupqid.gi" );
+ReadPackage( "anupq", "lib/anustab.gi" );
+ReadPackage( "anupq", "lib/anupqxdesc.gi" );
 
 #E  read.g . . . . . . . . . . . . . . . . . . . . . . . . . . . .  ends here

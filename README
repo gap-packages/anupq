@@ -84,6 +84,14 @@ it is also possible to keep an additional `pkg' directory in your private
 directories, see section "ref:Installing  GAP  Packages"  of  the  GAP  4
 reference manual for details on how to do this.)
 
+For version 3.0 of the ANUPQ package, all pre-GAP 4.4  compatibility  was
+removed, and the AutPGrp package became essential (not just recommended).
+Thus at least version 4.4 of GAP and at least version 1.2 of the  AutPGrp
+package are now required by the ANUPQ package.
+
+If you still have GAP 4.3 (at least fix4), you will need to use ANUPQ 2.2
+(it's not recommended but no known bugs exist with that ANUPQ version).
+
 Then unzoo `anupq-<XXX>.zoo' by
 
   unzoo -x anupq-<XXX>
@@ -225,28 +233,28 @@ tests, just type:
   testPq
 
 Some of the tests the script runs take a while. Please be  patient.  Note
-that since version 1.2, the ANUPQ package requires at least  GAP  4.3fix4
-and at least version 1.1 of the AutPGrp package (the testPq script checks
-for these).  For GAP 4.4 one requires version 1.2 of the AutPGrp package.
-The output you see should be something like the following:
+that since version 3.0, the ANUPQ package now requires at least  GAP  4.4
+and at least version 1.2 of the AutPGrp package (the testPq script checks
+for these). The output you see should be something like the following:
 
   Made dir: /tmp/testPq
-  Testing installation of ANUPQ Package (version 2.2)
+  Testing installation of ANUPQ Package (version 3.0)
   
   The first two tests check that the pq C program compiled ok.
   Testing the pq binary ... OK.
   Testing the pq binary's stack size ... OK.
-  The pq C program compiled ok!
-  
+  The pq C program compiled ok! We test it's the right one below.
+
   The next tests check that you have the right version of GAP
-  for version 2.2 of the ANUPQ package and that GAP is finding
+  for version 3.0 of the ANUPQ package and that GAP is finding
   the right versions of the ANUPQ and AutPGrp packages.
   
   Checking GAP ...
    pq binary made with GAP set to: /usr/local/bin/gap
    Starting GAP to determine version and package availability ...
-    GAP version (4.4.5) ... OK.
-    GAP found ANUPQ package (version 2.2) ... good.
+    GAP version (4.4.6) ... OK.
+    GAP found ANUPQ package (version 3.0) ... good.
+    GAP found pq binary (version 1.8) ... good.
     GAP found AutPGrp package (version 1.2) ... good.
    GAP is OK.
 
@@ -271,7 +279,8 @@ When sending a bug report, remember we will need to be able to  reproduce
 the problem; so please include:
 
  * The version of GAP you are using; either look at  the  header  when
-   you start up GAP, or at the gap> prompt type: VERSION;
+   you start up GAP, or at the gap> prompt type: VERSION;    or (since 
+   GAP 4.4) type: GAPInfo.Version;
  * The operating system you are using e.g. Linux, SunOS 5.8 =  Solaris
    2.8, IRIX 6.5, ...
  * The compiler you used to compile `pq' and  the  options  you  used.
@@ -287,5 +296,5 @@ the problem; so please include:
     www:    http://www.math.rwth-aachen.de/~Greg.Gamble
   -- 9 October, 2001; 18 February, 2002; 16 April, 2002; 
      3 November, 2002; 13 April, 2003; 28 January, 2004;
-     20 July, 2005; 28 July, 2005.
+     20 July, 2005; 28 July, 2005; 24 January, 2006.
 

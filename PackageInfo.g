@@ -9,9 +9,9 @@ SetPackageInfo( rec(
 
   PackageName := "ANUPQ",
   Subtitle    := "ANU p-Quotient",
-  Version     := "2.2",
-  Date        := "28/07/2005",
-  ArchiveURL  := "http://www.math.rwth-aachen.de/~Greg.Gamble/ANUPQ/anupq-2.2",
+  Version     := "3.0",
+  Date        := "24/01/2006",
+  ArchiveURL  := "http://www.math.rwth-aachen.de/~Greg.Gamble/ANUPQ/anupq-3.0",
   ArchiveFormats 
               := ".zoo",
 
@@ -137,7 +137,7 @@ SetPackageInfo( rec(
     BookName  := "ANUPQ",
     # format/extension can be one of .zoo, .tar.gz, .tar.bz2, -win.zip
     Archive   := 
-      "http://www.math.rwth-aachen.de/~Greg.Gamble/ANUPQ/anupq-2.2.zoo",
+      "http://www.math.rwth-aachen.de/~Greg.Gamble/ANUPQ/anupq-3.0.zoo",
     ArchiveURLSubset
               := ["doc", "htm"],
     HTMLStart := "htm/chapters.htm",
@@ -149,7 +149,7 @@ SetPackageInfo( rec(
     LongTitle := "ANU p-Quotient",
     # Should this help book be autoloaded when GAP starts up? This should
     # usually be 'true', otherwise say 'false'. 
-    Autoload := true
+    Autoload := false
   ),
 
 ##  Are there restrictions on the operating system for this package? Or does
@@ -158,13 +158,13 @@ SetPackageInfo( rec(
   Dependencies := rec(
     # GAP version, use version strings for specifying exact versions,
     # prepend a '>=' for specifying a least version.
-    GAP := ">= 4.3fix4",
+    GAP := ">= 4.4",
     # list of pairs [package name, (least) version],  package name is case
     # insensitive, least version denoted with '>=' prepended to version string.
     # without these, the package will not load
-    NeededOtherPackages := [],
+    NeededOtherPackages := [ [ "autpgrp", ">=1.2" ] ],
     # without these the package will issue a warning while loading
-    SuggestedOtherPackages := [ [ "autpgrp", ">=1.1" ] ],
+    SuggestedOtherPackages := [ ],
     # needed external conditions (programs, operating system, ...)  provide 
     # just strings as text or
     # pairs [text, URL] where URL  provides further information
@@ -174,25 +174,33 @@ SetPackageInfo( rec(
     ExternalConditions := []
   ),
 
-## Provide a test function for the availability of this package, see
-## documentation of 'Declare(Auto)Package', this is the <tester> function.
-## For packages which will not fully work, use 'Info(InfoWarning, 1,
-## ".....")' statements. For packages containing nothing but GAP code,
-## just say 'ReturnTrue' here.
-## (When this is used for package loading in the future the availability
-## tests of other packages, as given above, will be done automatically and
-## need not be included here.)
-
   AvailabilityTest := 
     function()
+      local status;
+      status := true;
+
       # test for existence of the compiled binary
       if Filename( DirectoriesPackagePrograms( "anupq" ), "pq" ) = fail then
           Info( InfoWarning, 1,
                 "Package ``ANUPQ'': the executable program is not available" );
-          return fail;
+          status := fail;
       fi;
 
-      return true;
+      # Dependencies above will ensure that ANUPQ fails to load if
+      # AutPGrp (>= 1.2) is not available. This is here to explain why.
+      if TestPackageAvailability("autpgrp", "1.2") = fail then
+          Info( InfoWarning, 1,
+                "Package ``ANUPQ'': requires the AutPGrp package (>= 1.2)" );
+          Info( InfoWarning, 1,
+                "for the AutomorphismGroupPGroup function. It is also needed" );
+          Info( InfoWarning, 1,
+                "by the pq binary when it needs GAP to compute stabilisers.");
+          Info( InfoWarning, 1,
+                "E.g. see the note for ?PqDescendants" );
+          status := fail;
+      fi;
+
+      return status;
     end,
 
   BannerString := Concatenation( 
@@ -201,7 +209,7 @@ SetPackageInfo( rec(
     " (", ~.PackageDoc.LongTitle, " package)\n",
     "C code by  ", ~.Persons[3].FirstNames, " ", ~.Persons[3].LastName,
                   " <", ~.Persons[3].Email, ">\n",
-    "           (ANU pq binary version: 1.7)\n",
+    "           (ANU pq binary version: 1.8)\n",
     "GAP code by ", ~.Persons[2].FirstNames, " ", ~.Persons[2].LastName,
                   " <", ~.Persons[2].Email, ">\n",
     "        and   ", ~.Persons[1].FirstNames, " ", ~.Persons[1].LastName,

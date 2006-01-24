@@ -44,12 +44,10 @@ the  attributes  and   property  `NuclearRank',  `MultiplicatorRank'  and
 
 \item{$\bullet$} 
 in Section~"Hints and Warnings regarding the use of Options" we  describe
-some troubleshooting strategies. If you are still  using  {\GAP}~4.2,  it
-will be important to know to use  `ResetOptionsStack();'  if  you  passed
-options to a function and ran into an error. Also this section  describes
-how  setting   `ANUPQWarnOfOtherOptions   :=   true;'   may   be   useful
-(particularly for  novice  users)  for  detecting  misspelt  options  and
-diagnosing other option usage problems.
+some troubleshooting strategies. Also this section describes how  setting
+`ANUPQWarnOfOtherOptions := true;' may be useful (particularly for novice
+users) for detecting misspelt options and diagnosing other  option  usage
+problems.
 
 \endlist
 
@@ -63,9 +61,9 @@ requested explicitly. This is done by calling
 \beginexample
 gap> LoadPackage( "anupq" );
 -------------------------------------------------------------
-Loading ANUPQ 2.2 (ANU p-Quotient package)
+Loading ANUPQ 3.0 (ANU p-Quotient package)
 C code by  Eamonn O'Brien <obrien@math.auckland.ac.nz>
-           (ANU pq binary version: 1.7)
+           (ANU pq binary version: 1.8)
 GAP code by Werner Nickel <nickel@mathematik.tu-darmstadt.de>
         and   Greg Gamble  <gregg@math.rwth-aachen.de>
 
@@ -75,23 +73,21 @@ true
 \endexample
 
 \index{banner!suppression}
-The banner may be suppressed by providing the version string (`"2.2"') as
-second argument and  `false'  as  third  argument  to  the  `LoadPackage'
-command.    The     `LoadPackage'     command     is     described     in
-Section~"ref:LoadPackage" in the {\GAP} Reference Manual.
+In version 2.2 of the {\ANUPQ} package there was  an  option  `pkgbanner'
+that allowed the user some control on how the banner above was displayed.
+This only  worked  with  {\GAP}~4.3.  Since,  the  {\ANUPQ}  package  now
+requires at least {\GAP}~4.4, this option has been removed. If you  still
+have {\GAP}~4.3 (at least fix4), you will need to use {\ANUPQ}~2.2.
 
-Note  that  since  {\ANUPQ}  package  functions  often  need  to  compute
-automorphism groups of $p$-groups, and uses the functionality provided by
-the {\AutPGrp} package to do so. Therefore, the user should  ensure  that
-the {\AutPGrp} package is  also  installed,  preferably  version  1.2  or
-better (when present {\AutPGrp} is normally  autoloaded  when  {\GAP}  is
-started up). If the {\AutPGrp} package is  not  installed,  the  {\ANUPQ}
-package will still load but  an  error  will  arise  the  first  time  an
-{\AutPGrp} function is required to compute the automorphism  group  of  a
-$p$-group.
+Note that since the {\ANUPQ} package  uses  the  `AutomorphimGroupPGroup'
+function  of the {\AutPGrp} package and, in any case, often  needs  other
+{\AutPGrp} functions when computing descendants,  the  user  must  ensure
+that the {\AutPGrp} package is also installed, at least version  1.2.  If
+the {\AutPGrp} package is not installed, the {\ANUPQ} package will `fail'
+to load.
 
-If {\GAP} cannot find a working `pq' binary, the  call  to  `LoadPackage'
-will return `fail'.
+Also,  if  {\GAP}  cannot  find  a  working  `pq'  binary,  the  call  to
+`LoadPackage' will return `fail'.
 
 If you want to load the {\ANUPQ} package by  default,  you  can  put  the
 `LoadPackage' command  into  your  `.gaprc'  file  (see  Section~"ref:The
@@ -104,43 +100,6 @@ ANUPQWarnOfOtherOptions := true;
 
 to their `.gaprc' file, somewhere after  the  `LoadPackage(  "anupq"  );'
 command (see~"ANUPQWarnOfOtherOptions").
-
-*Loading ANUPQ with GAP 4.3*
-
-The remainder of this section is only relevant if  you  are  still  using
-{\GAP} 4.3, and note that  in  any  case,  at  least  {\GAP}  4.3fix4  is
-required.
-
-To load {\ANUPQ} with {\GAP} 4.3 you will need  to  use  `RequirePackage'
-rather than `LoadPackage', and in this case the banner will look a little
-different. In particular, each line starts with `\#I', since  the  banner
-is `Info'-ed at `InfoWarning' level 1, and so will not be observed if the
-`InfoLevel' of `InfoWarning' is 0.
-
-With {\GAP} 4.3, the banner is  also  suppressed  if  the  global  {\GAP}
-variable `QUIET' is `true' or `BANNER' is `false' (these conditions occur
-if {\GAP} is invoked  with  the  `-q'  or  `-b'  command  line  switches,
-respectively).
-
-\atindex{option pkgbanner}{@option \noexpand`pkgbanner'}
-With {\GAP} 4.3, there is yet one  more  way  of  suppressing  {\ANUPQ}'s
-banner is to supply the option  `pkgbanner'  (which  does  nothing  under
-{\GAP} 4.4) with value `"none"' to the `RequirePackage' command:
-
-\beginexample
-gap> RequirePackage( "anupq" : pkgbanner := "none" );
-true
-\endexample
-
-Finally (with {\GAP} 4.3), the full banner is  replaced  by  a  ``short''
-1-line loading message (`Info'-ed at `InfoWarning' level 1) if,  instead,
-`pkgbanner' has the value `"short"':
-
-\begintt
-gap> RequirePackage( "anupq" : pkgbanner := "short" );
-#I  Loading ANUPQ Package Version 2.2
-true
-\endtt
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{The ANUPQData Record}
@@ -534,9 +493,8 @@ is equivalent to (the truth or falsity of) `NuclearRank( <G> ) = 0'.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Hints and Warnings regarding the use of Options}
 
-On a first reading we recommend you skip this  section  (unless  you  are
-still using {\GAP}~4.2) and come back to it if  and  when  you  run  into
-trouble.
+On a first reading we recommend you skip this section and come back to it
+if and when you run into trouble.
 
 \index{menu item!of pq program}
 \index{option!of pq program is a menu item}
@@ -577,8 +535,8 @@ has  executed  successfully.  If  the   function   does   *not*   execute
 successfully, i.e.~it runs into error and the user `quit's the  resulting
 `break' loop (see Section~"ref:Break  loops"  in  the  Reference  Manual)
 rather than attempting to repair the problem and  typing  `return;'  then
-usually  (so  long  as  your  {\GAP}  is  at  least  version   4.3)   the
-`OptionsStack' is reset. If the error  was  detected  inside  the  kernel
+(since version {\GAP}~4.3), unless the error at  the  kernel  level,  the
+`OptionsStack' is reset. If  an  error  is  detected  inside  the  kernel
 (hopefully, this should occur only rarely, if at all) then the options of
 that function will *not* be cleared from `OptionsStack'; in such cases:
 
@@ -653,17 +611,6 @@ concern the user. Since {\GAP} 4.3, on `quit'ting  the  `break'-loop  the
 brk> quit; # to get back to the `gap>' prompt
 #I  Options stack has been reset
 \endtt
-
-However, as mentioned above, if your version of {\GAP} is only  4.2  then
-you will need to explicitly remove these options, by:
-
-\begintt
-gap> ResetOptionsStack();
-\endtt
-
-Note that there have been many improvements to {\GAP} since  {\GAP}  4.2,
-particularly  in  its  iostream  functionality.  You  will   get   strong
-performance benefits by upgrading to the most recent version of {\GAP}.
 
 Above, we altered `OnBreak' (see~"ref:OnBreak" in the  Reference  manual)
 to reduce the back-tracing on entry into a break  loop.  We  now  restore

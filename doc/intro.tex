@@ -63,13 +63,12 @@ $p$-groups.
 %Further   background   may   be   found   in~\cite{OBr95},   \cite{VL84}
 %and~\cite{NNN98}.
 
-The manual of the {\ANUPQ} package has been written for {\GAP}  4.3.  The
-current  version  requires  {\GAP}  4.3  updated  to  (at  least)   fix4.
-References to {\GAP} 4.2 remain, since the previous  version  was  {\GAP}
-4.2 compatible. (See "Change history" for more details.)
-%Nevertheless, the {\ANUPQ} package is compatible  with  {\GAP}  4.2,  but
-%since it uses the  iostream  technology  introduced  in  {\GAP}  4.2,  it
-%requires at least {\GAP} 4.2.
+The current version of the  {\ANUPQ}  package  requires  {\GAP}~4.4,  and
+version 1.2 of the {\AutPGrp} package. All code  that  made  the  package
+compatible with earlier versions of {\GAP} has been removed. If you still
+have {\GAP}~4.3 (at least fix4), then  you  must  use  {\ANUPQ}~2.2,  and
+{\AutPGrp}~1.1. You should not  use  earlier  versions  of  the  {\ANUPQ}
+package since they are known to have bugs.
 
 *How to read this manual*
 
@@ -116,9 +115,7 @@ she should explore the examples described in Appendix~"Examples".
 
 If  you  run  into   trouble   using   the   {\ANUPQ}   functions,   some
 troubleshooting hints are given in Section~"Hints and Warnings  regarding
-the use of Options".  If  you  are  still  using  {\GAP}~4.2  you  should
-probably scan this section  *before*  you  read  Chapter~"Non-interactive
-ANUPQ   functions".   If   the   troubleshooting   hints   don't    help,
+the  use  of  Options".  If  the  troubleshooting   hints   don't   help,
 Section~"Authors and Acknowledgements" below, gives contact  details  for
 the authors of the components of the {\ANUPQ} package.
 
@@ -181,6 +178,24 @@ Below we list the main changes between versions of the {\ANUPQ} package.
 
 \atindex{option pkgbanner}{@option \noexpand`pkgbanner'}
   
+\item{`3.0'}
+Backward compatibility code for pre-4.4 versions of {\GAP}  removed.  The
+{\ANUPQ} package now requires at least {\GAP}~4.4 and version 1.2 of  the
+{\AutPGrp} package, and the {\AutPGrp} package is now essential.
+
+\item{}
+Deprecated commands replaced by {\GAP}~4.4 commands, e.g.~`PrimeOfPGroup'
+replaced by `PrimePGroup', `ReadPkg' replaced by `ReadPackage', including
+in the `pq' program code (so `pq' program is now version 1.8).
+
+\item{}
+Improved non-isomorphism test in `IsPqIsomorphicPGroup' using  suggestion
+made by Marco Costantini (thanks Marco).
+
+\item{}
+Removed `pkgbanner' option that used to control how the {\ANUPQ}  package
+banner was displayed.
+
 \item{`2.2'}
 Corrected a typo. in `PackageInfo.g'.
 

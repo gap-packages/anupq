@@ -11,10 +11,11 @@ system("rm -rf $tmpdir; mkdir $tmpdir");
 print "Made dir: $tmpdir\n";
 
 $ANUPQversion = `cat VERSION`;
-$AutPGrpversion = "1.1";
+$pqbinaryversion = "1.8";
+$AutPGrpversion = "1.2";
 chomp $ANUPQversion;
 
-$GAPversion = "4.3fix4"; # required GAP version for ANUPQ
+$GAPversion = "4.4"; # required GAP version for ANUPQ
 
 print "Testing installation of ANUPQ Package (version $ANUPQversion)\n\n",
       "The first two tests check that the pq C program compiled ok.\n";
@@ -29,7 +30,7 @@ syswrite STDOUT, "Testing the pq binary's stack size ...",
          length( "Testing the pq binary's stack size ..." );
 check("test2.pga", "");
 
-print "The pq C program compiled ok!\n\n",
+print "The pq C program compiled ok! We test it's the right one below.\n\n",
       "The next tests check that you have the right version of GAP\n",
       "for version $ANUPQversion of the ANUPQ package and that GAP is finding\n",
       "the right versions of the ANUPQ and AutPGrp packages.\n\n";
@@ -70,6 +71,7 @@ print GAPIN
       "  else\n",
       "    Print(PACKAGES_VERSIONS.anupq, \"\\n\");\n",
       "  fi;\n",
+      "  Print(ANUPQData.version, \"\\n\");\n",
       "fi;\n",
       "TestPackageAvailability(\"autpgrp\", \"\");\n",
       "TestPackageAvailability(\"autpgrp\", \"$AutPGrpversion\");\n",
@@ -131,6 +133,21 @@ if ( ($line = <GAPOUT>) !~ /(fail|#I  Error)/ ) {
       "   Please check installation instructions for ANUPQ package.\n";
 }
 if ( ($line = <GAPOUT>) !~ /(fail|#I  Error)/ ) {
+  chomp ($pqbinaryfoundversion = $line);
+  if ($pqbinaryversion eq $pqbinaryfoundversion) {
+    print "  GAP found pq binary (version $pqbinaryfoundversion) ... good.\n";
+  } else {
+    die "  GAP found pq binary (version $pqbinaryfoundversion) ... not current!\n",
+        "   ANUPQ $ANUPQversion uses version $pqbinaryversion of ",
+           "the pq program.\n",
+        "   It seems an earlier installation has been found?!\n";
+  }
+} else {
+  die "  GAP does not have the appropriate pq program installed ... \n",
+      "   ANUPQ $ANUPQversion uses version $pqbinaryversion of \n",
+      "   the pq program.\n";
+}
+if ( ($line = <GAPOUT>) !~ /(fail|#I  Error)/ ) {
   if ( ($line = <GAPOUT>) !~ /(fail|#I  Error)/ ) {
     chomp ($AutPGrpfoundversion = <GAPOUT>);
     print "  GAP found AutPGrp package (version $AutPGrpfoundversion) ... good.\n";
@@ -166,7 +183,7 @@ check("test4.sp", "-i -k ");
 syswrite STDOUT, "Doing p-group generation (final GAP/ANUPQ) test ...",
          length( "Doing p-group generation (final GAP/ANUPQ) test ..." );
 open( GAPIN, ">$tmpdir/gapinput");
-print GAPIN "SetInfoLevel(InfoWarning, 0); RequirePackage( \"anupq\" );;\n",
+print GAPIN "SetInfoLevel(InfoWarning, 0); LoadPackage( \"anupq\" );;\n",
             "SetInfoLevel(InfoWarning, 1);\n",
             "SetInfoLevel(InfoANUPQ, 1);\n",
             "ReadTest( \"tst/anupga.tst\" );\n";

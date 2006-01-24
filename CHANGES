@@ -5,11 +5,37 @@ Version 3.0:
    o lib/{anupga.gi,anupq.gi,anupqprop.gi,anupqxdesc.gi}:
        deprecated `PrimeOfPGroup' replaced by `PrimePGroup'
    o lib/anusp.gi:
-       improved non-isomorphism test in IsPqIsomorphicPGroup from 
+       improved non-isomorphism test in `IsPqIsomorphicPGroup' from 
        checking the exponent-p length to checking the order of the
        terms in the lower exponent-p central series (suggested by
-       Marco Constantini).
-
+       Marco Costantini)
+   o pre-GAP 4.4 compatibility features removed:
+       - lib/anupqhead.g:
+         . banner removed ... this role is performed by PackageInfo.g
+           since GAP 4.4; thus `pkgbanner' option no longer exists
+         . file split into lib/anupqhead.gd and lib/anupqhead.gi
+       - lib/anupq4r2cpt.g[di]:
+           (GAP 4.2 compatibility) deleted from distribution
+       - lib/anustab.gi:
+           changed `AutPGrp' package test to corresponding GAP 4.4 test
+       - read.g,init.g:
+           . removed all but the `ReadPkg' commands 
+           . changed `ReadPkg' to `ReadPackage'
+           . made adjustments for lib/anupqhead.g split
+   o src/GAP_link_via_file.c:
+       deprecated GAP code updated for version 4.4
+   o include/pq_author.h:
+       pq program is now version 1.8
+   o standalone-doc/{README,guide.tex}:
+       modified for version 1.8 of the pq program
+   o testPq.in
+       - updated to check for GAP 4.4 and AutPGrp 1.2 as minimum versions
+       - now also checks the version of the pq program
+   o PackageInfo.g,README,VERSION,doc/{manual,intro,infra,install}.tex:
+       - package version changed from 2.2 to 3.0
+       - AutPGrp package (at least 1.2) is now essential, not just
+         recommended
+       - pq program now version 1.8
 Version 2.2:
    o PackageInfo.g, README, VERSION, doc/{intro,infra,install}.tex:
        - fixed typo. in PackageInfo.g: test file is tst/anupqeg.tst

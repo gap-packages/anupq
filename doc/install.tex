@@ -17,6 +17,12 @@ MIPS running RISC/os Berkeley, a  NeXTstation running NeXTSTEP 3.0, a SUN
 running  SunOS and an  Intel Pentium  based PC  running Linux  or Windows
 equipped with cygwin.
 
+The current version of the  {\ANUPQ}  package  requires  {\GAP}~4.4,  and
+version 1.2 of the {\AutPGrp} package. If you still have  {\GAP}~4.3  (at
+least fix4), then you must  use  {\ANUPQ}~2.2,  and  {\AutPGrp}~1.1.  You
+should not use earlier versions of the {\ANUPQ} package  since  they  are
+known to have bugs.
+
 To install the {\ANUPQ} package, move the file `anupq-<XXX>.zoo' for some
 version number <XXX> into the  `pkg'  directory  in  which  you  plan  to
 install {\ANUPQ}. Usually, this  will  be  the  directory  `pkg'  in  the
@@ -43,10 +49,10 @@ Then, in your chosen `pkg' directory, unzoo `anupq-<XXX>.zoo' by
 \){\kernttindent}unzoo -x anupq-<XXX>
 %\endtt
 
-Change directory to the newly created `anupq' directory. Now you need  to
-call `configure <path>' where <path> is  the  path  to  the  {\GAP}  home
-directory. So for example if you install the package in  the  main  `pkg'
-directory call
+Change to the newly created `anupq'  directory.  Now  you  need  to  call
+`configure <path>' where <path> is the path to the {\GAP} home directory.
+So for example if you install the package in  the  main  `pkg'  directory
+call
 
 \begintt
 ./configure ../..
@@ -61,11 +67,10 @@ you should run `configure' and `make' for {\ANUPQ} for each  architecture
 immediately after compiling {\GAP} on the same architecture.
 
 If you had to install the package in your own directory but wish  to  use
-the system {\GAP}~4 (make sure it's at  least  {\GAP}~4.3fix4)  then  you
-will need to find out what <path> is. To do this,  start  up  {\GAP}  and
-find out what {\GAP}'s root  path  is  from  finding  the  value  of  the
-variable `GAPInfo.RootPaths'  (in  {\GAP}~4.4)  or  `GAP_ROOT_PATHS'  (in
-{\GAP}~4.3), e.g.
+the system {\GAP}~4 then you will need to find out what <path> is. To  do
+this, start up {\GAP} and find  out  what  {\GAP}'s  root  path  is  from
+finding the value of the  variable  `GAPInfo.RootPaths'  (in  {\GAP}~4.4;
+this was `GAP_ROOT_PATHS' prior to {\GAP}~4.4), e.g.
 
 \begintt
 gap> GAPInfo.RootPaths;
@@ -88,9 +93,8 @@ make
 
 to compile the binary and to install it in the appropriate place.
 
-If you need a special target (perhaps you don't have `gmp' or you are not
-on a Linux, NetBSD or FreeBSD system) then you need to call `make' with a
-target argument. If  the  targets  displayed  on  the  screen  after  the
+If you need a special target, e.g.~you don't have `gmp' or are not  on  a
+Linux  system,  and  the  targets  displayed  on  the  screen  after  the
 `configure' step rushed past your eyes and you can't scroll back  to  see
 them, you can ``pipe'' those same targets through `less' or `more',  e.g.
 with `more':
@@ -135,10 +139,10 @@ An abbreviation of the target list is as follows:
 \endtt
 
 Let's suppose that the `linux-iX86-gcc2-gmp' target does not satisfy your
-requirements; let's suppose your system is Solaris 2.8 (i.e.~SunOS  5.8),
-you have `gmp' but its include  and  library  directories  are  somewhere
-else, and that `gap4' is the command used to initiate {\GAP}~4. Then  the
-following `make' call might be correct in this case:
+requirements, that your system is Solaris 2.8 (i.e.~SunOS 5.8), you  have
+`gmp' but its `include' and `lib' directories  are  somewhere  else,  and
+that `gap4' is the command used to start  {\GAP}~4.  Then  the  following
+might be the appropriate `make' call:
 
 \begintt
 make sunos-gcc2-gmp GAP=gap4 GNUINC=/opt/local/include GNULIB=/opt/local/lib
@@ -183,31 +187,31 @@ program as a standalone" for more details). To run the tests, just type:
 testPq
 \endtt
 
-Some of the tests the script runs take a while. Please be  patient.  Note
-that since version 1.2, the {\ANUPQ} package  requires  at  least  {\GAP}
-4.3fix4 and (at  least)  version  1.1  of  the  {\AutPGrp}  package  (the
-`testPq' script checks  for  these  conditions  and  hopefully  gives  an
-informative message if they are not met). The output you  see  should  be
-something like the following:
+Some of the tests the script runs take a while. Please  be  patient.  The
+script checks that you not only have a correct {\GAP} (at  least  version
+4.4) installation that includes the  {\AutPGrp}  package,  but  that  the
+{\ANUPQ} package and its `pq' binary interact correctly. You  should  see
+something like the following output:
 
 \begintt
 Made dir: /tmp/testPq
-Testing installation of ANUPQ Package (version 2.2)
+Testing installation of ANUPQ Package (version 3.0)
  
 The first two tests check that the pq C program compiled ok.
 Testing the pq binary ... OK.
 Testing the pq binary's stack size ... OK.
-The pq C program compiled ok!
+The pq C program compiled ok! We test it's the right one below.
  
 The next tests check that you have the right version of GAP
-for version 2.2 of the ANUPQ package and that GAP is finding
+for version 3.0 of the ANUPQ package and that GAP is finding
 the right versions of the ANUPQ and AutPGrp packages.
  
 Checking GAP ...
  pq binary made with GAP set to: /usr/local/bin/gap
  Starting GAP to determine version and package availability ...
-  GAP version (4.4.5) ... OK.
-  GAP found ANUPQ package (version 2.2) ... good.
+  GAP version (4.4.6) ... OK.
+  GAP found ANUPQ package (version 3.0) ... good.
+  GAP found pq binary (version 1.8) ... good.
   GAP found AutPGrp package (version 1.2) ... good.
  GAP is OK.
  
@@ -285,3 +289,96 @@ abbreviation), or at the `make' step that compiles `pq' do
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
 %E
+ occasionally have  limits  on  what  may  be
+written there. `ANUPQDirectoryTemporary' permits the  user  to  choose  a
+directory (object) where one is not so limited.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\Section{Setting the Verbosity of ANUPQ via Info and InfoANUPQ}
+
+\>`InfoANUPQ' V
+
+The input to and the output from the `pq' program  is,  by  default,  not
+displayed. However the user may choose to  see  some,  or  all,  of  this
+input/output.   This   is   done   via   the   `Info'   mechanism    (see
+Chapter~"ref:Info Functions" in the {\GAP} Reference  Manual).  For  this
+purpose, there is the <InfoClass>  `InfoANUPQ'.  If  the  `InfoLevel'  of
+`InfoANUPQ' is high enough each line of `pq' input/output is directed  to
+a call to `Info' and will be displayed for the user to see.  By  default,
+the `InfoLevel' of `InfoANUPQ' is 1, and it is recommended that you leave
+it at this level, or higher. Messages that  the  user  should  presumably
+want to see and output from the `pq' program influenced by the  value  of
+the option `OutputLevel' (see the options listed in Section~"Pq"),  other
+than timing and memory usage are directed to `Info' at `InfoANUPQ'  level
+1.
+
+To turn off *all* `InfoANUPQ' messaging, set the `InfoANUPQ' level to 0.
+
+There are five other user-intended `InfoANUPQ' levels: 2, 3, 4, 5 and 6.
+
+\beginexample
+gap> SetInfoLevel(InfoANUPQ, 2);
+\endexample
+
+enables the display of most timing and memory usage data  from  the  `pq'
+program, and also the number of identity instances when the  `Identities'
+option is used. (Some timing and memory  usage  data,  particularly  when
+profuse in quantity, is `Info'-ed at `InfoANUPQ' level 3  instead.)  Note
+that the the {\GAP} functions `time' and `Runtime' (see~"ref:Runtime"  in
+the {\GAP} Reference Manual) count the time spent by {\GAP} and *not* the
+time spent by the (external) `pq' program.
+
+\beginexample
+gap> SetInfoLevel(InfoANUPQ, 3);
+\endexample
+
+enables the display of output of the nature of the first two  `InfoANUPQ'
+that was not directly invoked by the  user  (e.g.~some  commands  require
+{\GAP} to discover something about the current state known  to  the  `pq'
+program). The identity instances processed under the `Identities'  option
+are also displayed at  this  level.  In  some  cases,  the  `pq'  program
+produces a  lot  of  output  despite  the  fact  that  the  `OutputLevel'
+(see~"option OutputLevel") is unset or is set to 0; such output  is  also
+`Info'-ed at `InfoANUPQ' level 3.
+
+\beginexample
+gap> SetInfoLevel(InfoANUPQ, 4);
+\endexample
+
+enables the display of all the commands  directed  to  the  `pq'  program,
+behind a ```ToPQ> ''' prompt (so that you can  distinguish  it  from  the
+output from the `pq' program). See Section~"Hints and Warnings  regarding
+the use of  Options"  for  an  example  of  how  this  can  be  a  useful
+troubleshooting tool.
+
+\beginexample
+gap> SetInfoLevel(InfoANUPQ, 5);
+\endexample
+
+enables the display of the `pq' program's prompts for input. Finally,
+
+\beginexample
+gap> SetInfoLevel(InfoANUPQ, 6);
+\endexample
+
+enables the display of all other output from the `pq' program, namely  the
+banner and menus. However, the timing data printed when the  `pq'  program
+exits can never be observed.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\Section{Utility Functions}
+
+\>PqLeftNormComm( <elts> ) F
+
+returns for a list of elements of some group (e.g.~<elts> may be  a  list
+of words in the generators of  a  free  or  fp  group)  the  left  normed
+commutator of <elts>, e.g.~if <w1>, <w2>, <w3>  are  such  elements  then
+`PqLeftNormComm( [<w1>, <w2>, <w3>] );' is  equivalent  to  `Comm(  Comm(
+<w1>, <w2> ), <w3> );'.
+
+*Note:* <elts> must contain at least two elements.
+
+\>PqGAPRelators( <group>, <rels> ) F
+
+returns a list of words that {\GAP} understands, given a list  <rels>  of
+strings in the string representations of the generators
