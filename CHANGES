@@ -8,7 +8,7 @@ Version 3.0:
        improved non-isomorphism test in `IsPqIsomorphicPGroup' from 
        checking the exponent-p length to checking the order of the
        terms in the lower exponent-p central series (suggested by
-       Marco Costantini)
+       Marco Costantini), and corrected by Jack Schmidt
    o pre-GAP 4.4 compatibility features removed:
        - lib/anupqhead.g:
          . banner removed ... this role is performed by PackageInfo.g
