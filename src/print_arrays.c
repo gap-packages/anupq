@@ -9,6 +9,8 @@
 **
 */
 
+#include "pq_defs.h"
+
 /* procedure to print out integer array */
 
 void print_array (a, first, last)

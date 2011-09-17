@@ -107,5 +107,5 @@ struct pcp_vars *pcp;
    else 
       adjoin = pcp->cc + 1;
 
-   sprintf (name + strlen (name), "%d\0", adjoin);
+   sprintf (name + strlen (name), "%d", adjoin);
 }

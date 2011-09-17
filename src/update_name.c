@@ -23,5 +23,5 @@ int step_size;
 {
    register int length;
    if ((length = strlen (string)) < MAXIDENT - 15)
-      sprintf (string + length, " #%d;%d\0", x, step_size);
+      sprintf (string + length, " #%d;%d", x, step_size);
 }

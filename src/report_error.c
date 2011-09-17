@@ -9,6 +9,7 @@
 **
 */
 
+#include "pq_defs.h"
 #include "constants.h"
 
 /* print a run-time error message -- it usually occurs 
