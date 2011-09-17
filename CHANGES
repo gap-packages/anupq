@@ -1,6 +1,12 @@
 In this file we record the changes since the first GAP 4 release of
 the ANUPQ package.
 
+Version 3.? (YYYY-MM-DD):
+   o Made configure and Makefile.in more robust, to ensure that they
+     work well with both GAP 4.4 and 4.5.
+   o Werner is no longer maintainer.
+   o Fixed some warnings in the C code.
+
 Version 3.0:
    o lib/{anupga.gi,anupq.gi,anupqprop.gi,anupqxdesc.gi}:
        deprecated `PrimeOfPGroup' replaced by `PrimePGroup'
