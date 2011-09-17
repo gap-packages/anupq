@@ -49,7 +49,7 @@ SetPackageInfo( rec(
       LastName      := "Nickel",
       FirstNames    := "Werner",
       IsAuthor      := true,
-      IsMaintainer  := true,
+      IsMaintainer  := false,
       Email         := "nickel@mathematik.tu-darmstadt.de",
       WWWHome       := "http://www.mathematik.tu-darmstadt.de/~nickel",
       PostalAddress := Concatenation(
