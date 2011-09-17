@@ -366,8 +366,7 @@ OBJECTS=\
 ## this target creates a bin-directory ######################################
 ## ... and also writes the value of $(GAP) to: tst/GAP ######################
 bindir:
-	if test ! -d bin;  then mkdir bin;  fi
-	if test ! -d bin/@GAPARCH@;  then mkdir bin/@GAPARCH@;  fi
+	mkdir -p bin/@GAPARCH@
 	echo $(GAP) > tst/GAP
 
 ## do the linking and put the executable in the right place #################
