@@ -21,11 +21,13 @@ FILE_TYPE TemporaryFile ()
 {
    FILE_TYPE file;
 
-#if defined (UNIX) && defined (NEXT) == FALSE 
+/* TODO: Rewrite this, e.g. using tmpfile */
+
+#if defined(HAVE_TEMPNAM) || defined(HAVE_TMPNAM)
 
    char *name;
 
-#if defined (HAS_NO_TEMPNAM)
+#if !defined(HAVE_TEMPNAM)
    name = allocate_char_vector (L_tmpnam + 1, 0, FALSE);
    if ((name = tmpnam (name)) == NULL) {
       perror ("Cannot open temporary file");
@@ -47,7 +49,7 @@ FILE_TYPE TemporaryFile ()
   
    free(name);
 
-#else 
+#else
 
    if ((file = tmpfile ()) == NULL) {
       perror ("Cannot open temporary file");
