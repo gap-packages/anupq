@@ -18,11 +18,9 @@ SRC=./src
 PKGNAME=anupq
 
 # The following flags are added (or not) to CFLAGS by old-rule:
-# LARGE_INT == gmp available  HAVE_GMP
 # -DUNIX
 # HAS_NO_TEMPNAM   -> use HAVE_TEMPNAM instead
 # NEXT IBM SPARC   -> simply ignore as out of date ?
-# NO_GETRUSAGE    -> unused
 
 all: bindir
 	@( cd $(SRC) ; $(MAKE) -f $(MAKEFILE) $(EFILE) \
@@ -61,7 +59,7 @@ OBJECTS=\
 	close_subgroup.o               	collect.o                     \
 	collect_comm.o                 	collect_gen_word.o            \
 	collect_relations.o            	collect_word.o                \
-	collectp2.o                    	combined.o                    \
+	collectp2.o                    	                    \
 	commutator.o                   	commute_dgen.o                \
 	compact.o                      	compact_description.o         \
 	consistency.o                  	consistency_filter.o          \
@@ -272,9 +270,6 @@ collect_word.o: collect_word.c ../include/pq_defs.h \
 collectp2.o: collectp2.c ../include/pq_defs.h \
  ../include/storage_fixed.h ../include/pcp_vars.h \
  ../include/constants.h ../include/define_y.h ../include/access.h
-combined.o: combined.c ../include/pq_defs.h ../include/storage_fixed.h \
- ../include/pcp_vars.h ../include/pga_vars.h ../include/constants.h \
- ../include/pq_functions.h
 commutator.o: commutator.c ../include/pq_defs.h \
  ../include/storage_fixed.h ../include/pcp_vars.h \
  ../include/pretty_filterfns.h ../include/word_types.h \
