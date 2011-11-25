@@ -9,6 +9,8 @@
 **
 */
 
+#include <stdio.h>
+
 #define BITES_IN_INT 8 * sizeof (int)
 
 /* print out the bit representation of the integer, v */
