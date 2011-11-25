@@ -9,8 +9,6 @@
 **
 */
 
-#if defined (GROUP) 
-
 #include "pq_defs.h"
 #include "pcp_vars.h"
 #include "constants.h"
@@ -20,6 +18,8 @@
 #ifdef Magma
 #include "dyn_arr.h"
 #endif
+
+#if defined (GROUP) 
 
 /* this procedure collect extra relations which hold in the group;
 

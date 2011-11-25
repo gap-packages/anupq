@@ -9,12 +9,13 @@
 **
 */
 
-#ifndef Magma
 #include "pq_defs.h"
 #include "pcp_vars.h"
 #include "pga_vars.h"
 #include "pq_functions.h"
 #include "constants.h"
+
+#ifndef Magma
 
 /* check whether required data has been read from file */
 

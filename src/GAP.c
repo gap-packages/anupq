@@ -9,6 +9,9 @@
 *Y  Copyright 1997-1997,  School of Mathematical Sciences, ANU,     Australia
 **
 *H  $Log$
+*H  Revision 1.7  2011/11/25 18:51:45  gap
+*H  Move various #if(def)s around. MH
+*H
 *H  Revision 1.6  2002/02/15 15:08:49  gap
 *H  Included -r option in GAP call as per suggestion by SL. - GG
 *H
@@ -22,13 +25,13 @@
 *H  Try again to import ANUPQ. WN
 *H
 */
-#if defined (GAP_LINK) 
-
 #include "pq_defs.h"
 #include "pga_vars.h"
 #include "pcp_vars.h"
 #include "pq_functions.h"
 #include "constants.h"
+
+#if defined (GAP_LINK) 
 
 
 /****************************************************************************

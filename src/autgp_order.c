@@ -9,8 +9,6 @@
 **
 */
 
-#if defined (LARGE_INT) 
-
 #include "pq_defs.h"
 #include "pcp_vars.h"
 #include "pga_vars.h"
@@ -18,6 +16,8 @@
 #include "pq_functions.h"
 #include "global.h"
 #include "standard.h"
+
+#if defined (LARGE_INT) 
 
 /* update the order of the automorphism group */
 

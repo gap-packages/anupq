@@ -9,13 +9,14 @@
 **
 */
 
-#if defined (STANDARD_PCP) 
 #include "pq_defs.h"
 #include "pcp_vars.h"
 #include "pga_vars.h"
 #include "menus.h"
 #include "constants.h"
 #include "pq_functions.h"
+
+#if defined (STANDARD_PCP) 
 
 #define POWER -100
 #undef COMMUTATOR 

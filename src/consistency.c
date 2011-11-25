@@ -9,10 +9,10 @@
 **
 */
 
-#if !defined (CONSISTENCY_FILTER)
-
 #include "pq_defs.h"
 #include "pcp_vars.h"
+
+#if !defined (CONSISTENCY_FILTER)
 
 /* process those consistency relations of weight wc not already used; 
    the value of type determines the consistency relations processed;

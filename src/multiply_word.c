@@ -9,11 +9,11 @@
 **
 */
 
-#if defined (GROUP)
-
 #include "pq_defs.h"
 #include "pcp_vars.h"
     
+#if defined (GROUP)
+
 /* post-multiply exponent vector with base address cp 
    by word with base address ptr */
 

@@ -9,14 +9,14 @@
 **
 */
 
-#if defined (QUOTPIC)
-
 #include "pq_defs.h"
 #include "pcp_vars.h"
 #include "pga_vars.h"
 #include "constants.h"
 #include "menus.h"
 #include "pq_functions.h"
+
+#if defined (QUOTPIC)
 
 void list_quotpic_menu ();
 

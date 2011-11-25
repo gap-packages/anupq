@@ -9,13 +9,14 @@
 **
 */
 
-#if defined (STANDARD_PCP)
 #include "pq_defs.h"
 #include "pcp_vars.h"
 #include "pga_vars.h"
 #include "constants.h"
 #include "pq_functions.h"
 #include "standard.h"
+
+#if defined (STANDARD_PCP)
 
 /* given a presentation for the p-covering group of a 
    class c p-quotient; find the allowable subgroup which 

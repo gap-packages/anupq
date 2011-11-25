@@ -9,11 +9,12 @@
 **
 */
 
-#if defined (CONSISTENCY_FILTER)
-
 #include "pq_defs.h"
 #include "pcp_vars.h"
 #include "pq_functions.h"
+
+#if defined (CONSISTENCY_FILTER)
+
 int *add_weights ();
 
 

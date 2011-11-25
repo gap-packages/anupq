@@ -9,8 +9,6 @@
 **
 */
 
-#if defined (GROUP)
-#if defined (STANDARD_PCP)
 #include "constants.h"
 #include "pq_defs.h"
 #include "pretty_filterfns.h"
@@ -20,6 +18,9 @@
 #include "pga_vars.h"
 #include "pq_functions.h"
 #include "word_types.h"
+
+#if defined (GROUP)
+#if defined (STANDARD_PCP)
 
 #ifdef __386BSD__
 static char FileBuffer[1024];

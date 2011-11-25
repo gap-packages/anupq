@@ -9,9 +9,6 @@
 **
 */
 
-#if defined (GROUP) 
-#if defined (STANDARD_PCP)
-
 #include "pq_defs.h"
 #include "constants.h"
 #include "pcp_vars.h"
@@ -21,6 +18,9 @@
 #include "pq_functions.h"
 #include "menus.h"
 #include "standard.h"
+
+#if defined (GROUP) 
+#if defined (STANDARD_PCP)
 
 int map_array_size;
 int output;

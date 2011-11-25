@@ -9,11 +9,12 @@
 **
 */
 
-#if defined (TAILS_FILTER) && defined (GROUP) 
 #include "pq_defs.h"
 #include "pcp_vars.h"
 #include "constants.h"
 #include "pq_functions.h"
+
+#if defined (TAILS_FILTER) && defined (GROUP) 
 
 /* look up the definitions of two pcp generator */
 

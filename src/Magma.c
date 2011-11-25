@@ -9,12 +9,13 @@
 **
 */
 
-#if defined (Magma_LINK) 
 #include "pq_defs.h"
 #include "pga_vars.h"
 #include "pcp_vars.h"
 #include "pq_functions.h"
 #include "constants.h"
+
+#if defined (Magma_LINK) 
 
 /* write out permutations to file in suitable form for input to Magma */
 

@@ -10,6 +10,9 @@
 *Y  Copyright 1995-1997,  School of Mathematical Sciences, ANU,     Australia
 **
 *H  $Log$
+*H  Revision 1.15  2011/11/25 18:51:45  gap
+*H  Move various #if(def)s around. MH
+*H
 *H  Revision 1.14  2006/01/24 04:50:24  gap
 *H  src/GAP_link_via_file.c:
 *H    deprecated GAP code updated for version 4.4
@@ -87,7 +90,6 @@
 *H  Try again to import ANUPQ. WN
 *H
 */
-#if defined(GAP_LINK_VIA_FILE)
 
 #include "pq_defs.h"
 #include "pcp_vars.h"
@@ -97,6 +99,7 @@
 #include "pq_functions.h"
 #include "menus.h"
 
+#if defined(GAP_LINK_VIA_FILE)
 
 /****************************************************************************
 **
