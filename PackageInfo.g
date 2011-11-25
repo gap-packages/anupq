@@ -9,11 +9,11 @@ SetPackageInfo( rec(
 
   PackageName := "ANUPQ",
   Subtitle    := "ANU p-Quotient",
-  Version     := "3.0",
-  Date        := "24/01/2006",
-  ArchiveURL  := "http://www.math.rwth-aachen.de/~Greg.Gamble/ANUPQ/anupq-3.0",
+  Version     := "3.1",
+  Date        := "??/??/2011",
+  ArchiveURL  := "http://www.math.rwth-aachen.de/~Greg.Gamble/ANUPQ/anupq-3.1",
   ArchiveFormats 
-              := ".zoo",
+              := ".tar.gz .zoo",
 
 ##    - if no 'TextFiles' or 'BinaryFiles' are given and a .zoo archive is
 ##      provided, then the files in that archive with a "!TEXT!" comment are
@@ -50,14 +50,11 @@ SetPackageInfo( rec(
       FirstNames    := "Werner",
       IsAuthor      := true,
       IsMaintainer  := false,
-      Email         := "nickel@mathematik.tu-darmstadt.de",
-      WWWHome       := "http://www.mathematik.tu-darmstadt.de/~nickel",
-      PostalAddress := Concatenation(
-                         "AG 2, Fachbereich Mathematik, TU Darmstadt\n",
-                         "Schlossgartenstr. 7, 64289 Darmstadt\n",
-                         "Germany" ),
-      Place         := "Darmstadt",
-      Institution   := "TU Darmstadt"
+       # MH: Werner rarely (if at all) replies to emails sent to this
+       # old email address. To discourage users from sending bug reports
+       # there, I have disabled it here.
+       #Email         := "nickel@mathematik.tu-darmstadt.de",
+       WWWHome       := "http://www.mathematik.tu-darmstadt.de/~nickel/",
     ),
     rec( 
       LastName      := "O'Brien",
@@ -74,7 +71,24 @@ SetPackageInfo( rec(
                          "New Zealand\n" ),
       Place         := "Auckland",
       Institution   := "University of Auckland"
-    )
+    ),
+    rec(
+     LastName      := "Horn",
+     FirstNames    := "Max",
+     IsAuthor      := false,
+     IsMaintainer  := true,
+     Email         := "mhorn@tu-bs.de",
+     WWWHome       := "http://www.icm.tu-bs.de/~mhorn",
+     PostalAddress := Concatenation(
+             "AG Algebra und Diskrete Mathematik\n",
+             "Institut Computational Mathematics\n",
+             "TU Braunschweig\n",
+             "Pockelsstr. 14\n",
+             "D-38106 Braunschweig\n",
+             "Germany" ),
+     Place         := "Braunschweig",
+     Institution   := "TU Braunschweig"
+   ),
   ],  
 
   Status      := "accepted",
@@ -135,9 +149,6 @@ SetPackageInfo( rec(
   PackageDoc := rec(
     # use same as in GAP            
     BookName  := "ANUPQ",
-    # format/extension can be one of .zoo, .tar.gz, .tar.bz2, -win.zip
-    Archive   := 
-      "http://www.math.rwth-aachen.de/~Greg.Gamble/ANUPQ/anupq-3.0.zoo",
     ArchiveURLSubset
               := ["doc", "htm"],
     HTMLStart := "htm/chapters.htm",
@@ -211,7 +222,8 @@ SetPackageInfo( rec(
                   " <", ~.Persons[3].Email, ">\n",
     "           (ANU pq binary version: 1.8)\n",
     "GAP code by ", ~.Persons[2].FirstNames, " ", ~.Persons[2].LastName,
-                  " <", ~.Persons[2].Email, ">\n",
+                  "\n",
+#                  " <", ~.Persons[2].Email, ">\n",
     "        and   ", ~.Persons[1].FirstNames, " ", ~.Persons[1].LastName,
                   "  <", ~.Persons[1].Email, ">\n\n",
     "            For help, type: ?", ~.PackageDoc.BookName, "\n",

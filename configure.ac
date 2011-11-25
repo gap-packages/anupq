@@ -2,7 +2,7 @@ dnl ##
 dnl ## Process this file with autoconf to produce a configure script.
 dnl ## 
 AC_PREREQ([2.68])
-AC_INIT([ANU p-Quotient Program], [3.0], [support@gap-system.org], [anupq])
+AC_INIT([ANU p-Quotient Program], [3.1], [support@gap-system.org], [anupq])
 AC_CONFIG_AUX_DIR(cnf)
 AC_CONFIG_SRCDIR([src/pquotient.c])
 AC_CONFIG_HEADER(include/config.h:include/config.hin)
