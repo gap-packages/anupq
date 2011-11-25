@@ -12,8 +12,9 @@
 /* definition file for p-quotient program */
 
 #ifndef __PQ_DEFINES__
-
 #define __PQ_DEFINES__
+
+#include "config.h"
 
 /* various definitions required by Magma */
 

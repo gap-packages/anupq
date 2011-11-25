@@ -59,16 +59,16 @@
 #CONSISTENCY_FILTER -- apply filter for exponent 4 and 5 and max occurrences
 #
 #
+top_srcdir = @top_srcdir@
+top_builddir = @top_builddir@
+srcdir = @srcdir@
+VPATH = @srcdir@
+subdir = src
+
 BASE   = ..
 SRC    = ../src
 LIE   = ../lie
-CC     = gcc
-#
-#if you define LARGE_INT then GNULIB must point to gmp libraries 
-#and GNUINC should point to gmp header files  
-#
-GNUINC = /usr/local/include 
-GNULIB = /usr/local/lib 
+CC     = @CC@
 #
 #
 #
@@ -77,7 +77,7 @@ EFILE  = $(BASE)/bin/pq.ext
 INC    = $(BASE)/include
 INC-LIE    = $(BASE)/lie-include
 INCL   = -I$(BASE)/include -I$(BASE)/lie-include -I$(GNUINC)
-CFLAGS = -g -DLARGE_INT -DSTANDARD_PCP -DUNIX -DGAP -DGAP_LINK_VIA_FILE -DGROUP $(INCL)
+CFLAGS = -g -DSTANDARD_PCP -DUNIX -DGAP -DGAP_LINK_VIA_FILE -DGROUP $(INCL)
 
 OBJS = \
 AllocateSpace.o\
@@ -236,7 +236,7 @@ LIEOBJS =
 
 pq:	$(OBJS) $(LIEOBJS) collect.o
 	echo "linking ..."
-	$(CC) $(CFLAGS) -o $(EFILE) $(OBJS) $(LIEOBJS) collect.o -lm -lgmp -L$(GNULIB)
+	$(CC) $(CFLAGS) -o $(EFILE) $(OBJS) $(LIEOBJS) $(LDLIBS) $(LDFLAGS) collect.o
 
 $(OBJS): $(INC)/pq_defs.h $(INC)/pga_vars.h  $(INC)/exp_vars.h\
 	$(INC)/pcp_vars.h $(INC)/constants.h 
@@ -244,10 +244,10 @@ $(OBJS): $(INC)/pq_defs.h $(INC)/pga_vars.h  $(INC)/exp_vars.h\
 $(LIEOBJS)	: $(INC)/pq_defs.h $(INC)/pga_vars.h  $(INC)/exp_vars.h\
 	$(INC)/pcp_vars.h $(INC)/constants.h $(INC-LIE)/lie_functions.h\
 	$(INC-LIE)/lie_menus.h $(INC-LIE)/lie_template.h $(INC-LIE)/lie_testwd_info.h
-	$(CC) $(CFLAGS) $(INCL) -o $*.o -c $*.c
+	$(CC) $(CFLAGS) $(INCL) $(CPPFLAGS) -o $*.o -c $*.c
 
 collect.o: collect.c $(INC)/pq_defs.h $(INC)/pcp_vars.h $(INC)/constants.h
-	$(CC) $(CFLAGS) $(INCL) -c $*.c
+	$(CC) $(CFLAGS) $(INCL) $(CPPFLAGS) -c $*.c
 
 clean:
-	@\rm $(OBJS) $(LIEOBJS) collect.o 
+	@\rm -f $(OBJS) $(LIEOBJS) collect.o 

@@ -1,12 +1,12 @@
 ## do not edit these definitions ############################################
-SHELL=/bin/sh
 
-GNUINC=/usr/local/include
-GNULIB=/usr/local/lib
+GMP_CPPFLAGS=@GMP_CPPFLAGS@
+GMP_LIBS=@GMP_LIBS@
 
 EFILE=pq
-EXT=
+EXEEXT=@EXEEXT@
 PQFLAGS=-DGAP_LINK_VIA_FILE -DGAP -I../include -DSTANDARD_PCP -DGROUP
+CC     = @CC@
 
 ## Command used to start up GAP4
 GAP=gap
@@ -17,275 +17,31 @@ MAKEFILE=../Makefile
 SRC=./src
 PKGNAME=anupq
 
+# The following flags are added (or not) to CFLAGS by old-rule:
+# LARGE_INT == gmp available  HAVE_GMP
+# -DUNIX
+# HAS_NO_TEMPNAM   -> use HAVE_TEMPNAM instead
+# NEXT IBM SPARC   -> simply ignore as out of date ?
+# NO_GETRUSAGE    -> unused
 
-linux-iX86-gcc2-gmp: bindir
-	@( cd $(SRC) ; $(MAKE) -f $(MAKEFILE) $(EFILE) CC=gcc \
-	CFLAGS="$(COPTS) -DLARGE_INT -DGNUINC -I$(GNUINC) -O2 $(PQFLAGS) \
-                -DUNIX -DUSE_BIT_OPS" \
+all: bindir
+	@( cd $(SRC) ; $(MAKE) -f $(MAKEFILE) $(EFILE) \
+	CFLAGS="$(CFLAGS) -O2 $(PQFLAGS) -DHAVE_CONFIG_H -DUNIX" \
+	CPPFLAGS="$(CPPFLAGS) $(GMP_CPPFLAGS)" \
 	GAP=$(GAP) \
-	EXT=$(EXT) \
-	LDLIBS="-lm -L$(GNULIB) -lgmp" )
-
-linux-iX86-gcc2: bindir
-	@( cd $(SRC) ; $(MAKE) -f $(MAKEFILE) $(EFILE) CC=gcc \
-	CFLAGS="$(COPTS) -O2 $(PQFLAGS) -DUNIX -DUSE_BIT_OPS" \
-	GAP=$(GAP) \
-	EXT=$(EXT) \
-	LDLIBS="-lm" )
-
-linux-iX86-cc-gmp: bindir
-	@( cd $(SRC) ; $(MAKE) -f $(MAKEFILE) $(EFILE) CC=cc \
-	CFLAGS="$(COPTS) -DLARGE_INT -DGNUINC -I$(GNUINC) -O $(PQFLAGS) \
-                -DUNIX -DUSE_BIT_OPS" \
-	GAP=$(GAP) \
-	EXT=$(EXT) \
-	LDLIBS="-lm -L$(GNULIB) -lgmp" )
-
-linux-iX86-cc: bindir
-	@( cd $(SRC) ; $(MAKE) -f $(MAKEFILE) $(EFILE) CC=cc \
-	CFLAGS="$(COPTS) -O $(PQFLAGS) -DUNIX -DUSE_BIT_OPS" \
-	GAP=$(GAP) \
-	EXT=$(EXT) \
-	LDLIBS="-lm" )
-
-iX86-pc-cygwin-gcc-gmp: bindir
-	@( cd $(SRC) ; $(MAKE) -f $(MAKEFILE) $(EFILE) CC=gcc \
-	CFLAGS="$(COPTS) -DLARGE_INT -DGNUINC -I$(GNUINC) -O2 $(PQFLAGS) \
-		-DUNIX -DUSE_BIT_OPS" \
-	GAP=$(GAP) \
-	EXT=".exe" \
-	LDLIBS="-lm -L$(GNULIB) -lgmp" )
-
-iX86-pc-cygwin-gcc: bindir
-	@( cd $(SRC) ; $(MAKE) -f $(MAKEFILE) $(EFILE) CC=gcc \
-	CFLAGS="$(COPTS) -O2 $(PQFLAGS) -DUNIX -DUSE_BIT_OPS" \
-	GAP=$(GAP) \
-	EXT=".exe" \
-	LDLIBS="-lm" )
-
-unix-gmp: bindir
-	@( cd $(SRC) ; $(MAKE) -f $(MAKEFILE) $(EFILE) CC=cc \
-	CFLAGS="$(COPTS) -DLARGE_INT -DGNUINC -I$(GNUINC) $(PQFLAGS) \
-		-DNO_GETRUSAGE -DUNIX" \
-	GAP=$(GAP) \
-	EXT=$(EXT) \
-	LDLIBS="-lm -L$(GNULIB) -lgmp" )
-
-unix: bindir
-	@( cd $(SRC) ; $(MAKE) -f $(MAKEFILE) $(EFILE) CC=cc \
-	CFLAGS="$(COPTS) $(PQFLAGS) -DUNIX -DNO_GETRUSAGE" \
-	GAP=$(GAP) \
-	EXT=$(EXT) \
-	LDLIBS="-lm" )
-
-sunos-gcc2-gmp: bindir
-	@( cd $(SRC) ; $(MAKE) -f $(MAKEFILE) $(EFILE) CC=gcc \
-	CFLAGS="$(COPTS) -DLARGE_INT -DGNUINC -I$(GNUINC) -O2 $(PQFLAGS) \
-                -DUNIX" \
-	GAP=$(GAP) \
-	EXT=$(EXT) \
-	LDLIBS="-lm -L$(GNULIB) -lgmp" )
-
-sunos-gcc2: bindir
-	@( cd $(SRC) ; $(MAKE) -f $(MAKEFILE) $(EFILE) CC=gcc \
-	CFLAGS="$(COPTS) -O2 $(PQFLAGS) -DUNIX" \
-	GAP=$(GAP) \
-	EXT=$(EXT) \
-	LDLIBS="-lm" )
-
-sunos-cc-gmp: bindir
-	@( cd $(SRC) ; $(MAKE) -f $(MAKEFILE) $(EFILE) CC=cc \
-	CFLAGS="$(COPTS) -DLARGE_INT -DGNUINC -I$(GNUINC) -O $(PQFLAGS) \
-                -DUNIX" \
-	GAP=$(GAP) \
-	EXT=$(EXT) \
-	LDLIBS="-lm -L$(GNULIB) -lgmp -lgnu" )
-
-sunos-cc: bindir
-	@( cd $(SRC) ; $(MAKE) -f $(MAKEFILE) $(EFILE) CC=cc \
-	CFLAGS="$(COPTS) -O $(PQFLAGS) -DUNIX" \
-	GAP=$(GAP) \
-	EXT=$(EXT) \
-	LDLIBS="-lm" )
-
-mips-mips-bsd-cc-gmp: bindir
-	@( cd $(SRC) ; $(MAKE) -f $(MAKEFILE) $(EFILE) CC=cc \
-	CFLAGS="$(COPTS) -DLARGE_INT -DGNUINC -I$(GNUINC) -DNEEDS_TYPES_H \
-		-DHAS_NO_STRFTIME -systype bsd43 -O2 $(PQFLAGS) -DUNIX" \
-	GAP=$(GAP) \
-	EXT=$(EXT) \
-	LDLIBS="-systype bsd43 -lm -L$(GNULIB) -lgmp" )
-
-mips-mips-bsd-cc: bindir
-	@( cd $(SRC) ; $(MAKE) -f $(MAKEFILE) $(EFILE) CC=cc \
-	CFLAGS="$(COPTS) -DNEEDS_TYPES_H -DHAS_NO_STRFTIME -systype bsd43 \
-		-O2 $(PQFLAGS) -DUNIX" \
-	GAP=$(GAP) \
-	EXT=$(EXT) \
-	LDLIBS="-systype bsd43 -lm" )
-
-dec-mips-ultrix-gcc2-gmp: bindir
-	@( cd $(SRC) ; $(MAKE) -f $(MAKEFILE) $(EFILE) CC=gcc \
-	CFLAGS="$(COPTS) -DLARGE_INT -DGNUINC -I$(GNUINC) -O2 $(PQFLAGS) \
-                -DUNIX" \
-	GAP=$(GAP) \
-	EXT=$(EXT) \
-	LDLIBS="-lm -L$(GNULIB) -lgmp" )
-
-dec-mips-ultrix-gcc2: bindir
-	@( cd $(SRC) ; $(MAKE) -f $(MAKEFILE) $(EFILE) CC=gcc \
-	CFLAGS="$(COPTS) -O2 $(PQFLAGS) -DUNIX" \
-	GAP=$(GAP) \
-	EXT=$(EXT) \
-	LDLIBS="-lm" )
-
-dec-mips-ultrix-cc-gmp: bindir
-	@( cd $(SRC) ; $(MAKE) -f $(MAKEFILE) $(EFILE) CC=cc \
-	CFLAGS="$(COPTS) -DLARGE_INT -DGNUINC -I$(GNUINC) -O $(PQFLAGS) \
-                -DUNIX -DUSE_BIT_OPS" \
-	GAP=$(GAP) \
-	EXT=$(EXT) \
-	LDLIBS="-lm -L$(GNULIB) -lgmp" )
-
-dec-mips-ultrix-cc: bindir
-	@( cd $(SRC) ; $(MAKE) -f $(MAKEFILE) $(EFILE) CC=cc \
-	CFLAGS="$(COPTS) -O $(PQFLAGS) -DUNIX -DUSE_BIT_OPS" \
-	GAP=$(GAP) \
-	EXT=$(EXT) \
-	LDLIBS="-lm" )
-
-hp-hppa1.1-hpux-cc-gmp: bindir
-	@( cd $(SRC) ; $(MAKE) -f $(MAKEFILE) $(EFILE) CC=cc \
-	CFLAGS="$(COPTS) -DLARGE_INT -DGNUINC -I$(GNUINC) -O $(PQFLAGS) \
-                -DUNIX -DNO_GETRUSAGE" \
-	GAP=$(GAP) \
-	EXT=$(EXT) \
-	LDLIBS="-lm -L$(GNULIB) -lgmp" )
-
-hp-hppa1.1-hpux-cc: bindir
-	@( cd $(SRC) ; $(MAKE) -f $(MAKEFILE) $(EFILE) CC=cc \
-	CFLAGS="$(COPTS) -O $(PQFLAGS) -DUNIX -DNO_GETRUSAGE" \
-	GAP=$(GAP) \
-	EXT=$(EXT) \
-	LDLIBS="-lm" )
-
-hp-hppa1.1-hpux-gcc: bindir
-	@( cd $(SRC) ; $(MAKE) -f $(MAKEFILE) $(EFILE) CC=gcc \
-	CFLAGS="$(COPTS) -O $(PQFLAGS) -DUNIX -DNO_GETRUSAGE" \
-	GAP=$(GAP) \
-	EXT=$(EXT) \
-	LDLIBS="-lm" )
-
-hp-hppa1.0-hpux-cc-gmp: bindir
-	@( cd $(SRC) ; $(MAKE) -f $(MAKEFILE) $(EFILE) CC=cc \
-	CFLAGS="$(COPTS) -DLARGE_INT -DGNUINC -I$(GNUINC) $(PQFLAGS) \
-		-DNO_GETRUSAGE -DUNIX" \
-	GAP=$(GAP) \
-	EXT=$(EXT) \
-	LDLIBS="-lm -L$(GNULIB) -lgmp" )
-
-hp-hppa1.0-hpux-cc: bindir
-	@( cd $(SRC) ; $(MAKE) -f $(MAKEFILE) $(EFILE) CC=cc \
-	CFLAGS="$(COPTS) $(PQFLAGS) -DUNIX -DNO_GETRUSAGE" \
-	GAP=$(GAP) \
-	EXT=$(EXT) \
-	LDLIBS="-lm" )
-
-hp-hppa1.0-hpux-gcc: bindir
-	@( cd $(SRC) ; $(MAKE) -f $(MAKEFILE) $(EFILE) CC=gcc \
-	CFLAGS="$(COPTS) $(PQFLAGS) -DUNIX -DNO_GETRUSAGE" \
-	GAP=$(GAP) \
-	EXT=$(EXT) \
-	LDLIBS="-lm" )
-
-next-m68k-mach-gcc2-gmp: bindir
-	@( cd $(SRC) ; $(MAKE) -f $(MAKEFILE) $(EFILE) CC=gcc \
-        CFLAGS="$(COPTS) -DLARGE_INT -DGNUINC -I$(GNUINC) -O2 $(PQFLAGS) \
-                -DUNIX -DNEXT -DHAS_NO_TEMPNAM" \
-	GAP=$(GAP) \
-	EXT=$(EXT) \
-	LDLIBS="-lgmp" )
-
-next-m68k-mach-gcc2: bindir
-	@( cd $(SRC) ; $(MAKE) -f $(MAKEFILE) $(EFILE) CC=gcc \
-        CFLAGS="$(COPTS)-O2 $(PQFLAGS) -DUNIX -DNEXT -DHAS_NO_TEMPNAM" \
-	GAP=$(GAP) \
-	EXT=$(EXT) \
-	LDLIBS="" )
-
-next-m68k-mach-cc-gmp: bindir
-	@( cd $(SRC) ; $(MAKE) -f $(MAKEFILE) $(EFILE) CC=cc \
-        CFLAGS="$(COPTS) -DLARGE_INT -DGNUINC -I$(GNUINC) -O2 $(PQFLAGS) \
-                -DUNIX -DNEXT -DHAS_NO_TEMPNAM" \
-	GAP=$(GAP) \
-	EXT=$(EXT) \
-	LDLIBS="-lgmp" )
-
-next-m68k-mach-cc: bindir
-	@( cd $(SRC) ; $(MAKE) -f $(MAKEFILE) $(EFILE) CC=cc \
-        CFLAGS="$(COPTS) -O2 $(PQFLAGS) -DUNIX -DNEXT -DHAS_NO_TEMPNAM" \
-	GAP=$(GAP) \
-	EXT=$(EXT) \
-	LDLIBS="" )
+	EXT=$(EXEEXT) \
+	LDLIBS="-lm $(GMP_LIBS)" )
+# FIXME: Deal with -lm in a more portable fashion (i.e. detect whether
+# it is available and needed in configure)
 
 ## show makefile options ####################################################
-unknown:
-	@echo "Now call 'make <target>'  where <target> is one of"
-	@echo ""
-	@echo "'linux-iX86-gcc2-gmp'      for IBM x86 PCs under linux/BSD with GNU cc 2 and mp"
-	@echo "'linux-iX86-cc-gmp'        for IBM x86 PCs under linux/BSD with cc and GNU mp"
-	@echo "'linux-iX86-gcc2'          for IBM x86 PCs under linux/BSD with GNU cc 2"
-	@echo "'linux-iX86-cc'            for IBM x86 PCs under linux/BSD with cc (GNU)"
-	@echo "'iX86-pc-cygwin-gcc-gmp'   for IBM x86 PCs under CYGWIN with GNU cc and GNU mp"
-	@echo "'iX86-pc-cygwin-gcc'       for IBM x86 PCs under CYGWIN with GNU cc"
-	@echo "'dec-mips-ultrix-gcc2-gmp' for DECstations under Ultrix with GNU cc 2 and GNU mp"
-	@echo "'dec-mips-ultrix-cc-gmp'   for DECstations under Ultrix with cc and GNU mp"
-	@echo "'dec-mips-ultrix-gcc2'     for DECstations under Ultrix with GNU cc 2"
-	@echo "'dec-mips-ultrix-cc'       for DECstations under Ultrix with cc"
-	@echo "'hp-hppa1.1-hpux-cc-gmp'   for HP 9000/700 under HP-UX with cc and GNU mp"
-	@echo "'hp-hppa1.1-hpux-cc'       for HP 9000/700 under HP-UX with cc"
-	@echo "'hp-hppa1.1-hpux-gcc'      for HP 9000/700 under HP-UX with gcc"
-	@echo "'hp-hppa1.0-hpux-cc-gmp'   for HP 9000/800 under HP-UX with cc and GNU mp"
-	@echo "'hp-hppa1.0-hpux-cc'       for HP 9000/800 under HP-UX with cc"
-	@echo "'hp-hppa1.0-hpux-gcc'      for HP 9000/800 under HP-UX with gcc"
-	@echo "'mips-mips-bsd-cc-gmp'     for MIPS under RISC/os Berkeley with cc and GNU mp"
-	@echo "'mips-mips-bsd-cc'         for MIPS under RISC/os Berkeley with cc"
-	@echo "'next-m68k-mach-gcc2-gmp'  for NeXT under Mach with GNU cc 2 and GNU mp"
-	@echo "'next-m68k-mach-cc-gmp'    for NeXT under Mach with cc and GNU mp"
-	@echo "'next-m68k-mach-gcc2'      for NeXT under Mach with GNU cc 2"
-	@echo "'next-m68k-mach-cc'        for NeXT under Mach with cc (GNU)"
-	@echo "'sunos-gcc2-gmp'           for SunOS with GNU cc 2 and gmp"
-	@echo "'sunos-cc-gmp'             for SunOS with cc and GNU mp"
-	@echo "'sunos-gcc2'               for SunOS with GNU cc 2"
-	@echo "'sunos-cc'                 for SunOS with cc"
-	@echo "'unix-gmp'                 for a generic unix system with cc and GNU mp"
-	@echo "'unix'                     for a generic unix system with cc"
-	@echo "'clean'                    remove all created files"
-	@echo ""
-	@echo "   targets are listed according to preference,"
-	@echo "   i.e., 'sunos-gcc2' is better than 'sunos-cc'"
-	@echo "   choosing no target is the same as choosing 'linux-iX86-gcc2-gmp'"
-	@echo "   additional C compiler and linker flags can be passed with"
-	@echo "   'make <target> COPTS=<compiler-opts> LOPTS=<linker-opts>',"
-	@echo "   e.g., 'make sunos-cc COPTS=-g LOPTS=-g'."
-	@echo ""
-	@echo "   set GAP if GAP4 is not started with the command 'gap',"
-	@echo "   e.g., 'make sunos-cc GAP=/usr/local/bin/gap4'."
-	@echo ""
-	@echo "   in order to use the GNU multiple precision (gmp) choose a target"
-	@echo "   ending in '-gmp' and if you need to override the defaults set:"
-	@echo "   'GNUINC' (default '/usr/local/include') and "
-	@echo "   'GNULIB' (default '/usr/local/lib')"
-	@echo "   e.g., 'make sunos-gcc2-gmp GNUINC=/opt/local/include GNULIB=/opt/local/lib'."
-	@echo ""
-	@echo "   do 'make unknown | more' to see these targets again via more"
 
 ## special rules,  we need to set ANUPQ_GAP_EXEC ############################
 GAP.o: GAP.c
-	$(CC) $(CFLAGS) -DANUPQ_GAP_EXEC='"$(GAP)"' -c GAP.c
+	$(CC) $(CFLAGS) $(CPPFLAGS) -DANUPQ_GAP_EXEC='"$(GAP)"' -c GAP.c
 
 GAP_link_via_file.o: GAP_link_via_file.c
-	$(CC) $(CFLAGS) -DANUPQ_GAP_EXEC='"$(GAP)"' -c GAP_link_via_file.c
+	$(CC) $(CFLAGS) $(CPPFLAGS) -DANUPQ_GAP_EXEC='"$(GAP)"' -c GAP_link_via_file.c
 
 ## NEVER DELETE/ALTER THESE LINES BELOW - see "objectlist" and "depend" #####
 
@@ -371,7 +127,7 @@ bindir:
 
 ## do the linking and put the executable in the right place #################
 $(EFILE):  $(OBJECTS)
-	@( $(CC) -o $(EFILE) $(OBJECTS) $(LOPTS) $(LDLIBS); \
+	( $(CC) -o $(EFILE) $(OBJECTS) $(LOPTS) $(LDLIBS) $(LDFLAGS); \
 	   echo ""; echo "moving pq to ../bin/@GAPARCH@"; echo ""; \
 	   mv $(EFILE) ../bin/@GAPARCH@; rm -f ../standalone/bin/pq; \
 	   mkdir -p -m 755 ../standalone/bin; \
@@ -423,7 +179,7 @@ objectlist:
 
 ## create dependency list for the Makefile ##################################
 depend:
-	@(cd $(SRC) ; gcc -MM -I$(GNUINC) $(PQFLAGS) -DNO_GETRUSAGE -DUNIX *.c \
+	@(cd $(SRC) ; gcc -MM -I$(GNUINC) $(PQFLAGS) -DUNIX *.c \
 	    > /tmp/depend.tmp )
 	@perl replace DEP /tmp/depend.tmp
 	@rm /tmp/depend.tmp
