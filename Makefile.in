@@ -9,131 +9,46 @@ subdir = .
 
 ## do not edit these definitions ############################################
 
-GMP_CPPFLAGS=@GMP_CPPFLAGS@
-GMP_LIBS=@GMP_LIBS@
+GMP_CPPFLAGS = @GMP_CPPFLAGS@
+GMP_LIBS     = @GMP_LIBS@
 
-EFILE=pq
-EXEEXT=@EXEEXT@
-PQFLAGS=-DGAP_LINK_VIA_FILE -DGAP -I../include -DSTANDARD_PCP -DGROUP
-CC     = @CC@
+BINDIR  = bin/@GAPARCH@
+EXEEXT  = @EXEEXT@
+EFILE   = $(BINDIR)/pq$(EXEEXT)
+PQFLAGS = -DGAP_LINK_VIA_FILE -DGAP -I$(top_srcdir)/include -DSTANDARD_PCP -DGROUP -DANUPQ_GAP_EXEC='"$(GAP)"'
+CC      = @CC@
+
+CFLAGS   += -O2
+CPPFLAGS += $(GMP_CPPFLAGS) $(PQFLAGS)
+LDLIBS    = $(GMP_LIBS) -lm
+# FIXME: Deal with -lm in a more portable fashion (i.e. detect whether
+# it is available and needed in configure)
 
 ## Command used to start up GAP4
 GAP=gap
 
-## location of Makefile relative to the src directory
-MAKEFILE=../Makefile
-
-SRC=./src
+SRC=$(srcdir)/src
 PKGNAME=anupq
 
-all: bindir
-	@( cd $(SRC) ; $(MAKE) -f $(MAKEFILE) $(EFILE) \
-	CFLAGS="$(CFLAGS) -O2 $(PQFLAGS) -DHAVE_CONFIG_H" \
-	CPPFLAGS="$(CPPFLAGS) $(GMP_CPPFLAGS)" \
-	GAP=$(GAP) \
-	EXT=$(EXEEXT) \
-	LDLIBS="-lm $(GMP_LIBS)" )
-# FIXME: Deal with -lm in a more portable fashion (i.e. detect whether
-# it is available and needed in configure)
+all: $(EFILE)
+# FIXME: We also used to do this, but it is unclear to me why:
+	#echo $(GAP) > tst/GAP
 
 ## show makefile options ####################################################
 
-## special rules,  we need to set ANUPQ_GAP_EXEC ############################
-GAP.o: GAP.c
-	$(CC) $(CFLAGS) $(CPPFLAGS) -DANUPQ_GAP_EXEC='"$(GAP)"' -c GAP.c
 
-GAP_link_via_file.o: GAP_link_via_file.c
-	$(CC) $(CFLAGS) $(CPPFLAGS) -DANUPQ_GAP_EXEC='"$(GAP)"' -c GAP_link_via_file.c
+## load list of object files ################################################
+include Makefile.objs
 
-## NEVER DELETE/ALTER THESE LINES BELOW - see "objectlist" and "depend" #####
-
-#@OBJ@
-OBJECTS=\
-	AllocateSpace.o                	CloseFile.o                   \
-	Extend_Auts.o                  	FreeSpace.o                   \
-	GAP.o                          	GAP_link_via_file.o           \
-	GAP_present.o                  	OpenFile.o                    \
-	TemporaryFile.o                	action.o                      \
-	assemble_matrix.o              	autgp_order.o                 \
-	bit_print.o                    	calculate_jacobi.o            \
-	central_auts.o                 	check_exponent.o              \
-	class1_eliminate.o             	close_relations.o             \
-	close_subgroup.o               	collect.o                     \
-	collect_comm.o                 	collect_gen_word.o            \
-	collect_relations.o            	collect_word.o                \
-	collectp2.o                    	commutator.o                  \
-	commute_dgen.o                 	compact.o                     \
-	compact_description.o          	consistency.o                 \
-	consistency_filter.o           	consistency_info.o            \
-	construct.o                    	convert.o                     \
-	defaults_pga.o                 	degree.o                      \
-	delete_tables.o                	down_class.o                  \
-	echelon.o                      	echelonise_matrix.o           \
-	eliminate.o                    	expand_commutator.o           \
-	exponent_auts.o                	exponent_info.o               \
-	extend_automorphisms.o         	extend_matrix.o               \
-	extend_representation.o        	extra_relations.o             \
-	find_allowable_subgroup.o      	find_image.o                  \
-	find_permutation.o             	formula.o                     \
-	generator_definition.o         	get_definition_sets.o         \
-	identity.o                     	immediate_descendant.o        \
-	initialise_pcp.o               	initialise_pga.o              \
-	insoluble_orbits.o             	int_power.o                   \
-	interactive_pga.o              	interactive_pq.o              \
-	invert.o                       	invert_auts.o                 \
-	invert_modp.o                  	is_genlim_exceeded.o          \
-	is_space_exhausted.o           	isom_options.o                \
-	iteration.o                    	jacobi.o                      \
-	label_to_subgroup.o            	last_class.o                  \
-	list_commutators.o             	main.o                        \
-	map_relations.o                	matrix.o                      \
-	maxoccur.o                     	multiply_word.o               \
-	next_class.o                   	options.o                     \
-	orbit_summary.o                	permute_elements.o            \
-	permute_subgroups.o            	pgroup.o                      \
-	power.o                        	pquotient.o                   \
-	pretty_filter.o                	pretty_filterfns.o            \
-	print_arrays.o                 	print_auts.o                  \
-	print_level.o                  	print_multiweight.o           \
-	print_presentation.o           	print_structure.o             \
-	print_word.o                   	read.o                        \
-	read_auts.o                    	read_parameters.o             \
-	read_relations.o               	read_relator_file.o           \
-	read_value.o                   	read_word.o                   \
-	reduce_matrix.o                	reduced_covers.o              \
-	report_error.o                 	restore_group.o               \
-	setup.o                        	setup_reps.o                  \
-	soluble_orbits.o               	solve_equation.o              \
-	stabiliser.o                   	stages.o                      \
-	standard.o                     	start_group.o                 \
-	start_iteration.o              	step_range.o                  \
-	store_definition_sets.o        	strip_identities.o            \
-	subgroup_to_label.o            	system.o                      \
-	tail_info.o                    	tails.o                       \
-	tails_filter.o                 	text.o                        \
-	update.o                       	update_generators.o           \
-	update_name.o                  	vsystem.o                     \
-	write.o                        
-
-#@ENDOBJ@
-
-## this target creates a bin-directory ######################################
-## ... and also writes the value of $(GAP) to: tst/GAP ######################
-bindir:
-	mkdir -p bin/@GAPARCH@
-	echo $(GAP) > tst/GAP
 
 ## do the linking and put the executable in the right place #################
-$(EFILE):  $(OBJECTS)
-	( $(CC) -o $(EFILE) $(OBJECTS) $(LOPTS) $(LDLIBS) $(LDFLAGS); \
-	   echo ""; echo "moving pq to ../bin/@GAPARCH@"; echo ""; \
-	   mv $(EFILE) ../bin/@GAPARCH@; rm -f ../standalone/bin/pq; \
-	   mkdir -p -m 755 ../standalone/bin; \
-	   ln -s ../../bin/@GAPARCH@/$(EFILE) ../standalone/bin/pq )
+$(EFILE): $(OBJECTS)
+	mkdir -p $(BINDIR)
+	$(CC) -o $(EFILE) $(OBJECTS) $(LOPTS) $(LDLIBS) $(LDFLAGS)
 
 ## clean me up ##############################################################
 clean:
-	(cd $(SRC) ; rm -f $(OBJECTS) core* $(EFILE); rm -rf ../bin)
+	(rm -f $(OBJECTS) $(SRC)/core* $(EFILE); rm -rf $(BINDIR))
 
 distclean: clean
 	rm -f Makefile testPq tst/GAP standalone/bin/$(EFILE)
@@ -155,6 +70,7 @@ src_dist:
 	@echo "use make_zoo"
 
 ## move directories around to how GAP4 likes them ###########################
+# FIXME: Do we still need this?
 GAP4remapdirs:
 	if test -d standalone-doc; then \
 	echo "directories already remapped for GAP4?!?"; fi
@@ -166,6 +82,7 @@ GAP4remapdirs:
 	fi
 
 ## move directories from how GAP4 likes them to the generic layout ##########
+# FIXME: Do we still need this?
 restoredirs:
 	if test -d gap/doc; then echo "directories already restored?!?"; fi
 	if test ! -d gap/doc; then \
@@ -179,388 +96,17 @@ restoredirs:
 
 ## create object list for the Makefile ######################################
 objectlist:
-	@( cd $(SRC) ; ls -1 *.c ) | \
+	@( ls -1 $(SRC)/*.c ) | \
 	sed s/\\.c$$/\\.o/ | \
 	( echo "OBJECTS=\\"; \
-	  awk '{printf( "\t%-30s%s", $$0, (i++ % 2)?"\\\n":" ")}'; \
-	  echo ""; echo "" ) > /tmp/object.tmp
-	@perl replace OBJ /tmp/object.tmp
-	@rm /tmp/object.tmp
+	  awk '{printf( "\t%-30s%s", $$0, "\\\n")}'; \
+	  echo ""; echo "" ) > Makefile.objs
 
 ## create dependency list for the Makefile ##################################
 depend:
-	@(cd $(SRC) ; gcc -MM $(CPPFLAGS) $(PQFLAGS) *.c \
-	    > /tmp/depend.tmp )
-	@perl replace DEP /tmp/depend.tmp
-	@rm /tmp/depend.tmp
+	@(gcc -MM -MP $(CPPFLAGS) $(PQFLAGS) $(SRC)/*.c > Makefile.deps )
 
 .PHONY: all clean distclean src_dist GAP4remapdirs restoredirs objectlist depend
 
-#@DEP@
-AllocateSpace.o: AllocateSpace.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pcp_vars.h ../include/constants.h
-CloseFile.o: CloseFile.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/constants.h
-Extend_Auts.o: Extend_Auts.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pcp_vars.h \
-  ../include/pq_functions.h ../include/access.h
-FreeSpace.o: FreeSpace.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pga_vars.h ../include/pcp_vars.h
-GAP.o: GAP.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pga_vars.h ../include/pcp_vars.h \
-  ../include/pq_functions.h ../include/constants.h
-GAP_link_via_file.o: GAP_link_via_file.c ../include/pq_defs.h \
-  ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h \
-  ../include/pga_vars.h ../include/constants.h ../include/global.h \
-  ../include/pq_functions.h ../include/menus.h
-GAP_present.o: GAP_present.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pcp_vars.h ../include/pga_vars.h \
-  ../include/constants.h ../include/pq_functions.h ../include/menus.h \
-  ../include/access.h
-OpenFile.o: OpenFile.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/constants.h
-TemporaryFile.o: TemporaryFile.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pq_functions.h \
-  ../include/constants.h
-action.o: action.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/constants.h ../include/pcp_vars.h \
-  ../include/pq_functions.h ../include/standard.h ../include/word_types.h
-assemble_matrix.o: assemble_matrix.c ../include/pq_defs.h \
-  ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h
-autgp_order.o: autgp_order.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pcp_vars.h ../include/pga_vars.h \
-  ../include/constants.h ../include/pq_functions.h ../include/global.h \
-  ../include/standard.h
-bit_print.o: bit_print.c
-calculate_jacobi.o: calculate_jacobi.c ../include/pq_defs.h \
-  ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h \
-  ../include/constants.h ../include/access.h
-central_auts.o: central_auts.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pcp_vars.h ../include/pga_vars.h \
-  ../include/pq_functions.h ../include/access.h
-check_exponent.o: check_exponent.c ../include/pq_defs.h \
-  ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h \
-  ../include/constants.h ../include/pq_functions.h ../include/exp_vars.h
-class1_eliminate.o: class1_eliminate.c ../include/pq_defs.h \
-  ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h \
-  ../include/pq_functions.h
-close_relations.o: close_relations.c ../include/pq_defs.h \
-  ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h \
-  ../include/pga_vars.h ../include/pq_functions.h ../include/access.h
-close_subgroup.o: close_subgroup.c ../include/pq_defs.h \
-  ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h \
-  ../include/pga_vars.h
-collect.o: collect.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pcp_vars.h ../include/constants.h \
-  ../include/access.h
-collect_comm.o: collect_comm.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pcp_vars.h ../include/constants.h \
-  ../include/pq_functions.h ../include/pretty_filterfns.h \
-  ../include/word_types.h
-collect_gen_word.o: collect_gen_word.c ../include/pq_defs.h \
-  ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h
-collect_relations.o: collect_relations.c ../include/pq_defs.h \
-  ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h \
-  ../include/pq_functions.h
-collect_word.o: collect_word.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pcp_vars.h \
-  ../include/pq_functions.h ../include/constants.h \
-  ../include/word_types.h
-collectp2.o: collectp2.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pcp_vars.h ../include/constants.h \
-  ../include/access.h
-commutator.o: commutator.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pcp_vars.h \
-  ../include/pretty_filterfns.h ../include/word_types.h \
-  ../include/constants.h ../include/access.h
-commute_dgen.o: commute_dgen.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pcp_vars.h ../include/constants.h \
-  ../include/pq_functions.h ../include/pretty_filterfns.h \
-  ../include/word_types.h
-compact.o: compact.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pcp_vars.h
-compact_description.o: compact_description.c ../include/pq_defs.h \
-  ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h \
-  ../include/pq_functions.h ../include/constants.h ../include/access.h
-consistency.o: consistency.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pcp_vars.h ../include/access.h
-consistency_filter.o: consistency_filter.c ../include/pq_defs.h \
-  ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h \
-  ../include/pq_functions.h
-consistency_info.o: consistency_info.c ../include/pq_defs.h \
-  ../include/config.h ../include/storage_fixed.h ../include/constants.h \
-  ../include/pcp_vars.h ../include/exp_vars.h ../include/pq_functions.h
-construct.o: construct.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pcp_vars.h ../include/pga_vars.h \
-  ../include/exp_vars.h ../include/constants.h ../include/pq_functions.h
-convert.o: convert.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pcp_vars.h ../include/access.h
-defaults_pga.o: defaults_pga.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pcp_vars.h ../include/pga_vars.h \
-  ../include/constants.h ../include/pq_functions.h
-degree.o: degree.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pga_vars.h \
-  ../include/pq_functions.h ../include/constants.h
-delete_tables.o: delete_tables.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pcp_vars.h
-down_class.o: down_class.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pcp_vars.h ../include/access.h
-echelon.o: echelon.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pcp_vars.h \
-  ../include/pq_functions.h ../include/access.h
-echelonise_matrix.o: echelonise_matrix.c ../include/pq_defs.h \
-  ../include/config.h ../include/storage_fixed.h ../include/pga_vars.h
-eliminate.o: eliminate.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pcp_vars.h \
-  ../include/pq_functions.h ../include/access.h
-expand_commutator.o: expand_commutator.c ../include/constants.h
-exponent_auts.o: exponent_auts.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pcp_vars.h \
-  ../include/pq_functions.h
-exponent_info.o: exponent_info.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/constants.h ../include/pcp_vars.h \
-  ../include/exp_vars.h ../include/pq_functions.h
-extend_automorphisms.o: extend_automorphisms.c ../include/pq_defs.h \
-  ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h \
-  ../include/pq_functions.h ../include/access.h
-extend_matrix.o: extend_matrix.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pcp_vars.h ../include/constants.h \
-  ../include/pq_functions.h
-extend_representation.o: extend_representation.c ../include/pq_defs.h \
-  ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h \
-  ../include/constants.h ../include/pq_functions.h
-extra_relations.o: extra_relations.c ../include/pq_defs.h \
-  ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h \
-  ../include/constants.h ../include/pq_functions.h ../include/exp_vars.h \
-  ../include/access.h
-find_allowable_subgroup.o: find_allowable_subgroup.c ../include/pq_defs.h \
-  ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h \
-  ../include/pga_vars.h ../include/constants.h ../include/pq_functions.h \
-  ../include/standard.h ../include/access.h
-find_image.o: find_image.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pcp_vars.h ../include/pga_vars.h \
-  ../include/pq_functions.h
-find_permutation.o: find_permutation.c ../include/pq_defs.h \
-  ../include/config.h ../include/storage_fixed.h ../include/pga_vars.h \
-  ../include/pq_functions.h
-formula.o: formula.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/constants.h ../include/pcp_vars.h \
-  ../include/pq_functions.h
-generator_definition.o: generator_definition.c ../include/pq_defs.h \
-  ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h \
-  ../include/pq_functions.h ../include/access.h
-get_definition_sets.o: get_definition_sets.c ../include/pq_defs.h \
-  ../include/config.h ../include/storage_fixed.h ../include/pga_vars.h \
-  ../include/pq_functions.h
-identity.o: identity.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pga_vars.h
-immediate_descendant.o: immediate_descendant.c ../include/pq_defs.h \
-  ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h \
-  ../include/pga_vars.h ../include/exp_vars.h ../include/constants.h \
-  ../include/pq_functions.h
-initialise_pcp.o: initialise_pcp.c ../include/pq_defs.h \
-  ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h \
-  ../include/constants.h
-initialise_pga.o: initialise_pga.c ../include/pq_defs.h \
-  ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h \
-  ../include/pga_vars.h
-insoluble_orbits.o: insoluble_orbits.c ../include/pq_defs.h \
-  ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h \
-  ../include/pga_vars.h ../include/pq_functions.h ../include/standard.h
-int_power.o: int_power.c
-interactive_pga.o: interactive_pga.c ../include/pq_defs.h \
-  ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h \
-  ../include/pga_vars.h ../include/constants.h ../include/menus.h \
-  ../include/standard.h ../include/pq_functions.h ../include/global.h
-interactive_pq.o: interactive_pq.c ../include/pq_defs.h \
-  ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h \
-  ../include/pga_vars.h ../include/exp_vars.h ../include/constants.h \
-  ../include/menus.h ../include/pq_functions.h \
-  ../include/pretty_filterfns.h ../include/word_types.h \
-  ../include/global.h
-invert.o: invert.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pcp_vars.h ../include/constants.h \
-  ../include/word_types.h ../include/access.h
-invert_auts.o: invert_auts.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pcp_vars.h ../include/pga_vars.h \
-  ../include/pq_functions.h ../include/access.h
-invert_modp.o: invert_modp.c
-is_genlim_exceeded.o: is_genlim_exceeded.c ../include/pq_defs.h \
-  ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h
-is_space_exhausted.o: is_space_exhausted.c ../include/pq_defs.h \
-  ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h
-isom_options.o: isom_options.c ../include/constants.h \
-  ../include/pq_defs.h ../include/config.h ../include/storage_fixed.h \
-  ../include/pretty_filterfns.h ../include/standard.h ../include/menus.h \
-  ../include/pcp_vars.h ../include/pga_vars.h ../include/pq_functions.h \
-  ../include/word_types.h
-iteration.o: iteration.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pcp_vars.h ../include/pga_vars.h \
-  ../include/constants.h ../include/pq_functions.h
-jacobi.o: jacobi.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pcp_vars.h \
-  ../include/pq_functions.h ../include/access.h
-label_to_subgroup.o: label_to_subgroup.c ../include/pq_defs.h \
-  ../include/config.h ../include/storage_fixed.h ../include/pga_vars.h \
-  ../include/pcp_vars.h ../include/pq_functions.h
-last_class.o: last_class.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pcp_vars.h
-list_commutators.o: list_commutators.c ../include/pq_defs.h \
-  ../include/config.h ../include/storage_fixed.h ../include/constants.h \
-  ../include/pcp_vars.h ../include/pq_functions.h
-main.o: main.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pcp_vars.h \
-  ../include/pq_functions.h ../include/constants.h ../include/pq_author.h \
-  ../include/menus.h ../include/global.h ../include/standard.h \
-  ../include/access.h
-map_relations.o: map_relations.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pcp_vars.h ../include/pga_vars.h \
-  ../include/menus.h ../include/constants.h ../include/pq_functions.h \
-  ../include/access.h
-matrix.o: matrix.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pq_functions.h
-maxoccur.o: maxoccur.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pcp_vars.h ../include/constants.h
-multiply_word.o: multiply_word.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pcp_vars.h
-next_class.o: next_class.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/constants.h ../include/pcp_vars.h \
-  ../include/pq_functions.h ../include/exp_vars.h
-options.o: options.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pcp_vars.h ../include/pga_vars.h \
-  ../include/menus.h ../include/constants.h ../include/pq_functions.h
-orbit_summary.o: orbit_summary.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pga_vars.h
-permute_elements.o: permute_elements.c ../include/pq_defs.h \
-  ../include/config.h ../include/storage_fixed.h ../include/pga_vars.h \
-  ../include/pq_functions.h
-permute_subgroups.o: permute_subgroups.c ../include/pq_defs.h \
-  ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h \
-  ../include/pga_vars.h ../include/pq_functions.h ../include/constants.h
-pgroup.o: pgroup.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pcp_vars.h ../include/pga_vars.h \
-  ../include/constants.h ../include/menus.h ../include/pq_functions.h \
-  ../include/standard.h
-power.o: power.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pcp_vars.h
-pquotient.o: pquotient.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pcp_vars.h ../include/constants.h
-pretty_filter.o: pretty_filter.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pq_functions.h \
-  ../include/constants.h ../include/pcp_vars.h \
-  ../include/pretty_filterfns.h
-pretty_filterfns.o: pretty_filterfns.c ../include/pq_defs.h \
-  ../include/config.h ../include/storage_fixed.h \
-  ../include/pretty_filterfns.h ../include/constants.h
-print_arrays.o: print_arrays.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h
-print_auts.o: print_auts.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pcp_vars.h ../include/pga_vars.h \
-  ../include/pq_functions.h ../include/constants.h
-print_level.o: print_level.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pcp_vars.h ../include/constants.h
-print_multiweight.o: print_multiweight.c ../include/pq_defs.h \
-  ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h \
-  ../include/constants.h ../include/pq_functions.h ../include/access.h
-print_presentation.o: print_presentation.c ../include/pq_defs.h \
-  ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h \
-  ../include/pq_functions.h ../include/access.h
-print_structure.o: print_structure.c ../include/pq_defs.h \
-  ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h \
-  ../include/constants.h ../include/access.h
-print_word.o: print_word.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pcp_vars.h ../include/access.h
-read.o: read.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pcp_vars.h ../include/pga_vars.h \
-  ../include/pq_functions.h ../include/constants.h ../include/access.h
-read_auts.o: read_auts.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/constants.h ../include/pcp_vars.h \
-  ../include/pq_functions.h ../include/standard.h
-read_parameters.o: read_parameters.c ../include/pq_defs.h \
-  ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h \
-  ../include/constants.h ../include/pq_functions.h
-read_relations.o: read_relations.c ../include/pq_defs.h \
-  ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h
-read_relator_file.o: read_relator_file.c ../include/pq_defs.h \
-  ../include/config.h ../include/storage_fixed.h ../include/constants.h \
-  ../include/pcp_vars.h ../include/pq_functions.h ../include/word_types.h
-read_value.o: read_value.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/constants.h ../include/pcp_vars.h
-read_word.o: read_word.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pcp_vars.h ../include/constants.h \
-  ../include/pq_functions.h ../include/pretty_filterfns.h \
-  ../include/word_types.h
-reduce_matrix.o: reduce_matrix.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pga_vars.h
-reduced_covers.o: reduced_covers.c ../include/pq_defs.h \
-  ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h \
-  ../include/pga_vars.h ../include/constants.h ../include/pq_functions.h
-report_error.o: report_error.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/constants.h
-restore_group.o: restore_group.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pcp_vars.h ../include/pga_vars.h \
-  ../include/constants.h ../include/pq_functions.h
-setup.o: setup.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pcp_vars.h ../include/constants.h \
-  ../include/pq_functions.h ../include/setup.h ../include/access.h
-setup_reps.o: setup_reps.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pcp_vars.h ../include/pga_vars.h \
-  ../include/constants.h ../include/pq_functions.h ../include/global.h \
-  ../include/standard.h
-soluble_orbits.o: soluble_orbits.c ../include/pq_defs.h \
-  ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h \
-  ../include/pga_vars.h ../include/constants.h ../include/pq_functions.h
-solve_equation.o: solve_equation.c ../include/pq_defs.h \
-  ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h \
-  ../include/word_types.h ../include/access.h
-stabiliser.o: stabiliser.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pcp_vars.h ../include/pga_vars.h \
-  ../include/pq_functions.h ../include/constants.h
-stages.o: stages.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pcp_vars.h ../include/pga_vars.h \
-  ../include/constants.h ../include/pq_functions.h
-standard.o: standard.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/constants.h ../include/pcp_vars.h \
-  ../include/pga_vars.h ../include/exp_vars.h ../include/pq_functions.h \
-  ../include/menus.h ../include/standard.h
-start_group.o: start_group.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pcp_vars.h ../include/pga_vars.h \
-  ../include/constants.h
-start_iteration.o: start_iteration.c ../include/pq_defs.h \
-  ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h \
-  ../include/pga_vars.h ../include/constants.h ../include/pq_functions.h
-step_range.o: step_range.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pcp_vars.h ../include/pga_vars.h
-store_definition_sets.o: store_definition_sets.c ../include/pq_defs.h \
-  ../include/config.h ../include/storage_fixed.h ../include/pga_vars.h \
-  ../include/pq_functions.h
-strip_identities.o: strip_identities.c ../include/pq_defs.h \
-  ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h \
-  ../include/pga_vars.h ../include/pq_functions.h
-subgroup_to_label.o: subgroup_to_label.c ../include/pq_defs.h \
-  ../include/config.h ../include/storage_fixed.h ../include/pga_vars.h
-system.o: system.c ../include/pq_author.h ../include/pq_defs.h \
-  ../include/config.h ../include/storage_fixed.h
-tail_info.o: tail_info.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/constants.h
-tails.o: tails.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pcp_vars.h \
-  ../include/pq_functions.h ../include/access.h
-tails_filter.o: tails_filter.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pcp_vars.h ../include/constants.h \
-  ../include/pq_functions.h
-text.o: text.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h
-update.o: update.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pcp_vars.h \
-  ../include/pq_functions.h ../include/access.h
-update_generators.o: update_generators.c ../include/pq_defs.h \
-  ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h \
-  ../include/pq_functions.h ../include/access.h
-update_name.o: update_name.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pcp_vars.h
-vsystem.o: vsystem.c ../include/config.h
-write.o: write.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pcp_vars.h ../include/pga_vars.h \
-  ../include/constants.h
-#@ENDDEP@
+## load dependency list for the Makefile ####################################
+-include Makefile.deps
