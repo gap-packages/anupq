@@ -13,9 +13,6 @@
 #include "pcp_vars.h"
 #include "constants.h"
 #define MAXEXP two_to_the_n(30) 
-#if defined (NEXT) 
-#define STACK_SIZE 5000
-#endif
 
 void stack_overflow ();
 void integer_overflow ();

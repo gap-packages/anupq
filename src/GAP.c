@@ -9,6 +9,9 @@
 *Y  Copyright 1997-1997,  School of Mathematical Sciences, ANU,     Australia
 **
 *H  $Log$
+*H  Revision 1.8  2011/11/28 13:54:39  gap
+*H  Get rid of UNIX,SPARC,IBM,NEXT #defines, and some dead code. MH
+*H
 *H  Revision 1.7  2011/11/25 18:51:45  gap
 *H  Move various #if(def)s around. MH
 *H
@@ -133,7 +136,7 @@ void    start_GAP_file (auts, pga)
 
    pipe(p1);
    pipe(p2);
-#if defined(SPARC) || defined(NeXT)
+#ifdef HAVE_WORKING_VFORK
    if ( (pid = vfork()) == 0 )
 #else
       if ( (pid = fork()) == 0 )

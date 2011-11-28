@@ -10,6 +10,9 @@
 *Y  Copyright 1995-1997,  School of Mathematical Sciences, ANU,     Australia
 **
 *H  $Log$
+*H  Revision 1.18  2011/11/28 13:54:39  gap
+*H  Get rid of UNIX,SPARC,IBM,NEXT #defines, and some dead code. MH
+*H
 *H  Revision 1.17  2011/11/28 13:42:03  gap
 *H  Removing magma support. MH
 *H
@@ -295,7 +298,7 @@ void insoluble_stab_gens ( rep, orbit_length, pga, pcp )
      unlink( "LINK_output" );
 
      /* compute the stabiliser of the orbit representative                */
-#   if defined (SPARC) || defined(NeXT)
+#   ifdef HAVE_WORKING_VFORK
      if ( vsystem(command) != 0 )
 #   else
        if ( system(command) != 0 )

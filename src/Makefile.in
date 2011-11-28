@@ -13,15 +13,6 @@
 #
 # One of the following three flags should be set 
 #
-#UNIX -- default development environment, should be set if compiling
-#        in any UNIX environment (including AIX)
-#
-#SPARC -- if compiling on a SPARC station, set this flag in addition
-#         to UNIX 
-# 
-#IBM  -- if compiling on a IBM machine running AIX, set this flag in
-#        addition to UNIX
-#
 #STANDARD_PCP -- if compiling version which permits construction of
 #                standard presentation
 #
@@ -61,7 +52,7 @@ EFILE  = $(BASE)/bin/pq.ext
 INC    = $(BASE)/include
 INC-LIE    = $(BASE)/lie-include
 INCL   = -I$(BASE)/include -I$(BASE)/lie-include -I$(GNUINC)
-CFLAGS = -g -DSTANDARD_PCP -DUNIX -DGAP -DGAP_LINK_VIA_FILE -DGROUP $(INCL)
+CFLAGS = -g -DSTANDARD_PCP -DGAP -DGAP_LINK_VIA_FILE -DGROUP $(INCL)
 
 OBJS = \
 AllocateSpace.o\

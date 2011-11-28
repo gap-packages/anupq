@@ -12,9 +12,6 @@
 #include "pq_defs.h"
 #include "pcp_vars.h"
 #include "constants.h"
-#if defined (NEXT)
-#define STACK_SIZE 5000
-#endif
 
 void add_p2string ();
 

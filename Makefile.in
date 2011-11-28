@@ -17,14 +17,9 @@ MAKEFILE=../Makefile
 SRC=./src
 PKGNAME=anupq
 
-# The following flags are added (or not) to CFLAGS by old-rule:
-# -DUNIX
-# HAS_NO_TEMPNAM   -> use HAVE_TEMPNAM instead
-# NEXT IBM SPARC   -> simply ignore as out of date ?
-
 all: bindir
 	@( cd $(SRC) ; $(MAKE) -f $(MAKEFILE) $(EFILE) \
-	CFLAGS="$(CFLAGS) -O2 $(PQFLAGS) -DHAVE_CONFIG_H -DUNIX" \
+	CFLAGS="$(CFLAGS) -O2 $(PQFLAGS) -DHAVE_CONFIG_H" \
 	CPPFLAGS="$(CPPFLAGS) $(GMP_CPPFLAGS)" \
 	GAP=$(GAP) \
 	EXT=$(EXEEXT) \
@@ -173,7 +168,7 @@ objectlist:
 
 ## create dependency list for the Makefile ##################################
 depend:
-	@(cd $(SRC) ; gcc -MM $(CPPFLAGS) $(PQFLAGS) -DUNIX *.c \
+	@(cd $(SRC) ; gcc -MM $(CPPFLAGS) $(PQFLAGS) *.c \
 	    > /tmp/depend.tmp )
 	@perl replace DEP /tmp/depend.tmp
 	@rm /tmp/depend.tmp
