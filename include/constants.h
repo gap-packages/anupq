@@ -19,7 +19,7 @@
 
 #define STACK_SIZE 50000       /* dimension of collection stack */
 #define DEFAULT_CLASS 10       /* default class bound for computation */
-#define LINK_SOLUBLE_FLAG -1   /* flag in Magma or GAP output file indicating
+#define LINK_SOLUBLE_FLAG -1   /* flag in GAP output file indicating
                                   soluble stabiliser */
 #define ALL 999                /* step size flag to indicate that all
 				  descendants should be constructed */

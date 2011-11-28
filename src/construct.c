@@ -226,11 +226,7 @@ struct pcp_vars *pcp;
    if (flag->exponent_law != 0) {
       initialise_exponent (&exp_flag, pcp);
       pcp->extra_relations = flag->exponent_law;
-#ifdef Magma
-      extra_relations (&exp_flag, NULL_HANDLE, pcp);
-#else
       extra_relations (&exp_flag, pcp);
-#endif
       eliminate (FALSE, pcp);
       set_values (pga, pcp);
    }

@@ -21,14 +21,12 @@ struct pcp_vars *pcp;
 {
    Logical reading = TRUE;
 
-#ifndef Magma
    while (reading) {
       read_value (TRUE, "Input print level (0-3): ", output, MIN_PRINT);
       if (reading = (*output > MAX_PRINT))  
 	 printf ("Print level must lie between %d and %d\n",
 		 MIN_PRINT, MAX_PRINT);
    }
-#endif
 
    pcp->diagn = (*output == MAX_PRINT);
    pcp->fullop = (*output >= INTERMEDIATE_PRINT);

@@ -36,11 +36,7 @@ struct pcp_vars *pcp;
 	 type = l;
                 
 	 ++relp;
-#ifdef Magma
-	 pq_cay_word_to_pq(k, disp, type, pcp);
-#else
 	 read_word (stdin, disp, type, pcp);
-#endif
 
 	 /* note length of relation */
 	 length = abs (y[pcp->lused + disp + 1]);

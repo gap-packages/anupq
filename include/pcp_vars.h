@@ -83,19 +83,8 @@ struct pcp_vars {
    int     mlin_relations[NRELS];  /* array storing degree of multilinear
                                       conditions to be imposed */
 #endif
-
-   /* variables that Magma needs */
-#ifdef Magma
-   t_handle group;		/* the group fed in at the top */
-   t_handle y_handle;		/* handle to the work space */
-   t_int output_level;		/* the actual output level */
-   t_int group_type;            /* type of the group */
-#endif
-
 };
 
-#ifndef Magma
 int     *y_address;     /* definition of storage for presentation */
-#endif
 
 #endif

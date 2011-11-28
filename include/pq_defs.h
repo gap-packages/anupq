@@ -16,34 +16,11 @@
 
 #include "config.h"
 
-/* various definitions required by Magma */
-
-#ifdef Magma
-#include "defs.h"  /* Magma type definitions */
-#define PRINT io_printf
-#define CRASH do { error_internal("Bad p-group generation file");} while(0)
-#undef A
-#undef DEBUG 
-#undef WORD
-#undef extend
-#ifdef df
-#undef df
-#endif
-#define Magma_FP       1
-#define Magma_PC       2
-#define Magma_FORMAT   3
-#define Magma_INTERNAL 4 
-#define PQ_MIN_SPACE    10000
-#define PQ_MISC_SPACE   5000
-
-#else
-
 #define TRUE	1
 #define FALSE	0
 #define Logical	int
 #define PRINT printf
 #define CRASH do { exit(0); } while(0)
-#endif
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -84,7 +61,7 @@
 
 #define MOD(a, b) ((a) % (b))
 
-#define WORD_LENGTH 8 * sizeof (int) - 1
+#define WORD_LENGTH (8 * sizeof (int) - 1)
 
 /* fixed storage or decision made at run-time? */
 

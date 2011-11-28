@@ -23,9 +23,7 @@ struct pcp_vars *pcp;
    pcp->diagn = output == 3;
    pcp->overflow = FALSE;
    pcp->multiplicator = FALSE;
-#ifndef Magma
    pcp->metabelian = FALSE;
-#endif
    pcp->cover = FALSE;
    pcp->valid = TRUE;
    pcp->end_wt = 0;
@@ -37,7 +35,4 @@ struct pcp_vars *pcp;
    pcp->lastg = 0;
    pcp->pm1 = pcp->p - 1;
    pcp->m = 0;
-#ifdef Magma
-   pcp->output_level = output;
-#endif
 }

@@ -19,18 +19,11 @@ void Allocate_WorkSpace (work_space, pcp)
 int work_space;
 struct pcp_vars *pcp; 
 {
-#ifdef Magma
-   if ((pcp->y_handle = mem_alloc_words (work_space + 1)) == NULL_HANDLE) {
-      error_internal ("Not enough space to run p-Quotient Program");
-   }
-   *(mem_access (pcp->y_handle)) = 0;
-#else
    if ((y_address = 
 	(int *) malloc ((work_space + 1) * sizeof (int))) == (int *) 0) {
       perror ("malloc failed in Allocate_WorkSpace ()");
       exit (FAILURE);
    }
-#endif  
 
    /* initialise the pcp structure */
    pcp->fronty = 1;

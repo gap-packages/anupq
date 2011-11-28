@@ -56,9 +56,6 @@ struct pcp_vars *pcp;
 
       case COMPUTE_PCP:
 	 t = runTime ();
-#ifdef Magma
-	 format = Magma_FORMAT;
-#endif
 	 exit_value = pquotient (0, 0, stdin, format, pcp);
 	 if (exit_value == SUCCESS)
 	    group_present = TRUE;

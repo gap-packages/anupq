@@ -146,49 +146,6 @@ struct pcp_vars *pcp;
    }
 }
 
-/* write out action of each automorphism on each of the pcp generators, 
-   first .. last, as an exponent matrix in Magma format */
-
-void Magma_Auts (head, list, start, first, last, pcp)
-int *head;
-int *list;
-int start;
-int first;
-int last;
-struct pcp_vars *pcp;
-{
-   register int alpha, i, j, k, ptr, length;
-   int lastg = pcp->lastg;
-   int offset = 0;
-   int *vec;
-   FILE *Magma_Auts;
-#include "access.h"
-
-   Magma_Auts = OpenFile ("Magma_Auts", "a+");
-   for (alpha = 1; alpha <= pcp->m; ++alpha) {
-      fprintf (Magma_Auts, "A%d := \\[", alpha);
-      for (i = first; i <= MIN(last, lastg); ++i) {
-	 ptr = head[offset + i];
-	 length = list[ptr + 1];
-	 vec = allocate_vector (lastg, 1, TRUE);
-	 for (j = ptr + 2; j <= ptr + length + 1; ++j) {
-	    vec[FIELD2 (list[j])] = FIELD1 (list[j]);
-	 }
-	 for (k = start; k <= lastg; ++k) {
-	    if ((i == MIN(last, lastg)) && (k == lastg)) 
-	       fprintf (Magma_Auts, "%d", vec[k]); 
-	    else 
-	       fprintf (Magma_Auts, "%d,", vec[k]);
-	    if (k % 40 == 0) fprintf (Magma_Auts, "\n");
-	 }
-	 free_vector (vec, 1);
-      }
-      fprintf (Magma_Auts, "];\n");
-      offset += lastg;
-   }
-   CloseFile (Magma_Auts);
-}
-
 /* set up description of action of automorphisms on defining generators */
 
 void Setup_Action (head, list, auts, nmr_of_exponents, pcp)

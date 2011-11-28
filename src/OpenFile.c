@@ -21,13 +21,9 @@ char *mode;
    FILE *fp; 
   
    if ((fp = fopen (file_name, mode)) == NULL) {
-#ifdef Magma
-      error_internal ("Cannot open %s", file_name);
-#else
       printf ("Cannot open %s\n", file_name);
       if (!isatty (0))
 	 exit (FAILURE);
-#endif
    }
 
    return fp;
@@ -40,13 +36,9 @@ char *file_name;
    char *mode = "w";
   
    if ((fp = fopen (file_name, mode)) == NULL) {
-#ifdef Magma
-      error_internal ("Cannot open %s", file_name);
-#else
       printf ("Cannot open %s\n", file_name);
       if (!isatty (0))
 	 exit (FAILURE);
-#endif
    }
 
    return fp;
@@ -59,13 +51,9 @@ char *file_name;
    char *mode = "r";
 
    if ((fp = fopen (file_name, mode)) == NULL) {
-#ifdef Magma
-      error_internal ("Cannot open %s", file_name);
-#else
       printf ("Cannot open %s\n", file_name);
       if (!isatty (0))
 	 exit (FAILURE);
-#endif
    }
 
    return fp;
@@ -80,13 +68,9 @@ char *mode;
    FILE *fp; 
      
    if ((fp = fopen (file_name, mode)) == NULL) {
-#ifdef Magma
-      error_internal ("Cannot open %s", file_name);
-#else
       perror (NULL);
       printf ("Cannot open %s\n", file_name);
       exit (FAILURE);
-#endif
    }
 
    setbuf (fp, NULL);

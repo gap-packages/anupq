@@ -38,27 +38,6 @@ struct pcp_vars *pcp;
       if (!pcp->valid)
 	 if (isatty (0)) return FAILURE; else exit (INPUT_ERROR);
    }
-#ifdef Magma
-   else if (format == Magma_FORMAT) {
-      t_handle g;
-
-      g = pq_create_grp (&max_class, &output, pcp);
-      pq_cayley_to_pq (g, pcp);
-      /* initialise pcp structure */
-      initialise_pcp (output, pcp);
-      setup (pcp);
-      pq_read_cay_rels (pcp);
-      read_relations (pcp);
-   }
-   else if (format == Magma_INTERNAL) {
-      t_handle g;
-
-      /* initialise pcp structure */
-      initialise_pcp (output, pcp);
-      setup (pcp);
-      read_relations (pcp);
-   }
-#endif
 
    /* if appropriate, print start message for pq */
    if (output > 0 && pcp->cc == 1 && file == stdin) {

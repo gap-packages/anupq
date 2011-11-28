@@ -33,15 +33,14 @@
       except that it also sends requests back via GAP's iostream when
       it needs GAP to compute stabilisers;
    -g to write GAP group library and to run pq from within GAP;
-   -m to write Magma group library;
    -i to choose standard presentation menu;
    -k to read from file using key words; 
    -s <integer> to allocate array of size <integer> for workspace y;
    -t to pass time limit in CPU seconds for computation 
       where t = 0 implies infinite time;
    -v prints the version of the pq binary and exits;
-   -w <filename> to write group descriptions in GAP/Magma format 
-      to <filename> -- used in conjunction with -C or -g or -m
+   -w <filename> to write group descriptions in GAP format 
+      to <filename> -- used in conjunction -g
 
    if compiled with RUN_TIME flag then there are two additional options:
    -c to set class bound;
@@ -78,19 +77,13 @@ char *argv[];
    /* process run-time parameters */
    if (process_parameters (argc, argv) == 0) {
 #if defined (RUN_TIME) 
-      printf ("Usage: pq [-b] [-c] [-C] [-d] [-G] [-g] [-i] [-k] [-m] [-s <integer>] [-v] [-w <filename>]\n");
+      printf ("Usage: pq [-b] [-c] [-d] [-G] [-g] [-i] [-k] [-s <integer>] [-v] [-w <filename>]\n");
 #else 
-      printf ("Usage: pq [-b] [-C] [-G] [-g] [-i] [-k] [-m] [-s <integer>] [-v] [-w <filename>]\n");
+      printf ("Usage: pq [-b] [-G] [-g] [-i] [-k] [-s <integer>] [-v] [-w <filename>]\n");
 #endif
       exit (INPUT_ERROR);
    }
 
-#ifdef Magma
-   y = (int *) allocate_vector (work_space + 1000, 0, FALSE);
-   bh_initialize (y, work_space + 1000, NULL);
-   bh_set_no_zeroing (1);
-#endif
-       
    Allocate_WorkSpace (work_space, &pcp);
 
    /* print startup message */
@@ -166,8 +159,6 @@ char *argv[];
          GAP4iostream = TRUE;}
       else if (strcmp (argv[i], "-g") == 0)  
 	 Group_library = GAP_LIBRARY;
-      else if (strcmp (argv[i], "-m") == 0)  
-	 Group_library = Magma_LIBRARY;
       else if (strcmp (argv[i], "-v") == 0)  
 	{printf ("%s\n", PQ_VERSION);
          exit (SUCCESS);}

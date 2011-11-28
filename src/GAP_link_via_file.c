@@ -10,6 +10,9 @@
 *Y  Copyright 1995-1997,  School of Mathematical Sciences, ANU,     Australia
 **
 *H  $Log$
+*H  Revision 1.17  2011/11/28 13:42:03  gap
+*H  Removing magma support. MH
+*H
 *H  Revision 1.16  2011/11/28 12:02:09  gap
 *H  Replace LARGE_INT by HAVE_GMP in anupq. MH
 *H
@@ -130,7 +133,12 @@ void start_GAP_file ( GAP_input, auts, pga, pcp )
 
    GAP_presentation (*GAP_input, pcp, 1);
 #ifdef HAVE_GMP
-   Magma_report_autgp_order (*GAP_input, pga, pcp);                           
+   /* report the group and automorphism group order */
+   fprintf( *GAP_input, "ANUPQsize := " );
+   mpz_out_str( *GAP_input, 10, &(pga->aut_order) );
+   fprintf( *GAP_input, ";\n" );
+   fprintf( *GAP_input, "ANUPQagsize := " );
+   fprintf( *GAP_input, "%d;;\n", pga->nmr_soluble );
 #else
    fprintf( *GAP_input, "ANUPQsize := fail;;\nANUPQagsize := fail;;\n" );
 #endif

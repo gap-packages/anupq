@@ -72,12 +72,8 @@ struct pcp_vars *pcp;
       }
 
       if (!soluble_group) {
-#if defined (Magma_LINK)
-	 write_Magma_matrix (LINK_input, "genq", "glqp", A, q, 0, alpha);
-#else
 #if defined (GAP_LINK) || defined (GAP_LINK_VIA_FILE) 
 	 write_GAP_matrix (LINK_input, "ANUPQglb.genQ", A, q, 0, alpha);
-#endif
 #endif
       }
 

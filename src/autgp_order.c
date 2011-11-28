@@ -88,21 +88,6 @@ struct pcp_vars *pcp;
    }
 }
 
-
-/* report the group and automorphism group order */
-
-void Magma_report_autgp_order (Magma_rep, pga, pcp)
-FILE *Magma_rep;
-struct pga_vars *pga;
-struct pcp_vars *pcp;
-{
-   fprintf (Magma_rep, "ANUPQsize := ");
-   mpz_out_str (Magma_rep, 10, &(pga->aut_order));
-   fprintf (Magma_rep, ";\n");
-   fprintf (Magma_rep, "ANUPQagsize := ");
-   fprintf (Magma_rep, "%d;;\n", pga->nmr_soluble);
-}
-
 /* compute (an upper bound for) the order of the automorphism group */
 
 void autgp_order (pga, pcp)

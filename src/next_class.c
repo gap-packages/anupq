@@ -86,11 +86,7 @@ struct pcp_vars *pcp;
       if (pcp->extra_relations != 0) {
 	 if (pcp->m == 0) { 
 	    exp_flag.list = ALL_WORDS;
-#ifdef Magma
-	    extra_relations (&exp_flag, NULL_HANDLE, pcp);
-#else
 	    extra_relations (&exp_flag, pcp);
-#endif
 	 }
 	 else {
 	    exp_flag.list = REDUCED_LIST;
@@ -165,11 +161,7 @@ struct pcp_vars *pcp;
    pcp->start_wt = 1;
    pcp->end_wt = (2 * pcp->cc) / 3;
 
-#ifdef Magma
-   extra_relations (&exp_flag, NULL_HANDLE, pcp);
-#else
    extra_relations (exp_flag, pcp);
-#endif
    if (pcp->overflow) 
       return;
    queue = exp_flag->queue; 

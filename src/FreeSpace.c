@@ -13,18 +13,6 @@
 #include "pga_vars.h"
 #include "pcp_vars.h"
 
-#ifdef Magma
-
-/* free work space */
-
-void pq_free_WorkSpace (pcp)
-struct pcp_vars *pcp;
-{
-   mem_delete_hptr(&pcp->y_handle);
-}
-
-#endif  /* Magma */
-
 /* free space used by vector, a, whose first index is start */
 
 void free_vector (a, start)

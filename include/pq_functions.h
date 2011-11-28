@@ -27,7 +27,6 @@ int **find_stabiliser ();
 int **start_pga_run ();
 int **finish_pga_run ();
 int*** determine_action ();
-void write_Magma_matrix ();
 void check_input ();
 FILE *OpenTemporaryFile ();
 void close_queue ();

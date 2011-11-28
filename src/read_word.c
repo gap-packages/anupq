@@ -16,10 +16,6 @@
 #include "pretty_filterfns.h"
 #include "word_types.h"
 
-#ifdef Magma
-#include "dyn_arr.h"
-#endif
-
 /* display the appropriate input message */
 
 void display_message (type)
@@ -233,31 +229,18 @@ struct pcp_vars *pcp;
 
 /* process the input word and set it up as an entry in y */
 
-#ifdef Magma
-void setup_relation (disp, length, type, commutator, th, pcp)
-#else
 void setup_relation (disp, length, type, commutator, t, pcp)
-#endif
 int disp;
 int length;
 int type;
 Logical commutator;
-#ifdef Magma
-t_handle th;
-#else
 int *t;
-#endif
 struct pcp_vars *pcp;
 {
 #include "define_y.h"
 
    register int i;
-#ifdef Magma
-   int *u, *t;
-   t_handle uh;
-#else
    int u[MAXWORD];
-#endif
    register int total;
    register int ptr;
    Logical commutator_relation; 
@@ -266,9 +249,6 @@ struct pcp_vars *pcp;
       relation is not expanded -- this may be changed later */
    commutator_relation = (commutator && (type == LHS || type == RHS));
 
-#ifdef Magma
-   t = dyn_arr_elt0_ptr (th);
-#endif
    /* is the word trivial? */
    if (t[0] == 0 || length == 1) {
       length = 1;
@@ -277,19 +257,8 @@ struct pcp_vars *pcp;
    }
    else {
       /* set up relation */
-#ifdef Magma
-      if (commutator && !commutator_relation)
-	 i = integer_power (2, length) + integer_power (2, length - 1);
-      else
-	 i = length + 2;
-      uh = dyn_arr_alloc (i);
-      dyn_arr_set_zero (uh, i);
-      t = dyn_arr_elt0_ptr (th);
-      u = dyn_arr_elt0_ptr (uh);
-#else
       for (i = 1; i < MAXWORD; ++i)
 	 u[i] = 0;
-#endif
       u[0] = t[1];
 
       if (length >= MAXWORD) {
@@ -330,9 +299,6 @@ struct pcp_vars *pcp;
 	 ++length;
       }
       ++length;
-#ifdef Magma
-      dyn_arr_delete (&uh);
-#endif
    }
 
    /* set up the length */

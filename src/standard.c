@@ -96,11 +96,7 @@ struct pcp_vars *pcp;
 
       initialise_exponent (&exp_flag, pcp);
 
-#if defined (Magma)
-      extra_relations (&exp_flag, NULL_HANDLE, pcp);
-#else
       extra_relations (&exp_flag, pcp);
-#endif
 
       /* are there redundant defining generators? if so, be careful
 	 about elimination -- see next_class for further information */
@@ -351,9 +347,6 @@ struct pcp_vars *pcp;
 		    pga->nmr_of_perms == 0);
 
    if (!soluble_group) {
-#if defined (Magma_LINK) 
-      start_Magma_file (&LINK_input, auts, pga);
-#else
 #if defined (GAP_LINK)
       if (!process_fork) {
 	 start_GAP_file (auts, pga, pcp);
@@ -363,7 +356,6 @@ struct pcp_vars *pcp;
 #else
 #if defined (GAP_LINK_VIA_FILE)
       start_GAP_file (&LINK_input, auts, pga, pcp);
-#endif
 #endif
 #endif
    }
@@ -390,7 +382,7 @@ struct pcp_vars *pcp;
    printf ("orbit length is %d \n", orbit_length);
 */
 
-#if defined (Magma_LINK) || defined (GAP_LINK_VIA_FILE)
+#if defined (GAP_LINK_VIA_FILE)
    if (!soluble_group) { 
       CloseFile (LINK_input);
    }

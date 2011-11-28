@@ -151,9 +151,6 @@ struct pcp_vars *pcp;
 	    soluble_group = (pga->soluble || pga->Degree == 1 || 
 			     pga->nmr_of_perms == 0);
 	    if (!soluble_group) {
-#if defined (Magma_LINK)
-	       start_Magma_file (&LINK_input, auts, pga);
-#else
 #if defined (GAP_LINK)
 	       StartGapFile (pga);
 #else
@@ -161,12 +158,11 @@ struct pcp_vars *pcp;
 	       start_GAP_file (&LINK_input, auts, pga, pcp);
 #endif
 #endif
-#endif
 	    }
 	    perms = permute_subgroups (LINK_input, &a, &b, &c, 
 				       auts, pga, pcp); 
 
-#if defined (Magma_LINK) || defined (GAP_LINK_VIA_FILE)
+#if defined (GAP_LINK_VIA_FILE)
 	    if (!soluble_group)
 	       CloseFile (LINK_input);
 #endif 

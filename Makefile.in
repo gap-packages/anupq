@@ -48,8 +48,7 @@ OBJECTS=\
 	AllocateSpace.o                	CloseFile.o                   \
 	Extend_Auts.o                  	FreeSpace.o                   \
 	GAP.o                          	GAP_link_via_file.o           \
-	GAP_present.o                  	Magma.o                       \
-	Magma_present.o                	OpenFile.o                    \
+	GAP_present.o                  	OpenFile.o                    \
 	TemporaryFile.o                	action.o                      \
 	assemble_matrix.o              	autgp_order.o                 \
 	bit_print.o                    	calculate_jacobi.o            \
@@ -203,10 +202,6 @@ GAP_present.o: GAP_present.c ../include/pq_defs.h \
  ../include/pga_vars.h ../include/constants.h \
  ../include/pq_functions.h ../include/menus.h ../include/define_y.h \
  ../include/access.h
-Magma.o: Magma.c
-Magma_present.o: Magma_present.c ../include/pq_defs.h \
- ../include/storage_fixed.h ../include/pcp_vars.h \
- ../include/define_y.h ../include/access.h
 OpenFile.o: OpenFile.c ../include/pq_defs.h ../include/storage_fixed.h \
  ../include/constants.h
 TemporaryFile.o: TemporaryFile.c ../include/pq_defs.h \

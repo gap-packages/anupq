@@ -15,7 +15,6 @@
 #define __GLOBALS__
 
 #define GAP_LIBRARY 2
-#define Magma_LIBRARY 3
 
 int Group_library;
 int Compact_Description;

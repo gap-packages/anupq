@@ -15,8 +15,6 @@
 #include "pq_functions.h"
 #include "constants.h"
 
-#ifndef Magma
-
 /* check whether required data has been read from file */
 
 void verify_read (nmr_items, required)
@@ -154,4 +152,3 @@ struct pcp_vars *pcp;
    fread (pga->relative + 1, sizeof (int), pga->nmr_soluble, ifp);                 
    return auts;
 }
-#endif

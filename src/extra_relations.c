@@ -15,10 +15,6 @@
 #include "pq_functions.h"
 #include "exp_vars.h"
 
-#ifdef Magma
-#include "dyn_arr.h"
-#endif
-
 #if defined (GROUP) 
 
 /* this procedure collect extra relations which hold in the group;
@@ -85,18 +81,10 @@ int max_entry;            /* upper bound on new letters in word */
 
 /* read in the initial segment to be used in generating the words */
 
-#ifdef Magma
-void read_initial_segment (word, initial, initial_coeff, pcp)
-t_handle word;
-int *initial;
-int *initial_coeff;
-struct pcp_vars *pcp;
-#else
 void read_initial_segment (initial, initial_coeff, pcp)
 int *initial;
 int *initial_coeff;
 struct pcp_vars *pcp;
-#endif
 {
 #include "define_y.h"
 
@@ -106,18 +94,6 @@ struct pcp_vars *pcp;
 
 #include "access.h"
 
-#ifdef Magma
-   initial_length = word == NULL_HANDLE ? 0 : dyn_arr_curr_length (word) / 2;
-   for (i = 0; i < initial_length; i++)
-   {
-      initial[i + 1] = dyn_arr_element (word, 2 * i);
-      initial_coeff[i + 1] = dyn_arr_element (word, 2 * i + 1);
-   }
-   if (word == NULL_HANDLE)
-      lower_bound = 0;
-   else
-      lower_bound = initial[initial_length];
-#else
    /* read in details of the initial segment of the words to be processed */ 
    read_value (TRUE, "Input length of initial segment of words: ",
 	       &initial_length, 0);
@@ -134,7 +110,6 @@ struct pcp_vars *pcp;
       read_value (TRUE, "", &initial_coeff[i], 1);
       lower_bound = initial[i];
    }
-#endif
 
    /* find initial weight */
    initial_weight = 0;
@@ -148,12 +123,8 @@ struct pcp_vars *pcp;
    else 
       lower_bound_weight = MAX (1, WT (y[pcp->structure + lower_bound]));
 
-#ifdef Magma
-   least_weight = lower_bound_weight;
-#else
    read_value (TRUE, "Input lower bound for weight of remaining letters: ",
 	       &least_weight, lower_bound_weight);
-#endif
 
    /* first entry in the remainder of word */
    first_entry = y[pcp->clend + MIN (least_weight - 1, pcp->cc)];
@@ -167,28 +138,17 @@ struct pcp_vars *pcp;
    least_entry = (pcp->m != 0 && initial_length == 0) ? 
       y[pcp->clend + 1] : first_entry; 
 
-#ifdef Magma
-   max_weight = pcp->cc;
-#else
    read_value (TRUE, "Input upper bound for weight of remaining letters: ",
 	       &max_weight, least_weight);
-#endif
 
    max_entry = pcp->ccbeg;
    if (max_weight < pcp->cc) 
       max_entry = y[pcp->clend + max_weight] + 1;
 }
 
-#ifdef Magma
-void extra_relations (exp_flag, word, pcp)
-struct exp_vars *exp_flag;
-t_handle word;
-struct pcp_vars *pcp;
-#else
 void extra_relations (exp_flag, pcp)
 struct exp_vars *exp_flag;
 struct pcp_vars *pcp;
-#endif
 {
 #include "define_y.h"
 
@@ -259,11 +219,7 @@ struct pcp_vars *pcp;
       max_entry = pcp->ccbeg;
    }
    else {
-#ifdef Magma
-      read_initial_segment (word, initial, initial_coeff, pcp);
-#else
       read_initial_segment (initial, initial_coeff, pcp);
-#endif
    }
    queue = exp_flag->queue;
 

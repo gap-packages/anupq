@@ -27,12 +27,7 @@
 #
 # One of the following three flags should be set 
 #
-#Magma_LINK -- Magma is called by pq to perform insoluble stabiliser
-#               calculations 
-#
 #GAP_LINK  -- GAP is called by pq to perform insoluble stabiliser calculations 
-#
-#Magma -- if compiling version for incorporation in Magma
 #
 #GAP -- if compiling version for incorporation in GAP
 #
@@ -76,8 +71,6 @@ CloseFile.o\
 Extend_Auts.o\
 FreeSpace.o\
 GAP_present.o\
-Magma.o\
-Magma_present.o\
 OpenFile.o\
 TemporaryFile.o\
 action.o\

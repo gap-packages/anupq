@@ -35,11 +35,7 @@ struct pcp_vars *pcp;
    pcp->extra_relations = trial_exponent;
 
    /* now generate and power all test words */
-#ifdef Magma
-   extra_relations (exp_flag, NH, pcp);
-#else
    extra_relations (exp_flag, pcp);
-#endif
 
    /* restore existing exponent law */
    pcp->extra_relations = known_exponent;
