@@ -1,5 +1,8 @@
 /* include/config.hin.  Generated from configure.ac by autoheader.  */
 
+/* Define to 1 if you have the `fork' function. */
+#undef HAVE_FORK
+
 /* Define to 1 if you have the `gethostname' function. */
 #undef HAVE_GETHOSTNAME
 
@@ -50,11 +53,23 @@
 /* Define to 1 if you have the <unistd.h> header file. */
 #undef HAVE_UNISTD_H
 
+/* Define to 1 if you have the `vfork' function. */
+#undef HAVE_VFORK
+
+/* Define to 1 if you have the <vfork.h> header file. */
+#undef HAVE_VFORK_H
+
 /* Define to 1 if you have the `wait4' function. */
 #undef HAVE_WAIT4
 
 /* Define to 1 if you have the `waitpid' function. */
 #undef HAVE_WAITPID
+
+/* Define to 1 if `fork' works. */
+#undef HAVE_WORKING_FORK
+
+/* Define to 1 if `vfork' works. */
+#undef HAVE_WORKING_VFORK
 
 /* Define to the address where bug reports for this package should be sent. */
 #undef PACKAGE_BUGREPORT
@@ -83,5 +98,11 @@
 /* Define to rpl_malloc if the replacement function should be used. */
 #undef malloc
 
+/* Define to `int' if <sys/types.h> does not define. */
+#undef pid_t
+
 /* Define to rpl_realloc if the replacement function should be used. */
 #undef realloc
+
+/* Define as `fork' if `vfork' does not work. */
+#undef vfork

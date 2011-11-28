@@ -1,6 +1,9 @@
 /* include/config.h.  Generated from config.hin by configure.  */
 /* include/config.hin.  Generated from configure.ac by autoheader.  */
 
+/* Define to 1 if you have the `fork' function. */
+#define HAVE_FORK 1
+
 /* Define to 1 if you have the `gethostname' function. */
 #define HAVE_GETHOSTNAME 1
 
@@ -51,11 +54,23 @@
 /* Define to 1 if you have the <unistd.h> header file. */
 #define HAVE_UNISTD_H 1
 
+/* Define to 1 if you have the `vfork' function. */
+#define HAVE_VFORK 1
+
+/* Define to 1 if you have the <vfork.h> header file. */
+/* #undef HAVE_VFORK_H */
+
 /* Define to 1 if you have the `wait4' function. */
 #define HAVE_WAIT4 1
 
 /* Define to 1 if you have the `waitpid' function. */
 #define HAVE_WAITPID 1
+
+/* Define to 1 if `fork' works. */
+#define HAVE_WORKING_FORK 1
+
+/* Define to 1 if `vfork' works. */
+#define HAVE_WORKING_VFORK 1
 
 /* Define to the address where bug reports for this package should be sent. */
 #define PACKAGE_BUGREPORT "support@gap-system.org"
@@ -84,5 +99,11 @@
 /* Define to rpl_malloc if the replacement function should be used. */
 /* #undef malloc */
 
+/* Define to `int' if <sys/types.h> does not define. */
+/* #undef pid_t */
+
 /* Define to rpl_realloc if the replacement function should be used. */
 /* #undef realloc */
+
+/* Define as `fork' if `vfork' does not work. */
+/* #undef vfork */
