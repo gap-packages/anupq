@@ -53,20 +53,12 @@ struct pcp_vars *pcp;
 
    if (!soluble_group) { 
 
-#if defined (VMS)
-      printf ("Link to GAP for insoluble stabiliser computation");
-      printf (" is not available\nin VMS version of this program --");
-      printf (" see release notes\n");
-      exit (FAILURE);
-
-#else
 #if defined (GAP_LINK) || defined (GAP_LINK_VIA_FILE)
       insoluble_stab_gens (rep, orbit_length, pga, pcp);
 #else
       printf ("To compute stabilisers in insoluble automorphism groups, ");
       printf ("you must compile pq\nwith the compiler flag GAP_LINK set\n"); 
       exit (FAILURE);
-#endif
 #endif
    }
 

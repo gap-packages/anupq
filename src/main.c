@@ -68,9 +68,7 @@ char *argv[];
    malloc_debug (8);   
 #endif
 
-#ifndef VMS
    setbuf (stdout, NULL);
-#endif
 
    Compact_Description = FALSE;
 

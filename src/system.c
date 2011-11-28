@@ -46,17 +46,6 @@ int work_space;
    char *s;
 #endif
 
-#ifdef VMS
-   int time_val;
-   struct tm *x;
-   time (&time_val);
-   x = localtime (&time_val);
-   printf ("%s running with workspace %d\n", 
-	   PQ_VERSION, work_space);
-   printf ("Date is %d:%d:%d %d-%d-19%d\n", x->tm_hour, x->tm_min, x->tm_sec,  
-	   x->tm_mday, x->tm_mon + 1, x->tm_year);
-#else 
-
 #if defined (HOSTNAME) 
    gethostname (s, 100);
 #else 
@@ -79,6 +68,5 @@ int work_space;
    printf ("%s\n", string);
 #else
    printf ("\n");
-#endif
 #endif
 }
