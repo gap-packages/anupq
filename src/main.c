@@ -58,7 +58,7 @@ main (argc, argv)
 int argc;
 char *argv[];
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    int t;
    struct pcp_vars pcp;

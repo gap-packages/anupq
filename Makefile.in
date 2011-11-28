@@ -180,7 +180,7 @@ CloseFile.o: CloseFile.c ../include/pq_defs.h ../include/config.h \
   ../include/storage_fixed.h ../include/constants.h
 Extend_Auts.o: Extend_Auts.c ../include/pq_defs.h ../include/config.h \
   ../include/storage_fixed.h ../include/pcp_vars.h \
-  ../include/pq_functions.h ../include/define_y.h ../include/access.h
+  ../include/pq_functions.h ../include/access.h
 FreeSpace.o: FreeSpace.c ../include/pq_defs.h ../include/config.h \
   ../include/storage_fixed.h ../include/pga_vars.h ../include/pcp_vars.h
 GAP.o: GAP.c ../include/pq_defs.h ../include/config.h \
@@ -193,7 +193,7 @@ GAP_link_via_file.o: GAP_link_via_file.c ../include/pq_defs.h \
 GAP_present.o: GAP_present.c ../include/pq_defs.h ../include/config.h \
   ../include/storage_fixed.h ../include/pcp_vars.h ../include/pga_vars.h \
   ../include/constants.h ../include/pq_functions.h ../include/menus.h \
-  ../include/define_y.h ../include/access.h
+  ../include/access.h
 OpenFile.o: OpenFile.c ../include/pq_defs.h ../include/config.h \
   ../include/storage_fixed.h ../include/constants.h
 TemporaryFile.o: TemporaryFile.c ../include/pq_defs.h ../include/config.h \
@@ -201,72 +201,66 @@ TemporaryFile.o: TemporaryFile.c ../include/pq_defs.h ../include/config.h \
   ../include/constants.h
 action.o: action.c ../include/pq_defs.h ../include/config.h \
   ../include/storage_fixed.h ../include/constants.h ../include/pcp_vars.h \
-  ../include/pq_functions.h ../include/standard.h ../include/word_types.h \
-  ../include/define_y.h
+  ../include/pq_functions.h ../include/standard.h ../include/word_types.h
 assemble_matrix.o: assemble_matrix.c ../include/pq_defs.h \
-  ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h \
-  ../include/define_y.h
+  ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h
 autgp_order.o: autgp_order.c ../include/pq_defs.h ../include/config.h \
   ../include/storage_fixed.h ../include/pcp_vars.h ../include/pga_vars.h \
   ../include/constants.h ../include/pq_functions.h ../include/global.h \
-  ../include/standard.h ../include/define_y.h
+  ../include/standard.h
 bit_print.o: bit_print.c
 calculate_jacobi.o: calculate_jacobi.c ../include/pq_defs.h \
   ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h \
-  ../include/constants.h ../include/define_y.h ../include/access.h
+  ../include/constants.h ../include/access.h
 central_auts.o: central_auts.c ../include/pq_defs.h ../include/config.h \
   ../include/storage_fixed.h ../include/pcp_vars.h ../include/pga_vars.h \
-  ../include/pq_functions.h ../include/define_y.h ../include/access.h
+  ../include/pq_functions.h ../include/access.h
 check_exponent.o: check_exponent.c ../include/pq_defs.h \
   ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h \
   ../include/constants.h ../include/pq_functions.h ../include/exp_vars.h
 class1_eliminate.o: class1_eliminate.c ../include/pq_defs.h \
   ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h \
-  ../include/pq_functions.h ../include/define_y.h
+  ../include/pq_functions.h
 close_relations.o: close_relations.c ../include/pq_defs.h \
   ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h \
-  ../include/pga_vars.h ../include/pq_functions.h ../include/define_y.h \
-  ../include/access.h
+  ../include/pga_vars.h ../include/pq_functions.h ../include/access.h
 close_subgroup.o: close_subgroup.c ../include/pq_defs.h \
   ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h \
-  ../include/pga_vars.h ../include/define_y.h
+  ../include/pga_vars.h
 collect.o: collect.c ../include/pq_defs.h ../include/config.h \
   ../include/storage_fixed.h ../include/pcp_vars.h ../include/constants.h \
-  ../include/define_y.h ../include/access.h
+  ../include/access.h
 collect_comm.o: collect_comm.c ../include/pq_defs.h ../include/config.h \
   ../include/storage_fixed.h ../include/pcp_vars.h ../include/constants.h \
   ../include/pq_functions.h ../include/pretty_filterfns.h \
-  ../include/word_types.h ../include/define_y.h
+  ../include/word_types.h
 collect_gen_word.o: collect_gen_word.c ../include/pq_defs.h \
-  ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h \
-  ../include/define_y.h
+  ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h
 collect_relations.o: collect_relations.c ../include/pq_defs.h \
   ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h \
-  ../include/pq_functions.h ../include/define_y.h
+  ../include/pq_functions.h
 collect_word.o: collect_word.c ../include/pq_defs.h ../include/config.h \
   ../include/storage_fixed.h ../include/pcp_vars.h \
   ../include/pq_functions.h ../include/constants.h \
-  ../include/word_types.h ../include/define_y.h
+  ../include/word_types.h
 collectp2.o: collectp2.c ../include/pq_defs.h ../include/config.h \
   ../include/storage_fixed.h ../include/pcp_vars.h ../include/constants.h \
-  ../include/define_y.h ../include/access.h
+  ../include/access.h
 commutator.o: commutator.c ../include/pq_defs.h ../include/config.h \
   ../include/storage_fixed.h ../include/pcp_vars.h \
   ../include/pretty_filterfns.h ../include/word_types.h \
-  ../include/constants.h ../include/define_y.h ../include/access.h
+  ../include/constants.h ../include/access.h
 commute_dgen.o: commute_dgen.c ../include/pq_defs.h ../include/config.h \
   ../include/storage_fixed.h ../include/pcp_vars.h ../include/constants.h \
   ../include/pq_functions.h ../include/pretty_filterfns.h \
-  ../include/word_types.h ../include/define_y.h
+  ../include/word_types.h
 compact.o: compact.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pcp_vars.h ../include/define_y.h
+  ../include/storage_fixed.h ../include/pcp_vars.h
 compact_description.o: compact_description.c ../include/pq_defs.h \
   ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h \
-  ../include/pq_functions.h ../include/constants.h ../include/define_y.h \
-  ../include/access.h
+  ../include/pq_functions.h ../include/constants.h ../include/access.h
 consistency.o: consistency.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pcp_vars.h ../include/define_y.h \
-  ../include/access.h
+  ../include/storage_fixed.h ../include/pcp_vars.h ../include/access.h
 consistency_filter.o: consistency_filter.c ../include/pq_defs.h \
   ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h \
   ../include/pq_functions.h
@@ -275,30 +269,27 @@ consistency_info.o: consistency_info.c ../include/pq_defs.h \
   ../include/pcp_vars.h ../include/exp_vars.h ../include/pq_functions.h
 construct.o: construct.c ../include/pq_defs.h ../include/config.h \
   ../include/storage_fixed.h ../include/pcp_vars.h ../include/pga_vars.h \
-  ../include/exp_vars.h ../include/constants.h ../include/pq_functions.h \
-  ../include/define_y.h
+  ../include/exp_vars.h ../include/constants.h ../include/pq_functions.h
 convert.o: convert.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pcp_vars.h ../include/define_y.h \
-  ../include/access.h
+  ../include/storage_fixed.h ../include/pcp_vars.h ../include/access.h
 defaults_pga.o: defaults_pga.c ../include/pq_defs.h ../include/config.h \
   ../include/storage_fixed.h ../include/pcp_vars.h ../include/pga_vars.h \
-  ../include/constants.h ../include/pq_functions.h ../include/define_y.h
+  ../include/constants.h ../include/pq_functions.h
 degree.o: degree.c ../include/pq_defs.h ../include/config.h \
   ../include/storage_fixed.h ../include/pga_vars.h \
   ../include/pq_functions.h ../include/constants.h
 delete_tables.o: delete_tables.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pcp_vars.h ../include/define_y.h
+  ../include/storage_fixed.h ../include/pcp_vars.h
 down_class.o: down_class.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pcp_vars.h ../include/define_y.h \
-  ../include/access.h
+  ../include/storage_fixed.h ../include/pcp_vars.h ../include/access.h
 echelon.o: echelon.c ../include/pq_defs.h ../include/config.h \
   ../include/storage_fixed.h ../include/pcp_vars.h \
-  ../include/pq_functions.h ../include/define_y.h ../include/access.h
+  ../include/pq_functions.h ../include/access.h
 echelonise_matrix.o: echelonise_matrix.c ../include/pq_defs.h \
   ../include/config.h ../include/storage_fixed.h ../include/pga_vars.h
 eliminate.o: eliminate.c ../include/pq_defs.h ../include/config.h \
   ../include/storage_fixed.h ../include/pcp_vars.h \
-  ../include/pq_functions.h ../include/define_y.h ../include/access.h
+  ../include/pq_functions.h ../include/access.h
 expand_commutator.o: expand_commutator.c ../include/constants.h
 exponent_auts.o: exponent_auts.c ../include/pq_defs.h ../include/config.h \
   ../include/storage_fixed.h ../include/pcp_vars.h \
@@ -308,21 +299,21 @@ exponent_info.o: exponent_info.c ../include/pq_defs.h ../include/config.h \
   ../include/exp_vars.h ../include/pq_functions.h
 extend_automorphisms.o: extend_automorphisms.c ../include/pq_defs.h \
   ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h \
-  ../include/pq_functions.h ../include/define_y.h ../include/access.h
+  ../include/pq_functions.h ../include/access.h
 extend_matrix.o: extend_matrix.c ../include/pq_defs.h ../include/config.h \
   ../include/storage_fixed.h ../include/pcp_vars.h ../include/constants.h \
-  ../include/pq_functions.h ../include/define_y.h
+  ../include/pq_functions.h
 extend_representation.o: extend_representation.c ../include/pq_defs.h \
   ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h \
-  ../include/constants.h ../include/pq_functions.h ../include/define_y.h
+  ../include/constants.h ../include/pq_functions.h
 extra_relations.o: extra_relations.c ../include/pq_defs.h \
   ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h \
   ../include/constants.h ../include/pq_functions.h ../include/exp_vars.h \
-  ../include/define_y.h ../include/access.h
+  ../include/access.h
 find_allowable_subgroup.o: find_allowable_subgroup.c ../include/pq_defs.h \
   ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h \
   ../include/pga_vars.h ../include/constants.h ../include/pq_functions.h \
-  ../include/standard.h ../include/define_y.h ../include/access.h
+  ../include/standard.h ../include/access.h
 find_image.o: find_image.c ../include/pq_defs.h ../include/config.h \
   ../include/storage_fixed.h ../include/pcp_vars.h ../include/pga_vars.h \
   ../include/pq_functions.h
@@ -331,10 +322,10 @@ find_permutation.o: find_permutation.c ../include/pq_defs.h \
   ../include/pq_functions.h
 formula.o: formula.c ../include/pq_defs.h ../include/config.h \
   ../include/storage_fixed.h ../include/constants.h ../include/pcp_vars.h \
-  ../include/pq_functions.h ../include/define_y.h
+  ../include/pq_functions.h
 generator_definition.o: generator_definition.c ../include/pq_defs.h \
   ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h \
-  ../include/pq_functions.h ../include/define_y.h ../include/access.h
+  ../include/pq_functions.h ../include/access.h
 get_definition_sets.o: get_definition_sets.c ../include/pq_defs.h \
   ../include/config.h ../include/storage_fixed.h ../include/pga_vars.h \
   ../include/pq_functions.h
@@ -343,13 +334,13 @@ identity.o: identity.c ../include/pq_defs.h ../include/config.h \
 immediate_descendant.o: immediate_descendant.c ../include/pq_defs.h \
   ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h \
   ../include/pga_vars.h ../include/exp_vars.h ../include/constants.h \
-  ../include/pq_functions.h ../include/define_y.h
+  ../include/pq_functions.h
 initialise_pcp.o: initialise_pcp.c ../include/pq_defs.h \
   ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h \
   ../include/constants.h
 initialise_pga.o: initialise_pga.c ../include/pq_defs.h \
   ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h \
-  ../include/pga_vars.h ../include/define_y.h
+  ../include/pga_vars.h
 insoluble_orbits.o: insoluble_orbits.c ../include/pq_defs.h \
   ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h \
   ../include/pga_vars.h ../include/pq_functions.h ../include/standard.h
@@ -363,58 +354,55 @@ interactive_pq.o: interactive_pq.c ../include/pq_defs.h \
   ../include/pga_vars.h ../include/exp_vars.h ../include/constants.h \
   ../include/menus.h ../include/pq_functions.h \
   ../include/pretty_filterfns.h ../include/word_types.h \
-  ../include/global.h ../include/define_y.h
+  ../include/global.h
 invert.o: invert.c ../include/pq_defs.h ../include/config.h \
   ../include/storage_fixed.h ../include/pcp_vars.h ../include/constants.h \
-  ../include/word_types.h ../include/define_y.h ../include/access.h
+  ../include/word_types.h ../include/access.h
 invert_auts.o: invert_auts.c ../include/pq_defs.h ../include/config.h \
   ../include/storage_fixed.h ../include/pcp_vars.h ../include/pga_vars.h \
-  ../include/pq_functions.h ../include/define_y.h ../include/access.h
+  ../include/pq_functions.h ../include/access.h
 invert_modp.o: invert_modp.c
 is_genlim_exceeded.o: is_genlim_exceeded.c ../include/pq_defs.h \
-  ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h \
-  ../include/define_y.h
+  ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h
 is_space_exhausted.o: is_space_exhausted.c ../include/pq_defs.h \
-  ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h \
-  ../include/define_y.h
+  ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h
 isom_options.o: isom_options.c ../include/constants.h \
   ../include/pq_defs.h ../include/config.h ../include/storage_fixed.h \
   ../include/pretty_filterfns.h ../include/standard.h ../include/menus.h \
   ../include/pcp_vars.h ../include/pga_vars.h ../include/pq_functions.h \
-  ../include/word_types.h ../include/define_y.h
+  ../include/word_types.h
 iteration.o: iteration.c ../include/pq_defs.h ../include/config.h \
   ../include/storage_fixed.h ../include/pcp_vars.h ../include/pga_vars.h \
   ../include/constants.h ../include/pq_functions.h
 jacobi.o: jacobi.c ../include/pq_defs.h ../include/config.h \
   ../include/storage_fixed.h ../include/pcp_vars.h \
-  ../include/pq_functions.h ../include/define_y.h ../include/access.h
+  ../include/pq_functions.h ../include/access.h
 label_to_subgroup.o: label_to_subgroup.c ../include/pq_defs.h \
   ../include/config.h ../include/storage_fixed.h ../include/pga_vars.h \
-  ../include/pcp_vars.h ../include/pq_functions.h ../include/define_y.h
+  ../include/pcp_vars.h ../include/pq_functions.h
 last_class.o: last_class.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pcp_vars.h ../include/define_y.h
+  ../include/storage_fixed.h ../include/pcp_vars.h
 list_commutators.o: list_commutators.c ../include/pq_defs.h \
   ../include/config.h ../include/storage_fixed.h ../include/constants.h \
-  ../include/pcp_vars.h ../include/pq_functions.h ../include/define_y.h
+  ../include/pcp_vars.h ../include/pq_functions.h
 main.o: main.c ../include/pq_defs.h ../include/config.h \
   ../include/storage_fixed.h ../include/pcp_vars.h \
   ../include/pq_functions.h ../include/constants.h ../include/pq_author.h \
   ../include/menus.h ../include/global.h ../include/standard.h \
-  ../include/define_y.h ../include/access.h
+  ../include/access.h
 map_relations.o: map_relations.c ../include/pq_defs.h ../include/config.h \
   ../include/storage_fixed.h ../include/pcp_vars.h ../include/pga_vars.h \
   ../include/menus.h ../include/constants.h ../include/pq_functions.h \
-  ../include/define_y.h ../include/access.h
+  ../include/access.h
 matrix.o: matrix.c ../include/pq_defs.h ../include/config.h \
   ../include/storage_fixed.h ../include/pq_functions.h
 maxoccur.o: maxoccur.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pcp_vars.h ../include/constants.h \
-  ../include/define_y.h
+  ../include/storage_fixed.h ../include/pcp_vars.h ../include/constants.h
 multiply_word.o: multiply_word.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pcp_vars.h ../include/define_y.h
+  ../include/storage_fixed.h ../include/pcp_vars.h
 next_class.o: next_class.c ../include/pq_defs.h ../include/config.h \
   ../include/storage_fixed.h ../include/constants.h ../include/pcp_vars.h \
-  ../include/pq_functions.h ../include/exp_vars.h ../include/define_y.h
+  ../include/pq_functions.h ../include/exp_vars.h
 options.o: options.c ../include/pq_defs.h ../include/config.h \
   ../include/storage_fixed.h ../include/pcp_vars.h ../include/pga_vars.h \
   ../include/menus.h ../include/constants.h ../include/pq_functions.h
@@ -429,15 +417,15 @@ permute_subgroups.o: permute_subgroups.c ../include/pq_defs.h \
 pgroup.o: pgroup.c ../include/pq_defs.h ../include/config.h \
   ../include/storage_fixed.h ../include/pcp_vars.h ../include/pga_vars.h \
   ../include/constants.h ../include/menus.h ../include/pq_functions.h \
-  ../include/standard.h ../include/define_y.h
+  ../include/standard.h
 power.o: power.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pcp_vars.h ../include/define_y.h
+  ../include/storage_fixed.h ../include/pcp_vars.h
 pquotient.o: pquotient.c ../include/pq_defs.h ../include/config.h \
   ../include/storage_fixed.h ../include/pcp_vars.h ../include/constants.h
 pretty_filter.o: pretty_filter.c ../include/pq_defs.h ../include/config.h \
   ../include/storage_fixed.h ../include/pq_functions.h \
   ../include/constants.h ../include/pcp_vars.h \
-  ../include/pretty_filterfns.h ../include/define_y.h
+  ../include/pretty_filterfns.h
 pretty_filterfns.o: pretty_filterfns.c ../include/pq_defs.h \
   ../include/config.h ../include/storage_fixed.h \
   ../include/pretty_filterfns.h ../include/constants.h
@@ -450,40 +438,35 @@ print_level.o: print_level.c ../include/pq_defs.h ../include/config.h \
   ../include/storage_fixed.h ../include/pcp_vars.h ../include/constants.h
 print_multiweight.o: print_multiweight.c ../include/pq_defs.h \
   ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h \
-  ../include/constants.h ../include/pq_functions.h ../include/define_y.h \
-  ../include/access.h
+  ../include/constants.h ../include/pq_functions.h ../include/access.h
 print_presentation.o: print_presentation.c ../include/pq_defs.h \
   ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h \
-  ../include/pq_functions.h ../include/define_y.h ../include/access.h
+  ../include/pq_functions.h ../include/access.h
 print_structure.o: print_structure.c ../include/pq_defs.h \
   ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h \
-  ../include/constants.h ../include/define_y.h ../include/access.h
+  ../include/constants.h ../include/access.h
 print_word.o: print_word.c ../include/pq_defs.h ../include/config.h \
-  ../include/storage_fixed.h ../include/pcp_vars.h ../include/define_y.h \
-  ../include/access.h
+  ../include/storage_fixed.h ../include/pcp_vars.h ../include/access.h
 read.o: read.c ../include/pq_defs.h ../include/config.h \
   ../include/storage_fixed.h ../include/pcp_vars.h ../include/pga_vars.h \
-  ../include/pq_functions.h ../include/constants.h ../include/define_y.h \
-  ../include/access.h
+  ../include/pq_functions.h ../include/constants.h ../include/access.h
 read_auts.o: read_auts.c ../include/pq_defs.h ../include/config.h \
   ../include/storage_fixed.h ../include/constants.h ../include/pcp_vars.h \
-  ../include/pq_functions.h ../include/standard.h ../include/define_y.h
+  ../include/pq_functions.h ../include/standard.h
 read_parameters.o: read_parameters.c ../include/pq_defs.h \
   ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h \
   ../include/constants.h ../include/pq_functions.h
 read_relations.o: read_relations.c ../include/pq_defs.h \
-  ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h \
-  ../include/define_y.h
+  ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h
 read_relator_file.o: read_relator_file.c ../include/pq_defs.h \
   ../include/config.h ../include/storage_fixed.h ../include/constants.h \
-  ../include/pcp_vars.h ../include/pq_functions.h ../include/word_types.h \
-  ../include/define_y.h
+  ../include/pcp_vars.h ../include/pq_functions.h ../include/word_types.h
 read_value.o: read_value.c ../include/pq_defs.h ../include/config.h \
   ../include/storage_fixed.h ../include/constants.h ../include/pcp_vars.h
 read_word.o: read_word.c ../include/pq_defs.h ../include/config.h \
   ../include/storage_fixed.h ../include/pcp_vars.h ../include/constants.h \
   ../include/pq_functions.h ../include/pretty_filterfns.h \
-  ../include/word_types.h ../include/define_y.h
+  ../include/word_types.h
 reduce_matrix.o: reduce_matrix.c ../include/pq_defs.h ../include/config.h \
   ../include/storage_fixed.h ../include/pga_vars.h
 reduced_covers.o: reduced_covers.c ../include/pq_defs.h \
@@ -496,31 +479,30 @@ restore_group.o: restore_group.c ../include/pq_defs.h ../include/config.h \
   ../include/constants.h ../include/pq_functions.h
 setup.o: setup.c ../include/pq_defs.h ../include/config.h \
   ../include/storage_fixed.h ../include/pcp_vars.h ../include/constants.h \
-  ../include/pq_functions.h ../include/setup.h ../include/define_y.h \
-  ../include/access.h
+  ../include/pq_functions.h ../include/setup.h ../include/access.h
 setup_reps.o: setup_reps.c ../include/pq_defs.h ../include/config.h \
   ../include/storage_fixed.h ../include/pcp_vars.h ../include/pga_vars.h \
   ../include/constants.h ../include/pq_functions.h ../include/global.h \
-  ../include/standard.h ../include/define_y.h
+  ../include/standard.h
 soluble_orbits.o: soluble_orbits.c ../include/pq_defs.h \
   ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h \
   ../include/pga_vars.h ../include/constants.h ../include/pq_functions.h
 solve_equation.o: solve_equation.c ../include/pq_defs.h \
   ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h \
-  ../include/word_types.h ../include/define_y.h ../include/access.h
+  ../include/word_types.h ../include/access.h
 stabiliser.o: stabiliser.c ../include/pq_defs.h ../include/config.h \
   ../include/storage_fixed.h ../include/pcp_vars.h ../include/pga_vars.h \
-  ../include/pq_functions.h ../include/constants.h ../include/define_y.h
+  ../include/pq_functions.h ../include/constants.h
 stages.o: stages.c ../include/pq_defs.h ../include/config.h \
   ../include/storage_fixed.h ../include/pcp_vars.h ../include/pga_vars.h \
   ../include/constants.h ../include/pq_functions.h
 standard.o: standard.c ../include/pq_defs.h ../include/config.h \
   ../include/storage_fixed.h ../include/constants.h ../include/pcp_vars.h \
   ../include/pga_vars.h ../include/exp_vars.h ../include/pq_functions.h \
-  ../include/menus.h ../include/standard.h ../include/define_y.h
+  ../include/menus.h ../include/standard.h
 start_group.o: start_group.c ../include/pq_defs.h ../include/config.h \
   ../include/storage_fixed.h ../include/pcp_vars.h ../include/pga_vars.h \
-  ../include/constants.h ../include/define_y.h
+  ../include/constants.h
 start_iteration.o: start_iteration.c ../include/pq_defs.h \
   ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h \
   ../include/pga_vars.h ../include/constants.h ../include/pq_functions.h
@@ -540,7 +522,7 @@ tail_info.o: tail_info.c ../include/pq_defs.h ../include/config.h \
   ../include/storage_fixed.h ../include/constants.h
 tails.o: tails.c ../include/pq_defs.h ../include/config.h \
   ../include/storage_fixed.h ../include/pcp_vars.h \
-  ../include/pq_functions.h ../include/define_y.h ../include/access.h
+  ../include/pq_functions.h ../include/access.h
 tails_filter.o: tails_filter.c ../include/pq_defs.h ../include/config.h \
   ../include/storage_fixed.h ../include/pcp_vars.h ../include/constants.h \
   ../include/pq_functions.h
@@ -548,14 +530,14 @@ text.o: text.c ../include/pq_defs.h ../include/config.h \
   ../include/storage_fixed.h
 update.o: update.c ../include/pq_defs.h ../include/config.h \
   ../include/storage_fixed.h ../include/pcp_vars.h \
-  ../include/pq_functions.h ../include/define_y.h ../include/access.h
+  ../include/pq_functions.h ../include/access.h
 update_generators.o: update_generators.c ../include/pq_defs.h \
   ../include/config.h ../include/storage_fixed.h ../include/pcp_vars.h \
-  ../include/pq_functions.h ../include/define_y.h ../include/access.h
+  ../include/pq_functions.h ../include/access.h
 update_name.o: update_name.c ../include/pq_defs.h ../include/config.h \
   ../include/storage_fixed.h ../include/pcp_vars.h
 vsystem.o: vsystem.c ../include/config.h
 write.o: write.c ../include/pq_defs.h ../include/config.h \
   ../include/storage_fixed.h ../include/pcp_vars.h ../include/pga_vars.h \
-  ../include/constants.h ../include/define_y.h
+  ../include/constants.h
 #@ENDDEP@

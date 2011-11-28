@@ -18,7 +18,7 @@ void print_word (ptr, pcp)
 int ptr;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int gen, exp;
    register int i;
@@ -52,7 +52,7 @@ int cp;
 int str;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
 #if defined (GROUP) 
    vector_to_string (cp, str, pcp);

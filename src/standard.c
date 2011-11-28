@@ -88,7 +88,7 @@ struct pcp_vars *pcp;
 void enforce_exp_law (pcp)
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    struct exp_vars exp_flag;
 
@@ -610,7 +610,7 @@ int ***auts;
 struct pga_vars *pga;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    int nmr_of_generators = y[pcp->clend + pcp->cc - 1] + pga->s;
    register int pointer = pcp->lused + 1;
@@ -799,7 +799,7 @@ FILE *file;
 int *nmr_of_auts;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int i, j, k;
    int ***auts;

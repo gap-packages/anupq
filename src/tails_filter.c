@@ -23,7 +23,7 @@ int generator;
 int *weight_vector;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    int structure = pcp->structure;
    int pointer = pcp->lused + 1;
@@ -69,7 +69,7 @@ Logical mo_filter (weight_vector, pcp)
 int *weight_vector;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    Logical filter; 
    int frattini_rank = y[pcp->clend + 1]; 
@@ -100,7 +100,7 @@ int right;
 int *weight_vector;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    Logical filter; 
    int frattini_rank = y[pcp->clend + 1]; 
@@ -129,7 +129,7 @@ Logical exp5_filter (weight_vector, pcp)
 int *weight_vector;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    int frattini_rank = y[pcp->clend + 1]; 
    Logical filter; 
@@ -157,7 +157,7 @@ int start_weight;
 int end_weight;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int structure = pcp->structure;
    register int class_end = pcp->clend;

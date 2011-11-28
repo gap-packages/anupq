@@ -72,7 +72,7 @@ int *subset;       /* definition set for subgroup */
 struct pga_vars *pga;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int i, j;
 
@@ -106,7 +106,7 @@ int *subset;       /* definition set for subgroup */
 struct pga_vars *pga;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int i, j;
 

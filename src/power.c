@@ -42,7 +42,7 @@ int exp;
 int cp;
 struct pcp_vars *pcp; 
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int p = pcp->p;
    register int lastg = pcp->lastg;
@@ -180,7 +180,7 @@ int ptr;
 int length;
 struct pcp_vars *pcp; 
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int i;
 
@@ -196,7 +196,7 @@ int length;
 int new;
 struct pcp_vars *pcp; 
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int i;
 

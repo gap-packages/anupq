@@ -22,7 +22,7 @@ int **extend_matrix (current, pcp)
 int **current;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    int nmr_of_generators;
    int **auts;

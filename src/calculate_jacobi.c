@@ -18,7 +18,7 @@
 void calculate_jacobi (pcp)
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    Logical invalid = FALSE;
    int bound = pcp->ccbeg;

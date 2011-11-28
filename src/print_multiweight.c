@@ -21,7 +21,7 @@ void print_multiweight (first, last, pcp)
 int first, last;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    char start;
    register int structure = pcp->structure;

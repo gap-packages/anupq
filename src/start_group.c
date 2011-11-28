@@ -24,7 +24,7 @@ int ***auts;
 struct pga_vars *pga;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    int retain;
    int ***central;

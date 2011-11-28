@@ -43,7 +43,7 @@ int *max_class;
 int *output; 
 struct pcp_vars *pcp;
 {
-#include "define_y.h" 
+   register int *y = y_address;
 
    int prime = 0;
    int exponent = 0;
@@ -328,7 +328,7 @@ int output;
 int *max_class;
 struct pcp_vars *pcp;
 {
-#include "define_y.h" 
+   register int *y = y_address;
 
    int ptr, relp, length;
    int i = 1;

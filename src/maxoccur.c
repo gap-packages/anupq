@@ -18,7 +18,7 @@
 void set_maxoccur (pcp)
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int ndgen = pcp->ndgen;
    register int dgen = pcp->dgen;

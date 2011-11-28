@@ -134,7 +134,7 @@ int nmr_of_capables, nmr_of_descendants, nmr_of_covers;
 struct pga_vars *pga;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
 /* 
   FILE_TYPE COUNT;
@@ -158,7 +158,7 @@ void print_group_details (pga, pcp)
 struct pga_vars *pga;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
    int order;
 
    printf ("\n**************************************************\n");
@@ -178,7 +178,7 @@ int order_bound;
 struct pga_vars *pga;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    int max_extension = order_bound - y[pcp->clend + pcp->cc - 1];
    Logical select = TRUE;

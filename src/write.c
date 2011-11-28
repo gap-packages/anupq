@@ -20,7 +20,7 @@ void save_pcp (ofp, pcp)
 FILE *ofp;
 struct pcp_vars *pcp;
 {   
-#include "define_y.h"
+   register int *y = y_address;
 
    compact (pcp);
 

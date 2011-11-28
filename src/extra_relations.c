@@ -86,7 +86,7 @@ int *initial;
 int *initial_coeff;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int i;
    int lower_bound;             /* lower bound on next letter in word */
@@ -150,7 +150,7 @@ void extra_relations (exp_flag, pcp)
 struct exp_vars *exp_flag;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int nmr_words;      /* number of normal words powered in class */
    register int length;         /* number of generators in normal word */

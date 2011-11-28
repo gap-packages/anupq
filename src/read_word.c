@@ -191,7 +191,7 @@ int disp;
 int type;
 struct pcp_vars *pcp; 
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    int ptr = pcp->lused + 1 + disp;
    word w1, w2, w3;
@@ -237,7 +237,7 @@ Logical commutator;
 int *t;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int i;
    int u[MAXWORD];

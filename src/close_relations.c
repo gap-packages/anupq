@@ -42,7 +42,7 @@ int *long_queue;
 int *long_queue_length;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    char *s;
    char *t;
@@ -152,7 +152,7 @@ int *list;
 int cp;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int value;
    register int length = list[++head];

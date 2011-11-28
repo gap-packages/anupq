@@ -22,7 +22,7 @@ int ***auts;
 struct pga_vars *pga;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int alpha, i, j;
 

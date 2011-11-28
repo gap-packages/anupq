@@ -39,7 +39,7 @@ int **head;
 int **list; 
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    int option, t, class;
    register int cp;

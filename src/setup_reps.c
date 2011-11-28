@@ -133,7 +133,7 @@ FILE_TYPE covers_file;
 struct pga_vars *pga;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"                                                           
+   register int *y = y_address;
    int index;
    int *subset;
    int ***central;

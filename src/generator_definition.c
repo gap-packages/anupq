@@ -22,7 +22,7 @@ int gen;
 int *k;
 struct pcp_vars *pcp; 
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int i, j;
 #include "access.h"

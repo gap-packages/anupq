@@ -24,7 +24,7 @@ int cp2;
 int result;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int i, r;
    register int p = pcp->p;

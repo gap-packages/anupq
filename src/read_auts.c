@@ -24,7 +24,7 @@ int *nmr_of_auts;
 int *nmr_of_exponents;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int i, j, k;
    int ***auts;

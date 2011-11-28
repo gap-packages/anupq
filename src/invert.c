@@ -24,7 +24,7 @@ int exp;
 int cp;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int i;
    register int inverse;
@@ -64,7 +64,7 @@ int str;
 int cp;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int length;
    register int gen, exp;
@@ -85,7 +85,7 @@ int ptr;
 int cp;
 struct pcp_vars *pcp;
 { 
-#include "define_y.h"
+   register int *y = y_address;
 
    register int gen;
    register int exp;
@@ -109,7 +109,7 @@ struct pcp_vars *pcp;
 void setup_word_to_invert (pcp) 
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    int type = INVERSE_OF_WORD;
    int disp = pcp->lastg; 

@@ -25,7 +25,7 @@ FILE_TYPE descendant_file;
 struct pga_vars *pga;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    int ***central;
    int **auts;

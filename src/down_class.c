@@ -18,7 +18,7 @@ void down_class (ptr, pcp)
 int ptr;
 struct pcp_vars *pcp;   
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int p1;
    register int p2;

@@ -25,7 +25,7 @@ int format;
 int *nmr_of_auts;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int i, j, k;
    int ***auts;

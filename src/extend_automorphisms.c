@@ -40,7 +40,7 @@ void extend_automorphism (auts, pcp)
 int **auts;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int generator;
    register int lastg = pcp->lastg;
@@ -98,7 +98,7 @@ int u;
 int **auts;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int i;
    register int lastg = pcp->lastg;
@@ -134,7 +134,7 @@ int v;
 int **auts;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    int pointer;
 
@@ -162,7 +162,7 @@ int cp;
 int *auts;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int lused = pcp->lused;
    register int lastg = pcp->lastg;
@@ -190,7 +190,7 @@ int cp;
 int **auts;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int i;
    int generator, exp;

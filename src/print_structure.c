@@ -20,7 +20,7 @@ int generator;
 int pointer;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int i;
    register int address = -pointer + 1;
@@ -42,7 +42,7 @@ int pointer;
 int weight;
 struct pcp_vars *pcp;
 {  
-#include "define_y.h"
+   register int *y = y_address;
 
    register int u, v;
    register int structure = pcp->structure;
@@ -87,7 +87,7 @@ int layer (generator, pcp)
 int generator;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
    
    int i;
 
@@ -105,7 +105,7 @@ void print_structure (first, last, pcp)
 int first, last;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int structure = pcp->structure;
    register int u, v;

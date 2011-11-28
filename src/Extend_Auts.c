@@ -37,7 +37,7 @@ int **list;
 int start;
 struct pcp_vars *pcp;
 {
-#include "define_y.h" 
+   register int *y = y_address;
    register int lastg = pcp->lastg;
    register int offset; 
    register int alpha;
@@ -155,7 +155,7 @@ int ***auts;
 int nmr_of_exponents;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int i, generator;
    int position, max_length, exp, alpha, offset;
@@ -205,7 +205,7 @@ int offset;
 int *index;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int i, generator;
    register int lastg = pcp->lastg;
@@ -294,7 +294,7 @@ int ptr;
 int cp;
 struct pcp_vars *pcp;
 { 
-#include "define_y.h"
+   register int *y = y_address;
 
    int lastg = pcp->lastg;
    int i, j, start, u;
@@ -360,7 +360,7 @@ int *head;
 int *list;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int i;
    register int value;
@@ -401,7 +401,7 @@ int *head;
 int *list;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int i;
    register int pointer, value;
@@ -441,7 +441,7 @@ int head;
 int *list;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int lused = pcp->lused;
    int str = lused + pcp->lastg;
@@ -466,7 +466,7 @@ int head;
 int *list;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int lused = pcp->lused;
    register int length = list[++head];
@@ -491,7 +491,7 @@ int *head;
 int *list;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int i;
    register int generator, exp;

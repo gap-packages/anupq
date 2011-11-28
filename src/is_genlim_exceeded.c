@@ -19,7 +19,7 @@
 Logical is_genlim_exceeded (pcp)
 struct pcp_vars *pcp;   
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int i, j;
    register int moccur;

@@ -22,7 +22,7 @@ void delete_tables (type, pcp)
 int type;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int i;
    register int j;

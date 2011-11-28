@@ -25,7 +25,7 @@ int ***auts;
 struct pga_vars *pga;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int alpha;
    int ***inverse;
@@ -76,7 +76,7 @@ int cp;
 int **auts;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int i;
    int generator, exp;
@@ -103,7 +103,7 @@ int string;
 int *image;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int i; 
    register int length = 0;

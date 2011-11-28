@@ -10,6 +10,9 @@
 *Y  Copyright 1995-1997,  School of Mathematical Sciences, ANU,     Australia
 **
 *H  $Log$
+*H  Revision 1.9  2011/11/28 17:47:16  gap
+*H  Get rid of define_y.h. MH
+*H
 *H  Revision 1.8  2004/01/26 20:01:53  werner
 *H  Fixed outstanding bug, reported by Boris Girnat
 *H
@@ -51,7 +54,7 @@ void print_GAP_word ( file, ptr, pcp )
     int                 ptr;
     struct pcp_vars   * pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    int                 gen,  exp;
    int                 i;
@@ -92,7 +95,7 @@ void GAP_presentation ( file, pcp, aspcgroup )
     struct pcp_vars   * pcp;
     int                 aspcgroup;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    int                 i;
    int                 j;
@@ -277,7 +280,7 @@ void GAP_auts ( file, central, stabiliser, pga, pcp )
     struct pga_vars   * pga;
     struct pcp_vars   * pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    int                 i, j, k, ngens,  first;
 

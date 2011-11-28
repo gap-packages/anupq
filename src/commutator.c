@@ -36,7 +36,7 @@ int cp4;
 int result;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
    int r;     
    int exp;
    register int i;
@@ -96,7 +96,7 @@ int length;
 int new;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    for (; length > 0; --length)
       y[new + length] = y[old + length];
@@ -111,7 +111,7 @@ void calculate_commutator (format, pcp)
 int format;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int ptr, cp1, cp2, cp3, cp4, result;
    register int lastg = pcp->lastg;

@@ -33,7 +33,7 @@ int **subset;
 struct pga_vars *pga;
 struct pcp_vars *pcp;
 { 
-#include "define_y.h"
+   register int *y = y_address;
 
    register int generator, exp, r, i;
    register int structure, lastg; 

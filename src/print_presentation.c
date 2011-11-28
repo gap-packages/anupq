@@ -19,7 +19,7 @@
 void print_map (pcp)
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    int ndgen = pcp->ndgen;
    int dgen = pcp->dgen;
@@ -58,7 +58,7 @@ void print_presentation (full, pcp)
 Logical full;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int i;
    register int k;
@@ -140,7 +140,7 @@ struct pcp_vars *pcp;
 void print_pcp_relations (pcp)
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int i;
    register int j;

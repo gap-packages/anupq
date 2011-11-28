@@ -28,7 +28,7 @@ int *queue_length;
 int cp;
 struct pcp_vars *pcp;
 { 
-#include "define_y.h"
+   register int *y = y_address;
 
    register int lastg = pcp->lastg;
    int i;
@@ -50,7 +50,7 @@ int *list;
 int depth;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int lastg = pcp->lastg;
    register int cp = pcp->lused;
@@ -154,7 +154,7 @@ int *queue;
 int *queue_length;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int lastg = pcp->lastg;
    register int i;

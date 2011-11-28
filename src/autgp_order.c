@@ -26,7 +26,7 @@ int orbit_length;
 struct pga_vars *pga;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int d, nmr_cent;
    MP_INT prime, nmr_centrals, orbit_size;
@@ -94,7 +94,7 @@ void autgp_order (pga, pcp)
 struct pga_vars *pga;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    MP_INT diff, prime, nmr_centrals, sub, large;
    MP_INT t;

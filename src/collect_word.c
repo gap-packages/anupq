@@ -23,7 +23,7 @@ int ptr;
 int cp;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    int temp;
    int gen, exp;
@@ -58,7 +58,7 @@ int ptr;
 int cp;
 struct pcp_vars *pcp;
 { 
-#include "define_y.h"
+   register int *y = y_address;
 
    register int i;
    register int lastg = pcp->lastg;

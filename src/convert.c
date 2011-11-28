@@ -21,7 +21,7 @@ int verify_string (string, pcp)
 int string;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 #include "access.h"
  
    if (y[string + 1] == 0)
@@ -44,7 +44,7 @@ int cp;
 int str;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int i;
    register int length = 0;   
@@ -76,7 +76,7 @@ int cp;
 int ptr;
 struct pcp_vars *pcp;
 {   
-#include "define_y.h"
+   register int *y = y_address;
 
    int i, j;
    register int length = 1;
@@ -101,7 +101,7 @@ int ptr;
 int str;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int i;
    register int length = y[ptr];   
@@ -122,7 +122,7 @@ int str;
 int cp;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int i;
    register int length = y[str + 1];

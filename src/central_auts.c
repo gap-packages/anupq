@@ -22,7 +22,7 @@ int*** central_automorphisms (pga, pcp)
 struct pga_vars *pga;
 struct pcp_vars *pcp;
 { 
-#include "define_y.h"
+   register int *y = y_address;
 
    int ***central;  
    int **commutator;            /* result of commutator calculations */
@@ -109,7 +109,7 @@ int** commutator_matrix (pga, pcp)
 struct pga_vars *pga;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    /* first and last generator of last class of parent */
    int first = y[pcp->clend + pcp->cc - 2] + 1;

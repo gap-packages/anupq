@@ -120,7 +120,7 @@ void isom_options (format, pcp)
 int format;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    FILE *Status;
    FILE *FileName;
@@ -487,7 +487,7 @@ int format;
 struct pga_vars *pga;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    FILE_TYPE FileName;
    FILE_TYPE presentation_file;
@@ -582,7 +582,7 @@ struct pcp_vars *pcp;
 void factor_subgroup (pcp)
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    FILE_TYPE Subgroup;
    int flag;

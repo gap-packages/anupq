@@ -28,7 +28,7 @@
 void extend_representation (pcp)
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    int *expand;                 /* array to store p-adic expansion */
    register int rank = y[pcp->clend + pcp->cc]; 

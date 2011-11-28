@@ -23,7 +23,7 @@ int pointer;
 int collected_part;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int p1;             /* string pointer */
    register int cg;             /* collected generator */
@@ -196,7 +196,7 @@ int length;
 int collected_part;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int cp = collected_part;
    register int str = string;

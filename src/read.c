@@ -34,7 +34,7 @@ void restore_pcp (ifp, pcp)
 FILE *ifp;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int i, j, l; 
    int new_workspace = pcp->backy;
@@ -111,7 +111,7 @@ FILE *ifp;
 struct pga_vars *pga;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int i, j;
    int ***auts;

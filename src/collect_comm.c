@@ -23,7 +23,7 @@ int ptr;
 int cp;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int cp1, cp2, cp3, cp4, result;
    register int lastg = pcp->lastg;
@@ -84,7 +84,7 @@ int ptr;
 int cp;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int lastg = pcp->lastg;
    int i, generator, genval;

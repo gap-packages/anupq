@@ -26,7 +26,7 @@ void commute_defining_generators (format, pcp)
 int format;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int ptr, cp1, cp2, cp3, cp4, result;
    register int lastg = pcp->lastg;
@@ -105,7 +105,7 @@ int ptr;
 int cp;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    int i, generator, genval;
    int j, word_len;

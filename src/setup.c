@@ -25,7 +25,7 @@ void class_setup ();
 void setup (pcp)
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int e;
    register int i;
@@ -343,7 +343,7 @@ void class_setup (new_space, pcp)
 int new_space;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int i;
    register int bound = pcp->lastg;

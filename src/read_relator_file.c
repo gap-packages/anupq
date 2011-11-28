@@ -31,7 +31,7 @@ int *queue;
 int *queue_length;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    FILE_TYPE relation_file;
    int nmr_relations;

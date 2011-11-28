@@ -17,7 +17,7 @@
 void read_relations (pcp)
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int relp = pcp->relp;
    register int ndrel = pcp->ndrel;

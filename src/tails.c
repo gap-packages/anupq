@@ -26,7 +26,7 @@ int start_weight;
 int end_weight;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int structure = pcp->structure;
    register int class_end = pcp->clend;
@@ -151,7 +151,7 @@ int start_weight;
 int end_weight;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int structure = pcp->structure;
    register int class_end = pcp->clend;
@@ -264,7 +264,7 @@ void create_tail (address, f, s, pcp)
 int address, f, s;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int i;
    register int bound;
@@ -317,7 +317,7 @@ void extend_tail (address, f, s, pcp)
 int address, f, s;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int i;
    register int start;

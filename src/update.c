@@ -21,7 +21,7 @@ void update (ptr, pcp)
 int ptr;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int g;
    register int i;

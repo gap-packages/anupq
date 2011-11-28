@@ -27,7 +27,7 @@ int *queue;
 int *queue_length;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int lastg = pcp->lastg;
    register int cp, cp1, cp2, cp3, cp4, result; 
@@ -121,7 +121,7 @@ int *queue;
 int *queue_length;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int lastg = pcp->lastg;
    register int total;

@@ -25,7 +25,7 @@ Logical is_space_exhausted (required, pcp)
 int required;
 struct pcp_vars *pcp;   
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    int remain;
 

@@ -23,7 +23,7 @@ void eliminate (middle_of_tails, pcp)
 Logical middle_of_tails;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int i;
    register int j;

@@ -38,7 +38,7 @@ int gen;
 int *definition;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int structure = pcp->structure;
    register int lastg = pcp->lastg;
@@ -92,7 +92,7 @@ int **map;
 struct pga_vars *pga;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int ndgen = pcp->ndgen;
    register int ndrel = pcp->ndrel;
@@ -401,7 +401,7 @@ int gen;
 int *definition;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int start = y[pcp->clend + 1] + 1;
    register int exponent;

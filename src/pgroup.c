@@ -32,7 +32,7 @@ void pgroup_generation (group_present, pcp)
 Logical *group_present;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    struct pga_vars pga;
    struct pga_vars flag;

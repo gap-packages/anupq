@@ -80,7 +80,7 @@ int pointer;
 int collected_part;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int p1;             /* string pointer */
    register int ce;             /* collected exponent */
@@ -387,7 +387,7 @@ int exponent;
 int collected_part;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int cp = collected_part;
    register int exp = exponent;

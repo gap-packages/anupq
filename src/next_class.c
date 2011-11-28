@@ -26,7 +26,7 @@ int **head;
 int **list;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int class;
    struct exp_vars exp_flag;
@@ -125,7 +125,7 @@ int **head;
 int **list;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    int t;
    int factor;
@@ -243,7 +243,7 @@ int *long_queue;
 int long_queue_length;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    int gen;
    int i, p1;
@@ -267,7 +267,7 @@ int *x;
 int len;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int i, j, pointer, temp;
    Logical swap = TRUE; 

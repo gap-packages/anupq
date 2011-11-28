@@ -25,7 +25,7 @@
 void update_generators (pcp)
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int f;
    register int i;

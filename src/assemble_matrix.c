@@ -23,7 +23,7 @@ int t;
 int** auts;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int i, j;
    register int offset = y[pcp->clend + pcp->cc - 1] + 1;

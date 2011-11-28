@@ -39,7 +39,7 @@ void set_values (pga, pcp)
 struct pga_vars *pga;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    pga->multiplicator_rank = y[pcp->clend + pcp->cc] - 
       y[pcp->clend + pcp->cc - 1];

@@ -26,7 +26,7 @@
 int echelon (pcp)
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int i;
    register int j;
@@ -221,7 +221,7 @@ Logical trivial;
 int redgen;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    int k;
    int i, j, jj, exp;

@@ -30,7 +30,7 @@ int ***auts;
 struct pga_vars *pga;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    int*** stabiliser;
    int pointer = pcp->lused + 1;
@@ -128,7 +128,7 @@ int ***auts;
 struct pga_vars *pga;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int alpha, k, next;
    register int word_length;
@@ -191,7 +191,7 @@ int ***auts;
 struct pga_vars *pga;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int i, j;
    register int gamma;
@@ -223,7 +223,7 @@ int ***auts;
 struct pga_vars *pga;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int i, j, k, l;
    register int alpha, letter;
@@ -332,7 +332,7 @@ int ***soluble_generators;
 struct pga_vars *pga;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int ndgen = pga->ndgen;
    register int gamma, i, j;

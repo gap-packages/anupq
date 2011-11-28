@@ -280,7 +280,7 @@ void read_order_bound (order_bound, pcp)
 int *order_bound;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    int least_order = y[pcp->clend + pcp->cc - 1] + 1;
    read_value (TRUE, "Input order bound on descendants: ", 

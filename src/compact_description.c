@@ -65,7 +65,7 @@ int *compact_description (write_to_file, pcp)
 Logical write_to_file;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    register int p1;
    register int p2;
@@ -144,7 +144,7 @@ int ptr;
 int generator;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
 
    int i, gen, exp, count;
 #include "access.h"
@@ -173,7 +173,7 @@ int *sequence;
 int nmr_of_exponents;
 struct pcp_vars *pcp;
 {
-#include "define_y.h"
+   register int *y = y_address;
   
    register int count;
    FILE_TYPE output_file;
