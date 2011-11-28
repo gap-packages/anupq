@@ -14,19 +14,19 @@
 
 /* largest number of defining generators = 2^SC1 - 1 */
 #define SC1 9 
-#define MAXGENS (1 << SC1) - 1 
+#define MAXGENS ((1 << SC1) - 1)
 
 /* largest number of pc generators = 2^SC2 - 1 */
 #define SC2 16 
-#define MAXPC (1 << SC2) - 1
+#define MAXPC ((1 << SC2) - 1)
 
 #define SC3 (SC1 + SC2)
 
 /* largest class = 2^(WORD_LENGTH - (SC1 + SC2)) - 1 */
-#define MAXCLASS (1 << (WORD_LENGTH - SC3)) - 1
+#define MAXCLASS ((1 << (WORD_LENGTH - SC3)) - 1)
 
-#define MASK1 (1UL << SC1) - 1
-#define MASK2 (1UL << SC2) - 1
+#define MASK1 ((1UL << SC1) - 1)
+#define MASK2 ((1UL << SC2) - 1)
 
 #define INSWT(i) ((i) << SC3)
 #define WT(i) ((i) >> SC3)
