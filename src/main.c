@@ -22,10 +22,6 @@
 #include "global.h"
 #include "standard.h"
 
-#if defined (QUOTPIC)
-#include "times.h"
-#endif 
-
 #if defined (RUN_TIME)
 #include "runtime.h"
 #endif
@@ -41,7 +37,6 @@
    -m to write Magma group library;
    -i to choose standard presentation menu;
    -k to read from file using key words; 
-   -q to choose quotpic menu; 
    -s <integer> to allocate array of size <integer> for workspace y;
    -t to pass time limit in CPU seconds for computation 
       where t = 0 implies infinite time;
@@ -79,10 +74,6 @@ char *argv[];
    setbuf (stdout, NULL);
 #endif
 
-#if defined (QUOTPIC)
-   time_limit = 0;
-#endif 
-
    Compact_Description = FALSE;
 
    /* process run-time parameters */
@@ -106,11 +97,6 @@ char *argv[];
    /* print startup message */
    print_message (work_space);
 
-#if defined (QUOTPIC)
-   if (menu == QUOTPIC_MENU)
-      quotpic_menu (format, &pcp);
-   else 
-#endif
 #if defined (GROUP) 
 #if defined (STANDARD_PCP)
       if (menu == ISOM_MENU) 
@@ -156,14 +142,6 @@ char *argv[];
       }
       else if (strcmp (argv[i], "-b") == 0)  
 	 format = BASIC;
-#if defined (QUOTPIC)
-      else if (strcmp (argv[i], "-t") == 0) {
-	 if (i == argc - 1) 
-	    return (0);
-	 time_limit = (string_to_int (argv[++i], &error)) * CLK_TCK;
-	 if (error) return (0);
-      }
-#endif 
 #if defined (RUN_TIME) 
       else if (strcmp (argv[i], "-d") == 0) { 
 	 if (i == argc - 1) return (0);
@@ -193,10 +171,6 @@ char *argv[];
 	 Group_library = GAP_LIBRARY;
       else if (strcmp (argv[i], "-m") == 0)  
 	 Group_library = Magma_LIBRARY;
-#if defined (QUOTPIC)
-      else if (strcmp (argv[i], "-q") == 0)  
-	 menu = QUOTPIC_MENU;
-#endif 
       else if (strcmp (argv[i], "-v") == 0)  
 	{printf ("%s\n", PQ_VERSION);
          exit (SUCCESS);}

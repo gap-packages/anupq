@@ -16,12 +16,6 @@
 #include "exp_vars.h"
 #define BOTH_TAILS 0 
 
-#if defined (QUOTPIC)
-#include "times.h"
-  int total_cpu_time = 0;
-  int cpu_time;
-#endif
-
 #if defined (GROUP) 
 
 /* calculate the next class of the group layer by layer */
@@ -38,10 +32,6 @@ struct pcp_vars *pcp;
    struct exp_vars exp_flag;
    int prev = 1, new;
 
-#if defined (QUOTPIC)
-   cpu_time = runTime ();
-#endif
-
    /* if class 1 computation, setup has already been done -- 
       before relations are read */
    if (y[pcp->clend + 1] != 0)
@@ -53,15 +43,8 @@ struct pcp_vars *pcp;
    if (pcp->extra_relations != 0 || pcp->m != 0) 
       initialise_exponent (&exp_flag, pcp);
 
-#if defined (QUOTPIC)
-   is_timelimit_exceeded ();
-#endif
-
    for (class = pcp->cc; class > 1; --class) {
       tails (BOTH_TAILS, class, pcp->cc, 1, pcp);
-#if defined (QUOTPIC)
-      is_timelimit_exceeded ();
-#endif
       if (pcp->overflow)
 	 return;
       if (class != 2) {
@@ -72,9 +55,6 @@ struct pcp_vars *pcp;
 	    prev = new;
 	 }
 	 consistency (0, exp_flag.queue, &exp_flag.queue_length, class, pcp);
-#if defined (QUOTPIC)
-	 is_timelimit_exceeded ();
-#endif
 	 if (pcp->overflow || pcp->complete != 0 && !pcp->multiplicator)
 	    return;
       }
@@ -83,9 +63,6 @@ struct pcp_vars *pcp;
    if (!pcp->multiplicator) {
       if (pcp->cc > 1) {
 	 update_generators (pcp);
-#if defined (QUOTPIC)
-	 is_timelimit_exceeded ();
-#endif
 	 if (pcp->overflow)
 	    return;
 
@@ -102,14 +79,8 @@ struct pcp_vars *pcp;
 	       return;
 	 }
       }
-#if defined (QUOTPIC)
-      is_timelimit_exceeded ();
-#endif
 
       collect_relations (pcp);
-#if defined (QUOTPIC)
-      is_timelimit_exceeded ();
-#endif
       if (pcp->overflow || pcp->complete != 0 || !pcp->valid)
 	 return;
       if (pcp->extra_relations != 0) {
@@ -126,9 +97,6 @@ struct pcp_vars *pcp;
 	    enforce_exponent (report, &exp_flag, head, list, pcp);
 	    if (pcp->overflow) return;
 	 }
-#if defined (QUOTPIC)
-	 is_timelimit_exceeded ();
-#endif
       }
 
       if (pcp->overflow || pcp->complete != 0 || !pcp->valid)
@@ -146,9 +114,6 @@ struct pcp_vars *pcp;
    else 
       eliminate (FALSE, pcp);
 
-#if defined (QUOTPIC)
-   is_timelimit_exceeded ();
-#endif
 }
 
 #endif
@@ -343,20 +308,3 @@ struct pcp_vars *pcp;
    free_vector (length, 1);
 }
 
-#if defined (QUOTPIC)
-
-/* is the total CPU time limit set for the computation exceeded? */
-
-void is_timelimit_exceeded ()
-{
-   if (time_limit == 0) return;
-
-   total_cpu_time += (runTime () - cpu_time);
-   if (total_cpu_time > time_limit) {
-      printf ("Time limit exceeded\n");
-      exit (CPU_TIME_LIMIT);
-   }
-   cpu_time = runTime ();
-
-}
-#endif

@@ -102,11 +102,6 @@
 #define AUT_CLASSES 17 
 #define TEMP 19
 
-/* constants for quotpic menu */
-#define PQ_OPTIONS 1
-#define MATRIX 2
-#define MEATAXE 3
-
 /* constants for standard presentation menu */
 #define START_INFO 1
 #define CONSTRUCT 2
@@ -117,7 +112,6 @@
 #define PQ_MENU 7
 
 #define DEFAULT_MENU 0
-#define QUOTPIC_MENU 1
 #define ISOM_MENU 2
 
 #endif 

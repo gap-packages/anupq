@@ -35,11 +35,6 @@
 #
 #GAP_LINK  -- GAP is called by pq to perform insoluble stabiliser calculations 
 #
-# If you have QUOTPIC installed on your machine, please set the
-# following flag to ensure compatability
-# 
-#QUOTPIC -- if compiling version for incorporation in QUOTPIC
-#
 #Magma -- if compiling version for incorporation in Magma
 #
 #GAP -- if compiling version for incorporation in GAP
@@ -154,7 +149,6 @@ main.o\
 map_relations.o\
 matrix.o\
 maxoccur.o\
-meataxe.o\
 next_class.o\
 options.o\
 orbit_summary.o\
@@ -168,7 +162,6 @@ print_arrays.o\
 print_auts.o\
 print_level.o\
 print_structure.o\
-quotpic.o\
 read.o\
 read_auts.o\
 read_relations.o\

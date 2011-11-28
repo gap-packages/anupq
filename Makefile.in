@@ -86,7 +86,7 @@ OBJECTS=\
 	last_class.o                   	list_commutators.o            \
 	main.o                         	map_relations.o               \
 	matrix.o                       	maxoccur.o                    \
-	meataxe.o                      	multiply_word.o               \
+	                      	multiply_word.o               \
 	next_class.o                   	options.o                     \
 	orbit_summary.o                	permute_elements.o            \
 	permute_subgroups.o            	pgroup.o                      \
@@ -95,7 +95,7 @@ OBJECTS=\
 	print_arrays.o                 	print_auts.o                  \
 	print_level.o                  	print_multiweight.o           \
 	print_presentation.o           	print_structure.o             \
-	print_word.o                   	quotpic.o                     \
+	print_word.o                   	                     \
 	read.o                         	read_auts.o                   \
 	read_parameters.o              	read_relations.o              \
 	read_relator_file.o            	read_value.o                  \
@@ -436,9 +436,6 @@ matrix.o: matrix.c ../include/pq_defs.h ../include/storage_fixed.h \
  ../include/pq_functions.h
 maxoccur.o: maxoccur.c ../include/pq_defs.h ../include/storage_fixed.h \
  ../include/pcp_vars.h ../include/constants.h ../include/define_y.h
-meataxe.o: meataxe.c ../include/pq_defs.h ../include/storage_fixed.h \
- ../include/constants.h ../include/pcp_vars.h \
- ../include/pq_functions.h ../include/define_y.h
 multiply_word.o: multiply_word.c ../include/pq_defs.h \
  ../include/storage_fixed.h ../include/pcp_vars.h \
  ../include/define_y.h
@@ -495,7 +492,6 @@ print_structure.o: print_structure.c ../include/pq_defs.h \
 print_word.o: print_word.c ../include/pq_defs.h \
  ../include/storage_fixed.h ../include/pcp_vars.h \
  ../include/define_y.h ../include/access.h
-quotpic.o: quotpic.c
 read.o: read.c ../include/pq_defs.h ../include/storage_fixed.h \
  ../include/pcp_vars.h ../include/pga_vars.h ../include/pq_functions.h \
  ../include/constants.h ../include/define_y.h ../include/access.h
