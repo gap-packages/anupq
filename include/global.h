@@ -14,7 +14,6 @@
 #ifndef __GLOBALS__
 #define __GLOBALS__
 
-#define CAYLEY_LIBRARY 1
 #define GAP_LIBRARY 2
 #define Magma_LIBRARY 3
 

@@ -29,7 +29,6 @@
 /* main routine for p-quotient program; the run-time parameters are 
 
    -b to choose basic format for input of presentation; 
-   -C to write CAYLEY group library;
    -G used by GAP 4, essentially equivalent to: -i -g -k simultaneously
       except that it also sends requests back via GAP's iostream when
       it needs GAP to compute stabilisers;
@@ -41,7 +40,7 @@
    -t to pass time limit in CPU seconds for computation 
       where t = 0 implies infinite time;
    -v prints the version of the pq binary and exits;
-   -w <filename> to write group descriptions in CAYLEY/GAP/Magma format 
+   -w <filename> to write group descriptions in GAP/Magma format 
       to <filename> -- used in conjunction with -C or -g or -m
 
    if compiled with RUN_TIME flag then there are two additional options:
@@ -160,8 +159,6 @@ char *argv[];
 #endif
       else if (strcmp (argv[i], "-k") == 0)  
 	 format = FILE_INPUT;
-      else if (strcmp (argv[i], "-C") == 0)  
-	 Group_library = CAYLEY_LIBRARY;
       else if (strcmp (argv[i], "-G") == 0)  
 	{Group_library = GAP_LIBRARY;
 	 menu = ISOM_MENU;

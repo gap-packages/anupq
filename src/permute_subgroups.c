@@ -72,15 +72,11 @@ struct pcp_vars *pcp;
       }
 
       if (!soluble_group) {
-#if defined (CAYLEY_LINK)
-	 write_CAYLEY_matrix (LINK_input, "genq", "glqp", A, q, 0, alpha);
-#else
 #if defined (Magma_LINK)
 	 write_Magma_matrix (LINK_input, "genq", "glqp", A, q, 0, alpha);
 #else
 #if defined (GAP_LINK) || defined (GAP_LINK_VIA_FILE) 
 	 write_GAP_matrix (LINK_input, "ANUPQglb.genQ", A, q, 0, alpha);
-#endif
 #endif
 #endif
       }
@@ -103,14 +99,6 @@ struct pcp_vars *pcp;
 	 else
 	    process_identity_perm (*a, *b, *c, pga);
       }
-
-      /*
-	else {
-	insoluble_compute_orbits (*a, *b, *c, perms[nmr_of_perms], pga);
-	write_CAYLEY_permutation (CAYLEY_input, nmr_of_perms, 
-	perms[nmr_of_perms], pga);
-	}
-	*/
    }
 
    free_matrix (A, q, 0);

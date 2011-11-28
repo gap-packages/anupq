@@ -142,7 +142,6 @@ struct pcp_vars *pcp;
    int *seq;
    FILE_TYPE file;
    FILE_TYPE GAP_library; 
-   FILE_TYPE CAYLEY_library; 
    FILE_TYPE Magma_library; 
    int lused, rank_of_cover;
    int p = pga->p;
@@ -177,7 +176,7 @@ struct pcp_vars *pcp;
 	 free_vector (seq, 1);
       }
 
-      /* should we write a description of group to CAYLEY/GAP/Magma file? */
+      /* should we write a description of group to GAP/Magma file? */
       if (pga->capable || pga->terminal) {
 	 if (Group_library == GAP_LIBRARY) {
 	    if (Group_library_file != NULL) 
@@ -186,15 +185,6 @@ struct pcp_vars *pcp;
 	       GAP_library = OpenFile ("GAP_library", "a+");
 	    write_GAP_library (GAP_library, pcp);
 	    CloseFile (GAP_library);
-	 }
-
-	 if (Group_library == CAYLEY_LIBRARY) {
-	    if (Group_library_file != NULL) 
-	       CAYLEY_library = OpenFile (Group_library_file, "a+");
-	    else 
-	       CAYLEY_library = OpenFile ("CAYLEY_library", "a+");
-	    write_CAYLEY_library (CAYLEY_library, pcp);
-	    CloseFile (CAYLEY_library);
 	 }
 
 	 if (Group_library == Magma_LIBRARY) {

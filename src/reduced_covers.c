@@ -43,7 +43,7 @@ struct pcp_vars *pcp;
    char *c;                     /* array needed for stabiliser calculation */
    int **perms;                 /* store all permutations */
    int *orbit_length;           /* length of orbits */
-   FILE_TYPE LINK_input;        /* input file for CAYLEY, Magma or GAP */
+   FILE_TYPE LINK_input;        /* input file for Magma or GAP */
    Logical process_fork = FALSE; /* has GAP process forked? */        
    Logical soluble_group;       /* indicates that orbits and stabilisers may 
 				   be computed using soluble machinery */
@@ -82,9 +82,6 @@ struct pcp_vars *pcp;
 		       pga->nmr_of_perms == 0);
 
       if (!soluble_group) {
-#if defined (CAYLEY_LINK)
-	 start_CAYLEY_file (&LINK_input, auts, pga);
-#else
 #if defined (Magma_LINK)
 	 start_Magma_file (&LINK_input, auts, pga);
 #else
@@ -97,7 +94,6 @@ struct pcp_vars *pcp;
 #else
 #if defined (GAP_LINK_VIA_FILE) 
 	 start_GAP_file (&LINK_input, auts, pga, pcp);
-#endif
 #endif
 #endif
 #endif
@@ -122,7 +118,7 @@ struct pcp_vars *pcp;
       pga->final_stage = (pga->q == pga->multiplicator_rank);
 
       if (!soluble_group) {
-#if defined (CAYLEY_LINK) || defined (Magma_LINK) || defined (GAP_LINK_VIA_FILE) 
+#if defined (Magma_LINK) || defined (GAP_LINK_VIA_FILE) 
 	 CloseFile (LINK_input);
 #endif 
       }

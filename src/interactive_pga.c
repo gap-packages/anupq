@@ -58,13 +58,6 @@ struct pcp_vars *pcp;
    int rep;
    int i;
 
-   /*
-     int l;
-     FILE *CAYLEY_input;
-     Logical x;
-     int i, l, u;
-     */
-
    list_interactive_pga_menu ();
 
    do {
@@ -158,9 +151,6 @@ struct pcp_vars *pcp;
 	    soluble_group = (pga->soluble || pga->Degree == 1 || 
 			     pga->nmr_of_perms == 0);
 	    if (!soluble_group) {
-#if defined (CAYLEY_LINK)
-	       start_CAYLEY_file (&LINK_input, auts, pga);
-#else 
 #if defined (Magma_LINK)
 	       start_Magma_file (&LINK_input, auts, pga);
 #else
@@ -172,12 +162,11 @@ struct pcp_vars *pcp;
 #endif
 #endif
 #endif
-#endif
 	    }
 	    perms = permute_subgroups (LINK_input, &a, &b, &c, 
 				       auts, pga, pcp); 
 
-#if defined (CAYLEY_LINK) || defined (Magma_LINK) || defined (GAP_LINK_VIA_FILE)
+#if defined (Magma_LINK) || defined (GAP_LINK_VIA_FILE)
 	    if (!soluble_group)
 	       CloseFile (LINK_input);
 #endif 
@@ -187,12 +176,6 @@ struct pcp_vars *pcp;
 	 else
 	    printf ("You must first select option %d\n", DEGREE);
 
-	 /*
-           
-	   CAYLEY_input = OpenFile ("CAYLEY_perms", "w");
-	   for (i = 1; i <= pga->nmr_of_perms; ++i)
-	   write_CAYLEY_permutation (CAYLEY_input, i, perms[i], pga);
-	   */
 	 break;
          
       case ORBITS: 

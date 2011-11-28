@@ -351,9 +351,6 @@ struct pcp_vars *pcp;
 		    pga->nmr_of_perms == 0);
 
    if (!soluble_group) {
-#if defined (CAYLEY_LINK) 
-      start_CAYLEY_file (&LINK_input, auts, pga);
-#else
 #if defined (Magma_LINK) 
       start_Magma_file (&LINK_input, auts, pga);
 #else
@@ -366,7 +363,6 @@ struct pcp_vars *pcp;
 #else
 #if defined (GAP_LINK_VIA_FILE)
       start_GAP_file (&LINK_input, auts, pga, pcp);
-#endif
 #endif
 #endif
 #endif
@@ -394,7 +390,7 @@ struct pcp_vars *pcp;
    printf ("orbit length is %d \n", orbit_length);
 */
 
-#if defined (CAYLEY_LINK) || defined (Magma_LINK) || defined (GAP_LINK_VIA_FILE)
+#if defined (Magma_LINK) || defined (GAP_LINK_VIA_FILE)
    if (!soluble_group) { 
       CloseFile (LINK_input);
    }

@@ -21,7 +21,6 @@
 #include "global.h"
 
 #define MAXOPTION 31          /* maximum number of menu options */
-#define CAYLEY_PRES_FORMAT 1
 #define GAP_PRES_FORMAT 2 
 #define MAGMA_PRES_FORMAT 3
 
@@ -597,15 +596,11 @@ struct pcp_vars *pcp;
 
       case OUTPUT_PRESENTATION:
 	 name = GetString ("Enter output file name: ");
-	 read_value (TRUE, "Output file in CAYLEY (1) or GAP (2) or Magma (3) format? ", 
-		     &file_format, CAYLEY_PRES_FORMAT);
+	 read_value (TRUE, "Output file in GAP (2) or Magma (3) format? ", 
+		     &file_format, GAP_PRES_FORMAT);
 	 FileName = OpenFile (name, "a+");
 	 if (FileName != NULL) {
-	    if (file_format == CAYLEY_PRES_FORMAT) {
-	       CAYLEY_presentation (FileName, pcp);
-	       printf ("Group presentation written in CAYLEY format to file\n");
-	    }
-	    else if (file_format == GAP_PRES_FORMAT) {
+	    if (file_format == GAP_PRES_FORMAT) {
 	       GAP_presentation (FileName, pcp, 1);
 	       printf ("Group presentation written in GAP format to file\n");
 	    }
@@ -614,8 +609,8 @@ struct pcp_vars *pcp;
 	       printf ("Group presentation written in Magma format to file\n");
 	    }
 	    else
-	       printf ("Format must be %d or %d or %d\n", 
-		       CAYLEY_PRES_FORMAT, GAP_PRES_FORMAT, MAGMA_PRES_FORMAT);
+	       printf ("Format must be %d or %d\n", 
+		       GAP_PRES_FORMAT, MAGMA_PRES_FORMAT);
 	 }
 	 CloseFile (FileName);
 	 break;
@@ -670,7 +665,7 @@ void list_interactive_pq_menu ()
 	   MAGMA_AUTOMORPHISMS);
    printf ("%d. Collect word in defining generators\n", DGEN_WORD);
    printf ("%d. Compute commutator of defining generators\n", DGEN_COMM);
-   printf ("%d. Write presentation to file in CAYLEY/GAP/Magma format\n", 
+   printf ("%d. Write presentation to file in GAP/Magma format\n", 
 	   OUTPUT_PRESENTATION);
    printf ("%d. Write compact description of group to file\n", 
 	   COMPACT_PRESENTATION);

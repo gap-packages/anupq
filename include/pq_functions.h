@@ -54,7 +54,6 @@ void orbit_option ();
 void stabiliser_option ();
 void calculate_tails ();
 void calculate_power ();
-void write_CAYLEY_matrix ();
 void write_GAP_matrix ();
 int *bitstring_to_subset ();
 int ***allocate_array ();

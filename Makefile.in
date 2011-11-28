@@ -45,8 +45,7 @@ GAP_link_via_file.o: GAP_link_via_file.c
 
 #@OBJ@
 OBJECTS=\
-	AllocateSpace.o                	CAYLEY.o                      \
-	CAYLEY_present.o               	CloseFile.o                   \
+	AllocateSpace.o                	CloseFile.o                   \
 	Extend_Auts.o                  	FreeSpace.o                   \
 	GAP.o                          	GAP_link_via_file.o           \
 	GAP_present.o                  	Magma.o                       \
@@ -186,12 +185,6 @@ depend:
 AllocateSpace.o: AllocateSpace.c ../include/pq_defs.h \
  ../include/storage_fixed.h ../include/pcp_vars.h \
  ../include/constants.h
-CAYLEY.o: CAYLEY.c ../include/pq_defs.h ../include/storage_fixed.h \
- ../include/pga_vars.h ../include/pcp_vars.h ../include/pq_functions.h \
- ../include/constants.h
-CAYLEY_present.o: CAYLEY_present.c ../include/pq_defs.h \
- ../include/storage_fixed.h ../include/pcp_vars.h \
- ../include/define_y.h ../include/access.h
 CloseFile.o: CloseFile.c ../include/pq_defs.h \
  ../include/storage_fixed.h ../include/constants.h
 Extend_Auts.o: Extend_Auts.c ../include/pq_defs.h \

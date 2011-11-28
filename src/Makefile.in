@@ -27,9 +27,6 @@
 #
 # One of the following three flags should be set 
 #
-#CAYLEY_LINK -- CAYLEY is called by pq to perform insoluble stabiliser
-#               calculations 
-#
 #Magma_LINK -- Magma is called by pq to perform insoluble stabiliser
 #               calculations 
 #
@@ -73,10 +70,8 @@ CFLAGS = -g -DSTANDARD_PCP -DUNIX -DGAP -DGAP_LINK_VIA_FILE -DGROUP $(INCL)
 
 OBJS = \
 AllocateSpace.o\
-CAYLEY.o\
 GAP.o\
 GAP_link_via_file.o\
-CAYLEY_present.o\
 CloseFile.o\
 Extend_Auts.o\
 FreeSpace.o\
