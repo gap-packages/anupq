@@ -1,3 +1,12 @@
+##
+##    Values imported from the configure script
+##
+top_srcdir = @top_srcdir@
+top_builddir = @top_builddir@
+srcdir = @srcdir@
+VPATH = @srcdir@
+subdir = .
+
 ## do not edit these definitions ############################################
 
 GMP_CPPFLAGS=@GMP_CPPFLAGS@
@@ -129,6 +138,18 @@ clean:
 distclean: clean
 	rm -f Makefile testPq tst/GAP standalone/bin/$(EFILE)
 
+
+## regenerate Makefile etc. if necessary #####################################
+.PRECIOUS: Makefile
+Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
+	cd $(top_builddir) && $(SHELL) ./config.status $@
+
+$(top_builddir)/config.status: $(top_srcdir)/configure $(CONFIG_STATUS_DEPENDENCIES)
+	$(SHELL) ./config.status --recheck
+
+$(top_srcdir)/configure: $(top_srcdir)/configure.ac
+	cd $(top_srcdir) && autoreconf
+
 ## create distribution .zoo file of package #################################
 src_dist:
 	@echo "use make_zoo"
@@ -172,6 +193,8 @@ depend:
 	    > /tmp/depend.tmp )
 	@perl replace DEP /tmp/depend.tmp
 	@rm /tmp/depend.tmp
+
+.PHONY: all clean distclean src_dist GAP4remapdirs restoredirs objectlist depend
 
 #@DEP@
 AllocateSpace.o: AllocateSpace.c ../include/pq_defs.h ../include/config.h \
