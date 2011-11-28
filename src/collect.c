@@ -12,7 +12,7 @@
 #include "pq_defs.h"
 #include "pcp_vars.h"
 #include "constants.h"
-#define MAXEXP two_to_the_n(30) 
+#define MAXEXP (1 << 30) 
 
 void stack_overflow ();
 void integer_overflow ();

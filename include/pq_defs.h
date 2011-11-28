@@ -48,17 +48,6 @@
 #define RESET(File) (rewind((File)))
 #define CLOSE(File) (fclose((File)))
 
-#define and(a, b)	((a) & (b))
-#define or(a, b)	((a) | (b))
-#define not(a)		(~(a))
-#define rshift(a, n)	((a) >> (n))
-#define lshift(a, n)	((a) << (n))
-#define xor(a, b)	((a) ^ (b))
-
-#ifndef two_to_the_n
-#define two_to_the_n(n)  (1 << (n))
-#endif
-
 #define MOD(a, b) ((a) % (b))
 
 #define WORD_LENGTH (8 * sizeof (int) - 1)
