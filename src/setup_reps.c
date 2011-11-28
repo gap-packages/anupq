@@ -43,7 +43,7 @@ struct pcp_vars *pcp;
    Logical soluble_group;       /* indicates that stabilisers may 
 				   be computed using soluble machinery */
 
-#if defined (LARGE_INT) 
+#ifdef HAVE_GMP
    MP_INT original_aut;         /* copy of automorphism order */
 #endif 
 
@@ -60,7 +60,7 @@ struct pcp_vars *pcp;
       }
    }
 
-#if defined (LARGE_INT) 
+#ifdef HAVE_GMP
    /* first record current automorphism group order */
    mpz_init_set (&original_aut, &pga->aut_order);
    mpz_clear (&pga->aut_order);
@@ -69,7 +69,7 @@ struct pcp_vars *pcp;
    /* keep copy of pga */
    original = *pga;
 
-#if defined (LARGE_INT) 
+#ifdef HAVE_GMP
    /* now reset automorphism order in pga */
    mpz_init_set (&pga->aut_order, &original_aut);
 #endif 
@@ -94,13 +94,13 @@ struct pcp_vars *pcp;
 
       /* revert to original pga structure */
       if (!StandardPresentation) {
-#if defined (LARGE_INT) 
+#ifdef HAVE_GMP
 	 mpz_clear (&pga->aut_order);
 #endif 
 
          *pga = original;                                                       
 
-#if defined (LARGE_INT) 
+#ifdef HAVE_GMP
 	 mpz_init_set (&pga->aut_order, &original_aut);
 #endif 
       }
@@ -109,7 +109,7 @@ struct pcp_vars *pcp;
    if (soluble_group)
       free (++d);
 
-#if defined (LARGE_INT) 
+#ifdef HAVE_GMP
    mpz_clear (&original_aut);
 #endif 
 
@@ -226,7 +226,7 @@ struct pcp_vars *pcp;
       pga->nmr_centrals = 0;
    }
 
-#if defined (LARGE_INT) 
+#ifdef HAVE_GMP
    update_autgp_order (orbit_length, pga, pcp);
 #endif 
 
@@ -241,7 +241,7 @@ struct pcp_vars *pcp;
    stabiliser = stabiliser_of_rep (perms, rep, orbit_length,
 				   a, b, c, d, auts, pga, pcp);
 
-#if defined (LARGE_INT) 
+#ifdef HAVE_GMP
    if (pga->final_stage) 
       report_autgp_order (pga, pcp);
 #endif 

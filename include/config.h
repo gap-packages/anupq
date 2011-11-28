@@ -57,9 +57,6 @@
 /* Define to 1 if you have the `waitpid' function. */
 #define HAVE_WAITPID 1
 
-/* Alternate name for HAVE_GMP */
-#define LARGE_INT 1
-
 /* Define to the address where bug reports for this package should be sent. */
 #define PACKAGE_BUGREPORT "support@gap-system.org"
 
@@ -67,7 +64,7 @@
 #define PACKAGE_NAME "ANU p-Quotient Program"
 
 /* Define to the full name and version of this package. */
-#define PACKAGE_STRING "ANU p-Quotient Program 3.0"
+#define PACKAGE_STRING "ANU p-Quotient Program 3.1"
 
 /* Define to the one symbol short name of this package. */
 #define PACKAGE_TARNAME "anupq"
@@ -76,7 +73,7 @@
 #define PACKAGE_URL ""
 
 /* Define to the version of this package. */
-#define PACKAGE_VERSION "3.0"
+#define PACKAGE_VERSION "3.1"
 
 /* The size of `void *', as computed by sizeof. */
 #define SIZEOF_VOID_P 8

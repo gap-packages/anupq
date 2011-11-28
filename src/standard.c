@@ -226,7 +226,7 @@ struct pcp_vars *pcp;
 
    fprintf (NextClass, "%d\n", pga->fixed);
    fprintf (NextClass, "%d\n", pga->soluble);
-#if defined (LARGE_INT) 
+#ifdef HAVE_GMP
    mpz_out_str (NextClass, 10, &pga->aut_order);
    fprintf (NextClass, "\n");
 #endif
@@ -408,7 +408,7 @@ struct pcp_vars *pcp;
       printf ("\nThe standard presentation for the class %d %d-quotient is\n",
 	      pcp->cc, pcp->p);
       print_presentation (TRUE, pcp);
-#if defined (LARGE_INT)
+#ifdef HAVE_GMP
       s = pga->upper_bound ? "at most " : "";
       /* Originally pq checked the whole automorphism group.
        * Now it checks only coset reps. of inner automorphisms
@@ -723,7 +723,7 @@ struct pcp_vars *pcp;
    fprintf (NextClass, "%d\n", pga->fixed);
    fprintf (NextClass, "%d\n", pga->soluble);
 
-#if defined (LARGE_INT) 
+#ifdef HAVE_GMP
    mpz_out_str (NextClass, 10, &pga->aut_order);
    fprintf (NextClass, "\n");
 #endif

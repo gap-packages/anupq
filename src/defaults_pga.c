@@ -212,7 +212,7 @@ struct pga_vars *pga;
    read_value (TRUE, "Automorphism group description of descendants? ",
 	       &pga->print_automorphisms, INT_MIN);
 
-#if defined (LARGE_INT) 
+#ifdef HAVE_GMP
    read_value (TRUE, "Automorphism group order of descendants? ",
 	       &pga->print_automorphism_order, INT_MIN);
 #endif 

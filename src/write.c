@@ -41,7 +41,7 @@ struct pcp_vars *pcp;
 {
    register int i, j;
 
-#if defined (LARGE_INT) 
+#ifdef HAVE_GMP
    mpz_out_str (ofp, 10, &pga->aut_order);
 #endif
 

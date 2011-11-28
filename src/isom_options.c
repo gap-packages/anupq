@@ -241,7 +241,7 @@ struct pcp_vars *pcp;
 		  pga.fixed = 0;
 		  query_solubility (&pga);
 		  user_supplied = FALSE;
-#if defined (LARGE_INT) 
+#ifdef HAVE_GMP
 		  autgp_order (&pga, pcp);
 #endif 
 	       }
@@ -252,7 +252,7 @@ struct pcp_vars *pcp;
 		  nmr_items = fscanf (FileName, "%d", &pga.soluble);
 		  verify_read (nmr_items, 1);
 
-#if defined (LARGE_INT)
+#ifdef HAVE_GMP
 		  fscanf (FileName, "\n");
 		  mpz_init (&pga.aut_order);
 		  mpz_inp_str (&pga.aut_order, FileName, 10);
@@ -421,7 +421,7 @@ struct pcp_vars *pcp;
         
 	 printf ("Images of user-supplied generators are listed last below\n"); 
 	 print_map (pcp);
-#if defined (LARGE_INT)
+#ifdef HAVE_GMP
 	 fscanf (FileName, "\n");
 	 mpz_init (&pga.aut_order);
 	 mpz_inp_str (&pga.aut_order, FileName, 10);

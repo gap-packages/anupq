@@ -100,7 +100,7 @@ struct pga_vars {
    Logical upper_bound;     /* only automorphism group order upper 
                                bound stored */
 
-#ifdef LARGE_INT 
+#ifdef HAVE_GMP 
    MP_INT aut_order;        /* order of automorphism group */
 #endif 
 };

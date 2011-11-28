@@ -78,7 +78,7 @@ struct pcp_vars *pcp;
 
         auts = read_auts (PGA, &pga.m, &nmr_of_exponents, pcp);
 
-#if defined (LARGE_INT)
+#ifdef HAVE_GMP
         autgp_order (&pga, pcp);
 #endif
 

@@ -25,9 +25,6 @@
 #STANDARD_PCP -- if compiling version which permits construction of
 #                standard presentation
 #
-#LARGE_INT -- automorphism group order information is computed  
-#             this *requires* the GNU MP routines and inclusion of libraries
-#
 # One of the following three flags should be set 
 #
 #CAYLEY_LINK -- CAYLEY is called by pq to perform insoluble stabiliser

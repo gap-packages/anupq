@@ -25,7 +25,7 @@
  **              group. Note that existing files of this name are updated.
  ****************************************************************************/
 
-#if defined (LARGE_INT)
+#ifdef HAVE_GMP
 
 MP_INT Encode (p, length, list)
 int p;
@@ -178,7 +178,7 @@ struct pcp_vars *pcp;
    register int count;
    FILE_TYPE output_file;
    char *file_name;
-#ifdef LARGE_INT 
+#ifdef HAVE_GMP 
    MP_INT code;
 #endif
 
@@ -192,7 +192,7 @@ struct pcp_vars *pcp;
    /* write rank of Frattini quotient, number of pcp generators, prime,
       and exponent-p class to file */
 
-#ifdef LARGE_INT 
+#ifdef HAVE_GMP 
    fprintf (output_file, "[%d, %d, %d, ",
 	    y[pcp->clend + 1], pcp->lastg, pcp->cc);
    code = Encode (pcp->p, nmr_of_exponents, sequence);

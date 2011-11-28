@@ -3836,19 +3836,21 @@ pq_save_LDFLAGS="$LDFLAGS"
 LDFLAGS="$LDFLAGS $GMP_LIBS"
 
 have_gmp=no
-ac_fn_c_check_header_mongrel "$LINENO" "gmp.h" "ac_cv_header_gmp_h" "$ac_includes_default"
+if test "x$with_gmp" != xno; then
+	ac_fn_c_check_header_mongrel "$LINENO" "gmp.h" "ac_cv_header_gmp_h" "$ac_includes_default"
 if test "x$ac_cv_header_gmp_h" = xyes; then :
 
-	# TODO: Disable linker check for now: It causes problems on Linux, because
-	# libgmp.a is in the linker command line before the test C file. On the long
-	# run, this should be re-enabled, though perhaps in a different form.
-#     AC_MSG_CHECKING([whether linking against GMP works])
-#	AC_CHECK_LIB( [gmp], [__gmpz_init], [have_gmp=yes], [] )
-	have_gmp=yes
+		# TODO: Disable linker check for now: It causes problems on Linux, because
+		# libgmp.a is in the linker command line before the test C file. On the long
+		# run, this should be re-enabled, though perhaps in a different form.
+	#     AC_MSG_CHECKING([whether linking against GMP works])
+	#	AC_CHECK_LIB( [gmp], [__gmpz_init], [have_gmp=yes], [] )
+		have_gmp=yes
 
 fi
 
 
+fi;
 
 # restore FLAGS
 CPPFLAGS="$pq_save_CPPFLAGS"
@@ -3859,12 +3861,6 @@ if test "x$have_gmp" = xyes; then
 	# keep modified FLAGS
 
 $as_echo "#define HAVE_GMP 1" >>confdefs.h
-
-
-	# TODO: For backward compatibility, also define LARGE_INT
-	# TODO: Get rid of this
-
-$as_echo "#define LARGE_INT 1" >>confdefs.h
 
 
 

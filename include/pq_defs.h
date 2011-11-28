@@ -61,7 +61,7 @@
 
 #define CLK_SCALE 1.0 / CLK_TCK
 
-#if defined (LARGE_INT)
+#ifdef HAVE_GMP
 #include "gmp.h"
 #endif
 

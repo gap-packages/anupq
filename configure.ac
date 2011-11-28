@@ -175,17 +175,19 @@ pq_save_LDFLAGS="$LDFLAGS"
 LDFLAGS="$LDFLAGS $GMP_LIBS"
 
 have_gmp=no
-AC_CHECK_HEADER( [gmp.h],
-	[
-	# TODO: Disable linker check for now: It causes problems on Linux, because
-	# libgmp.a is in the linker command line before the test C file. On the long
-	# run, this should be re-enabled, though perhaps in a different form.
-#     AC_MSG_CHECKING([whether linking against GMP works])
-#	AC_CHECK_LIB( [gmp], [__gmpz_init], [have_gmp=yes], [] )
-	have_gmp=yes
-	],
-	[]
-	)
+if test "x$with_gmp" != xno; then
+	AC_CHECK_HEADER( [gmp.h],
+		[
+		# TODO: Disable linker check for now: It causes problems on Linux, because
+		# libgmp.a is in the linker command line before the test C file. On the long
+		# run, this should be re-enabled, though perhaps in a different form.
+	#     AC_MSG_CHECKING([whether linking against GMP works])
+	#	AC_CHECK_LIB( [gmp], [__gmpz_init], [have_gmp=yes], [] )
+		have_gmp=yes
+		],
+		[]
+		)
+fi;
 
 # restore FLAGS
 CPPFLAGS="$pq_save_CPPFLAGS"
@@ -195,10 +197,6 @@ LDFLAGS="$pq_save_LDFLAGS"
 if test "x$have_gmp" = xyes; then
 	# keep modified FLAGS
 	AC_DEFINE(HAVE_GMP, 1, [Define if GMP is installed and usable])
-	
-	# TODO: For backward compatibility, also define LARGE_INT
-	# TODO: Get rid of this
-	AC_DEFINE(LARGE_INT, 1, [Alternate name for HAVE_GMP])
 
 	AC_SUBST(GMP_CPPFLAGS)
 	AC_SUBST(GMP_LIBS)

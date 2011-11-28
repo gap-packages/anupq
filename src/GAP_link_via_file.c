@@ -10,6 +10,9 @@
 *Y  Copyright 1995-1997,  School of Mathematical Sciences, ANU,     Australia
 **
 *H  $Log$
+*H  Revision 1.16  2011/11/28 12:02:09  gap
+*H  Replace LARGE_INT by HAVE_GMP in anupq. MH
+*H
 *H  Revision 1.15  2011/11/25 18:51:45  gap
 *H  Move various #if(def)s around. MH
 *H
@@ -126,7 +129,7 @@ void start_GAP_file ( GAP_input, auts, pga, pcp )
    }
 
    GAP_presentation (*GAP_input, pcp, 1);
-#ifdef LARGE_INT
+#ifdef HAVE_GMP
    Magma_report_autgp_order (*GAP_input, pga, pcp);                           
 #else
    fprintf( *GAP_input, "ANUPQsize := fail;;\nANUPQagsize := fail;;\n" );

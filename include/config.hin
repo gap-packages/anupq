@@ -56,9 +56,6 @@
 /* Define to 1 if you have the `waitpid' function. */
 #undef HAVE_WAITPID
 
-/* Alternate name for HAVE_GMP */
-#undef LARGE_INT
-
 /* Define to the address where bug reports for this package should be sent. */
 #undef PACKAGE_BUGREPORT
 

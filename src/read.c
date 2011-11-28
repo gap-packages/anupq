@@ -120,7 +120,7 @@ struct pcp_vars *pcp;
    int nmr_generators; 
    int nmr_items;
 
-#if defined (LARGE_INT) 
+#ifdef HAVE_GMP
    MP_INT aut_ord;
 
    mpz_init (&aut_ord);
@@ -130,7 +130,7 @@ struct pcp_vars *pcp;
    nmr_items = fread (pga, sizeof (struct pga_vars), 1, ifp);
    verify_read (nmr_items, 1);
 
-#if defined (LARGE_INT) 
+#ifdef HAVE_GMP
    mpz_init_set (&pga->aut_order, &aut_ord);
    mpz_clear (&aut_ord);
 #endif 

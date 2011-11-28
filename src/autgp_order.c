@@ -17,7 +17,7 @@
 #include "global.h"
 #include "standard.h"
 
-#if defined (LARGE_INT) 
+#ifdef HAVE_GMP
 
 /* update the order of the automorphism group */
 
