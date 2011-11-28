@@ -34,16 +34,12 @@
 #CONSISTENCY_FILTER -- apply filter for exponent 4 and 5 and max occurrences
 #
 #
-top_srcdir = @top_srcdir@
-top_builddir = @top_builddir@
-srcdir = @srcdir@
-VPATH = @srcdir@
 subdir = src
 
 BASE   = ..
 SRC    = ../src
 LIE   = ../lie
-CC     = @CC@
+CC     = gcc
 #
 #
 #
