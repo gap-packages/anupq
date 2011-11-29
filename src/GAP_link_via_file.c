@@ -10,6 +10,9 @@
 *Y  Copyright 1995-1997,  School of Mathematical Sciences, ANU,     Australia
 **
 *H  $Log$
+*H  Revision 1.19  2011/11/29 09:54:47  gap
+*H  Need to #include unistd.h when using system, istty etc. MH
+*H
 *H  Revision 1.18  2011/11/28 13:54:39  gap
 *H  Get rid of UNIX,SPARC,IBM,NEXT #defines, and some dead code. MH
 *H
@@ -109,6 +112,8 @@
 #include "menus.h"
 
 #if defined(GAP_LINK_VIA_FILE)
+
+#include <unistd.h>
 
 /****************************************************************************
 **
