@@ -20,7 +20,7 @@ tex manual
 # Create the PostScript version (uncomment next line, if needed)
 #dvips -D300 manual -o
 # Create the PDF version (uncomment next line, if needed)
-#pdftex manual; pdftex manual
+pdftex manual; pdftex manual
 
 # The HTML version of the manual
 mkdir -p ../htm
