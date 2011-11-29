@@ -22,6 +22,10 @@
 #if defined (GROUP)
 #if defined (STANDARD_PCP)
 
+static Logical setup_start_info (Logical identity_map, Logical status, FILE *file, int format, struct pga_vars *pga, struct pcp_vars *pcp);
+static Logical compare_sequences (int *s, int *t, int length);
+
+
 #ifdef __386BSD__
 static char FileBuffer[1024];
 
@@ -479,13 +483,7 @@ void list_isom_menu ()
    was the identity; status indicates whether we are end of class;
    the presentation is read from file using indicated format */
 
-Logical setup_start_info (identity_map, status, file, format, pga, pcp)
-Logical identity_map;
-Logical status;
-FILE *file;
-int format;
-struct pga_vars *pga;
-struct pcp_vars *pcp;
+static Logical setup_start_info (Logical identity_map, Logical status, FILE *file, int format, struct pga_vars *pga, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -629,11 +627,9 @@ Logical group_present;
 
 /* compare two sequences, s and t, of length length */
 
-Logical compare_sequences (s, t, length)
-int *s;
-int *t;
-int length;
+static Logical compare_sequences (int *s, int *t, int length)
 {
+   /* TODO: Replace this by memcmp? */
    register int i;
    Logical equal = TRUE;
 

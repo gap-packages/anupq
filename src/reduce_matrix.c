@@ -15,7 +15,7 @@
 /* left echelonise mod p the matrix a, which has the supplied dimensions;
    set up its definition set both as a subset and as a bit string  */
 
-int reduce_matrix (a, nmr_rows, nmr_columns, p, pga)
+void reduce_matrix (a, nmr_rows, nmr_columns, p, pga)
 int **a;
 int nmr_rows;
 int nmr_columns;

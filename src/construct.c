@@ -15,24 +15,19 @@
 #include "exp_vars.h"
 #include "constants.h"
 #include "pq_functions.h"
+
+
 #define ITERATION 6
 #define SINGLE_STAGE 5
+
+static Logical select_group (int *min_step, int *max_step, int order_bound, struct pga_vars *pga, struct pcp_vars *pcp);
+
 
 /* prepare to construct, partially or completely, some or all of the 
    immediate descendants of group group_nmr stored on start_file */
 
-int construct (call_depth, flag, option, output_file, start_file, k, 
-               order_bound, group_nmr, pga, pcp)
-int call_depth;
-struct pga_vars *flag;
-int option;
-FILE * output_file;
-FILE * start_file;
-int k;
-int order_bound;
-int group_nmr;
-struct pga_vars *pga;
-struct pcp_vars *pcp;
+int construct (int call_depth, struct pga_vars *flag, int option, FILE *output_file, FILE *start_file, int k, 
+               int order_bound, int group_nmr, struct pga_vars *pga, struct pcp_vars *pcp)
 {
    int ***auts;
    char *name;
@@ -129,10 +124,7 @@ struct pcp_vars *pcp;
 
 /* report on the number immediate descendants and on those capable */
 
-void report (nmr_of_capables, nmr_of_descendants, nmr_of_covers, pga, pcp)
-int nmr_of_capables, nmr_of_descendants, nmr_of_covers;
-struct pga_vars *pga;
-struct pcp_vars *pcp;
+void report (int nmr_of_capables, int nmr_of_descendants, int nmr_of_covers, struct pga_vars *pga, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -154,9 +146,7 @@ struct pcp_vars *pcp;
 
 /* print out basic information about the starting group */
 
-void print_group_details (pga, pcp)
-struct pga_vars *pga;
-struct pcp_vars *pcp;
+void print_group_details (struct pga_vars *pga, struct pcp_vars *pcp)
 {
    register int *y = y_address;
    int order;
@@ -171,12 +161,7 @@ struct pcp_vars *pcp;
 
 /* check if the group is a valid starting group */
 
-Logical select_group (min_step, max_step, order_bound, pga, pcp)
-int *min_step;
-int *max_step;
-int order_bound;
-struct pga_vars *pga;
-struct pcp_vars *pcp;
+static Logical select_group (int *min_step, int *max_step, int order_bound, struct pga_vars *pga, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -207,8 +192,7 @@ struct pcp_vars *pcp;
 
 /* print a message that the group is not a valid starting group */
 
-void invalid_group (pcp)
-struct pcp_vars *pcp;
+void invalid_group (struct pcp_vars *pcp)
 {
    printf ("Group %s is an invalid starting group\n", pcp->ident); 
 }
@@ -216,10 +200,7 @@ struct pcp_vars *pcp;
 /* enforce laws on p-covering group of starting group --
    these include exponent and metabelian laws */
 
-void enforce_laws (flag, pga, pcp)
-struct pga_vars *flag;
-struct pga_vars *pga;
-struct pcp_vars *pcp;
+void enforce_laws (struct pga_vars *flag, struct pga_vars *pga, struct pcp_vars *pcp)
 {
    struct exp_vars exp_flag;
 
