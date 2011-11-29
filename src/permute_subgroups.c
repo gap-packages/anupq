@@ -20,7 +20,7 @@
   store them in image format in a 2-dimensional array, perms */
 
 int** permute_subgroups (LINK_input, a, b, c, auts, pga, pcp)
-FILE_TYPE LINK_input;
+FILE * LINK_input;
 int **a;
 int **b;
 char **c;

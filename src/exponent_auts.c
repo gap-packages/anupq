@@ -16,7 +16,7 @@
 /* save description of automorphisms used in exponent checking to file */
 
 void save_auts (ofp, head, list, pcp)
-FILE_TYPE ofp;
+FILE * ofp;
 int *head;
 int *list; 
 struct pcp_vars *pcp;
@@ -107,7 +107,7 @@ struct pcp_vars *pcp;
    new_index = index of last used position in array list */
 
 int restore_auts (ifp, offset, nmr_saved, retain, new_index, head, list)
-FILE_TYPE ifp;
+FILE * ifp;
 int offset;
 int nmr_saved;
 int retain;
@@ -139,7 +139,7 @@ int *list;
 /* restore automorphisms used in exponent checking from file */
 
 void restore_automorphisms (ifp, head, list, pcp)
-FILE_TYPE ifp;
+FILE * ifp;
 int **head;
 int **list;
 struct pcp_vars *pcp;

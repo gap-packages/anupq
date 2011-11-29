@@ -18,14 +18,14 @@
 /* begin intermediate stage calculations; descendant_file contains the  */
 
 void start_stage (descendant_file, k, auts, pga, pcp)  
-FILE_TYPE descendant_file;
+FILE * descendant_file;
 int k;
 int ***auts;
 struct pga_vars *pga;
 struct pcp_vars *pcp;
 {
    int nmr_of_covers;
-   FILE_TYPE covers_file;
+   FILE * covers_file;
 
    covers_file = TemporaryFile ();
 
@@ -49,8 +49,8 @@ struct pcp_vars *pcp;
    note that this procedure is called recursively */
 
 void intermediate_stage (descendant_file, input_file, nmr_of_covers, pga, pcp) 
-FILE_TYPE descendant_file;
-FILE_TYPE input_file;
+FILE * descendant_file;
+FILE * input_file;
 int nmr_of_covers;
 struct pga_vars *pga;
 struct pcp_vars *pcp;
@@ -62,7 +62,7 @@ struct pcp_vars *pcp;
    int nmr_of_capables;
    int x_dim, y_dim; 
 
-   FILE_TYPE covers_file;
+   FILE * covers_file;
    covers_file = TemporaryFile ();
 
    for (i = 1; i <= nmr_of_covers; ++i) {

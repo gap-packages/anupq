@@ -26,7 +26,7 @@
 
 void interactive_pga (group_present, StartFile, group_nmr, auts, pga, pcp)
 Logical group_present;
-FILE_TYPE StartFile;
+FILE * StartFile;
 int group_nmr;
 int ***auts;
 struct pga_vars *pga;
@@ -36,7 +36,7 @@ struct pcp_vars *pcp;
    int option;
    Logical soluble_group = TRUE;
 
-   FILE_TYPE OutputFile;
+   FILE * OutputFile;
    FILE *LINK_input;
 
    char *StartName; 
@@ -337,7 +337,7 @@ struct pga_vars *pga;
 {
    int t; 
    Logical soluble_group;
-    FILE_TYPE file;
+    FILE * file;
 
 
    if (option != COMBINATION && option != STANDARDISE) {
@@ -398,7 +398,7 @@ struct pcp_vars *pcp;
    int t;
    int i;
    Logical soluble_group;
-   FILE_TYPE OutputFile;
+   FILE * OutputFile;
    char *StartName; 
    int *rep;
    int *length;

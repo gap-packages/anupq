@@ -176,7 +176,7 @@ struct pcp_vars *pcp;
    register int *y = y_address;
   
    register int count;
-   FILE_TYPE output_file;
+   FILE * output_file;
    char *file_name;
 #ifdef HAVE_GMP 
    MP_INT code;

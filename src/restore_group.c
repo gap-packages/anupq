@@ -20,7 +20,7 @@
 
 int*** restore_group (rewind_flag, input_file, group_number, pga, pcp) 
 Logical rewind_flag;
-FILE_TYPE input_file;
+FILE * input_file;
 int group_number;
 struct pga_vars *pga;
 struct pcp_vars *pcp;

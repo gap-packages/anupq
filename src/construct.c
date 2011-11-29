@@ -26,8 +26,8 @@ int construct (call_depth, flag, option, output_file, start_file, k,
 int call_depth;
 struct pga_vars *flag;
 int option;
-FILE_TYPE output_file;
-FILE_TYPE start_file;
+FILE * output_file;
+FILE * start_file;
 int k;
 int order_bound;
 int group_nmr;
@@ -42,7 +42,7 @@ struct pcp_vars *pcp;
    int nmr_of_capables = 0; 
    int nmr_of_covers;
    int x_dim, y_dim;
-   FILE_TYPE tmp_file;
+   FILE * tmp_file;
    Logical change;
 
    if (option == ITERATION) {
@@ -137,7 +137,7 @@ struct pcp_vars *pcp;
    register int *y = y_address;
 
 /* 
-  FILE_TYPE COUNT;
+  FILE * COUNT;
   COUNT = OpenFile ("COUNT", "a+");
   fprintf (COUNT, "%d,\n", nmr_of_descendants);
 */

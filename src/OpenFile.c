@@ -14,9 +14,7 @@
 
 /* fopen file */
 
-FILE* OpenFile (file_name, mode)
-char *file_name;
-char *mode;
+FILE* OpenFile (const char *file_name, const char *mode)
 {
    FILE *fp; 
   
@@ -29,41 +27,19 @@ char *mode;
    return fp;
 }
 
-FILE* OpenFileOutput (file_name)
-char *file_name;
+FILE* OpenFileOutput (const char *file_name)
 {
-   FILE *fp; 
-   char *mode = "w";
-  
-   if ((fp = fopen (file_name, mode)) == NULL) {
-      printf ("Cannot open %s\n", file_name);
-      if (!isatty (0))
-	 exit (FAILURE);
-   }
-
-   return fp;
+   return OpenFile (file_name, "w");
 }
 
-FILE* OpenFileInput (file_name)
-char *file_name;
+FILE* OpenFileInput (const char *file_name)
 {
-   FILE *fp; 
-   char *mode = "r";
-
-   if ((fp = fopen (file_name, mode)) == NULL) {
-      printf ("Cannot open %s\n", file_name);
-      if (!isatty (0))
-	 exit (FAILURE);
-   }
-
-   return fp;
+   return OpenFile (file_name, "r");
 }
 
 /* open file for fread and fwrite */
 
-FILE* OpenSystemFile (file_name, mode)
-char *file_name;
-char *mode;
+FILE* OpenSystemFile (const char *file_name, const char *mode)
 {
    FILE *fp; 
      

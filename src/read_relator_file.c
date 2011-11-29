@@ -33,7 +33,7 @@ struct pcp_vars *pcp;
 {
    register int *y = y_address;
 
-   FILE_TYPE relation_file;
+   FILE * relation_file;
    int nmr_relations;
    int format = BASIC;
    char *name;

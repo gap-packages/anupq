@@ -336,7 +336,7 @@ struct pcp_vars *pcp;
 
    register int ndgen = pga->ndgen;
    register int gamma, i, j;
-   FILE_TYPE LINK_output;
+   FILE * LINK_output;
    int ***stabiliser;
    int nmr_items;
    int temp;

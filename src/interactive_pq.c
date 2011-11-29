@@ -50,7 +50,7 @@ struct pcp_vars *pcp;
    int ***auts;
    char *s;
    char *name;
-   FILE_TYPE FileName;
+   FILE * FileName;
 
    int *queue, *long_queue;
    int start_length;

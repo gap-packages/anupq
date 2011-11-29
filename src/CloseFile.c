@@ -14,10 +14,9 @@
 
 /* close file */
 
-void CloseFile (file)
-FILE_TYPE file;
+void CloseFile (FILE* file)
 {
-   if (CLOSE(file) != 0) {
+   if (fclose(file) != 0) {
       perror (NULL);
       exit (FAILURE);
    }

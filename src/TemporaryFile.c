@@ -13,13 +13,13 @@
 #include "pq_functions.h"
 #include "constants.h"
 
-/* set up a temporary file and return an appropriate FILE_TYPE indicator; 
+/* set up a temporary file and return an appropriate FILE * indicator; 
    if in Unix environment, open temporary file in directory specified 
    by value of environment variable TMPDIR, else on /var/tmp */
 
-FILE_TYPE TemporaryFile ()
+FILE * TemporaryFile ()
 {
-   FILE_TYPE file;
+   FILE * file;
 
 /* TODO: Rewrite this, e.g. using tmpfile */
 

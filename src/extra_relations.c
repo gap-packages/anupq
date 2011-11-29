@@ -180,7 +180,7 @@ struct pcp_vars *pcp;
    int  *queue;
    char *s;
 
-   FILE_TYPE RelationList;
+   FILE * RelationList;
 
 #include "access.h"
 

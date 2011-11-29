@@ -104,7 +104,7 @@ struct pcp_vars *pcp;
    register int i, j, k, l;
    register int pointer, length;
    int exp, absgen;
-   FILE_TYPE present;
+   FILE * present;
    Logical *defn;
    int *preimage;
    int *image;

@@ -81,7 +81,7 @@ struct pcp_vars *pcp;
    to string with base address ptr; and print out result */
 
 void setup_word_to_collect (file, format, type, cp, pcp)
-FILE_TYPE file;
+FILE * file;
 int format;
 int type;
 int cp; 

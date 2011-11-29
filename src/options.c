@@ -30,7 +30,7 @@ struct pcp_vars *pcp;
    int option;
    int t;
    char *name;
-   FILE_TYPE FileName;
+   FILE * FileName;
 
    int output_level = DEFAULT_PRINT;
    Logical group_present = FALSE;

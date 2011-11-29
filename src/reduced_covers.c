@@ -30,8 +30,8 @@ void trace_details ();
    return the number of reduced p-covering groups constructed */
 
 int reduced_covers (descendant_file, covers_file, k, auts, pga, pcp)
-FILE_TYPE descendant_file;
-FILE_TYPE covers_file;
+FILE * descendant_file;
+FILE * covers_file;
 int k;
 int ***auts;
 struct pga_vars *pga;
@@ -43,7 +43,7 @@ struct pcp_vars *pcp;
    char *c;                     /* array needed for stabiliser calculation */
    int **perms;                 /* store all permutations */
    int *orbit_length;           /* length of orbits */
-   FILE_TYPE LINK_input;        /* input file for GAP */
+   FILE * LINK_input;        /* input file for GAP */
    Logical process_fork = FALSE; /* has GAP process forked? */        
    Logical soluble_group;       /* indicates that orbits and stabilisers may 
 				   be computed using soluble machinery */

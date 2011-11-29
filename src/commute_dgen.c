@@ -150,7 +150,7 @@ struct pcp_vars *pcp;
 /* prepare to collect word in defining generators */
 
 void setup_defgen_word_to_collect (file, format, type, cp, pcp)
-FILE_TYPE file;
+FILE * file;
 int format;
 int type;
 int cp;

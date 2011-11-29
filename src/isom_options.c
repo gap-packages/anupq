@@ -148,7 +148,7 @@ struct pcp_vars *pcp;
    int nmr_items;
    int ***auts;
    int x_dim, y_dim;
-   FILE_TYPE GAP_library;
+   FILE * GAP_library;
    char *name;
    char *command;
    int nmr_of_exponents;
@@ -489,8 +489,8 @@ struct pcp_vars *pcp;
 {
    register int *y = y_address;
 
-   FILE_TYPE FileName;
-   FILE_TYPE presentation_file;
+   FILE * FileName;
+   FILE * presentation_file;
    Logical group_present = FALSE;
    int exit_value;
    int *list, *head;
@@ -584,7 +584,7 @@ struct pcp_vars *pcp;
 {
    register int *y = y_address;
 
-   FILE_TYPE Subgroup;
+   FILE * Subgroup;
    int flag;
    int cp;
    int i;

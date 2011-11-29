@@ -14,12 +14,12 @@
 #include "pga_vars.h"
 #include "constants.h"
 
-FILE_TYPE TemporaryFile ();
+FILE * TemporaryFile ();
 
 /* save start group to StartFile */
 
 void start_group (StartFile, auts, pga, pcp)
-FILE_TYPE *StartFile;
+FILE * *StartFile;
 int ***auts;
 struct pga_vars *pga;
 struct pcp_vars *pcp;

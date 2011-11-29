@@ -30,14 +30,14 @@ int **perms;
 int *a, *b;
 char *c;
 int ***auts;
-FILE_TYPE descendant_file;
-FILE_TYPE covers_file;
+FILE * descendant_file;
+FILE * covers_file;
 struct pga_vars *pga;
 struct pcp_vars *pcp;
 { 
 
    char *d;                     /* used in stabiliser computation */
-   FILE_TYPE tmp_file;
+   FILE * tmp_file;
    struct pga_vars original;    /* copy of pga structure */
    register int i, ii;
    Logical soluble_group;       /* indicates that stabilisers may 
@@ -127,9 +127,9 @@ char *c, *d;
 int ***auts;
 int rep;
 int orbit_length;
-FILE_TYPE tmp_file;
-FILE_TYPE descendant_file;
-FILE_TYPE covers_file;
+FILE * tmp_file;
+FILE * descendant_file;
+FILE * covers_file;
 struct pga_vars *pga;
 struct pcp_vars *pcp;
 {
@@ -140,8 +140,8 @@ struct pcp_vars *pcp;
    int ***stabiliser;
    int **S;
    int *seq;
-   FILE_TYPE file;
-   FILE_TYPE GAP_library; 
+   FILE * file;
+   FILE * GAP_library; 
    int lused, rank_of_cover;
    int p = pga->p;
    int j;

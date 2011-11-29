@@ -10,6 +10,9 @@
 *Y  Copyright 1995-1997,  School of Mathematical Sciences, ANU,     Australia
 **
 *H  $Log$
+*H  Revision 1.10  2011/11/29 09:43:56  gap
+*H  Replace FILE_TYPE by FILE*. MH
+*H
 *H  Revision 1.9  2011/11/28 17:47:16  gap
 *H  Get rid of define_y.h. MH
 *H
@@ -50,7 +53,7 @@
 **                                     print out a word of a pcp presentation
 */
 void print_GAP_word ( file, ptr, pcp )
-    FILE_TYPE           file;
+    FILE *           file;
     int                 ptr;
     struct pcp_vars   * pcp;
 {
@@ -91,7 +94,7 @@ void print_GAP_word ( file, ptr, pcp )
 **                                write pq presentation to file in GAP format
 */
 void GAP_presentation ( file, pcp, aspcgroup )
-    FILE_TYPE           file;
+    FILE *           file;
     struct pcp_vars   * pcp;
     int                 aspcgroup;
 {
@@ -191,7 +194,7 @@ char * nextnumber ( ident )
 }
 
 void MakeNameList ( file, ident )
-    FILE_TYPE   file;
+    FILE *   file;
     char      * ident;
 {
    int         first = 1;
@@ -228,7 +231,7 @@ void MakeNameList ( file, ident )
 int countcall = 0;
 
 void write_GAP_library ( file, pcp )
-    FILE_TYPE         file;
+    FILE *         file;
     struct pcp_vars * pcp;
 {
    /* if this is the first call initialise 'ANUgroups'                    */
@@ -274,7 +277,7 @@ void write_GAP_library ( file, pcp )
 **                      group to a file in a format suitable for input to GAP
 */
 void GAP_auts ( file, central, stabiliser, pga, pcp )
-    FILE_TYPE           file;
+    FILE *           file;
     int             *** central;
     int             *** stabiliser;
     struct pga_vars   * pga;

@@ -46,9 +46,7 @@ typedef int Logical;
 
 #define COMMENT '#'
 
-#define FILE_TYPE FILE*
 #define RESET(File) (rewind((File)))
-#define CLOSE(File) (fclose((File)))
 
 #define MOD(a, b) ((a) % (b))
 

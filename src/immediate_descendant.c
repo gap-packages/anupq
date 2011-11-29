@@ -21,7 +21,7 @@
    compute required central automorphisms */
 
 int*** immediate_descendant (descendant_file, pga, pcp)
-FILE_TYPE descendant_file;
+FILE * descendant_file;
 struct pga_vars *pga;
 struct pcp_vars *pcp;
 {

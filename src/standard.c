@@ -117,9 +117,9 @@ int ***auts;
 struct pga_vars *pga;
 struct pcp_vars *pcp;
 {
-   FILE_TYPE cover_file;        /* store complete p-cover of group */
-   FILE_TYPE cover_tmp_file;    /* store (reduced) p-cover of group */
-   FILE_TYPE group_file;        /* store class c + 1 quotient of group */
+   FILE * cover_file;        /* store complete p-cover of group */
+   FILE * cover_tmp_file;    /* store (reduced) p-cover of group */
+   FILE * group_file;        /* store class c + 1 quotient of group */
    int **map;                   /* automorphism to apply to presentation */
    int t;
 
@@ -203,8 +203,8 @@ int ***auts;
 struct pga_vars *pga;
 struct pcp_vars *pcp;
 {
-   FILE_TYPE NextClass;
-   FILE_TYPE Status;
+   FILE * NextClass;
+   FILE * Status;
    int i, j, k;
    int **standard;
 
@@ -247,8 +247,8 @@ struct pcp_vars *pcp;
 
 int **finish_pga_run (identity_map, cover_tmp_file, group_file, auts, pga, pcp)
 Logical *identity_map;
-FILE_TYPE cover_tmp_file;
-FILE_TYPE group_file;
+FILE * cover_tmp_file;
+FILE * group_file;
 int ***auts;
 struct pga_vars *pga;
 struct pcp_vars *pcp;
@@ -438,8 +438,8 @@ int *orbit_length;
 struct pga_vars *pga;
 struct pcp_vars *pcp;
 {
-   FILE_TYPE Status;
-   FILE_TYPE OutputFile;
+   FILE * Status;
+   FILE * OutputFile;
    Logical soluble_group;
    int rep[2];
    int length[2];
@@ -686,7 +686,7 @@ int ***stabiliser;
 struct pga_vars *pga;
 struct pcp_vars *pcp;
 {
-   FILE_TYPE NextClass;
+   FILE * NextClass;
    int i, j, k;
 
    NextClass = OpenFile ("ISOM_NextClass", "w+");
@@ -729,7 +729,7 @@ struct pcp_vars *pcp;
 {
    register int lastg = pcp->lastg;
    register int i, j, k;
-   FILE_TYPE Subgroup;
+   FILE * Subgroup;
    int word[MAXWORD];
    int *subset;
    int **S;

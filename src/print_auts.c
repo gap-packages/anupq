@@ -25,7 +25,7 @@ int ***auts;
 struct pcp_vars *pcp;
 {
    register int i, j, k, x;
-   FILE_TYPE output_file;
+   FILE * output_file;
    char *file_name;
   int image;
 

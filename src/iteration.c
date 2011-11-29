@@ -31,7 +31,7 @@ int call_depth;
 int *step_sequence;
 int subgroup_rank;
 struct pga_vars *flag;
-FILE_TYPE input_file;
+FILE * input_file;
 int nmr_of_descendants;
 int class_bound;
 int order_bound;
@@ -41,7 +41,7 @@ struct pcp_vars *pcp;
    int ***auts;
    register int group_nmr, first = 1;
    int next_class = 0;
-   FILE_TYPE descendant_file;
+   FILE * descendant_file;
    char name[MAXWORD];
    char *s, *t;
 

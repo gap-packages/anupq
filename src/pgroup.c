@@ -40,7 +40,7 @@ struct pcp_vars *pcp;
    int subgroup_rank;
 
    char *StartName; 
-   FILE_TYPE StartFile;
+   FILE * StartFile;
 
    int ***auts;
    int t;

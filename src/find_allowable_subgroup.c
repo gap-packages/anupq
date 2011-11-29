@@ -26,8 +26,8 @@
 int **find_allowable_subgroup (option, cover_tmp_file, group_tmp_file, 
                                bit_string, subset, pga, pcp)
 int option;
-FILE_TYPE cover_tmp_file;
-FILE_TYPE group_tmp_file;
+FILE * cover_tmp_file;
+FILE * group_tmp_file;
 int *bit_string;
 int **subset;
 struct pga_vars *pga;

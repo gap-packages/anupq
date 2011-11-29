@@ -43,7 +43,7 @@ struct pcp_vars *pcp;
    register int alpha;
    int index = 0;
    int max_length;
-   FILE_TYPE fp;
+   FILE * fp;
    int nmr_saved;
    int list_length;
 

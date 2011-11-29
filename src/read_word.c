@@ -129,7 +129,7 @@ struct pcp_vars *pcp;
    or their inverses */
 
 void read_word (file, disp, type, pcp)
-FILE_TYPE file;
+FILE * file;
 int disp; 
 int type;
 struct pcp_vars *pcp; 
