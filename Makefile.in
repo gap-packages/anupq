@@ -104,7 +104,13 @@ objectlist:
 
 ## create dependency list for the Makefile ##################################
 depend:
-	@(gcc -MM -MP $(CPPFLAGS) $(PQFLAGS) $(SRC)/*.c > Makefile.deps )
+	@echo Updating dependencies...
+	@echo "# GENERATED FILE, DO NOT EDIT MANUALLY" > Makefile.deps
+	@for i in $(OBJECTS) ; do \
+	  j=`basename $$i .o` ; \
+	  gcc -MM -MP -MQ $$i  $(CPPFLAGS) $(PQFLAGS) $(SRC)/$$j.c >> Makefile.deps ; \
+	done
+	@echo Done!
 
 .PHONY: all clean distclean src_dist GAP4remapdirs restoredirs objectlist depend
 
