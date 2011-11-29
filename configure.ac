@@ -215,6 +215,7 @@ dnl ##
 AC_FUNC_MALLOC
 AC_FUNC_REALLOC
 AC_FUNC_FORK
+AC_HEADER_SYS_WAIT
 AC_CHECK_FUNCS([gethostname waitpid wait4 tmpnam tempnam])
 
 AC_CONFIG_FILES([Makefile])

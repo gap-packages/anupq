@@ -23,8 +23,9 @@
 #ifdef HAVE_WORKING_VFORK
 
 #include <signal.h>
-#include <unistd.h>
+#ifdef HAVE_SYS_WAIT_H
 #include <sys/wait.h>
+#endif
 
 int vsystem(char *string)
 {
