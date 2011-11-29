@@ -254,7 +254,7 @@ struct pcp_vars *pcp;
    while (reading) {
       read_value (TRUE, "Input step size: ", &pga->step_size, 1);
       reading = (pga->step_size <= 0);
-      if (isatty ()) reading = (reading || (pga->step_size > pcp->newgen)); 
+      if (isatty (0)) reading = (reading || (pga->step_size > pcp->newgen)); 
       if (reading) 
 	 printf ("Error: step sizes range from 1 to %d only\n", pcp->newgen);
       /*
