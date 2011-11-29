@@ -8,25 +8,6 @@
 *Y  Copyright 1995-1997,  Lehrstuhl D fuer Mathematik,  RWTH Aachen,  Germany
 *Y  Copyright 1997-1997,  School of Mathematical Sciences, ANU,     Australia
 **
-*H  $Log$
-*H  Revision 1.8  2011/11/28 13:54:39  gap
-*H  Get rid of UNIX,SPARC,IBM,NEXT #defines, and some dead code. MH
-*H
-*H  Revision 1.7  2011/11/25 18:51:45  gap
-*H  Move various #if(def)s around. MH
-*H
-*H  Revision 1.6  2002/02/15 15:08:49  gap
-*H  Included -r option in GAP call as per suggestion by SL. - GG
-*H
-*H  Revision 1.5  2001/06/15 14:31:51  werner
-*H  fucked up revision numbers.   WN
-*H
-*H  Revision 1.3  2001/06/15 07:43:14  werner
-*H  Fixing revision number. WN
-*H
-*H  Revision 1.1.1.1  2001/04/15 15:09:32  werner
-*H  Try again to import ANUPQ. WN
-*H
 */
 #include "pq_defs.h"
 #include "pga_vars.h"

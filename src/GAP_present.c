@@ -9,35 +9,6 @@
 *Y  Copyright 1995-1997,  Lehrstuhl D fuer Mathematik,  RWTH Aachen,  Germany
 *Y  Copyright 1995-1997,  School of Mathematical Sciences, ANU,     Australia
 **
-*H  $Log$
-*H  Revision 1.10  2011/11/29 09:43:56  gap
-*H  Replace FILE_TYPE by FILE*. MH
-*H
-*H  Revision 1.9  2011/11/28 17:47:16  gap
-*H  Get rid of define_y.h. MH
-*H
-*H  Revision 1.8  2004/01/26 20:01:53  werner
-*H  Fixed outstanding bug, reported by Boris Girnat
-*H
-*H  Revision 1.7  2001/09/22 20:20:33  gap
-*H  Now we don't lose the IsCapable, NuclearRank and MultiplicatorRank info. - GG
-*H
-*H  Revision 1.6  2001/06/15 14:31:51  werner
-*H  fucked up revision numbers.   WN
-*H
-*H  Revision 1.4  2001/06/15 07:43:30  werner
-*H  Fixing revision number. WN
-*H
-*H  Revision 1.2  2001/04/16 11:04:04  werner
-*H  Incorporated Eamonn's changes to report the rank of the
-*H  p-multiplicator.						WN
-*H
-*H  Revision 1.1.1.1  2001/04/15 15:09:32  werner
-*H  Try again to import ANUPQ. WN
-*H
-*H  Revision 1.1.1.1  1998/08/12 18:51:00  gap
-*H  First attempt at adapting the ANU pq to GAP 4. 
-*H
 */
 #include "pq_defs.h"
 #include "pcp_vars.h"
