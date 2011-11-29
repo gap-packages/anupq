@@ -72,4 +72,6 @@ typedef int Logical;
 #define MAX(A, B) ((A) > (B) ? (A) : (B))
 #define SWAP(A, B) {int t; t = A; A = B; B = t;}
 
+#include "pq_functions.h"
+
 #endif

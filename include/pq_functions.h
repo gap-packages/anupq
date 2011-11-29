@@ -11,6 +11,12 @@
 
 /* prototypes for functions used in the p-Quotient Program */
 
+#ifndef PQ_FUNCTIONS
+#define PQ_FUNCTIONS
+
+#include "pq_defs.h"
+#include "pcp_vars.h"
+
 void autgp_order ();
 void collect_defining_generator ();
 void factor_subgroup ();
@@ -52,7 +58,7 @@ void enforce_laws ();
 void orbit_option ();
 void stabiliser_option ();
 void calculate_tails ();
-void calculate_power ();
+void calculate_power (int exp, int ptr, int cp, struct pcp_vars *pcp);
 void write_GAP_matrix ();
 int *bitstring_to_subset ();
 int ***allocate_array ();
@@ -133,3 +139,14 @@ void trace_relation ();
 void output_information();
 int *compact_description ();
 void CloseFile (FILE* file);
+void power (int exp, int cp, struct pcp_vars *pcp);
+int vector_to_string (int cp, int str, struct pcp_vars *pcp);
+int vector_to_word (int cp, int ptr, struct pcp_vars *pcp);
+void string_to_vector (int str, int cp, struct pcp_vars *pcp);
+
+#if defined (GROUP) 
+void collect (int pointer, int collected_part, struct pcp_vars *pcp);
+#endif
+
+
+#endif

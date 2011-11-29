@@ -18,10 +18,7 @@
 /* collect word in pcp generators of group; word has base address ptr; 
    set up the result as exponent vector with base address cp */
 
-void collect_word (ptr, cp, pcp)
-int ptr;
-int cp;
-struct pcp_vars *pcp;
+void collect_word (int ptr, int cp, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -52,11 +49,7 @@ struct pcp_vars *pcp;
 
 /* calculate the exp power of word stored as exponent-vector at cp;
    ptr is index of free position for temporary storage in y */
-void calculate_power (exp, ptr, cp, pcp)
-int exp;
-int ptr;
-int cp;
-struct pcp_vars *pcp;
+void calculate_power (int exp, int ptr, int cp, struct pcp_vars *pcp)
 { 
    register int *y = y_address;
 
@@ -80,12 +73,7 @@ struct pcp_vars *pcp;
    as an exponent vector at cp; convert exponent vector
    to string with base address ptr; and print out result */
 
-void setup_word_to_collect (file, format, type, cp, pcp)
-FILE * file;
-int format;
-int type;
-int cp; 
-struct pcp_vars *pcp;
+void setup_word_to_collect (FILE *file, int format, int type, int cp, struct pcp_vars *pcp)
 {
    int disp = pcp->lastg + 2;
    register int ptr;

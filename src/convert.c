@@ -17,9 +17,7 @@
 /* ensure exponent-generator string is in appropriate form 
    for multiplication */
  
-int verify_string (string, pcp)
-int string;
-struct pcp_vars *pcp;
+int verify_string (int string, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 #include "access.h"
@@ -39,10 +37,7 @@ struct pcp_vars *pcp;
 /* convert exponent vector with base address  
    cp to string whose base address is str */
 
-int vector_to_string (cp, str, pcp)
-int cp;
-int str;
-struct pcp_vars *pcp;
+int vector_to_string (int cp, int str, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -71,10 +66,7 @@ struct pcp_vars *pcp;
 /* convert exponent-vector with base address cp 
    to word with base address ptr */
 
-int vector_to_word (cp, ptr, pcp)
-int cp;
-int ptr;
-struct pcp_vars *pcp;
+int vector_to_word (int cp, int ptr, struct pcp_vars *pcp)
 {   
    register int *y = y_address;
 
@@ -96,10 +88,7 @@ struct pcp_vars *pcp;
 
 /* convert normal word with base address ptr and exponent 1 
    to string with base address str */
-void word_to_string (ptr, str, pcp)
-int ptr;
-int str;
-struct pcp_vars *pcp;
+void word_to_string (int ptr, int str, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -117,10 +106,7 @@ struct pcp_vars *pcp;
 /* convert string with base address str to 
    exponent vector whose base address is cp */
 
-void string_to_vector (str, cp, pcp)
-int str;
-int cp;
-struct pcp_vars *pcp;
+void string_to_vector (int str, int cp, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 

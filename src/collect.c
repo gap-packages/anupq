@@ -75,10 +75,7 @@ void add_string ();
    /* if Lie program, use different collect routine */ 
 #if defined (GROUP) 
 
-void collect (pointer, collected_part, pcp)
-int pointer;
-int collected_part;
-struct pcp_vars *pcp;
+void collect (int pointer, int collected_part, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
