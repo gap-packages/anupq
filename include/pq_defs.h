@@ -11,16 +11,18 @@
 
 /* definition file for p-quotient program */
 
-#ifndef __PQ_DEFINES__
-#define __PQ_DEFINES__
+#ifndef PQ_DEFINES
+#define PQ_DEFINES
 
 #include "config.h"
 
-#define TRUE	1
-#define FALSE	0
-#define Logical	int
+enum {
+  FALSE = 0,
+  TRUE = 1
+};
+typedef int Logical;
+
 #define PRINT printf
-#define CRASH do { exit(0); } while(0)
 
 #include <stdio.h>
 #include <stdlib.h>
