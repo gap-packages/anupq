@@ -32,6 +32,10 @@ typedef int Logical;
 #include <limits.h> 
 #include <time.h> 
 
+#ifdef HAVE_UNISTD_H
+#include <unistd.h>
+#endif
+
 /* under Solaris, CLK_TCK is defined in <limits.h> */
 
 #if !defined (CLK_TCK)
