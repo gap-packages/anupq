@@ -83,9 +83,9 @@ struct pcp_vars *pcp;
 
    paired_gens = pcp->lastg;
    num_gens = 2 * paired_gens;
-   user_gen_name = valloc (word, num_gens + 1);
-   inv_of = valloc (gen_type, num_gens + 1);
-   pairnumber = valloc (int, num_gens + 1);
+   user_gen_name = anu_valloc (word, num_gens + 1);
+   inv_of = anu_valloc (gen_type, num_gens + 1);
+   pairnumber = anu_valloc (int, num_gens + 1);
 
    /* memory leak September 1996 */
    user_gen_name[0].first = num_gens;

@@ -29,7 +29,7 @@ int paired_gens;
 void pc_word_init (wp) 
 word *wp; 
 { 
-   wp->g =valloc(gen_type,16); 
+   wp->g =anu_valloc(gen_type,16); 
    wp->first = 0;
    wp->last = -1;
    wp->space = 16;
@@ -42,7 +42,7 @@ word *wp;
 void word_init (wp)
 word * wp;
 {
-   wp->g =valloc(gen_type,16); 
+   wp->g =anu_valloc(gen_type,16); 
    wp->first = 0;
    wp->last = -1;
    wp->space = 16;
@@ -89,7 +89,7 @@ void word_stretch_reset (wp,N,a)
 {
    if (wp->space < N) {
       free((char*) wp->g); wp->g = 0; 
-      wp->g = valloc(gen_type,N); 
+      wp->g = anu_valloc(gen_type,N); 
       wp->space = N;
    }
    wp->first = a;
@@ -109,14 +109,14 @@ static void word_traverser_init (word_traverser *wtp, word *wp)
 
 word_link * word_link_create (void)
 {
-   word_link * wlp = valloc(word_link,1);
+   word_link * wlp = anu_valloc(word_link,1);
    wlp->wp=0; wlp->next=0;
    return wlp;
 }
 
 void word_link_init (word_link * wlp)
 {
-   wlp->wp = valloc(word,1);
+   wlp->wp = anu_valloc(word,1);
    word_init (wlp->wp);
    wlp->next = word_link_create ();
 }
@@ -184,7 +184,7 @@ void word_inv (given, inverse)
    int i;
    int j;
    gen_type * gp=0;
-   gp = valloc(gen_type,given->space);
+   gp = anu_valloc(gen_type,given->space);
    for (i=given->first,j=given->last;i<=given->last;i++,j--)
       gp[i] = inv(given->g[j]);  
    inverse->space=given->space;
@@ -255,7 +255,7 @@ static void word_double (word * wp)
    gen_type * gp;
    n = wp->space;
    k = n/2;
-   gp = valloc(gen_type,2*n);
+   gp = anu_valloc(gen_type,2*n);
    for (i=k;i<3*k;++i) 
       gp[i] = (wp->g)[i-k];
    free((char*)wp->g); wp->g=0;
@@ -318,7 +318,7 @@ void word_concat (wp1,wp2,wp3)
       wp3->last = wp3->first -1;
       return;
    } /* avoid malloc()ing 0 bytes */
-   concat = valloc(gen_type,n); 
+   concat = anu_valloc(gen_type,n); 
    factor = wp1->g + wp1->first; 
    for (i=0;i<n1;i++)
       concat[i] = factor[i];
@@ -395,7 +395,7 @@ void word_cpy (oldwp,newwp)
       while (n<2*m)
 	 n *= 2;
       free((char*)(newwp->g)); newwp->g = 0; 
-      newwp->g = valloc(gen_type,n); 
+      newwp->g = anu_valloc(gen_type,n); 
       newwp->space = n;
    }
    newwp->first = m/2;

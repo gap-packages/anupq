@@ -16,7 +16,7 @@
 
 #include <stdlib.h>
 typedef int gen_type; /*name for generator*/
-#define valloc(A,N) (A *)malloc((unsigned)(sizeof(A)*(N)))
+#define anu_valloc(A,N) (A *)malloc((unsigned)(sizeof(A)*(N)))
 #define vzalloc(A,N) (A *)calloc((unsigned)N,(unsigned)sizeof(A))
 #define inv(g)          inv_of[(g)]
 extern char word_delget_first(); 

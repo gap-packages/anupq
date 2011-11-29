@@ -112,7 +112,7 @@ struct pcp_vars *pcp;
       else if (strcmp (label, "gen") == 0) {
 	 read_gen_name_array (rfile);
 	 default_inverse_array ();
-	 pairnumber = valloc (int, num_gens + 1);
+	 pairnumber = anu_valloc (int, num_gens + 1);
 	 for (i = 1; i <= num_gens; i++){ 
 	    if (i <= inv (i)){
 	       paired_gens++;
@@ -305,7 +305,7 @@ struct pcp_vars *pcp;
       inv_of = 0;                  /* bug fix */
       read_gen_name_array (rfile);
       default_inverse_array ();
-      pairnumber = valloc (int, num_gens + 1);
+      pairnumber = anu_valloc (int, num_gens + 1);
       for (i = 1; i <= num_gens; i++) { 
 	 if (i <= inv (i)){
 	    paired_gens++;
