@@ -10,8 +10,6 @@
 ##
 #Y  Copyright (C) 2001  Lehrstuhl D fuer Mathematik,  RWTH Aachen,  Germany
 ##
-Revision.anupqopt_gd :=
-    "@(#)$Id$";
 
 #############################################################################
 ##

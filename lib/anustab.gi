@@ -15,8 +15,6 @@
 ##  Install file for function to  compute  the  stabiliser  of  an  allowable
 ##  subgroup; description is written to file LINK_output.
 ##
-Revision.anustab_gi :=
-    "@(#)$Id$";
 
 #############################################################################
 ##

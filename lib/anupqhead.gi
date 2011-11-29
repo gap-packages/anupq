@@ -10,9 +10,6 @@
 ##
 #Y  Copyright (C) 2006  Lehrstuhl D fuer Mathematik,  RWTH Aachen,  Germany
 ##
-Revision.anupqhead_gi :=
-    "@(#)$Id$";
-
 
 #############################################################################
 ##
