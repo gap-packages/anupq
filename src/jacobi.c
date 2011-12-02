@@ -59,11 +59,6 @@ struct pcp_vars *pcp;
       return;
 #endif 
 
-#if defined (LIE) 
-   if (is_space_exhausted (6 * lastg + 6, pcp))
-      return;
-#endif 
-
    /* cp1 and cp2 are the base addresses for the collected 
       part of the lhs and of the rhs, respectively */
    cp1 = pcp->lused;
@@ -110,11 +105,6 @@ struct pcp_vars *pcp;
 	 p1 = y[p_pcomm + b];
 	 commba = y[p1 + a];
 	 collect (commba, cp2, pcp);
-#endif 
-#if defined (LIE) 
-	 /* calculate the Jacobi word 
-	    [[c, b], a] + [[b, a], c] + [[a, c], b] */
-	 jacobi_word (a, b, c, cp1, cp2, pcp);
 #endif 
       } 
       else {

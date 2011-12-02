@@ -198,21 +198,12 @@ struct pcp_vars *pcp;
    }
 #endif
 
-#if defined (LIE) 
-   final_class = MIN (start_weight + 1, final_class);
-   start_class = MAX (pcp->cc - final_class, 1);
-#endif
-
    /* calculate the non left-normed commutators of class work_class 
       in the order (work_class - 2, 2), (work_class - 3, 3) .. */
 
    class_end = pcp->clend;
    while (--final_class >= ++start_class) {
       
-#if defined (LIE) 
-      if (final_class < end_weight) return;
-#endif
-
       if (pcp->fullop || pcp->diagn) 
 	 printf ("Processing tails for generators of weight %d and %d\n", 
 		 final_class, start_class);

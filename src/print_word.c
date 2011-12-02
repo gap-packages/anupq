@@ -67,15 +67,4 @@ struct pcp_vars *pcp;
       print_word (-str + 1, pcp);
 
 #endif
-
-#if defined (LIE)
-   str = vector_to_string (cp, str, pcp);
-
-   printf ("The %s is ", type);
-   if (str == 0) 
-      print_word (0, pcp);
-   else
-      print_word (str, pcp);
-
-#endif
 }

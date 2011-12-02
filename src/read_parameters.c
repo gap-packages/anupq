@@ -27,11 +27,6 @@ struct pcp_vars *pcp;
    ident = GetString ("Input group identifier: ");
 #endif 
 
-#if defined (LIE)
-   int mlin, i;
-   ident = GetString ("Input ring identifier: ");
-#endif 
-
    strcpy (pcp->ident, ident);
 
    while (reading) {
@@ -66,24 +61,6 @@ struct pcp_vars *pcp;
 		  &pcp->extra_relations, 0);
 #endif
 
-#if defined (LIE)
-      pcp->ndrel = 0;
-      if (pcp->p != 2)
-	 read_value (TRUE, "Input degree of multilinear condition (0 if none): ",
-		     &pcp->mlin_relations[0], 0); 
-      else {
-	 read_value (TRUE, "Enter number of multilinear relations to be imposed: ", 
-		     &mlin, 0); 
-	 if (!mlin)
-	    pcp->mlin_relations[0] = mlin;
-	 else 
-	    for (i = 0; i < mlin; ++i) {
-	       read_value (TRUE, "Input degree of multilinear condition (0 if none): ", 
-			   &pcp->mlin_relations[i], 0);
-	    }
-      }
-#endif
-      
       /* initialise pcp structure */
       initialise_pcp (*output, pcp);
       setup (pcp);

@@ -12,28 +12,6 @@
 #include "pq_defs.h"
 #include "pcp_vars.h"
 
-#if defined (LIE) 
-
-/* ensure exponent-generator string is in appropriate form 
-   for multiplication */
- 
-int verify_string (int string, struct pcp_vars *pcp)
-{
-   register int *y = y_address;
-#include "access.h"
- 
-   if (y[string + 1] == 0)
-      string = 0;
-   else if (y[string + 1] == 1 && FIELD1 (y[string + 2]) == 1)
-      string = FIELD2 (y[string + 2]);
-   else
-      string = -string;
- 
-   return string;
-}
-
-#endif
-
 /* convert exponent vector with base address  
    cp to string whose base address is str */
 
@@ -56,11 +34,6 @@ int vector_to_string (int cp, int str, struct pcp_vars *pcp)
    }
 
    y[str + 1] = length;
-
-#if defined (LIE)
-   ptr = verify_string(str, pcp);
-   return ptr;
-#endif 
 }
 
 /* convert exponent-vector with base address cp 

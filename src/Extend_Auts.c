@@ -51,8 +51,6 @@ struct pcp_vars *pcp;
    int restored_length = 0;     /* amount of description restored from file */
    int new;                     /* new storage requirement */
 
-   int i, total, gen;
-
    /* this used to be 5 * lastg + 4 -- April 1994 */
    if (is_space_exhausted (7 * lastg + 4, pcp))
       return;
@@ -108,13 +106,6 @@ struct pcp_vars *pcp;
 #ifdef DEBUG1
    printf ("*** Final allocated space for automorphisms is %d\n", list_length);
    printf ("*** Final amount used is %d\n", index);
-#if defined (LIE) 
-   /* appoximate space used to store images of generators of highest weight */
-   total = 0; gen = y[pcp->clend + pcp->cc - 1];
-   for (alpha = 1; alpha <= pcp->m; ++alpha)
-       total += ((*head)[alpha * lastg] - (*head)[(alpha - 1) * lastg + gen]);
-   printf ("*** Space for automorphism action on last class is %d\n", total);
-#endif
 #endif
 }
 

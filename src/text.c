@@ -39,9 +39,6 @@ int arg4;
 #if defined (GROUP) 
       PRINT ("\nGroup completed.");
 #endif
-#if defined (LIE)
-      PRINT ("\nLie ring completed.");
-#endif
       PRINT (" Lower exponent-%d central class = %d,", arg2, arg1);
       PRINT (" Order = %d^%d\n", arg2, arg3);
       return;

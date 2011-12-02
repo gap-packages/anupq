@@ -78,11 +78,6 @@ struct pcp_vars {
    Logical multiplicator;	/* p-multiplicator is to be computed */
    Logical cover;		/* p-covering group is to be computed */
 
-#if defined (LIE) 
-#define NRELS 3                    /* number of multilinear relations */
-   int     mlin_relations[NRELS];  /* array storing degree of multilinear
-                                      conditions to be imposed */
-#endif
 };
 
 int     *y_address;     /* definition of storage for presentation */

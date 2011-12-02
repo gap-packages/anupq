@@ -26,10 +26,6 @@ struct pcp_vars *pcp;
    int p2;
    int i;
 
-#if defined (LIE)
-   printf ("\nRelationship between ring defining generators and ");
-   printf ("consistent\nproduct presentation generators: \n");
-#endif 
 #if defined (GROUP)
    printf ("\nRelationship between group defining generators and ");
    printf ("consistent\npower-commutator presentation generators:\n");
@@ -73,10 +69,6 @@ struct pcp_vars *pcp;
 
    char *s;
 
-#if defined (LIE) 
-   printf ("\nRing: %s to lower central class %d has order %d^%d\n",
-	   pcp->ident, pcp->cc, pcp->p, pcp->lastg);
-#endif 
 #if defined (GROUP)
    printf ("\nGroup: %s to lower exponent-%d central class %d has order %d^%d\n", 
 	   pcp->ident, pcp->p, pcp->cc, pcp->p, pcp->lastg);
@@ -90,9 +82,6 @@ struct pcp_vars *pcp;
     
 #if defined (GROUP) 
       s = "Group";
-#endif
-#if defined (LIE) 
-      s = "Ring";
 #endif
       if (pcp->ndrel != 0)
 	 printf ("\n%s defining relations:\n", s);
@@ -122,9 +111,6 @@ struct pcp_vars *pcp;
       /* print map from defining generators to pcp generators */
       print_map (pcp);
 
-#if defined (LIE)
-      printf ("\nValues of product presentation generators\n");
-#endif 
 #if defined (GROUP)
       printf ("\nValues of power-commutator presentation generators\n");
 #endif
@@ -174,9 +160,6 @@ struct pcp_vars *pcp;
 
    printf ("\nNon-trivial commutators:\n");
 #endif
-#if defined (LIE)
-   printf ("\nNon-trivial products:\n");
-#endif   
 
    /*
      for (i = start; i <= finish; i++) {

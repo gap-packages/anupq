@@ -66,10 +66,6 @@
 
 #endif 
 
-#if defined (LIE)
-#include "lie_menus.h"
-#endif 
-
 #define CAY_NOT_SET (-100)
 
 /* constants for pgroup generation menu */

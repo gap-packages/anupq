@@ -53,9 +53,6 @@ int work_space;
    if (s == NULL) s = "unknown";
 #endif 
 
-#if defined (LIE) 
-   id = "ANU Lie Ring Program Version 1.0";
-#endif
 #if defined (GROUP) 
    id = PQ_VERSION;
 #endif 
