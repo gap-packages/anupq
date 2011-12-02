@@ -96,7 +96,7 @@ struct pcp_vars *pcp;
 	       if (pcp->redgen != 0 && pcp->m != 0) 
 		  queue[++*queue_length] = pcp->redgen;
 	    }
-	    if (pcp->overflow || pcp->complete != 0 && !pcp->multiplicator)
+	    if (pcp->overflow || (pcp->complete != 0 && !pcp->multiplicator))
 	       return;
 	 }
       }
@@ -154,7 +154,7 @@ struct pcp_vars *pcp;
 		     if (pcp->redgen != 0 && pcp->m != 0) 
 			queue[++*queue_length] = pcp->redgen;
 		  }
-		  if (pcp->overflow || pcp->complete != 0 && !pcp->multiplicator)
+		  if (pcp->overflow || (pcp->complete != 0 && !pcp->multiplicator))
 		     return;
 	       }
 	    }
@@ -229,7 +229,7 @@ struct pcp_vars *pcp;
 		  if (pcp->redgen != 0 && pcp->m != 0) 
 		     queue[++*queue_length] = pcp->redgen;
 	       }
-	       if (pcp->overflow || pcp->complete != 0 && !pcp->multiplicator)
+	       if (pcp->overflow || (pcp->complete != 0 && !pcp->multiplicator))
 		  return;
 	    }
 	 }

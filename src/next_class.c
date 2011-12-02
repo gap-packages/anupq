@@ -37,7 +37,7 @@ struct pcp_vars *pcp;
    if (y[pcp->clend + 1] != 0)
       setup (pcp);
 
-   if (pcp->overflow || pcp->complete != 0 && !pcp->multiplicator)
+   if (pcp->overflow || (pcp->complete != 0 && !pcp->multiplicator))
       return;
 
    if (pcp->extra_relations != 0 || pcp->m != 0) 
@@ -55,7 +55,7 @@ struct pcp_vars *pcp;
 	    prev = new;
 	 }
 	 consistency (0, exp_flag.queue, &exp_flag.queue_length, class, pcp);
-	 if (pcp->overflow || pcp->complete != 0 && !pcp->multiplicator)
+	 if (pcp->overflow || (pcp->complete != 0 && !pcp->multiplicator))
 	    return;
       }
    }
