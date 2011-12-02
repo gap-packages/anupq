@@ -40,16 +40,11 @@ int work_space;
    char *id;
    char string[100];
 
-#if defined (HOSTNAME) 
+#if defined (HAVE_GETHOSTNAME) 
    char s[100];
-#else 
-   char *s;
-#endif
-
-#if defined (HOSTNAME) 
    gethostname (s, 100);
 #else 
-   s = (char *) getenv ("HOST");
+   char *s = (char *)getenv ("HOST");
    if (s == NULL) s = "unknown";
 #endif 
 
@@ -60,7 +55,7 @@ int work_space;
    printf ("%s running with workspace %d on %s\n", 
 	   id, work_space, s);
    now = time (NULL);
-#ifndef HAS_NO_STRFTIME
+#ifdef HAVE_STRFTIME
    strftime (string, 100, "%a %b %d %H:%M:%S %Z %Y", localtime (&now));
    printf ("%s\n", string);
 #else
