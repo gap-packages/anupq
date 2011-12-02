@@ -9,10 +9,6 @@
 **
 */
 
-#ifdef NEEDS_TYPES_H
-#include <sys/types.h>
-#endif
-
 #include "pq_defs.h"
 #include "pcp_vars.h"
 #include "pq_functions.h"
@@ -63,10 +59,6 @@ char *argv[];
    int t;
    struct pcp_vars pcp;
 #include "access.h" 
-
-#ifdef MALLOC_DEBUG
-   malloc_debug (8);   
-#endif
 
    setbuf (stdout, NULL);
 
