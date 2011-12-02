@@ -943,18 +943,16 @@ end);
 #F  AllPqExamples() . . . . . . . . . .  list the names of all ANUPQ examples
 ##
 InstallGlobalFunction( AllPqExamples, function()
-  local dir,  str,  ls,  out;
+  local dir,  files;
 
-  dir := DirectoriesPackageLibrary( "anupq", "examples" )[1];
-  ls  := Filename( DirectoriesSystemPrograms(), "ls" );
-  str := "";
-  out := OutputTextString( str, true );
-  Process( dir, ls, InputTextNone(), out, [] );
-  CloseStream( out );
-  return Filtered( SplitString( str, "",  "\n" ),
-                   file -> not( file in ["index", "README", "CVS", 
-                                         "5gp-PG-e5-i", "7gp-a-x-Rel-i"] 
-                                or file[ Length(file) ] = '~' ) );
+  dir   := DirectoriesPackageLibrary( "anupq", "examples" )[1];
+  files := DirectoryContents( Filename( dir, "" ));
+  # Remove certain files
+  files := Difference( files, [".", "..", "index", "README", "CVS", 
+                                         "5gp-PG-e5-i", "7gp-a-x-Rel-i"] );
+  # Remove files ending with a tilde
+  files := Filtered( files, file -> file[ Length(file) ] <> '~' );
+  return files;
 end );
 
 #############################################################################
