@@ -26,12 +26,9 @@ static Logical setup_start_info (Logical identity_map, Logical status, FILE *fil
 static Logical compare_sequences (int *s, int *t, int length);
 
 
-#ifdef __386BSD__
 static char FileBuffer[1024];
 
-copy_file ( from , to )
-    char*   from;
-    char*   to;
+static void copy_file ( const char *from , const char *to )
 {
    FILE*   in;
    FILE*   out;
@@ -70,9 +67,7 @@ copy_file ( from , to )
    fclose(out);
 }
 
-append_file ( from , to )
-    char*   from;
-    char*   to;
+static void append_file ( const char *from , const char *to )
 {
    FILE*   in;
    FILE*   out;
@@ -110,8 +105,6 @@ append_file ( from , to )
    fclose(in);
    fclose(out);
 }
-
-#endif
 
 #define ISOM_OPTION 8
 #define MAXOPTION 9           /* maximum number of menu options */
@@ -287,7 +280,6 @@ struct pcp_vars *pcp;
 	       /* organise to write modified presentation + automorphisms 
 		  to file ISOM_PP */
               
-#ifdef __386BSD__
 	       if (!identity_map || finished)  
 	       {
 		  copy_file( "ISOM_present", "ISOM_PP" );
@@ -295,12 +287,6 @@ struct pcp_vars *pcp;
 	       }
 	       else
 		  copy_file( "ISOM_NextClass", "ISOM_PP" );
-#else
-	       if (!identity_map || finished)  
-		  system ("cat ISOM_present ISOM_NextClass > ISOM_PP");
-	       else
-		  system ("cat ISOM_NextClass > ISOM_PP");
-#endif
 
 	       if (finished) break;
 
@@ -349,16 +335,8 @@ struct pcp_vars *pcp;
 
 	 if (iteration == 0) break;
 
-	 /* copy file ISOM_PP containing iteration info to nominated file */
-#ifdef __386BSD__
+	 /* rename file ISOM_PP containing iteration info to nominated file */
 	 rename( "ISOM_PP", name );
-#else
-	 command = (char *) malloc ((strlen (name) + 15) * sizeof (char));
-	 strcpy (command, "mv ISOM_PP ");
-	 strcat (command, name);
-	 system (command);
-	 free (command);
-#endif
 
 	 break;
 
@@ -442,7 +420,6 @@ struct pcp_vars *pcp;
 	 break;
 
       case EXIT: case MAXOPTION:
-#ifdef __386BSD__
 	 unlink( "ISOM_present" );
 	 unlink( "ISOM_Subgroup" );
 	 unlink( "ISOM_cover_file" );
@@ -450,10 +427,6 @@ struct pcp_vars *pcp;
 	 unlink( "ISOM_XX" );
 	 unlink( "ISOM_NextClass" );
 	 unlink( "ISOM_Status" );
-#else
-	 system ("rm -f ISOM_present ISOM_Subgroup ISOM_cover_file");
-	 system ("rm -f ISOM_group_file ISOM_XX ISOM_NextClass ISOM_Status");
-#endif
 	 printf ("Exiting from ANU p-Quotient Program\n");
 	 break;
 
