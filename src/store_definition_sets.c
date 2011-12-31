@@ -34,7 +34,7 @@ struct pga_vars *pga;
 
 /* calculate r choose s */
 
-int choose (r, s)
+int choose (int r, int s)
 {
    register int i;
    int binom = 1;

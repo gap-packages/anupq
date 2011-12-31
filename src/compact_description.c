@@ -34,7 +34,6 @@ int *list;
 {
   MP_INT powers, code;
   int i;
-  MP_INT factor;
 
   mpz_init_set_ui (&code, 0);
 
@@ -46,6 +45,7 @@ int *list;
   }
 /*
      if (list[i] != 0) {
+        MP_INT factor;
         mpz_init_set_si (&factor, list[i]);
         mpz_ui_pow_ui (&powers, p, i);
         mpz_mul (&powers, &powers, &factor);
@@ -175,11 +175,12 @@ struct pcp_vars *pcp;
 {
    register int *y = y_address;
   
-   register int count;
    FILE * output_file;
    char *file_name;
 #ifdef HAVE_GMP 
    MP_INT code;
+#else
+   register int count;
 #endif
 
    file_name = allocate_char_vector (MAXWORD + 1, 0, FALSE);

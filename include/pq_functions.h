@@ -149,4 +149,10 @@ void collect (int pointer, int collected_part, struct pcp_vars *pcp);
 #endif
 
 
+void print_message (int work_space); /* system.c */
+int choose (int r, int s); /* store_definition_sets.c */
+int echelon (struct pcp_vars *pcp); /* echelon.c */
+void report_error (int a, int b, int c); /* report_error.c */
+
+
 #endif

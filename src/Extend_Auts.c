@@ -37,7 +37,6 @@ int **list;
 int start;
 struct pcp_vars *pcp;
 {
-   register int *y = y_address;
    register int lastg = pcp->lastg;
    register int offset; 
    register int alpha;

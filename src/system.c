@@ -33,8 +33,7 @@ int runTime ()
 
 /* print startup message */
 
-int print_message (work_space)
-int work_space;
+void print_message (int work_space)
 {
    time_t now;
    char *id;

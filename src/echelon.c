@@ -23,8 +23,7 @@
    to by the appropriate y[structure + ..]; then remove all occurrences 
    of newly found redundant generator from the other equations */
 
-int echelon (pcp)
-struct pcp_vars *pcp;
+int echelon (struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
