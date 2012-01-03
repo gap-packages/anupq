@@ -108,6 +108,10 @@ if test "x$CONFIGNAME" = "x"; then
   CONFIGNAME="default${ABI}"
 fi
 SYSINFO_GAP="$GAP_ROOT_real/sysinfo.gap-$CONFIGNAME"
+if ! test -f $SYSINFO_GAP ; then
+	# Fall back to sysinfo.gap, to support GAP 4.4
+	SYSINFO_GAP="$GAP_ROOT_real/sysinfo.gap"
+fi
 if test -f $SYSINFO_GAP ; then
 	AC_MSG_RESULT([$CONFIGNAME])
 	#AC_SUBST(CONFIGNAME)
