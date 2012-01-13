@@ -46,7 +46,7 @@ gap> phi := EpimorphismStandardPresentation( procId : ClassBound := 3 );
 #I    nice stabilizer with perm rep
 #I  Computing standard presentation for class 2 took 0.00 seconds
 #I  Computing standard presentation for class 3 took 0.00 seconds
-[ F1, F2, F3, F4, F5, F6 ] -> [ f1*f2^2*f3*f4^2*f5^2, f1*f2*f3*f5, f3^2,
+[ F1, F2, F3, F4, F5, F6 ] -> [ f1*f2^2*f3*f4^2*f5^2, f1*f2*f3*f5, f3^2, 
   f4*f6^2, f5, f6 ]
 gap> # Image of phi should be isomorphic to G ...
 gap> # let's check the order is correct:
