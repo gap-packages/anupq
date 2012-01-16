@@ -140,7 +140,6 @@ dnl ## Otherwise, first try to use the GMP provided by GAP, or
 dnl ## any GMP version installed globally by the user.
 dnl ##
 
-GMP_HOME=
 GMP_CPPFLAGS=
 GMP_LIBS=
 
@@ -153,65 +152,71 @@ AC_ARG_WITH([gmp],
         Otherwise you give the <path> to the directory which contains the library. 
         [[default=yes]]
     ])],
-
-  [ if test "$with_gmp" = "yes" ; then
-      GMP_HOME="$GAP_ROOT_real/bin/$GAPARCH/extern/gmp"
-      GMP_CPPFLAGS="-I${GMP_HOME}/include"
-      GMP_LIBS="${GMP_HOME}/lib/libgmp.a"
-    elif test "$with_gmp" = "system" ; then
-      GMP_CPPFLAGS=""
-      GMP_LIBS="-lgmp"
-    else
-      GMP_HOME="$with_gmp"
-      GMP_CPPFLAGS="-I${GMP_HOME}/include"
-      GMP_LIBS="${GMP_HOME}/lib/libgmp.a"
-    fi
- ],
- [ GMP_HOME="$GAP_ROOT_real/bin/$GAPARCH/extern/gmp"
-   GMP_CPPFLAGS="-I${GMP_HOME}/include"
-   GMP_LIBS="${GMP_HOME}/lib/libgmp.a"
- ]
+  [], [ with_gmp=yes ]
 )
 
-pq_save_CPPFLAGS="$CPPFLAGS"
-CPPFLAGS="$CPPFLAGS $GMP_CPPFLAGS"
-pq_save_LDFLAGS="$LDFLAGS"
-LDFLAGS="$LDFLAGS $GMP_LIBS"
+if test "x$with_gmp" = "xno" ; then
+	AC_MSG_NOTICE([Building without GMP support])
+elif test "x$with_gmp" = "xsystem" ; then
+	# Try using system GMP
+	GMP_CPPFLAGS=""
+	GMP_LIBS="-lgmp"
+else
+	# Try using static linked GMP in the specified location
+	if test "x$with_gmp" = "xyes" ; then
+		# Try to use GAP's GMP, if available
+		GMP_HOME="$GAP_ROOT_real/bin/$GAPARCH/extern/gmp"
+	else
+		GMP_HOME="$with_gmp"
+	fi;
+	if test -d ${GMP_HOME}/include && test -f ${GMP_HOME}/lib/libgmp.a ; then
+		GMP_CPPFLAGS="-I${GMP_HOME}/include"
+		GMP_LIBS="${GMP_HOME}/lib/libgmp.a"
+	elif test "x$with_gmp" = "xyes" ; then
+		# fallback to trying system wide GMP
+		GMP_CPPFLAGS=""
+		GMP_LIBS="-lgmp"
+	else
+		AC_MSG_ERROR([Could not locate libgmp.a in the specified location])
+	fi
+fi;
 
 have_gmp=no
 if test "x$with_gmp" != xno; then
+	pq_save_CPPFLAGS="$CPPFLAGS"
+	CPPFLAGS="$CPPFLAGS $GMP_CPPFLAGS"
+	pq_save_LIBS="$LIBS"
+	LIBS="$LIBS $GMP_LIBS"
+
 	AC_CHECK_HEADER( [gmp.h],
 		[
 		# TODO: Disable linker check for now: It causes problems on Linux, because
 		# libgmp.a is in the linker command line before the test C file. On the long
 		# run, this should be re-enabled, though perhaps in a different form.
-	#     AC_MSG_CHECKING([whether linking against GMP works])
-	#	AC_CHECK_LIB( [gmp], [__gmpz_init], [have_gmp=yes], [] )
-		have_gmp=yes
+		AC_MSG_CHECKING([whether linking against GMP works])
+		AC_TRY_LINK(
+			[#include <gmp.h>],
+			[__gmpz_init(0);], 
+			[have_gmp=yes],
+			[]
+			)
+		AC_MSG_RESULT([$have_gmp])
 		],
 		[]
 		)
+
+	# restore FLAGS
+	CPPFLAGS="$pq_save_CPPFLAGS"
+	LIBS="$pq_save_LIBS"
+
 fi;
 
-# restore FLAGS
-CPPFLAGS="$pq_save_CPPFLAGS"
-LDFLAGS="$pq_save_LDFLAGS"
-
-# TODO: If we can't find GMP so far, then try again in GAPDIR/bin/GAPARCH/extern/gmp/
 if test "x$have_gmp" = xyes; then
-	# keep modified FLAGS
 	AC_DEFINE(HAVE_GMP, 1, [Define if GMP is installed and usable])
 
 	AC_SUBST(GMP_CPPFLAGS)
 	AC_SUBST(GMP_LIBS)
 fi
-
-
-dnl ##
-dnl ## Checks for typedefs, structures, and compiler characteristics.
-dnl ##
-#AC_TYPE_LONG_LONG_INT
-
 
 dnl ##
 dnl ## Checks for library functions.
@@ -222,5 +227,8 @@ AC_FUNC_FORK
 AC_HEADER_SYS_WAIT
 AC_CHECK_FUNCS([gethostname waitpid wait4 tmpnam tempnam strftime])
 
+dnl ##
+dnl ## Finally, generate the Makefiles and output everything
+dnl ##
 AC_CONFIG_FILES([Makefile])
 AC_OUTPUT

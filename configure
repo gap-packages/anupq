@@ -1825,6 +1825,52 @@ rm -f conftest.val
 
 } # ac_fn_c_compute_int
 
+# ac_fn_c_try_link LINENO
+# -----------------------
+# Try to link conftest.$ac_ext, and return whether this succeeded.
+ac_fn_c_try_link ()
+{
+  as_lineno=${as_lineno-"$1"} as_lineno_stack=as_lineno_stack=$as_lineno_stack
+  rm -f conftest.$ac_objext conftest$ac_exeext
+  if { { ac_try="$ac_link"
+case "(($ac_try" in
+  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
+  *) ac_try_echo=$ac_try;;
+esac
+eval ac_try_echo="\"\$as_me:${as_lineno-$LINENO}: $ac_try_echo\""
+$as_echo "$ac_try_echo"; } >&5
+  (eval "$ac_link") 2>conftest.err
+  ac_status=$?
+  if test -s conftest.err; then
+    grep -v '^ *+' conftest.err >conftest.er1
+    cat conftest.er1 >&5
+    mv -f conftest.er1 conftest.err
+  fi
+  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; } && {
+	 test -z "$ac_c_werror_flag" ||
+	 test ! -s conftest.err
+       } && test -s conftest$ac_exeext && {
+	 test "$cross_compiling" = yes ||
+	 $as_test_x conftest$ac_exeext
+       }; then :
+  ac_retval=0
+else
+  $as_echo "$as_me: failed program was:" >&5
+sed 's/^/| /' conftest.$ac_ext >&5
+
+	ac_retval=1
+fi
+  # Delete the IPA/IPO (Inter Procedural Analysis/Optimization) information
+  # created by the PGI compiler (conftest_ipa8_conftest.oo), as it would
+  # interfere with the next link command; also delete a directory that is
+  # left behind by Apple's compiler.  We do this before executing the actions.
+  rm -rf conftest.dSYM conftest_ipa8_conftest.oo
+  eval $as_lineno_stack; ${as_lineno_stack:+:} unset as_lineno
+  as_fn_set_status $ac_retval
+
+} # ac_fn_c_try_link
+
 # ac_fn_c_check_type LINENO TYPE VAR INCLUDES
 # -------------------------------------------
 # Tests whether TYPE exists after having included INCLUDES, setting cache
@@ -1878,52 +1924,6 @@ $as_echo "$ac_res" >&6; }
   eval $as_lineno_stack; ${as_lineno_stack:+:} unset as_lineno
 
 } # ac_fn_c_check_type
-
-# ac_fn_c_try_link LINENO
-# -----------------------
-# Try to link conftest.$ac_ext, and return whether this succeeded.
-ac_fn_c_try_link ()
-{
-  as_lineno=${as_lineno-"$1"} as_lineno_stack=as_lineno_stack=$as_lineno_stack
-  rm -f conftest.$ac_objext conftest$ac_exeext
-  if { { ac_try="$ac_link"
-case "(($ac_try" in
-  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
-  *) ac_try_echo=$ac_try;;
-esac
-eval ac_try_echo="\"\$as_me:${as_lineno-$LINENO}: $ac_try_echo\""
-$as_echo "$ac_try_echo"; } >&5
-  (eval "$ac_link") 2>conftest.err
-  ac_status=$?
-  if test -s conftest.err; then
-    grep -v '^ *+' conftest.err >conftest.er1
-    cat conftest.er1 >&5
-    mv -f conftest.er1 conftest.err
-  fi
-  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
-  test $ac_status = 0; } && {
-	 test -z "$ac_c_werror_flag" ||
-	 test ! -s conftest.err
-       } && test -s conftest$ac_exeext && {
-	 test "$cross_compiling" = yes ||
-	 $as_test_x conftest$ac_exeext
-       }; then :
-  ac_retval=0
-else
-  $as_echo "$as_me: failed program was:" >&5
-sed 's/^/| /' conftest.$ac_ext >&5
-
-	ac_retval=1
-fi
-  # Delete the IPA/IPO (Inter Procedural Analysis/Optimization) information
-  # created by the PGI compiler (conftest_ipa8_conftest.oo), as it would
-  # interfere with the next link command; also delete a directory that is
-  # left behind by Apple's compiler.  We do this before executing the actions.
-  rm -rf conftest.dSYM conftest_ipa8_conftest.oo
-  eval $as_lineno_stack; ${as_lineno_stack:+:} unset as_lineno
-  as_fn_set_status $ac_retval
-
-} # ac_fn_c_try_link
 
 # ac_fn_c_check_func LINENO FUNC VAR
 # ----------------------------------
@@ -3859,64 +3859,91 @@ fi
 
 
 
-GMP_HOME=
 GMP_CPPFLAGS=
 GMP_LIBS=
 
 
 # Check whether --with-gmp was given.
 if test "${with_gmp+set}" = set; then :
-  withval=$with_gmp;  if test "$with_gmp" = "yes" ; then
-      GMP_HOME="$GAP_ROOT_real/bin/$GAPARCH/extern/gmp"
-      GMP_CPPFLAGS="-I${GMP_HOME}/include"
-      GMP_LIBS="${GMP_HOME}/lib/libgmp.a"
-    elif test "$with_gmp" = "system" ; then
-      GMP_CPPFLAGS=""
-      GMP_LIBS="-lgmp"
-    else
-      GMP_HOME="$with_gmp"
-      GMP_CPPFLAGS="-I${GMP_HOME}/include"
-      GMP_LIBS="${GMP_HOME}/lib/libgmp.a"
-    fi
-
+  withval=$with_gmp;
 else
-   GMP_HOME="$GAP_ROOT_real/bin/$GAPARCH/extern/gmp"
-   GMP_CPPFLAGS="-I${GMP_HOME}/include"
-   GMP_LIBS="${GMP_HOME}/lib/libgmp.a"
-
+   with_gmp=yes
 
 fi
 
 
-pq_save_CPPFLAGS="$CPPFLAGS"
-CPPFLAGS="$CPPFLAGS $GMP_CPPFLAGS"
-pq_save_LDFLAGS="$LDFLAGS"
-LDFLAGS="$LDFLAGS $GMP_LIBS"
+if test "x$with_gmp" = "xno" ; then
+	{ $as_echo "$as_me:${as_lineno-$LINENO}: Building without GMP support" >&5
+$as_echo "$as_me: Building without GMP support" >&6;}
+elif test "x$with_gmp" = "xsystem" ; then
+	# Try using system GMP
+	GMP_CPPFLAGS=""
+	GMP_LIBS="-lgmp"
+else
+	# Try using static linked GMP in the specified location
+	if test "x$with_gmp" = "xyes" ; then
+		# Try to use GAP's GMP, if available
+		GMP_HOME="$GAP_ROOT_real/bin/$GAPARCH/extern/gmp"
+	else
+		GMP_HOME="$with_gmp"
+	fi;
+	if test -d ${GMP_HOME}/include && test -f ${GMP_HOME}/lib/libgmp.a ; then
+		GMP_CPPFLAGS="-I${GMP_HOME}/include"
+		GMP_LIBS="${GMP_HOME}/lib/libgmp.a"
+	elif test "x$with_gmp" = "xyes" ; then
+		# fallback to trying system wide GMP
+		GMP_CPPFLAGS=""
+		GMP_LIBS="-lgmp"
+	else
+		as_fn_error $? "Could not locate libgmp.a in the specified location" "$LINENO" 5
+	fi
+fi;
 
 have_gmp=no
 if test "x$with_gmp" != xno; then
+	pq_save_CPPFLAGS="$CPPFLAGS"
+	CPPFLAGS="$CPPFLAGS $GMP_CPPFLAGS"
+	pq_save_LIBS="$LIBS"
+	LIBS="$LIBS $GMP_LIBS"
+
 	ac_fn_c_check_header_mongrel "$LINENO" "gmp.h" "ac_cv_header_gmp_h" "$ac_includes_default"
 if test "x$ac_cv_header_gmp_h" = xyes; then :
 
 		# TODO: Disable linker check for now: It causes problems on Linux, because
 		# libgmp.a is in the linker command line before the test C file. On the long
 		# run, this should be re-enabled, though perhaps in a different form.
-	#     AC_MSG_CHECKING([whether linking against GMP works])
-	#	AC_CHECK_LIB( [gmp], [__gmpz_init], [have_gmp=yes], [] )
-		have_gmp=yes
+		{ $as_echo "$as_me:${as_lineno-$LINENO}: checking whether linking against GMP works" >&5
+$as_echo_n "checking whether linking against GMP works... " >&6; }
+		cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+#include <gmp.h>
+int
+main ()
+{
+__gmpz_init(0);
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_link "$LINENO"; then :
+  have_gmp=yes
+fi
+rm -f core conftest.err conftest.$ac_objext \
+    conftest$ac_exeext conftest.$ac_ext
+		{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $have_gmp" >&5
+$as_echo "$have_gmp" >&6; }
 
 fi
 
 
+
+	# restore FLAGS
+	CPPFLAGS="$pq_save_CPPFLAGS"
+	LIBS="$pq_save_LIBS"
+
 fi;
 
-# restore FLAGS
-CPPFLAGS="$pq_save_CPPFLAGS"
-LDFLAGS="$pq_save_LDFLAGS"
-
-# TODO: If we can't find GMP so far, then try again in GAPDIR/bin/GAPARCH/extern/gmp/
 if test "x$have_gmp" = xyes; then
-	# keep modified FLAGS
 
 $as_echo "#define HAVE_GMP 1" >>confdefs.h
 
@@ -3924,10 +3951,6 @@ $as_echo "#define HAVE_GMP 1" >>confdefs.h
 
 
 fi
-
-
-#AC_TYPE_LONG_LONG_INT
-
 
 for ac_header in stdlib.h
 do :
