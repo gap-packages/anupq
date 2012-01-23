@@ -532,8 +532,8 @@ interactive {\ANUPQ} process  simply  returns  the  list  of  descendants
 originally calculated; a  warning  is  emitted  at  `InfoANUPQ'  level  1
 reminding you of this should you do this.
 
-Following the colon <options> a selection of the options listed  for  the
-non-interactive `PqDescendants' function (see~"PqDescendants") should  be
+After the colon,  <options>   a selection of the options listed  for  the
+non-interactive `PqDescendants' function (see~"PqDescendants"), should be
 given,   separated   by    commas    like    record    components    (see
 Section~"ref:function call!with options" in the {\GAP} Reference Manual),
 except that the options `SetupFile' or `PqWorkspace' are ignored  by  the
@@ -914,8 +914,8 @@ performs menu item 3 of the main $p$-Quotient menu.
 \>PqNextClass( <i> [: QueueFactor ]) F
 \>PqNextClass([: QueueFactor ]) F
 
-for the <i>th or default interactive {\ANUPQ} process, direct the `pq' to
-calculate the next class of `ANUPQData.io[<i>].group'.
+for the <i>th or default interactive  {\ANUPQ} process,  direct  the  `pq' 
+program to calculate the next class of `ANUPQData.io[<i>].group'.
 
 \atindex{option QueueFactor}{@option \noexpand`QueueFactor'}
 `PqNextClass'  accepts  the  option   `QueueFactor'   (see   also~"option
@@ -942,10 +942,10 @@ For those familiar with the `pq' program, `PqNextClass' performs menu item
 \>PqComputePCover( <i> ) F
 \>PqComputePCover() F
 
-for the <i>th or default interactive {\ANUPQ} process, direct the `pq' to
-compute the $p$-covering group of `ANUPQData.io[<i>].group'.  In contrast
-to the function  `PqPCover'  (see~"PqPCover"),  this  function  does  not
-return a {\GAP} pc group.
+for the <i>th or default interactive {\ANUPQ} processi,  directi, the  `pq'
+program to compute  the  $p$-covering group  of  `ANUPQData.io[<i>].group'.
+In contrast to the function `PqPCover' (see~"PqPCover"), this function does
+not return a {\GAP} pc group.
 
 *Notes*
 
@@ -1113,7 +1113,7 @@ the following `PqDoConsistencyCheck' calls (see~"PqDoConsistencyCheck"):
 
 `<type> = 2':&
 `PqDoConsistencyCheck(<i>, <b>, <b>, <a>)' checks for  pc  generators  of
-indices <b>, <a>  satisfying  `<b>  >  <a>'  and  `PqWeight(<i>,  <b>)  +
+indices <b>, <a>  satisfyingx  both `<b> > <a>' and `PqWeight(<i>, <b>) +
 PqWeight(<i>, <a>) + 1 = <weight>'.
 
 `<type> = 3':&
@@ -1753,7 +1753,7 @@ for the  <i>th or default  interactive {\ANUPQ} process, direct  the `pq'
 to perform menu item 8 of the Advanced $p$-Group Generation menu.
 
 Here   the   options   <options>  recognised   are   `PcgsAutomorphisms',
-`SpaceEfficient', and `CustomiseOutput'  (see Chapter~"ANUPQ Options" for
+`SpaceEfficient'  and `CustomiseOutput'  (see Chapter~"ANUPQ Options" for
 details).   For the  `CustomiseOutput'  option only  the  setting of  the
 `orbit' is recognised (all other fields if set are ignored).
 

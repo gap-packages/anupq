@@ -20,17 +20,17 @@ Persons := [
     FirstNames    := "Greg",
     IsAuthor      := true,
     IsMaintainer  := true,
-    Email         := "gregg@math.rwth-aachen.de",
-    WWWHome       := "http://www.math.rwth-aachen.de/~Greg.Gamble",
+    Email         := "Greg.Gamble@uwa.edu.au",
+    WWWHome       := "http://school.maths.uwa.edu.au/~gregg",
     PostalAddress := Concatenation(
                        "Greg Gamble\n",
                        "Department of Mathematics and Statistics\n",
-                       "Curtin University of Technology\n",
+                       "Curtin University\n",
                        "GPO Box U 1987\n",
                        "Perth WA 6845\n",
                        "Australia" ),
     Place         := "Perth",
-    Institution   := "Curtin University of Technology"
+    Institution   := "Curtin University"
   ),
   rec( 
     LastName      := "Nickel",
@@ -82,10 +82,10 @@ Status         := "accepted",
 CommunicatedBy := "Charles Wright (Eugene)",
 AcceptDate     := "04/2002",
 
-PackageWWWHome := "http://www.math.rwth-aachen.de/~Greg.Gamble/ANUPQ/",
+PackageWWWHome := "http://school.maths.uwa.edu.au/~gregg/ANUPQ/",
 
 ArchiveURL     := Concatenation( ~.PackageWWWHome, "anupq-", ~.Version ),
-ArchiveFormats := ".tar.gz .zoo", # TODO: Add .tar.bz2, get rid of .zoo
+ArchiveFormats := ".tar.gz", 
 README_URL     := Concatenation( ~.PackageWWWHome, "README" ),
 PackageInfoURL := Concatenation( ~.PackageWWWHome, "PackageInfo.g" ),
 
@@ -142,19 +142,21 @@ AvailabilityTest :=
   end,
 
 BannerString := Concatenation( 
-  "-------------------------------------------------------------\n",
-  "Loading ", ~.PackageDoc.BookName, " ", ~.Version, 
-  " (", ~.PackageDoc.LongTitle, " package)\n",
+  "---------------------------------------------------------------------------",
+  "\n",
+  "Loading    ", ~.PackageName, " (", ~.Subtitle, ") ", ~.Version, "\n",
+  "GAP code by  ", ~.Persons[1].FirstNames, " ", ~.Persons[1].LastName,
+        " <", ~.Persons[1].Email, "> (address for correspondence)\n",
+  "           ", ~.Persons[2].FirstNames, " ", ~.Persons[2].LastName,
+        " (", ~.Persons[2].WWWHome, ")\n",
+  "           [uses ANU pq binary (C code program) version: 1.9]\n",
   "C code by  ", ~.Persons[3].FirstNames, " ", ~.Persons[3].LastName,
-                " <", ~.Persons[3].Email, ">\n",
-  "           (ANU pq binary version: 1.8)\n",
-  "GAP code by ", ~.Persons[2].FirstNames, " ", ~.Persons[2].LastName,
-                "\n",
-                #" <", ~.Persons[2].Email, ">\n",
-  "        and   ", ~.Persons[1].FirstNames, " ", ~.Persons[1].LastName,
-                "  <", ~.Persons[1].Email, ">\n\n",
+        " (", ~.Persons[3].WWWHome, ")\n",
+  "Co-maintained by ", ~.Persons[4].FirstNames, " ", ~.Persons[4].LastName,
+                " <", ~.Persons[4].Email, ">\n\n",
   "            For help, type: ?", ~.PackageDoc.BookName, "\n",
-  "-------------------------------------------------------------\n"),
+  "---------------------------------------------------------------------------",
+  "\n" ),
 
 Autoload := false,
 

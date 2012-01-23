@@ -52,14 +52,14 @@ running  HP-UX, a MIPS  running RISC/os  Berkeley, a  NeXTstation running
 NeXTSTEP  3.0, SUNs  running SunOS  and Intel  Pentium based  PCs running
 Linux or Windows equipped with cygwin.
 
-You can download  `anupq-XXX.zoo' (where `XXX'  is  the  package  version
+You can download `anupq-XXX.tar.gz' (where `XXX' is the  package  version
 number) from the home page for the ANUPQ package
 
 http://www.math.rwth-aachen.de/~Greg.Gamble/ANUPQ/ (Germany)
 
 or the Australian mirror
 
-http://www.maths.uwa.edu.au/~gregg/ANUPQ/          (Perth, Australia)
+http://school.maths.uwa.edu.au/~gregg/ANUPQ/       (Perth, Australia)
 
 or via the Packages links from the GAP sites
 
@@ -77,12 +77,15 @@ tar.bz2 (as appropriate) for zoo in the above paths.
                       Installing the ANUPQ package
                       ----------------------------
 
-To install the ANUPQ package, move the file  `anupq-<XXX>.zoo'  into  the
+To install the ANUPQ package, move the file `anupq-<XXX>.tar.gz' into the
 `pkg' directory in which you plan to install ANUPQ. Usually, this will be
 the directory `pkg' in the hierarchy of your version of GAP 4.  (However,
 it is also possible to keep an additional `pkg' directory in your private
 directories, see section "ref:Installing  GAP  Packages"  of  the  GAP  4
 reference manual for details on how to do this.)
+
+Version 3.1 of the ANUPQ package  uses  `autoconf'  in  `configure' which 
+should make it easier to compile. It requires at least GAP 4.4.
 
 For version 3.0 of the ANUPQ package, all pre-GAP 4.4  compatibility  was
 removed, and the AutPGrp package became essential (not just recommended).
@@ -92,16 +95,14 @@ package are now required by the ANUPQ package.
 If you still have GAP 4.3 (at least fix4), you will need to use ANUPQ 2.2
 (it's not recommended but no known bugs exist with that ANUPQ version).
 
-Then unzoo `anupq-<XXX>.zoo' by
-
-  unzoo -x anupq-<XXX>
+Unpack the archive `anupq-<XXX>.tar.gz' in the `pkg' directory.
 
 Change directory to the newly created `anupq' directory. Now you need  to
 call `configure <path>'  where  <path>  is  the  path  to  the  GAP  home
-directory. So for example if you install the package in  the  main  `pkg'
-directory call
+directory, `../..' by default. So for example, if you install the package
+in the main `pkg' directory call
 
-  ./configure ../..
+  ./configure
 
 This will fetch the architecture type for which  GAP  has  been  compiled
 last, create a `Makefile' and list a number of ``targets'' to call `make'

@@ -2,22 +2,34 @@
 #
 #     Australian National University p-Quotient Program 
 #
-#     Version 1.8
+#     Version 1.9
 #
-#     June 2001, February 2002, February 2004, July 2005, January 2006
+#     June 2001, February 2002, February 2004, July 2005, January 2006,
+#     November 2011, January 2012
 #
 ###############################################################################
 
 This implementation was developed in C by 
 
-Eamonn O'Brien 
-Department of Mathematics
-University of Auckland
-Private Bag 92019, Auckland, New Zealand
+   Eamonn O'Brien 
+   Department of Mathematics
+   University of Auckland
+   Private Bag 92019, Auckland, New Zealand
 
-E-mail: obrien@math.auckland.ac.nz
+   E-mail: obrien@math.auckland.ac.nz
 
-WWW http://www.math.auckland.ac.nz/~obrien
+   WWW http://www.math.auckland.ac.nz/~obrien
+
+and some improvements made in 2011-2012 by
+
+   Max Horn
+   AG Algebra und Diskrete Mathematik
+   Institut Computational Mathematics
+   TU Braunschweig
+   Pockelsstr. 14, D-38106 Braunschweig, Germany
+
+   E-mail: mhorn@tu-bs.de
+   WWW http://www.icm.tu-bs.de/~mhorn
 
 ###############################################################################
 #
@@ -240,3 +252,4 @@ J. Symbolic Comput. 9, 725-733.
 9. See the documentation for information on run-time parameters.
 
 10. Please report bugs/problems/feedback to obrien@math.auckland.ac.nz
+    and/or mhorn@tu-bs.de.

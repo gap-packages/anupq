@@ -1,7 +1,9 @@
 In this file we record the changes since the first GAP 4 release of
 the ANUPQ package.
 
-Version 3.? (YYYY-MM-DD)
+Version 3.1 (2012-01-DD)
+   o include/pq_author.h:
+       pq program is now version 1.9
    o Improved the build system: It now makes use of GNU autoconf, and
      the various Makefiles are now more robust, and compatible with
      both GAP 4.4 and 4.5. This should simplify building anupq for
