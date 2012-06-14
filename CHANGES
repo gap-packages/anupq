@@ -55,7 +55,7 @@ Version 2.2:
 
 Version 2.1:
    o lib/anupqi, tst/anupqeg.tst
-       fix for a bug discovered by Tobias Roﬂmann: this bug was caused
+       fix for a bug discovered by Tobias Rossmann: this bug was caused
        in the ANUPQ package's interface by not passing on the parameter
        StepSize to the standalone properly.  This bug could result in
        computing the wrong number of descendants.  Produced a new
