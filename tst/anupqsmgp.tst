@@ -120,4 +120,5 @@ gap> G := SmallGroup(8, 4);
 <pc group of size 8 with 3 generators>
 gap> H := StandardPresentation( G );
 <fp group on the generators [ f1, f2, f3 ]>
+gap> PqQuitAll();
 gap> STOP_TEST( "anupqsmgp.tst", 1000000 );
