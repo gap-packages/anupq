@@ -12,30 +12,30 @@
 gap> START_TEST( "Testing ANUPQ examples" );
 gap> SetInfoLevel(InfoANUPQ, 1);
 gap> examples := AllPqExamples();
-[ "11gp-3-Engel-Id", "11gp-3-Engel-Id-i", "11gp-PG-i", "11gp-Rel-i",
-  "11gp-SP-a-Rel-1-i", "11gp-SP-a-Rel-i", "11gp-SP-a-i", "11gp-SP-b-Rel-i",
-  "11gp-SP-b-i", "11gp-SP-c-Rel-i", "11gp-a-Rel-i", "11gp-i", "2gp-PG-2-i",
-  "2gp-PG-3-i", "2gp-PG-4-i", "2gp-PG-e4-i", "2gp-PG-i", "2gp-Rel",
-  "2gp-Rel-i", "2gp-SP-1-Rel-i", "2gp-SP-2-Rel-i", "2gp-SP-3-Rel-i",
-  "2gp-SP-4-Rel-i", "2gp-SP-Rel-i", "2gp-SP-d-Rel-i", "2gp-a-Rel-i",
-  "3gp-PG-4-i", "3gp-PG-i", "3gp-PG-x-1-i", "3gp-PG-x-i", "3gp-Rel-i",
-  "3gp-SP-1-Rel-i", "3gp-SP-2-Rel-i", "3gp-SP-3-Rel-i", "3gp-SP-4-Rel-i",
-  "3gp-SP-Rel-i", "3gp-a-Rel", "3gp-a-Rel-i", "3gp-a-x-Rel-i",
-  "3gp-maxoccur-Rel-i", "5gp-PG-i", "5gp-Rel-i", "5gp-SP-Rel-i",
-  "5gp-SP-a-Rel-i", "5gp-SP-b-Rel-i", "5gp-SP-big-Rel-i", "5gp-SP-d-Rel-i",
-  "5gp-a-Rel-i", "5gp-b-Rel-i", "5gp-c-Rel-i", "5gp-maxoccur-Rel-i",
-  "5gp-metabelian-Rel", "5gp-metabelian-Rel-i", "7gp-PG-i", "7gp-Rel-i",
-  "7gp-SP-Rel-i", "7gp-SP-a-Rel-i", "7gp-SP-b-Rel-i", "B2-4", "B2-4-Id",
-  "B2-4-SP-i", "B2-5", "B2-5-i", "B2-8-i", "B4-4-a-i", "B4-4-i", "B5-4.g",
-  "B5-5-Engel3-Id", "EpimorphismStandardPresentation",
-  "EpimorphismStandardPresentation-i", "F2-5-i", "G2-SP-Rel-i",
-  "G3-SP-Rel-i", "G5-SP-Rel-i", "G5-SP-a-Rel-i", "IsIsomorphicPGroup-ni",
-  "Nott-APG-Rel-i", "Nott-PG-Rel-i", "Nott-SP-Rel-i", "Pq", "Pq-ni",
-  "PqDescendants-1", "PqDescendants-1-i", "PqDescendants-2",
-  "PqDescendants-3", "PqDescendants-treetraverse-i",
-  "PqDescendantsTreeCoclassOne-16-i", "PqDescendantsTreeCoclassOne-25-i",
-  "PqDescendantsTreeCoclassOne-9-i", "PqEpimorphism", "PqPCover",
-  "PqSupplementInnerAutomorphisms", "R2-5-i", "R2-5-x-i",
+[ "11gp-3-Engel-Id", "11gp-3-Engel-Id-i", "11gp-PG-i", "11gp-Rel-i", 
+  "11gp-SP-a-Rel-1-i", "11gp-SP-a-Rel-i", "11gp-SP-a-i", "11gp-SP-b-Rel-i", 
+  "11gp-SP-b-i", "11gp-SP-c-Rel-i", "11gp-a-Rel-i", "11gp-i", "2gp-PG-2-i", 
+  "2gp-PG-3-i", "2gp-PG-4-i", "2gp-PG-e4-i", "2gp-PG-i", "2gp-Rel", 
+  "2gp-Rel-i", "2gp-SP-1-Rel-i", "2gp-SP-2-Rel-i", "2gp-SP-3-Rel-i", 
+  "2gp-SP-4-Rel-i", "2gp-SP-Rel-i", "2gp-SP-d-Rel-i", "2gp-a-Rel-i", 
+  "3gp-PG-4-i", "3gp-PG-i", "3gp-PG-x-1-i", "3gp-PG-x-i", "3gp-Rel-i", 
+  "3gp-SP-1-Rel-i", "3gp-SP-2-Rel-i", "3gp-SP-3-Rel-i", "3gp-SP-4-Rel-i", 
+  "3gp-SP-Rel-i", "3gp-a-Rel", "3gp-a-Rel-i", "3gp-a-x-Rel-i", 
+  "3gp-maxoccur-Rel-i", "5gp-PG-i", "5gp-Rel-i", "5gp-SP-Rel-i", 
+  "5gp-SP-a-Rel-i", "5gp-SP-b-Rel-i", "5gp-SP-big-Rel-i", "5gp-SP-d-Rel-i", 
+  "5gp-a-Rel-i", "5gp-b-Rel-i", "5gp-c-Rel-i", "5gp-maxoccur-Rel-i", 
+  "5gp-metabelian-Rel", "5gp-metabelian-Rel-i", "7gp-PG-i", "7gp-Rel-i", 
+  "7gp-SP-Rel-i", "7gp-SP-a-Rel-i", "7gp-SP-b-Rel-i", "B2-4", "B2-4-Id", 
+  "B2-4-SP-i", "B2-5", "B2-5-i", "B2-8-i", "B4-4-a-i", "B4-4-i", "B5-4.g", 
+  "B5-5-Engel3-Id", "EpimorphismStandardPresentation", 
+  "EpimorphismStandardPresentation-i", "F2-5-i", "G2-SP-Rel-i", 
+  "G3-SP-Rel-i", "G5-SP-Rel-i", "G5-SP-a-Rel-i", "IsIsomorphicPGroup-ni", 
+  "Nott-APG-Rel-i", "Nott-PG-Rel-i", "Nott-SP-Rel-i", "Pq", "Pq-ni", 
+  "PqDescendants-1", "PqDescendants-1-i", "PqDescendants-2", 
+  "PqDescendants-3", "PqDescendants-treetraverse-i", 
+  "PqDescendantsTreeCoclassOne-16-i", "PqDescendantsTreeCoclassOne-25-i", 
+  "PqDescendantsTreeCoclassOne-9-i", "PqEpimorphism", "PqPCover", 
+  "PqSupplementInnerAutomorphisms", "R2-5-i", "R2-5-x-i", 
   "StandardPresentation", "StandardPresentation-i", "gp-256-SP-Rel-i" ]
 gap> examples := Difference(examples, ["EpimorphismStandardPresentation-i"]);
 [ "11gp-3-Engel-Id", "11gp-3-Engel-Id-i", "11gp-PG-i", "11gp-Rel-i", 
@@ -47021,11 +47021,9 @@ gap> phi := EpimorphismStandardPresentation( Q : Prime := 3,
 >                                             ClassBound := 3 );
 [ F1, F2, F3, F4, F5, F6 ] -> [ f1*f2^2*f3*f4^2*f5^2, f1*f2*f3*f5, f3^2, 
   f4*f6^2, f5, f6 ]
-gap> NamesOfComponents(phi);
-[ "Source", "Range", "MappingGeneratorsImages" ]
-gap> phi!.Source; # This is the group Q (GAP uses F1, ... for gen'r symbols)
+gap> Source(phi); # This is the group Q (GAP uses F1, ... for gen'r symbols)
 <fp group of size infinity on the generators [ F1, F2, F3, F4, F5, F6 ]>
-gap> phi!.Range;  # This is the group G (GAP uses f1, ... for gen'r symbols)
+gap> Range(phi);  # This is the group G (GAP uses f1, ... for gen'r symbols)
 <fp group on the generators [ f1, f2, f3, f4, f5, f6 ]>
 gap> AssignGeneratorVariables(G); # so f1, ... are now variables
 #I  Assigned the global variables [ f1, f2, f3, f4, f5, f6 ]
@@ -47065,11 +47063,9 @@ gap> phi := EpimorphismStandardPresentation( procId : Prime := 3,
 >                                             ClassBound := 3 );
 [ F1, F2, F3, F4, F5, F6 ] -> [ f1*f2^2*f3*f4^2*f5^2, f1*f2*f3*f5, f3^2, 
   f4*f6^2, f5, f6 ]
-gap> NamesOfComponents(phi);
-[ "Source", "Range", "MappingGeneratorsImages" ]
-gap> phi!.Source; # This is the group Q (GAP uses F1, ... for gen'r symbols)
+gap> Source(phi); # This is the group Q (GAP uses F1, ... for gen'r symbols)
 <fp group of size infinity on the generators [ F1, F2, F3, F4, F5, F6 ]>
-gap> phi!.Range;  # This is the group G (GAP uses f1, ... for gen'r symbols)
+gap> Range(phi);  # This is the group G (GAP uses f1, ... for gen'r symbols)
 <fp group on the generators [ f1, f2, f3, f4, f5, f6 ]>
 gap> AssignGeneratorVariables(G); # so f1, ... are now variables
 #I  Global variable `f1' is already defined and will be overwritten
@@ -58164,15 +58160,19 @@ rec( agAutos := [  ], agOrder := [ 3, 2, 2, 2 ],
   glAutos := [ Pcgs([ f1, f2, f3 ]) -> [ f1*f2^2, f2, f3 ], 
       Pcgs([ f1, f2, f3 ]) -> [ f1^2, f2, f3^2 ], 
       Pcgs([ f1, f2, f3 ]) -> [ f1^2, f2, f3^2 ] ] )
-gap> A := AutomorphismGroupPGroup( des[3] );
-rec( glAutos := [  ], glOrder := 1, 
-  agAutos := [ Pcgs([ f1, f2, f3 ]) -> [ f1^2, f2, f3^2 ], 
-      Pcgs([ f1, f2, f3 ]) -> [ f1*f2^2, f2, f3 ], 
-      Pcgs([ f1, f2, f3 ]) -> [ f1*f3, f2, f3 ], 
-      Pcgs([ f1, f2, f3 ]) -> [ f1, f2*f3, f3 ] ], agOrder := [ 2, 3, 3, 3 ], 
-  one := IdentityMapping( <pc group of size 27 with 3 generators> ), 
-  group := <pc group of size 27 with 3 generators>, size := 54, 
-  glOper := [  ] )
+gap> A := AutomorphismGroupPGroup( des[3] );;
+gap> for n in RecNames(A) do Print(n, " := ", A.(n), "\n"); od;
+group := Group( [ f1, f2, f3 ] )
+one := IdentityMapping( Group( [ f1, f2, f3 ] ) )
+size := 54
+glOper := [  ]
+glAutos := [  ]
+glOrder := 1
+agAutos := [ Pcgs([ f1, f2, f3 ]) -> [ f1^2, f2, f3^2 ], 
+  Pcgs([ f1, f2, f3 ]) -> [ f1*f2^2, f2, f3 ], 
+  Pcgs([ f1, f2, f3 ]) -> [ f1*f3, f2, f3 ], 
+  Pcgs([ f1, f2, f3 ]) -> [ f1, f2*f3, f3 ] ]
+agOrder := [ 2, 3, 3, 3 ]
 gap> # Executing interactive variant of example: "PqSupplementInnerAutomorphisms"
 gap> ##Example: "PqSupplementInnerAutomorphisms" . . . based on manual example
 gap> ##Illustrates `PqSupplementInnerAutomorphisms' usage
@@ -58190,15 +58190,19 @@ rec( agAutos := [  ], agOrder := [ 3, 2, 2, 2 ],
   glAutos := [ Pcgs([ f1, f2, f3 ]) -> [ f1*f2^2, f2, f3 ], 
       Pcgs([ f1, f2, f3 ]) -> [ f1^2, f2, f3^2 ], 
       Pcgs([ f1, f2, f3 ]) -> [ f1^2, f2, f3^2 ] ] )
-gap> A := AutomorphismGroupPGroup( des[3] );
-rec( glAutos := [  ], glOrder := 1, 
-  agAutos := [ Pcgs([ f1, f2, f3 ]) -> [ f1^2, f2, f3^2 ], 
-      Pcgs([ f1, f2, f3 ]) -> [ f1*f2^2, f2, f3 ], 
-      Pcgs([ f1, f2, f3 ]) -> [ f1*f3, f2, f3 ], 
-      Pcgs([ f1, f2, f3 ]) -> [ f1, f2*f3, f3 ] ], agOrder := [ 2, 3, 3, 3 ], 
-  one := IdentityMapping( <pc group of size 27 with 3 generators> ), 
-  group := <pc group of size 27 with 3 generators>, size := 54, 
-  glOper := [  ] )
+gap> A := AutomorphismGroupPGroup( des[3] );;
+gap> for n in RecNames(A) do Print(n, " := ", A.(n), "\n"); od;
+group := Group( [ f1, f2, f3 ] )
+one := IdentityMapping( Group( [ f1, f2, f3 ] ) )
+size := 54
+glOper := [  ]
+glAutos := [  ]
+glOrder := 1
+agAutos := [ Pcgs([ f1, f2, f3 ]) -> [ f1^2, f2, f3^2 ], 
+  Pcgs([ f1, f2, f3 ]) -> [ f1*f2^2, f2, f3 ], 
+  Pcgs([ f1, f2, f3 ]) -> [ f1*f3, f2, f3 ], 
+  Pcgs([ f1, f2, f3 ]) -> [ f1, f2*f3, f3 ] ]
+agOrder := [ 2, 3, 3, 3 ]
 gap> ##Example: "R2-5-i" . . . based on: examples/R2-5
 gap> ##Construction of R(2,5)
 gap> F := FreeGroup("a", "b");
