@@ -17,7 +17,7 @@ LogTo("anupqeg.tst-new0");
 START_TEST( "Testing ANUPQ examples" );
 SetInfoLevel(InfoANUPQ, 1);
 examples := AllPqExamples();
-examples := Difference(examples, ["EpimorphismStandardPresentation-i"]);
+RemoveSet(examples, "EpimorphismStandardPresentation-i");
 nexamples := Length( examples );
 LogTo();
 Exec("grep -e \"^gap> \" anupqeg.tst-new0 > anupqeg.tst-new");

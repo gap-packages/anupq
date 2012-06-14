@@ -1,5 +1,5 @@
 #!/usr/bin/perl -w
-$gap = "gap4";
+$gap = "../../../bin/gap.sh";
 print "Building GAP pre-script file\n";
 system("$gap -A -x 80 < anupqeg.tsk > /dev/null");
 print "GAP pre-script in anupqeg.tst-new\n";
@@ -7,7 +7,7 @@ open(IN, "<anupqeg.tst-new");
 open(OUT, ">anupqeg.tst-new0");
 $logto = 0;
 print "Building GAP script file\n";
-print OUT "RequirePackage( \"anupq\" );";
+print OUT "LoadPackage( \"anupq\" );";
 print OUT "LogTo(\"anupqeg.tst-new\");\n";
 while (<IN>) {
   if (!$logto) {
