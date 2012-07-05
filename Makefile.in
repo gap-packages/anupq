@@ -42,7 +42,7 @@ CC      = @CC@
 PQFLAGS = -DGAP_LINK_VIA_FILE -DGAP -I$(top_srcdir)/include -DSTANDARD_PCP -DGROUP -DANUPQ_GAP_EXEC='"$(GAP)"'
 
 
-CFLAGS   += -O2
+CFLAGS   += -O2 -Wall
 CPPFLAGS += $(GMP_CPPFLAGS) $(PQFLAGS)
 LDLIBS    = $(GMP_LIBS) -lm
 # FIXME: Deal with -lm in a more portable fashion (i.e. detect whether
