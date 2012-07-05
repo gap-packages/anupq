@@ -19,12 +19,21 @@
 #include "menus.h"
 #include "standard.h"
 
-#if defined (GROUP) 
-#if defined (STANDARD_PCP)
+#if defined (GROUP) && defined (STANDARD_PCP)
 
-int map_array_size;
-int output;
-char *find_word (int *word_length, Logical soluble_group, int **perms, int rep, int non_standard, int orbit_length, int *b, char *c, struct pga_vars *pga);
+static int map_array_size;
+static int output;
+
+static void enforce_exp_law (struct pcp_vars *pcp);
+static int **start_pga_run (Logical *identity_map, int ***auts, struct pga_vars *pga, struct pcp_vars *pcp);
+static int **group_completed (int ***auts, struct pga_vars *pga, struct pcp_vars *pcp);
+static int **finish_pga_run (Logical *identity_map, FILE *cover_tmp_file, FILE *group_file, int ***auts, struct pga_vars *pga, struct pcp_vars *pcp);
+static int **find_stabiliser (Logical *identity_map, int non_standard, int ***auts, int **perms, int *a, int *b, char *c, int *orbit_length, struct pga_vars *pga, struct pcp_vars *pcp);
+static void trace (char *word_map, int *depth, int label, int *backptr, char *schreier);
+static char *find_word (int *word_length, Logical soluble_group, int **perms, int rep, int non_standard, int orbit_length, int *b, char *c, struct pga_vars *pga);
+static int **standard_map (char *word_map, int word_length, Logical *identity_map, int rep, int ***auts, struct pga_vars *pga, struct pcp_vars *pcp);
+static int inverse_image (int l, int *perms, struct pga_vars *pga);
+static void list_subgroup (int rep, struct pga_vars *pga, struct pcp_vars *pcp);
 
 /* compute a standard presentation for a group;
    
@@ -44,8 +53,9 @@ void standard_presentation (Logical *identity_map, int standard_output, int ***a
 { 
    int i;
    int **map;
+#if defined (TIME)
    int t;
-   int lastg = pcp->lastg;
+#endif 
 
    output = standard_output;
 
@@ -80,7 +90,7 @@ void standard_presentation (Logical *identity_map, int standard_output, int ***a
 
 /* enforce the exponent law, if any, on the group */
 
-void enforce_exp_law (struct pcp_vars *pcp)
+static void enforce_exp_law (struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -105,16 +115,14 @@ void enforce_exp_law (struct pcp_vars *pcp)
 /* commence a partial run of p-group generation in order
    to determine the standard presentation for this class */
 
-int **start_pga_run (Logical *identity_map, int ***auts, struct pga_vars *pga, struct pcp_vars *pcp)
+static int **start_pga_run (Logical *identity_map, int ***auts, struct pga_vars *pga, struct pcp_vars *pcp)
 {
    FILE * cover_file;        /* store complete p-cover of group */
    FILE * cover_tmp_file;    /* store (reduced) p-cover of group */
    FILE * group_file;        /* store class c + 1 quotient of group */
    int **map;                   /* automorphism to apply to presentation */
-   int t;
-
 #if defined (TIME)
-   t = runTime ();
+   int t = runTime ();
 #endif
 
    /* save (reduced) p-covering group presentation to temporary file */
@@ -188,7 +196,7 @@ int **start_pga_run (Logical *identity_map, int ***auts, struct pga_vars *pga, s
 /* the group has completed when the relations are imposed; we write 
    necessary files in order to have consistent behaviour pattern */
 
-int **group_completed (int ***auts, struct pga_vars *pga, struct pcp_vars *pcp)
+static int **group_completed (int ***auts, struct pga_vars *pga, struct pcp_vars *pcp)
 {
    FILE * NextClass;
    FILE * Status;
@@ -232,7 +240,7 @@ int **group_completed (int ***auts, struct pga_vars *pga, struct pcp_vars *pcp)
 
 /* complete pga run to compute standard presentation for this class */
 
-int **finish_pga_run (Logical *identity_map, FILE *cover_tmp_file, FILE *group_file, int ***auts, struct pga_vars *pga, struct pcp_vars *pcp)
+static int **finish_pga_run (Logical *identity_map, FILE *cover_tmp_file, FILE *group_file, int ***auts, struct pga_vars *pga, struct pcp_vars *pcp)
 {
    int **perms;
 
@@ -240,7 +248,9 @@ int **finish_pga_run (Logical *identity_map, FILE *cover_tmp_file, FILE *group_f
    int k;
    int upper_step;
    Logical soluble_group;
+#if defined (GAP_LINK)
    Logical process_fork = FALSE; /* has GAP process forked? */
+#endif
    int *a;
    int *b;
    char *c;
@@ -251,7 +261,9 @@ int **finish_pga_run (Logical *identity_map, FILE *cover_tmp_file, FILE *group_f
    int non_standard;            /* label for allowable subgroup defining
 				   non-standard presentation */
    int **map;                   /* automorphism to apply to presentation */
+#if defined (TIME)
    int t;
+#endif
    char *s;
 
    restore_pcp (cover_tmp_file, pcp);
@@ -334,10 +346,8 @@ int **finish_pga_run (Logical *identity_map, FILE *cover_tmp_file, FILE *group_f
 	 process_fork = TRUE;
       }
       StartGapFile (pga);
-#else
-#if defined (GAP_LINK_VIA_FILE)
+#elif defined (GAP_LINK_VIA_FILE)
       start_GAP_file (&LINK_input, auts, pga, pcp);
-#endif
 #endif
    }
 
@@ -406,18 +416,10 @@ int **finish_pga_run (Logical *identity_map, FILE *cover_tmp_file, FILE *group_f
 /* find the stabiliser of the representative of the orbit which 
    contains the non-standard allowable subgroup */
 
-int **find_stabiliser (identity_map, non_standard, auts, perms, a, b, c, 
-                       orbit_length, pga, pcp)
-Logical *identity_map;
-int non_standard;
-int ***auts;
-int **perms;
-int *a;
-int *b;
-char *c;
-int *orbit_length;
-struct pga_vars *pga;
-struct pcp_vars *pcp;
+static int **find_stabiliser (Logical *identity_map, int non_standard, int ***auts, int **perms,
+                       int *a, int *b, char *c, int *orbit_length,
+                       struct pga_vars *pga,
+                       struct pcp_vars *pcp)
 {
    FILE * Status;
    FILE * OutputFile;
@@ -426,12 +428,11 @@ struct pcp_vars *pcp;
    int length[2];
    int **map;
    int i;
-   int t;
    int word_length = 0;
    char *word_map;
 
 #if defined (TIME)
-   t = runTime ();
+   int t = runTime ();
 #endif
 
    soluble_group = (pga->soluble || pga->Degree == 1 || pga->nmr_of_perms == 0);
@@ -521,17 +522,8 @@ void trace (char *word_map, int *depth, int label, int *backptr, char *schreier)
 /* find word in defining permutations which maps orbit representative to label;
    store each component of the word of length word_length in array word */
 
-char *find_word (word_length, soluble_group, perms, rep, 
-                 non_standard, orbit_length, b, c, pga)
-int *word_length;
-Logical soluble_group;
-int **perms;
-int rep;
-int non_standard;
-int orbit_length;
-int *b;
-char *c;
-struct pga_vars *pga;
+static char *find_word (int *word_length, Logical soluble_group, int **perms, int rep, 
+                 int non_standard, int orbit_length, int *b, char *c, struct pga_vars *pga)
 {
    int perm_number;
    char *word_map;
@@ -577,7 +569,7 @@ struct pga_vars *pga;
    non_standard, to the orbit representative, rep; the word and 
    its length are supplied as word_map and word_length  */
 
-int **standard_map (char *word_map, int word_length, Logical *identity_map, int rep, int ***auts, struct pga_vars *pga, struct pcp_vars *pcp)
+static int **standard_map (char *word_map, int word_length, Logical *identity_map, int rep, int ***auts, struct pga_vars *pga, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -633,7 +625,7 @@ int **standard_map (char *word_map, int word_length, Logical *identity_map, int 
 
 /* find the image of l under the inverse of the supplied permutation */
    
-int inverse_image (int l, int *perms, struct pga_vars *pga)
+static int inverse_image (int l, int *perms, struct pga_vars *pga)
 {
    register int i;
 
@@ -684,7 +676,7 @@ void print_aut_description (int ***central, int ***stabiliser, struct pga_vars *
 /* list orbit representative as generators of subgroup to 
    factor from p-covering group */
 
-int list_subgroup (int rep, struct pga_vars *pga, struct pcp_vars *pcp)
+static void list_subgroup (int rep, struct pga_vars *pga, struct pcp_vars *pcp)
 {
    register int lastg = pcp->lastg;
    register int i, j, k;
@@ -783,5 +775,4 @@ int*** read_auts_from_file (FILE *file, int *nmr_of_auts, struct pcp_vars *pcp)
    return auts;
 }
 
-#endif 
 #endif 

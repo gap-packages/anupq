@@ -27,11 +27,7 @@
 **          write out initial information required for stabiliser calculation
 **
 */
-void start_GAP_file ( GAP_input, auts, pga, pcp )
-    FILE             ** GAP_input;
-    int             *** auts;
-    struct pga_vars   * pga;
-    struct pcp_vars   * pcp;
+void start_GAP_file ( FILE **GAP_input, int ***auts, struct pga_vars *pga, struct pcp_vars *pcp )
 {
    register int i;
    int nmr_soluble = pga->nmr_soluble;

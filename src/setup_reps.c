@@ -21,19 +21,10 @@
    in the array reps; assemble the necessary automorphism
    information and save the descriptions to file */
 
-void setup_reps (reps, nmr_of_reps, orbit_length, perms, a, b, c, auts, 
-                 descendant_file, covers_file, pga, pcp) 
-int *reps;
-int nmr_of_reps;
-int *orbit_length;
-int **perms;
-int *a, *b;
-char *c;
-int ***auts;
-FILE * descendant_file;
-FILE * covers_file;
-struct pga_vars *pga;
-struct pcp_vars *pcp;
+void setup_reps (int *reps, int nmr_of_reps, int *orbit_length,
+                 int **perms, int *a, int *b, char *c, int ***auts, 
+                 FILE *descendant_file, FILE *covers_file,
+                 struct pga_vars *pga, struct pcp_vars *pcp)
 { 
 
    char *d;                     /* used in stabiliser computation */

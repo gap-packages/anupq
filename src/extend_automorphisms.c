@@ -13,7 +13,9 @@
 #include "pcp_vars.h"
 #include "pq_functions.h"
 
-int nmr_of_bytes;
+static int nmr_of_bytes;
+
+static void extend_automorphism (int **auts, struct pcp_vars *pcp);
 
 /* for each automorphism, compute its action on each of the generators */
 
@@ -33,7 +35,7 @@ void extend_automorphisms (int ***auts, int nmr_of_auts, struct pcp_vars *pcp)
    of the group is described by the supplied 2-dimensional matrix, 
    auts, to act on all of the generators of the group */
 
-void extend_automorphism (int **auts, struct pcp_vars *pcp)
+static void extend_automorphism (int **auts, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 

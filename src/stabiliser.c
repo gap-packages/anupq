@@ -15,20 +15,17 @@
 #include "pq_functions.h"
 #include "constants.h"
 
+static int ***setup_identity_auts (int nmr_of_generators, int ***auts, struct pga_vars *pga);
+static void evaluate_generators (int pointer, int nmr_of_generators, int ***stabiliser, int ***auts, struct pga_vars *pga, struct pcp_vars *pcp);
+
+
 /* find the stabiliser of the representative, rep; 
    all of the permutations are stored in perms;
    nmr_of_generators is the number of pcp generators in the descendant */
 
-int*** stabiliser_of_rep (perms, rep, orbit_length, a, b, c, d, 
-                          auts, pga, pcp) 
-int** perms;
-int rep;
-int orbit_length;
-int *a, *b;
-char *c, *d;
-int ***auts;
-struct pga_vars *pga;
-struct pcp_vars *pcp;
+int*** stabiliser_of_rep (int **perms, int rep, int orbit_length,
+                          int *a, int *b, char *c, char *d, int ***auts,
+                          struct pga_vars *pga, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -119,7 +116,8 @@ struct pcp_vars *pcp;
 /* find generators for the stabiliser for orbit representative, rep;
    store each word in y, preceded by its length */
 
-void stabiliser_generators (int **perms, int rep, int *a, int *b, char *c, char *d, int ***auts, struct pga_vars *pga, struct pcp_vars *pcp)
+void stabiliser_generators (int **perms, int rep, int *a, int *b, char *c, char *d,
+                            int ***auts, struct pga_vars *pga, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -176,7 +174,7 @@ void stabiliser_generators (int **perms, int rep, int *a, int *b, char *c, char 
    stored as a word in the automorphisms, auts, of the parent, where 
    y[pointer] = length of word defining first generator */
 
-void evaluate_generators (int pointer, int nmr_of_generators, int ***stabiliser, int ***auts, struct pga_vars *pga, struct pcp_vars *pcp)
+static void evaluate_generators (int pointer, int nmr_of_generators, int ***stabiliser, int ***auts, struct pga_vars *pga, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -274,7 +272,7 @@ int preimage (int perm, struct pga_vars *pga)
 /* set up those automorphisms which induced the identity on the 
    p-multiplicator as the leading elements of the stabiliser */
 
-int ***setup_identity_auts (int nmr_of_generators, int ***auts, struct pga_vars *pga)
+static int ***setup_identity_auts (int nmr_of_generators, int ***auts, struct pga_vars *pga)
 {
    int alpha, i = 0, j, k;
    int ***stabiliser;

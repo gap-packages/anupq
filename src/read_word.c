@@ -16,9 +16,13 @@
 #include "pretty_filterfns.h"
 #include "word_types.h"
 
-/* display the appropriate input message */
+static void setup_relation (int disp, int length, int type, Logical commutator, int *t, struct pcp_vars *pcp);
+static int check_for_commutator (char *s);
+static int check_for_symbol (char *s);
+static int string_to_integer (char *s, int *integer);
 
-void display_message (int type)
+/* display the appropriate input message */
+static void display_message (int type)
 {
    switch (type) {
    case LHS:
@@ -219,7 +223,7 @@ void pretty_read_word (FILE *file, int disp, int type, struct pcp_vars *pcp)
 
 /* process the input word and set it up as an entry in y */
 
-void setup_relation (int disp, int length, int type, Logical commutator, int *t, struct pcp_vars *pcp)
+static void setup_relation (int disp, int length, int type, Logical commutator, int *t, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -304,7 +308,7 @@ void setup_relation (int disp, int length, int type, Logical commutator, int *t,
 
 /* check whether relation is a commutator */
 
-int check_for_commutator (char *s)
+static int check_for_commutator (char *s)
 {
    int not_found;
    register int length = strlen (s);
@@ -318,7 +322,7 @@ int check_for_commutator (char *s)
 
 /* check for occurrence of END_OF_WORD in word */
 
-int check_for_symbol (char *s)
+static int check_for_symbol (char *s)
 {
    int not_found;
    register int length = strlen (s);
@@ -331,7 +335,7 @@ int check_for_symbol (char *s)
 
 /* convert string s to integer */
 
-int string_to_integer (char *s, int *integer)
+static int string_to_integer (char *s, int *integer)
 {
    int i, n, sign;
 

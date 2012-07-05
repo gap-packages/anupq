@@ -81,10 +81,7 @@ int max_entry;            /* upper bound on new letters in word */
 
 /* read in the initial segment to be used in generating the words */
 
-void read_initial_segment (initial, initial_coeff, pcp)
-int *initial;
-int *initial_coeff;
-struct pcp_vars *pcp;
+static void read_initial_segment (int *initial, int *initial_coeff, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -146,9 +143,7 @@ struct pcp_vars *pcp;
       max_entry = y[pcp->clend + max_weight] + 1;
 }
 
-void extra_relations (exp_flag, pcp)
-struct exp_vars *exp_flag;
-struct pcp_vars *pcp;
+void extra_relations (struct exp_vars *exp_flag, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
