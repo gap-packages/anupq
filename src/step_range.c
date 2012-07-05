@@ -15,13 +15,7 @@
 
 /* find the range of permitted step sizes */
 
-void step_range (k, lower_step, upper_step, auts, pga, pcp)
-int k;
-int *lower_step;
-int *upper_step;
-int ***auts;
-struct pga_vars *pga;
-struct pcp_vars *pcp;
+void step_range (int k, int *lower_step, int *upper_step, int ***auts, struct pga_vars *pga, struct pcp_vars *pcp)
 {
    /* the k-initial segment subgroup must include those 
       generators previously fixed */

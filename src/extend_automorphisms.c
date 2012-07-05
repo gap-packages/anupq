@@ -17,10 +17,7 @@ int nmr_of_bytes;
 
 /* for each automorphism, compute its action on each of the generators */
 
-void extend_automorphisms (auts, nmr_of_auts, pcp)
-int ***auts;
-int nmr_of_auts;
-struct pcp_vars *pcp;
+void extend_automorphisms (int ***auts, int nmr_of_auts, struct pcp_vars *pcp)
 {
    register int alpha;
    nmr_of_bytes = pcp->lastg * sizeof (int);
@@ -36,9 +33,7 @@ struct pcp_vars *pcp;
    of the group is described by the supplied 2-dimensional matrix, 
    auts, to act on all of the generators of the group */
 
-void extend_automorphism (auts, pcp)
-int **auts;
-struct pcp_vars *pcp;
+void extend_automorphism (int **auts, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -92,11 +87,7 @@ struct pcp_vars *pcp;
    find the image of t under alpha by setting up (W)alpha at cp1, 
    ((u)alpha)^p at cp2, and then call solve_equation */
 
-void extend_power (cp1, cp2, u, auts, pcp)
-int cp1, cp2;
-int u; 
-int **auts;
-struct pcp_vars *pcp;
+void extend_power (int cp1, int cp2, int u, int **auts, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -127,12 +118,7 @@ struct pcp_vars *pcp;
    (v)alpha * (u)alpha * (W)alpha at cp1, (u)alpha * (v)alpha at cp2 
    and then call solve_equation */
 
-void extend_commutator (cp1, cp2, u, v, auts, pcp)
-int cp1, cp2;
-int u;
-int v;
-int **auts;
-struct pcp_vars *pcp;
+void extend_commutator (int cp1, int cp2, int u, int v, int **auts, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -157,10 +143,7 @@ struct pcp_vars *pcp;
 /* collect the image of a generator under the action of 
    an automorphism and store the result at cp */
 
-void collect_image_of_generator (cp, auts, pcp)
-int cp;
-int *auts;
-struct pcp_vars *pcp;
+void collect_image_of_generator (int cp, int *auts, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -184,11 +167,7 @@ struct pcp_vars *pcp;
 /* collect image of supplied string under the action of 
    supplied automorphism, auts, and store the result at cp */
 
-void collect_image_of_string (string, cp, auts, pcp)
-int string;
-int cp;
-int **auts;
-struct pcp_vars *pcp;
+void collect_image_of_string (int string, int cp, int **auts, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 

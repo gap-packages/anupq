@@ -22,8 +22,7 @@
    because the space reserved for the pseudo-generator(s) added 
    by update_generator in structure is not set up yet */
 
-void update_generators (pcp)
-struct pcp_vars *pcp;
+void update_generators (struct pcp_vars *pcp)
 {
    register int *y = y_address;
 

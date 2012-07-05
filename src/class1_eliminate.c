@@ -24,8 +24,7 @@
    in all other circumstances, the usual eliminate procedure 
    is called */
 
-void class1_eliminate (pcp)
-struct pcp_vars *pcp;
+void class1_eliminate (struct pcp_vars *pcp)
 {
    register int *y = y_address;
 

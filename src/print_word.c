@@ -14,9 +14,7 @@
 
 /* print out a word of a pcp presentation */
 
-void print_word (ptr, pcp)
-int ptr;
-struct pcp_vars *pcp;
+void print_word (int ptr, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -46,11 +44,7 @@ struct pcp_vars *pcp;
 /* print out exponent-vector with base address cp, first 
    converting it to string stored at str for printing */
 
-void setup_word_to_print (type, cp, str, pcp) 
-char *type;
-int cp;
-int str;
-struct pcp_vars *pcp;
+void setup_word_to_print (char *type, int cp, int str, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 

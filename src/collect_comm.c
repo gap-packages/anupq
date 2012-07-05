@@ -18,10 +18,7 @@
 
 /* collect a commutator relation in the defining generators of the group */
 
-void collect_def_comm (ptr, cp, pcp)
-int ptr;
-int cp;
-struct pcp_vars *pcp;
+void collect_def_comm (int ptr, int cp, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -79,10 +76,7 @@ struct pcp_vars *pcp;
 /* collect value of defining generator stored at y[ptr] to 
    storage location cp */
 
-void collect_defining_generator (ptr, cp, pcp) 
-int ptr;
-int cp;
-struct pcp_vars *pcp;
+void collect_defining_generator (int ptr, int cp, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 

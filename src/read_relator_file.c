@@ -26,10 +26,7 @@
   
    the word need NOT be in normal form */
 
-void read_relator_file (queue, queue_length, pcp)
-int *queue;
-int *queue_length;
-struct pcp_vars *pcp;
+void read_relator_file (int *queue, int *queue_length, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 

@@ -15,10 +15,7 @@
 
 /* for each k, find the first permutation, d[k], which brings k into orbit */
 
-char* find_permutation (b, c, pga)
-int *b;
-char *c;
-struct pga_vars *pga;
+char* find_permutation (int *b, char *c, struct pga_vars *pga)
 {
    register int i, j, k, l;
    char *d;

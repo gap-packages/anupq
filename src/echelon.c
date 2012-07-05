@@ -215,10 +215,7 @@ int echelon (struct pcp_vars *pcp)
    of redgen from the other relations; if the generator redgen is 
    trivial, then the flag trivial is TRUE */
 
-void complete_echelon (trivial, redgen, pcp)
-Logical trivial;
-int redgen;
-struct pcp_vars *pcp;
+void complete_echelon (Logical trivial, int redgen, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 

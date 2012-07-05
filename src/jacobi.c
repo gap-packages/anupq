@@ -24,12 +24,7 @@
    if ptr = 0, use this equation to check consistency so we 
    calculate a new relation among the class pcp->cc generators */
 
-void jacobi (c, b, a, ptr, pcp)
-int c;
-int b;
-int a;
-int ptr;
-struct pcp_vars *pcp;
+void jacobi (int c, int b, int a, int ptr, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 

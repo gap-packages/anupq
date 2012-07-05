@@ -13,15 +13,12 @@
 #include "pcp_vars.h"
 #include "constants.h"
 
-void add_p2string ();
+void add_p2string (int string, int length, int collected_part, struct pcp_vars *pcp);
 
 /* collection procedure for the prime 2; 
    this routine is documented in the file collect.c */
 
-void collectp2 (pointer, collected_part, pcp)
-int pointer;
-int collected_part;
-struct pcp_vars *pcp;
+void collectp2 (int pointer, int collected_part, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -190,11 +187,7 @@ struct pcp_vars *pcp;
    directly to the collected part with base address collected_part, 
    recursively adding powers as required */
 
-void add_p2string (string, length, collected_part, pcp)
-int string;
-int length;
-int collected_part;
-struct pcp_vars *pcp;
+void add_p2string (int string, int length, int collected_part, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 

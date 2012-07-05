@@ -18,11 +18,11 @@
 /* given a label, find the standard matrix, S, for the 
    corresponding allowable subgroup and its definition set */
 
-int** label_to_subgroup (Index, subset, label, pga)
-int *Index;       
-int **subset;     /* definition set for subgroup */
-int label;
-struct pga_vars *pga;
+int** label_to_subgroup (int *Index, int **subset, int label, struct pga_vars *pga)
+                  
+                  /* definition set for subgroup */
+          
+                     
 {
    register int i, j;
 
@@ -65,12 +65,12 @@ struct pga_vars *pga;
 /* factorise subgroup determined by standard matrix S from 
    p-covering group; the definition set for S is pga->list[index] */
 
-void factorise_subgroup (S, index, subset, pga, pcp)
-int **S;
-int index;
-int *subset;       /* definition set for subgroup */
-struct pga_vars *pga;
-struct pcp_vars *pcp;
+void factorise_subgroup (int **S, int index, int *subset, struct pga_vars *pga, struct pcp_vars *pcp)
+        
+          
+                   /* definition set for subgroup */
+                     
+                     
 {
    register int *y = y_address;
 
@@ -98,13 +98,13 @@ struct pcp_vars *pcp;
 /* factorise subgroup determined by standard matrix S from 
    p-covering group; the definition set for S is pga->list[index] */
 
-void GAP_factorise_subgroup (GAP_input, S, index, subset, pga, pcp)
-FILE *GAP_input;
-int **S;
-int index;
-int *subset;       /* definition set for subgroup */
-struct pga_vars *pga;
-struct pcp_vars *pcp;
+void GAP_factorise_subgroup (FILE *GAP_input, int **S, int index, int *subset, struct pga_vars *pga, struct pcp_vars *pcp)
+                
+        
+          
+                   /* definition set for subgroup */
+                     
+                     
 {
    register int *y = y_address;
 
@@ -134,12 +134,7 @@ struct pcp_vars *pcp;
 }
 
 /* find p-adic expansion of x, where x < p^(k + 1) */
-void find_padic (x, k, p, expand, pga)
-int x;
-int k;
-int p;
-int *expand;
-struct pga_vars *pga;
+void find_padic (int x, int k, int p, int *expand, struct pga_vars *pga)
 {
    register int alpha;
    register int val;
@@ -160,9 +155,7 @@ struct pga_vars *pga;
 
 /* decode the bit string K and store as subset */
 
-int* bitstring_to_subset (K, pga)
-int K;
-struct pga_vars *pga;
+int* bitstring_to_subset (int K, struct pga_vars *pga)
 {
    int length = pga->s;         /* number of elements of subset */
    int *subset;

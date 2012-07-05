@@ -16,8 +16,7 @@
 /* print relationship between group defining generators and 
    consistent power-commutator presentation generators */
 
-void print_map (pcp)
-struct pcp_vars *pcp;
+void print_map (struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -50,9 +49,7 @@ struct pcp_vars *pcp;
    non-trivial power and commutator relations; if diagnostic output, 
    also print relationship and structure information */
 
-void print_presentation (full, pcp)
-Logical full;
-struct pcp_vars *pcp;
+void print_presentation (Logical full, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -123,8 +120,7 @@ struct pcp_vars *pcp;
 
 /* print out non-trivial pcp relations */
 
-void print_pcp_relations (pcp)
-struct pcp_vars *pcp;
+void print_pcp_relations (struct pcp_vars *pcp)
 {
    register int *y = y_address;
 

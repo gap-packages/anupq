@@ -15,11 +15,7 @@
 
 /* save description of automorphisms used in exponent checking to file */
 
-void save_auts (ofp, head, list, pcp)
-FILE * ofp;
-int *head;
-int *list; 
-struct pcp_vars *pcp;
+void save_auts (FILE *ofp, int *head, int *list, struct pcp_vars *pcp)
 {
    register int alpha;
    register int offset;
@@ -106,14 +102,7 @@ struct pcp_vars *pcp;
    retain    = nmr of generators whose images are to be retained;
    new_index = index of last used position in array list */
 
-int restore_auts (ifp, offset, nmr_saved, retain, new_index, head, list)
-FILE * ifp;
-int offset;
-int nmr_saved;
-int retain;
-int *new_index;
-int *head;
-int *list;
+int restore_auts (FILE *ifp, int offset, int nmr_saved, int retain, int *new_index, int *head, int *list)
 {
    int alpha_length;            /* length of the automorphism description */
    int i, add;
@@ -138,11 +127,7 @@ int *list;
 
 /* restore automorphisms used in exponent checking from file */
 
-void restore_automorphisms (ifp, head, list, pcp)
-FILE * ifp;
-int **head;
-int **list;
-struct pcp_vars *pcp;
+void restore_automorphisms (FILE *ifp, int **head, int **list, struct pcp_vars *pcp)
 {
    int new_index = 0;
    int offset;

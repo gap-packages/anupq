@@ -18,11 +18,7 @@
 /* for each automorphism in turn, read its actions on each 
    of the pcp generators of the Frattini quotient */
 
-int*** read_auts (option, nmr_of_auts, nmr_of_exponents, pcp)
-int option;
-int *nmr_of_auts;
-int *nmr_of_exponents;
-struct pcp_vars *pcp;
+int*** read_auts (int option, int *nmr_of_auts, int *nmr_of_exponents, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 

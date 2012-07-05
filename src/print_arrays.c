@@ -13,10 +13,7 @@
 
 /* procedure to print out integer array */
 
-void print_array (a, first, last)
-int *a;
-int first;
-int last;
+void print_array (int *a, int first, int last)
 {
    register int i;
    for (i = first; i < last; ++i) {
@@ -29,10 +26,7 @@ int last;
 
 /* procedure to print out character array */
 
-void print_chars (a, first, last)
-char *a;
-int first;
-int last;
+void print_chars (char *a, int first, int last)
 {
    register int i;
    for (i = first; i < last; ++i)

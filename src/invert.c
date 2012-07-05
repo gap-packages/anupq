@@ -18,11 +18,7 @@
    address cp by gen^(-exp), where gen is a pcp-generator 
    and exp is a positive integer in the range 0 to p */
 
-void invert_generator (gen, exp, cp, pcp)
-int gen;
-int exp;
-int cp;
-struct pcp_vars *pcp;
+void invert_generator (int gen, int exp, int cp, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -59,10 +55,7 @@ struct pcp_vars *pcp;
 /* calculate the inverse of the string with base address 
    y[str], using the collected part referenced by cp */
 
-void invert_string (str, cp, pcp)
-int str;
-int cp;
-struct pcp_vars *pcp;
+void invert_string (int str, int cp, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -80,10 +73,7 @@ struct pcp_vars *pcp;
 /* invert word with base address ptr; store result 
    as exponent vector with base address cp */
 
-void invert_word (ptr, cp, pcp)
-int ptr;
-int cp;
-struct pcp_vars *pcp;
+void invert_word (int ptr, int cp, struct pcp_vars *pcp)
 { 
    register int *y = y_address;
 
@@ -106,8 +96,7 @@ struct pcp_vars *pcp;
 
 /* read word, compute its inverse, and print out result */
 
-void setup_word_to_invert (pcp) 
-struct pcp_vars *pcp;
+void setup_word_to_invert (struct pcp_vars *pcp)
 {
    register int *y = y_address;
 

@@ -87,10 +87,7 @@ struct pcp_vars *pcp;
 
 /* set up output file name */
 
-void CreateName (name, call_depth, pcp) 
-char *name;
-int call_depth;
-struct pcp_vars *pcp;
+void CreateName (char *name, int call_depth, struct pcp_vars *pcp)
 {
    register int i, adjoin;
 

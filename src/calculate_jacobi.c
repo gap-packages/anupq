@@ -15,8 +15,7 @@
 
 /* calculate an individual jacobi */
 
-void calculate_jacobi (pcp)
-struct pcp_vars *pcp;
+void calculate_jacobi (struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -54,9 +53,7 @@ struct pcp_vars *pcp;
 }
 
 /* check if x lies outside permitted range from 1 to y */
-int outside (x, y)
-int x;
-int y;
+int outside (int x, int y)
 {
    return (x <= 0) || (x > y);
 }

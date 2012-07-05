@@ -14,15 +14,11 @@
 #include "pga_vars.h"
 #include "constants.h"
 
-FILE * TemporaryFile ();
+FILE * TemporaryFile (void);
 
 /* save start group to StartFile */
 
-void start_group (StartFile, auts, pga, pcp)
-FILE * *StartFile;
-int ***auts;
-struct pga_vars *pga;
-struct pcp_vars *pcp;
+void start_group (FILE **StartFile, int ***auts, struct pga_vars *pga, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 

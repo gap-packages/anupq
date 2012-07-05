@@ -14,11 +14,11 @@
 
 /* compute the label for the allowable subgroup having standard matrix S */
 
-int subgroup_to_label (S, K, subset, pga)
-int **S;
-int K;        /* bit string representation of definition set */
-int *subset;  /* definition set */
-struct pga_vars *pga;
+int subgroup_to_label (int **S, int K, int *subset, struct pga_vars *pga)
+        
+              /* bit string representation of definition set */
+              /* definition set */
+                     
 {
    register int i, j;
    register int exp = 0;

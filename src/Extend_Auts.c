@@ -31,11 +31,7 @@
          storing action;
    list[ptr + 2] ... list[ptr + 1 + length] contains the string */
 
-void Extend_Auts (head, list, start, pcp)
-int **head;
-int **list;
-int start;
-struct pcp_vars *pcp;
+void Extend_Auts (int **head, int **list, int start, struct pcp_vars *pcp)
 {
    register int lastg = pcp->lastg;
    register int offset; 
@@ -111,12 +107,7 @@ struct pcp_vars *pcp;
 /* list the action of each automorphism on each of the 
    pcp generators, first .. last, by their image */
 
-void List_Auts (head, list, first, last, pcp)
-int *head;
-int *list;
-int first;
-int last;
-struct pcp_vars *pcp;
+void List_Auts (int *head, int *list, int first, int last, struct pcp_vars *pcp)
 {
    register int alpha, i, j, ptr, length;
    int offset = 0;
@@ -138,12 +129,7 @@ struct pcp_vars *pcp;
 
 /* set up description of action of automorphisms on defining generators */
 
-void Setup_Action (head, list, auts, nmr_of_exponents, pcp)
-int **head;
-int **list;
-int ***auts;
-int nmr_of_exponents;
-struct pcp_vars *pcp;
+void Setup_Action (int **head, int **list, int ***auts, int nmr_of_exponents, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -185,15 +171,7 @@ struct pcp_vars *pcp;
    and list, to act on the generators of the group; the first 
    generator whose image is computed is start */
 
-void Extend_Aut (start, max_length, list_length, head, list, offset, index, pcp)
-int start;
-int max_length;
-int *list_length;
-int *head;
-int **list;
-int offset;
-int *index;
-struct pcp_vars *pcp;
+void Extend_Aut (int start, int max_length, int *list_length, int *head, int **list, int offset, int *index, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -276,13 +254,7 @@ struct pcp_vars *pcp;
 
 }
 
-void evaluate_image (head, list, offset, ptr, cp, pcp)
-int *head;
-int *list;
-int offset;
-int ptr;
-int cp;
-struct pcp_vars *pcp;
+void evaluate_image (int *head, int *list, int offset, int ptr, int cp, struct pcp_vars *pcp)
 { 
    register int *y = y_address;
 
@@ -342,13 +314,7 @@ struct pcp_vars *pcp;
    find the image of t under alpha by setting up (W)alpha at cp1, 
    ((u)alpha)^p at cp2, and then call solve_equation */
 
-void Extend_Pow (cp1, cp2, u, offset, head, list, pcp)
-int cp1, cp2;
-int u; 
-int offset;
-int *head;
-int *list;
-struct pcp_vars *pcp;
+void Extend_Pow (int cp1, int cp2, int u, int offset, int *head, int *list, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -382,14 +348,7 @@ struct pcp_vars *pcp;
    (v)alpha * (u)alpha * (W)alpha at cp1, (u)alpha * (v)alpha at cp2 
    and then call solve_equation */
 
-void Extend_Comm (cp1, cp2, u, v, offset, head, list, pcp)
-int cp1, cp2;
-int u;
-int v;
-int offset;
-int *head;
-int *list;
-struct pcp_vars *pcp;
+void Extend_Comm (int cp1, int cp2, int u, int v, int offset, int *head, int *list, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -425,11 +384,7 @@ struct pcp_vars *pcp;
    image of generator under automorphism -- it does not seem to 
    be worthwhile where p = 5 -- needs further investigation */
 
-void Pq_Collect_Image_Of_Gen (exp, cp, head, list, pcp)
-int cp;
-int head;
-int *list;
-struct pcp_vars *pcp;
+void Pq_Collect_Image_Of_Gen (int exp, int cp, int head, int *list, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -450,11 +405,7 @@ struct pcp_vars *pcp;
 /* collect image of a generator under the 
    action of an automorphism and store the result at cp */
 
-void Collect_Image_Of_Gen (cp, head, list, pcp)
-int cp;
-int head;
-int *list;
-struct pcp_vars *pcp;
+void Collect_Image_Of_Gen (int cp, int head, int *list, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -473,13 +424,7 @@ struct pcp_vars *pcp;
 /* collect image of supplied string under the action of 
    supplied automorphism and store the result at cp */
 
-void Collect_Image_Of_Str (string, cp, offset, head, list, pcp)
-int string;
-int cp;
-int offset;
-int *head;
-int *list;
-struct pcp_vars *pcp;
+void Collect_Image_Of_Str (int string, int cp, int offset, int *head, int *list, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 

@@ -14,9 +14,7 @@
 
 /* remove any class pcp->cc + 1 part on the value represented by y[ptr] */
 
-void down_class (ptr, pcp)
-int ptr;
-struct pcp_vars *pcp;   
+void down_class (int ptr, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 

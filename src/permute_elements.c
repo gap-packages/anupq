@@ -31,11 +31,7 @@
    given the label of an orbit representative, its p-adic
    expansion corresponds to the element */
 
-void expand_padic (x, k, p, expand)
-int x;
-int k;
-int p;
-int *expand;
+void expand_padic (int x, int k, int p, int *expand)
 {
    register int alpha;
    register int val;
@@ -54,10 +50,7 @@ int *expand;
    }     
 }
 
-void padic (p, rank, pga)
-int p;
-int rank;
-struct pga_vars *pga;
+void padic (int p, int rank, struct pga_vars *pga)
 {
    int number;
    int *expand;
@@ -80,7 +73,7 @@ struct pga_vars *pga;
    }
 }
 
-void permute_elements ()
+void permute_elements (void)
 {
    int index;
    int **position;

@@ -20,10 +20,7 @@
    is set, save its covering group to descendant_file and 
    compute required central automorphisms */
 
-int*** immediate_descendant (descendant_file, pga, pcp)
-FILE * descendant_file;
-struct pga_vars *pga;
-struct pcp_vars *pcp;
+int*** immediate_descendant (FILE *descendant_file, struct pga_vars *pga, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 

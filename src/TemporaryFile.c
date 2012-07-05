@@ -17,7 +17,7 @@
    if in Unix environment, open temporary file in directory specified 
    by value of environment variable TMPDIR, else on /var/tmp */
 
-FILE * TemporaryFile ()
+FILE * TemporaryFile (void)
 {
    FILE * file;
 

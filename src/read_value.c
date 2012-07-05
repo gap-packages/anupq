@@ -15,7 +15,7 @@
 
 /* function to read line */
 
-void read_line ()
+void read_line (void)
 {
    int c;
 
@@ -25,11 +25,7 @@ void read_line ()
 
 /* continue to read parameter until its value is at least lower_bound */
 
-void read_value (newline, string, value, lower_bound) 
-Logical newline;
-char *string;
-int *value;
-int lower_bound;
+void read_value (Logical newline, char *string, int *value, int lower_bound)
 {
    char response[MAXWORD];
    Logical error;
@@ -60,9 +56,7 @@ int lower_bound;
 
 /* convert string s to integer */
 
-int string_to_int (s, error)
-char *s;
-Logical *error;
+int string_to_int (char *s, Logical *error)
 {
    int i, n, sign;
 
@@ -88,8 +82,7 @@ Logical *error;
 
 /* read in string */
  
-char* GetString (string)
-char *string;
+char* GetString (char *string)
 {
    int nmr_items;
    char *s = (char *) malloc (MAXIDENT * sizeof (char));

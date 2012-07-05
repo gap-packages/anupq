@@ -27,10 +27,7 @@
 
 #ifdef HAVE_GMP
 
-MP_INT Encode (p, length, list)
-int p;
-int length;
-int *list;
+MP_INT Encode (int p, int length, int *list)
 {
   MP_INT powers, code;
   int i;
@@ -61,9 +58,7 @@ int *list;
    if write_to_file TRUE, then write the compact description, 
    sequence, to file and also return it */
 
-int *compact_description (write_to_file, pcp)
-Logical write_to_file;
-struct pcp_vars *pcp;
+int *compact_description (Logical write_to_file, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -137,12 +132,7 @@ struct pcp_vars *pcp;
 
 /* find all occurences of generator in relation with address ptr */
 
-void trace_relation (sequence, index, ptr, generator, pcp)
-int *sequence;
-int *index;
-int ptr;
-int generator;
-struct pcp_vars *pcp;
+void trace_relation (int *sequence, int *index, int ptr, int generator, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -168,10 +158,7 @@ struct pcp_vars *pcp;
 /* append the sequence of length nmr_of_exponents to file with name
    formed by concatenating "gps" and "p^n" */
    
-void output_information (sequence, nmr_of_exponents, pcp)
-int *sequence;
-int nmr_of_exponents;
-struct pcp_vars *pcp;
+void output_information (int *sequence, int nmr_of_exponents, struct pcp_vars *pcp)
 {
    register int *y = y_address;
   

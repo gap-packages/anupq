@@ -14,8 +14,7 @@
 
 /* read information for tails */
 
-void tail_info (tail_type)
-int *tail_type;
+void tail_info (int *tail_type)
 {
    Logical reading = TRUE;
 

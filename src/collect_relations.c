@@ -16,8 +16,7 @@
 /* collect defining relations and solve corresponding equations;
    a commutator relation is stored with a negative length */
 
-void collect_relations (pcp)
-struct pcp_vars *pcp;
+void collect_relations (struct pcp_vars *pcp)
 {
    register int *y = y_address;
 

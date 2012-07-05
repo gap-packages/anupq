@@ -15,9 +15,7 @@
 
 /* allocate space for array y */
 
-void Allocate_WorkSpace (work_space, pcp)
-int work_space;
-struct pcp_vars *pcp; 
+void Allocate_WorkSpace (int work_space, struct pcp_vars *pcp)
 {
    if ((y_address = 
 	(int *) malloc ((work_space + 1) * sizeof (int))) == (int *) 0) {
@@ -34,10 +32,10 @@ struct pcp_vars *pcp;
 /* allocate space for a vector, a, of size n, 
    whose subscript commences at position start */
 
-int* allocate_vector (n, start, zero)
-int n;          
-int start;      /* start may be 0 or 1 */
-Logical zero;
+int* allocate_vector (int n, int start, Logical zero)
+                
+                /* start may be 0 or 1 */
+             
 {
    int *a;
 
@@ -73,11 +71,7 @@ Logical zero;
 /* allocate space for an n x m integer matrix a, 
    whose subscripts start at position 0 or 1 */
 
-int** allocate_matrix (n, m, start, zero)
-int n;
-int m;
-int start;
-Logical zero;
+int** allocate_matrix (int n, int m, int start, Logical zero)
 {
    int **a;
    int i;
@@ -119,11 +113,7 @@ Logical zero;
 /* allocate space for an n x m x r integer array a,
    whose subscripts begin at 1, not 0 */
 
-int*** allocate_array (n, m, r, zero)
-int n;
-int m;
-int r;
-Logical zero;
+int*** allocate_array (int n, int m, int r, Logical zero)
 {
    int ***a;
    register int i, j;
@@ -172,12 +162,7 @@ Logical zero;
 /* reallocate space for a vector, a, of size new which 
    was originally of size original */
 
-int* reallocate_vector (a, original, new, start, zero)
-int *a;
-int original;
-int new;
-int start;
-Logical zero;
+int* reallocate_vector (int *a, int original, int new, int start, Logical zero)
 {
    int j;
 
@@ -218,12 +203,7 @@ Logical zero;
 /* reallocate space for an n x m integer matrix a, whose subscripts begin 
    at 1, not 0; the original sizes are supplied */
 
-int** reallocate_matrix (a, orig_n, orig_m, n, m, zero)
-int **a;
-int orig_n, orig_m;
-int n;
-int m;
-Logical zero;
+int** reallocate_matrix (int **a, int orig_n, int orig_m, int n, int m, Logical zero)
 {
    register int i, j;
 
@@ -272,13 +252,7 @@ Logical zero;
    whose subscripts begin at 1, not 0; the original
    sizes are supplied */
 
-int*** reallocate_array (a, orig_n, orig_m, orig_r, n, m, r, zero)
-int ***a;
-int orig_n, orig_m, orig_r;
-int n;
-int m;
-int r;
-Logical zero;
+int*** reallocate_array (int ***a, int orig_n, int orig_m, int orig_r, int n, int m, int r, Logical zero)
 {
    register int i, j, k;
 
@@ -347,10 +321,7 @@ Logical zero;
 /* allocate space for a character vector, a, of size n, 
    whose subscript commences at position start */
 
-char* allocate_char_vector (n, start, zero)
-int n;
-int start;
-Logical zero;
+char* allocate_char_vector (int n, int start, Logical zero)
 {
    char *a;
 
@@ -383,11 +354,7 @@ Logical zero;
 /* allocate space for an n x m character matrix a, 
    whose subscripts start at position 0 or 1 */
 
-char** allocate_char_matrix (n, m, start, zero)
-int n;
-int m;
-int start;
-Logical zero;
+char** allocate_char_matrix (int n, int m, int start, Logical zero)
 {
    char **a;
    int i;
@@ -429,11 +396,7 @@ Logical zero;
 /* allocate space for an n x m x r character array a,
    whose subscripts begin at 1, not 0 */
 
-char*** allocate_char_array (n, m, r, zero)
-int n;
-int m;
-int r;
-Logical zero;
+char*** allocate_char_array (int n, int m, int r, Logical zero)
 {
    char ***a;
    register int i, j;

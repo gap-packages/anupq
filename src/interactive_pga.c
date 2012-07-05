@@ -24,13 +24,7 @@
 
 /* interactive menu for p-group generation */
 
-void interactive_pga (group_present, StartFile, group_nmr, auts, pga, pcp)
-Logical group_present;
-FILE * StartFile;
-int group_nmr;
-int ***auts;
-struct pga_vars *pga;
-struct pcp_vars *pcp;
+void interactive_pga (Logical group_present, FILE *StartFile, int group_nmr, int ***auts, struct pga_vars *pga, struct pcp_vars *pcp)
 {
    struct pga_vars flag;
    int option;
@@ -294,7 +288,7 @@ struct pcp_vars *pcp;
 
 /* list available menu options */
 
-void list_interactive_pga_menu ()
+void list_interactive_pga_menu (void)
 {
    printf ("\nAdvanced Menu for p-Group Generation\n");
    printf ("-------------------------------------\n");
@@ -326,14 +320,7 @@ void list_interactive_pga_menu ()
    printf ("%d. Exit to main p-group generation menu\n", MAX_INTERACTIVE_OPTION);
 }
 
-void orbit_option (option, perms, a, b, c, orbit_length, pga)
-int option;
-int **perms;
-int **a;
-int **b;
-char **c;
-int **orbit_length;
-struct pga_vars *pga;
+void orbit_option (int option, int **perms, int **a, int **b, char **c, int **orbit_length, struct pga_vars *pga)
 {
    int t; 
    Logical soluble_group;
@@ -385,15 +372,7 @@ struct pga_vars *pga;
 
 }
 
-void stabiliser_option (option, auts, perms, a, b, c, orbit_length, pga, pcp)
-int option;
-int ***auts;
-int **perms;
-int *a, *b;
-char *c;
-int *orbit_length;
-struct pga_vars *pga;
-struct pcp_vars *pcp;
+void stabiliser_option (int option, int ***auts, int **perms, int *a, int *b, char *c, int *orbit_length, struct pga_vars *pga, struct pcp_vars *pcp)
 {
    int t;
    int i;
@@ -462,9 +441,7 @@ struct pcp_vars *pcp;
 
 /* list orbit representatives as words subject to the supplied map */ 
 
-int list_word (pga, pcp)
-struct pga_vars *pga;
-struct pcp_vars *pcp;
+int list_word (struct pga_vars *pga, struct pcp_vars *pcp)
 {
    register int i, j;
    int start_length;

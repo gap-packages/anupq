@@ -109,13 +109,11 @@ static void append_file ( const char *from , const char *to )
 #define ISOM_OPTION 8
 #define MAXOPTION 9           /* maximum number of menu options */
 
-void list_isom_menu ();
+void list_isom_menu (void);
 
 /* control routine for computing standard presentation */
 
-void isom_options (format, pcp)
-int format;
-struct pcp_vars *pcp;
+void isom_options (int format, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -436,7 +434,7 @@ struct pcp_vars *pcp;
 
 /* list available menu options */
 
-void list_isom_menu ()
+void list_isom_menu (void)
 {
    printf ("\nStandard Presentation Menu\n");
    printf ("-----------------------------\n");
@@ -550,8 +548,7 @@ static Logical setup_start_info (Logical identity_map, Logical status, FILE *fil
 /* factor subgroup whose generators are listed in Subgroup file 
    from p-multiplicator to give reduced p-multiplicator */
 
-void factor_subgroup (pcp)
-struct pcp_vars *pcp;
+void factor_subgroup (struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -589,8 +586,7 @@ struct pcp_vars *pcp;
    CloseFile (Subgroup);
 }
 
-void handle_error (group_present)
-Logical group_present;
+void handle_error (Logical group_present)
 {  
    if (group_present == FALSE) {
       printf ("Error in Standard Presentation Program\n");
@@ -615,11 +611,7 @@ static Logical compare_sequences (int *s, int *t, int length)
 /* read group from file and set up its compact description 
    as sequence seq of length len */
 
-int get_description (string, len, seq, pcp)
-char *string;
-int *len;
-int **seq;
-struct pcp_vars *pcp;
+int get_description (char *string, int *len, int **seq, struct pcp_vars *pcp)
 {
    char *name;
    FILE *file;

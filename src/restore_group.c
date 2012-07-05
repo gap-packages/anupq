@@ -18,12 +18,7 @@
 /* restore the pcp description of group group_number 
    and its pga structure from input_file */
 
-int*** restore_group (rewind_flag, input_file, group_number, pga, pcp) 
-Logical rewind_flag;
-FILE * input_file;
-int group_number;
-struct pga_vars *pga;
-struct pcp_vars *pcp;
+int*** restore_group (Logical rewind_flag, FILE *input_file, int group_number, struct pga_vars *pga, struct pcp_vars *pcp)
 {
    int ***auts;
 

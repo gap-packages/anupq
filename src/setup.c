@@ -15,15 +15,14 @@
 #include "pq_functions.h"
 #include "setup.h"
 
-void class_setup ();
+void class_setup (int new_space, struct pcp_vars *pcp);
 
 /* this routine moves existing structures in the array y to create 
    the space necessary to store the presentation to be computed for 
    the next class; for a description of the basic data structures, 
    read the header file setup.h */
 
-void setup (pcp)
-struct pcp_vars *pcp;
+void setup (struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -339,9 +338,7 @@ struct pcp_vars *pcp;
 
 /* was the class already setup? */
 
-void class_setup (new_space, pcp)
-int new_space;
-struct pcp_vars *pcp;
+void class_setup (int new_space, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 

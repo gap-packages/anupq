@@ -11,9 +11,7 @@
 
 /* return the power, x^n  */
 
-int int_power (x, n)
-int x;
-int n;
+int int_power (int x, int n)
 {
    register int result = 1;
 

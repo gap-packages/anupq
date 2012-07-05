@@ -18,12 +18,7 @@
 /* compute the orbits of the allowable subgroups, 
    where the permutation group is soluble */
 
-void compute_orbits (a, b, c, perms, pga)
-int **a;
-int **b;
-char **c;
-int **perms;
-struct pga_vars *pga;
+void compute_orbits (int **a, int **b, char **c, int **perms, struct pga_vars *pga)
 { 
    register int alpha;
    int perm_number;
@@ -43,11 +38,7 @@ struct pga_vars *pga;
 
 /* allocate and initialise space for orbit and stabiliser calculations */
 
-void space_for_orbits (a, b, c, pga)
-int **a;
-int **b;
-char **c;
-struct pga_vars *pga;
+void space_for_orbits (int **a, int **b, char **c, struct pga_vars *pga)
 { 
    register int i;
    register int Degree = pga->Degree;
@@ -67,11 +58,7 @@ struct pga_vars *pga;
 /* process identity permutation -- we need only to update c[j] which is the 
    number of times j has been last image in orbit with leading term a[j] */
 
-int process_identity_perm (a, b, c, pga)
-int *a;
-int *b;
-char *c;
-struct pga_vars *pga;
+int process_identity_perm (int *a, int *b, char *c, struct pga_vars *pga)
 {
    register int Degree = pga->Degree;
    int j, last, element;
@@ -100,12 +87,7 @@ struct pga_vars *pga;
    c[j] = number of times j has been last image in orbit 
           with leading term a[j] */
 
-void orbits (permutation, a, b, c, pga) 
-int *permutation;
-int *a;
-int *b;
-char *c;
-struct pga_vars *pga;
+void orbits (int *permutation, int *a, int *b, char *c, struct pga_vars *pga)
 {
 
    register int j;
@@ -117,12 +99,7 @@ struct pga_vars *pga;
 
 /* trace the action of the permutation on the orbit whose leading term is j */
 
-void trace_action (permutation, j, a, b, c)
-int *permutation;
-int j;
-int *a;
-int *b;
-char *c;
+void trace_action (int *permutation, int j, int *a, int *b, char *c)
 {
    register int k, lead, image;
    Logical merge;
@@ -160,10 +137,7 @@ char *c;
 /* find the orbit representatives, number of orbits, and orbit lengths;
    also list the individual orbits */
 
-int* soluble_find_orbit_reps (a, b, pga)
-int *a;
-int *b;
-struct pga_vars *pga;
+int* soluble_find_orbit_reps (int *a, int *b, struct pga_vars *pga)
 {
    register int j;
    register int counter = 0;
@@ -197,10 +171,7 @@ struct pga_vars *pga;
 
 /* list the orbit with leading term j and return its length */
 
-int soluble_list_orbit (j, b, pga)
-int j;
-int *b;
-struct pga_vars *pga;
+int soluble_list_orbit (int j, int *b, struct pga_vars *pga)
 {
    register int orbit_length = 0;
 
@@ -216,11 +187,7 @@ struct pga_vars *pga;
 
 /* print out contents of three arrays created during orbit calculation */
 
-void print_orbit_information (a, b, c, pga)
-int *a;
-int *b;
-char *c;
-struct pga_vars *pga;
+void print_orbit_information (int *a, int *b, char *c, struct pga_vars *pga)
 {
    printf ("The array A is \n"); 
    print_array (a, 1, pga->nmr_subgroups + 1);

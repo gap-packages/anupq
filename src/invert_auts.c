@@ -16,14 +16,11 @@
 
 /* developmental code -- not finished */
 
-void new_collect_image_of_string ();
+void new_collect_image_of_string (int string, int cp, int **auts, struct pcp_vars *pcp);
 
 /* for each automorphism, compute its inverse */
 
-int*** invert_automorphisms (auts, pga, pcp)
-int ***auts;
-struct pga_vars *pga;
-struct pcp_vars *pcp;
+int*** invert_automorphisms (int ***auts, struct pga_vars *pga, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -70,11 +67,7 @@ struct pcp_vars *pcp;
 /* collect image of supplied string under the action of
    supplied automorphism, auts, and store the result at cp */
 
-void new_collect_image_of_string (string, cp, auts, pcp)
-int string;
-int cp;
-int **auts;
-struct pcp_vars *pcp;
+void new_collect_image_of_string (int string, int cp, int **auts, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -98,10 +91,7 @@ struct pcp_vars *pcp;
 
 /* convert image of generator to word with base address string */
 
-void image_to_word (string, image, pcp)
-int string;
-int *image;
-struct pcp_vars *pcp;
+void image_to_word (int string, int *image, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -117,11 +107,7 @@ struct pcp_vars *pcp;
    y[string + 1] = length + 1;
 }
 
-void Copy_Matrix (A, B, nmr_of_rows, nmr_of_bytes)
-int **A;
-int **B;
-int nmr_of_rows;
-int nmr_of_bytes;
+void Copy_Matrix (int **A, int **B, int nmr_of_rows, int nmr_of_bytes)
 {
    register int i, j;
    for (i = 1; i <= nmr_of_rows; ++i)

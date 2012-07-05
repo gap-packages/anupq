@@ -28,13 +28,7 @@
    used to calculate a commutator; the algorithm finds a 
    solution generator by generator */
 
-void find_commutator (cp1, cp2, cp3, cp4, result, pcp)
-int cp1;
-int cp2;
-int cp3;
-int cp4;
-int result;
-struct pcp_vars *pcp;
+void find_commutator (int cp1, int cp2, int cp3, int cp4, int result, struct pcp_vars *pcp)
 {
    register int *y = y_address;
    int r;     
@@ -90,11 +84,7 @@ struct pcp_vars *pcp;
 
 /* copy a section of the array, y, to another part of y */
 
-void copy (old, length, new, pcp)
-int old;
-int length;
-int new;
-struct pcp_vars *pcp;
+void copy (int old, int length, int new, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -107,9 +97,7 @@ struct pcp_vars *pcp;
    exponent vector with base address pcp->lused in order to permit 
    the result to be handed to echelon easily */
 
-void calculate_commutator (format, pcp)
-int format;
-struct pcp_vars *pcp;
+void calculate_commutator (int format, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 

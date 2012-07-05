@@ -16,11 +16,7 @@
   is ptr and whose length is length to the storage location
   referenced by cp */
 
-void collect_gen_word (ptr, length, cp, pcp)
-int ptr;
-int length;
-int cp;
-struct pcp_vars *pcp;   
+void collect_gen_word (int ptr, int length, int cp, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 

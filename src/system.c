@@ -23,7 +23,7 @@
    and run under Solaris, then multiply reported times by
    3/5 to get correct user time */
 
-int runTime ()
+int runTime (void)
 {
    struct tms buffer;
 

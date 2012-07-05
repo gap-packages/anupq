@@ -20,10 +20,7 @@
    and compute resultant action on pc generators;
    return action as array auts */
 
-int*** determine_action (format, nmr_of_auts, pcp)
-int format;
-int *nmr_of_auts;
-struct pcp_vars *pcp;
+int*** determine_action (int format, int *nmr_of_auts, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 

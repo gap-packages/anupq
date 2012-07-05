@@ -16,9 +16,7 @@
 
 /* read parameters for p-quotient calculation */
 
-void read_parameters (format, max_class, output, pcp)
-int *max_class, *output;
-struct pcp_vars *pcp;
+void read_parameters (int format, int *max_class, int *output, struct pcp_vars *pcp)
 {
    Logical reading = TRUE;
    char *ident;

@@ -15,8 +15,7 @@
 /* delete all entries for class pcp->cc and note that 
    it is still set up (that is, set pcp->ncset = 1) */
 
-void last_class (pcp)
-struct pcp_vars *pcp;
+void last_class (struct pcp_vars *pcp)
 {
    register int *y = y_address;
 

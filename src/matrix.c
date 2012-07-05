@@ -14,9 +14,7 @@
 
 /* read an n x matrix, a */
 
-void read_matrix (a, n, m) 
-int **a;
-int n, m;
+void read_matrix (int **a, int n, int m)
 {
    register int i, j;
 
@@ -30,9 +28,7 @@ int n, m;
 
 /* print an n x m matrix a */
 
-void print_matrix (a, n, m) 
-int **a;
-int n, m;
+void print_matrix (int **a, int n, int m)
 {
    register int i, j;
 
@@ -45,12 +41,7 @@ int n, m;
 
 /* modulo p, multiply the n x m matrix a by the m x q matrix b */
 
-int** multiply_matrix (a, n, m, b, q, p)
-int **a;
-int n, m;
-int **b;
-int q;
-int p;
+int** multiply_matrix (int **a, int n, int m, int **b, int q, int p)
 { 
    register int i, j, k;
    int **product = allocate_matrix (n, q, 0, 1);
@@ -65,9 +56,7 @@ int p;
    return product;
 }
 
-int** transpose (a, n, m) 
-int **a;
-int n, m;
+int** transpose (int **a, int n, int m)
 {
    register int i, j;
    int** transpose = allocate_matrix (m, n, 0, 0);
@@ -82,10 +71,7 @@ int n, m;
 /* check if the n x n matrix a is the identity;
    start is its first index position */
 
-Logical is_identity (a, n, start) 
-int **a;
-int n;
-int start;
+Logical is_identity (int **a, int n, int start)
 {
    int identity = 1;
    register int i = start;
@@ -107,11 +93,7 @@ int start;
    entry and whether its entries lie between 0 and p - 1; 
    start is its first index position */
 
-Logical valid_matrix (a, n, p,start) 
-int **a;
-int n;
-int p;
-int start;
+Logical valid_matrix (int **a, int n, int p, int start)
 {
    register int i, j; 
    int non_zero = 0;

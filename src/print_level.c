@@ -15,9 +15,7 @@
 
 /* set print levels for p-quotient calculation */
 
-void print_level (output, pcp)
-int *output;
-struct pcp_vars *pcp;
+void print_level (int *output, struct pcp_vars *pcp)
 {
    Logical reading = TRUE;
 

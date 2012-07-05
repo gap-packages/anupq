@@ -15,10 +15,7 @@
 
 /* print structure of generator with base address pointer */
 
-void print_generator (generator, pointer, pcp)
-int generator;
-int pointer;
-struct pcp_vars *pcp;
+void print_generator (int generator, int pointer, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -36,11 +33,7 @@ struct pcp_vars *pcp;
 /* find the definition of generator of supplied weight 
    and set it up with address pointer */
 
-int find_definition (generator, pointer, weight, pcp)
-int generator;
-int pointer;
-int weight;
-struct pcp_vars *pcp;
+int find_definition (int generator, int pointer, int weight, struct pcp_vars *pcp)
 {  
    register int *y = y_address;
 
@@ -83,9 +76,7 @@ struct pcp_vars *pcp;
 
 /* what layer of the lower exponent-p central series is generator in? */
 
-int layer (generator, pcp) 
-int generator;
-struct pcp_vars *pcp;
+int layer (int generator, struct pcp_vars *pcp)
 {
    register int *y = y_address;
    
@@ -101,9 +92,7 @@ struct pcp_vars *pcp;
 /* print the structure of each of the pcp generators, 
    numbered from first to last inclusive */
 
-void print_structure (first, last, pcp)
-int first, last;
-struct pcp_vars *pcp;
+void print_structure (int first, int last, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 

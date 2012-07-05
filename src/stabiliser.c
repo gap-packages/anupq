@@ -119,14 +119,7 @@ struct pcp_vars *pcp;
 /* find generators for the stabiliser for orbit representative, rep;
    store each word in y, preceded by its length */
 
-void stabiliser_generators (perms, rep, a, b, c, d, auts, pga, pcp)
-int **perms;
-int rep;
-int *a, *b;
-char *c, *d;
-int ***auts;
-struct pga_vars *pga;
-struct pcp_vars *pcp;
+void stabiliser_generators (int **perms, int rep, int *a, int *b, char *c, char *d, int ***auts, struct pga_vars *pga, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -183,13 +176,7 @@ struct pcp_vars *pcp;
    stored as a word in the automorphisms, auts, of the parent, where 
    y[pointer] = length of word defining first generator */
 
-void evaluate_generators (pointer, nmr_of_generators, stabiliser, auts, pga, pcp)
-int pointer;
-int nmr_of_generators; 
-int*** stabiliser;
-int ***auts;
-struct pga_vars *pga;
-struct pcp_vars *pcp;
+void evaluate_generators (int pointer, int nmr_of_generators, int ***stabiliser, int ***auts, struct pga_vars *pga, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -216,12 +203,7 @@ struct pcp_vars *pcp;
    whose definition as a word in the automorphisms, auts, of the parent
    is stored at y[pointer + 1], .., y[pointer + y[pointer]] */ 
 
-void image_of_generator (generator, pointer, auts, pga, pcp)  
-int pointer;
-int generator;
-int ***auts;
-struct pga_vars *pga;
-struct pcp_vars *pcp;
+void image_of_generator (int generator, int pointer, int ***auts, struct pga_vars *pga, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -277,9 +259,7 @@ struct pcp_vars *pcp;
 
 /* find which automorphism, alpha, induces the permutation with index perm */
 
-int preimage (perm, pga)
-int perm;
-struct pga_vars *pga;
+int preimage (int perm, struct pga_vars *pga)
 {
    int alpha;
 
@@ -294,10 +274,7 @@ struct pga_vars *pga;
 /* set up those automorphisms which induced the identity on the 
    p-multiplicator as the leading elements of the stabiliser */
 
-int ***setup_identity_auts (nmr_of_generators, auts, pga) 
-int nmr_of_generators;
-int ***auts;
-struct pga_vars *pga;
+int ***setup_identity_auts (int nmr_of_generators, int ***auts, struct pga_vars *pga)
 {
    int alpha, i = 0, j, k;
    int ***stabiliser;
@@ -326,11 +303,7 @@ struct pga_vars *pga;
    for each soluble generator, its relative order is now listed;
    finally the total number of generators is listed */
 
-int*** read_stabiliser_gens (nmr_of_generators, soluble_generators, pga, pcp)
-int nmr_of_generators;
-int ***soluble_generators;
-struct pga_vars *pga;
-struct pcp_vars *pcp;
+int*** read_stabiliser_gens (int nmr_of_generators, int ***soluble_generators, struct pga_vars *pga, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 

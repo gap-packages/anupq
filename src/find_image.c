@@ -17,11 +17,7 @@
 /* find the image of the allowable subgroup having supplied label under 
    the action of automorphism; compute and return its label */
 
-int find_image (label, auts, pga, pcp)
-int label;
-int **auts;
-struct pga_vars *pga;
-struct pcp_vars *pcp;
+int find_image (int label, int **auts, struct pga_vars *pga, struct pcp_vars *pcp)
 {
    int index;
    int **A;

@@ -17,9 +17,7 @@
 
 /* check whether required data has been read from file */
 
-void verify_read (nmr_items, required)
-int nmr_items;
-int required;
+void verify_read (int nmr_items, int required)
 {
    if (nmr_items != required) { 
       printf ("Insufficent data read in from or written to file\n");
@@ -30,9 +28,7 @@ int required;
 /* restore pcp structure from file ifp -- if selected workspace is
    larger or smaller than saved workspace, then update pointers */
 
-void restore_pcp (ifp, pcp)
-FILE *ifp;
-struct pcp_vars *pcp;
+void restore_pcp (FILE *ifp, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -106,10 +102,7 @@ struct pcp_vars *pcp;
 
 /* fread in the pga structure and the automorphisms for group from file ifp */
 
-int*** restore_pga (ifp, pga, pcp)
-FILE *ifp;
-struct pga_vars *pga;
-struct pcp_vars *pcp;
+int*** restore_pga (FILE *ifp, struct pga_vars *pga, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 

@@ -23,10 +23,7 @@
 *F  print_GAP_word
 **                                     print out a word of a pcp presentation
 */
-void print_GAP_word ( file, ptr, pcp )
-    FILE *           file;
-    int                 ptr;
-    struct pcp_vars   * pcp;
+void print_GAP_word (FILE *file, int ptr, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -64,10 +61,7 @@ void print_GAP_word ( file, ptr, pcp )
 *F  GAP_presentation
 **                                write pq presentation to file in GAP format
 */
-void GAP_presentation ( file, pcp, aspcgroup )
-    FILE *           file;
-    struct pcp_vars   * pcp;
-    int                 aspcgroup;
+void GAP_presentation (FILE *file, struct pcp_vars *pcp, int aspcgroup)
 {
    register int *y = y_address;
 
@@ -154,8 +148,7 @@ void GAP_presentation ( file, pcp, aspcgroup )
 *F  MakeNameList
 **                             create p-group generation identifier for group  
 */
-char * nextnumber ( ident )
-    char  * ident;
+char * nextnumber (char *ident)
 {
    while ( *ident != '\0' && *ident != '#' )
       ident++;
@@ -164,9 +157,7 @@ char * nextnumber ( ident )
    return ident;
 }
 
-void MakeNameList ( file, ident )
-    FILE *   file;
-    char      * ident;
+void MakeNameList (FILE *file, char *ident)
 {
    int         first = 1;
 
@@ -201,9 +192,7 @@ void MakeNameList ( file, ident )
 */
 int countcall = 0;
 
-void write_GAP_library ( file, pcp )
-    FILE *         file;
-    struct pcp_vars * pcp;
+void write_GAP_library (FILE *file, struct pcp_vars *pcp)
 {
    /* if this is the first call initialise 'ANUgroups'                    */
    if ( countcall == 0 ) 
@@ -247,12 +236,7 @@ void write_GAP_library ( file, pcp )
 **               write a description of the automorphism group of the current
 **                      group to a file in a format suitable for input to GAP
 */
-void GAP_auts ( file, central, stabiliser, pga, pcp )
-    FILE *           file;
-    int             *** central;
-    int             *** stabiliser;
-    struct pga_vars   * pga;
-    struct pcp_vars   * pcp;
+void GAP_auts (FILE *file, int ***central, int ***stabiliser, struct pga_vars *pga, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 

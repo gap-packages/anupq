@@ -22,11 +22,7 @@ int exponent;
 
 /* echelonise the relation and add any redundant generator to the queue */
 
-void setup_echelon (queue, queue_length, cp, pcp)
-int *queue;
-int *queue_length;
-int cp;
-struct pcp_vars *pcp;
+void setup_echelon (int *queue, int *queue_length, int cp, struct pcp_vars *pcp)
 { 
    register int *y = y_address;
 
@@ -43,12 +39,7 @@ struct pcp_vars *pcp;
 
 /* evaluate the word whose variables are stored in the list */
 
-void evaluate_list (queue, queue_length, list, depth, pcp)
-int *queue;
-int *queue_length;
-int *list;
-int depth;
-struct pcp_vars *pcp;
+void evaluate_list (int *queue, int *queue_length, int *list, int depth, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -92,9 +83,7 @@ struct pcp_vars *pcp;
 
 /* check that word is a normal word -- if not, discard */
    
-Logical valid_word (list, depth)
-int *list;
-int depth;
+Logical valid_word (int *list, int depth)
 {
    Logical normal_word = TRUE;
 
@@ -106,14 +95,7 @@ int depth;
    
 /* build up a list whose entries are the letters of the word to be evaluated */
 
-void loop (queue, queue_length, depth, list, nmr, begin, end, pcp)
-int *queue;
-int *queue_length;
-int depth;
-int *list;
-int *nmr;
-int begin, end;
-struct pcp_vars *pcp;
+void loop (int *queue, int *queue_length, int depth, int *list, int *nmr, int begin, int end, struct pcp_vars *pcp)
 {
    int i, k;
    char *s;
@@ -149,10 +131,7 @@ struct pcp_vars *pcp;
    supplied weight in the group; n and m are positive integers;
    echelonise the result and add any redundancies to the queue */ 
 
-void evaluate_formula (queue, queue_length, pcp)
-int *queue;
-int *queue_length;
-struct pcp_vars *pcp;
+void evaluate_formula (int *queue, int *queue_length, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 

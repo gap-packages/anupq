@@ -16,11 +16,7 @@
 /* set up the maximum storage space required for the definition sets -- 
    this is the maximum of r choose s where lower_step <= s <= upper_step */
 
-void store_definition_sets (r, lower_step, upper_step, pga) 
-int r;
-int lower_step;
-int upper_step;
-struct pga_vars *pga;
+void store_definition_sets (int r, int lower_step, int upper_step, struct pga_vars *pga)
 {
    int s, nmr_of_sets = 0;
 

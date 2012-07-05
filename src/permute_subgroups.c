@@ -19,14 +19,7 @@
   induced by the extended automorphisms described in auts;
   store them in image format in a 2-dimensional array, perms */
 
-int** permute_subgroups (LINK_input, a, b, c, auts, pga, pcp)
-FILE * LINK_input;
-int **a;
-int **b;
-char **c;
-int ***auts;
-struct pga_vars *pga;
-struct pcp_vars *pcp;
+int** permute_subgroups (FILE *LINK_input, int **a, int **b, char **c, int ***auts, struct pga_vars *pga, struct pcp_vars *pcp)
 {
    register int alpha;
    register int nmr_of_perms;
@@ -104,10 +97,7 @@ struct pcp_vars *pcp;
 /* compute and store in image form the permutation that the extended 
    automorphism stored in A induces on the allowable subgroups */
 
-void compute_permutation (permutation, A, pga)
-int *permutation;           
-int **A;
-struct pga_vars *pga;
+void compute_permutation (int *permutation, int **A, struct pga_vars *pga)
 {
    register int i;
 
@@ -126,12 +116,12 @@ struct pga_vars *pga;
 /* compute the images of all allowable subgroups having definition 
    set K under the action of automorphism matrix A */
 
-void compute_images (A, K, depth, permutation, pga)
-int **A;               
-int K;
-int depth;             /* number of available positions */
-int *permutation;
-struct pga_vars *pga;
+void compute_images (int **A, int K, int depth, int *permutation, struct pga_vars *pga)
+                       
+      
+                       /* number of available positions */
+                 
+                     
 {
    int **S;                     /* standard matrix */
    int **Image;                 /* image of allowable subgroup under A */
@@ -203,12 +193,7 @@ if (nmr_subgroups % 1000000 == 0)
 
 /* add column of A to row of Image */
 
-void update_image (A, column, Image, row, pga)
-int **A;
-int column;
-int **Image;
-int row;
-struct pga_vars *pga;
+void update_image (int **A, int column, int **Image, int row, struct pga_vars *pga)
 {
    register int i;
    register int q = pga->q;
@@ -222,14 +207,7 @@ struct pga_vars *pga;
    determined by K as two arrays, row and column; also set up Image as 
    image of allowable subgroup with least label under action of A */
 
-void find_available_positions (K, A, Image, row, column, depth, pga)
-int K;
-int **A;
-int **Image;
-int **row;
-int **column;
-int depth;
-struct pga_vars *pga;
+void find_available_positions (int K, int **A, int **Image, int **row, int **column, int depth, struct pga_vars *pga)
 {
    register int i, j;
    register int index = 0;

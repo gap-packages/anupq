@@ -21,8 +21,7 @@ int *subset;       /* temporary storage for definition set */
    contain the elements 0 .. pga->fixed - 1;
    set up all of the definition sets as a array, list */
 
-void get_definition_sets (pga)
-struct pga_vars *pga;
+void get_definition_sets (struct pga_vars *pga)
 {
    register int i;
    register int bound;
@@ -48,9 +47,7 @@ struct pga_vars *pga;
 /* store the definition set as a bit string; compute the number 
    of available positions determined by this definition set */
 
-void add_to_list (subset, pga)
-int *subset;
-struct pga_vars *pga;
+void add_to_list (int *subset, struct pga_vars *pga)
 {
    register int i;
    int bit_string = 0;          /* to store subset */
@@ -70,10 +67,7 @@ struct pga_vars *pga;
 /* visit node k; d remaining elements to be found to make up 
    subset of cardinality pga->s */ 
 
-void visit (k, d, pga) 
-int k;
-int d;
-struct pga_vars *pga;
+void visit (int k, int d, struct pga_vars *pga)
 {  
    register int i;
 
@@ -88,9 +82,7 @@ struct pga_vars *pga;
 
 /* find the number of available positions for definition set K */
 
-int available_positions (K, pga) 
-int *K;
-struct pga_vars *pga;
+int available_positions (int *K, struct pga_vars *pga)
 {
    register int l;
    register int available = pga->q * pga->s - pga->s * (pga->s - 1) / 2;

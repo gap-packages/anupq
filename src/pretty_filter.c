@@ -37,11 +37,7 @@ char filename[MAXIDENT];
 /* process "pretty" presentation input from file using key words; 
    this is a modified version of code written by Sarah Rees */
 
-int pretty_filter (file, max_class, output, pcp)
-FILE *file;
-int *max_class;
-int *output; 
-struct pcp_vars *pcp;
+int pretty_filter (FILE *file, int *max_class, int *output, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -234,10 +230,7 @@ struct pcp_vars *pcp;
 
 /* check the input supplied to the p-quotient calculation */
 
-void check_input (output, max_class, pcp)
-int output;
-int *max_class;
-struct pcp_vars *pcp;
+void check_input (int output, int *max_class, struct pcp_vars *pcp)
 {
    pcp->valid = TRUE;
 
@@ -277,8 +270,7 @@ struct pcp_vars *pcp;
 
 /* read the generator list */
 
-int pretty_read_generators (pcp)
-struct pcp_vars *pcp;
+int pretty_read_generators (struct pcp_vars *pcp)
 {
    Logical reading = TRUE;
    int i;
@@ -312,10 +304,7 @@ struct pcp_vars *pcp;
 
 /* read the list of relations (and the exponent) using pretty format */
 
-void pretty_read_relations (output, max_class, pcp)
-int output;
-int *max_class;
-struct pcp_vars *pcp;
+void pretty_read_relations (int output, int *max_class, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 

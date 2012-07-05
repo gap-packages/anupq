@@ -15,8 +15,7 @@
 
 /* set maximal occurrences for pcp generators of weight one */
 
-void set_maxoccur (pcp)
-struct pcp_vars *pcp;
+void set_maxoccur (struct pcp_vars *pcp)
 {
    register int *y = y_address;
 

@@ -17,10 +17,7 @@
 /* post-multiply exponent vector with base address cp 
    by word with base address ptr */
 
-void multiply_word (ptr, cp, pcp)
-int ptr;
-int cp;
-struct pcp_vars *pcp;
+void multiply_word (int ptr, int cp, struct pcp_vars *pcp)
 {
    register int *y = y_address;
     

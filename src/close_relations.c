@@ -145,12 +145,7 @@ struct pcp_vars *pcp;
 /* add exponent times the action of automorphism with pointer head
    to the contents of the exponent-vector with base address cp */
    
-void traverse_list (exponent, head, list, cp, pcp)
-int exponent;
-int head;
-int *list;
-int cp;
-struct pcp_vars *pcp;
+void traverse_list (int exponent, int head, int *list, int cp, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 

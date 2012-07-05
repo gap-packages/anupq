@@ -18,12 +18,7 @@
 /* find the orbits of an insoluble permutation group,
    which has generators stored as a sequence in perms */
 
-void insoluble_compute_orbits (orbit, backptr, schreier, perms, pga)
-int **orbit;
-int **backptr;
-char **schreier;
-int **perms;
-struct pga_vars *pga;
+void insoluble_compute_orbits (int **orbit, int **backptr, char **schreier, int **perms, struct pga_vars *pga)
 {
    int *stack;
    int *pointer;
@@ -76,11 +71,7 @@ struct pga_vars *pga;
 
 /* list the orbit of insoluble permutation group with leading term rep */
 
-void insoluble_list_orbit (rep, orbit_length, a, pga)
-int rep;
-int orbit_length; 
-int *a;
-struct pga_vars *pga;
+void insoluble_list_orbit (int rep, int orbit_length, int *a, struct pga_vars *pga)
 {
    register int j;
    register int Degree = pga->Degree;
@@ -97,9 +88,7 @@ struct pga_vars *pga;
 
 /* list the orbit of soluble permutation group with leading term j */
 
-void list_orbit (j, b)
-int j;
-int *b;
+void list_orbit (int j, int *b)
 {
    while (j != 0) {
       printf ("%d ", j);
@@ -110,10 +99,7 @@ int *b;
 /* find the orbit representatives, number of orbits, and 
    orbit lengths; if required, list the individual orbits */
 
-int* find_orbit_reps (a, b, pga)
-int *a;
-int *b;
-struct pga_vars *pga;
+int* find_orbit_reps (int *a, int *b, struct pga_vars *pga)
 {
    Logical soluble;
    register int Degree = pga->Degree;

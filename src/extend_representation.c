@@ -25,8 +25,7 @@
    coefficients of the p-adic expansion of k, and within the 
    p-group b = a * im(j) */
 
-void extend_representation (pcp)
-struct pcp_vars *pcp;
+void extend_representation (struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -115,12 +114,7 @@ struct pcp_vars *pcp;
 
 /* compute p-adic expansion of x, where x < p^(k + 1) */
 
-void compute_padic (powers, x, k, p, expand)
-int *powers;
-int x;
-int k;
-int p;
-int *expand;
+void compute_padic (int *powers, int x, int k, int p, int *expand)
 {
    register int alpha;
    register int val;

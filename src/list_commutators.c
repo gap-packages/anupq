@@ -22,10 +22,7 @@
    supplied weights; echelonise the results and add to the 
    queue for possible closure under action of automorphisms  */
 
-void list_commutators (queue, queue_length, pcp)
-int *queue;
-int *queue_length;
-struct pcp_vars *pcp;
+void list_commutators (int *queue, int *queue_length, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 

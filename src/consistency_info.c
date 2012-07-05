@@ -17,8 +17,7 @@
 
 /* read information for consistency checking */
 
-void consistency_info (consistency_flag)
-int *consistency_flag;
+void consistency_info (int *consistency_flag)
 {
    Logical reading = TRUE;
 

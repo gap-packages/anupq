@@ -28,9 +28,7 @@
    group_present flag indicates whether a group description has 
    been constructed or restored in previous menu */
 
-void pgroup_generation (group_present, pcp)
-Logical *group_present;
-struct pcp_vars *pcp;
+void pgroup_generation (Logical *group_present, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -196,7 +194,7 @@ struct pcp_vars *pcp;
 
 /* list available menu options */
 
-void list_pga_menu ()
+void list_pga_menu (void)
 {
    printf ("\nMenu for p-Group Generation\n");
    printf ("-----------------------------\n");

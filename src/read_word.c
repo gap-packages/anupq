@@ -18,8 +18,7 @@
 
 /* display the appropriate input message */
 
-void display_message (type)
-int type;
+void display_message (int type)
 {
    switch (type) {
    case LHS:
@@ -60,8 +59,7 @@ int type;
    inverses to represent the pcp generators of the group; 
    this permits words to be input using the pretty format */
 
-void setup_symbols (pcp)
-struct pcp_vars *pcp;
+void setup_symbols (struct pcp_vars *pcp)
 {
    int i, j, k, m;
    int log, digit;
@@ -128,11 +126,7 @@ struct pcp_vars *pcp;
    y[ptr + 2] .. y[ptr + length] are generators (either defining or pcp) 
    or their inverses */
 
-void read_word (file, disp, type, pcp)
-FILE * file;
-int disp; 
-int type;
-struct pcp_vars *pcp; 
+void read_word (FILE *file, int disp, int type, struct pcp_vars *pcp)
 {
    Logical finish = FALSE;
    Logical commutator = FALSE;
@@ -185,11 +179,7 @@ struct pcp_vars *pcp;
 
 /* read word using pretty format */
 
-void pretty_read_word (file, disp, type, pcp)
-FILE *file;
-int disp; 
-int type;
-struct pcp_vars *pcp; 
+void pretty_read_word (FILE *file, int disp, int type, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -229,13 +219,7 @@ struct pcp_vars *pcp;
 
 /* process the input word and set it up as an entry in y */
 
-void setup_relation (disp, length, type, commutator, t, pcp)
-int disp;
-int length;
-int type;
-Logical commutator;
-int *t;
-struct pcp_vars *pcp;
+void setup_relation (int disp, int length, int type, Logical commutator, int *t, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -320,8 +304,7 @@ struct pcp_vars *pcp;
 
 /* check whether relation is a commutator */
 
-int check_for_commutator (s)
-char *s;
+int check_for_commutator (char *s)
 {
    int not_found;
    register int length = strlen (s);
@@ -335,8 +318,7 @@ char *s;
 
 /* check for occurrence of END_OF_WORD in word */
 
-int check_for_symbol (s)
-char *s;
+int check_for_symbol (char *s)
 {
    int not_found;
    register int length = strlen (s);
@@ -349,9 +331,7 @@ char *s;
 
 /* convert string s to integer */
 
-int string_to_integer (s, integer)
-char *s;
-int *integer;
+int string_to_integer (char *s, int *integer)
 {
    int i, n, sign;
 

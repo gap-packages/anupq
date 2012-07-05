@@ -15,9 +15,7 @@
 /* print a summary of the orbits, listing their lengths 
    and their representatives */
 
-void orbit_summary (length, pga)
-int *length;
-struct pga_vars *pga;
+void orbit_summary (int *length, struct pga_vars *pga)
 {
    register int i;
 

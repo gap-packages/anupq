@@ -14,9 +14,7 @@
 
 /* set up the identity permutation */
 
-void setup_identity_perm (permutation, pga) 
-int *permutation;
-struct pga_vars *pga;
+void setup_identity_perm (int *permutation, struct pga_vars *pga)
 {
    register int i;
 

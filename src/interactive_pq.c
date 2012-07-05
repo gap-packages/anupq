@@ -31,13 +31,7 @@
 
 /* interactive menu for p-quotient calculation */
 
-void interactive_pq (group_present, format, output_level, head, list, pcp)
-Logical group_present;
-int format;
-int output_level;
-int **head;
-int **list; 
-struct pcp_vars *pcp;
+void interactive_pq (Logical group_present, int format, int output_level, int **head, int **list, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -538,7 +532,7 @@ struct pcp_vars *pcp;
 
 /* interactive p-quotient menu */
 
-void list_interactive_pq_menu ()
+void list_interactive_pq_menu (void)
 {
    printf ("\nAdvanced p-Quotient Menu\n");
    printf ("-------------------------\n");
@@ -581,12 +575,7 @@ void list_interactive_pq_menu ()
 
 /* set up space for the queues used in exponent checking */
 
-int queue_space (queue, long_queue, current_qlength, prev_qlength, pcp)
-int **queue; 
-int **long_queue;
-int *current_qlength;
-int *prev_qlength; 
-struct pcp_vars *pcp;
+int queue_space (int **queue, int **long_queue, int *current_qlength, int *prev_qlength, struct pcp_vars *pcp)
 {
    *current_qlength = pcp->lastg - pcp->ccbeg + 1;
    if (*prev_qlength == 0) {

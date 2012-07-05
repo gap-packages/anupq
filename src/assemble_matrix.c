@@ -17,11 +17,7 @@
    on an initial-segment rank t subgroup of the p-multiplicator;
    note that the indices of auts start at 1, not 0 */
 
-void assemble_matrix (A, t, auts, pcp) 
-int **A;
-int t;
-int** auts;
-struct pcp_vars *pcp;
+void assemble_matrix (int **A, int t, int **auts, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 

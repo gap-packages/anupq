@@ -17,10 +17,7 @@
    storing the result in y[pcp->lused + k] to y[pcp->lused + pcp->cc];
    room is needed to store a string of length pcp->cc */
 
-void generator_definition (gen, k, pcp)
-int gen;
-int *k;
-struct pcp_vars *pcp; 
+void generator_definition (int gen, int *k, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 

@@ -16,11 +16,7 @@
 /* return the rank, t, of the smallest characteristic, 
    k-initial segment subgroup in the p-multiplicator */
 
-int close_subgroup (k, auts, pga, pcp)
-int k;
-int ***auts;
-struct pga_vars *pga;
-struct pcp_vars *pcp;
+int close_subgroup (int k, int ***auts, struct pga_vars *pga, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 

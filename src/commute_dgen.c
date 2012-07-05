@@ -22,9 +22,7 @@
    the result to be handed to echelon easily; each component
    is a defining generator */
 
-void commute_defining_generators (format, pcp)
-int format;
-struct pcp_vars *pcp;
+void commute_defining_generators (int format, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -100,10 +98,7 @@ struct pcp_vars *pcp;
 /* collect word in defining generators stored as string at 
    y[ptr] and place the result as exponent vector at cp */
 
-int collect_defining_generator_word (ptr, cp, pcp) 
-int ptr;
-int cp;
-struct pcp_vars *pcp;
+int collect_defining_generator_word (int ptr, int cp, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -149,12 +144,7 @@ struct pcp_vars *pcp;
 
 /* prepare to collect word in defining generators */
 
-void setup_defgen_word_to_collect (file, format, type, cp, pcp)
-FILE * file;
-int format;
-int type;
-int cp;
-struct pcp_vars *pcp;
+void setup_defgen_word_to_collect (FILE *file, int format, int type, int cp, struct pcp_vars *pcp)
 {
    int disp = pcp->lastg + 2;
    register int ptr;

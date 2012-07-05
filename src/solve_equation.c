@@ -18,11 +18,7 @@
    addresses cp1 and cp2; the result is stored as an 
    exponent vector with address result */
 
-void solve_equation (cp1, cp2, result, pcp)
-int cp1;
-int cp2;
-int result;
-struct pcp_vars *pcp;
+void solve_equation (int cp1, int cp2, int result, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -56,9 +52,7 @@ struct pcp_vars *pcp;
 
 /* set up input for solve_equation procedure */
 
-void setup_to_solve_equation (format, pcp)
-int format;
-struct pcp_vars *pcp;
+void setup_to_solve_equation (int format, struct pcp_vars *pcp)
 {
    register int lastg = pcp->lastg;
    register int cp1, cp2, result;

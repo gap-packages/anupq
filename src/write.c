@@ -16,9 +16,7 @@
 
 /* write using fwrite pcp to file ofp */
 
-void save_pcp (ofp, pcp)
-FILE *ofp;
-struct pcp_vars *pcp;
+void save_pcp (FILE *ofp, struct pcp_vars *pcp)
 {   
    register int *y = y_address;
 
@@ -32,12 +30,7 @@ struct pcp_vars *pcp;
 /* save using fwrite a description of the pga structure of 
    the group and of its automorphisms to file ofp */
 
-void save_pga (ofp, central, stabiliser, pga, pcp)
-FILE *ofp;
-int ***central;
-int ***stabiliser;
-struct pga_vars *pga;
-struct pcp_vars *pcp;
+void save_pga (FILE *ofp, int ***central, int ***stabiliser, struct pga_vars *pga, struct pcp_vars *pcp)
 {
    register int i, j;
 

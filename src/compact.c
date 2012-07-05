@@ -14,8 +14,7 @@
 
 /* compact the group tables from pcp->gspace onwards */
 
-void compact (pcp)
-struct pcp_vars *pcp;   
+void compact (struct pcp_vars *pcp)
 {
    register int *y = y_address;
 

@@ -17,9 +17,7 @@
 /* print the structure of each of the pcp generators, 
    numbered from first to last inclusive */
 
-void print_multiweight (first, last, pcp)
-int first, last;
-struct pcp_vars *pcp;
+void print_multiweight (int first, int last, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 

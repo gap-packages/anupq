@@ -19,10 +19,7 @@
    and record the correspondence from the non-identity automorphisms 
    to the non-identity permutations */
 
-void strip_identities (auts, pga, pcp)
-int ***auts;
-struct pga_vars *pga;
-struct pcp_vars *pcp;
+void strip_identities (int ***auts, struct pga_vars *pga, struct pcp_vars *pcp)
 {
    register int alpha;
    int **A;                     /* automorphism matrix */

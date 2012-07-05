@@ -18,9 +18,7 @@
    descendant are required for iteration purposes; set up those 
    which are necessary in the array central, which is returned */
 
-int*** central_automorphisms (pga, pcp)
-struct pga_vars *pga;
-struct pcp_vars *pcp;
+int*** central_automorphisms (struct pga_vars *pga, struct pcp_vars *pcp)
 { 
    register int *y = y_address;
 
@@ -105,9 +103,7 @@ struct pcp_vars *pcp;
    in the commutator as part of a row of an 
    x by pga->ndgen * pga->s matrix, commutator, which is returned */
 
-int** commutator_matrix (pga, pcp)
-struct pga_vars *pga;
-struct pcp_vars *pcp;
+int** commutator_matrix (struct pga_vars *pga, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 

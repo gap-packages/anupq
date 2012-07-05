@@ -17,9 +17,7 @@
    assembled in eliminate in a table pointed to by y[dgen]; 
    update the value represented by y[ptr] and y[ptr] if necessary */
 
-void update (ptr, pcp)
-int ptr;
-struct pcp_vars *pcp;
+void update (int ptr, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 

@@ -18,10 +18,7 @@
 /* determine whether trial value is upper bound on exponent of the 
    group; do this by checking that all test words are trivial */
 
-Logical check_exponent (trial_exponent, exp_flag, pcp)
-int trial_exponent;
-struct exp_vars *exp_flag;
-struct pcp_vars *pcp;
+Logical check_exponent (int trial_exponent, struct exp_vars *exp_flag, struct pcp_vars *pcp)
 {
    int known_exponent;
 

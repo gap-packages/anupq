@@ -15,13 +15,7 @@
 /* left echelonise mod p the matrix a, which has the supplied dimensions;
    set up its definition set both as a subset and as a bit string  */
 
-int echelonise_matrix (a, nmr_rows, nmr_columns, p, subset, pga)
-int **a;
-int nmr_rows;
-int nmr_columns;
-int p;
-int *subset;
-struct pga_vars *pga;
+int echelonise_matrix (int **a, int nmr_rows, int nmr_columns, int p, int *subset, struct pga_vars *pga)
 {
    Logical zero;
    register int bound = nmr_columns - 1;

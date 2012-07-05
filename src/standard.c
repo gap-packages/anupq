@@ -24,7 +24,7 @@
 
 int map_array_size;
 int output;
-char *find_word ();
+char *find_word (int *word_length, Logical soluble_group, int **perms, int rep, int non_standard, int orbit_length, int *b, char *c, struct pga_vars *pga);
 
 /* compute a standard presentation for a group;
    
@@ -40,12 +40,7 @@ char *find_word ();
    we will now compute the standard presentation for the 
    class c + 1 p-quotient */
 
-void standard_presentation (identity_map, standard_output, auts, pga, pcp)
-Logical *identity_map;
-int standard_output;
-int ***auts;
-struct pga_vars *pga;
-struct pcp_vars *pcp;
+void standard_presentation (Logical *identity_map, int standard_output, int ***auts, struct pga_vars *pga, struct pcp_vars *pcp)
 { 
    int i;
    int **map;
@@ -85,8 +80,7 @@ struct pcp_vars *pcp;
 
 /* enforce the exponent law, if any, on the group */
 
-void enforce_exp_law (pcp)
-struct pcp_vars *pcp;
+void enforce_exp_law (struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -111,11 +105,7 @@ struct pcp_vars *pcp;
 /* commence a partial run of p-group generation in order
    to determine the standard presentation for this class */
 
-int **start_pga_run (identity_map, auts, pga, pcp) 
-Logical *identity_map;
-int ***auts;
-struct pga_vars *pga;
-struct pcp_vars *pcp;
+int **start_pga_run (Logical *identity_map, int ***auts, struct pga_vars *pga, struct pcp_vars *pcp)
 {
    FILE * cover_file;        /* store complete p-cover of group */
    FILE * cover_tmp_file;    /* store (reduced) p-cover of group */
@@ -198,10 +188,7 @@ struct pcp_vars *pcp;
 /* the group has completed when the relations are imposed; we write 
    necessary files in order to have consistent behaviour pattern */
 
-int **group_completed (auts, pga, pcp)
-int ***auts;
-struct pga_vars *pga;
-struct pcp_vars *pcp;
+int **group_completed (int ***auts, struct pga_vars *pga, struct pcp_vars *pcp)
 {
    FILE * NextClass;
    FILE * Status;
@@ -245,13 +232,7 @@ struct pcp_vars *pcp;
 
 /* complete pga run to compute standard presentation for this class */
 
-int **finish_pga_run (identity_map, cover_tmp_file, group_file, auts, pga, pcp)
-Logical *identity_map;
-FILE * cover_tmp_file;
-FILE * group_file;
-int ***auts;
-struct pga_vars *pga;
-struct pcp_vars *pcp;
+int **finish_pga_run (Logical *identity_map, FILE *cover_tmp_file, FILE *group_file, int ***auts, struct pga_vars *pga, struct pcp_vars *pcp)
 {
    int **perms;
 
@@ -529,12 +510,7 @@ struct pcp_vars *pcp;
    return map;
 }
 
-void trace (word_map, depth, label, backptr, schreier)
-char *word_map;
-int *depth;
-int label;
-int *backptr;
-char *schreier;
+void trace (char *word_map, int *depth, int label, int *backptr, char *schreier)
 {
    if (schreier[label] != 0) {
       word_map[++*depth] = schreier[label];
@@ -601,14 +577,7 @@ struct pga_vars *pga;
    non_standard, to the orbit representative, rep; the word and 
    its length are supplied as word_map and word_length  */
 
-int **standard_map (word_map, word_length, identity_map, rep, auts, pga, pcp)
-char *word_map;
-int word_length;
-Logical *identity_map;
-int rep;
-int ***auts;
-struct pga_vars *pga;
-struct pcp_vars *pcp;
+int **standard_map (char *word_map, int word_length, Logical *identity_map, int rep, int ***auts, struct pga_vars *pga, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -664,10 +633,7 @@ struct pcp_vars *pcp;
 
 /* find the image of l under the inverse of the supplied permutation */
    
-int inverse_image (l, perms, pga) 
-int l;
-int *perms;
-struct pga_vars *pga;
+int inverse_image (int l, int *perms, struct pga_vars *pga)
 {
    register int i;
 
@@ -680,11 +646,7 @@ struct pga_vars *pga;
 /* write a description of the automorphism group of the 
    group presented by the standard presentation to file */
 
-void print_aut_description (central, stabiliser, pga, pcp)
-int ***central;
-int ***stabiliser;
-struct pga_vars *pga;
-struct pcp_vars *pcp;
+void print_aut_description (int ***central, int ***stabiliser, struct pga_vars *pga, struct pcp_vars *pcp)
 {
    FILE * NextClass;
    int i, j, k;
@@ -722,10 +684,7 @@ struct pcp_vars *pcp;
 /* list orbit representative as generators of subgroup to 
    factor from p-covering group */
 
-int list_subgroup (rep, pga, pcp)
-int rep;
-struct pga_vars *pga;
-struct pcp_vars *pcp;
+int list_subgroup (int rep, struct pga_vars *pga, struct pcp_vars *pcp)
 {
    register int lastg = pcp->lastg;
    register int i, j, k;
@@ -794,10 +753,7 @@ struct pcp_vars *pcp;
 /* for each automorphism in turn, read its actions on each 
    of the pcp generators of the Frattini quotient */
 
-int*** read_auts_from_file (file, nmr_of_auts, pcp)
-FILE *file;
-int *nmr_of_auts;
-struct pcp_vars *pcp;
+int*** read_auts_from_file (FILE *file, int *nmr_of_auts, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 

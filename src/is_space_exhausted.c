@@ -21,9 +21,7 @@
    and try again; if there is still no room, report this, 
    set pcp->overflow TRUE, and return TRUE */
 
-Logical is_space_exhausted (required, pcp)
-int required;
-struct pcp_vars *pcp;   
+Logical is_space_exhausted (int required, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 

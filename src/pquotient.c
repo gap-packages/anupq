@@ -15,12 +15,12 @@
 
 /* coordinating routine for calculation of power-commutator presentation */
 
-int pquotient (max_class, output, file, format, pcp)
-int max_class;  /* maximum class of p-quotient to be constructed */
-int output;     /* determines level of output */
-FILE *file;     /* file containing input presentation */
-int format;     /* input format for data */
-struct pcp_vars *pcp;
+int pquotient (int max_class, int output, FILE *file, int format, struct pcp_vars *pcp)
+                /* maximum class of p-quotient to be constructed */
+                /* determines level of output */
+                /* file containing input presentation */
+                /* input format for data */
+                     
 {
    int *auts;
    Logical report;
@@ -73,8 +73,7 @@ struct pcp_vars *pcp;
    return SUCCESS;
 }
 
-int check_for_error (pcp)
-struct pcp_vars *pcp;
+int check_for_error (struct pcp_vars *pcp)
 {
    /* insufficient space */
    if (pcp->overflow) {

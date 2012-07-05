@@ -50,9 +50,7 @@ int menu = DEFAULT_MENU;
 Logical StandardPresentation = FALSE;
 Logical GAP4iostream = FALSE;
 
-main (argc, argv)
-int argc;
-char *argv[];
+main (int argc, char **argv)
 {
    register int *y = y_address;
 
@@ -96,9 +94,7 @@ char *argv[];
 
 /* process run-time parameters */
 
-int process_parameters (argc, argv)
-int argc;
-char *argv[];
+int process_parameters (int argc, char **argv)
 {
    int i;
    Logical error;
@@ -220,7 +216,7 @@ int A1, A3;
 /* if pq is called successfully from GAP, we want GAP_library file to exist 
    in all cases, even if no group descriptions have been saved to it */
 
-void CreateGAPLibraryFile ()
+void CreateGAPLibraryFile (void)
 {
    FILE *GAP_library;
    

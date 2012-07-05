@@ -17,9 +17,7 @@
 
 /* read information for exponent checking */
 
-void exponent_info (exp_flag, pcp)
-struct exp_vars *exp_flag;
-struct pcp_vars *pcp;
+void exponent_info (struct exp_vars *exp_flag, struct pcp_vars *pcp)
 {
    Logical reading = TRUE;
    Logical Default;
@@ -78,9 +76,7 @@ struct pcp_vars *pcp;
 
 /* default exponent flag settings */
 
-void initialise_exponent (exp_flag, pcp)
-struct exp_vars *exp_flag;
-struct pcp_vars *pcp;
+void initialise_exponent (struct exp_vars *exp_flag, struct pcp_vars *pcp)
 {  
    int length;
 

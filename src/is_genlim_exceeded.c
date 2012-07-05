@@ -16,8 +16,7 @@
    generator in the structure of a pcp-generator about to be 
    introduced in tails does not exceed some maximum set up in option */
 
-Logical is_genlim_exceeded (pcp)
-struct pcp_vars *pcp;   
+Logical is_genlim_exceeded (struct pcp_vars *pcp)
 {
    register int *y = y_address;
 

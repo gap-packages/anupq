@@ -18,9 +18,7 @@
    if type = 2, delete only the subgroup table entries; 
    if type = 0, delete both */
 
-void delete_tables (type, pcp)
-int type;
-struct pcp_vars *pcp;
+void delete_tables (int type, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 

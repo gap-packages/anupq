@@ -13,12 +13,7 @@
 
 /* print an informational or error message */
 
-void text (message, arg1, arg2, arg3, arg4)
-int message;
-int arg1;
-int arg2;
-int arg3;
-int arg4;
+void text (int message, int arg1, int arg2, int arg3, int arg4)
 {
    char *s, *t;
 

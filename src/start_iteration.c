@@ -19,14 +19,7 @@
 /* read class and order bounds and step size information 
    required in iteration of the algorithm */
 
-void iteration_information (subgroup_rank, flag, class_bound, order_bound, step_sequence, pga, pcp)
-int *subgroup_rank;
-struct pga_vars *flag;
-int *class_bound;
-int *order_bound;
-int **step_sequence;
-struct pga_vars *pga;
-struct pcp_vars *pcp;
+void iteration_information (int *subgroup_rank, struct pga_vars *flag, int *class_bound, int *order_bound, int **step_sequence, struct pga_vars *pga, struct pcp_vars *pcp)
 {
    Logical All, Constant;
    int nmr_iterations;

@@ -19,12 +19,7 @@
 
 /* introduce tails for the class work_class part of class pcp->cc */ 
 
-void tails (type, work_class, start_weight, end_weight, pcp)
-int type;
-int work_class;
-int start_weight;
-int end_weight;
-struct pcp_vars *pcp;
+void tails (int type, int work_class, int start_weight, int end_weight, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -145,11 +140,7 @@ struct pcp_vars *pcp;
 /* calculate pth powers of class final_class generators which
    are commutators by doing the appropriate collections */
 
-void calculate_tails (final_class, start_weight, end_weight, pcp) 
-int final_class;
-int start_weight;
-int end_weight;
-struct pcp_vars *pcp;
+void calculate_tails (int final_class, int start_weight, int end_weight, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -251,9 +242,7 @@ struct pcp_vars *pcp;
 
 /* insert a new generator or pseudo-generator */
 
-void create_tail (address, f, s, pcp)
-int address, f, s;
-struct pcp_vars *pcp;
+void create_tail (int address, int f, int s, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -304,9 +293,7 @@ struct pcp_vars *pcp;
 /* insert a new pseudo-generator, where the old 
    entry was non-trivial and must be deallocated */
 
-void extend_tail (address, f, s, pcp)
-int address, f, s;
-struct pcp_vars *pcp;
+void extend_tail (int address, int f, int s, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 

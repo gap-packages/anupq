@@ -17,8 +17,7 @@
 /* compute the number of allowable subgroups;
    also, set up powers, offset, and inverses arrays */
 
-void compute_degree (pga)
-struct pga_vars *pga;
+void compute_degree (struct pga_vars *pga)
 {
    register int i;
    register int maximum = 0;

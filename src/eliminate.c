@@ -19,9 +19,7 @@
    if middle_of_tails is TRUE, do not delete space set aside in 
    setup; in this case, only deallocate redundant generators */
 
-void eliminate (middle_of_tails, pcp)
-Logical middle_of_tails;
-struct pcp_vars *pcp;
+void eliminate (Logical middle_of_tails, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 

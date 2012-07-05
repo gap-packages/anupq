@@ -14,8 +14,7 @@
 
 /* read defining relations and store each relation as a word */
 
-void read_relations (pcp)
-struct pcp_vars *pcp;
+void read_relations (struct pcp_vars *pcp)
 {
    register int *y = y_address;
 

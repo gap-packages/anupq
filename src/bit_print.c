@@ -15,8 +15,7 @@
 
 /* print out the bit representation of the integer, v */
 
-void bit_print (v)
-int v;
+void bit_print (int v)
 {   
    register int i;
    int mask = 1 << (BITES_IN_INT - 1);

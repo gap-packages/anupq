@@ -15,20 +15,12 @@
 #define __PRETTY_FILTER__
 
 #include <stdlib.h>
+
 typedef int gen_type; /*name for generator*/
+
 #define anu_valloc(A,N) (A *)malloc((unsigned)(sizeof(A)*(N)))
 #define vzalloc(A,N) (A *)calloc((unsigned)N,(unsigned)sizeof(A))
 #define inv(g)          inv_of[(g)]
-extern char word_delget_first(); 
-extern char word_del_last(); 
-extern char word_next();
-extern char read_next_gen();
-extern char read_next_word();
-extern char word_get_last();
-extern char find_keyword();
-extern char read_next_string();
-extern char read_next_int();
-extern char word_eq();
 
 typedef struct {
    gen_type *g;
@@ -46,6 +38,22 @@ typedef struct word_link {
    struct word_link * next;
 } word_link;
 
+typedef struct word_traverser {
+   word * wp;
+   int posn;
+} word_traverser;
+
+extern char word_delget_first(word *wp, gen_type *gp); 
+extern char word_del_last(word *wp); 
+extern char word_next(word_traverser *wtp, gen_type *gp);
+extern char read_next_gen(word *wp, FILE *file);
+extern char read_next_word(word *wp, FILE *file);
+extern char word_get_last(word *wp, gen_type *gp);
+extern char find_keyword(char *label, FILE *rfile);
+extern char read_next_string(char *cp, int n, FILE *rfile);
+extern char read_next_int(int *kp, FILE *rfile);
+extern char word_eq(word *w1p, word *w2p);
+
 word_link * word_link_create(void);
 void word_link_init (word_link * wlp);
 void word_link_clear (word_link * wlp);
@@ -56,11 +64,6 @@ void word2prog_word (word *user_wordp, word *prog_wordp);
 void default_inverse_array (void);
 int read_char (FILE *rfile);
 void find_char (char c, FILE *rfile);
-
-typedef struct word_traverser {
-   word * wp;
-   int posn;
-} word_traverser;
 
 #define word_length(wp)         (((wp)->last) + 1 - ((wp)->first))
 

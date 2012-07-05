@@ -15,7 +15,7 @@
 #include "constants.h"
 #include "pq_functions.h"
 
-void trace_details ();
+void trace_details (struct pga_vars *pga);
 
 /* default processing -- 
    1. calculate the extended automorphisms 
@@ -29,13 +29,7 @@ void trace_details ();
    
    return the number of reduced p-covering groups constructed */
 
-int reduced_covers (descendant_file, covers_file, k, auts, pga, pcp)
-FILE * descendant_file;
-FILE * covers_file;
-int k;
-int ***auts;
-struct pga_vars *pga;
-struct pcp_vars *pcp;
+int reduced_covers (FILE *descendant_file, FILE *covers_file, int k, int ***auts, struct pga_vars *pga, struct pcp_vars *pcp)
 {
    int lower_step, upper_step;
    int nmr_of_covers = 0;
@@ -143,8 +137,7 @@ struct pcp_vars *pcp;
 
 /* print algorithm trace details for group */
 
-void trace_details (pga)
-struct pga_vars *pga;
+void trace_details (struct pga_vars *pga)
 {
    printf ("\n------------------------------------------------------\n");
    printf ("Processing step size %d\n", pga->s);

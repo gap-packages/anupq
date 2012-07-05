@@ -18,11 +18,7 @@
 /* list the actions of the nmr_auts automorphisms on the 
    nmr_gens generators of the group */
 
-void Aprint_auts (nmr_auts, nmr_gens, auts, pcp)
-int nmr_auts;
-int nmr_gens;
-int ***auts;
-struct pcp_vars *pcp;
+void Aprint_auts (int nmr_auts, int nmr_gens, int ***auts, struct pcp_vars *pcp)
 {
    register int i, j, k, x;
    FILE * output_file;
@@ -62,11 +58,7 @@ image = 0;
    free (file_name);
 }
 
-void print_auts (nmr_auts, nmr_gens, auts, pcp)
-int nmr_auts;
-int nmr_gens;
-int ***auts;
-struct pcp_vars *pcp;
+void print_auts (int nmr_auts, int nmr_gens, int ***auts, struct pcp_vars *pcp)
 {
    register int i, j, k;
 

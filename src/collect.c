@@ -14,9 +14,9 @@
 #include "constants.h"
 #define MAXEXP (1 << 30) 
 
-void stack_overflow ();
-void integer_overflow ();
-void add_string ();
+void stack_overflow (void);
+void integer_overflow (void);
+void add_string (int string, int length, int exponent, int collected_part, struct pcp_vars *pcp);
 
 /* an exponent vector with base address collected_part 
    is multiplied on the right by a string with base address 
@@ -377,12 +377,7 @@ void collect (int pointer, int collected_part, struct pcp_vars *pcp)
    directly to the collected part with base address collected_part, 
    recursively adding powers as required */
 
-void add_string (string, length, exponent, collected_part, pcp)
-int string;
-int length;
-int exponent;
-int collected_part;
-struct pcp_vars *pcp;
+void add_string (int string, int length, int exponent, int collected_part, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -467,7 +462,7 @@ struct pcp_vars *pcp;
 
 /* stack is not big enough */
 
-void stack_overflow ()
+void stack_overflow (void)
 {
    printf ("Stack overflow in collection routine; you should increase\n");
    printf ("value of STACK_SIZE in constants.h and recompile.\n");
@@ -476,7 +471,7 @@ void stack_overflow ()
 
 /* arithmetic overflow */
 
-void integer_overflow ()
+void integer_overflow (void)
 {
    printf ("Arithmetic overflow may occur in collection ");
    printf ("routine. Results may be invalid.\n");

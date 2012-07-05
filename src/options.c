@@ -22,10 +22,7 @@
 
 /* control routine for p-quotient program */
 
-void options (call, format, pcp)
-int call;
-int format;
-struct pcp_vars *pcp;
+void options (int call, int format, struct pcp_vars *pcp)
 {
    int option;
    int t;
@@ -157,7 +154,7 @@ struct pcp_vars *pcp;
 
 /* list available menu options */
 
-void list_pqa_menu ()
+void list_pqa_menu (void)
 {
    printf ("\nBasic Menu for p-Quotient Program\n");
    printf ("----------------------------------\n");
@@ -177,8 +174,7 @@ void list_pqa_menu ()
 
 /* prompt for & read menu option and check its validity */
 
-int read_option (maxoption)
-int maxoption;
+int read_option (int maxoption)
 {
    int option;
    Logical error;
@@ -195,9 +191,7 @@ int maxoption;
 
 /* check whether option is valid */
 
-int valid (option, maxoption)
-int option;
-int maxoption;
+int valid (int option, int maxoption)
 {
    return option >= LEAST_OPTION && option <= maxoption;
 }

@@ -14,13 +14,11 @@
 #include "constants.h"
 #include "pq_functions.h"
 
-int **reallocate_matrix ();
+int **reallocate_matrix (int **a, int orig_n, int orig_m, int n, int m, Logical zero);
 
 /* extend the space available for storage of automorphisms */
 
-int **extend_matrix (current, pcp)
-int **current;
-struct pcp_vars *pcp;
+int **extend_matrix (int **current, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 

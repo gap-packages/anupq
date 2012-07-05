@@ -20,11 +20,7 @@
 
 /* calculate the next class of the group layer by layer */
 
-void next_class (report, head, list, pcp)
-Logical report;
-int **head; 
-int **list;
-struct pcp_vars *pcp;
+void next_class (Logical report, int **head, int **list, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -118,12 +114,7 @@ struct pcp_vars *pcp;
 /* when automorphisms are supplied, enforce exponent law by setting
    up a queue of redundant generators and then close this queue */
    
-void enforce_exponent (report, exp_flag, head, list, pcp) 
-Logical report;
-struct exp_vars *exp_flag;
-int **head;
-int **list;
-struct pcp_vars *pcp;
+void enforce_exponent (Logical report, struct exp_vars *exp_flag, int **head, int **list, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -262,10 +253,7 @@ struct pcp_vars *pcp;
 /* sort queue of redundant generators according to increasing length 
    of those relations which imply that each generator is redundant */
 
-void bubble_sort (x, len, pcp)
-int *x;
-int len;
-struct pcp_vars *pcp;
+void bubble_sort (int *x, int len, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
