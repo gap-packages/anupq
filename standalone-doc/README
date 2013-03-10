@@ -23,13 +23,13 @@ This implementation was developed in C by
 and some improvements made in 2011-2012 by
 
    Max Horn
-   AG Algebra und Diskrete Mathematik
-   Institut Computational Mathematics
-   TU Braunschweig
-   Pockelsstr. 14, D-38106 Braunschweig, Germany
+   AG Algebra
+   Mathematisches Institut
+   Justus-Liebig-Universität Gießen
+   Arndtstraße 2, D-35392 Gießen, Germany
 
-   E-mail: mhorn@tu-bs.de
-   WWW http://www.icm.tu-bs.de/~mhorn
+   E-mail: max.horn@math.uni-giessen.de
+   WWW http://www.quendi.de/math.php
 
 ###############################################################################
 #
@@ -252,4 +252,4 @@ J. Symbolic Comput. 9, 725-733.
 9. See the documentation for information on run-time parameters.
 
 10. Please report bugs/problems/feedback to obrien@math.auckland.ac.nz
-    and/or mhorn@tu-bs.de.
+    and/or max.horn@math.uni-giessen.de

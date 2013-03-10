@@ -64,17 +64,17 @@ Persons := [
    FirstNames    := "Max",
    IsAuthor      := false,
    IsMaintainer  := true,
-   Email         := "mhorn@tu-bs.de",
-   WWWHome       := "http://www.icm.tu-bs.de/~mhorn",
+   Email         := "max.horn@math.uni-giessen.de",
+   WWWHome       := "http://www.quendi.de/math.php",
    PostalAddress := Concatenation(
-           "AG Algebra und Diskrete Mathematik\n",
-           "Institut Computational Mathematics\n",
-           "TU Braunschweig\n",
-           "Pockelsstr. 14\n",
-           "D-38106 Braunschweig\n",
-           "Germany" ),
-   Place         := "Braunschweig",
-   Institution   := "TU Braunschweig"
+                      "AG Algebra\n",
+                      "Mathematisches Institut\n",
+                      "Justus-Liebig-Universität Gießen\n",
+                      "Arndtstraße 2\n",
+                      "35392 Gießen\n",
+                      "Germany" ),
+   Place         := "Gießen, Germany",
+   Institution   := "Justus-Liebig-Universität Gießen"
  ),
 ],  
 
