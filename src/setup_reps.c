@@ -110,19 +110,10 @@ void setup_reps (int *reps, int nmr_of_reps, int *orbit_length,
 /* process orbit representative; if reduced p-covering group, 
    save description to covers_file, otherwise to descendant file */
 
-void process_rep (perms, a, b, c, d, auts, rep, orbit_length, 
-                  tmp_file, descendant_file, covers_file, pga, pcp)
-int **perms;
-int *a, *b;
-char *c, *d;
-int ***auts;
-int rep;
-int orbit_length;
-FILE * tmp_file;
-FILE * descendant_file;
-FILE * covers_file;
-struct pga_vars *pga;
-struct pcp_vars *pcp;
+void process_rep (int **perms, int *a, int *b, char *c, char *d,
+                  int ***auts, int rep, int orbit_length,
+                  FILE * tmp_file, FILE * descendant_file, FILE * covers_file,
+                  struct pga_vars *pga, struct pcp_vars *pcp)
 {
    int index;
    int *subset;

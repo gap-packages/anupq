@@ -180,16 +180,10 @@ void enforce_exponent (Logical report, struct exp_vars *exp_flag, int **head, in
 /* close the queue of redundant generators under the action 
    of the automorphisms */
 
-void close_queue (report, list_length, limit, head, list, 
-                  queue, queue_length, pcp)
-Logical report;
-int list_length;
-int limit; 
-int *head;
-int *list;
-int *queue;
-int queue_length;
-struct pcp_vars *pcp;
+void close_queue (Logical report, int list_length, int limit,
+                  int *head, int *list,
+                  int *queue, int queue_length,
+                  struct pcp_vars *pcp)
 {
    int *long_queue, long_queue_length; 
 #if defined (TIME)
@@ -229,14 +223,9 @@ struct pcp_vars *pcp;
    free_vector (long_queue, 1);
 }
 
-int rearrange_queues (limit, queue, queue_length, long_queue, 
-                      long_queue_length, pcp) 
-int limit;
-int *queue;
-int *queue_length;
-int *long_queue;
-int long_queue_length;
-struct pcp_vars *pcp;
+int rearrange_queues (int limit, int *queue, int *queue_length,
+                      int *long_queue, int long_queue_length,
+                      struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
