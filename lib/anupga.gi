@@ -153,7 +153,7 @@ InstallGlobalFunction( ANUPQautoList, function( G, gens, automs )
     # construct direct product elements
     D := [];
     for g  in [ 1 .. Length(gens) ]  do
-	Add( D, Tuple( automs{[1..Length(automs)]}[g] ) );
+	Add( D, DirectProductElement( automs{[1..Length(automs)]}[g] ) );
     od;
 
     # and compute the abstract igs simultaneously
