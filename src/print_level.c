@@ -21,7 +21,8 @@ void print_level (int *output, struct pcp_vars *pcp)
 
    while (reading) {
       read_value (TRUE, "Input print level (0-3): ", output, MIN_PRINT);
-      if (reading = (*output > MAX_PRINT))  
+      reading = (*output > MAX_PRINT);
+      if (reading)
 	 printf ("Print level must lie between %d and %d\n",
 		 MIN_PRINT, MAX_PRINT);
    }

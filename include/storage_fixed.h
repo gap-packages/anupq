@@ -25,8 +25,8 @@
 /* largest class = 2^(WORD_LENGTH - (SC1 + SC2)) - 1 */
 #define MAXCLASS ((1 << (WORD_LENGTH - SC3)) - 1)
 
-#define MASK1 ((1UL << SC1) - 1)
-#define MASK2 ((1UL << SC2) - 1)
+#define MASK1 ((1U << SC1) - 1)
+#define MASK2 ((1U << SC2) - 1)
 
 #define INSWT(i) ((i) << SC3)
 #define WT(i) ((i) >> SC3)

@@ -38,13 +38,15 @@ int reduced_covers (FILE *descendant_file, FILE *covers_file, int k, int ***auts
    int **perms;                 /* store all permutations */
    int *orbit_length;           /* length of orbits */
    FILE * LINK_input;        /* input file for GAP */
+#if defined (GAP_LINK) 
    Logical process_fork = FALSE; /* has GAP process forked? */        
+#endif
    Logical soluble_group;       /* indicates that orbits and stabilisers may 
 				   be computed using soluble machinery */
 
    /* calculate the extended automorphisms */
    extend_automorphisms (auts, pga->m, pcp);
-   if (pcp->overflow) return;
+   if (pcp->overflow) return 0;
 
    if (pga->print_extensions && pga->m != 0) {  
       printf ("\nThe extension%s:\n", pga->m == 1 ? " is" : "s are");
@@ -91,12 +93,12 @@ int reduced_covers (FILE *descendant_file, FILE *covers_file, int k, int ***auts
 
       perms = permute_subgroups (LINK_input, &a, &b, &c, auts, pga, pcp);
 
-      if (!pga->space_efficient) 
+      if (!pga->space_efficient) {
 	 if (soluble_group)
 	    compute_orbits (&a, &b, &c, perms, pga);
 	 else
 	    insoluble_compute_orbits (&a, &b, &c, perms, pga);
-
+      }
       orbit_length = find_orbit_reps (a, b, pga);
 
       if (pga->print_orbit_summary)

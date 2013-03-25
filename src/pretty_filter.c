@@ -58,7 +58,6 @@ int pretty_filter (FILE *file, int *max_class, int *output, struct pcp_vars *pcp
    char label[SIGNIFICANT + 1];
    Logical metabelian_flag = FALSE;
 
-   int degree; /* degree of multilinear condition for Lie Program */
    rfile = file;
 
    wfile = stdout;
@@ -270,7 +269,7 @@ void check_input (int output, int *max_class, struct pcp_vars *pcp)
 
 /* read the generator list */
 
-int pretty_read_generators (struct pcp_vars *pcp)
+void pretty_read_generators (struct pcp_vars *pcp)
 {
    Logical reading = TRUE;
    int i;
@@ -295,7 +294,9 @@ int pretty_read_generators (struct pcp_vars *pcp)
       }
       pcp->ndgen = paired_gens;
 
-      if (reading = (pcp->ndgen > MAXGENS)) 
+
+      reading = (pcp->ndgen > MAXGENS);
+      if (reading)
 	 printf ("The maximum number of defining generators is %d\n", MAXGENS);
 
       if (!isatty (0)) printf ("\n");
@@ -312,7 +313,7 @@ void pretty_read_relations (int output, int *max_class, struct pcp_vars *pcp)
    int i = 1;
    char c;
    int nrels = 0;
-   int count, posn, mlin;
+   int count, posn;
    word w;
    word_link *root = word_link_create ();
    word_link *wlp = 0;

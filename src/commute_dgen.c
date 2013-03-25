@@ -16,6 +16,8 @@
 #include "pretty_filterfns.h"
 #include "word_types.h"
 
+static void collect_defining_generator_word (int ptr, int cp, struct pcp_vars *pcp);
+
 /* calculate a power of a left-normed commutator of supplied depth 
    by repeated calls to find_commutator; set up the result as an 
    exponent vector with base address pcp->lused in order to permit 
@@ -98,12 +100,14 @@ void commute_defining_generators (int format, struct pcp_vars *pcp)
 /* collect word in defining generators stored as string at 
    y[ptr] and place the result as exponent vector at cp */
 
-int collect_defining_generator_word (int ptr, int cp, struct pcp_vars *pcp)
+static void collect_defining_generator_word (int ptr, int cp, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
    int i, generator, genval;
+#if defined (DEBUG)
    int j, word_len;
+#endif 
    int length, exp;
    register int lastg = pcp->lastg;
 

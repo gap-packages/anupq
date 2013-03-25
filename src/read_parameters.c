@@ -29,7 +29,8 @@ void read_parameters (int format, int *max_class, int *output, struct pcp_vars *
 
    while (reading) {
       read_value (TRUE, "Input prime: ", &pcp->p, 2);
-      if (reading = (pcp->p != 2 && MOD(pcp->p, 2) == 0))
+      reading = (pcp->p != 2 && MOD(pcp->p, 2) == 0);
+      if (reading)
 	 printf ("%d is not a prime\n", pcp->p);
    }
 
@@ -49,7 +50,8 @@ void read_parameters (int format, int *max_class, int *output, struct pcp_vars *
       reading = TRUE;
       while (reading) {
 	 read_value (TRUE, "Input number of generators: ", &pcp->ndgen, 1);
-	 if (reading = (pcp->ndgen > MAXGENS)) 
+	 reading = (pcp->ndgen > MAXGENS);
+	 if (reading)
 	    printf ("The maximum number of defining generators is %d\n", MAXGENS);
       }
 

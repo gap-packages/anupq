@@ -77,7 +77,7 @@ void setup_symbols (struct pcp_vars *pcp)
       for (i = 1; i <= num_gens; ++i) {
          free_vector (user_gen_name[i].g, 0);
       }
-      free_vector (user_gen_name, 0);
+      free (user_gen_name);
       user_gen_name = NULL;
       free_vector (inv_of, 0);
       free_vector (pairnumber, 0);

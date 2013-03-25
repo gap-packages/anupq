@@ -118,7 +118,9 @@ void enforce_exponent (Logical report, struct exp_vars *exp_flag, int **head, in
 {
    register int *y = y_address;
 
+#if defined (TIME)
    int t;
+#endif 
    int factor;
    int limit;
 
@@ -190,7 +192,9 @@ int queue_length;
 struct pcp_vars *pcp;
 {
    int *long_queue, long_queue_length; 
+#if defined (TIME)
    int t;
+#endif 
 
    long_queue = allocate_vector (list_length, 1, 0);
    long_queue_length = 0;

@@ -324,7 +324,7 @@ void orbit_option (int option, int **perms, int **a, int **b, char **c, int **or
 {
    int t; 
    Logical soluble_group;
-    FILE * file;
+/*    FILE * file; */
 
 
    if (option != COMBINATION && option != STANDARDISE) {

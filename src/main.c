@@ -50,10 +50,8 @@ int menu = DEFAULT_MENU;
 Logical StandardPresentation = FALSE;
 Logical GAP4iostream = FALSE;
 
-main (int argc, char **argv)
+int main (int argc, char **argv)
 {
-   register int *y = y_address;
-
    int t;
    struct pcp_vars pcp;
 #include "access.h" 

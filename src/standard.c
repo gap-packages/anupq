@@ -543,7 +543,7 @@ static char *find_word (int *word_length, Logical soluble_group, int **perms, in
       l = non_standard;
       while (l != rep) {
 	 word_map[++*word_length] = d[l];
-	 if ((perm_number = pga->map[d[l]]) != 0) 
+	 if ((perm_number = pga->map[(int)d[l]]) != 0) 
 	    l = inverse_image (l, perms[perm_number], pga);
       }
       /* reverse word */

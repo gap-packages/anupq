@@ -129,7 +129,7 @@ void output_information(int *sequence, int nmr_of_exponents, struct pcp_vars *pc
 int *compact_description (Logical write_to_file, struct pcp_vars *pcp);
 void CloseFile (FILE* file);
 void power (int exp, int cp, struct pcp_vars *pcp);
-int vector_to_string (int cp, int str, struct pcp_vars *pcp);
+void vector_to_string (int cp, int str, struct pcp_vars *pcp);
 int vector_to_word (int cp, int ptr, struct pcp_vars *pcp);
 void string_to_vector (int str, int cp, struct pcp_vars *pcp);
 
@@ -213,6 +213,9 @@ void setup_reps (int *reps, int nmr_of_reps, int *orbit_length,
                  int **perms, int *a, int *b, char *c, int ***auts, 
                  FILE *descendant_file, FILE *covers_file,
                  struct pga_vars *pga, struct pcp_vars *pcp);
+
+/* soluble_orbits.c */
+void process_identity_perm (int *a, int *b, char *c, struct pga_vars *pga);
 
 /* stabiliser.c */
 int*** stabiliser_of_rep (int **perms, int rep, int orbit_length,

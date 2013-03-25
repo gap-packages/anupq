@@ -15,7 +15,7 @@
 #include "pq_functions.h"
 #include "constants.h"
 
-static int ***setup_identity_auts (int nmr_of_generators, int ***auts, struct pga_vars *pga);
+/*static int ***setup_identity_auts (int nmr_of_generators, int ***auts, struct pga_vars *pga);*/
 static void evaluate_generators (int pointer, int nmr_of_generators, int ***stabiliser, int ***auts, struct pga_vars *pga, struct pcp_vars *pcp);
 
 
@@ -35,7 +35,7 @@ int*** stabiliser_of_rep (int **perms, int rep, int orbit_length,
 			    pga->nmr_of_perms == 0);
    int nmr_of_generators;
    int restriction;
-   int i, j;
+   int j;
    int *relative;
 
    nmr_of_generators = pga->final_stage ? y[pcp->clend + pcp->cc - 1] + pga->s :
@@ -271,7 +271,7 @@ int preimage (int perm, struct pga_vars *pga)
 
 /* set up those automorphisms which induced the identity on the 
    p-multiplicator as the leading elements of the stabiliser */
-
+/*
 static int ***setup_identity_auts (int nmr_of_generators, int ***auts, struct pga_vars *pga)
 {
    int alpha, i = 0, j, k;
@@ -291,6 +291,7 @@ static int ***setup_identity_auts (int nmr_of_generators, int ***auts, struct pg
 
    return stabiliser;
 }
+*/
 
 #if defined (GAP_LINK_VIA_FILE)
 
@@ -303,8 +304,6 @@ static int ***setup_identity_auts (int nmr_of_generators, int ***auts, struct pg
 
 int*** read_stabiliser_gens (int nmr_of_generators, int ***soluble_generators, struct pga_vars *pga, struct pcp_vars *pcp)
 {
-   register int *y = y_address;
-
    register int ndgen = pga->ndgen;
    register int gamma, i, j;
    FILE * LINK_output;

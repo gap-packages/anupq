@@ -107,7 +107,7 @@ void options (int call, int format, struct pcp_vars *pcp)
 	    t = runTime ();
 	    report = pcp->complete; 
 	    next_class (FALSE, &head, &list, pcp);
-	    if (report || output_level == 1 && pcp->complete || pcp->lastg < 1)
+	    if (report || (output_level == 1 && pcp->complete) || pcp->lastg < 1)
 	       text (5, pcp->cc, pcp->p, pcp->lastg, 0);
 	    t = runTime () - t;
 	    if (!pcp->overflow) {

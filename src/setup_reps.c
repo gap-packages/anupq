@@ -30,7 +30,7 @@ void setup_reps (int *reps, int nmr_of_reps, int *orbit_length,
    char *d;                     /* used in stabiliser computation */
    FILE * tmp_file;
    struct pga_vars original;    /* copy of pga structure */
-   register int i, ii;
+   register int i;
    Logical soluble_group;       /* indicates that stabilisers may 
 				   be computed using soluble machinery */
 
@@ -124,7 +124,6 @@ FILE * covers_file;
 struct pga_vars *pga;
 struct pcp_vars *pcp;
 {
-   register int *y = y_address;
    int index;
    int *subset;
    int ***central;
@@ -134,8 +133,6 @@ struct pcp_vars *pcp;
    FILE * file;
    FILE * GAP_library; 
    int lused, rank_of_cover;
-   int p = pga->p;
-   int j;
 
    /* construct the presentation for the descendant and 
       assemble the necessary automorphism information */

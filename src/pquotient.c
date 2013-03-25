@@ -29,14 +29,17 @@ int pquotient (int max_class, int output, FILE *file, int format, struct pcp_var
 
    if (format == BASIC || format == PRETTY) {
       read_parameters (format, &max_class, &output, pcp);
-      if (!pcp->valid)
+      if (!pcp->valid) {
 	 if (isatty (0)) return FAILURE; else exit (INPUT_ERROR);
+      }
    }
    else if (format == FILE_INPUT) {
-      if (pretty_filter (file, &max_class, &output, pcp) == INPUT_ERROR)
+      if (pretty_filter (file, &max_class, &output, pcp) == INPUT_ERROR) {
 	 if (isatty (0)) return FAILURE; else exit (INPUT_ERROR);
-      if (!pcp->valid)
+      }
+      if (!pcp->valid) {
 	 if (isatty (0)) return FAILURE; else exit (INPUT_ERROR);
+      }
    }
 
    /* if appropriate, print start message for pq */

@@ -160,7 +160,7 @@ int* bitstring_to_subset (int K, struct pga_vars *pga)
    int length = pga->s;         /* number of elements of subset */
    int *subset;
    register int i;
-   int mask = 1 << BITES_IN_INT - 1;
+   int mask = 1 << (BITES_IN_INT - 1);
 
    subset = allocate_vector (pga->s, 0, 1);
    for (i = 1; i <= BITES_IN_INT && length > 0; ++i) {

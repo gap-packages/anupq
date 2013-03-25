@@ -145,7 +145,6 @@ void isom_options (int format, struct pcp_vars *pcp)
    int x_dim, y_dim;
    FILE * GAP_library;
    char *name;
-   char *command;
    int nmr_of_exponents;
 
    StandardPresentation = TRUE;
@@ -482,7 +481,7 @@ static Logical setup_start_info (Logical identity_map, Logical status, FILE *fil
          for (i = 1; i <= num_gens; ++i) {
             free_vector (user_gen_name[i].g, 0);
          }
-         free_vector (user_gen_name, 0);
+         free (user_gen_name);
          user_gen_name = NULL;
          free_vector (inv_of, 0);
          free_vector (pairnumber, 0);

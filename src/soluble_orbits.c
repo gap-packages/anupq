@@ -58,7 +58,7 @@ void space_for_orbits (int **a, int **b, char **c, struct pga_vars *pga)
 /* process identity permutation -- we need only to update c[j] which is the 
    number of times j has been last image in orbit with leading term a[j] */
 
-int process_identity_perm (int *a, int *b, char *c, struct pga_vars *pga)
+void process_identity_perm (int *a, int *b, char *c, struct pga_vars *pga)
 {
    register int Degree = pga->Degree;
    int j, last, element;

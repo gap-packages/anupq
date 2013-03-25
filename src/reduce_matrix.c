@@ -33,11 +33,12 @@ void reduce_matrix (int **a, int nmr_rows, int nmr_columns, int p, struct pga_va
 	 index = row;
 	 while (index < nmr_rows && (zero = (a[index][column] == 0)))
 	    ++index;
-	 if (zero)
+	 if (zero) {
 	    if (column < bound)  
 	       ++column;
 	    else 
-	       return; 
+	       return;
+	 }
       } while (zero);
 
       /* if necessary, interchange current row with row index */

@@ -15,14 +15,13 @@
 /* convert exponent vector with base address  
    cp to string whose base address is str */
 
-int vector_to_string (int cp, int str, struct pcp_vars *pcp)
+void vector_to_string (int cp, int str, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
    register int i;
    register int length = 0;   
    register int lastg = pcp->lastg;
-   register int ptr;
 
 #include "access.h" 
    

@@ -34,11 +34,12 @@ int echelonise_matrix (int **a, int nmr_rows, int nmr_columns, int p, int *subse
 	 index = row;
 	 while (index < nmr_rows && (zero = (a[index][column] == 0)))
 	    ++index;
-	 if (zero)
+	 if (zero) {
 	    if (column < bound)  
 	       ++column;
 	    else
 	       return bit_string;
+	 }
       } while (zero);
 
       /* store the definition set information for this matrix */
