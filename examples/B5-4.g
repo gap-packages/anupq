@@ -61,7 +61,7 @@
 #gained by Newman & O'Brien in their investigations of B(5,4).
 #vars: procId, Relations, class, w, smallclass;
 #options: OutputFile
-RequirePackage( "anupq" );
+LoadPackage( "anupq" );
 ##You might like to try setting: `SetInfoLevel( InfoANUPQ, 3 );'
 
 procId := PqStart( FreeGroup(5) : Exponent := 4, Prime := 2 );

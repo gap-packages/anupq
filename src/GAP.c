@@ -79,7 +79,7 @@ void    WriteGapInfo ( auts, pga )
    char                str[MAXWORD];
 
    /* we need the GAP library files defined in the package "anupq"        */
-   WriteGap( "RequirePackage( \"anupq\" );\n" );
+   WriteGap( "LoadPackage( \"anupq\" );\n" );
 
    /* give debug information if 'ANUPQlog' is set to 'LogTo'              */
    WriteGap( "ANUPQlog( \"debug.out\" );\n"    );

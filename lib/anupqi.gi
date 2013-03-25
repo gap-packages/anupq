@@ -52,7 +52,7 @@ InstallGlobalFunction( PQ_AUT_GROUP, function( G )
 
       autgrp := AutomorphismGroup( G );
 
-  elif RequirePackage("autpgrp") = true or IsAbelian(G) then
+  elif LoadPackage("autpgrp") = true or IsAbelian(G) then
 
       autgrp := AutomorphismGroupPGroup(G);
 
