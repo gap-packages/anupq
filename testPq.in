@@ -64,11 +64,7 @@ print GAPIN
       "if LoadPackage(\"autpgrp\", \"$AutPGrpversion\") = true then\n",
       "    Print(GAPInfo.PackagesInfo.autpgrp[1].Version);\n",
       "elif LoadPackage(\"autpgrp\") = true then\n",
-      "  if CompareVersionNumbers(VERSION, \"4.4\") then\n",
-      "    Print(GAPInfo.PackagesInfo.autpgrp[1].Version, \"\\n\");\n",
-      "  else\n",
-      "    Print(PACKAGES_VERSIONS.autpgrp, \"\\n\");\n",
-      "  fi;\n",
+      "  Print(GAPInfo.PackagesInfo.autpgrp[1].Version, \"\\n\");\n",
       "fi;\n";
 close GAPIN;
 print " Starting GAP to determine version and package availability ...\n"; 
