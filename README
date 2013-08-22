@@ -272,9 +272,9 @@ for these). The output you see should be something like the following:
 If you encounter problems with the `pq' binary, please contact the C code
 author: Eamonn O'Brien <obrien@math.auckland.ac.nz>.
 
-If you encounter problems at the GAP level, please  contact  one  of  the
-ANUPQ package authors: Greg Gamble <gregg@math.rwth-aachen.de>  or Werner
-Nickel <nickel@mathematik.tu-darmstadt.de>.
+If you encounter problems at the GAP level, please  contact one of the
+GAP package maintainers, Greg Gamble <gregg@math.rwth-aachen.de> or
+Max Horn <max.horn@math.uni-giessen.de>.
 
 When sending a bug report, remember we will need to be able to  reproduce
 the problem; so please include:

@@ -179,7 +179,7 @@ while (<GAPOUT>) {
   } else {
     print " error.\n";
     die   " Please email the file: $tmpdir/gapout\n",
-          " to Werner.Nickel\@mathematik.tu-darmstadt.de\n";
+          " to gregg\@math.rwth-aachen.de\n";
   }
 }
 print " OK.\n",
@@ -234,7 +234,7 @@ sub check {
       } else {
         print " error.\n";
         die   " Please email the file: $tmpdir/$outfile\n",
-              " to Werner.Nickel\@mathematik.tu-darmstadt.de\n";
+              " to gregg\@math.rwth-aachen.de\n";
       }
     }
   }
