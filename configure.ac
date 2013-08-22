@@ -36,10 +36,10 @@ dnl ##
 dnl ## If no directory is specified, then this defaults to ../..
 # TODO: Automatically expand relative paths to absolute ones... this would simplify the code below
 # considerably. Also, it's a first step towards building out-of-tree
-AC_ARG_WITH([gap-root],
-	[AS_HELP_STRING([--with-gap-root=PATH],
+AC_ARG_WITH([gaproot],
+	[AS_HELP_STRING([--with-gaproot=PATH],
 		[directory where GAP is installed @<:@default=../..@:>@])],
-	[GAP_ROOT="$with_gap_root" ; GAP_ROOT_real="$with_gap_root"; GAP_ROOT_display="$with_gap_root"],
+	[GAP_ROOT="$with_gaproot" ; GAP_ROOT_real="$with_gaproot"; GAP_ROOT_display="$with_gaproot"],
 	[GAP_ROOT='${top_srcdir}/../..' ; GAP_ROOT_real="${srcdir}/../.."; GAP_ROOT_display=../..])
 AC_MSG_CHECKING([path to GAP installation])
 
