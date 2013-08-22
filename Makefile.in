@@ -55,9 +55,11 @@ GAP=gap
 SRC=$(srcdir)/src
 PKGNAME=anupq
 
-all: $(EFILE)
-# FIXME: We also used to do this, but it is unclear to me why:
-	#echo $(GAP) > tst/GAP
+all: $(EFILE) testPq
+
+testPq: testPq.in
+	sed "s/\@GAPARCH\@/@GAPARCH@/g" < $< > $@
+	chmod +x $@
 
 ## show makefile options ####################################################
 
