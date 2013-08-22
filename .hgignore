@@ -17,3 +17,5 @@ doc/tthmacros.tex
 doc/tthout
 include/config.h
 htm/
+testPq
+autom4te.cache/
