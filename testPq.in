@@ -11,7 +11,7 @@ system("rm -rf $tmpdir; mkdir $tmpdir");
 print "Made dir: $tmpdir\n";
 
 $ANUPQversion = `cat VERSION`;
-$pqbinaryversion = "1.8";
+$pqbinaryversion = "1.9";
 $AutPGrpversion = "1.2";
 chomp $ANUPQversion;
 
