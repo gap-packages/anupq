@@ -194,6 +194,8 @@ sub check {
   # run pq over test file and clean out system-dependent stuff
   system("( cd $tmpdir; ".
          "  $pq $opts< $tstdir/$file ".
+         # ignore first two lines containing hostname and date information
+         "  | tail -n +3 ".
          "  | grep -v seconds | grep -v '#I --' ".
          # sometimes emitted by gap-dev if a C source file CRC is out-of-date
          "  | grep -v '#W ' ". 
