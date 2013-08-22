@@ -65,7 +65,7 @@ Persons := [
    IsAuthor      := false,
    IsMaintainer  := true,
    Email         := "max.horn@math.uni-giessen.de",
-   WWWHome       := "http://www.quendi.de/math.php",
+   WWWHome       := "http://www.quendi.de/math",
    PostalAddress := Concatenation(
                       "AG Algebra\n",
                       "Mathematisches Institut\n",
