@@ -30,17 +30,7 @@ The following section describes the installation of the ANUPQ package.  A
 description of the functions available in the ANUPQ package is  given  in
 the  package  manual  in  the  doc  directory.  For  details  about   the
 implementation and the standalone version see the README and guide.dvi in
-the standalone-doc directory. As mentioned above the implementation in  C
-was written by
-
-Eamonn O'Brien
-Department of Mathematics
-University of Auckland
-Private Bag 92019
-Auckland
-New Zealand
-
-e-mail: obrien@math.auckland.ac.nz 
+the standalone-doc directory.
 
                        Obtaining the ANUPQ package
                        ---------------------------
@@ -208,22 +198,13 @@ When sending a bug report, remember we will need to be able to  reproduce
 the problem; so please include:
 
  * The version of GAP you are using; either look at  the  header  when
-   you start up GAP, or at the gap> prompt type: VERSION;    or (since 
-   GAP 4.4) type: GAPInfo.Version;
- * The operating system you are using e.g. Linux, SunOS 5.8 =  Solaris
-   2.8, IRIX 6.5, ...
+   you start up GAP, or at the gap> prompt type: GAPInfo.Version;
+ * The operating system you are using e.g. Linux, Mac OS X, Windows,
+   FreeBSD, Solaris...
  * The compiler you used to compile `pq' and  the  options  you  used.
-   Type: gcc -v or: cc -version, and  look  in  src/Makefile  for  the
+   Type: gcc -v or: cc -version, and  look  in  Makefile  for  the
    value of CC to find out.
  * A script, either in GAP or standalone `pq', that  demonstrates  the
    bug, along with a description of why it's a  bug  (e.g.  by  adding
    comments  to  the  script  -  recall,  comments,  both  in  GAP  or
    standalone `pq', begin with a #).
-
-  - Greg Gamble 
-    e-mail: gregg@math.rwth-aachen.de)
-    www:    http://www.math.rwth-aachen.de/~Greg.Gamble
-  -- 9 October, 2001; 18 February, 2002; 16 April, 2002; 
-     3 November, 2002; 13 April, 2003; 28 January, 2004;
-     20 July, 2005; 28 July, 2005; 24 January, 2006.
-
