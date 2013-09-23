@@ -11,25 +11,21 @@
 \Chapter{Installing the ANUPQ Package}
 
 The ANU  `pq' program is  written in C  and the package can  be installed
-under UNIX  and in environments  similar to UNIX.  It has been  tested on
-DECstation running Ultrix, a HP 9000/700 and HP 9000/800 running HP-UX, a
-MIPS running RISC/os Berkeley, a  NeXTstation running NeXTSTEP 3.0, a SUN
-running  SunOS and an  Intel Pentium  based PC  running Linux  or Windows
+under UNIX  and in environments  similar to UNIX. In particular
+it is known to work on Linux and Mac OS X, and also on Windows
 equipped with cygwin.
 
 The current version of the  {\ANUPQ}  package  requires  {\GAP}~4.4,  and
-version 1.2 of the {\AutPGrp} package. If you still have  {\GAP}~4.3  (at
-least fix4), then you must  use  {\ANUPQ}~2.2,  and  {\AutPGrp}~1.1.  You
-should not use earlier versions of the {\ANUPQ} package  since  they  are
-known to have bugs.
+version 1.2 of the {\AutPGrp} package. However, we recommend using
+at least {\GAP}~4.6 and {\AutPGrp}~1.5.
 
-To install the {\ANUPQ} package, move the file `anupq-<XXX>.zoo' for some
+To install the {\ANUPQ} package, move the file `anupq-<XXX>.tar.gz' for some
 version number <XXX> into the  `pkg'  directory  in  which  you  plan  to
 install {\ANUPQ}. Usually, this  will  be  the  directory  `pkg'  in  the
-hierarchy of your version of {\GAP}~4; it is  however  also  possible  to
+hierarchy of your version of {\GAP}; it is  however  also  possible  to
 keep an additional `pkg' directory in your private directories. The  only
 essential difference  with  installing  {\ANUPQ}  in  a  `pkg'  directory
-different to the {\GAP}~4 home directory is that one  must  start  {\GAP}
+different to the {\GAP} home directory is that one  must  start  {\GAP}
 with the `-l' switch (see Section~"ref:Command  Line  Options"),  e.g.~if
 your private `pkg' directory is a subdirectory of `mygap'  in  your  home
 directory you might type:
@@ -38,25 +34,39 @@ directory you might type:
 \){\kernttindent}gap -l ";<myhomedir>/mygap"
 %endtt
 
-where <myhomedir> is the  path  to  your  home  directory,  which  (since
-{\GAP}~4.3) may be replaced  by  a  tilde.  The  empty  path  before  the
-semicolon is  filled  in  by  the  default  path  of  the  {\GAP}~4  home
+where <myhomedir> is the  path  to  your  home  directory,  which 
+may be replaced  by  a  tilde.  The  empty  path  before  the
+semicolon is  filled  in  by  the  default  path  of  the  {\GAP}  home
 directory.
 
-Then, in your chosen `pkg' directory, unzoo `anupq-<XXX>.zoo' by
+Then, in your chosen `pkg' directory, unpack `anupq-<XXX>.tar.gz' by
 
 %\begintt
-\){\kernttindent}unzoo -x anupq-<XXX>
+\){\kernttindent}tar xf anupq-<XXX>.tar.gz
 %\endtt
 
 Change to the newly created `anupq'  directory.  Now  you  need  to  call
-`configure <path>' where <path> is the path to the {\GAP} home directory.
-So for example if you install the package in  the  main  `pkg'  directory
+`configure'. If you installed {\ANUPQ} into the  main  `pkg'  directory,
 call
 
 \begintt
-./configure ../..
+./configure
 \endtt
+
+If you installed ANUPQ in another directory than the usual 'pkg'
+subdirectory, instead call
+
+\begintt
+./configure --with-gaproot=<path>
+\endtt
+
+where <path> is the path to the {\GAP} home directory. (You can also call
+
+\begintt
+./configure --help
+\endtt
+
+for further options.)
 
 What this does is look for a file `sysinfo.gap' in the root directory  of
 {\GAP} in order to determine an architecture name for the subdirectory of
@@ -67,10 +77,9 @@ you should run `configure' and `make' for {\ANUPQ} for each  architecture
 immediately after compiling {\GAP} on the same architecture.
 
 If you had to install the package in your own directory but wish  to  use
-the system {\GAP}~4 then you will need to find out what <path> is. To  do
+the system {\GAP} then you will need to find out what <path> is. To  do
 this, start up {\GAP} and find  out  what  {\GAP}'s  root  path  is  from
-finding the value of the  variable  `GAPInfo.RootPaths'  (in  {\GAP}~4.4;
-this was `GAP_ROOT_PATHS' prior to {\GAP}~4.4), e.g.
+finding the value of the  variable  `GAPInfo.RootPaths', e.g.
 
 \begintt
 gap> GAPInfo.RootPaths;
@@ -80,11 +89,7 @@ gap> GAPInfo.RootPaths;
 would tell you to use `/usr/local/lib/gap4r4' for <path>.
 
 The `configure' command will fetch the architecture type for which {\GAP}
-has been compiled  last,  create  a  `Makefile'  and  list  a  number  of
-``targets'' to call `make' with. If you have one of  the  standard  Linux
-(or NetBSD or FreeBSD) systems with `gcc', wish  to  compile  with  `-O2'
-optimisation, and have `gmp'  with  its  include  and  library  files  in
-`/usr/local/include' and  `/usr/local/lib',  respectively,  you  can  now
+has been compiled  last and  create  a  `Makefile'. You  can  now
 simply call
 
 \begintt
@@ -92,65 +97,6 @@ make
 \endtt
 
 to compile the binary and to install it in the appropriate place.
-
-If you need a special target, e.g.~you don't have `gmp' or are not  on  a
-Linux  system,  and  the  targets  displayed  on  the  screen  after  the
-`configure' step rushed past your eyes and you can't scroll back  to  see
-them, you can ``pipe'' those same targets through `less' or `more',  e.g.
-with `more':
-
-\begintt
-make unknown || more
-\endtt
-
-An abbreviation of the target list is as follows:
-
-\begintt
-'linux-iX86-gcc2-gmp'      for IBM x86 PCs under linux/BSD with GNU cc 2 and mp
-'linux-iX86-cc-gmp'        for IBM x86 PCs under linux/BSD with cc and GNU mp
-'linux-iX86-gcc2'          for IBM x86 PCs under linux/BSD with GNU cc 2
-'linux-iX86-cc'            for IBM x86 PCs under linux/BSD with cc (GNU)
-'iX86-pc-cygwin-gcc-gmp'   for IBM x86 PCs under CYGWIN with GNU cc and GNU mp
-'iX86-pc-cygwin-gcc'       for IBM x86 PCs under CYGWIN with GNU cc
-[... 16 lines deleted ...]
-'sunos-gcc2-gmp'           for SunOS with GNU cc 2 and gmp
-'sunos-cc-gmp'             for SunOS with cc and GNU mp
-'sunos-gcc2'               for SunOS with GNU cc 2
-'sunos-cc'                 for SunOS with cc
-'unix-gmp'                 for a generic unix system with cc and GNU mp
-'unix'                     for a generic unix system with cc
-'clean'                    remove all created files
-
-   targets are listed according to preference,
-   i.e., 'sunos-gcc2' is better than 'sunos-cc'
-   no target is the same as choosing 'linux-iX86-gcc2-gmp'
-   additional C compiler and linker flags can be passed with
-   'make <target> COPTS=<compiler-opts> LOPTS=<linker-opts>',
-   e.g., 'make sunos-cc COPTS=-g LOPTS=-g'.
-
-   set GAP if GAP4 is not started with the command 'gap',
-   e.g., 'make sunos-cc GAP=/usr/local/bin/gap4'.
-
-   in order to use the GNU multiple precision (gmp) set
-   'GNUINC' (default '/usr/local/include') and 
-   'GNULIB' (default '/usr/local/lib')
-
-   do 'make unknown || more' to see these targets again via more
-\endtt
-
-Let's suppose that the `linux-iX86-gcc2-gmp' target does not satisfy your
-requirements, that your system is Solaris 2.8 (i.e.~SunOS 5.8), you  have
-`gmp' but its `include' and `lib' directories  are  somewhere  else,  and
-that `gap4' is the command used to start  {\GAP}~4.  Then  the  following
-might be the appropriate `make' call:
-
-\begintt
-make sunos-gcc2-gmp GAP=gap4 GNUINC=/opt/local/include GNULIB=/opt/local/lib
-\endtt
-
-If you  don't  have  the  *GNU*  multiple  precision  arithmetic  (`gmp')
-installed on your system, don't worry,  `gmp'  is  *not  required*;  just
-select an appropriate target without `-gmp'.
 
 \indextt{ANUPQ_GAP_EXEC!environment variable}
 The path of {\GAP} (see *Note* below) used by the `pq' binary (the  value
@@ -184,7 +130,7 @@ set `GAP' to a correct path  for  {\GAP}  (see  Section~"Running  the  pq
 program as a standalone" for more details). To run the tests, just type:
 
 \begintt
-testPq
+./testPq
 \endtt
 
 Some of the tests the script runs take a while. Please  be  patient.  The
@@ -195,7 +141,7 @@ something like the following output:
 
 \begintt
 Made dir: /tmp/testPq
-Testing installation of ANUPQ Package (version 3.0)
+Testing installation of ANUPQ Package (version 3.1)
  
 The first two tests check that the pq C program compiled ok.
 Testing the pq binary ... OK.
@@ -203,16 +149,16 @@ Testing the pq binary's stack size ... OK.
 The pq C program compiled ok! We test it's the right one below.
  
 The next tests check that you have the right version of GAP
-for version 3.0 of the ANUPQ package and that GAP is finding
+for the ANUPQ package and that GAP is finding
 the right versions of the ANUPQ and AutPGrp packages.
  
 Checking GAP ...
  pq binary made with GAP set to: /usr/local/bin/gap
  Starting GAP to determine version and package availability ...
-  GAP version (4.4.6) ... OK.
-  GAP found ANUPQ package (version 3.0) ... good.
-  GAP found pq binary (version 1.8) ... good.
-  GAP found AutPGrp package (version 1.2) ... good.
+  GAP version (4.6.5) ... OK.
+  GAP found ANUPQ package (version 3.1) ... good.
+  GAP found pq binary (version 1.9) ... good.
+  GAP found AutPGrp package (version 1.5) ... good.
  GAP is OK.
  
 Checking the link between the pq binary and GAP ... OK.
@@ -280,18 +226,7 @@ assuming that your personal {\GAP} `pkg' directory is a  subdirectory  of
 where {\GAP} is and also know where your `pkg' directory is that contains
 {\ANUPQ}, set the environment variable `ANUPQ_GAP_EXEC' to  the  complete
 (i.e. absolute) path of  your  `mygap'  script  (do  not  use  the  tilde
-abbreviation), or at the `make' step that compiles `pq' do
-
-%begintt
-\){\kernttindent}make GAP=<absolute-path-of-mygap>
-%endtt
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%
-%E
- occasionally have  limits  on  what  may  be
-written there. `ANUPQDirectoryTemporary' permits the  user  to  choose  a
-directory (object) where one is not so limited.
+abbreviation).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Setting the Verbosity of ANUPQ via Info and InfoANUPQ}

@@ -46,33 +46,18 @@ e-mail: obrien@math.auckland.ac.nz
                        ---------------------------
 
 Note  that, owing  to its  C  code component,  the ANUPQ  package can  be
-installed  under UNIX or  in environments  similar to  UNIX. It  has been
-tested  on DECstation  running  Ultrix,  a HP  9000/700  and HP  9000/800
-running  HP-UX, a MIPS  running RISC/os  Berkeley, a  NeXTstation running
-NeXTSTEP  3.0, SUNs  running SunOS  and Intel  Pentium based  PCs running
-Linux or Windows equipped with cygwin.
+installed  under UNIX or  in environments  similar to  UNIX. In particular
+it is known to work on Linux and Mac OS X, and also on Windows equipped
+with cygwin.
 
 You can download `anupq-XXX.tar.gz' (where `XXX' is the  package  version
 number) from the home page for the ANUPQ package
 
-http://www.math.rwth-aachen.de/~Greg.Gamble/ANUPQ/ (Germany)
+http://gap-system.github.io/anupq/
 
-or the Australian mirror
+or via the GAP web site
 
-http://school.maths.uwa.edu.au/~gregg/ANUPQ/       (Perth, Australia)
-
-or via the Packages links from the GAP sites
-
-http://www.gap-system.org/                         (UK)
-http://www.math.rwth-aachen.de/~GAP/               (Germany)
-
-or the GAP ftp servers
-
-ftp://ftp-gap.dcs.st-and.ac.uk/pub/gap/gap4/zoo/packages/
-ftp://ftp.math.rwth-aachen.de/pub/gap4/zoo/packages/
-
-If you prefer tar.gz or tar.bz2 to zoo  archives,  substitute  tar.gz  or
-tar.bz2 (as appropriate) for zoo in the above paths.
+http://www.gap-system.org/Packages/anupq.html
 
                       Installing the ANUPQ package
                       ----------------------------
@@ -85,89 +70,34 @@ directories, see section "ref:Installing  GAP  Packages"  of  the  GAP  4
 reference manual for details on how to do this.)
 
 Version 3.1 of the ANUPQ package  uses  `autoconf'  in  `configure' which 
-should make it easier to compile. It requires at least GAP 4.4.
-
-For version 3.0 of the ANUPQ package, all pre-GAP 4.4  compatibility  was
-removed, and the AutPGrp package became essential (not just recommended).
-Thus at least version 4.4 of GAP and at least version 1.2 of the  AutPGrp
-package are now required by the ANUPQ package.
-
-If you still have GAP 4.3 (at least fix4), you will need to use ANUPQ 2.2
-(it's not recommended but no known bugs exist with that ANUPQ version).
+should make it easier to compile. It requires at least GAP 4.4 and
+AutPGrp 1.2, although we recommend using more recent versions (at least
+GAP 4.6 and AutPGrp 1.5).
 
 Unpack the archive `anupq-<XXX>.tar.gz' in the `pkg' directory.
 
-Change directory to the newly created `anupq' directory. Now you need  to
-call `configure <path>'  where  <path>  is  the  path  to  the  GAP  home
-directory, `../..' by default. So for example, if you install the package
-in the main `pkg' directory call
+Change directory to the newly created `anupq' directory. Now you need to
+call `configure'. If you installed ANUPQ into the main `pkg' directory,
+simply do this:
 
   ./configure
 
-This will fetch the architecture type for which  GAP  has  been  compiled
-last, create a `Makefile' and list a number of ``targets'' to call `make'
-with. If you have one of  the  standard  linux  (or  NetBSD  or  FreeBSD)
-systems with `gcc', wish to compile with  `-O2'  optimisation,  and  have
-`gmp' with its include and  library  files  in  `/usr/local/include'  and
-`/usr/local/lib', respectively, you can now simply call
+If you installed ANUPQ in another directory than the usual 'pkg'
+subdirectory, do
+
+  ./configure --with-gaproot=path
+
+where 'path' is a path to the GAP home directory. See
+
+  ./configure --help
+
+for further options.
+
+Afterwards, you can now simply call
 
   make
 
 to compile the binary and to install it in the appropriate place.
-
-If you need a special target (perhaps you don't have `gmp' or you are not
-on a linux, NetBSD or FreeBSD system) then you need to call `make' with a
-target argument. If  the  targets  displayed  on  the  screen  after  the
-`configure' step rushed past your eyes and you can't scroll back  to  see
-them, you can ``pipe'' those same targets through `less' or `more',  e.g.
-with `more':
-
-  make unknown | more
-
-An abbreviation of the target list is as follows:
-
-'linux-iX86-gcc2-gmp'      for IBM x86 PCs under linux/BSD with GNU cc 2 and mp
-'linux-iX86-cc-gmp'        for IBM x86 PCs under linux/BSD with cc and GNU mp
-'linux-iX86-gcc2'          for IBM x86 PCs under linux/BSD with GNU cc 2
-'linux-iX86-cc'            for IBM x86 PCs under linux/BSD with cc (GNU)
-'iX86-pc-cygwin-gcc-gmp'   for IBM x86 PCs under CYGWIN with GNU cc and GNU mp
-'iX86-pc-cygwin-gcc'       for IBM x86 PCs under CYGWIN with GNU cc
-[... 16 lines deleted ...]
-'sunos-gcc2-gmp'           for SunOS with GNU cc 2 and gmp
-'sunos-cc-gmp'             for SunOS with cc and GNU mp
-'sunos-gcc2'               for SunOS with GNU cc 2
-'sunos-cc'                 for SunOS with cc
-'unix-gmp'                 for a generic unix system with cc and GNU mp
-'unix'                     for a generic unix system with cc
-'clean'                    remove all created files
-
-   targets are listed according to preference,
-   i.e., 'sunos-gcc2' is better than 'sunos-cc'
-   no target is the same as choosing 'linux-iX86-gcc2-gmp'
-   additional C compiler and linker flags can be passed with
-   'make <target> COPTS=<compiler-opts> LOPTS=<linker-opts>',
-   e.g., 'make sunos-cc COPTS=-g LOPTS=-g'.
-
-   set GAP if GAP4 is not started with the command 'gap',
-   e.g., 'make sunos-cc GAP=/usr/local/bin/gap4'.
-
-   in order to use the GNU multiple precision (gmp) set
-   'GNUINC' (default '/usr/local/include') and 
-   'GNULIB' (default '/usr/local/lib')
-
-   do 'make unknown | more' to see these targets again via more
-
-Let's suppose that the `linux-iX86-gcc2-gmp' target does not satisfy your
-requirements; further suppose your system is Solaris 2.8 (i.e SunOS 5.8),
-you have `gmp' but its include  and  library  directories  are  somewhere
-else, and that `gap4' is the command used to initiate  GAP  4.  Then  the
-following `make' call might be correct in this case:
-
-  make sunos-gcc2-gmp GAP=gap4 GNUINC=/opt/local/include GNULIB=/opt/local/lib
-
-If you  don't  have  the  *GNU*  multiple  precision  arithmetic  (`gmp')
-installed on your system, not to worry, `gmp'  is  *not  required*;  just
-select an appropriate target without `-gmp'.
 
 The path of GAP (see *Note* below) used by the  `pq'  binary  (the  value
 `GAP' is set to in the `make' command) may be over-ridden by setting  the
@@ -231,15 +161,13 @@ GAP, or otherwise that the `make' call that compiled the `pq' program set
 standalone" in the ANUPQ package manual for more  details).  To  run  the
 tests, just type:
 
-  testPq
+  ./testPq
 
-Some of the tests the script runs take a while. Please be  patient.  Note
-that since version 3.0, the ANUPQ package now requires at least  GAP  4.4
-and at least version 1.2 of the AutPGrp package (the testPq script checks
-for these). The output you see should be something like the following:
+Some of the tests the script runs take a while. Please be  patient.
+The output you see should be something like the following:
 
   Made dir: /tmp/testPq
-  Testing installation of ANUPQ Package (version 3.0)
+  Testing installation of ANUPQ Package (version 3.1)
   
   The first two tests check that the pq C program compiled ok.
   Testing the pq binary ... OK.
@@ -247,16 +175,16 @@ for these). The output you see should be something like the following:
   The pq C program compiled ok! We test it's the right one below.
 
   The next tests check that you have the right version of GAP
-  for version 3.0 of the ANUPQ package and that GAP is finding
+  for version 3.1 of the ANUPQ package and that GAP is finding
   the right versions of the ANUPQ and AutPGrp packages.
   
   Checking GAP ...
    pq binary made with GAP set to: /usr/local/bin/gap
    Starting GAP to determine version and package availability ...
-    GAP version (4.4.6) ... OK.
-    GAP found ANUPQ package (version 3.0) ... good.
-    GAP found pq binary (version 1.8) ... good.
-    GAP found AutPGrp package (version 1.2) ... good.
+    GAP version (4.6.5) ... OK.
+    GAP found ANUPQ package (version 3.1) ... good.
+    GAP found pq binary (version 1.9) ... good.
+    GAP found AutPGrp package (version 1.5) ... good.
    GAP is OK.
 
   Checking the link between the pq binary and GAP ... OK.
