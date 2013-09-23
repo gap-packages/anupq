@@ -114,31 +114,11 @@ Dependencies := rec(
 
 AvailabilityTest := 
   function()
-    local status;
-    status := true;
-
     # test for existence of the compiled binary
     if Filename( DirectoriesPackagePrograms( "anupq" ), "pq" ) = fail then
-        Info( InfoWarning, 1,
-              "Package ``ANUPQ'': the executable program is not available" );
-        status := fail;
+        return fail;
     fi;
-
-    # Dependencies above will ensure that ANUPQ fails to load if
-    # AutPGrp (>= 1.2) is not available. This is here to explain why.
-    if TestPackageAvailability("autpgrp", "1.2") = fail then
-        Info( InfoWarning, 1,
-              "Package ``ANUPQ'': requires the AutPGrp package (>= 1.2)" );
-        Info( InfoWarning, 1,
-              "for the AutomorphismGroupPGroup function. It is also needed" );
-        Info( InfoWarning, 1,
-              "by the pq binary when it needs GAP to compute stabilisers.");
-        Info( InfoWarning, 1,
-              "E.g. see the note for ?PqDescendants" );
-        status := fail;
-    fi;
-
-    return status;
+    return true;
   end,
 
 BannerString := Concatenation( 
