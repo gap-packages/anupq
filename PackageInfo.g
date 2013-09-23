@@ -82,18 +82,17 @@ Status         := "accepted",
 CommunicatedBy := "Charles Wright (Eugene)",
 AcceptDate     := "04/2002",
 
-PackageWWWHome := "http://school.maths.uwa.edu.au/~gregg/ANUPQ/",
-
-ArchiveURL     := Concatenation( ~.PackageWWWHome, "anupq-", ~.Version ),
-ArchiveFormats := ".tar.gz", 
+PackageWWWHome := "http://gap-system.github.io/anupq/",
+ArchiveURL     := Concatenation( "https://github.com/gap-system/anupq/releases/download/v", ~.Version, "/anupq-", ~.Version, ".tar.gz" ),
 README_URL     := Concatenation( ~.PackageWWWHome, "README" ),
 PackageInfoURL := Concatenation( ~.PackageWWWHome, "PackageInfo.g" ),
+
+ArchiveFormats := ".tar.gz .zip",
 
 AbstractHTML := 
   "The <span class=\"pkgname\">ANUPQ</span> package provides an interactive \
    interface to the p-quotient, p-group generation and standard presentation \
-   algorithms of the ANU pq C program. The package supersedes the earlier \
-   <span class=\"pkgname\">GAP</span> 3 version (1.0).",
+   algorithms of the ANU pq C program.",
 
 PackageDoc := rec(
   BookName  := "ANUPQ",
