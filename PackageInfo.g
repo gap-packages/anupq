@@ -87,7 +87,7 @@ ArchiveURL     := Concatenation( "https://github.com/gap-system/anupq/releases/d
 README_URL     := Concatenation( ~.PackageWWWHome, "README" ),
 PackageInfoURL := Concatenation( ~.PackageWWWHome, "PackageInfo.g" ),
 
-ArchiveFormats := ".tar.gz .zip",
+ArchiveFormats := ".tar.gz -win.zip",
 
 AbstractHTML := 
   "The <span class=\"pkgname\">ANUPQ</span> package provides an interactive \
