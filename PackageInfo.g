@@ -83,7 +83,7 @@ CommunicatedBy := "Charles Wright (Eugene)",
 AcceptDate     := "04/2002",
 
 PackageWWWHome := "http://gap-system.github.io/anupq/",
-ArchiveURL     := Concatenation( "https://github.com/gap-system/anupq/releases/download/v", ~.Version, "/anupq-", ~.Version, ".tar.gz" ),
+ArchiveURL     := Concatenation( "https://github.com/gap-system/anupq/releases/download/v", ~.Version, "/anupq-", ~.Version ),
 README_URL     := Concatenation( ~.PackageWWWHome, "README" ),
 PackageInfoURL := Concatenation( ~.PackageWWWHome, "PackageInfo.g" ),
 
