@@ -2,6 +2,7 @@ In this file we record the changes since the first GAP 4 release of
 the ANUPQ package.
 
 Version 3.1a (2013-10-15)
+   o Requires at least GAP 4.5 and AutPGrp 1.5.
    o include/pq_author.h:
        pq program is now version 1.9
    o Improved the build system: It now makes use of GNU autoconf, and

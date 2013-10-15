@@ -74,17 +74,10 @@ Co-maintained by Max Horn <max.horn@math.uni-giessen.de>
 true
 \endexample
 
-\index{banner!suppression}
-In version 2.2 of the {\ANUPQ} package there was  an  option  `pkgbanner'
-that allowed the user some control on how the banner above was displayed.
-This only  worked  with  {\GAP}~4.3.  Since,  the  {\ANUPQ}  package  now
-requires at least {\GAP}~4.4, this option has been removed. If you  still
-have {\GAP}~4.3 (at least fix4), you will need to use {\ANUPQ}~2.2.
-
 Note that since the {\ANUPQ} package  uses  the  `AutomorphimGroupPGroup'
 function  of the {\AutPGrp} package and, in any case, often  needs  other
 {\AutPGrp} functions when computing descendants,  the  user  must  ensure
-that the {\AutPGrp} package is also installed, at least version  1.2.  If
+that the {\AutPGrp} package is also installed, at least version  1.5.  If
 the {\AutPGrp} package is not installed, the {\ANUPQ} package will `fail'
 to load.
 
@@ -536,8 +529,8 @@ Manual) are local, and disappear from `OptionsStack' after  the  function
 has  executed  successfully.  If  the   function   does   *not*   execute
 successfully, i.e.~it runs into error and the user `quit's the  resulting
 `break' loop (see Section~"ref:Break  loops"  in  the  Reference  Manual)
-rather than attempting to repair the problem and  typing  `return;'  then
-(since version {\GAP}~4.3), unless the error at  the  kernel  level,  the
+rather than attempting to repair the problem and  typing  `return;'  then,
+unless the error at  the  kernel  level,  the
 `OptionsStack' is reset. If  an  error  is  detected  inside  the  kernel
 (hopefully, this should occur only rarely, if at all) then the options of
 that function will *not* be cleared from `OptionsStack'; in such cases:
@@ -606,7 +599,7 @@ brk> OptionsStack;
 \endtt
 
 The option `PqEpiOrPCover' is a behind-the-scenes option  that  need  not
-concern the user. Since {\GAP} 4.3, on `quit'ting  the  `break'-loop  the
+concern the user. On `quit'ting  the  `break'-loop  the
 `OptionsStack' is reset and a warning telling you this is emitted:
 
 \begintt

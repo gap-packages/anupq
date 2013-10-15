@@ -148,9 +148,9 @@ void insoluble_stab_gens ( rep, orbit_length, pga, pcp )
    free_matrix (S, pga->s, 0);
    free_vector (subset, 0);                                                     
    if ( !GAP4iostream ) {
-     fprintf( GAP_rep, "LoadPackage(\"autpgrp\", \"1.2\");\n" );
+     fprintf( GAP_rep, "LoadPackage(\"autpgrp\", \"1.5\");\n" );
      fprintf( GAP_rep, "if TestPackageAvailability(" );
-     fprintf( GAP_rep,        "\"anupq\", \"3.0\") <> true then\n" );
+     fprintf( GAP_rep,        "\"anupq\", \"3.1\") <> true then\n" );
      fprintf( GAP_rep, "  ANUPQData := rec(tmpdir := DirectoryCurrent());\n" );
      fprintf( GAP_rep, "  DeclareInfoClass(\"InfoANUPQ\");\n" );
      fprintf( GAP_rep, "  DeclareGlobalFunction(" );

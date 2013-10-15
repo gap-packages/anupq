@@ -12,10 +12,10 @@ print "Made dir: $tmpdir\n";
 
 $ANUPQversion = `cat VERSION`;
 $pqbinaryversion = "1.9";
-$AutPGrpversion = "1.2";
+$AutPGrpversion = "1.5";
 chomp $ANUPQversion;
 
-$GAPversion = "4.4"; # required GAP version for ANUPQ
+$GAPversion = "4.5"; # required GAP version for ANUPQ
 
 print "Testing installation of ANUPQ Package (version $ANUPQversion)\n\n",
       "The first two tests check that the pq C program compiled ok.\n";
