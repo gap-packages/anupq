@@ -191,7 +191,7 @@ If you encounter problems with the `pq' binary, please contact the C code
 author: Eamonn O'Brien <obrien@math.auckland.ac.nz>.
 
 If you encounter problems at the GAP level, please  contact one of the
-GAP package maintainers, Greg Gamble <gregg@math.rwth-aachen.de> or
+GAP package maintainers, Greg Gamble <Greg.Gamble@uwa.edu.au> or
 Max Horn <max.horn@math.uni-giessen.de>.
 
 When sending a bug report, remember we will need to be able to  reproduce
