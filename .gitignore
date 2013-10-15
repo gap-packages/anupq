@@ -24,6 +24,7 @@ doc/*.example-8.tst
 *.log
 *.out
 *.pnr
+*.six
 *.toc
 doc/manual.pdf
 doc/tthmacros.tex
