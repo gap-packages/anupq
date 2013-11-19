@@ -198,6 +198,8 @@ sub check {
          "  | grep -v seconds | grep -v '#I --' ".
          # sometimes emitted by gap-dev if a C source file CRC is out-of-date
          "  | grep -v '#W ' ". 
+         # sometimes some shell escape sequence is printed
+         "  | sed -e 's/.\\[\\?.\\[\\?1034h//' ".
          # sometimes Info-ed by other packages
          "  | grep -v 'GAPDoc not available' ".
          "  | grep -v '#I  default' | grep -v '#I  a method' ".
