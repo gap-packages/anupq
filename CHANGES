@@ -1,7 +1,13 @@
 In this file we record the changes since the first GAP 4 release of
 the ANUPQ package.
 
-Version 3.1a (2013-10-15)
+Version 3.1.1 (2013-11-19)
+   o Updated the manual to match recent changes.
+   o Corrected Greg Gamble's email address.
+   o Further improved the build system.
+   o Fixed the testPq script.
+
+Version 3.1 (2013-09-24; never publicly announced)
    o Requires at least GAP 4.5 and AutPGrp 1.5.
    o include/pq_author.h:
        pq program is now version 1.9

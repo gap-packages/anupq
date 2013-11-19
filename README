@@ -59,9 +59,8 @@ it is also possible to keep an additional `pkg' directory in your private
 directories, see section "ref:Installing  GAP  Packages"  of  the  GAP  4
 reference manual for details on how to do this.)
 
-Version 3.1 of the ANUPQ package uses `autoconf' in `configure' which
-should make it easier to compile. It requires at least GAP 4.5 and
-AutPGrp 1.5, although we recommend using the most recent versions of each.
+ANUPQ package requires at least GAP 4.5 and AutPGrp 1.5, although we
+recommend using the most recent versions of each.
 
 Unpack the archive `anupq-<XXX>.tar.gz' in the `pkg' directory.
 
