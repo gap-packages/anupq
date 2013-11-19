@@ -26,10 +26,10 @@ print "Testing installation of ANUPQ Package (version $ANUPQversion)\n\n",
 $pq = "$pwd/bin/@GAPARCH@/pq";
 ### standalone tests ###############################################
 # Test 1
-print "Testing the pq binary ...";
+print "Test 1: Testing the pq binary ...";
 check("test1.pga", "");
 # Test 2
-print "Testing the pq binary's stack size ...";
+print "Test 2: Testing the pq binary's stack size ...";
 check("test2.pga", "");
 
 print "The pq C program compiled ok! We test it's the right one below.\n\n",
@@ -146,7 +146,7 @@ if ( ($line = <GAPOUT>) !~ /(fail|#I  Error)/ ) {
 close GAPOUT;
 print " GAP is OK.\n\n";
 # Test 3
-print "Checking the link between the pq binary and GAP ...";
+print "Test 3: Checking the link between the pq binary and GAP ...";
 $pq_does_not_know_GAP &&
   die " The environment variable: ANUPQ_GAP_EXEC is not set;\n".
       " and the pq binary was made with: make ... GAP=\"\" ??\n".
@@ -155,10 +155,10 @@ $pq_does_not_know_GAP &&
       " re-make the pq binary setting GAP to a valid path.\n";
 check("test3.pga", "");
 # Test 4
-print "Testing the standard presentation part of the pq binary ...";
+print "Test 4: Testing the standard presentation part of the pq binary ...";
 check("test4.sp", "-i -k ");
 # Test 5
-print "Doing p-group generation (final GAP/ANUPQ) test ...";
+print "Test 5: Doing p-group generation (final GAP/ANUPQ) test ...";
 open( GAPIN, ">$tmpdir/gapinput");
 print GAPIN "SetInfoLevel(InfoWarning, 0); LoadPackage( \"anupq\" );;\n",
             "SetInfoLevel(InfoWarning, 1);\n",
