@@ -627,10 +627,8 @@ LIBOBJS
 GMP_LIBS
 GMP_CPPFLAGS
 GAPARCH
-CONFIGNAME
-ABI_CFLAGS
-ABI
 GAP_ROOT
+CONFIGNAME
 EGREP
 GREP
 CPP
@@ -704,7 +702,6 @@ LDFLAGS
 LIBS
 CPPFLAGS
 CPP
-ABI
 CONFIGNAME'
 
 
@@ -1336,15 +1333,8 @@ Some influential environment variables:
   CPPFLAGS    (Objective) C/C++ preprocessor flags, e.g. -I<include dir> if
               you have headers in a nonstandard directory <include dir>
   CPP         C preprocessor
-  ABI         Set this equal to 32 or 64 to build nq in 32- or 64-bit mode.
-              The default value for this option is determined by testing the
-              behaviour of your compiler, so should be 32 on a 32-bit system
-              and 64 on one which is 64-bit.
-  CONFIGNAME  Supply a (meaningful) name for the configuration you are
-              building. This name will be appended to the
-              architecture-dependent named sub-directory of bin/. Allows for
-              multiple configurations side by side. Default value is
-              "defaultXX" where "XX" is 32 or 64.
+  CONFIGNAME  Set this to the CONFIGNAME of the GAP compilation against which
+              you want to compile this package.
 
 Use these variables to override the choices made by `configure' or to help
 it to find libraries and programs with nonstandard names/locations.
@@ -1664,189 +1654,6 @@ $as_echo "$ac_res" >&6; }
   eval $as_lineno_stack; ${as_lineno_stack:+:} unset as_lineno
 
 } # ac_fn_c_check_header_compile
-
-# ac_fn_c_compute_int LINENO EXPR VAR INCLUDES
-# --------------------------------------------
-# Tries to find the compile-time value of EXPR in a program that includes
-# INCLUDES, setting VAR accordingly. Returns whether the value could be
-# computed
-ac_fn_c_compute_int ()
-{
-  as_lineno=${as_lineno-"$1"} as_lineno_stack=as_lineno_stack=$as_lineno_stack
-  if test "$cross_compiling" = yes; then
-    # Depending upon the size, compute the lo and hi bounds.
-cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-/* end confdefs.h.  */
-$4
-int
-main ()
-{
-static int test_array [1 - 2 * !(($2) >= 0)];
-test_array [0] = 0;
-return test_array [0];
-
-  ;
-  return 0;
-}
-_ACEOF
-if ac_fn_c_try_compile "$LINENO"; then :
-  ac_lo=0 ac_mid=0
-  while :; do
-    cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-/* end confdefs.h.  */
-$4
-int
-main ()
-{
-static int test_array [1 - 2 * !(($2) <= $ac_mid)];
-test_array [0] = 0;
-return test_array [0];
-
-  ;
-  return 0;
-}
-_ACEOF
-if ac_fn_c_try_compile "$LINENO"; then :
-  ac_hi=$ac_mid; break
-else
-  as_fn_arith $ac_mid + 1 && ac_lo=$as_val
-			if test $ac_lo -le $ac_mid; then
-			  ac_lo= ac_hi=
-			  break
-			fi
-			as_fn_arith 2 '*' $ac_mid + 1 && ac_mid=$as_val
-fi
-rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
-  done
-else
-  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-/* end confdefs.h.  */
-$4
-int
-main ()
-{
-static int test_array [1 - 2 * !(($2) < 0)];
-test_array [0] = 0;
-return test_array [0];
-
-  ;
-  return 0;
-}
-_ACEOF
-if ac_fn_c_try_compile "$LINENO"; then :
-  ac_hi=-1 ac_mid=-1
-  while :; do
-    cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-/* end confdefs.h.  */
-$4
-int
-main ()
-{
-static int test_array [1 - 2 * !(($2) >= $ac_mid)];
-test_array [0] = 0;
-return test_array [0];
-
-  ;
-  return 0;
-}
-_ACEOF
-if ac_fn_c_try_compile "$LINENO"; then :
-  ac_lo=$ac_mid; break
-else
-  as_fn_arith '(' $ac_mid ')' - 1 && ac_hi=$as_val
-			if test $ac_mid -le $ac_hi; then
-			  ac_lo= ac_hi=
-			  break
-			fi
-			as_fn_arith 2 '*' $ac_mid && ac_mid=$as_val
-fi
-rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
-  done
-else
-  ac_lo= ac_hi=
-fi
-rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
-fi
-rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
-# Binary search between lo and hi bounds.
-while test "x$ac_lo" != "x$ac_hi"; do
-  as_fn_arith '(' $ac_hi - $ac_lo ')' / 2 + $ac_lo && ac_mid=$as_val
-  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-/* end confdefs.h.  */
-$4
-int
-main ()
-{
-static int test_array [1 - 2 * !(($2) <= $ac_mid)];
-test_array [0] = 0;
-return test_array [0];
-
-  ;
-  return 0;
-}
-_ACEOF
-if ac_fn_c_try_compile "$LINENO"; then :
-  ac_hi=$ac_mid
-else
-  as_fn_arith '(' $ac_mid ')' + 1 && ac_lo=$as_val
-fi
-rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
-done
-case $ac_lo in #((
-?*) eval "$3=\$ac_lo"; ac_retval=0 ;;
-'') ac_retval=1 ;;
-esac
-  else
-    cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-/* end confdefs.h.  */
-$4
-static long int longval () { return $2; }
-static unsigned long int ulongval () { return $2; }
-#include <stdio.h>
-#include <stdlib.h>
-int
-main ()
-{
-
-  FILE *f = fopen ("conftest.val", "w");
-  if (! f)
-    return 1;
-  if (($2) < 0)
-    {
-      long int i = longval ();
-      if (i != ($2))
-	return 1;
-      fprintf (f, "%ld", i);
-    }
-  else
-    {
-      unsigned long int i = ulongval ();
-      if (i != ($2))
-	return 1;
-      fprintf (f, "%lu", i);
-    }
-  /* Do not output a trailing newline, as this causes \r\n confusion
-     on some platforms.  */
-  return ferror (f) || fclose (f) != 0;
-
-  ;
-  return 0;
-}
-_ACEOF
-if ac_fn_c_try_run "$LINENO"; then :
-  echo >>conftest.val; read $3 <conftest.val; ac_retval=0
-else
-  ac_retval=1
-fi
-rm -f core *.core core.conftest.* gmon.out bb.out conftest$ac_exeext \
-  conftest.$ac_objext conftest.beam conftest.$ac_ext
-rm -f conftest.val
-
-  fi
-  eval $as_lineno_stack; ${as_lineno_stack:+:} unset as_lineno
-  as_fn_set_status $ac_retval
-
-} # ac_fn_c_compute_int
 
 # ac_fn_c_try_link LINENO
 # -----------------------
@@ -3754,8 +3561,21 @@ done
 
 
 
-# TODO: Automatically expand relative paths to absolute ones... this would simplify the code below
-# considerably. Also, it's a first step towards building out-of-tree
+
+
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking GAP config name" >&5
+$as_echo_n "checking GAP config name... " >&6; }
+if test "x$CONFIGNAME" = "x"; then
+    SYSINFO="sysinfo.gap"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: none" >&5
+$as_echo "none" >&6; }
+else
+    SYSINFO="sysinfo.gap-$CONFIGNAME"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: $CONFIGNAME" >&5
+$as_echo "$CONFIGNAME" >&6; }
+fi
+
+
 
 # Check whether --with-gaproot was given.
 if test "${with_gaproot+set}" = set; then :
@@ -3764,113 +3584,46 @@ else
   GAP_ROOT='${top_srcdir}/../..' ; GAP_ROOT_real="${srcdir}/../.."; GAP_ROOT_display=../..
 fi
 
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking path to GAP installation" >&5
-$as_echo_n "checking path to GAP installation... " >&6; }
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for GAP root directory" >&5
+$as_echo_n "checking for GAP root directory... " >&6; }
+
+if test ! -d $GAP_ROOT_real ; then
+	as_fn_error $? "\"$GAP_ROOT_display\" is not a directory" "$LINENO" 5
+fi
 
 # Try and turn GAP_ROOT_real into an absolute path
-GAP_ROOT_real=`cd $GAP_ROOT_real && pwd`
+GAP_ROOT_real=`cd $GAP_ROOT_real > /dev/null 2>&1 && pwd`
 
-if test -d $GAP_ROOT_real ; then
+SYSINFO_GAP="$GAP_ROOT_real/$SYSINFO"
+if test -f $SYSINFO_GAP ; then
 	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $GAP_ROOT_display" >&5
 $as_echo "$GAP_ROOT_display" >&6; }
-else
-	as_fn_error $? "$GAP_ROOT_display is not a directory" "$LINENO" 5
-fi
-
-
-
-# The cast to long int works around a bug in the HP C Compiler
-# version HP92453-01 B.11.11.23709.GP, which incorrectly rejects
-# declarations like `int a3[[(sizeof (unsigned char)) >= 0]];'.
-# This bug is HP SR number 8606223364.
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking size of void *" >&5
-$as_echo_n "checking size of void *... " >&6; }
-if ${ac_cv_sizeof_void_p+:} false; then :
-  $as_echo_n "(cached) " >&6
-else
-  if ac_fn_c_compute_int "$LINENO" "(long int) (sizeof (void *))" "ac_cv_sizeof_void_p"        "$ac_includes_default"; then :
-
-else
-  if test "$ac_cv_type_void_p" = yes; then
-     { { $as_echo "$as_me:${as_lineno-$LINENO}: error: in \`$ac_pwd':" >&5
-$as_echo "$as_me: error: in \`$ac_pwd':" >&2;}
-as_fn_error 77 "cannot compute sizeof (void *)
-See \`config.log' for more details" "$LINENO" 5; }
-   else
-     ac_cv_sizeof_void_p=0
-   fi
-fi
-
-fi
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_sizeof_void_p" >&5
-$as_echo "$ac_cv_sizeof_void_p" >&6; }
-
-
-
-cat >>confdefs.h <<_ACEOF
-#define SIZEOF_VOID_P $ac_cv_sizeof_void_p
-_ACEOF
-
-
-
-
-
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking ABI bit size" >&5
-$as_echo_n "checking ABI bit size... " >&6; }
-if test "x$ABI" = "x" ;  then
-  if test $ac_cv_sizeof_void_p = 8; then
-    ABI="64"
-  else
-    ABI="32"
-  fi
-  ABI_CFLAGS=""
-elif test "$ABI" = "64"; then
-  if test $ac_cv_sizeof_void_p = 4; then
-    as_fn_error $? " ABI=64 cannot be used on a 32-bit system.
-                   Please replace this value with 32 and retry configure.
-                   If you think this error is wrong, email
-                   support@gap-system.org with full details." "$LINENO" 5
-  else
-    ABI_CFLAGS="-m64"
-  fi
-elif test "$ABI" = "32"; then
-  ABI_CFLAGS="-m32"
-else
-  as_fn_error $? " $ABI is not a supported value for ABI. Please use ABI=64
-                 or 32, or leave it unset." "$LINENO" 5
-fi
-
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ABI" >&5
-$as_echo "$ABI" >&6; }
-
-
-
-
-
-
-
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking GAP config name" >&5
-$as_echo_n "checking GAP config name... " >&6; }
-if test "x$CONFIGNAME" = "x"; then
-  CONFIGNAME="default${ABI}"
-fi
-SYSINFO_GAP="$GAP_ROOT_real/sysinfo.gap-$CONFIGNAME"
-if ! test -f $SYSINFO_GAP ; then
-	# Fall back to sysinfo.gap, to support GAP 4.4
-	SYSINFO_GAP="$GAP_ROOT_real/sysinfo.gap"
-fi
-if test -f $SYSINFO_GAP ; then
-	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $CONFIGNAME" >&5
-$as_echo "$CONFIGNAME" >&6; }
 	#AC_SUBST(CONFIGNAME)
 else
-	as_fn_error $? "sysinfo.gap-$GAP_CONFIG not found" "$LINENO" 5
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: Not found" >&5
+$as_echo "Not found" >&6; }
+
+    echo ""
+    echo "********************************************************************"
+    echo "  ERROR"
+    echo ""
+    echo "  Cannot find your GAP installation. Please specify the location of"
+    echo "  GAP's root directory using --with-gaproot=<path>"
+    echo ""
+    echo "  The GAP root directory (as far as this package is concerned) is"
+    echo "  the one containing the file sysinfo.gap and the subdirectories "
+    echo "  src/ and bin/."
+    echo "********************************************************************"
+    echo ""
+
+    as_fn_error $? "Unable to find GAP root directory" "$LINENO" 5
 fi
 
 
 
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for active GAP architecture" >&5
-$as_echo_n "checking for active GAP architecture... " >&6; }
+
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for GAP architecture" >&5
+$as_echo_n "checking for GAP architecture... " >&6; }
 GAPARCH=`fgrep "GAParch=" $SYSINFO_GAP | sed -e 's/^GAParch=\(.*\)$/\1/'`
 if test "x$GAPARCH" = "x" ; then
 	as_fn_error $? "GAParch not found in $GAP_ROOT_display/sysinfo.gap" "$LINENO" 5

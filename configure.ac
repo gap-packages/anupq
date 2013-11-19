@@ -31,100 +31,69 @@ AC_CHECK_HEADERS([stdlib.h string.h sys/time.h])
 
 
 dnl ##
+dnl ## Check which GAP configuration to use
+dnl ##
+AC_ARG_VAR(CONFIGNAME, [Set this to the CONFIGNAME of the GAP compilation
+    against which you want to compile this package.])
+
+AC_MSG_CHECKING([GAP config name])
+if test "x$CONFIGNAME" = "x"; then
+    SYSINFO="sysinfo.gap"
+    AC_MSG_RESULT([none])
+else
+    SYSINFO="sysinfo.gap-$CONFIGNAME"
+    AC_MSG_RESULT([$CONFIGNAME])
+fi
+
+
+dnl ##
 dnl ## Locate the GAP root dir
 dnl ##
 dnl ## If no directory is specified, then this defaults to ../..
-# TODO: Automatically expand relative paths to absolute ones... this would simplify the code below
-# considerably. Also, it's a first step towards building out-of-tree
 AC_ARG_WITH([gaproot],
 	[AS_HELP_STRING([--with-gaproot=PATH],
 		[directory where GAP is installed @<:@default=../..@:>@])],
 	[GAP_ROOT="$with_gaproot" ; GAP_ROOT_real="$with_gaproot"; GAP_ROOT_display="$with_gaproot"],
 	[GAP_ROOT='${top_srcdir}/../..' ; GAP_ROOT_real="${srcdir}/../.."; GAP_ROOT_display=../..])
-AC_MSG_CHECKING([path to GAP installation])
+AC_MSG_CHECKING([for GAP root directory])
+
+if test ! -d $GAP_ROOT_real ; then
+	AC_MSG_ERROR(["$GAP_ROOT_display" is not a directory])
+fi
 
 # Try and turn GAP_ROOT_real into an absolute path 
-GAP_ROOT_real=`cd $GAP_ROOT_real && pwd`
+GAP_ROOT_real=`cd $GAP_ROOT_real > /dev/null 2>&1 && pwd`
 
-if test -d $GAP_ROOT_real ; then
-	AC_MSG_RESULT([$GAP_ROOT_display])
-else
-	AC_MSG_ERROR([$GAP_ROOT_display is not a directory])
-fi
-AC_SUBST(GAP_ROOT)
-
-
-dnl ##
-dnl ## Check whether to use 32bit or 64bit ABI
-dnl ##
-AC_CHECK_SIZEOF(void *, 4)
-
-AC_ARG_VAR(ABI, [Set this equal to 32 or 64 to build nq
-		 in 32- or 64-bit mode. The default value
-		 for this option is determined by testing the behaviour of your
-		 compiler, so should be 32 on a 32-bit system and 64 on one
-		 which is 64-bit.])
-
-AC_MSG_CHECKING([ABI bit size])
-if test "x$ABI" = "x" ;  then
-  if test $ac_cv_sizeof_void_p = 8; then
-    ABI="64"
-  else
-    ABI="32"
-  fi
-  ABI_CFLAGS=""
-elif test "$ABI" = "64"; then
-  if test $ac_cv_sizeof_void_p = 4; then
-    AC_MSG_ERROR([ ABI=64 cannot be used on a 32-bit system.
-                   Please replace this value with 32 and retry configure.
-                   If you think this error is wrong, email
-                   support@gap-system.org with full details.])
-  else
-    ABI_CFLAGS="-m64"
-  fi
-elif test "$ABI" = "32"; then
-  ABI_CFLAGS="-m32"
-else
-  AC_MSG_ERROR([ $ABI is not a supported value for ABI. Please use ABI=64
-                 or 32, or leave it unset.])
-fi
-
-AC_MSG_RESULT([$ABI])
-
-AC_SUBST(ABI)
-AC_SUBST(ABI_CFLAGS)
-
-
-dnl ##
-dnl ## Check which GAP configuration to use
-dnl ##
-AC_ARG_VAR(CONFIGNAME,[Supply a (meaningful) name for the configuration you are building.
-    This name will be appended to the architecture-dependent named 
-    sub-directory of bin/. Allows for multiple configurations side by
-    side. Default value is "defaultXX" where "XX" is 32 or 64.])
-
-AC_MSG_CHECKING([GAP config name])
-if test "x$CONFIGNAME" = "x"; then
-  CONFIGNAME="default${ABI}"
-fi
-SYSINFO_GAP="$GAP_ROOT_real/sysinfo.gap-$CONFIGNAME"
-if ! test -f $SYSINFO_GAP ; then
-	# Fall back to sysinfo.gap, to support GAP 4.4
-	SYSINFO_GAP="$GAP_ROOT_real/sysinfo.gap"
-fi
+SYSINFO_GAP="$GAP_ROOT_real/$SYSINFO"
 if test -f $SYSINFO_GAP ; then
-	AC_MSG_RESULT([$CONFIGNAME])
+	AC_MSG_RESULT([$GAP_ROOT_display])
 	#AC_SUBST(CONFIGNAME)
 else
-	AC_MSG_ERROR([sysinfo.gap-$GAP_CONFIG not found])
+    AC_MSG_RESULT([Not found])
+    
+    echo ""
+    echo "********************************************************************"
+    echo "  ERROR"
+    echo ""
+    echo "  Cannot find your GAP installation. Please specify the location of"
+    echo "  GAP's root directory using --with-gaproot=<path>"
+    echo ""
+    echo "  The GAP root directory (as far as this package is concerned) is"
+    echo "  the one containing the file sysinfo.gap and the subdirectories "
+    echo "  src/ and bin/."
+    echo "********************************************************************"
+    echo ""
+    
+    AC_MSG_ERROR([Unable to find GAP root directory])
 fi
+AC_SUBST(GAP_ROOT)
 
 
 dnl ##
 dnl ## Parse the GAParch from sysinfo.gap
 dnl ##
 
-AC_MSG_CHECKING([for active GAP architecture])
+AC_MSG_CHECKING([for GAP architecture])
 GAPARCH=`fgrep "GAParch=" $SYSINFO_GAP | sed -e 's/^GAParch=\(.*\)$/\1/'`
 if test "x$GAPARCH" = "x" ; then
 	AC_MSG_ERROR([GAParch not found in $GAP_ROOT_display/sysinfo.gap])
