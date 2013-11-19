@@ -57,9 +57,12 @@ PKGNAME=anupq
 
 all: $(EFILE) testPq
 
-testPq: testPq.in
+testPq: testPq.in tst/GAP
 	sed "s/\@GAPARCH\@/@GAPARCH@/g" < $< > $@
 	chmod +x $@
+
+tst/GAP:
+	echo $(GAP) > $@
 
 ## show makefile options ####################################################
 
