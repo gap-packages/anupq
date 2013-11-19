@@ -147,12 +147,14 @@ close GAPOUT;
 print " GAP is OK.\n\n";
 # Test 3
 print "Test 3: Checking the link between the pq binary and GAP ...";
-$pq_does_not_know_GAP &&
+if ( $pq_does_not_know_GAP ) {
+  print " failed\n";
   die " The environment variable: ANUPQ_GAP_EXEC is not set;\n".
       " and the pq binary was made with: make ... GAP=\"\" ??\n".
       " Please check the ANUPQ package installation instructions\n".
       " and either set the environment variable: ANUPQ_GAP_EXEC, or\n".
       " re-make the pq binary setting GAP to a valid path.\n";
+}
 check("test3.pga", "");
 # Test 4
 print "Test 4: Testing the standard presentation part of the pq binary ...";
