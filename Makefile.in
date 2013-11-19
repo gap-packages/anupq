@@ -81,7 +81,7 @@ clean:
 	(rm -f $(OBJECTS) $(SRC)/core* $(EFILE); rm -rf $(BINDIR))
 
 distclean: clean
-	rm -f Makefile testPq tst/GAP standalone/bin/$(EFILE)
+	rm -f Makefile testPq tst/GAP standalone/bin/$(EFILE) $(top_builddir)/config.status
 
 
 ## regenerate Makefile etc. if necessary #####################################
@@ -94,10 +94,6 @@ $(top_builddir)/config.status: $(top_srcdir)/configure $(CONFIG_STATUS_DEPENDENC
 
 $(top_srcdir)/configure: $(top_srcdir)/configure.ac
 	cd $(top_srcdir) && autoreconf
-
-## create distribution .zoo file of package #################################
-src_dist:
-	@echo "use make_zoo"
 
 ## move directories around to how GAP4 likes them ###########################
 # FIXME: Do we still need this?
@@ -142,7 +138,7 @@ depend:
 	done
 	@echo Done!
 
-.PHONY: all clean distclean src_dist GAP4remapdirs restoredirs objectlist depend
+.PHONY: all clean distclean GAP4remapdirs restoredirs objectlist depend
 
 ## load dependency list for the Makefile ####################################
 -include Makefile.deps
