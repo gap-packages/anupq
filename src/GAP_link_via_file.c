@@ -187,17 +187,8 @@ void insoluble_stab_gens ( rep, orbit_length, pga, pcp )
      path = "gap";
 #       endif
      command = (char*) malloc( strlen(path) + 200 );
-#ifdef NeXT
-     strcpy( command, "exec " );
-     strcat( command, path    );
-#else
      strcpy( command, path );
-#endif
-#if 0
-     strcat( command, " -r -q GAP_input < GAP_rep > GAP_log" );
-#else
-     strcat( command, " -r -q GAP_input < GAP_rep" );
-#endif
+     strcat( command, " -r -q -A GAP_input < GAP_rep" );
 
      /* inform the user that we are about to call GAP                     */
      if (isatty (0)) 
@@ -218,7 +209,6 @@ void insoluble_stab_gens ( rep, orbit_length, pga, pcp )
 
    CloseFile( OpenFile( "LINK_output", "r" ) );
 
-   unlink( "GAP_log" );
    unlink( "GAP_rep" );
 }
 
