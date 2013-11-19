@@ -42,8 +42,10 @@ CC      = @CC@
 PQFLAGS = -DGAP_LINK_VIA_FILE -DGAP -I$(top_srcdir)/include -DSTANDARD_PCP -DGROUP -DANUPQ_GAP_EXEC='"$(GAP)"'
 
 
-# FIXME: Add prototypes for all C functions and then remove -Wno-implicit
-CFLAGS   += -O2 -Wall -Wno-implicit
+# FIXME: Add prototypes for all C functions and then remove -Wno-implicit.
+# FIXME: Fix all -Wall warnings
+#CFLAGS   += -O2 -Wall -Wno-implicit
+CFLAGS   += -O2 -Wno-implicit
 CPPFLAGS += $(GMP_CPPFLAGS) $(PQFLAGS)
 LDLIBS    = $(GMP_LIBS) -lm
 # FIXME: Deal with -lm in a more portable fashion (i.e. detect whether
