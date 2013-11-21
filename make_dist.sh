@@ -27,27 +27,32 @@ fi
 
 FULLPKG="$PKG-$VER"
 
+SRC_DIR=$PWD
+DEST_DIR=$PWD/..
+#DEST_DIR=/tmp
+WEB_DIR=$SRC_DIR/$PKG.gh-pages
+
 # Clean any remains of previous export attempts
-rm -rf ../$FULLPKG*
+rm -rf $DEST_DIR/$FULLPKG*
 
 echo "Exporting repository content for ref '$REF'"
 if [ -d .git ] ; then
-    git archive --prefix=$FULLPKG/ $REF | tar xf - -C .. 
+    git archive --prefix=$FULLPKG/ $REF | tar xf - -C $DEST_DIR/
 elif [ -d .hg ] ; then
-    hg archive  -r $REF ../$FULLPKG
+    hg archive  -r $REF $DEST_DIR/$FULLPKG
 else
     echo "Error, only git and mercurial repositories are currently supported"
     exit 1
 fi
 
 echo "Creating tarball $FULLPKG.tar"
-cd ../$FULLPKG
+cd $DEST_DIR/$FULLPKG
 rm -f .git* .hg* .cvs*
 
 # Build documentation and later remove aux files created by this.
 echo "Building GAP package documentation"
-cd doc
-./make_doc > /dev/null 2> /dev/null
+cd $DEST_DIR/$FULLPKG/doc
+./make_doc #> /dev/null 2> /dev/null
 rm -f \
     manual.example*.tst \
     manual.aux \
@@ -60,10 +65,9 @@ rm -f \
     manual.log \
     manual.mst \
     manual.toc
-cd ..
 
 echo "Building documentation for standalone binary"
-cd standalone-doc
+cd $DEST_DIR/$FULLPKG/standalone-doc
 for i in 1 2 3 ; do
     latex guide.tex > /dev/null 2> /dev/null
 done
@@ -72,8 +76,7 @@ for i in 1 2 3 ; do
 done
 rm -f guide.aux guide.log guide.toc
 
-cd ../..
-
+cd $DEST_DIR
 tar cf $FULLPKG.tar $FULLPKG
 
 echo "Compressing (using gzip) tarball $FULLPKG.tar.gz"
@@ -82,27 +85,32 @@ gzip -9c $FULLPKG.tar > $FULLPKG.tar.gz
 echo "Compressing (using bzip2) tarball $FULLPKG.tar.gz"
 bzip2 -9c $FULLPKG.tar > $FULLPKG.tar.bz2
 
+# TODO: The name "-win.zip" may carries additional meaning, such as text
+# files converted to windows line endings; or it might be expected to
+# contained pre-compiled binaries.
+# However, GAP insists on the suffix "-win.zip", so we keep using that for now
+# (instead of plain .zip).
 echo "Zipping $FULLPKG-win.zip..."
 zip -r9 --quiet $FULLPKG-win.zip $FULLPKG
 
 
 # Update website repository if available
-if  [ -d $PKG.gh-pages ] ; then
+if  [ -d $WEB_DIR ] ; then
     echo "Updating website"
-    cd $PKG.gh-pages
-    cp ../$FULLPKG/README .
-    cp ../$FULLPKG/PackageInfo.g .
+    cd $WEB_DIR
+    cp $DEST_DIR/$FULLPKG/README .
+    cp $DEST_DIR/$FULLPKG/PackageInfo.g .
     rm -rf doc/
     mkdir -p doc/
-    cp ../$FULLPKG/htm/*.htm doc/
-    cp ../$FULLPKG/doc/manual.pdf doc/
-    cp ../$FULLPKG/doc/manual.dvi doc/
-    cp ../$FULLPKG/standalone-doc/guide.pdf doc/
-    cp ../$FULLPKG/standalone-doc/guide.dvi doc/
-    cd ..
+    cp $DEST_DIR/$FULLPKG/htm/*.htm doc/
+    cp $DEST_DIR/$FULLPKG/doc/manual.pdf doc/
+    cp $DEST_DIR/$FULLPKG/doc/manual.dvi doc/
+    cp $DEST_DIR/$FULLPKG/standalone-doc/guide.pdf doc/
+    cp $DEST_DIR/$FULLPKG/standalone-doc/guide.dvi doc/
 fi
 
 echo "Done:"
+cd $DEST_DIR
 ls -l $FULLPKG.tar.gz $FULLPKG.tar.bz2 $FULLPKG-win.zip
 
 exit 0
