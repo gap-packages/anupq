@@ -18,10 +18,7 @@
 
 /* look up the definitions of two pcp generator */
 
-int lookup_structure (generator, weight_vector, pcp)
-int generator;
-int *weight_vector;
-struct pcp_vars *pcp;
+int lookup_structure(int generator, int *weight_vector, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -47,9 +44,7 @@ struct pcp_vars *pcp;
 
 /* add vec1 to vec2 component wise and return sum */
 
-int *add_weights (vec1, vec2, length)
-int *vec1;
-int *vec2;
+int *add_weights(int *vec1, int *vec2, int length)
 {
    int i;
    int *sum;
@@ -65,9 +60,7 @@ int *vec2;
    does any generator occur in definition with weight at least 2?
    if so, we do not need to compute tail */
 
-Logical mo_filter (weight_vector, pcp)
-int *weight_vector;
-struct pcp_vars *pcp;
+Logical mo_filter(int *weight_vector, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -94,11 +87,7 @@ struct pcp_vars *pcp;
    return filter;
 }
 
-Logical exp4_filter (left, right, weight_vector, pcp)
-int left;
-int right;
-int *weight_vector;
-struct pcp_vars *pcp;
+Logical exp4_filter(int left, int right, int *weight_vector, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -125,9 +114,7 @@ struct pcp_vars *pcp;
    return filter;
 }
 
-Logical exp5_filter (weight_vector, pcp)
-int *weight_vector;
-struct pcp_vars *pcp;
+Logical exp5_filter(int *weight_vector, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -151,11 +138,7 @@ struct pcp_vars *pcp;
 /* calculate pth powers of class final_class generators which
    are commutators by doing the appropriate collections */
 
-void calculate_tails (final_class, start_weight, end_weight, pcp)
-int final_class;
-int start_weight;
-int end_weight;
-struct pcp_vars *pcp;
+void calculate_tails(int final_class, int start_weight, int end_weight, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
