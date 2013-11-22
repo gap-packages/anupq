@@ -632,6 +632,8 @@ CONFIGNAME
 EGREP
 GREP
 CPP
+SED
+MKDIR_P
 SET_MAKE
 OBJEXT
 EXEEXT
@@ -3147,6 +3149,117 @@ $as_echo "no" >&6; }
   SET_MAKE="MAKE=${MAKE-make}"
 fi
 
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for a thread-safe mkdir -p" >&5
+$as_echo_n "checking for a thread-safe mkdir -p... " >&6; }
+if test -z "$MKDIR_P"; then
+  if ${ac_cv_path_mkdir+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+for as_dir in $PATH$PATH_SEPARATOR/opt/sfw/bin
+do
+  IFS=$as_save_IFS
+  test -z "$as_dir" && as_dir=.
+    for ac_prog in mkdir gmkdir; do
+	 for ac_exec_ext in '' $ac_executable_extensions; do
+	   as_fn_executable_p "$as_dir/$ac_prog$ac_exec_ext" || continue
+	   case `"$as_dir/$ac_prog$ac_exec_ext" --version 2>&1` in #(
+	     'mkdir (GNU coreutils) '* | \
+	     'mkdir (coreutils) '* | \
+	     'mkdir (fileutils) '4.1*)
+	       ac_cv_path_mkdir=$as_dir/$ac_prog$ac_exec_ext
+	       break 3;;
+	   esac
+	 done
+       done
+  done
+IFS=$as_save_IFS
+
+fi
+
+  test -d ./--version && rmdir ./--version
+  if test "${ac_cv_path_mkdir+set}" = set; then
+    MKDIR_P="$ac_cv_path_mkdir -p"
+  else
+    # As a last resort, use the slow shell script.  Don't cache a
+    # value for MKDIR_P within a source directory, because that will
+    # break other packages using the cache if that directory is
+    # removed, or if the value is a relative name.
+    MKDIR_P="$ac_install_sh -d"
+  fi
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $MKDIR_P" >&5
+$as_echo "$MKDIR_P" >&6; }
+
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for a sed that does not truncate output" >&5
+$as_echo_n "checking for a sed that does not truncate output... " >&6; }
+if ${ac_cv_path_SED+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+            ac_script=s/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/
+     for ac_i in 1 2 3 4 5 6 7; do
+       ac_script="$ac_script$as_nl$ac_script"
+     done
+     echo "$ac_script" 2>/dev/null | sed 99q >conftest.sed
+     { ac_script=; unset ac_script;}
+     if test -z "$SED"; then
+  ac_path_SED_found=false
+  # Loop through the user's path and test for each of PROGNAME-LIST
+  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+for as_dir in $PATH
+do
+  IFS=$as_save_IFS
+  test -z "$as_dir" && as_dir=.
+    for ac_prog in sed gsed; do
+    for ac_exec_ext in '' $ac_executable_extensions; do
+      ac_path_SED="$as_dir/$ac_prog$ac_exec_ext"
+      as_fn_executable_p "$ac_path_SED" || continue
+# Check for GNU ac_path_SED and select it if it is found.
+  # Check for GNU $ac_path_SED
+case `"$ac_path_SED" --version 2>&1` in
+*GNU*)
+  ac_cv_path_SED="$ac_path_SED" ac_path_SED_found=:;;
+*)
+  ac_count=0
+  $as_echo_n 0123456789 >"conftest.in"
+  while :
+  do
+    cat "conftest.in" "conftest.in" >"conftest.tmp"
+    mv "conftest.tmp" "conftest.in"
+    cp "conftest.in" "conftest.nl"
+    $as_echo '' >> "conftest.nl"
+    "$ac_path_SED" -f conftest.sed < "conftest.nl" >"conftest.out" 2>/dev/null || break
+    diff "conftest.out" "conftest.nl" >/dev/null 2>&1 || break
+    as_fn_arith $ac_count + 1 && ac_count=$as_val
+    if test $ac_count -gt ${ac_path_SED_max-0}; then
+      # Best one so far, save it but keep looking for a better one
+      ac_cv_path_SED="$ac_path_SED"
+      ac_path_SED_max=$ac_count
+    fi
+    # 10*(2^10) chars as input seems more than enough
+    test $ac_count -gt 10 && break
+  done
+  rm -f conftest.in conftest.tmp conftest.nl conftest.out;;
+esac
+
+      $ac_path_SED_found && break 3
+    done
+  done
+  done
+IFS=$as_save_IFS
+  if test -z "$ac_cv_path_SED"; then
+    as_fn_error $? "no acceptable sed could be found in \$PATH" "$LINENO" 5
+  fi
+else
+  ac_cv_path_SED=$SED
+fi
+
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_path_SED" >&5
+$as_echo "$ac_cv_path_SED" >&6; }
+ SED="$ac_cv_path_SED"
+  rm -f conftest.sed
+
 
 
 ac_ext=c
@@ -4139,6 +4252,68 @@ fi
 done
 
 
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for library containing log10" >&5
+$as_echo_n "checking for library containing log10... " >&6; }
+if ${ac_cv_search_log10+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  ac_func_search_save_LIBS=$LIBS
+cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+/* Override any GCC internal prototype to avoid an error.
+   Use char because int might match the return type of a GCC
+   builtin and then its argument prototype would still apply.  */
+#ifdef __cplusplus
+extern "C"
+#endif
+char log10 ();
+int
+main ()
+{
+return log10 ();
+  ;
+  return 0;
+}
+_ACEOF
+for ac_lib in '' m; do
+  if test -z "$ac_lib"; then
+    ac_res="none required"
+  else
+    ac_res=-l$ac_lib
+    LIBS="-l$ac_lib  $ac_func_search_save_LIBS"
+  fi
+  if ac_fn_c_try_link "$LINENO"; then :
+  ac_cv_search_log10=$ac_res
+fi
+rm -f core conftest.err conftest.$ac_objext \
+    conftest$ac_exeext
+  if ${ac_cv_search_log10+:} false; then :
+  break
+fi
+done
+if ${ac_cv_search_log10+:} false; then :
+
+else
+  ac_cv_search_log10=no
+fi
+rm conftest.$ac_ext
+LIBS=$ac_func_search_save_LIBS
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_search_log10" >&5
+$as_echo "$ac_cv_search_log10" >&6; }
+ac_res=$ac_cv_search_log10
+if test "$ac_res" != no; then :
+  test "$ac_res" = "none required" || LIBS="$ac_res $LIBS"
+
+else
+
+  as_fn_error $? "unable to find the log10() function" "$LINENO" 5
+
+fi
+
+
+
 ac_config_files="$ac_config_files Makefile"
 
 cat >confcache <<\_ACEOF
@@ -4719,6 +4894,7 @@ gives unlimited permission to copy, distribute and modify it."
 
 ac_pwd='$ac_pwd'
 srcdir='$srcdir'
+MKDIR_P='$MKDIR_P'
 AWK='$AWK'
 test -n "\$AWK" || AWK=awk
 _ACEOF
@@ -5276,6 +5452,11 @@ ac_abs_srcdir=$ac_abs_top_srcdir$ac_dir_suffix
   # CONFIG_FILE
   #
 
+  ac_MKDIR_P=$MKDIR_P
+  case $MKDIR_P in
+  [\\/$]* | ?:[\\/]* ) ;;
+  */*) ac_MKDIR_P=$ac_top_build_prefix$MKDIR_P ;;
+  esac
 _ACEOF
 
 cat >>$CONFIG_STATUS <<\_ACEOF || ac_write_fail=1
@@ -5329,6 +5510,7 @@ s&@abs_top_srcdir@&$ac_abs_top_srcdir&;t t
 s&@builddir@&$ac_builddir&;t t
 s&@abs_builddir@&$ac_abs_builddir&;t t
 s&@abs_top_builddir@&$ac_abs_top_builddir&;t t
+s&@MKDIR_P@&$ac_MKDIR_P&;t t
 $ac_datarootdir_hack
 "
 eval sed \"\$ac_sed_extra\" "$ac_file_inputs" | $AWK -f "$ac_tmp/subs.awk" \

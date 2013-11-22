@@ -23,6 +23,8 @@ dnl ##
 AC_PROG_AWK
 AC_PROG_CC
 AC_PROG_MAKE_SET
+AC_PROG_MKDIR_P
+AC_PROG_SED
 
 dnl ##
 dnl ## Checks for system header files.
@@ -195,6 +197,11 @@ AC_FUNC_REALLOC
 AC_FUNC_FORK
 AC_HEADER_SYS_WAIT
 AC_CHECK_FUNCS([gethostname waitpid wait4 tmpnam tempnam strftime])
+
+AC_SEARCH_LIBS([log10], [m], [], [
+  AC_MSG_ERROR([unable to find the log10() function])
+])
+
 
 dnl ##
 dnl ## Finally, generate the Makefiles and output everything

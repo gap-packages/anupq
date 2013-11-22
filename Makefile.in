@@ -12,10 +12,18 @@ subdir = .
 GMP_CPPFLAGS = @GMP_CPPFLAGS@
 GMP_LIBS     = @GMP_LIBS@
 
+CC = @CC@
+CFLAGS = @CFLAGS@
+CPP = @CPP@
+CPPFLAGS = @CPPFLAGS@
+EXEEXT = @EXEEXT@
+LDFLAGS = @LDFLAGS@
+LIBS = @LIBS@
+MKDIR_P = @MKDIR_P@
+SED = @SED@
+
 BINDIR  = bin/@GAPARCH@
-EXEEXT  = @EXEEXT@
 EFILE   = $(BINDIR)/pq$(EXEEXT)
-CC      = @CC@
 
 #
 # The following are valid compilation flags for the program.
@@ -39,17 +47,17 @@ CC      = @CC@
 #CONSISTENCY_FILTER -- apply filter for exponent 4 and 5 and max occurrences
 #
 #
-PQFLAGS = -DGAP_LINK_VIA_FILE -DGAP -I$(top_srcdir)/include -DSTANDARD_PCP -DGROUP -DANUPQ_GAP_EXEC='"$(GAP)"'
+PQFLAGS = -DGAP_LINK_VIA_FILE -DGAP -DSTANDARD_PCP -DGROUP
+#PQFLAGS += -DANUPQ_GAP_EXEC='"$(GAP)"'
+#PQFLAGS += -DANUPQ_GAP_EXEC='"@GAP_ROOT@/bin/gap.sh"'
 
 
 # FIXME: Add prototypes for all C functions and then remove -Wno-implicit.
 # FIXME: Fix all -Wall warnings
 #CFLAGS   += -O2 -Wall -Wno-implicit
 CFLAGS   += -O2 -Wno-implicit
-CPPFLAGS += $(GMP_CPPFLAGS) $(PQFLAGS)
-LDLIBS    = $(GMP_LIBS) -lm
-# FIXME: Deal with -lm in a more portable fashion (i.e. detect whether
-# it is available and needed in configure)
+CPPFLAGS += $(GMP_CPPFLAGS) -I$(top_srcdir)/include $(PQFLAGS)
+LIBS     += $(GMP_LIBS)
 
 ## Command used to start up GAP4
 GAP=gap
@@ -75,15 +83,17 @@ include Makefile.objs
 
 ## do the linking and put the executable in the right place #################
 $(EFILE): $(OBJECTS)
-	mkdir -p $(BINDIR)
-	$(CC) -o $(EFILE) $(OBJECTS) $(LOPTS) $(LDLIBS) $(LDFLAGS)
+	$(MKDIR_P) $(BINDIR)
+	$(CC) -o $@ $(OBJECTS) $(LIBS) $(LDFLAGS)
 
 ## clean me up ##############################################################
 clean:
-	(rm -f $(OBJECTS) $(SRC)/core* $(EFILE); rm -rf $(BINDIR))
+	rm -f $(OBJECTS) $(SRC)/core*
+	rm -rf $(BINDIR)
 
 distclean: clean
-	rm -f Makefile testPq tst/GAP standalone/bin/$(EFILE) $(top_builddir)/config.status
+	rm -f Makefile testPq $(top_builddir)/config.status
+	rm -rf standalone/bin
 
 
 ## regenerate Makefile etc. if necessary #####################################
@@ -104,7 +114,7 @@ GAP4remapdirs:
 	echo "directories already remapped for GAP4?!?"; fi
 	if test ! -d standalone-doc; then \
 	mv README doc; mv doc standalone-doc; \
-	mkdir -p -m 755 standalone/bin; mv TEST examples isom standalone; \
+	$(MKDIR_P) -m 755 standalone/bin; mv TEST examples isom standalone; \
 	(cd gap; mv README configure replace Makefile.in init.g read.g doc ..;\
 	 mv examples tst lib ..;)\
 	fi
@@ -115,7 +125,7 @@ restoredirs:
 	if test -d gap/doc; then echo "directories already restored?!?"; fi
 	if test ! -d gap/doc; then \
 	$(MAKE) -f Makefile clean; \
-	mkdir -p -m 755 gap; \
+	$(MKDIR_P) -m 755 gap; \
 	mv examples tst lib gap; \
 	mv README configure replace Makefile.in init.g read.g doc gap; \
 	(cd standalone; mv examples isom TEST ..) \
@@ -125,7 +135,7 @@ restoredirs:
 ## create object list for the Makefile ######################################
 objectlist:
 	@( ls -1 $(SRC)/*.c ) | \
-	sed s/\\.c$$/\\.o/ | \
+	$(SED) s/\\.c$$/\\.o/ | \
 	( echo "OBJECTS=\\"; \
 	  awk '{printf( "\t%-30s%s", $$0, "\\\n")}'; \
 	  echo ""; echo "" ) > Makefile.objs
