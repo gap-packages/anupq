@@ -21,6 +21,7 @@ LDFLAGS = @LDFLAGS@
 LIBS = @LIBS@
 MKDIR_P = @MKDIR_P@
 SED = @SED@
+PACKAGE_VERSION = @PACKAGE_VERSION@
 
 BINDIR  = bin/@GAPARCH@
 EFILE   = $(BINDIR)/pq$(EXEEXT)
@@ -48,6 +49,9 @@ EFILE   = $(BINDIR)/pq$(EXEEXT)
 #
 #
 PQFLAGS = -DGAP_LINK_VIA_FILE -DGAP -DSTANDARD_PCP -DGROUP
+
+GAP_EXEC="gap"
+#GAP_EXEC="@GAP_ROOT@/bin/gap.sh"
 #PQFLAGS += -DANUPQ_GAP_EXEC='"$(GAP)"'
 #PQFLAGS += -DANUPQ_GAP_EXEC='"@GAP_ROOT@/bin/gap.sh"'
 
@@ -60,19 +64,19 @@ CPPFLAGS += $(GMP_CPPFLAGS) -I$(top_srcdir)/include $(PQFLAGS)
 LIBS     += $(GMP_LIBS)
 
 ## Command used to start up GAP4
-GAP=gap
 
 SRC=$(srcdir)/src
 PKGNAME=anupq
 
 all: $(EFILE) testPq
 
-testPq: testPq.in tst/GAP
-	sed "s/\@GAPARCH\@/@GAPARCH@/g" < $< > $@
+testPq: testPq.in
+	$(SED) \
+	  -e "s/\@GAPARCH\@/@GAPARCH@/g" \
+	  -e "s/\@PACKAGE_VERSION\@/@PACKAGE_VERSION@/g" \
+	  -e "s|\@GAP_EXEC\@|$(GAP_EXEC)|g" \
+	  < $< > $@
 	chmod +x $@
-
-tst/GAP:
-	echo $(GAP) > $@
 
 ## show makefile options ####################################################
 

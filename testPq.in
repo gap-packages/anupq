@@ -14,10 +14,9 @@ $tmpdir .= $i;
 system("rm -rf $tmpdir; mkdir $tmpdir");
 print "Made dir: $tmpdir\n";
 
-$ANUPQversion = `cat VERSION`;
+$ANUPQversion = "@PACKAGE_VERSION@";
 $pqbinaryversion = "1.9";
 $AutPGrpversion = "1.5";
-chomp $ANUPQversion;
 
 $GAPversion = "4.5"; # required GAP version for ANUPQ
 
@@ -40,11 +39,11 @@ print "The pq C program compiled ok! We test it's the right one below.\n\n",
 # Test GAP
 print "Checking GAP ...\n";
 $pq_does_not_know_GAP = 0;
+$GAP_EXEC = "@GAP_EXEC@";
 if ( ($gap = $ENV{ANUPQ_GAP_EXEC}) ne "" ) {
   print " Found ANUPQ_GAP_EXEC environment variable set to: $gap\n"; 
-} elsif (-e "$tstdir/GAP" && (`wc -w $tstdir/GAP` + 0) ) {
-  open(GAP, "<$tstdir/GAP");
-  chomp($gap = <GAP>);
+} elsif ($GAP_EXEC ne "") {
+  chomp($gap = $GAP_EXEC);
   print " pq binary made with GAP set to: $gap\n";
 } else {
   $pq_does_not_know_GAP = 1;
