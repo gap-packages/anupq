@@ -8,8 +8,6 @@
 ##  Declaration file for p-group generation of automorphism  group  functions
 ##  and variables.
 ##
-#H  @(#)$Id$
-##
 #Y  Copyright 1992-2001,  Lehrstuhl D fuer Mathematik,  RWTH Aachen,  Germany
 #Y  Copyright 1992-1994,  School of Mathematical Sciences, ANU,     Australia
 ##

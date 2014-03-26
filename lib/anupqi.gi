@@ -6,8 +6,6 @@
 ##  This file installs interactive functions that execute individual pq  menu
 ##  options.
 ##
-#H  @(#)$Id$
-##
 #Y  Copyright (C) 2001  Lehrstuhl D fuer Mathematik,  RWTH Aachen,  Germany
 ##
 

@@ -6,8 +6,6 @@
 ##
 ##  Install file for functions to do with option manipulation.
 ##    
-#H  @(#)$Id$
-##
 #Y  Copyright (C) 2001  Lehrstuhl D fuer Mathematik,  RWTH Aachen,  Germany
 ##
 

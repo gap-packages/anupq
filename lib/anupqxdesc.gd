@@ -7,8 +7,6 @@
 ##  Declares functions to do recursive development of a descendants tree.
 ##  If ANUPQ is loaded from XGAP the development is seen graphically.
 ##    
-#H  @(#)$Id$
-##
 #Y  Copyright (C) 2001  Lehrstuhl D fuer Mathematik,  RWTH Aachen,  Germany
 ##
 

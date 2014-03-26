@@ -6,8 +6,6 @@
 ##
 ##  This file installs functions to do with evaluating identities.
 ##
-#H  @(#)$Id$
-##
 #Y  Copyright (C) 2001  Lehrstuhl D fuer Mathematik,  RWTH Aachen,  Germany
 ##
 

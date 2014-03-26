@@ -3,8 +3,6 @@
 ##
 #W  mktest             Test the ANUPQ manual examples          Volkmar Felsch
 ##
-#H  $Id$
-##
 #Y  Copyright (C) 2002, Lehrstuhl D fuer Mathematik, RWTH Aachen, Germany
 ##
 ##  mktest [-f] [-i] [-o] [-d] [-c]

@@ -5,8 +5,6 @@
 ##
 ##  This file declares core functions used with streams.
 ##    
-#H  @(#)$Id$
-##
 #Y  Copyright (C) 2001  Lehrstuhl D fuer Mathematik,  RWTH Aachen,  Germany
 ##
 

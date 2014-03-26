@@ -6,8 +6,6 @@
 ##
 ##  `Head' file for the GAP interface to the ANU pq binary by Eamonn O'Brien.
 ##    
-#H  @(#)$Id$
-##
 #Y  Copyright (C) 2006  Lehrstuhl D fuer Mathematik,  RWTH Aachen,  Germany
 ##
 

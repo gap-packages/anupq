@@ -3,8 +3,6 @@
 *A  GAP.c                      ANUPQ source                    Eamonn O'Brien
 *A                                                             & Frank Celler
 **
-*A  @(#)$Id$
-**
 *Y  Copyright 1995-1997,  Lehrstuhl D fuer Mathematik,  RWTH Aachen,  Germany
 *Y  Copyright 1997-1997,  School of Mathematical Sciences, ANU,     Australia
 **

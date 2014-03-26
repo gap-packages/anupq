@@ -4,8 +4,6 @@
 #W                                                              Werner Nickel
 #W                                                             Eamonn O'Brien
 #W                                                                   Max Horn
-##
-#H  @(#)$Id$
 
 SetPackageInfo( rec(
 

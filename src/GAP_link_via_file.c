@@ -4,8 +4,6 @@
 *A                                                             & Frank Celler
 *A                                                           & Benedikt Rothe
 **
-*A  @(#)$Id$
-**
 *Y  Copyright 1995-1997,  Lehrstuhl D fuer Mathematik,  RWTH Aachen,  Germany
 *Y  Copyright 1995-1997,  School of Mathematical Sciences, ANU,     Australia
 **

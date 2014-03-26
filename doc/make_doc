@@ -3,8 +3,6 @@
 ##
 #W  make_doc        make ANUPQ Package documentation          Greg Gamble
 ##
-#H  $Id$
-##
 ##  This shell script uses TeX, BibTeX and MakeIndex to  build  the  .dvi
 ##  PostScript (commented out), PDF (commented out), and  HTML  (provided
 ##  you have tth and etc/convert.pl) documentation for the ANUPQ Package.

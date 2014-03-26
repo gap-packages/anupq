@@ -6,8 +6,6 @@
 ##
 ##  Installs methods for properties and attributes needed for ANUPQ.
 ##    
-#H  @(#)$Id$
-##
 #Y  Copyright (C) 2001  Lehrstuhl D fuer Mathematik,  RWTH Aachen,  Germany
 ##
 

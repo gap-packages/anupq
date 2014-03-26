@@ -6,8 +6,6 @@
 ##
 ##  Declaration file for ``general'' group functions and variables.
 ##
-#A  @(#)$Id$
-##
 #Y  Copyright 1992-1994,  Lehrstuhl D fuer Mathematik,  RWTH Aachen,  Germany
 #Y  Copyright 1992-1994,  School of Mathematical Sciences, ANU,     Australia
 ##

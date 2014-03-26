@@ -5,8 +5,6 @@
 ##
 ##  This file installs core functions used with iostreams.
 ##    
-#H  @(#)$Id$
-##
 #Y  Copyright (C) 2001  Lehrstuhl D fuer Mathematik,  RWTH Aachen,  Germany
 ##
 

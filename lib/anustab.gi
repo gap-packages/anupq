@@ -4,8 +4,6 @@
 #A  anustab.gi                  ANUPQ package                  Eamonn O'Brien
 #A                                                              Werner Nickel
 ##
-#A  @(#)$Id$
-##
 #Y  Copyright 1993-2001,  Lehrstuhl D fuer Mathematik,  RWTH Aachen,  Germany
 #Y  Copyright 1993-2001,  School of Mathematical Sciences, ANU,     Australia
 ##
