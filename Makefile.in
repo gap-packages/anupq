@@ -51,9 +51,9 @@ EFILE   = $(BINDIR)/pq$(EXEEXT)
 PQFLAGS = -DGAP_LINK_VIA_FILE -DGAP -DSTANDARD_PCP -DGROUP
 
 GAP_EXEC="gap"
-#GAP_EXEC="@GAP_ROOT@/bin/gap.sh"
+#GAP_EXEC="@GAPROOT@/bin/gap.sh"
 #PQFLAGS += -DANUPQ_GAP_EXEC='"$(GAP)"'
-#PQFLAGS += -DANUPQ_GAP_EXEC='"@GAP_ROOT@/bin/gap.sh"'
+#PQFLAGS += -DANUPQ_GAP_EXEC='"@GAPROOT@/bin/gap.sh"'
 
 
 # FIXME: Add prototypes for all C functions and then remove -Wno-implicit.
