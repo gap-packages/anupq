@@ -94,10 +94,14 @@ $(EFILE): $(OBJECTS)
 clean:
 	rm -f $(OBJECTS) $(SRC)/core*
 	rm -rf $(BINDIR)
+	(cd doc && rm -f *.aux *.bbl *.blg *.brf *.idx *.ilg *.ind *.log *.out *.pnr *.toc)
+	(cd standalone-doc && rm -rf *.aux *.log *.toc)
 
 distclean: clean
 	rm -f Makefile testPq $(top_builddir)/config.status
 	rm -rf standalone/bin
+	rm -f include/config.h include/config.hin~
+	rm -f config.cache config.log config.status
 
 
 ## regenerate Makefile etc. if necessary #####################################
