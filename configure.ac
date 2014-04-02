@@ -117,10 +117,10 @@ fi;
 
 if test "x$have_gmp" = xyes; then
 	AC_DEFINE(HAVE_GMP, 1, [Define if GMP is installed and usable])
-
-	AC_SUBST(GMP_CPPFLAGS)
-	AC_SUBST(GMP_LIBS)
 fi
+
+AC_SUBST(GMP_CPPFLAGS)
+AC_SUBST(GMP_LIBS)
 
 dnl ##
 dnl ## Checks for library functions.
