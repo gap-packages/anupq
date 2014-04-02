@@ -2,16 +2,14 @@ dnl ##
 dnl ## Process this file with autoconf to produce a configure script.
 dnl ##
 AC_PREREQ([2.68])
-AC_INIT([ANU p-Quotient Program], [3.1.1], [support@gap-system.org], [anupq])
-AC_CONFIG_AUX_DIR(cnf)
+AC_INIT([ANU p-Quotient Program], m4_esyscmd([tr -d '\n' < VERSION]), [https://github.com/gap-system/anupq/issues], [anupq])
 AC_CONFIG_SRCDIR([src/pquotient.c])
 AC_CONFIG_HEADER(include/config.h:include/config.hin)
-m4_include([m4/ac_find_gap.m4])
-
-dnl ##
-dnl ## determine the system name
-dnl ##
-AC_CANONICAL_HOST
+AC_CONFIG_AUX_DIR(cnf)
+AC_CONFIG_MACRO_DIR([m4])
+AM_INIT_AUTOMAKE([1.11 -Wall foreign subdir-objects])
+AM_SILENT_RULES([yes])
+AM_MAINTAINER_MODE
 
 dnl ##
 dnl ## C is the language
