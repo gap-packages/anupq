@@ -61,7 +61,6 @@ rm -f \
     manual.idx \
     manual.ilg \
     manual.ind \
-    manual.lab \
     manual.log \
     manual.mst \
     manual.toc
