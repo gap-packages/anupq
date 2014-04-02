@@ -1,7 +1,10 @@
+aclocal.m4
 autom4te.cache/
 bin/
+cnf/
 config.log
 config.status
+configure
 doc/*.js
 doc/*.css
 doc/*.html
@@ -31,7 +34,10 @@ doc/tthmacros.tex
 doc/tthout
 htm/
 include/config.h
+include/stamp-h1
 Makefile
+src/.deps
+src/.dirstamp
 src/*.o
 standalone-doc/guide.pdf
 testPq
