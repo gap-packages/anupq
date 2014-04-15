@@ -1,0 +1,334 @@
+<Chapter Label="Introduction">
+<Heading>Introduction</Heading>
+
+<Section>
+<Heading>Overview</Heading>
+
+
+<Index>ANUPQ</Index>
+The &GAP;&nbsp;4 package &ANUPQ; provides an interface to the ANU <C>pq</C> C
+progam written by Eamonn O'Brien, making the functionality of the C
+program available to &GAP;. Henceforth, we shall refer to the &ANUPQ;
+package when referring to the &GAP; interface, and to the ANU <C>pq</C>
+program or just <C>pq</C> when referring to that C program.
+<P/>
+
+The <C>pq</C> program consists of implementations of the following algorithms:
+<P/>
+
+<Enum>
+<Item>
+A <E><M>p</M>-quotient algorithm</E> to compute pc-presentations for <M>p</M>-factor
+groups of finitely presented groups.
+<P/>
+<!-- The algorithm implemented here is based on that described by Newman and -->
+<!-- O'Brien <Cite Key="NO96"/>, Havas and Newman&nbsp;<Cite Key="HN80"/>, and papers referred to -->
+<!-- there. Another description of the algorithm is given by Vaughan-Lee -->
+<!-- (see&nbsp;<Cite Key="VL90a"/>, <Cite Key="VL90b"/>). A FORTRAN implementation of this -->
+<!-- algorithm was programmed by Alford and Havas. The basic data structures -->
+<!-- of that implementation are retained. -->
+</Item>
+
+<Item>
+ A <E><M>p</M>-group generation algorithm</E> to generate pc presentations of groups
+of prime power order.
+<P/>
+<!-- The algorithm implemented here is based on the algorithms described by -->
+<!-- Newman&nbsp;<Cite Key="New77"/> and O'Brien&nbsp;<Cite Key="OBr90"/>. A FORTRAN implementation of -->
+<!-- this algorithm was developed earlier by Newman and O'Brien. -->
+</Item>
+
+<Item>
+A <E>standard presentation algorithm</E> used to compute a canonical
+pc-presentation of a <M>p</M>-group.
+<P/>
+<!-- The algorithm implemented here is described in&nbsp;<Cite Key="OBr94"/>. -->
+</Item>
+
+<Item>
+ An algorithm which can be used to compute the <E>automorphism group</E> of a
+<M>p</M>-group.
+<P/>
+
+This part of the <C>pq</C> program is not accessible through the &ANUPQ;
+package. Instead, users are advised to consider the &GAP;&nbsp;4 package
+&AutPGrp; by Bettina Eick and Eamonn O'Brien, which implements a better
+algorithm in &GAP; for the computation of automorphism groups of
+<M>p</M>-groups.
+<!-- The algorithm implemented here is described in&nbsp;<Cite Key="OBr94"/>. -->
+</Item>
+
+</Enum>
+
+<!-- Further background may be found in&nbsp;<Cite Key="OBr95"/>, <Cite Key="VL84"/> -->
+<!-- and&nbsp;<Cite Key="NNN98"/>. -->
+
+The current version of the &ANUPQ; package requires &GAP;&nbsp;4.5, and
+version 1.5 of the &AutPGrp; package. All code that made the package
+compatible with earlier versions of &GAP; has been removed.
+If you must use an older &GAP; version and cannot upgrade, then you may
+try using an older &ANUPQ; version. However, you should not use versions
+of the &ANUPQ; package older than 2.2, since they are known to have bugs.
+</Section>
+
+<Section>
+<Heading>How to read this manual</Heading>
+
+It is not expected that readers of this manual will read it in a linear
+fashion from cover to cover; some sections contain material that is far
+too technical to be absorbed on a first reading.
+<P/>
+
+Firstly, installers of the &ANUPQ; package will need to read
+Chapter&nbsp;<Ref Chap="Installing-ANUPQ" Style="Text"/>, if they have not already gleaned
+these details from the <C>README</C> file.
+<P/>
+
+Once the &ANUPQ; package is installed, users of the &ANUPQ; package
+will benefit most by first reading Chapter&nbsp;<Ref Chap="Mathematical Background and Terminology" Style="Text"/>, which gives a brief description of the background and
+terminology used (this chapter also cites a number of references for
+further reading), and the introduction of Chapter&nbsp;<Ref Chap="Infrastructure" Style="Text"/> (skip
+the remainder of the chapter on a first reading).
+<P/>
+
+Then the user/reader should pursue
+Chapter&nbsp;<Ref Chap="non-interact" Style="Text"/>
+in detail, delving into Chapter&nbsp;<Ref Chap="ANUPQ Options" Style="Text"/> as necessary
+for the options of the functions that are described. The user will become
+best acquainted with the &ANUPQ; package by trying the examples. This
+chapter describes the non-interactive functions of the &ANUPQ; package,
+i.e.&nbsp;<Q>one-shot</Q> functions that invoke the <C>pq</C> program in such a way
+that once &GAP; has got what it needs, the <C>pq</C> is allowed to exit. It
+is expected that most of the time, users will only need these functions.
+<P/>
+
+Advanced users will want to explore Chapter&nbsp;<Ref Chap="Interactive ANUPQ functions" Style="Text"/>
+which describes all the interactive functions of the &ANUPQ; package;
+these are functions that extract information via a dialogue with a
+running <C>pq</C> process. Occasionally, a user needs the <Q>next step</Q>; the
+functions provided in this chapter make use of data from previous steps
+retained by the <C>pq</C> program, thus allowing the user to interact with the
+<C>pq</C> program like one can when one uses the <C>pq</C> program as a stand-alone
+(see&nbsp;<C>guide.dvi</C> in the <C>standalone-doc</C> directory).
+<P/>
+
+After having read Chapters&nbsp;<Ref Chap="non-interact" Style="Text"/>
+and&nbsp;<Ref Chap="Interactive ANUPQ functions" Style="Text"/>, cross-references will have taken the
+reader into Chapter&nbsp;<Ref Chap="ANUPQ Options" Style="Text"/>; by this stage, the reader need only
+read the introduction of Chapter&nbsp;<Ref Chap="ANUPQ Options" Style="Text"/>.
+<P/>
+
+After the reader has developed some facility with the &ANUPQ; package,
+she should explore the examples described in Appendix&nbsp;<Ref Chap="Examples" Style="Text"/>.
+<P/>
+
+If you run into trouble using the &ANUPQ; functions, some
+troubleshooting hints are given in
+Section&nbsp;<Ref Sect="Hints and Warnings regarding the use of Options" Style="Text"/>.
+If the troubleshooting hints don't help,
+Section&nbsp;<Ref Sect="Authors and Acknowledgements" Style="Text"/> below, gives contact details for
+the authors of the components of the &ANUPQ; package.
+</Section>
+
+
+<Section Label="Authors and Acknowledgements">
+<Heading>Authors and Acknowledgements</Heading>
+
+The C implementation of the ANU <C>pq</C> standalone was developed by Eamonn O'Brien.
+<P/>
+
+An interactive interface using iostreams was developed with the
+assistance of Werner Nickel by Greg Gamble.
+<P/>
+
+The &GAP; 4 version of this package was adapted from the &GAP; 3
+version by Werner Nickel.
+<P/>
+
+A new co-maintainer, Max Horn, joined the team in November, 2011.
+<P/>
+
+The authors would like to thank Joachim Neubüser for his
+careful proof-reading and advice, and for formulating
+Chapter&nbsp;<Ref Chap="Mathematical Background and Terminology" Style="Text"/>.
+<P/>
+
+We would also like to thank Bettina Eick who by her testing and provision
+of examples helped us to eliminate a number of bugs and who provided a
+number of valuable suggestions for extensions of the package beyond the
+&GAP;&nbsp;3 capabilities. 
+<P/>
+
+<Index>bug reports</Index>
+If you find a bug, the last section of &ANUPQ;'s <C>README</C> describes the
+information we need and where to send us a bug report; please take the
+time to read this (i.e.&nbsp;help us to help you).
+</Section>
+
+
+<!--
+
+<Section Label="Change history">
+<Heading>Change history</Heading>
+
+Below we list the main changes between versions of the &ANUPQ; package.
+
+<List>
+<Mark><C>3.1</C></Mark>
+<Item>
+
+Max Horn fixed many warnings in the <C>pq</C> program code (<C>pq</C> program is now
+version 1.9).
+</Item>
+<Mark></Mark>
+<Item>
+
+Max Horn improved the build system to use GNU <C>autoconf</C>. Various
+<C>Makefile</C>s are now more robust, and compatible with both &GAP;&nbsp;4.4 and&nbsp;4.5.
+ 
+</Item>
+<Mark><C>3.0</C></Mark>
+<Item>
+
+Backward compatibility code for pre-4.4 versions of &GAP; removed. The
+&ANUPQ; package now requires at least &GAP;&nbsp;4.4 and version 1.2 of the
+&AutPGrp; package, and the &AutPGrp; package is now essential.
+</Item>
+<Mark></Mark>
+<Item>
+
+Deprecated commands replaced by &GAP;&nbsp;4.4 commands, e.g. <C>PrimePGroup</C>
+replaced <C>PrimeOfPGroup</C>, <C>ReadPackage</C> replaced <C>ReadPkg</C>, including
+in the <C>pq</C> program code (so <C>pq</C> program is now version 1.8).
+</Item>
+<Mark></Mark>
+<Item>
+
+Improved non-isomorphism test in <C>IsPqIsomorphicPGroup</C> using suggestion
+made by Marco Costantini (thanks Marco).
+</Item>
+<Mark></Mark>
+<Item>
+
+Removed <C>pkgbanner</C> option that used to control how the &ANUPQ; package
+banner was displayed.
+</Item>
+<Mark><C>2.2</C></Mark>
+<Item>
+
+Corrected a typo. in <C>PackageInfo.g</C>.
+</Item>
+<Mark><C>2.1</C></Mark>
+<Item>
+
+Binomial coefficient algorithm in <C>pq</C> program (now version 1.7) modified
+to avoid overflow.
+</Item>
+<Mark></Mark>
+<Item>
+
+A bug discovered by Tobias Ro{\ss}mann was fixed. It was caused in the
+&ANUPQ; package's interface by not passing on the parameter <C>StepSize</C>
+to the <C>pq</C> program properly. This bug could result in computing the
+wrong number of descendants if a <C>StepSize</C> different from 1 was chosen.
+</Item>
+<Mark></Mark>
+<Item>
+
+Changes suggested by Gary Zablackis were implemented in order to make the
+package run under Windows with cygwin:
+<List>
+ <Item>
+ use <C>[grp]</C> as default filename instead of <C>\<A>grp</A></C>,
+ </Item>
+ <Item>
+ add target to the makefile for compiling the <C>pq</C> program with cygwin,
+ and
+ </Item>
+ <Item>
+ run <C>PqQuitAll()</C> more often in test examples. This reduces the number of
+ simultaneously running processes and avoids bumping into system limits.
+ </Item>
+</List>
+
+</Item>
+<Mark><C>2.0</C></Mark>
+<Item>
+
+Changes to <C>pq</C> program (now version 1.6) and &GAP; code to fix bug
+reported by Boris Girnat (thanks Boris!) where too many descendants were
+generated for a group of class more than 1 with insoluble automorphism
+group. Also more changes for &GAP;&nbsp;4.4, for which
+<List>
+ <Item>
+ option <C>pkgbanner</C> for suppression of the package banner is deprecated
+ (now does nothing); its function is now provided by an optional argument
+ of the <C>LoadPackage</C>; see Section&nbsp;<Ref Func="ref:LoadPackage" Style="Text"/> in the &GAP;
+ Reference Manual); and
+ </Item>
+ <Item>
+ the package banner is no longer <C>Info</C>-ed at <C>InfoANUPQ</C> level 1, and so
+ cannot be suppressed by setting the <C>InfoANUPQ</C> level to 0.
+ </Item>
+</List>
+</Item>
+<Mark></Mark>
+<Item>
+
+For &GAP;&nbsp;4.3fix4, the previous behaviour for the display/suppression
+and <C>Info</C>-ing of the banner is unchanged, and <C>RequirePackage</C> must be
+used rather than the new command <C>LoadPackage</C>.
+</Item>
+<Mark></Mark>
+<Item>
+
+<C>PqSupplementInnerAutomorphisms</C> now returns a record analogous to the
+<C>AutomorphismGroupPGroup</C> function of the &AutPGrp; package, and
+<C>AutomorphismGroupPGroup</C> rather than <C>PqSupplementInnerAutomorphisms</C> is
+now used to generate the required automorphism group data in descendant
+calculations. The corresponding <C>PqExample</C> example has similarly been
+modified.
+</Item>
+<Mark><C>1.5</C></Mark>
+<Item>
+
+Fixed bug in the filtering of ones from input to <C>pq</C> program (thanks to
+Robert Morse again for the fix). Some preparatory changes made for
+&GAP;&nbsp;4.4.
+</Item>
+<Mark><C>1.4</C></Mark>
+<Item>
+
+Removed an unnecessary file and line from a file in the <C>src</C> directory.
+</Item>
+<Mark><C>1.3</C></Mark>
+<Item>
+
+Efficiency improvements: in particular, the use of <C>IsSyllableWordsFamily</C>
+as first argument of some <C>FreeGroup</C> commands.
+</Item>
+<Mark><C>1.2</C></Mark>
+<Item>
+
+Fixed some inefficiencies in transmission of relators to the <C>pq</C> program
+(thanks to Robert Morse for identifying the problem). Updated for
+bugfixes in fix4 of &GAP;&nbsp;4.3, which required some usages of <C>Pcgs</C> to
+be replaced by <C>GeneralizedPcgs</C>. Requires at least &GAP;&nbsp;4.3fix4 and an
+updated &AutPGrp; package that uses <C>SetGeneralizedPcgs</C> in lieu of
+<C>SetPcgs</C> in its definition of <C>ConvertHybridAutGroup</C>.
+</Item>
+<Mark><C>1.1</C></Mark>
+<Item>
+
+First &GAP;&nbsp;4 release. Requires at least &GAP;&nbsp;4.2, but &GAP;&nbsp;4.3
+recommended. Supersedes the earlier &GAP;&nbsp;3 version (1.0) in many ways;
+in particular, it provides an interactive interface using the IOStream
+technology introduced in &GAP;&nbsp;4.2.
+</Item>
+</List>
+
+</Section>
+-->
+
+</Chapter>
+

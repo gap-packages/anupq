@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This is an automatically generated file. -->
+<!DOCTYPE Book SYSTEM "gapdoc.dtd"
+[
+<!ENTITY see '<Alt Only="LaTeX">$	o$</Alt><Alt Not="LaTeX">--&gt;</Alt>'>
+<!ENTITY ANUPQ '<Package>ANUPQ</Package>'>
+<!ENTITY AutPGrp '<Package>AutPGrp</Package>'>
+<!ENTITY anupq '<Package>anupq</Package>'>
+]
+>
+<Book Name="anupq">
+<#Include SYSTEM "title.xml">
+<TableOfContents/>
+<Body>
+<Index>&anupq;</Index>
+<#Include SYSTEM "intro.xml">
+<#Include SYSTEM "basics.xml">
+<#Include SYSTEM "infra.xml">
+<#Include SYSTEM "non-interact.xml">
+<#Include SYSTEM "interact.xml">
+<#Include SYSTEM "options.xml">
+<#Include SYSTEM "install.xml">
+</Body>
+<#Include SYSTEM "examples.xml">
+<Bibliography Databases="anupq.bib"/>
+<TheIndex/>
+</Book>

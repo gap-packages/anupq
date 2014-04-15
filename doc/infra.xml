@@ -1,0 +1,813 @@
+<Chapter Label="Infrastructure">
+<Heading>Infrastructure</Heading>
+
+Most of the details in this chapter are of a technical nature; the user
+need only skim over this chapter on a first reading. Mostly, it is enough
+to know that
+<List>
+<Item>
+you must do a <C>LoadPackage("anupq");</C> before you can expect to use a
+command defined by the &ANUPQ; package
+(details are in Section&nbsp;<Ref Sect="Loading the ANUPQ Package" Style="Text"/>);
+</Item>
+
+<Item>
+partial results of &ANUPQ; commands and some other data are stored in
+the <C>ANUPQData</C> global variable
+(details are in Section&nbsp;<Ref Sect="The ANUPQData Record" Style="Text"/>); 
+</Item>
+
+<Item>
+doing <C>SetInfoLevel(InfoANUPQ, <A>n</A>);</C> for <A>n</A> greater than the default
+value 1 will give progressively more information of what is going on
+<Q>behind the scenes</Q> (details are in
+Section&nbsp;<Ref Sect="Setting the Verbosity of ANUPQ via Info and InfoANUPQ" Style="Text"/>);
+</Item>
+
+<Item>
+in Section&nbsp;<Ref Sect="Utility-Functions" Style="Text"/> we describe some utility functions and
+functions that run examples from the collection of examples of this
+package;
+</Item>
+
+<Item>
+in Section&nbsp;<Ref Sect="Attributes and a Property for fp and pc p-groups" Style="Text"/> we describe
+the attributes and property <C>NuclearRank</C>, <C>MultiplicatorRank</C> and
+<C>IsCapable</C>; and
+</Item>
+
+<Item>
+in Section&nbsp;<Ref Sect="Hints and Warnings regarding the use of Options" Style="Text"/> we describe
+some troubleshooting strategies. Also this section explains the utility
+of setting <C>ANUPQWarnOfOtherOptions := true;</C> (particularly for novice
+users) for detecting misspelt options and diagnosing other option usage
+problems.
+</Item>
+</List>
+
+<Section Label="Loading the ANUPQ Package">
+<Heading>Loading the ANUPQ Package</Heading>
+
+<Index>banner</Index>
+To use the &ANUPQ; package, as with any &GAP; package, it must be
+requested explicitly. This is done by calling
+
+<Example><![CDATA[
+gap> LoadPackage( "anupq" );
+---------------------------------------------------------------------------
+Loading    ANUPQ (ANU p-Quotient) 3.1
+GAP code by  Greg Gamble <Greg.Gamble@uwa.edu.au> (address for
+correspondence)
+           Werner Nickel (http://www.mathematik.tu-darmstadt.de/~nickel/)
+           [uses ANU pq binary (C code program) version: 1.9]
+C code by  Eamonn O'Brien (http://www.math.auckland.ac.nz/~obrien)
+Co-maintained by Max Horn <max.horn@math.uni-giessen.de>
+
+            For help, type: ?ANUPQ
+---------------------------------------------------------------------------
+true
+]]></Example>
+
+Note that since the &ANUPQ; package uses the <C>AutomorphimGroupPGroup</C>
+function of the &AutPGrp; package and, in any case, often needs other
+&AutPGrp; functions when computing descendants, the user must ensure
+that the &AutPGrp; package is also installed, at least version 1.5. If
+the &AutPGrp; package is not installed, the &ANUPQ; package will <K>fail</K>
+to load.
+<P/>
+
+Also, if &GAP; cannot find a working <C>pq</C> binary, the call to
+<C>LoadPackage</C> will return <K>fail</K>.
+<P/>
+
+If you want to load the &ANUPQ; package by default, you can put the
+<C>LoadPackage</C> command into your <C>gap.ini</C> file (see
+Section&nbsp;<Ref BookName="ref" Label="The gap.ini and gaprc files" Style="Text"/>
+in the &GAP; Reference Manual). By the way, the novice user
+of the &ANUPQ; package should probably also append the line
+
+<Log><![CDATA[
+ANUPQWarnOfOtherOptions := true;
+]]></Log>
+
+to their <C>gap.ini</C> file, somewhere after the <C>LoadPackage( "anupq" );</C>
+command (see&nbsp;<Ref Func="ANUPQWarnOfOtherOptions" Style="Text"/>).
+
+</Section>
+
+
+
+<Section Label="The ANUPQData Record">
+<Heading>The ANUPQData Record</Heading>
+
+This section contains fairly technical details which may be skipped on an
+initial reading.
+
+<ManSection>
+<Var Name="ANUPQData"/>
+<Description>
+is a &GAP; record in which the essential data for an &ANUPQ; session
+within &GAP; is stored; its fields are:
+
+<List>
+<Mark><C>binary</C></Mark>
+<Item>
+the path of the <C>pq</C> binary;
+</Item>
+<Mark><C>tmpdir</C></Mark>
+<Item>
+the path of the temporary directory used by the <C>pq</C>
+binary and &GAP; (i.e.&nbsp;the directory in which all the <C>pq</C>'s temporary
+files are created) (also see <Ref Func="ANUPQDirectoryTemporary" Style="Text"/> below);
+</Item>
+<Mark><C>outfile</C></Mark>
+<Item>
+the full path of the default <C>pq</C> output file;
+</Item>
+<Mark><C>SPimages</C></Mark>
+<Item>
+the full path of the file <C>GAP_library</C> to which the
+<C>pq</C> program writes its Standard Presentation images;
+</Item>
+<Mark><C>version</C></Mark>
+<Item>
+the version of the current <C>pq</C> binary;
+</Item>
+<Mark><C>ni</C></Mark>
+<Item>
+a data record used by non-interactive functions (see below
+and Chapter&nbsp;<Ref Chap="non-interact" Style="Text"/>);
+</Item>
+<Mark><C>io</C></Mark>
+<Item>
+list of data records for <C>PqStart</C> (see below and&nbsp;<Ref Func="PqStart" Style="Text"/>)
+processes;
+</Item>
+<Mark><C>topqlogfile</C></Mark>
+<Item>
+name of file logged to by <C>ToPQLog</C> (see&nbsp;<Ref Func="ToPQLog" Style="Text"/>);
+and
+</Item>
+<Mark><C>logstream</C></Mark>
+<Item>
+stream of file logged to by <C>ToPQLog</C> (see&nbsp;<Ref Func="ToPQLog" Style="Text"/>).
+</Item>
+</List>
+
+Each time an interactive &ANUPQ; process is initiated via <C>PqStart</C>
+(see&nbsp;<Ref Func="PqStart" Style="Text"/>), an identifying number <A>ioIndex</A> is generated for the
+interactive process and a record <C>ANUPQData.io[<A>ioIndex</A>]</C> with some or
+all of the fields listed below is created. Whenever a non-interactive
+function is called (see Chapter&nbsp;<Ref Chap="non-interact" Style="Text"/>), the
+record <C>ANUPQData.ni</C> is updated with fields that, if bound, have exactly
+the same purpose as for a <C>ANUPQData.io[<A>ioIndex</A>]</C> record. 
+
+<List>
+<Mark><C>stream</C></Mark>
+<Item>
+the IOStream opened for interactive &ANUPQ; process
+<A>ioIndex</A> or non-interactive &ANUPQ; function;
+</Item>
+<Mark><C>group</C></Mark>
+<Item>
+the group given as first argument to <C>PqStart</C>, <C>Pq</C>,
+<C>PqEpimorphism</C>, <C>PqDescendants</C> or <C>PqStandardPresentation</C> (or any
+synonymous methods);
+</Item>
+<Mark><C>haspcp</C></Mark>
+<Item>
+is bound and set to <K>true</K> when a pc presentation is first
+set inside the <C>pq</C> program (e.g.&nbsp;by <C>PqPcPresentation</C> or
+<C>PqRestorePcPresentation</C> or a higher order function like <C>Pq</C>,
+<C>PqEpimorphism</C>, <C>PqPCover</C>, <C>PqDescendants</C> or <C>PqStandardPresentation</C>
+that does a <C>PqPcPresentation</C> operation, but <E>not</E> <C>PqStart</C> which only
+starts up an interactive &ANUPQ; process);
+</Item>
+<Mark><C>gens</C></Mark>
+<Item>
+a list of the generators of the group <C>group</C> as strings
+(the same as those passed to the <C>pq</C> program);
+</Item>
+<Mark><C>rels</C></Mark>
+<Item>
+a list of the relators of the group <C>group</C> as strings (the
+same as those passed to the <C>pq</C> program);
+</Item>
+<Mark><C>name</C></Mark>
+<Item>
+the name of the group whose pc presentation is defined by a
+call to the <C>pq</C> program (according to the <C>pq</C> program -- unless you
+have used the <C>GroupName</C> option (see e.g.&nbsp;<Ref Func="Pq" Style="Text"/>) or applied the function
+<C>SetName</C> (see&nbsp;<Ref BookName="ref" Func="SetName" Style="Text"/>) to the group, the <Q>generic</Q> name
+<C>"[grp]"</C> is set as a default);
+</Item>
+<Mark><C>gpnum</C></Mark>
+<Item>
+if not a null string, the <Q>number</Q> (i.e.&nbsp;the unique label
+assigned by the <C>pq</C> program) of the last descendant processed;
+</Item>
+<Mark><C>class</C></Mark>
+<Item>
+the largest lower exponent-<M>p</M> central class of a quotient
+group of the group (usually <C>group</C>) found by a call to the <C>pq</C> program;
+</Item>
+<Mark><C>forder</C></Mark>
+<Item>
+the factored order of the quotient group of largest lower
+exponent-<M>p</M> central class found for the group (usually <C>group</C>) by a
+call to the <C>pq</C> program (this factored order is given as a list
+<!-- FIXME: [p,n] reformatted -->
+<C>[p,n]</C>, indicating an order of <M>p^n</M>);
+</Item>
+<Mark><C>pcoverclass</C></Mark>
+<Item>
+ the lower exponent-<M>p</M> central class of the
+<M>p</M>-covering group of a <M>p</M>-quotient of the group (usually <C>group</C>) found
+by a call to the <C>pq</C> program;
+</Item>
+<Mark><C>workspace</C></Mark>
+<Item>
+the workspace set for the <C>pq</C> process (either given as
+a second argument to <C>PqStart</C>, or set by default to 10000000);
+</Item>
+<Mark><C>menu</C></Mark>
+<Item>
+the current menu of the <C>pq</C> process (the <C>pq</C> program is
+managed by various menus, the details of which the user shouldn't
+normally need to know about -- the <C>menu</C> field remembers which menu the
+<C>pq</C> process is currently <Q>in</Q>);
+</Item>
+<Mark><C>outfname</C></Mark>
+<Item>
+is the file to which <C>pq</C> output is directed, which is
+always <C>ANUPQData.outfile</C>, except when option <C>SetupFile</C> is used with a
+non-interactive function, in which case <C>outfname</C> is set to
+<C>"PQ_OUTPUT"</C>;
+</Item>
+<Mark><C>pQuotient</C></Mark>
+<Item>
+is set to the value returned by <C>Pq</C> (see&nbsp;<Ref Func="Pq" Style="Text"/>) (the
+field <C>pQepi</C> is also set at the same time);
+</Item>
+<Mark><C>pQepi</C></Mark>
+<Item>
+ is set to the value returned by <C>PqEpimorphism</C>
+(see&nbsp;<Ref Func="PqEpimorphism" Style="Text"/>) (the field <C>pQuotient</C> is also set at the same
+time);
+</Item>
+<Mark><C>pCover</C></Mark>
+<Item>
+ is set to the value returned by <C>PqPCover</C>
+(see&nbsp;<Ref Func="PqPCover" Style="Text"/>);
+</Item>
+<Mark><C>SP</C></Mark>
+<Item>
+is set to the value returned by <C>PqStandardPresentation</C> or
+<C>StandardPresentation</C> (see&nbsp;<Ref Func="PqStandardPresentation" Label="interactive" Style="Text"/>) when
+called interactively, for process <A>i</A> (the field <C>SPepi</C> is also set at
+the same time);
+</Item>
+<Mark><C>SPepi</C></Mark>
+<Item>
+ is set to the value returned by
+<C>EpimorphismPqStandardPresentation</C> or <C>EpimorphismStandardPresentation</C>
+(see&nbsp;<Ref Func="EpimorphismPqStandardPresentation" Label="interactive" Style="Text"/>) when called
+interactively, for process <A>i</A> (the field <C>SP</C> is also set at the same
+time);
+</Item>
+<Mark><C>descendants</C></Mark>
+<Item>
+is set to the value returned by
+<C>PqDescendants</C> (see&nbsp;<Ref Func="PqDescendants" Style="Text"/>);
+</Item>
+<Mark><C>treepos</C></Mark>
+<Item>
+ if set by a call to <C>PqDescendantsTreeCoclassOne</C>
+(see&nbsp;<Ref Func="PqDescendantsTreeCoclassOne" Style="Text"/>), it contains a record with fields
+<C>class</C>, <C>node</C> and <C>ndes</C> being the information that determines the last
+descendant with a non-zero number of descendants processed;
+</Item>
+<Mark><C>xgapsheet</C></Mark>
+<Item>
+if set by a call to <C>PqDescendantsTreeCoclassOne</C>
+(see&nbsp;<Ref Func="PqDescendantsTreeCoclassOne" Style="Text"/>) during an &XGAP; session, it
+contains the &XGAP; <C>Sheet</C> on which the descendants tree is displayed;
+and
+</Item>
+<Mark><C>nextX</C></Mark>
+<Item>
+ if set by a call to <C>PqDescendantsTreeCoclassOne</C>
+(see&nbsp;<Ref Func="PqDescendantsTreeCoclassOne" Style="Text"/>) during an &XGAP; session, it
+contains a list of integers, the <A>i</A>th entry of which is the
+<A>x</A>-coordinate of the next node (representing a descendant) for the <A>i</A>th
+class.
+</Item>
+</List>
+</Description>
+</ManSection>
+
+
+<ManSection>
+<Func Name="ANUPQDirectoryTemporary" Arg="dir"/>
+<Description>
+calls the UNIX command <C>mkdir</C> to create <A>dir</A>, which must be a string,
+and if successful a directory object for <A>dir</A> is both assigned to
+<C>ANUPQData.tmpdir</C> and returned. The field <C>ANUPQData.outfile</C> is also
+set to be a file in <C>ANUPQData.tmpdir</C>, and on exit from &GAP; <A>dir</A> is
+removed. Most users will never need this command; by default, &GAP;
+typically chooses a <Q>random</Q> subdirectory of <C>/tmp</C> for
+<C>ANUPQData.tmpdir</C> which may occasionally have limits on what may be
+written there. <C>ANUPQDirectoryTemporary</C> permits the user to choose a
+directory (object) where one is not so limited.
+</Description>
+</ManSection>
+
+</Section>
+
+
+<Section Label="Setting the Verbosity of ANUPQ via Info and InfoANUPQ">
+<Heading>Setting the Verbosity of ANUPQ via Info and InfoANUPQ</Heading>
+
+<ManSection>
+<InfoClass Name="InfoANUPQ"/>
+<Description>
+The input to and the output from the <C>pq</C> program is, by default, not
+displayed. However the user may choose to see some, or all, of this
+input/output. This is done via the <C>Info</C> mechanism (see
+Section&nbsp;<Ref BookName="ref" Label="Info Functions" Style="Text"/> in the &GAP; Reference Manual). For this
+purpose, there is the <A>InfoClass</A> <C>InfoANUPQ</C>. If the <C>InfoLevel</C> of
+<C>InfoANUPQ</C> is high enough each line of <C>pq</C> input/output is directed to
+a call to <C>Info</C> and will be displayed for the user to see. By default,
+the <C>InfoLevel</C> of <C>InfoANUPQ</C> is 1, and it is recommended that you leave
+it at this level, or higher. Messages that the user should presumably
+want to see and output from the <C>pq</C> program influenced by the value of
+the option <C>OutputLevel</C> (see the options listed in Section&nbsp;<Ref Func="Pq" Style="Text"/>), other
+than timing and memory usage are directed to <C>Info</C> at <C>InfoANUPQ</C> level
+1.
+<P/>
+
+To turn off <E>all</E> <C>InfoANUPQ</C> messaging, set the <C>InfoANUPQ</C> level to 0.
+<P/>
+
+There are five other user-intended <C>InfoANUPQ</C> levels: 2, 3, 4, 5 and 6.
+
+<Example><![CDATA[
+gap> SetInfoLevel(InfoANUPQ, 2);
+]]></Example>
+
+enables the display of most timing and memory usage data from the <C>pq</C>
+program, and also the number of identity instances when the <C>Identities</C>
+option is used. (Some timing and memory usage data, particularly when
+profuse in quantity, is <C>Info</C>-ed at <C>InfoANUPQ</C> level 3 instead.) Note
+that the the &GAP; functions <C>time</C> and <C>Runtime</C>
+(see&nbsp;<Ref BookName="ref" Func="Runtime" Style="Text"/> in
+the &GAP; Reference Manual) count the time spent by &GAP; and <E>not</E> the
+time spent by the (external) <C>pq</C> program.
+
+<Example><![CDATA[
+gap> SetInfoLevel(InfoANUPQ, 3);
+]]></Example>
+
+enables the display of output of the nature of the first two <C>InfoANUPQ</C>
+that was not directly invoked by the user (e.g.&nbsp;some commands require
+&GAP; to discover something about the current state known to the <C>pq</C>
+program). The identity instances processed under the <C>Identities</C> option
+are also displayed at this level. In some cases, the <C>pq</C> program
+produces a lot of output despite the fact that the <C>OutputLevel</C>
+(see&nbsp;<Ref Label="option OutputLevel" Style="Text"/>) is unset or is set to 0; such output is also
+<C>Info</C>-ed at <C>InfoANUPQ</C> level 3.
+
+<Example><![CDATA[
+gap> SetInfoLevel(InfoANUPQ, 4);
+]]></Example>
+
+enables the display of all the commands directed to the <C>pq</C> program,
+behind a <Q><C>ToPQ> </C></Q> prompt (so that you can distinguish it from the
+output from the <C>pq</C> program). See Section&nbsp;<Ref Sect="Hints and Warnings regarding the use of Options" Style="Text"/> for an example of how this can be a useful
+troubleshooting tool.
+
+<Example><![CDATA[
+gap> SetInfoLevel(InfoANUPQ, 5);
+]]></Example>
+
+enables the display of the <C>pq</C> program's prompts for input. Finally,
+
+<Example><![CDATA[
+gap> SetInfoLevel(InfoANUPQ, 6);
+]]></Example>
+
+enables the display of all other output from the <C>pq</C> program, namely the
+banner and menus. However, the timing data printed when the <C>pq</C> program
+exits can never be observed.
+
+</Description>
+</ManSection>
+
+</Section>
+
+
+<Section Label="Utility-Functions">
+<Heading>Utility Functions</Heading>
+
+<ManSection>
+<Func Name="PqLeftNormComm" Arg="elts"/>
+<Description>
+returns for a list of elements of some group (e.g.&nbsp;<A>elts</A> may be a list
+of words in the generators of a free or fp group) the left normed
+commutator of <A>elts</A>, e.g.&nbsp;if <A>w1</A>, <A>w2</A>, <A>w3</A> are such elements then
+<C>PqLeftNormComm( [<A>w1</A>, <A>w2</A>, <A>w3</A>] );</C> is equivalent to <C>Comm( Comm(
+<A>w1</A>, <A>w2</A> ), <A>w3</A> );</C>.
+<P/>
+
+<E>Note:</E> <A>elts</A> must contain at least two elements.
+</Description>
+</ManSection>
+
+<ManSection>
+<Func Name="PqGAPRelators" Arg="group, rels"/>
+<Description>
+returns a list of words that &GAP; understands, given a list <A>rels</A> of
+strings in the string representations of the generators of the fp group
+<A>group</A> prepared as a list of relators for the <C>pq</C> program.
+<P/>
+
+<E>Note:</E>
+The <C>pq</C> program does not use <C>/</C> to indicate multiplication by an
+inverse and uses square brackets to represent (left normed) commutators.
+Also, even though the <C>pq</C> program accepts relations, all elements of
+<A>rels</A> <E>must</E> be in relator form, i.e.&nbsp;a relation of form <C><A>w1</A> = <A>w2</A></C>
+must be written as <C><A>w1</A>*(<A>w2</A>)^-1</C>.
+<P/>
+
+Here is an example:
+
+<Example><![CDATA[
+gap> F := FreeGroup("a", "b");
+<free group on the generators [ a, b ]>
+gap> PqGAPRelators(F, [ "a*b^2", "[a,b]^2*a", "([a,b,a,b,b]*a*b)^2*a" ]);
+[ a*b^2, a^-1*b^-1*a*b*a^-1*b^-1*a*b*a, b^-1*a^-1*b^-1*a^-1*b*a*b^-1*a*b*a^
+    -1*b*a^-1*b^-1*a*b*a*b^-1*a^-1*b^-1*a^-1*b*a*b^-1*a*b^-1*a^-1*b*a^-1*b^
+    -1*a*b*a*b*a^-1*b*a*b^-1*a*b*a^-1*b*a^-1*b^-1*a*b*a*b^-1*a^-1*b^-1*a^
+    -1*b*a*b^-1*a*b^-1*a^-1*b*a^-1*b^-1*a*b*a*b^2*a*b*a ]
+]]></Example>
+</Description>
+</ManSection>
+
+<ManSection>
+<Func Name="PqParseWord" Arg="word, n"/>
+<Description>
+parses a <A>word</A>, a string representing a word in the pc generators
+<C>x1,...,x<A>n</A></C>, through &GAP;. This function is provided as a
+rough-and-ready check of <A>word</A> for syntax errors. A syntax error will
+cause the entering of a <C>break</C>-loop, in which the error message may or
+may not be meaningful (depending on whether the syntax error gets caught
+at the &GAP; or kernel level).
+<P/>
+
+<E>Note:</E>
+The reason the generators <E>must</E> be <C>x1,...,x<A>n</A></C> is that these are the
+pc generator names used by the <C>pq</C> program (as distinct from the
+generator names for the group provided by the user to a function like
+<C>Pq</C> that invokes the <C>pq</C> program).
+</Description>
+</ManSection>
+
+<ManSection>
+<Func Name="PqExample" Arg=""/>
+<Func Name="PqExample" Arg="example[, PqStart][, Display]"/>
+<Func Name="PqExample" Arg="example[, PqStart][, filename]"/>
+<Description>
+With no arguments, or with single argument <C>"index"</C>, or a string
+<A>example</A> that is not the name of a file in the <C>examples</C> directory, an
+index of available examples is displayed.
+<P/>
+
+With just the one argument <A>example</A> that is the name of a file in the
+<C>examples</C> directory, the example contained in that file is executed in
+its simplest form. Some examples accept options which you may use to
+modify some of the options used in the commands of the example. To find
+out which options an example accepts, use one of the mechanisms for
+displaying the example described below.
+<P/>
+
+Some examples have both non-interactive and interactive forms; those that
+are non-interactive only have a name ending in <C>-ni</C>; those that are
+interactive only have a name ending in <C>-i</C>; examples with names ending
+in <C>.g</C> also have only one form; all other examples have both
+non-interactive and interactive forms and for these giving <C>PqStart</C> as
+second argument invokes <C>PqStart</C> initially and makes the appropriate
+adjustments so that the example is executed or displayed using
+interactive functions.
+<P/>
+
+If <C>PqExample</C> is called with last (second or third) argument <C>Display</C>
+then the example is displayed without being executed. If the last
+argument is a non-empty string <A>filename</A> then the example is also
+displayed without being executed but is also written to a file with that
+name. Passing an empty string as last argument has the same effect as
+passing <C>Display</C>.
+<P/>
+
+<E>Note:</E>
+The variables used in <C>PqExample</C> are local to the running of
+<C>PqExample</C>, so there's no danger of having some of your variables
+over-written. However, they are not completely lost either. They are
+saved to a record <C>ANUPQData.examples.vars</C>, i.e.&nbsp;if <C>F</C> is a variable
+used in the example then you will be able to access it after <C>PqExample</C>
+has finished as <C>ANUPQData.examples.vars.F</C>.
+</Description>
+</ManSection>
+
+<ManSection>
+<Func Name="AllPqExamples" Arg=""/>
+<Description>
+returns a list of all currently available examples in default
+UNIX-listing (i.e.&nbsp;alphabetic) order.
+</Description>
+</ManSection>
+
+<ManSection>
+<Func Name="GrepPqExamples" Arg="string"/>
+<Description>
+runs the UNIX command <C>grep <A>string</A></C> over the &ANUPQ; examples and
+returns the list of examples for which there is a match. The actual
+matches are <C>Info</C>-ed at <C>InfoANUPQ</C> level 2.
+</Description>
+</ManSection>
+
+<ManSection>
+<Func Name="ToPQLog" Arg="[ filename ]"/>
+<Description>
+With string argument <A>filename</A>, <C>ToPQLog</C> opens the file with name
+<A>filename</A> for logging; all commands written to the <C>pq</C> binary (that are
+<C>Info</C>-ed behind a <Q><C>ToPQ> </C></Q> prompt at <C>InfoANUPQ</C> level 4) are then
+also written to that file (but without prompts). With no argument,
+<C>ToPQLog</C> stops logging to whatever file was being logged to. If a file
+was already being logged to, that file is closed and the file with name
+<A>filename</A> is opened for logging.
+</Description>
+</ManSection>
+
+</Section>
+
+
+<Section Label="Attributes and a Property for fp and pc p-groups">
+<Heading>Attributes and a Property for fp and pc p-groups</Heading>
+
+<ManSection>
+<Attr Name="NuclearRank" Arg="G"/>
+<Attr Name="MultiplicatorRank" Arg="G"/>
+<Prop Name="IsCapable" Arg="G"/>
+<Description>
+return the nuclear rank of <A>G</A>, <M>p</M>-multiplicator rank of <A>G</A>, and
+whether <A>G</A> is capable (i.e.&nbsp;<K>true</K> if it is, or <K>false</K> if it is not),
+respectively.
+<P/>
+
+These attributes and property are set automatically if <A>G</A> is one of the
+following:
+
+<List>
+<Item>
+ an fp group returned by <C>PqStandardPresentation</C> or
+<C>StandardPresentation</C> (see&nbsp;<Ref Func="PqStandardPresentation" Style="Text"/>);
+</Item>
+<Item>
+ the image (fp group) of the epimorphism returned by an
+<C>EpimorphismPqStandardPresentation</C> or <C>EpimorphismStandardPresentation</C>
+call (see&nbsp;<Ref Func="EpimorphismPqStandardPresentation" Style="Text"/>); or
+</Item>
+<Item>
+ one of the pc groups of the list of descendants returned by
+<C>PqDescendants</C> (see&nbsp;<Ref Func="PqDescendants" Style="Text"/>).
+</Item>
+</List>
+
+If <A>G</A> is an fp group or a pc <M>p</M>-group and not one of the above and the
+attribute or property has not otherwise been set for <A>G</A>, then
+<C>PqStandardPresentation</C> is called to set all three of <C>NuclearRank</C>,
+<C>MultiplicatorRank</C> and <C>IsCapable</C>, before returning the value of the
+attribute or property actually called. Such a group <A>G</A> must know in
+advance that it is a <M>p</M>-group; this is the case for the groups returned
+by the functions <C>Pq</C> and <C>PqPCover</C>, and the image group of the
+epimorphism returned by <C>PqEpimorphism</C>. Otherwise, if you know the group
+to be a <M>p</M>-group, then this can be set by typing
+<Listing><![CDATA[
+SetFeatureObj( G, IsPGroup, true );
+]]></Listing>
+or by invoking <C>IsPGroup( <A>G</A> )</C>. Note that for an fp group <A>G</A>, the
+latter may result in a coset enumeration which might not terminate in a
+reasonable time.
+<P/>
+
+<E>Note:</E> For <A>G</A> such that <C>HasNuclearRank(<A>G</A>) = true</C>, <C>IsCapable(<A>G</A>)</C>
+is equivalent to (the truth or falsity of) <C>NuclearRank( <A>G</A> ) = 0</C>.
+</Description>
+</ManSection>
+
+</Section>
+
+
+<Section Label="Hints and Warnings regarding the use of Options">
+<Heading>Hints and Warnings regarding the use of Options</Heading>
+
+On a first reading we recommend you skip this section and come back to it
+if and when you run into trouble.
+<P/>
+<Index Subkey="of pq program">menu item</Index>
+<Index Subkey="of pq program is a menu item">option</Index> <!-- FIXME: is this right? -->
+<E>Note:</E>
+By <Q>options</Q> we refer to &GAP; options. The <C>pq</C> program also uses the
+term <Q>option</Q>; to distinguish the two usages of <Q>option</Q>, in this
+manual we use the term <E>menu item</E> to refer to what the <C>pq</C> program
+refers to as an <Q>option</Q>.
+<P/>
+
+Options are passed to the &ANUPQ; interface functions in either of the
+two usual mechanisms provided by &GAP;, namely:
+
+<List>
+<Item>
+ options may be set globally using the function <C>PushOptions</C>
+(see Chapter&nbsp;<Ref BookName="ref" Label="Options Stack" Style="Text"/> in the &GAP; Reference Manual); or
+</Item>
+<Item>
+ options may be appended to the argument list of any function
+call, separated by a colon from the argument list (see
+Chapter&nbsp;<Ref BookName="ref" Label="Function Calls" Style="Text"/> in the &GAP; Reference Manual), in which
+case they are then passed on recursively to any subsequent inner function
+call, which may in turn have options of their own.
+</Item>
+</List>
+
+Particularly, when one is using the interactive functions of
+Chapter&nbsp;<Ref Chap="Interactive ANUPQ functions" Style="Text"/>, one should, in general, avoid
+using the global method of passing options. In fact, it is recommended
+that prior to calling <C>PqStart</C> the <C>OptionsStack</C> be empty. The
+essential problem with setting options globally using the function
+<C>PushOptions</C> is that options pushed onto <C>OptionsStack</C>, in this way,
+(generally) remain there until an explicit <C>PopOptions()</C> call is made.
+<P/>
+
+In contrast, options passed in the usual way behind a colon following a
+function's arguments (see <Ref BookName="ref" Label="Function Call With Options" Style="Text"/> in the &GAP; Reference
+Manual) are local, and disappear from <C>OptionsStack</C> after the function
+has executed successfully. If the function does <E>not</E> execute
+successfully, i.e.&nbsp;it runs into error and the user <K>quit</K>s the resulting
+<C>break</C> loop (see Section&nbsp;<Ref BookName="ref" Label="Break loops" Style="Text"/> in the Reference Manual)
+rather than attempting to repair the problem and typing <C>return;</C> then,
+unless the error at the kernel level, the
+<C>OptionsStack</C> is reset. If an error is detected inside the kernel
+(hopefully, this should occur only rarely, if at all) then the options of
+that function will <E>not</E> be cleared from <C>OptionsStack</C>; in such cases:
+<Example><![CDATA[
+gap> ResetOptionsStack();
+#I  Options stack is already empty
+]]></Example>
+
+is usually necessary (see Chapter&nbsp;<Ref BookName="ref" Func="ResetOptionsStack" Style="Text"/> in the &GAP;
+Reference Manual), which recursively calls <C>PopOptions()</C> until
+<C>OptionsStack</C> is empty, or as in the above case warns you that the
+<C>OptionsStack</C> is already empty.
+<P/>
+
+Note that a function, that is passed options after the colon, will also
+see any global options or any options passed down recursively from
+functions calling that function, unless those options are over-ridden by
+options passed via the function. Also, note that duplication of option
+names for different programs may lead to misinterpretations, and
+mis-spelled options will not be <Q>seen</Q>.
+<P/>
+
+The non-interactive functions of Chapter&nbsp;<Ref Chap="non-interact" Style="Text"/> that have <C>Pq</C> somewhere in their name provide an alternative
+method of passing options as additional arguments. This has the
+advantages that options can be abbreviated and mis-spelled options will
+be trapped.
+
+<Index>troubleshooting tips</Index>
+<ManSection>
+<Var Name="ANUPQWarnOfOtherOptions"/>
+<Description>
+is a global variable that is by default <K>false</K>. If it is set to <K>true</K>
+then any function provided by the &ANUPQ; function that recognises at
+least one option, will warn you of <Q>other</Q> options, i.e.&nbsp;options that
+the function does not recognise. These warnings are emitted at
+<C>InfoWarning</C> or <C>InfoANUPQ</C> level 1. This is useful for detecting
+mis-spelled options. Here is an example using the function <C>Pq</C> (first
+described in Chapter&nbsp;<Ref Chap="non-interact" Style="Text"/>):
+<Log><![CDATA[
+gap> SetInfoLevel(InfoANUPQ, 1);        # Set InfoANUPQ to default level
+gap> ANUPQWarnOfOtherOptions := true;;
+gap> # The following makes entry into break loops very ``quiet'' ...
+gap> OnBreak := function() Where(0); end;;
+gap> F := FreeGroup( "a", "b" );
+<free group on the generators [ a, b ]>
+gap> Pq( F : Prime := 2, Classbound := 1 );
+#I  ANUPQ Warning: Options: [ "Classbound" ] ignored
+#I  (invalid for generic function: `Pq').
+user interrupt at
+moreOfline := ReadLine( iostream );
+Entering break read-eval-print loop ...
+you can 'quit;' to quit to outer loop, or
+you can 'return;' to continue
+]]></Log>
+
+Here we mistyped <C>ClassBound</C> as <C>Classbound</C>, and after seeing the
+<C>Info</C>-ed warning that <C>Classbound</C> was ignored, we typed a <A>control</A>-C
+(that's the <Q><C>user interrupt at</C></Q> message) which took us into a break
+loop. Since the <C>Pq</C> command was not able to finish, the options <C>Prime</C>
+and <C>Classbound</C>, in particular, will still be on the <C>OptionsStack</C>:
+<Log><![CDATA[
+brk> OptionsStack;
+[ rec( Prime := 2, Classbound := 1 ), 
+  rec( Prime := 2, Classbound := 1, PqEpiOrPCover := "pQuotient" ) ]
+]]></Log>
+
+The option <C>PqEpiOrPCover</C> is a behind-the-scenes option that need not
+concern the user. On <K>quit</K>ting the <C>break</C>-loop the
+<C>OptionsStack</C> is reset and a warning telling you this is emitted:
+<Log><![CDATA[
+brk> quit; # to get back to the `gap>' prompt
+#I  Options stack has been reset
+]]></Log>
+
+Above, we altered <C>OnBreak</C> (see&nbsp;<Ref BookName="ref" Func="OnBreak" Style="Text"/> in the Reference manual)
+to reduce the back-tracing on entry into a break loop. We now restore
+<C>OnBreak</C> to its usual value.
+<Example><![CDATA[
+gap> OnBreak := Where;;
+]]></Example>
+
+<E>Notes</E>
+<P/>
+
+In cases where functions recursively call others with options (e.g.&nbsp;when
+using <C>PqExample</C> with options), setting <C>ANUPQWarnOfOtherOptions :=
+true</C> may give rise to spurious <Q>other</Q> option detections.
+<P/>
+
+It is recommended that the novice user set <C>ANUPQWarnOfOtherOptions</C> to
+<K>true</K> in their <C>gap.ini</C> file (see Section&nbsp;<Ref Sect="Loading the ANUPQ Package" Style="Text"/>).
+</Description>
+</ManSection>
+
+<E>Other Troubleshooting Strategies</E>
+<P/>
+
+There are some other strategies which may have helped us to see our error
+above. The function <C>Pq</C> recognises the option <C>OutputLevel</C>
+(see&nbsp;<Ref Label="option OutputLevel" Style="Text"/>); if this option is set to at least 1, the <C>pq</C> program
+provides information on each class quotient as it is generated:
+<Log><![CDATA[
+gap> ANUPQWarnOfOtherOptions := false;; # Set back to normal
+gap> F := FreeGroup( "a", "b" );;
+gap> Pq( F : Prime := 2, Classbound := 1, OutputLevel := 1 ); 
+#I  Lower exponent-2 central series for [grp]
+#I  Group: [grp] to lower exponent-2 central class 1 has order 2^2
+#I  Group: [grp] to lower exponent-2 central class 2 has order 2^5
+#I  Group: [grp] to lower exponent-2 central class 3 has order 2^10
+#I  Group: [grp] to lower exponent-2 central class 4 has order 2^18
+#I  Group: [grp] to lower exponent-2 central class 5 has order 2^32
+#I  Group: [grp] to lower exponent-2 central class 6 has order 2^55
+#I  Group: [grp] to lower exponent-2 central class 7 has order 2^96
+#I  Group: [grp] to lower exponent-2 central class 8 has order 2^167
+#I  Group: [grp] to lower exponent-2 central class 9 has order 2^294
+#I  Group: [grp] to lower exponent-2 central class 10 has order 2^520
+#I  Group: [grp] to lower exponent-2 central class 11 has order 2^932
+#I  Group: [grp] to lower exponent-2 central class 12 has order 2^1679
+[... output truncated ...]
+]]></Log>
+
+After seeing the information for the class 2 quotient we may have got the
+idea that the <C>Classbound</C> option was not recognised and may have
+realised that this was due to a mis-spelling. The above will ordinarily
+cause the available space to be exhausted, necessitating
+user-intervention by typing <A>control</A>-C and <C>quit;</C> (to escape the break
+loop); otherwise <C>Pq</C> terminates when the class reaches 63 (the default
+value of <C>ClassBound</C>).
+<P/>
+
+If you have some familiarity with <Q>keyword</Q> command input to the <C>pq</C>
+binary, then setting the level of <C>InfoANUPQ</C> to 4 would also have
+indicated a problem:
+<Log><![CDATA[
+gap> ResetOptionsStack(); # Necessary, if a break-loop was entered above
+gap> SetInfoLevel(InfoANUPQ, 4);
+gap> Pq( F : Prime := 2, Classbound := 1 );
+#I  ToPQ> 7  #to (Main) p-Quotient Menu
+#I  ToPQ> 1  #define group
+#I  ToPQ> name [grp]
+#I  ToPQ> prime 2
+#I  ToPQ> class 63
+#I  ToPQ> exponent 0
+#I  ToPQ> output 0
+#I  ToPQ> generators { a,b }
+#I  ToPQ> relators   {  };
+[... output truncated ...]
+]]></Log>
+
+Here the line <Q><C>#I ToPQ> class 63</C></Q> indicates that a directive to set
+the classbound to 63 was sent to the <C>pq</C> program.
+
+</Section>
+</Chapter>

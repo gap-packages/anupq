@@ -42,3 +42,5 @@ src/*.o
 standalone-doc/guide.pdf
 testPq
 tst/GAP
+
+doc/anupq.tex
