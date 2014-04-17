@@ -95,13 +95,8 @@ void start_GAP_file ( FILE **GAP_input, int ***auts, struct pga_vars *pga, struc
 **                                     write out a matrix in a GAP input form
 **
 */
-void write_GAP_matrix ( GAP_input, gen, A, size, start, nr ) 
-    FILE      * GAP_input;
-    char      * gen;
-    int      ** A;
-    int         size;
-    int         start;
-    int         nr;
+void 
+write_GAP_matrix (FILE *GAP_input, char *gen, int **A, int size, int start, int nr)
 {
    int         i, j;
 
@@ -125,11 +120,8 @@ void write_GAP_matrix ( GAP_input, gen, A, size, start, nr )
 **          calculate the stabiliser of the supplied representative using GAP
 **
 */
-void insoluble_stab_gens ( rep, orbit_length, pga, pcp ) 
-    int     rep;
-    int     orbit_length;
-    struct pga_vars *pga;
-    struct pcp_vars *pcp;
+void 
+insoluble_stab_gens (int rep, int orbit_length, struct pga_vars *pga, struct pcp_vars *pcp)
 {
    FILE  * GAP_rep;
    char  * path,  *command;

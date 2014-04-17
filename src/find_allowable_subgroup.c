@@ -21,15 +21,8 @@
    determines the presentation for the class c + 1 quotient; 
    set up its definition set both as a bit_string and as a subset */
 
-int **find_allowable_subgroup (option, cover_tmp_file, group_tmp_file, 
-                               bit_string, subset, pga, pcp)
-int option;
-FILE * cover_tmp_file;
-FILE * group_tmp_file;
-int *bit_string;
-int **subset;
-struct pga_vars *pga;
-struct pcp_vars *pcp;
+int **
+find_allowable_subgroup (int option, FILE *cover_tmp_file, FILE *group_tmp_file, int *bit_string, int **subset, struct pga_vars *pga, struct pcp_vars *pcp)
 { 
    register int *y = y_address;
 
@@ -170,10 +163,8 @@ struct pcp_vars *pcp;
 
 /* which generator of the p-covering group did u and v define? */
 
-int find_index (u, v, definition, q)
-int u, v;
-int **definition;
-int q;
+int 
+find_index (int u, int v, int **definition, int q)
 {
    register int i;
 

@@ -163,16 +163,16 @@ int process_parameters (int argc, char **argv)
 
 /* how many bits are needed to store x? */
 
-int NmrOfBits (x)
-int x;
+int 
+NmrOfBits (int x)
 {
    int nmr = 0;
    while (x >= 1) {x = x >> 1; ++nmr;}
    return nmr;
 }
 
-int ExamineOptions (A1, A3)
-int A1, A3;
+int 
+ExamineOptions (int A1, int A3)
 {  
    if (A1 == 0 && A3 == 0) return;
   

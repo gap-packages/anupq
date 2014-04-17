@@ -20,12 +20,8 @@ int *add_weights ();
    the value of type determines the consistency relations processed;
    if type = 0 then all relations are processed */
 
-void consistency (type, queue, queue_length, wc, pcp)
-int type;
-int *queue;
-int *queue_length;
-int wc;
-struct pcp_vars *pcp;
+void 
+consistency (int type, int *queue, int *queue_length, int wc, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 

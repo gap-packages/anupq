@@ -111,10 +111,8 @@ void list_commutators (int *queue, int *queue_length, struct pcp_vars *pcp)
    where a ranges over a supplied weight, to close under 
    action of automorphisms */
 
-void List_Commutators (queue, queue_length, pcp)
-int *queue;
-int *queue_length;
-struct pcp_vars *pcp;
+void 
+List_Commutators (int *queue, int *queue_length, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 

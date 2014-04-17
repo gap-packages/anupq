@@ -23,18 +23,8 @@
    subgroup_rank is the rank of the initial segment subgroup; 
    flag is a copy of the basic pga flags */
 
-void iteration (call_depth, step_sequence, subgroup_rank, flag, input_file, 
-                nmr_of_descendants, class_bound, order_bound, pga, pcp) 
-int call_depth;
-int *step_sequence;
-int subgroup_rank;
-struct pga_vars *flag;
-FILE * input_file;
-int nmr_of_descendants;
-int class_bound;
-int order_bound;
-struct pga_vars *pga;
-struct pcp_vars *pcp;
+void 
+iteration (int call_depth, int *step_sequence, int subgroup_rank, struct pga_vars *flag, FILE *input_file, int nmr_of_descendants, int class_bound, int order_bound, struct pga_vars *pga, struct pcp_vars *pcp)
 {  
    int ***auts;
    register int group_nmr, first = 1;

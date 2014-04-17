@@ -27,18 +27,8 @@
 
    this new relation is now echelonised */
 
-void close_relations (report, limit, queue_type, head, list, queue, 
-                      length, long_queue, long_queue_length, pcp)
-Logical report;
-int limit;
-int queue_type;
-int *head;
-int *list;
-int *queue;
-int length;
-int *long_queue;
-int *long_queue_length;
-struct pcp_vars *pcp;
+void 
+close_relations (Logical report, int limit, int queue_type, int *head, int *list, int *queue, int length, int *long_queue, int *long_queue_length, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 

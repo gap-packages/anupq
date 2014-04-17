@@ -19,10 +19,8 @@
 
 /* update the order of the automorphism group */
 
-void update_autgp_order (orbit_length, pga, pcp)
-int orbit_length;
-struct pga_vars *pga;
-struct pcp_vars *pcp;
+void 
+update_autgp_order (int orbit_length, struct pga_vars *pga, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -65,9 +63,8 @@ struct pcp_vars *pcp;
 
 /* report the group and automorphism group order */
 
-void report_autgp_order (pga, pcp)
-struct pga_vars *pga;
-struct pcp_vars *pcp;
+void 
+report_autgp_order (struct pga_vars *pga, struct pcp_vars *pcp)
 {
    int p, n;
    char *s;
@@ -88,9 +85,8 @@ struct pcp_vars *pcp;
 
 /* compute (an upper bound for) the order of the automorphism group */
 
-void autgp_order (pga, pcp)
-struct pga_vars *pga;
-struct pcp_vars *pcp;
+void 
+autgp_order (struct pga_vars *pga, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
