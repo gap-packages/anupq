@@ -54,7 +54,6 @@ pq_SOURCES = \
     src/action.c \
     src/assemble_matrix.c \
     src/autgp_order.c \
-    src/bit_print.c \
     src/calculate_jacobi.c \
     src/central_auts.c \
     src/check_exponent.c \
