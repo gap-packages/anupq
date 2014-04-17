@@ -10,7 +10,7 @@
 #include "pq_defs.h"
 #include "pcp_vars.h"
 
-/* delete all entries for class pcp->cc and note that 
+/* delete all entries for class pcp->cc and note that
    it is still set up (that is, set pcp->ncset = 1) */
 
 void last_class (struct pcp_vars *pcp)
@@ -28,7 +28,7 @@ void last_class (struct pcp_vars *pcp)
       text (10, 0, 0, 0, 0);
       return;
    }
-   
+
    /* remove all word and subgroup tables entries */
    delete_tables (0, pcp);
 

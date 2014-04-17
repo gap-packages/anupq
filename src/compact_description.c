@@ -17,8 +17,8 @@
  **  DATE:       21/1/93
  **  REVISION:   1.0   (Release)
  **  STATUS:     This code is designed to be an extension to the pq program
- **              by E.A. O'Brien. It encodes the pc-presentation into a 
- **              sequence of integers and then appends that sequence to a 
+ **              by E.A. O'Brien. It encodes the pc-presentation into a
+ **              sequence of integers and then appends that sequence to a
  **              file called gps<order>, where <order> is the order of the
  **              group. Note that existing files of this name are updated.
  ****************************************************************************/
@@ -34,7 +34,7 @@ MP_INT Encode (int p, int length, int *list)
 
   for (i = 1; i <= length; ++i) {
      mpz_init_set_si (&powers, 0);
-     if (list[i] != 0) 
+     if (list[i] != 0)
         mpz_ui_pow_ui (&powers, p, i-1);
      mpz_add (&code, &code, &powers);
   }
@@ -53,7 +53,7 @@ MP_INT Encode (int p, int length, int *list)
 #endif
 
 /* construct a compact description of the group as a sequence;
-   if write_to_file TRUE, then write the compact description, 
+   if write_to_file TRUE, then write the compact description,
    sequence, to file and also return it */
 
 int *compact_description (Logical write_to_file, struct pcp_vars *pcp)
@@ -69,13 +69,13 @@ int *compact_description (Logical write_to_file, struct pcp_vars *pcp)
    int generator;
    int offset;
    int index;  /* used to count current position in sequence of exponents */
-   int n;          
+   int n;
 #include "access.h"
 
    n = pcp->lastg;
    nmr_of_exponents = choose (n + 1, 3);
    sequence = allocate_vector (nmr_of_exponents, 1, TRUE);
-   
+
    offset = 0;
    index = 0;
 
@@ -87,20 +87,20 @@ int *compact_description (Logical write_to_file, struct pcp_vars *pcp)
 
    for (generator = 2; generator <= n; ++generator) {
 
-      /* examine all power relations g^p where g < generator and store 
+      /* examine all power relations g^p where g < generator and store
 	 all exponents of generator which occur in these relations */
 
       for (g = 1; g < generator; ++g) {
 	 p1 = y[pcp->ppower + g];
-         
+
 	 trace_relation (sequence, &index, p1, generator, pcp);
 
-	 /* examine all commutator relations [h, g] where g < h < generator 
+	 /* examine all commutator relations [h, g] where g < h < generator
 	    and store exponents of generator which occur in such relations */
 
 	 weight_g = WT(y[pcp->structure + g]);
-         
-	 /* is the relation [h, g] stored? */ 
+
+	 /* is the relation [h, g] stored? */
 	 for (h = g + 1; h < generator; ++h) {
 	    weight_h = WT(y[pcp->structure + h]);
 	    if (weight_g + weight_h <= pcp->cc) {
@@ -108,7 +108,7 @@ int *compact_description (Logical write_to_file, struct pcp_vars *pcp)
 	       p2 = y[p1 + g];
 	       trace_relation (sequence, &index, p2, generator, pcp);
 	    }
-	    else 
+	    else
 	       ++index;
 	 }
       }
@@ -119,10 +119,10 @@ int *compact_description (Logical write_to_file, struct pcp_vars *pcp)
 
 #if defined (DEBUG)
    print_array (sequence, 1, nmr_of_exponents);
-#endif 
+#endif
 
    /* write the sequence to a file */
-   if (write_to_file) 
+   if (write_to_file)
       output_information (sequence, nmr_of_exponents, pcp);
 
    return sequence;
@@ -155,14 +155,14 @@ void trace_relation (int *sequence, int *index, int ptr, int generator, struct p
 
 /* append the sequence of length nmr_of_exponents to file with name
    formed by concatenating "gps" and "p^n" */
-   
+
 void output_information (int *sequence, int nmr_of_exponents, struct pcp_vars *pcp)
 {
    register int *y = y_address;
-  
+
    FILE * output_file;
    char *file_name;
-#ifdef HAVE_GMP 
+#ifdef HAVE_GMP
    MP_INT code;
 #else
    register int count;
@@ -178,7 +178,7 @@ void output_information (int *sequence, int nmr_of_exponents, struct pcp_vars *p
    /* write rank of Frattini quotient, number of pcp generators, prime,
       and exponent-p class to file */
 
-#ifdef HAVE_GMP 
+#ifdef HAVE_GMP
    fprintf (output_file, "[%d, %d, %d, ",
 	    y[pcp->clend + 1], pcp->lastg, pcp->cc);
    code = Encode (pcp->p, nmr_of_exponents, sequence);
@@ -187,7 +187,7 @@ void output_information (int *sequence, int nmr_of_exponents, struct pcp_vars *p
 #else
    fprintf (output_file, "%d %d %d %d ",
 	    y[pcp->clend + 1], pcp->lastg, pcp->p, pcp->cc);
-   /* now write out the sequence of exponents */ 
+   /* now write out the sequence of exponents */
    for (count = 1; count <= nmr_of_exponents - 1; count++)
       fprintf (output_file, "%d,", sequence[count]);
    fprintf (output_file, "%d\n", sequence[nmr_of_exponents]);

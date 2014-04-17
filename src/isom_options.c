@@ -151,7 +151,7 @@ void isom_options (int format, struct pcp_vars *pcp)
    list_isom_menu ();
 
    do {
-      option = read_option (MAXOPTION);      
+      option = read_option (MAXOPTION);
       switch (option) {
 
       case -1:
@@ -166,10 +166,10 @@ void isom_options (int format, struct pcp_vars *pcp)
 	 t = runTime () - t;
 	 /* it is possible that the p-quotient is trivial */
 	 if (pcp->cc == 0) {
-	    group_present = FALSE; 
-	    break; 
+	    group_present = FALSE;
+	    break;
 	 }
-	 printf ("Class %d %d-quotient and its %d-covering group computed in %.2f seconds\n", 
+	 printf ("Class %d %d-quotient and its %d-covering group computed in %.2f seconds\n",
 		 pcp->cc - 1, pcp->p, pcp->p, t * CLK_SCALE);
 	 break;
 
@@ -179,39 +179,39 @@ void isom_options (int format, struct pcp_vars *pcp)
 	    FileName = OpenFile (name, "r");
 	    if (FileName == NULL) break;
 	 }
-            
+
 	 name = GetString ("Enter output file name for group information: ");
 
 	 read_value (TRUE, "Standardise presentation to what class? ",
 		     &final_class, 0);
-	 if (user_supplied && final_class < pcp->cc) { 
-	    printf ("Value supplied for end class must be at least %d\n", 
+	 if (user_supplied && final_class < pcp->cc) {
+	    printf ("Value supplied for end class must be at least %d\n",
 		    pcp->cc);
 	 }
 
-	 /* read in data from file and set up group to end of start_class 
+	 /* read in data from file and set up group to end of start_class
 	    and compute its p-covering group */
 
 	 if (!user_supplied) {
-	    group_present = setup_start_info (FALSE, 0, FileName, 
+	    group_present = setup_start_info (FALSE, 0, FileName,
 					      FILE_INPUT, &pga, pcp);
 	    handle_error (group_present);
 	    if (final_class < pcp->cc) {
 	       CloseFile (FileName);
-	       printf ("Value supplied for end class must be at least %d\n", 
+	       printf ("Value supplied for end class must be at least %d\n",
 		       pcp->cc);
 	    }
 	 }
 
-	 if (pcp->cc == 0) { 
-	    printf ("%d-quotient is trivial\n", pcp->p); 
+	 if (pcp->cc == 0) {
+	    printf ("%d-quotient is trivial\n", pcp->p);
 	    break;
 	 }
 
-	 complete = (pcp->newgen == 0) ? TERMINAL : CAPABLE; 
+	 complete = (pcp->newgen == 0) ? TERMINAL : CAPABLE;
 	 iteration = 0;
 
-	 for (start_class = pcp->cc; start_class <= final_class && 
+	 for (start_class = pcp->cc; start_class <= final_class &&
 		 complete != TERMINAL; ++start_class) {
 
 	    t = runTime ();
@@ -235,7 +235,7 @@ void isom_options (int format, struct pcp_vars *pcp)
 		  user_supplied = FALSE;
 #ifdef HAVE_GMP
 		  autgp_order (&pga, pcp);
-#endif 
+#endif
 	       }
 	       else {
 		  auts = read_auts_from_file (FileName, &pga.m, pcp);
@@ -253,7 +253,7 @@ void isom_options (int format, struct pcp_vars *pcp)
 	       }
 	       x_dim = pga.m; y_dim = pcp->lastg;
 
-	       /* construct standard presentation relative to smallest 
+	       /* construct standard presentation relative to smallest
 		  permissible characteristic subgroup in p-multiplicator */
 
 	       standard_presentation (&identity_map, output, auts, &pga, pcp);
@@ -267,15 +267,15 @@ void isom_options (int format, struct pcp_vars *pcp)
 	       fscanf (Status, "%d", &status);
 	       fscanf (Status, "%d", &complete);
 	       CloseFile (Status);
-                 
+
 	       /* have we finished the construction? */
-	       finished = (status == END_OF_CLASS && 
+	       finished = (status == END_OF_CLASS &&
 			   (start_class == final_class || complete == TERMINAL));
 
-	       /* organise to write modified presentation + automorphisms 
+	       /* organise to write modified presentation + automorphisms
 		  to file ISOM_PP */
-              
-	       if (!identity_map || finished)  
+
+	       if (!identity_map || finished)
 	       {
 		  copy_file( "ISOM_present", "ISOM_PP" );
 		  append_file( "ISOM_NextClass", "ISOM_PP" );
@@ -287,13 +287,13 @@ void isom_options (int format, struct pcp_vars *pcp)
 
 	       /* if necessary, set up new presentation + other information */
 	       FileName = OpenFile ("ISOM_PP", "r");
-	       group_present = setup_start_info (identity_map, status, 
+	       group_present = setup_start_info (identity_map, status,
 						 FileName, FILE_INPUT, &pga, pcp);
 
 	       handle_error (group_present);
 
 	       /* if appropriate, factor subgroup from p-multiplicator */
-	       if (status != END_OF_CLASS) 
+	       if (status != END_OF_CLASS)
 		  factor_subgroup (pcp);
 
 	       /* reinitialise pga structure */
@@ -308,24 +308,24 @@ void isom_options (int format, struct pcp_vars *pcp)
 
 	    /* the group may have completed only when relations are enforced;
 	       this is an attempt to determine this case */
-	    if (pga.nuclear_rank != 0 && pcp->complete) 
+	    if (pga.nuclear_rank != 0 && pcp->complete)
 	       break;
-            
+
 	    t = runTime () - t;
-	    printf ("Computing standard presentation for class %d took %.2f seconds\n", 
+	    printf ("Computing standard presentation for class %d took %.2f seconds\n",
 		    start_class, t * CLK_SCALE);
 	 }
 
 	 /* we currently may have presentation for p-covering group;
-	    or is the starting group terminal? if so, we may want to 
+	    or is the starting group terminal? if so, we may want to
 	    use last_class to revert to group presentation */
 
 	 if (!user_supplied && iteration == 0 && !pcp->complete)
 	    last_class (pcp);
 
 	 /* is the group terminal? */
-	 if (complete == TERMINAL) 
-	    printf ("The largest %d-quotient of the group has class %d\n", 
+	 if (complete == TERMINAL)
+	    printf ("The largest %d-quotient of the group has class %d\n",
 		    pcp->p, pcp->cc);
 
 	 if (iteration == 0) break;
@@ -336,7 +336,7 @@ void isom_options (int format, struct pcp_vars *pcp)
 	 break;
 
       case PRINT_PCP:
-	 if (group_present) 
+	 if (group_present)
 	    print_presentation (TRUE, pcp);
 	 break;
 
@@ -349,30 +349,30 @@ void isom_options (int format, struct pcp_vars *pcp)
 	    printf ("Presentation written to file\n");
 	 }
 	 break;
- 
+
       case COMPARE:
 	 valid = get_description ("Enter file name storing first presentation: ",
 				  &len1, &seq1, pcp);
 	 if (!valid) break;
-	 valid = get_description ("Enter file name storing second presentation: ", 
+	 valid = get_description ("Enter file name storing second presentation: ",
 				  &len2, &seq2, pcp);
 
 	 if (!valid) break;
 	 equal = (len1 == len2) ? compare_sequences (seq1, seq2, len1): FALSE;
 
-	 printf ("Identical presentations? %s\n", equal == TRUE ? 
+	 printf ("Identical presentations? %s\n", equal == TRUE ?
 		 "True" : "False");
 	 free_vector (seq1, 1);
 	 free_vector (seq2, 1);
 	 break;
 
-      case STANDARD_PRINT_LEVEL: 
+      case STANDARD_PRINT_LEVEL:
 	 read_value (TRUE, "Input print level for construction (0-2): ",
 		     &output, 0);
-	 /* allow user to supply same max print level as for 
+	 /* allow user to supply same max print level as for
 	    p-quotient calculations */
 	 if (output == MAX_STANDARD_PRINT + 1)
-	    --output; 
+	    --output;
 	 if (output > MAX_STANDARD_PRINT) {
 	    printf ("Print level must lie between %d and %d\n",
 		    MIN_STANDARD_PRINT, MAX_STANDARD_PRINT);
@@ -386,7 +386,7 @@ void isom_options (int format, struct pcp_vars *pcp)
 
       case ISOM_OPTION:
 	 FileName = OpenFile (name, "r");
-	 group_present = setup_start_info (FALSE, 0, FileName, 
+	 group_present = setup_start_info (FALSE, 0, FileName,
 					   FILE_INPUT, &pga, pcp);
          pcp->multiplicator_rank = pcp->lastg - y[pcp->clend + pcp->cc-1];
 	 last_class (pcp);
@@ -395,8 +395,8 @@ void isom_options (int format, struct pcp_vars *pcp)
 	 verify_read (nmr_items, 1);
 	 nmr_items = fscanf (FileName, "%d", &pga.soluble);
 	 verify_read (nmr_items, 1);
-        
-	 printf ("Images of user-supplied generators are listed last below\n"); 
+
+	 printf ("Images of user-supplied generators are listed last below\n");
 	 print_map (pcp);
 #ifdef HAVE_GMP
 	 fscanf (FileName, "\n");
@@ -426,7 +426,7 @@ void isom_options (int format, struct pcp_vars *pcp)
 	 break;
 
       }                         /* switch */
-   } while (option != 0 && option != MAXOPTION);      
+   } while (option != 0 && option != MAXOPTION);
 }
 
 /* list available menu options */
@@ -465,12 +465,12 @@ static Logical setup_start_info (Logical identity_map, Logical status, FILE *fil
 #if defined (TIME)
    int t;
    t = runTime ();
-#endif 
+#endif
 
    if (!identity_map) {
 
       /* we must recompute the presentation since generators and
-	 relations have been altered by applying the standard map */ 
+	 relations have been altered by applying the standard map */
 
       /* memory leak September 1996 */
       if (user_gen_name != NULL) {
@@ -486,21 +486,21 @@ static Logical setup_start_info (Logical identity_map, Logical status, FILE *fil
       }
 
       exit_value = pquotient (0, 0, file, format, pcp);
-      if (exit_value == SUCCESS) 
+      if (exit_value == SUCCESS)
 	 group_present = TRUE;
 
 #if defined (TIME)
       printf ("Time to recompute pcp is %.2f\n", (runTime () - t) * CLK_SCALE);
-#endif 
+#endif
 
    }
    else {
       /* generators and relations of presentation have not changed --
-	 we can restore presentation for either full p-covering group 
+	 we can restore presentation for either full p-covering group
 	 or class c + 1 quotient */
-      if (status == END_OF_CLASS) 
+      if (status == END_OF_CLASS)
 	 presentation_file = OpenFile ("ISOM_group_file", "r");
-      else 
+      else
 	 presentation_file = OpenFile ("ISOM_cover_file", "r");
 
       restore_pcp (presentation_file, pcp);
@@ -513,7 +513,7 @@ static Logical setup_start_info (Logical identity_map, Logical status, FILE *fil
    printf ("The modified presentation is \n");
    print_presentation (TRUE, pcp);
    pcp->diagn = FALSE;
-#endif 
+#endif
 
    if (!group_present || pcp->cc == 0)
       return group_present;
@@ -542,7 +542,7 @@ static Logical setup_start_info (Logical identity_map, Logical status, FILE *fil
    return group_present;
 }
 
-/* factor subgroup whose generators are listed in Subgroup file 
+/* factor subgroup whose generators are listed in Subgroup file
    from p-multiplicator to give reduced p-multiplicator */
 
 void factor_subgroup (struct pcp_vars *pcp)
@@ -559,8 +559,8 @@ void factor_subgroup (struct pcp_vars *pcp)
    if (Subgroup == (FILE *) NULL) return;
 
    while (!feof (Subgroup)) {
- 
-      if (fscanf (Subgroup, "%d", &flag) == -1) 
+
+      if (fscanf (Subgroup, "%d", &flag) == -1)
 	 continue;
 
       /* should we eliminate (in order to renumber the generators)? */
@@ -576,7 +576,7 @@ void factor_subgroup (struct pcp_vars *pcp)
 
       for (i = 1; i <= pcp->lastg; ++i)
 	 y[cp + pcp->lastg + i] = 0;
-  
+
       echelon (pcp);
 
    }
@@ -584,7 +584,7 @@ void factor_subgroup (struct pcp_vars *pcp)
 }
 
 void handle_error (Logical group_present)
-{  
+{
    if (group_present == FALSE) {
       printf ("Error in Standard Presentation Program\n");
       exit (FAILURE);
@@ -605,7 +605,7 @@ static Logical compare_sequences (int *s, int *t, int length)
    return equal;
 }
 
-/* read group from file and set up its compact description 
+/* read group from file and set up its compact description
    as sequence seq of length len */
 
 int get_description (char *string, int *len, int **seq, struct pcp_vars *pcp)
@@ -616,7 +616,7 @@ int get_description (char *string, int *len, int **seq, struct pcp_vars *pcp)
    name = GetString (string);
    file = OpenFile (name, "r");
    if (file == NULL) {
-      if (isatty (0)) 
+      if (isatty (0))
 	 return FALSE;
       else
 	 exit (FAILURE);
@@ -633,6 +633,6 @@ int get_description (char *string, int *len, int **seq, struct pcp_vars *pcp)
 
    return TRUE;
 }
-         
-#endif 
-#endif 
+
+#endif
+#endif

@@ -10,10 +10,10 @@
 #include "pq_defs.h"
 #include "pcp_vars.h"
 
-/* subroutine to delete all word and subgroup tables 
-   entries, depending upon the value of type; 
-   if type = 1 delete only the word table entries; 
-   if type = 2, delete only the subgroup table entries; 
+/* subroutine to delete all word and subgroup tables
+   entries, depending upon the value of type;
+   if type = 1 delete only the word table entries;
+   if type = 2, delete only the subgroup table entries;
    if type = 0, delete both */
 
 void delete_tables (int type, struct pcp_vars *pcp)

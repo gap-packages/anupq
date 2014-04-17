@@ -29,7 +29,7 @@ void text (int message, int arg1, int arg2, int arg3, int arg4)
       PRINT ("Generator %d is redundant\n", arg1);
       return;
    case 5:
-#if defined (GROUP) 
+#if defined (GROUP)
       PRINT ("\nGroup completed.");
 #endif
       PRINT (" Lower exponent-%d central class = %d,", arg2, arg1);
@@ -54,14 +54,14 @@ void text (int message, int arg1, int arg2, int arg3, int arg4)
       return;
    case 11:
       PRINT ("Ran out of space during computation\n");
-      PRINT ("Number of generators in last class is %d\n", arg1); 
+      PRINT ("Number of generators in last class is %d\n", arg1);
       return;
    case 12:
       PRINT ("\nRank of %d-multiplicator is %d\n", arg1, arg2);
       return;
    case 13:
       PRINT ("%d ", arg1);
-      s = (arg1 == 1) ? "" : "s";  
+      s = (arg1 == 1) ? "" : "s";
       t = (arg3 == TRUE) ? "collected" : "will be collected";
       PRINT ("relation%s of class %d %s\n", s, arg2, t);
       return;
@@ -77,14 +77,14 @@ void text (int message, int arg1, int arg2, int arg3, int arg4)
    case 17:
       PRINT ("The number of defining generators must be less than %d\n", arg1);
       return;
-   case 18: 
+   case 18:
       PRINT ("A relation is too long -- increase the value of MAXWORD ");
       PRINT ("in constants.h\nand recompile pq\n");
       return;
    case 19:
       PRINT ("Evaluation in compute_degree may cause integer overflow\n");
       return;
-   default: 
+   default:
       PRINT ("Bad message number %d", message);
    }
 }

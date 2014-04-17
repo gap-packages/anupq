@@ -15,9 +15,9 @@
 
 void class_setup (int new_space, struct pcp_vars *pcp);
 
-/* this routine moves existing structures in the array y to create 
-   the space necessary to store the presentation to be computed for 
-   the next class; for a description of the basic data structures, 
+/* this routine moves existing structures in the array y to create
+   the space necessary to store the presentation to be computed for
+   the next class; for a description of the basic data structures,
    read the header file setup.h */
 
 void setup (struct pcp_vars *pcp)
@@ -67,11 +67,11 @@ void setup (struct pcp_vars *pcp)
    /* set up class 1 */
    if (pcp->cc == 1) {
 
-      /* y[pcp->clend + i] is the number of the last pcp generator 
+      /* y[pcp->clend + i] is the number of the last pcp generator
 	 in class i; set y[pcp->clend] = 0 for convenience */
 
       pcp->clend = pcp->fronty;
-      for (i = 0; i <= MAXCLASS; ++i)  
+      for (i = 0; i <= MAXCLASS; ++i)
 	 y[pcp->clend + i] = 0;
 
       pcp->dgen = pcp->clend + MAXCLASS + ndgen + 1;
@@ -113,7 +113,7 @@ void setup (struct pcp_vars *pcp)
 	*/
 
       /* set up inverse, j^(p - 1), for defining generator j;
-	 not all inverses are required but we choose to compute these 
+	 not all inverses are required but we choose to compute these
 	 as such information is useful for the Holt & Rees programs */
 
       for (j = 1; j <= ndgen; ++j) {
@@ -125,37 +125,37 @@ void setup (struct pcp_vars *pcp)
 	 y[pcp->lused - 2] = pcp->dgen - j;
 	 y[pcp->lused] = PACK2 (pcp->pm1, j);
       }
-   
-      /* for generators of current class, generator eliminating 
+
+      /* for generators of current class, generator eliminating
 	 equations are pointed to by y[structure + i];
 	 y[structure + i] is positive if generator i is not redundant;
 	 y[structure + i] = 0 if generator i is trivial;
 	 y[structure + i] = -ptr if generator i has value pointed to by ptr;
-         
-	 each positive word in y[structure + i] has 3 pieces of 
+
+	 each positive word in y[structure + i] has 3 pieces of
 	 information stored in it arranged as follows --
-	 bits 25 to the (no of bits in a computer word - 1) contain 
-	 weight (class) information; 
+	 bits 25 to the (no of bits in a computer word - 1) contain
+	 weight (class) information;
 	 bits 0 to 24 contain the defining information for generator i;
 	 the defining information is composed of 2 parts,
 	 bits 0 to 8 containing a say, and bits 9 to 24 containing b say;
 	 if b = 0 then generator i is on the image of defining generator a;
 	 if a = 0 then generator i is on the power b^p;
-	 if both a and b are non-zero then generator i is on the 
-	 commutator (b, a); it is possible that this version allows the 
+	 if both a and b are non-zero then generator i is on the
+	 commutator (b, a); it is possible that this version allows the
 	 user to control the the precise breakdown of the word via
 	 the run-time options -c and -d */
 
       /* insert structure information to indicate that i is irredundant */
-      for (i = 1; i <= ndgen; ++i)  
+      for (i = 1; i <= ndgen; ++i)
 	 y[pcp->structure + i] = i;
 
       return;
    }
 
    /* for class 2 we create space for --
-      the pointers to powers (base address pcp->ppower), 
-      pointers to pointers to commutators (base address pcp->ppcomm), 
+      the pointers to powers (base address pcp->ppower),
+      pointers to pointers to commutators (base address pcp->ppcomm),
       pointers to commutators, and additional structure information;
       this data is accommodated by moving the structure array forward */
 
@@ -169,7 +169,7 @@ void setup (struct pcp_vars *pcp)
 	 class_setup (new_space, pcp);
 	 return;
       }
-   
+
       /* the following additional space is required --
 	 for pcp->ppower = lastg; for pcp->ppower = lastg;
 	 for pcp->ppcomm = lastg - 1; for pcomm = pcp->ncomm;
@@ -186,19 +186,19 @@ void setup (struct pcp_vars *pcp)
       if (is_space_exhausted (0, pcp))
 	 return;
 
-      for (i = 1; i <= lastg; ++i)  
+      for (i = 1; i <= lastg; ++i)
 	 y[pcp->structure + i] = y[pcp->structure + new_space + i];
 
       /* pointers to powers follow structure plus any spare area */
       pcp->ppower = pcp->structure + lastg + pcp->ncomm + ndgen;
 
-      for (i = 1; i <= lastg; ++i)  
+      for (i = 1; i <= lastg; ++i)
 	 y[pcp->ppower + i] = 0;
 
-      /* initialise pcp->ppcomm so that y[pcp->ppcomm + 2] is the 
+      /* initialise pcp->ppcomm so that y[pcp->ppcomm + 2] is the
 	 first location after y[pcp->ppower + lastg] */
       pcp->ppcomm = pcp->ppower + lastg - 1;
-   
+
       /* pointers to commutators follow in lexicographic order
 	 after y[pcp->ppcomm + lastg] */
       pcomm = pcp->ppcomm + lastg;
@@ -207,7 +207,7 @@ void setup (struct pcp_vars *pcp)
 	 y[pcp->ppcomm + i] = pcomm;
       }
 
-      for (i = 1, bound = pcp->ncomm; i <= bound; ++i)  
+      for (i = 1, bound = pcp->ncomm; i <= bound; ++i)
 	 y[pcp->ppcomm + lastg + i] = 0;
 
       return;
@@ -268,7 +268,7 @@ void setup (struct pcp_vars *pcp)
    pcp->subgrp = pcp->words;
    pcp->submlg = pcp->subgrp - lastg;
 
-   for (i = 1; i <= lastg; ++i)  
+   for (i = 1; i <= lastg; ++i)
       y[pcp->structure + i] = y[pcp->structure + new_space + i];
 
    /* move pointers to powers forward */
@@ -281,7 +281,7 @@ void setup (struct pcp_vars *pcp)
    }
 
    pcp->ppower = pcp->structure + lastg + max_gens;
-   for (i = end_ccm2 + 1; i <= lastg; ++i)  
+   for (i = end_ccm2 + 1; i <= lastg; ++i)
       y[pcp->ppower + i] = 0;
 
    oldpc = pcp->ppcomm + end_ccm2;
@@ -305,7 +305,7 @@ void setup (struct pcp_vars *pcp)
 	 }
 
 	 x = w - 2 - halfwt;
-	 if (x > 0) 
+	 if (x > 0)
 	    /* make room for (w - 2, pcp->cc - (w - 2)) commutators */
 	    k = y[class_end + pcp->cc - w + 2] - value;
 	 else {
@@ -315,7 +315,7 @@ void setup (struct pcp_vars *pcp)
 	    else
 	       k = 0;
 	 }
-	 for (j = 1; j <= k; ++j)  
+	 for (j = 1; j <= k; ++j)
 	    y[pcomm + j] = 0;
 	 pcomm += k;
       }
@@ -325,7 +325,7 @@ void setup (struct pcp_vars *pcp)
    s = y[class_end + pcp->cc - 2] + 1;
    k = y[class_end + 1];
    for (i = s; i <= lastg; ++i) {
-      for (j = 1; j <= k; ++j)  
+      for (j = 1; j <= k; ++j)
 	 y[pcomm + j] = 0;
       y[pcp->ppcomm + i] = pcomm;
       pcomm += k;
@@ -344,7 +344,7 @@ void class_setup (int new_space, struct pcp_vars *pcp)
    register int bound = pcp->lastg;
 
    new_space -= (pcp->ppower - (pcp->structure + pcp->lastg));
-   if (new_space > 0) { 
+   if (new_space > 0) {
       if (is_space_exhausted (new_space, pcp))
 	 return;
       pcp->structure -= new_space;
@@ -352,7 +352,7 @@ void class_setup (int new_space, struct pcp_vars *pcp)
       pcp->subgrp = pcp->words;
       pcp->submlg = pcp->subgrp - pcp->lastg;
 
-      for (i = 1; i <= bound; ++i)  
+      for (i = 1; i <= bound; ++i)
 	 y[pcp->structure + i] = y[pcp->structure + new_space + i];
    }
    pcp->ncset = 0;

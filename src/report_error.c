@@ -10,7 +10,7 @@
 #include "pq_defs.h"
 #include "constants.h"
 
-/* print a run-time error message -- it usually occurs 
+/* print a run-time error message -- it usually occurs
    when a relation references an unknown generator */
 
 void report_error (int a, int b, int c)

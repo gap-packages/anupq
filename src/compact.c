@@ -26,7 +26,7 @@ void compact (struct pcp_vars *pcp)
    i = pcp->gspace;
 
 #ifndef DEBUG
-   if (pcp->fullop || pcp->diagn)  
+   if (pcp->fullop || pcp->diagn)
 #endif
       text (2, pcp->lused, pcp->structure, 0, 0);
 
@@ -54,7 +54,7 @@ void compact (struct pcp_vars *pcp)
    pcp->lused = new_address;
 
 #ifndef DEBUG
-   if (pcp->fullop || pcp->diagn)  
+   if (pcp->fullop || pcp->diagn)
 #endif
       PRINT ("After compaction Lused = %d\n", pcp->lused);
 

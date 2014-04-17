@@ -7,11 +7,11 @@
 **
 */
 
-/* when the standard C command "system" executes, it forks -- 
-   thereby increasing significantly the size of the job; 
+/* when the standard C command "system" executes, it forks --
+   thereby increasing significantly the size of the job;
 
-   this procedure is a Unix-specific version of the command 
-   which does not fork; in most respects, it is similar to vfork; 
+   this procedure is a Unix-specific version of the command
+   which does not fork; in most respects, it is similar to vfork;
 
    the code was originally written by Werner Nickel for SPARC;
    it was later modified for NeXT machine by Frank Celler */

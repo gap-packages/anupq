@@ -12,7 +12,7 @@
 
 #if !defined (CONSISTENCY_FILTER)
 
-/* process those consistency relations of weight wc not already used; 
+/* process those consistency relations of weight wc not already used;
    the value of type determines the consistency relations processed;
    if type = 0 then all relations are processed;
    for Lie Algebra calculations, the type is always 3  */
@@ -35,9 +35,9 @@ void consistency (int type, int *queue, int *queue_length, int wc, struct pcp_va
    register int c_end;
 
    register int jacobi_wt = wc;
-   register int bound = jacobi_wt >> 1; 
+   register int bound = jacobi_wt >> 1;
    register int constant;
-   register int offset;   
+   register int offset;
    register int entry;
    register int p1;
 
@@ -51,7 +51,7 @@ void consistency (int type, int *queue, int *queue_length, int wc, struct pcp_va
 
 #include "access.h"
 
-   /* process the consistency equations (a^p) a = a (a^p) 
+   /* process the consistency equations (a^p) a = a (a^p)
       where 2 * WT(a) + 1 = jacobi_wt */
 
    if (type == 0 || type == 1) {
@@ -63,11 +63,11 @@ void consistency (int type, int *queue, int *queue_length, int wc, struct pcp_va
 	 a_end = y[++offset];
 
 	 for (a = a_start; a <= a_end; a++) {
-	    compute = (!metabelian || (metabelian && 
+	    compute = (!metabelian || (metabelian &&
            (PART2 (y[structure + a]) == 0 || PART3 (y[structure + a]) == 0)));
 	    if (compute) {
 	       jacobi (a, a, a, 0, pcp);
-	       if (pcp->redgen != 0 && pcp->m != 0) 
+	       if (pcp->redgen != 0 && pcp->m != 0)
 		  queue[++*queue_length] = pcp->redgen;
 	    }
 	    if (pcp->overflow || (pcp->complete != 0 && !pcp->multiplicator))
@@ -76,8 +76,8 @@ void consistency (int type, int *queue, int *queue_length, int wc, struct pcp_va
       }
    }
 
-   /* process the consistency equations 
-      (b^p) a = b^(p - 1) (ba) and b (a^p) = (ba) a^(p - 1) 
+   /* process the consistency equations
+      (b^p) a = b^(p - 1) (ba) and b (a^p) = (ba) a^(p - 1)
       where b > a and WT(b) + WT(a) + 1 = jacobi_wt */
 
    if (type == 0 || type == 2) {
@@ -95,7 +95,7 @@ void consistency (int type, int *queue, int *queue_length, int wc, struct pcp_va
 	 for (a = a_start; a <= a_end; ++a) {
 
 	    /* ensure b > a */
-	    b_start = MAX(y[offset] + 1, a + 1); 
+	    b_start = MAX(y[offset] + 1, a + 1);
 	    for (b = b_start; b <= b_end; ++b) {
 
 	       /* introduce Vaughan-Lee consistency check restriction */
@@ -104,11 +104,11 @@ void consistency (int type, int *queue, int *queue_length, int wc, struct pcp_va
 		     in filling in the tail on (b, a)^p */
 		  p1 = y[p_pcomm + b];
 		  if (y[p1 + a] <= 0 || y[p1 + a] >= pcp->first_pseudo) {
-		     compute = (!metabelian || (metabelian && (PART2 
-              (y[structure + b]) == 0 || PART3(y[structure + b]) == 0))); 
+		     compute = (!metabelian || (metabelian && (PART2
+              (y[structure + b]) == 0 || PART3(y[structure + b]) == 0)));
 		     if (compute) {
 			jacobi (b, b, a, 0, pcp);
-			if (pcp->redgen != 0 && pcp->m != 0) 
+			if (pcp->redgen != 0 && pcp->m != 0)
 			   queue[++*queue_length] = pcp->redgen;
 		     }
 		     if (pcp->overflow || (pcp->complete != 0 && !pcp->multiplicator))
@@ -116,7 +116,7 @@ void consistency (int type, int *queue, int *queue_length, int wc, struct pcp_va
 		  }
 	       }
 
-	       /* check if this jacobi relation has already been 
+	       /* check if this jacobi relation has already been
 		  used in filling in the tail on (b, a^p) */
 	       entry = y[p_power + a];
 	       if (entry <= 0 || entry >= b) {
@@ -125,7 +125,7 @@ void consistency (int type, int *queue, int *queue_length, int wc, struct pcp_va
           PART2 (y[structure + b]) == 0 || PART3(y[structure + b]) == 0)));
 		  if (compute) {
 		     jacobi (b, a, a, 0, pcp);
-		     if (pcp->redgen != 0 && pcp->m != 0) 
+		     if (pcp->redgen != 0 && pcp->m != 0)
 			queue[++*queue_length] = pcp->redgen;
 		  }
 		  if (pcp->overflow || (pcp->complete != 0 && !pcp->multiplicator))
@@ -151,10 +151,10 @@ void consistency (int type, int *queue, int *queue_length, int wc, struct pcp_va
 
 	    /* find range of c and ensure c > b */
 	    offset = constant - WT(y[structure + b]);
-	    c_start = MAX(y[offset] + 1, b + 1); 
-	    c_end = y[++offset]; 
+	    c_start = MAX(y[offset] + 1, b + 1);
+	    c_end = y[++offset];
 
-	    /* where possible, avoid redoing those jacobis used to 
+	    /* where possible, avoid redoing those jacobis used to
 	       fill in tails on (c, (b, a)) */
 	    if (!metabelian) {
 	       p1 = y[p_pcomm + b];
@@ -163,12 +163,12 @@ void consistency (int type, int *queue, int *queue_length, int wc, struct pcp_va
 	    }
 
 	    for (c = c_start; c <= c_end; ++c) {
-	       compute = (!metabelian || (metabelian &&  
+	       compute = (!metabelian || (metabelian &&
    (PART2 (y[structure + b]) == 0 || PART3 (y[structure + b]) == 0 ||
    PART2 (y[structure + c]) == 0 || PART3 (y[structure + c]) == 0)));
 	       if (compute) {
 		  jacobi (c, b, a, 0, pcp);
-		  if (pcp->redgen != 0 && pcp->m != 0) 
+		  if (pcp->redgen != 0 && pcp->m != 0)
 		     queue[++*queue_length] = pcp->redgen;
 	       }
 	       if (pcp->overflow || (pcp->complete != 0 && !pcp->multiplicator))
@@ -179,4 +179,4 @@ void consistency (int type, int *queue, int *queue_length, int wc, struct pcp_va
    }
 }
 
-#endif 
+#endif

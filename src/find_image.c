@@ -12,7 +12,7 @@
 #include "pga_vars.h"
 #include "pq_functions.h"
 
-/* find the image of the allowable subgroup having supplied label under 
+/* find the image of the allowable subgroup having supplied label under
    the action of automorphism; compute and return its label */
 
 int find_image (int label, int **auts, struct pga_vars *pga, struct pcp_vars *pcp)
@@ -31,7 +31,7 @@ int find_image (int label, int **auts, struct pga_vars *pga, struct pcp_vars *pc
 
    S = label_to_subgroup (&index, &subset, label, pga);
    S_transpose = transpose (S, pga->s, pga->q);
-   Image_transpose = multiply_matrix (A, pga->q, pga->q, 
+   Image_transpose = multiply_matrix (A, pga->q, pga->q,
 				      S_transpose, pga->s, pga->p);
    Image = transpose (Image_transpose, pga->q, pga->s);
    K = echelonise_matrix (Image, pga->s, pga->q, pga->p, subset, pga);

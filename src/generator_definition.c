@@ -37,16 +37,16 @@ void generator_definition (int gen, int *k, struct pcp_vars *pcp)
 	 gen = i;
       }
       else {
-	 /* we have a power entry -- work out its structure recursively; 
-	    the structure (d^p)^j, where d is a defining generator, has 
+	 /* we have a power entry -- work out its structure recursively;
+	    the structure (d^p)^j, where d is a defining generator, has
 	    weight j + 1 and thus its structure is j + 1 copies of d */
 	 j = 2;
 	 while (i > pcp->ndgen) {
 	    i = PART2 (y[pcp->structure + i]);
 	    ++j;
 	 }
-	 for (; j > 0; --j, --(*k)) 
+	 for (; j > 0; --j, --(*k))
 	    y[pcp->lused + *k] = i;
       }
-   } while (i != 0); 
+   } while (i != 0);
 }

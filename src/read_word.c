@@ -58,7 +58,7 @@ static void display_message (int type)
 }
 
 /* set up array of generators x1, x2, .., xlastg and their
-   inverses to represent the pcp generators of the group; 
+   inverses to represent the pcp generators of the group;
    this permits words to be input using the pretty format */
 
 void setup_symbols (struct pcp_vars *pcp)
@@ -71,7 +71,7 @@ void setup_symbols (struct pcp_vars *pcp)
 
    if (user_gen_name != NULL) {
       num_gens = user_gen_name[0].first;
-     
+
       for (i = 1; i <= num_gens; ++i) {
          free_vector (user_gen_name[i].g, 0);
       }
@@ -104,7 +104,7 @@ void setup_symbols (struct pcp_vars *pcp)
 	 word_put_last (user_gen_name + 2 * i - 1, digit + '0');
 	 word_put_last (user_gen_name + 2 * i, digit + '0');
 	 j %= m;
-      } 
+      }
       word_put_last (user_gen_name + 2 * i, '^');
       word_put_last (user_gen_name + 2 * i, '-');
       word_put_last (user_gen_name + 2 * i, '1');
@@ -114,7 +114,7 @@ void setup_symbols (struct pcp_vars *pcp)
    }
 }
 
-/* read in a word using the basic format; 
+/* read in a word using the basic format;
    type determines the message printed out;
    store the word with address ptr which has value lused + 1 + disp;
    y[ptr] is the length of the word (includes exponent);
@@ -125,7 +125,7 @@ void setup_symbols (struct pcp_vars *pcp)
 
    y[ptr + 1] is the exponent;
 
-   y[ptr + 2] .. y[ptr + length] are generators (either defining or pcp) 
+   y[ptr + 2] .. y[ptr + length] are generators (either defining or pcp)
    or their inverses */
 
 void read_word (FILE *file, int disp, int type, struct pcp_vars *pcp)
@@ -149,7 +149,7 @@ void read_word (FILE *file, int disp, int type, struct pcp_vars *pcp)
 	 nmr_items = fscanf (file, "%s", s);
 	 verify_read (nmr_items, 1);
       }
- 
+
       /* check for end of relation marker */
       if (check_for_symbol (s))
 	 finish = TRUE;
@@ -161,9 +161,9 @@ void read_word (FILE *file, int disp, int type, struct pcp_vars *pcp)
       /* convert string to integer */
       integer = 0;
       temp = string_to_integer (s, &integer);
-      
+
       if (integer == 0 && !(commutator || finish || *s == ',')) {
-	 printf ("Error in input data -- %s\n", s); 
+	 printf ("Error in input data -- %s\n", s);
 	 if (!isatty (0))
 	    exit (FAILURE);
       }
@@ -199,18 +199,18 @@ void pretty_read_word (FILE *file, int disp, int type, struct pcp_vars *pcp)
    find_char (';', file);
    word2prog_word (&w1, &w2);
    word_factor (&w2, &w3, &exp);
-   
+
    y[ptr] = length = 0;
    y[ptr + 1] = exp;
    while (word_delget_first (&w3, &g))
       if (g != 0)
-	 y[ptr + 1 + (++length)] = (g <= inv(g)) ? pairnumber[g]: -pairnumber[g]; 
+	 y[ptr + 1 + (++length)] = (g <= inv(g)) ? pairnumber[g]: -pairnumber[g];
    word_clear (&w1); word_clear (&w2); word_clear (&w3);
 
-   if (length != 0)  
+   if (length != 0)
       y[ptr] = ++length;
-      
-   if (file != stdin) 
+
+   if (file != stdin)
       return;
 
    printf ("The input word is ");
@@ -229,9 +229,9 @@ static void setup_relation (int disp, int length, int type, Logical commutator, 
    int u[MAXWORD];
    register int total;
    register int ptr;
-   Logical commutator_relation; 
+   Logical commutator_relation;
 
-   /* currently, only a commutator which is one side of a 
+   /* currently, only a commutator which is one side of a
       relation is not expanded -- this may be changed later */
    commutator_relation = (commutator && (type == LHS || type == RHS));
 
@@ -255,12 +255,12 @@ static void setup_relation (int disp, int length, int type, Logical commutator, 
       if (commutator_relation || !commutator)
 	 for (i = 1; i < length - 1; ++i)
 	    u[i] = t[i + 1];
-      else {      
-	 for (i = 2; i < length; ++i)  
+      else {
+	 for (i = 2; i < length; ++i)
 	    expand_commutator (u, t[i]);
       }
 
-      /* check how much space is required to store the word in y */ 
+      /* check how much space is required to store the word in y */
       total = 2;
       while (u[total] != 0)
 	 ++total;
@@ -288,18 +288,18 @@ static void setup_relation (int disp, int length, int type, Logical commutator, 
    }
 
    /* set up the length */
-   if (commutator_relation) 
+   if (commutator_relation)
       y[ptr] = -length;
    else
       y[ptr] = length;
 
    PRINT ("The input word is ");
    PRINT ("%d ", y[ptr + 1]);
-   if (commutator_relation) 
+   if (commutator_relation)
       PRINT ("[ ");
    for (i = 2; i <= length; ++i)
       PRINT ("%d ", y[ptr + i]);
-   if (commutator_relation) 
+   if (commutator_relation)
       PRINT ("]");
    PRINT ("\n");
 }
@@ -311,8 +311,8 @@ static int check_for_commutator (char *s)
    int not_found;
    register int length = strlen (s);
 
-   while (length > 0 && (not_found = 
-			 (s[length - 1] != LHS_COMMUTATOR && s[length - 1] != RHS_COMMUTATOR)))  
+   while (length > 0 && (not_found =
+			 (s[length - 1] != LHS_COMMUTATOR && s[length - 1] != RHS_COMMUTATOR)))
       --length;
 
    return !not_found;
@@ -345,7 +345,7 @@ static int string_to_integer (char *s, int *integer)
    for (n = 0; s[i] != '\0'; i++) {
       if (isdigit (s[i])) {
 	 *integer = 1;
-	 n = 10 * n + (s[i] - '0'); 
+	 n = 10 * n + (s[i] - '0');
       }
    }
 

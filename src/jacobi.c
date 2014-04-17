@@ -19,7 +19,7 @@
 
    if ptr > 0, use this equation to fill in the class pcp->cc part on y[ptr];
 
-   if ptr = 0, use this equation to check consistency so we 
+   if ptr = 0, use this equation to check consistency so we
    calculate a new relation among the class pcp->cc generators */
 
 void jacobi (int c, int b, int a, int ptr, struct pcp_vars *pcp)
@@ -47,18 +47,18 @@ void jacobi (int c, int b, int a, int ptr, struct pcp_vars *pcp)
 
 #include "access.h"
 
-#if defined (GROUP) 
+#if defined (GROUP)
    if (is_space_exhausted (2 * lastg + 3, pcp))
       return;
-#endif 
+#endif
 
-   /* cp1 and cp2 are the base addresses for the collected 
+   /* cp1 and cp2 are the base addresses for the collected
       part of the lhs and of the rhs, respectively */
    cp1 = pcp->lused;
    cp2 = cp1 + lastg;
    unc = cp2 + lastg + 1;
 
-   for (i = 1; i <= lastg; i++)  
+   for (i = 1; i <= lastg; i++)
       y[cp1 + i] = y[cp2 + i] = 0;
 
    /* calculate the class pcp->cc part of the jacobi relation
@@ -98,10 +98,10 @@ void jacobi (int c, int b, int a, int ptr, struct pcp_vars *pcp)
 	 p1 = y[p_pcomm + b];
 	 commba = y[p1 + a];
 	 collect (commba, cp2, pcp);
-#endif 
-      } 
+#endif
+      }
       else {
-	 /* calculate the class pcp->cc part of the jacobi relation 
+	 /* calculate the class pcp->cc part of the jacobi relation
 	    (ca) a^(p - 1) = c (a^p); first collect rhs */
 	 ycol = y[p_power + a];
 	 y[cp2 + c] = 1;
@@ -119,8 +119,8 @@ void jacobi (int c, int b, int a, int ptr, struct pcp_vars *pcp)
    /* the jacobi collections are completed */
 
    if ((p1 = ptr) > 0) {
-      /* we are filling in the tail on y[p1]; convert the class pcp->cc 
-	 part to string form in y[cp1 + 2 + 1] to y[cp1 + 2 + count] 
+      /* we are filling in the tail on y[p1]; convert the class pcp->cc
+	 part to string form in y[cp1 + 2 + 1] to y[cp1 + 2 + count]
 	 where count is the string length */
 
       count = 0;
@@ -129,7 +129,7 @@ void jacobi (int c, int b, int a, int ptr, struct pcp_vars *pcp)
 	 if (k != 0) {
 	    if (k < 0)
 	       k += prime;
-	    ++count; 
+	    ++count;
 	    y[cp1 + 2 + count] = PACK2 (k, i);
 	 }
       }
@@ -143,18 +143,18 @@ void jacobi (int c, int b, int a, int ptr, struct pcp_vars *pcp)
 	    pcp->lused += count + 2;
 	 }
 	 else {
-	    /* the class pcp->cc part is nontrivial so make room for 
+	    /* the class pcp->cc part is nontrivial so make room for
 	       lower class terms */
 	    address = -y[p1];
 	    count2 = y[address + 1];
 
 	    /* move class pcp->cc part up */
 	    offset = cp1 + count + 3;
-	    for (i = 1; i <= count; i++)  
+	    for (i = 1; i <= count; i++)
 	       y[offset + count2 - i] = y[offset - i];
 
 	    /* copy in lower class terms */
-	    for (i = 1; i <= count2; i++)  
+	    for (i = 1; i <= count2; i++)
 	       y[cp1 + 2 + i] = y[address + i + 1];
 
 	    /* create new header block */

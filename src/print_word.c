@@ -39,21 +39,21 @@ void print_word (int ptr, struct pcp_vars *pcp)
    }
 }
 
-/* print out exponent-vector with base address cp, first 
+/* print out exponent-vector with base address cp, first
    converting it to string stored at str for printing */
 
 void setup_word_to_print (char *type, int cp, int str, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
-#if defined (GROUP) 
+#if defined (GROUP)
    vector_to_string (cp, str, pcp);
 
    /* may need to set up pointer to this string at a later stage */
    ++str;
 
    printf ("The %s is ", type);
-   if (y[str] == 0) 
+   if (y[str] == 0)
       print_word (0, pcp);
    else
       print_word (-str + 1, pcp);

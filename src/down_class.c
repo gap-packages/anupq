@@ -44,7 +44,7 @@ void down_class (int ptr, struct pcp_vars *pcp)
       return;
 
    if (count == count1 + 1)
-      /* only 1 generator of class pcp->cc + 1 found; mark 
+      /* only 1 generator of class pcp->cc + 1 found; mark
 	 it with a -1 header block */
       y[p2 + count1 + 2] = -1;
    else {

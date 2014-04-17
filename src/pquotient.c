@@ -18,7 +18,7 @@ int pquotient (int max_class, int output, FILE *file, int format, struct pcp_var
                 /* determines level of output */
                 /* file containing input presentation */
                 /* input format for data */
-                     
+
 {
    int *auts;
    Logical report;
@@ -55,7 +55,7 @@ int pquotient (int max_class, int output, FILE *file, int format, struct pcp_var
 	 print_presentation (pcp->diagn, pcp);
       if (report || (output == 1 && pcp->complete) || pcp->lastg < 1)
 	 text (5, pcp->cc, pcp->p, pcp->lastg, 0);
-      if ((pcp->cc > 1 && pcp->cc == pcp->nocset) || pcp->complete) 
+      if ((pcp->cc > 1 && pcp->cc == pcp->nocset) || pcp->complete)
 	 break;
    } while (pcp->cc < max_class);
 
@@ -85,7 +85,7 @@ int check_for_error (struct pcp_vars *pcp)
 	 exit (FAILURE);
       else
 	 return 1;
-        
+
    }
 
    /* validity error */
@@ -96,6 +96,6 @@ int check_for_error (struct pcp_vars *pcp)
       else
 	 return 1;
    }
-   
+
    return 0;
 }

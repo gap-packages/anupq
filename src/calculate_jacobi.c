@@ -20,7 +20,7 @@ void calculate_jacobi (struct pcp_vars *pcp)
    Logical invalid = FALSE;
    int bound = pcp->ccbeg;
    int output;
-   int a, b, c; 
+   int a, b, c;
 
 #include "access.h"
 
@@ -31,14 +31,14 @@ void calculate_jacobi (struct pcp_vars *pcp)
 
    /* check the validity of the components */
    invalid = outside (a, bound) || outside (b, bound) || outside (c, bound)
-      || pcp->cc <= 2 || c < b || b < a 
+      || pcp->cc <= 2 || c < b || b < a
       || (a != b && b != c && WT(y[pcp->structure + c]) +
-	  WT(y[pcp->structure + b]) + WT(y[pcp->structure + a]) > pcp->cc) 
-      || ((a == b || b == c) && 
+	  WT(y[pcp->structure + b]) + WT(y[pcp->structure + a]) > pcp->cc)
+      || ((a == b || b == c) &&
 	  WT(y[pcp->structure + a]) + WT(y[pcp->structure + c]) + 1 > pcp->cc);
 
    /* if valid, calculate the jacobi */
-   if (!invalid) { 
+   if (!invalid) {
       output = pcp->fullop;
       pcp->fullop = TRUE;
       jacobi (c, b, a, 0, pcp);

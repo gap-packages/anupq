@@ -13,7 +13,7 @@
 #include "pq_functions.h"
 #include "constants.h"
 
-#if defined (GAP_LINK) 
+#if defined (GAP_LINK)
 
 
 /****************************************************************************
@@ -28,7 +28,7 @@ int     p1[2],  p2[2];
 *F  WriteGap( <str> )
 **                                          write <str> to gap via input pipe
 */
-void 
+void
 WriteGap (char *str)
 {
    write( p2[1], str, strlen (str) );
@@ -40,7 +40,7 @@ WriteGap (char *str)
 *F  ReadGap( <str> )
 **                     read string from gap via output pipe into buffer <str>
 */
-void 
+void
 ReadGap (char *str)
 {
    char  * ptr;
@@ -69,7 +69,7 @@ ReadGap (char *str)
 *F  WriteGapInfo( <auts>, <pga> )
 **                                write initial information to GAP input pipe
 */
-void 
+void
 WriteGapInfo (int ***auts, struct pga_vars *pga)
 {
    int                 i;
@@ -93,7 +93,7 @@ WriteGapInfo (int ***auts, struct pga_vars *pga)
    WriteGap( str );  ReadGap( str );
    sprintf( str, "ANUPQglb.genQ := [];\n"              );
    WriteGap( str );  ReadGap( str );
-   for ( i = 1;  i <= pga->m; ++i ) 
+   for ( i = 1;  i <= pga->m; ++i )
       write_GAP_matrix( 0, "ANUPQglb.genD", auts[i], pga->ndgen, 1, i );
 }
 
@@ -103,7 +103,7 @@ WriteGapInfo (int ***auts, struct pga_vars *pga)
 *F  start_GAP_file( <auts>, <pga> )
 **       start GAP process or write necessary information to existing process
 */
-void 
+void
 start_GAP_file (int ***auts, struct pga_vars *pga)
 {
    int                 pid;
@@ -164,7 +164,7 @@ start_GAP_file (int ***auts, struct pga_vars *pga)
 *F  QuitGap()
 **                                                     close the pipes to GAP
 */
-void 
+void
 QuitGap (void)
 {
    WriteGap( "quit;\n" );
@@ -181,7 +181,7 @@ QuitGap (void)
 *F  ReadFromGapPipe( <value> )
 **  read a string from the GAP output pipe and check whether it is an integer
 */
-void 
+void
 ReadFromGapPipe (int *value)
 {
    Logical     error;
@@ -202,8 +202,8 @@ ReadFromGapPipe (int *value)
 **
 *F  read_stabiliser_gens( <nr>, <sol>, <pga> )
 **                    read the insoluble stabiliser generators from the pipe;
-**                    each list of stabilisers is preceded by two integers -- 
-**                     the first indicates whether the stabiliser is soluble; 
+**                    each list of stabilisers is preceded by two integers --
+**                     the first indicates whether the stabiliser is soluble;
 **                  the second is the number of generators for the stabiliser
 */
 int ***
@@ -220,34 +220,34 @@ read_stabiliser_gens (int nr_gens, int ***sol_gens, struct pga_vars *pga)
    /* read the first two integers (is soluble and number of generators)   */
    ReadFromGapPipe(&pga->soluble);
    ReadFromGapPipe(&pga->nmr_stabilisers);
-    
+
    /* get enough room for the generators                                  */
    pga->nmr_stabilisers += current;
 
    /* memory leakage September 1996 */
-   stabiliser = reallocate_array( sol_gens, current, ndgen, 
+   stabiliser = reallocate_array( sol_gens, current, ndgen,
 				  nr_gens, pga->nmr_stabilisers,
 				  ndgen, nr_gens, TRUE );
-/* 
+/*
    if (current != 0) {
-   stabiliser = reallocate_array( sol_gens, current, ndgen, 
+   stabiliser = reallocate_array( sol_gens, current, ndgen,
    nr_gens, pga->nmr_stabilisers,
    ndgen, nr_gens, TRUE );
    }
    else {
-   stabiliser = allocate_array( pga->nmr_stabilisers, ndgen, 
+   stabiliser = allocate_array( pga->nmr_stabilisers, ndgen,
    nr_gens, TRUE );
    }
    */
 
    /* now read in the insoluble generators                                */
-   for ( gamma = current + 1;  gamma <= pga->nmr_stabilisers;  ++gamma ) 
-      for ( i = 1;  i <= ndgen;  ++i ) 
+   for ( gamma = current + 1;  gamma <= pga->nmr_stabilisers;  ++gamma )
+      for ( i = 1;  i <= ndgen;  ++i )
 	 for ( j = 1;  j <= ndgen;  ++j )
 	    ReadFromGapPipe(&stabiliser[gamma][i][j]);
 
    /* return the result                                                   */
-   return stabiliser; 
+   return stabiliser;
 }
 
 
@@ -256,7 +256,7 @@ read_stabiliser_gens (int nr_gens, int ***sol_gens, struct pga_vars *pga)
 *F  insoluble_stab_gens( <rep>, <orbit_length> )
 **          calculate the stabiliser of the supplied representative using GAP
 */
-void 
+void
 insoluble_stab_gens (int rep, int orbit_length)
 {
    char    str[MAXWORD];
@@ -275,7 +275,7 @@ insoluble_stab_gens (int rep, int orbit_length)
 **                                     write out a matrix in a GAP input form
 **
 */
-void 
+void
 write_GAP_matrix (FILE *GAP_input, char *gen, int **A, int size, int start, int nr)
 {
    int         i, j;
@@ -305,7 +305,7 @@ write_GAP_matrix (FILE *GAP_input, char *gen, int **A, int size, int start, int 
 *F  StartGapFile( <pga> )
 **                            write basic input information to GAP input pipe
 */
-void 
+void
 StartGapFile (struct pga_vars *pga)
 {
    char                str[MAXWORD];
@@ -317,5 +317,5 @@ StartGapFile (struct pga_vars *pga)
 }
 
 
-#endif 
+#endif
 

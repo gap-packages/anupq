@@ -14,7 +14,7 @@
 #include "pq_functions.h"
 #define ITERATION 6
 
-/* read class and order bounds and step size information 
+/* read class and order bounds and step size information
    required in iteration of the algorithm */
 
 void iteration_information (int *subgroup_rank, struct pga_vars *flag, int *class_bound, int *order_bound, int **step_sequence, struct pga_vars *pga, struct pcp_vars *pcp)
@@ -28,7 +28,7 @@ void iteration_information (int *subgroup_rank, struct pga_vars *flag, int *clas
    read_value (TRUE, "Construct all descendants? ", &All, INT_MIN);
    if (All) {
       pga->step_size = ALL;
-      read_value (TRUE, "Set an order bound on the descendants? ", 
+      read_value (TRUE, "Set an order bound on the descendants? ",
 		  order_bound, INT_MIN);
       if (*order_bound)
 	 read_order_bound (order_bound, pcp);
@@ -53,7 +53,7 @@ void iteration_information (int *subgroup_rank, struct pga_vars *flag, int *clas
    if (!All && !Constant) {
       *step_sequence = allocate_vector (nmr_iterations, 1, 0);
       printf ("Input %d step sizes: ", nmr_iterations);
-      for (i = 1; i < nmr_iterations; ++i)    
+      for (i = 1; i < nmr_iterations; ++i)
 	 read_value (FALSE, "", &(*step_sequence)[i], 1);
       read_value (TRUE, "", &(*step_sequence)[i], 1);
    }

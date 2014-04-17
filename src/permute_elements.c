@@ -15,13 +15,13 @@
 /* compute automorphism classes of elements of a vector space;
 
    procedure requests as input rank and prime and those matrices
-   which act on the space; 
+   which act on the space;
 
-   it also permits the computation of the permutations induced 
-   by multiplying each element of the vector space by a supplied 
+   it also permits the computation of the permutations induced
+   by multiplying each element of the vector space by a supplied
    basis element; the basis element are numbered 1 .. <rank>
 
-   elements are generated in sequence and their images 
+   elements are generated in sequence and their images
    computed by matrix multiplication; orbits under the
    action of these permutations are then computed and
    orbit representatives listed;
@@ -45,7 +45,7 @@ void expand_padic (int x, int k, int p, int *expand)
 	 x -= alpha * val;
       }
       --k;
-   }     
+   }
 }
 
 void padic (int p, int rank, struct pga_vars *pga)
@@ -55,7 +55,7 @@ void padic (int p, int rank, struct pga_vars *pga)
    int bound = rank;
    int i, r;
    expand = allocate_vector (rank + 1, 0, FALSE);
-  
+
    for (r = 1; r <= pga->nmr_orbits; ++r) {
       number = pga->rep[r];
       for (i = 0; i <= rank; ++i)
@@ -85,7 +85,7 @@ void permute_elements (void)
    int subgp;
    int **permutation;
    struct pga_vars pga;
- 
+
    int *length;
    int alpha;
    int m;
@@ -111,7 +111,7 @@ void permute_elements (void)
 
    for (alpha = 1; alpha <= m; ++alpha) {
       printf ("Input the matrix for automorphism %d\n", alpha);
-      read_matrix (A, q, q); 
+      read_matrix (A, q, q);
 
       for (x = 0; x <= rank; ++x)
 	 position[0][x] = 0;
@@ -124,8 +124,8 @@ void permute_elements (void)
 	    position[0][index] = 0;
 	    ++index;
 	    ++position[0][index];
-	 }   
-      
+	 }
+
 #ifdef DEBUG
 	 printf ("\n");
 	 for (i = 0; i < rank; ++i)
@@ -137,7 +137,7 @@ void permute_elements (void)
 #ifdef DEBUG
 	 printf ("label is %d\n", label);
 #endif
- 
+
 	 /* now multiply mod p */
 	 B = multiply_matrix (position, 1, q, A, q, p);
 #ifdef DEBUG
@@ -152,14 +152,14 @@ void permute_elements (void)
 #endif
 	 if (label == 0) label = Degree;
 	 permutation[alpha][++subgp] = label;
-  
+
 	 free_matrix (B, 1, 0);
-      
+
       } while (index < rank);
 
 #ifdef DEBUG
       print_array (permutation[alpha], 1, subgp + 1);
-#endif 
+#endif
    }
 
    pga.Degree = Degree;
@@ -168,7 +168,7 @@ void permute_elements (void)
 
    for (alpha = 1; alpha <= nmr_maps; ++alpha) {
       subgp = 0;
-   
+
       for (x = 0; x <= rank; ++x)
 	 position[0][x] = 0;
 
@@ -182,7 +182,7 @@ void permute_elements (void)
 	    position[0][index] = 0;
 	    ++index;
 	    ++position[0][index];
-	 }   
+	 }
 
 #if DEBUG
 	 printf ("\n");
@@ -196,7 +196,7 @@ void permute_elements (void)
 #if DEBUG
 	 printf ("label is %d\n", label);
 #endif
- 
+
 	 B = allocate_matrix (1, rank + 1, 0, 0);
 	 for (i = 0; i < rank; ++i)
 	    B[0][i] = position[0][i];
@@ -216,7 +216,7 @@ void permute_elements (void)
 
 	 permutation[m + alpha][++subgp] = label;
 	 free_matrix (B, 1, 0);
-      
+
       } while (index < rank);
 #if DEBUG
       print_array (permutation[m + alpha], 1, subgp + 1);

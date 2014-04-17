@@ -13,15 +13,15 @@
 #include "pcp_vars.h"
 #include "pretty_filterfns.h"
 
-/* SIGNIFICANT is the number of significant characters in the 
-   keyword strings; if you change this, you'll have to change 
-   the calls to strcmp so that the strings being compared with 
+/* SIGNIFICANT is the number of significant characters in the
+   keyword strings; if you change this, you'll have to change
+   the calls to strcmp so that the strings being compared with
    label continue to have length SIGNIFICANT */
 
 #define SIGNIFICANT 3
 
 FILE *rfile;
-FILE *wfile; 
+FILE *wfile;
 
 extern int num_gens;
 extern gen_type *inv_of;
@@ -32,7 +32,7 @@ extern int paired_gens;
 char gpname[MAXIDENT];
 char filename[MAXIDENT];
 
-/* process "pretty" presentation input from file using key words; 
+/* process "pretty" presentation input from file using key words;
    this is a modified version of code written by Sarah Rees */
 
 int pretty_filter (FILE *file, int *max_class, int *output, struct pcp_vars *pcp)
@@ -66,15 +66,15 @@ int pretty_filter (FILE *file, int *max_class, int *output, struct pcp_vars *pcp
 
    strcpy (gpname, "G");
    wfile = stdout;
-   
+
    pcp->cover = 0;
 
    while (read_next_string (label, SIGNIFICANT, rfile)) {
       if (strcmp (label, "nam")==0) {
 	 read_next_string (gpname, end, rfile);
 	 /* knock off the blank spaces at the end  */
-	 i = end - 1; while (i >= 0 && gpname[i] == ' ') i-- ; 
-	 gpname[i+1] = '\0'; 
+	 i = end - 1; while (i >= 0 && gpname[i] == ' ') i-- ;
+	 gpname[i+1] = '\0';
       }
       else if (strcmp (label, "pri") == 0) {
 	 read_next_int (&prime, rfile);
@@ -95,7 +95,7 @@ int pretty_filter (FILE *file, int *max_class, int *output, struct pcp_vars *pcp
 	 read_gen_name_array (rfile);
 	 default_inverse_array ();
 	 pairnumber = anu_valloc (int, num_gens + 1);
-	 for (i = 1; i <= num_gens; i++){ 
+	 for (i = 1; i <= num_gens; i++){
 	    if (i <= inv (i)){
 	       paired_gens++;
 	       pairnumber[i] = pairnumber[inv (i)] = paired_gens;
@@ -103,8 +103,8 @@ int pretty_filter (FILE *file, int *max_class, int *output, struct pcp_vars *pcp
 	 }
       }
       else if (strcmp (label, "rel") == 0) {
-	 /* read in and store the relations/relators; every 
-	    relator/relation is actually stored as a relation 
+	 /* read in and store the relations/relators; every
+	    relator/relation is actually stored as a relation
 	    (i.e. two consecutive words in the list) */
 	 find_char ('{', rfile);
 	 pc_word_init (&w);
@@ -120,7 +120,7 @@ int pretty_filter (FILE *file, int *max_class, int *output, struct pcp_vars *pcp
 	    if (c == '='){
 	       count = 1;
 	       posn = ftell(rfile); /* mark posn */
-	       /* pick up the word at the end of the chain of '=''s as 
+	       /* pick up the word at the end of the chain of '=''s as
 		  the right hand side of the equation */
 	       do {
 		  read_next_word (&w, rfile);
@@ -133,7 +133,7 @@ int pretty_filter (FILE *file, int *max_class, int *output, struct pcp_vars *pcp
 	       if (count>1){
 		  if (!isatty (0)) fseek (rfile,posn,0);
 		  /* go back to the marker if there was more than one '=' */
-		  else { 
+		  else {
 		     /* we can't use fseek if we're inputting from stdin */
 		     printf ("You may not input relations of the type u = v = w from terminal\n");
 		     exit (FAILURE);
@@ -148,7 +148,7 @@ int pretty_filter (FILE *file, int *max_class, int *output, struct pcp_vars *pcp
       }
    }
 
-   /* a single ; or one preceded by an unrecognised keyword 
+   /* a single ; or one preceded by an unrecognised keyword
       marks the end of the data */
    find_char (';', rfile);      /* pick up the terminating ';' */
 
@@ -185,14 +185,14 @@ int pretty_filter (FILE *file, int *max_class, int *output, struct pcp_vars *pcp
       length = 1;
       while (gp <= ggp) {
 	 g = *gp;
-	 y[ptr + (++length)] = 
+	 y[ptr + (++length)] =
 	    (g <= inv (g)) ? pairnumber[g] : -pairnumber[g];
 	 gp++;
       }
-      
+
       /* set up exponent */
       if (wp->n) y[ptr + 1] = wp->n;
-      else if (length==1) y[ptr + 1] = 0; 
+      else if (length==1) y[ptr + 1] = 0;
       /* this deals with the trivial word */
       else y[ptr + 1] = 1;
 
@@ -212,13 +212,13 @@ int pretty_filter (FILE *file, int *max_class, int *output, struct pcp_vars *pcp
    free ((char *) wlp);
 
    if (user_gen_name) {
-      for (i = 0; i < gen_array_size; ++i) 
+      for (i = 0; i < gen_array_size; ++i)
 	 word_clear (user_gen_name + i);
       free ((char *) user_gen_name);
       user_gen_name = 0;
    }
    if (inv_of) {
-      free ((char *) inv_of); 
+      free ((char *) inv_of);
       inv_of = 0;
    }
 
@@ -284,7 +284,7 @@ void pretty_read_generators (struct pcp_vars *pcp)
       read_gen_name_array (rfile);
       default_inverse_array ();
       pairnumber = anu_valloc (int, num_gens + 1);
-      for (i = 1; i <= num_gens; i++) { 
+      for (i = 1; i <= num_gens; i++) {
 	 if (i <= inv (i)){
 	    paired_gens++;
 	    pairnumber[i] = pairnumber[inv (i)] = paired_gens;
@@ -323,7 +323,7 @@ void pretty_read_relations (int output, int *max_class, struct pcp_vars *pcp)
 
    printf ("Input defining set of relations (in { }): ");
 
-   /* read in and store the relations/relators; each relator/relation 
+   /* read in and store the relations/relators; each relator/relation
       is stored as a relation (two consecutive words in the list) */
 
    find_char ('{', rfile);
@@ -340,7 +340,7 @@ void pretty_read_relations (int output, int *max_class, struct pcp_vars *pcp)
       if (c == '=') {
 	 count = 1;
 	 posn = ftell(rfile);   /* mark position */
-	 /* pick up the word at the end of the chain of '=''s as 
+	 /* pick up the word at the end of the chain of '=''s as
 	    the right hand side of the equation */
 	 do {
 	    read_next_word (&w, rfile);
@@ -353,7 +353,7 @@ void pretty_read_relations (int output, int *max_class, struct pcp_vars *pcp)
 	 if (count > 1){
 	    if (!isatty (0)) fseek (rfile,posn,0);
 	    /* go back to the marker if there was more than one '=' */
-	    else { 
+	    else {
 	       /* we can't use fseek if we're inputting from stdin */
 	       printf ("You may not input relations of the type u = v = w from terminal\n");
 	       exit (FAILURE);
@@ -373,7 +373,7 @@ void pretty_read_relations (int output, int *max_class, struct pcp_vars *pcp)
    if (!pcp->valid)
       return;
 
-#if defined (GROUP) 
+#if defined (GROUP)
    read_value (TRUE, "Input exponent law (0 if none): ",
 	       &pcp->extra_relations, 0);
 #endif
@@ -398,10 +398,10 @@ void pretty_read_relations (int output, int *max_class, struct pcp_vars *pcp)
 	 y[ptr + (++length)] = (g <= inv (g)) ? pairnumber[g] : -pairnumber[g];
 	 gp++;
       }
-      
+
       /* set up exponent */
       if (wp->n) y[ptr + 1] = wp->n;
-      else if (length == 1) y[ptr + 1] = 0; 
+      else if (length == 1) y[ptr + 1] = 0;
       /* this deals with the trivial word */
       else y[ptr + 1] = 1;
 
@@ -421,13 +421,13 @@ void pretty_read_relations (int output, int *max_class, struct pcp_vars *pcp)
    free ((char *) wlp);
 
    if (user_gen_name) {
-      for (i = 0; i < gen_array_size; ++i) 
+      for (i = 0; i < gen_array_size; ++i)
 	 word_clear (user_gen_name + i);
       free ((char *) user_gen_name);
       user_gen_name = 0;
    }
    if (inv_of) {
-      free ((char *) inv_of); 
+      free ((char *) inv_of);
       inv_of = 0;
    }
 }

@@ -13,9 +13,9 @@
 
 int *subset;       /* temporary storage for definition set */
 
-/* a definition set is a subset of cardinality pga->s 
+/* a definition set is a subset of cardinality pga->s
    of the relative nucleus, a set of cardinality pga->r;
-   here, we find all subsets of cardinality pga->s which 
+   here, we find all subsets of cardinality pga->s which
    contain the elements 0 .. pga->fixed - 1;
    set up all of the definition sets as a array, list */
 
@@ -35,14 +35,14 @@ void get_definition_sets (struct pga_vars *pga)
       add_to_list (subset, pga);
    else {
       bound = MIN(pga->r - (pga->s - pga->fixed), pga->r);
-      for (i = pga->fixed; i <= bound; ++i) 
+      for (i = pga->fixed; i <= bound; ++i)
 	 visit (i, pga->s - pga->fixed - 1, pga);
    }
 
    free_vector (subset, 0);
 }
 
-/* store the definition set as a bit string; compute the number 
+/* store the definition set as a bit string; compute the number
    of available positions determined by this definition set */
 
 void add_to_list (int *subset, struct pga_vars *pga)
@@ -51,10 +51,10 @@ void add_to_list (int *subset, struct pga_vars *pga)
    int bit_string = 0;          /* to store subset */
 
    /* convert each subset to bit string */
-   for (i = 0; i < pga->s; ++i)  
+   for (i = 0; i < pga->s; ++i)
       bit_string |= 1 << subset[i];
 
-   pga->list[pga->nmr_def_sets] = bit_string; 
+   pga->list[pga->nmr_def_sets] = bit_string;
 
    /* compute the number of available positions */
    pga->available[pga->nmr_def_sets] = available_positions (subset, pga);
@@ -62,19 +62,19 @@ void add_to_list (int *subset, struct pga_vars *pga)
    ++pga->nmr_def_sets;
 }
 
-/* visit node k; d remaining elements to be found to make up 
-   subset of cardinality pga->s */ 
+/* visit node k; d remaining elements to be found to make up
+   subset of cardinality pga->s */
 
 void visit (int k, int d, struct pga_vars *pga)
-{  
+{
    register int i;
 
    subset[pga->s - d - 1] = k;
 
-   if (d == 0)  
+   if (d == 0)
       add_to_list (subset, pga);
 
-   for (i = k + 1; i < pga->r && d > 0; ++i)  
+   for (i = k + 1; i < pga->r && d > 0; ++i)
       visit (i, d - 1, pga);
 }
 

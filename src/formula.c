@@ -21,7 +21,7 @@ int exponent;
 /* echelonise the relation and add any redundant generator to the queue */
 
 void setup_echelon (int *queue, int *queue_length, int cp, struct pcp_vars *pcp)
-{ 
+{
    register int *y = y_address;
 
    register int lastg = pcp->lastg;
@@ -80,24 +80,24 @@ void evaluate_list (int *queue, int *queue_length, int *list, int depth, struct 
 }
 
 /* check that word is a normal word -- if not, discard */
-   
+
 Logical valid_word (int *list, int depth)
 {
    Logical normal_word = TRUE;
 
-   while (depth > 1 && (normal_word = (list[depth] < list[depth - 1]))) 
+   while (depth > 1 && (normal_word = (list[depth] < list[depth - 1])))
       --depth;
 
    return normal_word;
 }
-   
+
 /* build up a list whose entries are the letters of the word to be evaluated */
 
 void loop (int *queue, int *queue_length, int depth, int *list, int *nmr, int begin, int end, struct pcp_vars *pcp)
 {
    int i, k;
    char *s;
-  
+
    for (i = begin; i <= end; ++i) {
       ++*nmr;
       list[*nmr] = i;
@@ -114,7 +114,7 @@ void loop (int *queue, int *queue_length, int depth, int *list, int *nmr, int be
 	 --*nmr;
       }
       else {
-	 loop (queue, queue_length, depth, list, nmr, 
+	 loop (queue, queue_length, depth, list, nmr,
 	       first[depth - *nmr], last[depth - *nmr], pcp);
       }
    }
@@ -125,9 +125,9 @@ void loop (int *queue, int *queue_length, int depth, int *list, int *nmr, int be
 
        (x1^n * x2^n * ... * x<k>^n)^m
 
-   where each of the x<i> run over all of the generators of a 
+   where each of the x<i> run over all of the generators of a
    supplied weight in the group; n and m are positive integers;
-   echelonise the result and add any redundancies to the queue */ 
+   echelonise the result and add any redundancies to the queue */
 
 void evaluate_formula (int *queue, int *queue_length, struct pcp_vars *pcp)
 {
@@ -163,23 +163,23 @@ void evaluate_formula (int *queue, int *queue_length, struct pcp_vars *pcp)
 
    read_value (TRUE, "Input power of individual component: ",
 	       &power_of_entry, 1);
-   
+
    read_value (TRUE, "Input power of word: ", &exponent, 1);
-   
+
    for (i = 1; i <= nmr_entries; ++i) {
       first[i] = y[pcp->clend + weight[i] - 1] + 1;
       last[i] = y[pcp->clend + weight[i]];
    }
-      
-   /* generate the list of words; evaluate each, echelonise it 
+
+   /* generate the list of words; evaluate each, echelonise it
       and build up the queue of redundant generators */
    nmr = 0;
-   loop (queue, queue_length, nmr_entries, list, &nmr, 
+   loop (queue, queue_length, nmr_entries, list, &nmr,
 	 first[nmr_entries], last[nmr_entries], pcp);
 
    /* reset value of submlg */
    pcp->submlg += total;
- 
+
    free_vector (weight, 1);
    free_vector (first, 0);
    free_vector (last, 0);

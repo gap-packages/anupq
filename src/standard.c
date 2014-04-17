@@ -34,37 +34,37 @@ static int inverse_image (int l, int *perms, struct pga_vars *pga);
 static void list_subgroup (int rep, struct pga_vars *pga, struct pcp_vars *pcp);
 
 /* compute a standard presentation for a group;
-   
-   this procedure assumes that 
-   -- an arbitary finite presentation has been 
-      supplied; 
-   -- a standard presentation has been computed 
-      for the class c p-quotient; 
-   -- a presentation for the p-covering group 
-      computed using this standard presentation has 
+
+   this procedure assumes that
+   -- an arbitary finite presentation has been
+      supplied;
+   -- a standard presentation has been computed
+      for the class c p-quotient;
+   -- a presentation for the p-covering group
+      computed using this standard presentation has
       been set up before the call to this procedure;
 
-   we will now compute the standard presentation for the 
+   we will now compute the standard presentation for the
    class c + 1 p-quotient */
 
 void standard_presentation (Logical *identity_map, int standard_output, int ***auts, struct pga_vars *pga, struct pcp_vars *pcp)
-{ 
+{
    int i;
    int **map;
 #if defined (TIME)
    int t;
-#endif 
+#endif
 
    output = standard_output;
 
 #if defined (TIME)
    t = runTime ();
-#endif 
+#endif
 
    map = start_pga_run (identity_map, auts, pga, pcp);
    if (map == NULL) return;
 
-#if defined (TIME) 
+#if defined (TIME)
    printf ("time in start_pga is %.2f\n", (runTime () - t) * CLK_SCALE);
 #endif
 
@@ -76,7 +76,7 @@ void standard_presentation (Logical *identity_map, int standard_output, int ***a
       }
    }
 
-#if defined (DEBUG) 
+#if defined (DEBUG)
    printf ("Map identity? %d\n", *identity_map);
 #endif
 
@@ -129,13 +129,13 @@ static int **start_pga_run (Logical *identity_map, int ***auts, struct pga_vars 
    RESET (cover_tmp_file);
 
    /* we need compute the class c + 1 quotient only on the first
-      time through or if the map applied to the previous presentation 
-      was not the identity; in these cases, before 
+      time through or if the map applied to the previous presentation
+      was not the identity; in these cases, before
       computing class c + 1 quotient, restore complete p-cover;
-      we cannot use the reduced p-cover because a presentation having 
-      redundant generators can cause difficulties with interaction 
+      we cannot use the reduced p-cover because a presentation having
+      redundant generators can cause difficulties with interaction
       between update_generators and eliminate */
-     
+
    if (*identity_map == FALSE) {
 
       cover_file = OpenFile ("ISOM_cover_file", "r");
@@ -183,7 +183,7 @@ static int **start_pga_run (Logical *identity_map, int ***auts, struct pga_vars 
    /* note step size required for p-group generation */
    pga->step_size = pcp->lastg - pcp->ccbeg + 1;
 
-   map = finish_pga_run (identity_map, cover_tmp_file, group_file, 
+   map = finish_pga_run (identity_map, cover_tmp_file, group_file,
 			 auts, pga, pcp);
    CloseFile (group_file);
    CloseFile (cover_tmp_file);
@@ -191,7 +191,7 @@ static int **start_pga_run (Logical *identity_map, int ***auts, struct pga_vars 
    return map;
 }
 
-/* the group has completed when the relations are imposed; we write 
+/* the group has completed when the relations are imposed; we write
    necessary files in order to have consistent behaviour pattern */
 
 static int **group_completed (int ***auts, struct pga_vars *pga, struct pcp_vars *pcp)
@@ -225,7 +225,7 @@ static int **group_completed (int ***auts, struct pga_vars *pga, struct pcp_vars
    fprintf (Status, "%d ", END_OF_CLASS);
    fprintf (Status, "%d ", TERMINAL);
    CloseFile (Status);
- 
+
    map_array_size = pcp->lastg;
    standard = allocate_matrix (pcp->lastg, pcp->lastg, 1, FALSE);
 
@@ -253,7 +253,7 @@ static int **finish_pga_run (Logical *identity_map, FILE *cover_tmp_file, FILE *
    int *b;
    char *c;
    int *orbit_length;
-   int **subgroup_matrix; 
+   int **subgroup_matrix;
    int K;                       /* bit string representation of definition set */
    int *subset;                 /* definition set */
    int non_standard;            /* label for allowable subgroup defining
@@ -270,7 +270,7 @@ static int **finish_pga_run (Logical *identity_map, FILE *cover_tmp_file, FILE *
 #if defined (DEBUG)
    printf ("Now restore p-covering group\n");
    print_presentation (FALSE, pcp);
-#endif 
+#endif
 
    pga->exponent_law = pcp->extra_relations;
    /*
@@ -291,12 +291,12 @@ static int **finish_pga_run (Logical *identity_map, FILE *cover_tmp_file, FILE *
       pga->s = upper_step;
 
       /* first, find the valid relative step size, pga->s */
-      find_allowable_subgroup (RELATIVE, cover_tmp_file, 
+      find_allowable_subgroup (RELATIVE, cover_tmp_file,
 			       group_file, &K, &subset, pga, pcp);
    }
 
    /* now find allowable subgroup which determines the class c + 1 quotient */
-   subgroup_matrix = find_allowable_subgroup (2, cover_tmp_file, 
+   subgroup_matrix = find_allowable_subgroup (2, cover_tmp_file,
 					      group_file, &K, &subset, pga, pcp);
 
    restore_pcp (cover_tmp_file, pcp);
@@ -308,7 +308,7 @@ static int **finish_pga_run (Logical *identity_map, FILE *cover_tmp_file, FILE *
 #endif
 
 #if defined (DEBUG)
-   printf ("Rank of characteristic subgroup is %d\n", pga->q); 
+   printf ("Rank of characteristic subgroup is %d\n", pga->q);
 #endif
 
    store_definition_sets (pga->r, pga->s, pga->s, pga);
@@ -316,7 +316,7 @@ static int **finish_pga_run (Logical *identity_map, FILE *cover_tmp_file, FILE *
 
 #if defined (DEBUG)
    pga->print_degree = TRUE;
-#endif 
+#endif
    compute_degree (pga);
    pga->print_degree = FALSE;
 
@@ -334,7 +334,7 @@ static int **finish_pga_run (Logical *identity_map, FILE *cover_tmp_file, FILE *
    }
 
    strip_identities (auts, pga, pcp);
-   soluble_group = (pga->soluble || pga->Degree == 1 || 
+   soluble_group = (pga->soluble || pga->Degree == 1 ||
 		    pga->nmr_of_perms == 0);
 
    if (!soluble_group) {
@@ -353,31 +353,31 @@ static int **finish_pga_run (Logical *identity_map, FILE *cover_tmp_file, FILE *
    /*
      pga->print_permutation = TRUE;
      */
-#endif 
+#endif
 
 #if defined (TIME)
    t = runTime ();
 #endif
 
-   perms = permute_subgroups (LINK_input, &a, &b, &c, auts, pga, pcp); 
+   perms = permute_subgroups (LINK_input, &a, &b, &c, auts, pga, pcp);
 
 #if defined (TIME)
    t = runTime () - t;
    printf ("Time to compute permutations is %.2f seconds\n", t * CLK_SCALE);
-#endif 
-         
+#endif
+
    orbit_option (STANDARDISE, perms, &a, &b, &c, &orbit_length, pga);
-/* 
+/*
    printf ("orbit length is %d \n", orbit_length);
 */
 
 #if defined (GAP_LINK_VIA_FILE)
-   if (!soluble_group) { 
+   if (!soluble_group) {
       CloseFile (LINK_input);
    }
 #endif
 
-   map = find_stabiliser (identity_map, non_standard, auts, perms, a, b, c, 
+   map = find_stabiliser (identity_map, non_standard, auts, perms, a, b, c,
 			  orbit_length, pga, pcp);
 
 
@@ -411,7 +411,7 @@ static int **finish_pga_run (Logical *identity_map, FILE *cover_tmp_file, FILE *
    return map;
 }
 
-/* find the stabiliser of the representative of the orbit which 
+/* find the stabiliser of the representative of the orbit which
    contains the non-standard allowable subgroup */
 
 static int **find_stabiliser (Logical *identity_map, int non_standard, int ***auts, int **perms,
@@ -436,12 +436,12 @@ static int **find_stabiliser (Logical *identity_map, int non_standard, int ***au
    soluble_group = (pga->soluble || pga->Degree == 1 || pga->nmr_of_perms == 0);
 
    /* what is the orbit representative of non_standard? */
-   if (soluble_group) 
+   if (soluble_group)
       rep[1] = abs (a[non_standard]);
    else  {
       if (a[non_standard] < 0)
 	 rep[1] = pga->rep[abs (a[non_standard])] ;
-      else 
+      else
 	 rep[1] = abs (a[non_standard]);
    }
 
@@ -450,8 +450,8 @@ static int **find_stabiliser (Logical *identity_map, int non_standard, int ***au
       ;
    if (pga->rep[i] == rep[1]) {
       length[1] = orbit_length[i];
-      if (output == MAX_STANDARD_PRINT) 
-	 printf ("The non-standard subgroup %d has orbit representative %d\n", 
+      if (output == MAX_STANDARD_PRINT)
+	 printf ("The non-standard subgroup %d has orbit representative %d\n",
 		 non_standard, pga->rep[i]);
    }
    else {
@@ -463,7 +463,7 @@ static int **find_stabiliser (Logical *identity_map, int non_standard, int ***au
      printf ("True Orbit length is %d\n", length[1]);
      */
 
-   word_map = find_word (&word_length, soluble_group, perms, rep[1], 
+   word_map = find_word (&word_length, soluble_group, perms, rep[1],
 			 non_standard, length[1], b, c, pga);
 
    /* now process this representative and find its stabiliser */
@@ -471,38 +471,38 @@ static int **find_stabiliser (Logical *identity_map, int non_standard, int ***au
    OutputFile = OpenFile ("ISOM_XX", "w+");
 
    pga->final_stage = (pga->q == pga->multiplicator_rank);
-   
+
    pga->nmr_of_descendants = 0;
    pga->nmr_of_capables = 0;
 
    pga->terminal = TRUE;
-   setup_reps (rep, 1, length, perms, a, b, c, auts, 
-	       OutputFile, OutputFile, pga, pcp); 
+   setup_reps (rep, 1, length, perms, a, b, c, auts,
+	       OutputFile, OutputFile, pga, pcp);
 
    /* now evaluate the action of standard map on pcp */
    map = standard_map (word_map, word_length, identity_map, rep[1], auts, pga, pcp);
 
-#if defined (TIME) 
+#if defined (TIME)
    t = runTime () - t;
    printf ("Time to process representative is %.2f seconds\n", t * CLK_SCALE);
-#endif 
+#endif
 
    RESET (OutputFile);
    restore_pcp (OutputFile, pcp);
 
-   if (!pcp->complete) 
+   if (!pcp->complete)
       last_class (pcp);
 
    Status = OpenFile ("ISOM_Status", "w");
-   if (pga->final_stage)  
+   if (pga->final_stage)
       fprintf (Status, "%d ", END_OF_CLASS);
    else
       fprintf (Status, "%d ", MIDDLE_OF_CLASS);
-   if (pcp->newgen == 0) 
+   if (pcp->newgen == 0)
       fprintf (Status, "%d ", TERMINAL);
    else
       fprintf (Status, "%d ", CAPABLE);
-     
+
    CloseFile (Status);
    CloseFile (OutputFile);
 
@@ -520,20 +520,20 @@ void trace (char *word_map, int *depth, int label, int *backptr, char *schreier)
 /* find word in defining permutations which maps orbit representative to label;
    store each component of the word of length word_length in array word */
 
-static char *find_word (int *word_length, Logical soluble_group, int **perms, int rep, 
+static char *find_word (int *word_length, Logical soluble_group, int **perms, int rep,
                  int non_standard, int orbit_length, int *b, char *c, struct pga_vars *pga)
 {
    int perm_number;
    char *word_map;
    char *word_perm;
    int i, l;
-   char *d; 
+   char *d;
    char temp;
 
    word_map = allocate_char_vector (orbit_length, 1, FALSE);
 
    /* we store word which maps non-standard label to orbit representative;
-      in image_of_generator, the word is evaluated starting from the 
+      in image_of_generator, the word is evaluated starting from the
       last letter -- hence after computing the word, we reverse it */
 
    if (soluble_group) {
@@ -541,7 +541,7 @@ static char *find_word (int *word_length, Logical soluble_group, int **perms, in
       l = non_standard;
       while (l != rep) {
 	 word_map[++*word_length] = d[l];
-	 if ((perm_number = pga->map[(int)d[l]]) != 0) 
+	 if ((perm_number = pga->map[(int)d[l]]) != 0)
 	    l = inverse_image (l, perms[perm_number], pga);
       }
       /* reverse word */
@@ -556,15 +556,15 @@ static char *find_word (int *word_length, Logical soluble_group, int **perms, in
       word_perm = allocate_char_vector (orbit_length, 1, FALSE);
       trace (word_perm, word_length, non_standard, b, c);
       for (i = 1; i <= *word_length; ++i)
-	 word_map[i] = preimage (word_perm[*word_length - i + 1], pga); 
+	 word_map[i] = preimage (word_perm[*word_length - i + 1], pga);
       free_char_vector (word_perm, 1);
    }
 
    return word_map;
 }
 
-/* compute the automorphism which maps the non-standard subgroup, 
-   non_standard, to the orbit representative, rep; the word and 
+/* compute the automorphism which maps the non-standard subgroup,
+   non_standard, to the orbit representative, rep; the word and
    its length are supplied as word_map and word_length  */
 
 static int **standard_map (char *word_map, int word_length, Logical *identity_map, int rep, int ***auts, struct pga_vars *pga, struct pcp_vars *pcp)
@@ -587,11 +587,11 @@ static int **standard_map (char *word_map, int word_length, Logical *identity_ma
 #if defined (DEBUG)
    printf ("The word is ");
    print_array (y, pointer, pointer + word_length + 1);
-#endif 
+#endif
 
    pcp->lused += word_length + 1;
    cp = pcp->lused;
-   
+
    map_array_size = pcp->lastg;
    standard = allocate_matrix (pcp->lastg, nmr_of_generators, 1, FALSE);
 
@@ -615,25 +615,25 @@ static int **standard_map (char *word_map, int word_length, Logical *identity_ma
    }
    y[pointer] = 0;
 
-   if (!pga->final_stage) 
+   if (!pga->final_stage)
       list_subgroup (rep, pga, pcp);
 
    return standard;
 }
 
 /* find the image of l under the inverse of the supplied permutation */
-   
+
 static int inverse_image (int l, int *perms, struct pga_vars *pga)
 {
    register int i;
 
-   for (i = 1; i <= pga->Degree && perms[i] != l; ++i) 
+   for (i = 1; i <= pga->Degree && perms[i] != l; ++i)
       ;
 
    return i;
 }
 
-/* write a description of the automorphism group of the 
+/* write a description of the automorphism group of the
    group presented by the standard presentation to file */
 
 void print_aut_description (int ***central, int ***stabiliser, struct pga_vars *pga, struct pcp_vars *pcp)
@@ -653,7 +653,7 @@ void print_aut_description (int ***central, int ***stabiliser, struct pga_vars *
       }
    }
 
-   for (i = 1; i <= pga->nmr_stabilisers; ++i) 
+   for (i = 1; i <= pga->nmr_stabilisers; ++i)
       for (j = 1; j <= pga->ndgen; ++j) {
 	 for (k = 1; k <= pcp->lastg; ++k)
 	    fprintf (NextClass, "%d ", stabiliser[i][j][k]);
@@ -671,7 +671,7 @@ void print_aut_description (int ***central, int ***stabiliser, struct pga_vars *
    CloseFile (NextClass);
 }
 
-/* list orbit representative as generators of subgroup to 
+/* list orbit representative as generators of subgroup to
    factor from p-covering group */
 
 static void list_subgroup (int rep, struct pga_vars *pga, struct pcp_vars *pcp)
@@ -684,7 +684,7 @@ static void list_subgroup (int rep, struct pga_vars *pga, struct pcp_vars *pcp)
    int **S;
    int index;
    int length = 0;
-  
+
    if (pga->s == pga->q) return;
 
    Subgroup = OpenFile ("ISOM_Subgroup", "a+");
@@ -712,7 +712,7 @@ static void list_subgroup (int rep, struct pga_vars *pga, struct pcp_vars *pcp)
       printf ("The subgroup generator is ");
       print_array (word, pcp->ccbeg, pcp->ccbeg + pga->q);
 #endif
-     
+
       length = 0;
       for (k = pcp->ccbeg; k <= lastg; ++k)
 	 if (word[k] != 0)
@@ -733,14 +733,14 @@ static void list_subgroup (int rep, struct pga_vars *pga, struct pcp_vars *pcp)
    free_matrix (S, pga->s, 0);
    free_vector (subset, 0);
 
-   /* write out flag to indicate that we should now eliminate 
+   /* write out flag to indicate that we should now eliminate
       redundant generators */
    fprintf (Subgroup, "%d\n", ELIMINATE);
 
    CloseFile (Subgroup);
 }
 
-/* for each automorphism in turn, read its actions on each 
+/* for each automorphism in turn, read its actions on each
    of the pcp generators of the Frattini quotient */
 
 int*** read_auts_from_file (FILE *file, int *nmr_of_auts, struct pcp_vars *pcp)
@@ -749,22 +749,22 @@ int*** read_auts_from_file (FILE *file, int *nmr_of_auts, struct pcp_vars *pcp)
 
    register int i, j, k;
    int ***auts;
-   int nmr_of_exponents, nmr_of_generators; 
+   int nmr_of_exponents, nmr_of_generators;
    int nmr_items;
 
-   nmr_items = fscanf (file, "%d", nmr_of_auts); 
+   nmr_items = fscanf (file, "%d", nmr_of_auts);
    verify_read (nmr_items, 1);
-   
-   nmr_items = fscanf (file, "%d", &nmr_of_exponents); 
+
+   nmr_items = fscanf (file, "%d", &nmr_of_exponents);
    verify_read (nmr_items, 1);
 
    nmr_of_generators = y[pcp->clend + 1];
 
-   auts = allocate_array (*nmr_of_auts, pcp->lastg, pcp->lastg, TRUE); 
+   auts = allocate_array (*nmr_of_auts, pcp->lastg, pcp->lastg, TRUE);
 
    for (i = 1; i <= *nmr_of_auts; ++i) {
       for (j = 1; j <= nmr_of_generators; ++j) {
-	 for (k = 1; k <= nmr_of_exponents; ++k)  
+	 for (k = 1; k <= nmr_of_exponents; ++k)
 	    nmr_items = fscanf (file, "%d", &auts[i][j][k]);
 	 verify_read (nmr_items, 1);
       }
@@ -773,4 +773,4 @@ int*** read_auts_from_file (FILE *file, int *nmr_of_auts, struct pcp_vars *pcp)
    return auts;
 }
 
-#endif 
+#endif

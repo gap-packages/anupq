@@ -10,13 +10,13 @@
 #include "pq_defs.h"
 #include "pcp_vars.h"
 
-/* beware - calls to this procedure are context sensitive since 
+/* beware - calls to this procedure are context sensitive since
    it may call compact which moves strings; hence, calls should
-   be carefully placed with a suitable upper bound as argument; 
+   be carefully placed with a suitable upper bound as argument;
 
-   check if there is room available for required words; 
-   if so, return FALSE, otherwise compact the workspace 
-   and try again; if there is still no room, report this, 
+   check if there is room available for required words;
+   if so, return FALSE, otherwise compact the workspace
+   and try again; if there is still no room, report this,
    set pcp->overflow TRUE, and return TRUE */
 
 Logical is_space_exhausted (int required, struct pcp_vars *pcp)
@@ -34,7 +34,7 @@ Logical is_space_exhausted (int required, struct pcp_vars *pcp)
       return FALSE;
    pcp->overflow = TRUE;
    /* number of generators in last class */
-   remain = pcp->lastg - y[pcp->clend + pcp->cc - 1]; 
+   remain = pcp->lastg - y[pcp->clend + pcp->cc - 1];
    text (11, remain, 0, 0, 0);
    return TRUE;
 }

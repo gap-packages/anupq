@@ -10,7 +10,7 @@
 #include "pq_defs.h"
 #include "pga_vars.h"
 
-/* print a summary of the orbits, listing their lengths 
+/* print a summary of the orbits, listing their lengths
    and their representatives */
 
 void orbit_summary (int *length, struct pga_vars *pga)

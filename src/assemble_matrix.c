@@ -10,8 +10,8 @@
 #include "pq_defs.h"
 #include "pcp_vars.h"
 
-/* assemble a t x t matrix, A, which represents the action of the 
-   automorphism described by a 2-dimensional array, auts, 
+/* assemble a t x t matrix, A, which represents the action of the
+   automorphism described by a 2-dimensional array, auts,
    on an initial-segment rank t subgroup of the p-multiplicator;
    note that the indices of auts start at 1, not 0 */
 

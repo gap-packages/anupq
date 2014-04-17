@@ -22,8 +22,8 @@ void start_stage (FILE *descendant_file, int k, int ***auts, struct pga_vars *pg
 
    covers_file = TemporaryFile ();
 
-   nmr_of_covers = reduced_covers (descendant_file, 
-				   covers_file, k, auts, pga, pcp); 
+   nmr_of_covers = reduced_covers (descendant_file,
+				   covers_file, k, auts, pga, pcp);
    if (pcp->overflow) exit (FAILURE);
 
    if (nmr_of_covers != 0) {
@@ -34,9 +34,9 @@ void start_stage (FILE *descendant_file, int k, int ***auts, struct pga_vars *pg
       CloseFile (covers_file);
 }
 
-/* input_file contains nmr_of_covers reduced p-covering 
+/* input_file contains nmr_of_covers reduced p-covering
    groups from one intermediate stage of computations;
-   process all of these, writing new reduced p-covering 
+   process all of these, writing new reduced p-covering
    groups constructed (if any) to file covers_file;
 
    note that this procedure is called recursively */
@@ -48,7 +48,7 @@ void intermediate_stage (FILE *descendant_file, FILE *input_file, int nmr_of_cov
    int next_stage = 0;          /* total number of covers constructed at next stage */
    int nmr_of_descendants;
    int nmr_of_capables;
-   int x_dim, y_dim; 
+   int x_dim, y_dim;
 
    FILE * covers_file;
    covers_file = TemporaryFile ();
@@ -56,7 +56,7 @@ void intermediate_stage (FILE *descendant_file, FILE *input_file, int nmr_of_cov
    for (i = 1; i <= nmr_of_covers; ++i) {
       nmr_of_descendants = pga->nmr_of_descendants;
       nmr_of_capables = pga->nmr_of_capables;
-      restore_pcp (input_file, pcp); 
+      restore_pcp (input_file, pcp);
 
       if (i != 1)
 	 free_array (auts, x_dim, y_dim, 1);
@@ -64,7 +64,7 @@ void intermediate_stage (FILE *descendant_file, FILE *input_file, int nmr_of_cov
       x_dim = pga->m; y_dim = pcp->lastg;
       pga->nmr_of_descendants = nmr_of_descendants;
       pga->nmr_of_capables = nmr_of_capables;
-      next_stage += reduced_covers (descendant_file, covers_file, 
+      next_stage += reduced_covers (descendant_file, covers_file,
 				    0, auts, pga, pcp);
       if (pcp->overflow) exit (FAILURE);
    }

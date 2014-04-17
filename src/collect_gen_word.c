@@ -10,7 +10,7 @@
 #include "pq_defs.h"
 #include "pcp_vars.h"
 
-/* collect the defining generator word whose base address 
+/* collect the defining generator word whose base address
   is ptr and whose length is length to the storage location
   referenced by cp */
 

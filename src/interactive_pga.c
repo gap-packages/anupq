@@ -31,7 +31,7 @@ void interactive_pga (Logical group_present, FILE *StartFile, int group_nmr, int
    FILE * OutputFile;
    FILE *LINK_input;
 
-   char *StartName; 
+   char *StartName;
    int t;
 
    int **perms;
@@ -53,7 +53,7 @@ void interactive_pga (Logical group_present, FILE *StartFile, int group_nmr, int
    list_interactive_pga_menu ();
 
    do {
-      option = read_option (MAX_INTERACTIVE_OPTION);      
+      option = read_option (MAX_INTERACTIVE_OPTION);
       switch (option) {
 
       case -1:
@@ -64,8 +64,8 @@ void interactive_pga (Logical group_present, FILE *StartFile, int group_nmr, int
 	 auts = read_auts (PGA, &pga->m, &nmr_of_exponents, pcp);
 #ifdef HAVE_GMP
 	 autgp_order (pga, pcp);
-#endif 
-	 pga->soluble = TRUE; 
+#endif
+	 pga->soluble = TRUE;
 	 start_group (&StartFile, auts, pga, pcp);
 	 break;
 
@@ -94,7 +94,7 @@ void interactive_pga (Logical group_present, FILE *StartFile, int group_nmr, int
 	 t = runTime ();
 	 if (group_present && pga->m == 0)
 	    start_group (&StartFile, auts, pga, pcp);
-	 construct (1, &flag, SINGLE_STAGE, OutputFile, StartFile, 
+	 construct (1, &flag, SINGLE_STAGE, OutputFile, StartFile,
 		    0, ALL, group_nmr, pga, pcp);
 	 t = runTime () - t;
 	 printf ("Time for intermediate stage is %.2f seconds\n", t * CLK_SCALE);
@@ -108,16 +108,16 @@ void interactive_pga (Logical group_present, FILE *StartFile, int group_nmr, int
 	 extend_automorphisms (auts, pga->m, pcp);
 	 step_range (k, &pga->s, &upper_step, auts, pga, pcp);
 
-	 if (pga->s > upper_step)  
+	 if (pga->s > upper_step)
 	    printf ("Desired step size is invalid for current group\n");
 	 else {
 	    if (pga->s < upper_step) {
-	       printf ("The permitted relative step sizes range from %d to %d\n", 
+	       printf ("The permitted relative step sizes range from %d to %d\n",
 		       pga->s, upper_step);
-	       read_value (TRUE, "Input the chosen relative step size: ", 
+	       read_value (TRUE, "Input the chosen relative step size: ",
 			   &pga->s, 0);
 	    }
-         
+
 
 	    store_definition_sets (pga->r, pga->s, pga->s, pga);
 	    get_definition_sets (pga);
@@ -133,14 +133,14 @@ void interactive_pga (Logical group_present, FILE *StartFile, int group_nmr, int
 
 	    query_solubility (pga);
 	    pga->trace = FALSE;
-	    if (pga->soluble) 
+	    if (pga->soluble)
 	       query_space_efficiency (pga);
-	    else 
+	    else
 	       pga->space_efficient = FALSE;
 	    query_perm_information (pga);
 
 	    strip_identities (auts, pga, pcp);
-	    soluble_group = (pga->soluble || pga->Degree == 1 || 
+	    soluble_group = (pga->soluble || pga->Degree == 1 ||
 			     pga->nmr_of_perms == 0);
 	    if (!soluble_group) {
 #if defined (GAP_LINK)
@@ -151,13 +151,13 @@ void interactive_pga (Logical group_present, FILE *StartFile, int group_nmr, int
 #endif
 #endif
 	    }
-	    perms = permute_subgroups (LINK_input, &a, &b, &c, 
-				       auts, pga, pcp); 
+	    perms = permute_subgroups (LINK_input, &a, &b, &c,
+				       auts, pga, pcp);
 
 #if defined (GAP_LINK_VIA_FILE)
 	    if (!soluble_group)
 	       CloseFile (LINK_input);
-#endif 
+#endif
 	    t = runTime () - t;
 	    printf ("Time to compute permutations is %.2f seconds\n", t * CLK_SCALE);
 	 }
@@ -165,13 +165,13 @@ void interactive_pga (Logical group_present, FILE *StartFile, int group_nmr, int
 	    printf ("You must first select option %d\n", DEGREE);
 
 	 break;
-         
-      case ORBITS: 
+
+      case ORBITS:
 	 orbit_option (option, perms, &a, &b, &c, &orbit_length, pga);
 	 break;
 
-      case STABILISERS: case STABILISER: 
-	 stabiliser_option (option, auts, perms, a, b, c, orbit_length, 
+      case STABILISERS: case STABILISER:
+	 stabiliser_option (option, auts, perms, a, b, c, orbit_length,
 			    pga, pcp);
 	 /*
 	   free_space (pga->soluble, perms, orbit_length,
@@ -214,7 +214,7 @@ void interactive_pga (Logical group_present, FILE *StartFile, int group_nmr, int
 
       case SUBGROUP_RANK:
 	 read_subgroup_rank (&k);
-	 printf ("Closure of initial segment subgroup has rank %d\n", 
+	 printf ("Closure of initial segment subgroup has rank %d\n",
 		 close_subgroup (k, auts, pga, pcp));
 	 break;
 
@@ -224,11 +224,11 @@ void interactive_pga (Logical group_present, FILE *StartFile, int group_nmr, int
 	 rep = abs (a[label]);
 	 for (i = 1; i <= pga->nmr_orbits && pga->rep[i] != rep; ++i)
 	    ;
-	 printf ("Subgroup with label %d has representative %d and is in orbit %d\n", 
+	 printf ("Subgroup with label %d has representative %d and is in orbit %d\n",
 		 label, rep, i);
 	 break;
-         
-        
+
+
       case COMPACT_DESCRIPTION:
 	 Compact_Description = TRUE;
 	 read_value (TRUE, "Lower bound for order (0 for all groups generated)? ",
@@ -247,7 +247,7 @@ void interactive_pga (Logical group_present, FILE *StartFile, int group_nmr, int
 	   scanf ("%d", &l);
 	   process_complete_orbit (a, l, pga, pcp);
 	   break;
-           
+
 	   case TEMP:
 	   printf ("Input label: ");
 	   scanf ("%d", &l);
@@ -259,11 +259,11 @@ void interactive_pga (Logical group_present, FILE *StartFile, int group_nmr, int
 	   }
 	   StartName = GetString ("Enter output file name: ");
 	   OutputFile = OpenFileOutput (StartName);
-	   part_setup_reps (pga->rep, pga->nmr_orbits, orbit_length, perms, a, b, c, 
-	   auts, OutputFile, OutputFile, pga, pcp); 
-           
+	   part_setup_reps (pga->rep, pga->nmr_orbits, orbit_length, perms, a, b, c,
+	   auts, OutputFile, OutputFile, pga, pcp);
+
 	   list_word (pga, pcp);
-           
+
 	   read_value (TRUE, "Input the rank of the subgroup: ", &pga->q, 1);
 	   strip_identities (auts, pga, pcp);
 	   break;
@@ -275,7 +275,7 @@ void interactive_pga (Logical group_present, FILE *StartFile, int group_nmr, int
 
       }                         /* switch */
 
-   } while (option != 0 && option != MAX_INTERACTIVE_OPTION);      
+   } while (option != 0 && option != MAX_INTERACTIVE_OPTION);
 
 #if defined (GAP_LINK)
    if (!soluble_group)
@@ -311,7 +311,7 @@ void list_interactive_pga_menu (void)
    printf ("%d. Find rank of closure of initial segment subgroup\n",
 	   SUBGROUP_RANK);
    printf ("%d. List representative and orbit for supplied label\n", ORBIT_REP);
-   printf ("%d. Write compact descriptions of generated groups to file\n", 
+   printf ("%d. Write compact descriptions of generated groups to file\n",
 	   COMPACT_DESCRIPTION);
    printf ("%d. Find automorphism classes of elements of vector space\n",
 	   AUT_CLASSES);
@@ -320,14 +320,14 @@ void list_interactive_pga_menu (void)
 
 void orbit_option (int option, int **perms, int **a, int **b, char **c, int **orbit_length, struct pga_vars *pga)
 {
-   int t; 
+   int t;
    Logical soluble_group;
 /*    FILE * file; */
 
 
    if (option != COMBINATION && option != STANDARDISE) {
       query_solubility (pga);
-      if (pga->soluble) 
+      if (pga->soluble)
 	 query_space_efficiency (pga);
       else
 	 pga->space_efficient = FALSE;
@@ -341,14 +341,14 @@ void orbit_option (int option, int **perms, int **a, int **b, char **c, int **or
       pga->print_orbit_summary = FALSE;
       pga->print_orbits = FALSE;
    }
-            
+
    soluble_group = (pga->soluble || pga->Degree == 1 || pga->nmr_of_perms == 0);
 
    if (!pga->space_efficient) {
       t = runTime ();
-      if (soluble_group)  
+      if (soluble_group)
 	 compute_orbits (a, b, c, perms, pga);
-      else   
+      else
 	 insoluble_compute_orbits (a, b, c, perms, pga);
       if (option != COMBINATION && option != STANDARDISE) {
 	 t = runTime () - t;
@@ -356,13 +356,13 @@ void orbit_option (int option, int **perms, int **a, int **b, char **c, int **or
       }
    }
 
-   /* if in soluble portion of combination, we do not need to 
+   /* if in soluble portion of combination, we do not need to
       set up representives */
    if (option == COMBINATION && pga->soluble) return;
 
    *orbit_length = find_orbit_reps (*a, *b, pga);
 
-   if (pga->print_orbit_summary)   
+   if (pga->print_orbit_summary)
       orbit_summary (*orbit_length, pga);
    /*   file = OpenFile ("COUNT", "a+");
         fprintf (file, "%d,\n", pga->nmr_orbits);
@@ -376,11 +376,11 @@ void stabiliser_option (int option, int ***auts, int **perms, int *a, int *b, ch
    int i;
    Logical soluble_group;
    FILE * OutputFile;
-   char *StartName; 
+   char *StartName;
    int *rep;
    int *length;
-   rep = allocate_vector (1, 1, 0); 
-   length = allocate_vector (1, 1, 0); 
+   rep = allocate_vector (1, 1, 0);
+   length = allocate_vector (1, 1, 0);
 
    t = runTime ();
 
@@ -417,11 +417,11 @@ void stabiliser_option (int option, int ***auts, int **perms, int *a, int *b, ch
    }
 
    if (option == STABILISER)
-      setup_reps (rep, 1, length, perms, a, b, c, auts, 
-		  OutputFile, OutputFile, pga, pcp); 
-   else 
-      setup_reps (pga->rep, pga->nmr_orbits, orbit_length, perms, a, b, c, 
-		  auts, OutputFile, OutputFile, pga, pcp); 
+      setup_reps (rep, 1, length, perms, a, b, c, auts,
+		  OutputFile, OutputFile, pga, pcp);
+   else
+      setup_reps (pga->rep, pga->nmr_orbits, orbit_length, perms, a, b, c,
+		  auts, OutputFile, OutputFile, pga, pcp);
 
    /*
      #if defined (GAP_LINK)
@@ -432,12 +432,12 @@ void stabiliser_option (int option, int ***auts, int **perms, int *a, int *b, ch
 
    RESET (OutputFile);
 
-   printf ("Time to process representative is %.2f seconds\n", 
+   printf ("Time to process representative is %.2f seconds\n",
 	   (runTime () - t) * CLK_SCALE);
 }
 
 
-/* list orbit representatives as words subject to the supplied map */ 
+/* list orbit representatives as words subject to the supplied map */
 
 int list_word (struct pga_vars *pga, struct pcp_vars *pcp)
 {
@@ -481,7 +481,7 @@ int list_word (struct pga_vars *pga, struct pcp_vars *pcp)
 	 word[pcp->ccbeg + i] = 1;
 
 	 print_array (word, pcp->ccbeg, lastg + 1);
-     
+
 	 length = 0;
 	 for (k = pcp->ccbeg; k <= lastg; ++k)
 	    if (word[k] != 0)
@@ -490,7 +490,7 @@ int list_word (struct pga_vars *pga, struct pcp_vars *pcp)
 	 printf ("%d\n", length + start_length);
 	 for (k = 1; k <= start_length; ++k)
 	    printf ("%d 1 ", start[k]);
-   
+
 	 for (k = pcp->ccbeg; k <= lastg; ++k)
 	    if (word[k] != 0)
 	       printf ("%d %d ", k, word[k]);

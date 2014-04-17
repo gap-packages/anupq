@@ -19,13 +19,13 @@
 #include "global.h"
 
 #define MAXOPTION 31          /* maximum number of menu options */
-#define GAP_PRES_FORMAT 2 
+#define GAP_PRES_FORMAT 2
 
-#define BOTH_TAILS 0 
+#define BOTH_TAILS 0
 #define NEW_TAILS 1
 #define COMPUTE_TAILS 2
 
-#if defined (GROUP) 
+#if defined (GROUP)
 
 /* interactive menu for p-quotient calculation */
 
@@ -46,7 +46,7 @@ void interactive_pq (Logical group_present, int format, int output_level, int **
 
    int *queue, *long_queue;
    int start_length;
-   int prev_qlength = 0, current_qlength; 
+   int prev_qlength = 0, current_qlength;
    int long_queue_length = 0, queue_length = 0;
    int consistency_type;
    int nmr_of_auts;
@@ -73,13 +73,13 @@ void interactive_pq (Logical group_present, int format, int output_level, int **
    }
 
    do {
-      option = read_option (MAXOPTION);      
+      option = read_option (MAXOPTION);
       switch (option) {
 
       case -1:
 	 list_interactive_pq_menu ();
 	 break;
-        
+
       case COLLECT:
 	 t = runTime ();
 	 if (format != BASIC && symbols_setup == FALSE) {
@@ -88,7 +88,7 @@ void interactive_pq (Logical group_present, int format, int output_level, int **
 	 }
 	 type = WORD;
 	 if (!is_space_exhausted (3 * pcp->lastg + 2, pcp)) {
-	    cp = pcp->lused; 
+	    cp = pcp->lused;
 	    setup_word_to_collect (stdin, format, type, cp, pcp);
 	    t = runTime () - t;
 	    printf ("Collection took %.2f seconds\n", t * CLK_SCALE);
@@ -102,7 +102,7 @@ void interactive_pq (Logical group_present, int format, int output_level, int **
 	    setup_symbols (pcp);
 	    symbols_setup = TRUE;
 	 }
-	 setup_to_solve_equation (format, pcp); 
+	 setup_to_solve_equation (format, pcp);
 	 t = runTime () - t;
 	 printf ("Solving the equation took %.2f seconds\n", t * CLK_SCALE);
 	 break;
@@ -114,12 +114,12 @@ void interactive_pq (Logical group_present, int format, int output_level, int **
 	    symbols_setup = TRUE;
 	 }
 	 calculate_commutator (format, pcp);
-	 cp = pcp->lused; 
+	 cp = pcp->lused;
 	 echelon_ready = TRUE;
 	 t = runTime () - t;
 	 printf ("Commutator calculation took %.2f seconds\n", t * CLK_SCALE);
 	 break;
-  
+
       case DISPLAY_PRESENTATION:
 	 print_flag = (output_level >= MAX_PRINT - 1) ? TRUE : FALSE;
 	 print_presentation (print_flag, pcp);
@@ -141,9 +141,9 @@ void interactive_pq (Logical group_present, int format, int output_level, int **
 	 t = runTime ();
 	 if (pcp->complete) { printf ("Group is complete\n"); break; }
 	 pcp->middle_of_tails = FALSE;
-	 read_value (TRUE, "Input class for tails computation (0 for all): ", 
+	 read_value (TRUE, "Input class for tails computation (0 for all): ",
 		     &class, 0);
-	 tail_info (&tail_type); 
+	 tail_info (&tail_type);
 	 if (class == 0 || (class > 1 && class <= pcp->cc)) {
 	    if (class > 0) {
 	       tails (tail_type, class, pcp->cc, 1, pcp);
@@ -151,7 +151,7 @@ void interactive_pq (Logical group_present, int format, int output_level, int **
 		  pcp->middle_of_tails = TRUE;
 	    }
 	    else {
-	       for (class = pcp->cc; class > 1; --class)  
+	       for (class = pcp->cc; class > 1; --class)
 		  tails (tail_type, class, pcp->cc, 1, pcp);
 	    }
 	    if (pcp->overflow && !isatty (0))
@@ -166,29 +166,29 @@ void interactive_pq (Logical group_present, int format, int output_level, int **
       case CONSISTENCY:
 	 t = runTime ();
 	 if (pcp->complete) { printf ("Group is complete\n"); break; }
-	 read_value (TRUE, "Input class for consistency check (0 for all): ", 
+	 read_value (TRUE, "Input class for consistency check (0 for all): ",
 		     &class, 0);
 	 consistency_info (&consistency_type);
 	 if (class == 0 || (class > 2 && class <= pcp->cc)) {
 	    if (pcp->m != 0) {
 	       queue_setup = TRUE;
 	       start_length = queue_length;
-	       queue_space (&queue, &long_queue, &current_qlength, 
+	       queue_space (&queue, &long_queue, &current_qlength,
 			    &prev_qlength, pcp);
 	    }
 
-	    if (class > 0) 
+	    if (class > 0)
 	       consistency (consistency_type, queue, &queue_length, class, pcp);
 	    else
-	       for (class = pcp->cc; class > 2; --class)  
-		  consistency (consistency_type, queue, &queue_length, 
+	       for (class = pcp->cc; class > 2; --class)
+		  consistency (consistency_type, queue, &queue_length,
 			       class, pcp);
 	    if (pcp->overflow && !isatty (0))
 	       exit (FAILURE);
 
 	    if (pcp->m != 0) {
 	       s = (queue_length - start_length == 1) ? "y" : "ies";
-	       printf ("Consistency checks gave %d redundanc%s\n", 
+	       printf ("Consistency checks gave %d redundanc%s\n",
 		       queue_length - start_length, s);
 	    }
 	    if (pcp->complete && output_level <= 1)
@@ -206,12 +206,12 @@ void interactive_pq (Logical group_present, int format, int output_level, int **
 
 	 /* if no tails have been added, do not perform update */
 	 if (y[pcp->clend + pcp->cc - 1] < pcp->lastg) {
-	    if (!pcp->complete && pcp->cc > 1 && !pcp->middle_of_tails 
-		&& !pcp->update) { 
+	    if (!pcp->complete && pcp->cc > 1 && !pcp->middle_of_tails
+		&& !pcp->update) {
 	       update_generators (pcp);
 	       pcp->update = TRUE;
 	    }
-	    if (!pcp->complete) 
+	    if (!pcp->complete)
 	       collect_relations (pcp);
 	 }
 
@@ -229,15 +229,15 @@ void interactive_pq (Logical group_present, int format, int output_level, int **
 	    read_value (TRUE, "Input exponent law (0 if none): ",
 			&pcp->extra_relations, 0);
 	 }
-	 read_value (TRUE, "Input start weight for exponent checking: ", 
+	 read_value (TRUE, "Input start weight for exponent checking: ",
 		     &pcp->start_wt, 1);
-	 read_value (TRUE, "Input end weight for exponent checking: ", 
+	 read_value (TRUE, "Input end weight for exponent checking: ",
 		     &pcp->end_wt, pcp->start_wt);
 	 exponent_info (&exp_flag, pcp);
 	 if (pcp->m != 0) {
 	    queue_setup = TRUE;
 	    start_length = queue_length;
-	    queue_space (&queue, &long_queue, &current_qlength, 
+	    queue_space (&queue, &long_queue, &current_qlength,
 			 &prev_qlength, pcp);
 	    exp_flag.queue = queue;
 	    exp_flag.queue_length = queue_length;
@@ -249,26 +249,26 @@ void interactive_pq (Logical group_present, int format, int output_level, int **
 	    queue = exp_flag.queue;
 	    queue_length = exp_flag.queue_length;
 	    s = (queue_length - start_length == 1) ? "y" : "ies";
-	    printf ("Exponent checks gave %d redundanc%s\n", 
+	    printf ("Exponent checks gave %d redundanc%s\n",
 		    queue_length - start_length, s);
 	 }
-  
+
 	 if (pcp->complete && output_level <= 1)
 	    text (5, pcp->cc, pcp->p, pcp->lastg, 0);
 
 	 t = runTime () - t;
 	 printf ("Time to check exponents is %.2f seconds\n", t * CLK_SCALE);
 	 break;
-        
+
       case ELIMINATE:
 	 t = runTime ();
 	 symbols_setup = FALSE;
-	 if (pcp->cc == 1) 
+	 if (pcp->cc == 1)
 	    class1_eliminate (pcp);
 	 else {
 	    /* if no tails have been added, do not perform update */
 	    if (y[pcp->clend + pcp->cc - 1] < pcp->lastg) {
-	       if (pcp->cc > 1 && !pcp->middle_of_tails && !pcp->update) { 
+	       if (pcp->cc > 1 && !pcp->middle_of_tails && !pcp->update) {
 		  update_generators (pcp);
 		  pcp->update = TRUE;
 	       }
@@ -277,7 +277,7 @@ void interactive_pq (Logical group_present, int format, int output_level, int **
 	       long_queue_length = 0;
 	    }
 	 }
-            
+
 	 t = runTime () - t;
 	 printf ("Elimination took %.2f seconds\n", t * CLK_SCALE);
 	 break;
@@ -298,8 +298,8 @@ void interactive_pq (Logical group_present, int format, int output_level, int **
 	 calculate_jacobi (pcp);
 	 if (pcp->redgen != 0 && pcp->m != 0) {
 	    queue_setup = TRUE;
-	    if (prev_qlength == 0)  
-	       queue_space (&queue, &long_queue, &current_qlength, 
+	    if (prev_qlength == 0)
+	       queue_space (&queue, &long_queue, &current_qlength,
 			    &prev_qlength, pcp);
 	    queue[++queue_length] = pcp->redgen;
 	 }
@@ -315,15 +315,15 @@ void interactive_pq (Logical group_present, int format, int output_level, int **
 	    pcp->fullop = output;
 	    if (pcp->redgen != 0 && pcp->m != 0) {
 	       queue_setup = TRUE;
-	       if (prev_qlength == 0)  
-		  queue_space (&queue, &long_queue, &current_qlength, 
+	       if (prev_qlength == 0)
+		  queue_space (&queue, &long_queue, &current_qlength,
 			       &prev_qlength, pcp);
 	       queue[++queue_length] = pcp->redgen;
 	    }
 	    echelon_ready = FALSE;
 	 }
-	 else 
-	    printf ("No relation to echelonise; first collect or commute\n"); 
+	 else
+	    printf ("No relation to echelonise; first collect or commute\n");
 	 break;
 
       case AUTS:
@@ -357,22 +357,22 @@ void interactive_pq (Logical group_present, int format, int output_level, int **
 	 read_value (TRUE, "Input queue factor: ", &factor, 0);
 	 limit = factor * (pcp->lastg - pcp->ccbeg + 1) / 100;
 	 if (!pcp->complete) {
-	    close_relations (TRUE, limit, 1, *head, *list, queue, queue_length, 
+	    close_relations (TRUE, limit, 1, *head, *list, queue, queue_length,
 			     long_queue, &long_queue_length, pcp);
 	 }
 
 	 if (!pcp->complete && !pcp->overflow) {
-	    if (pcp->fullop || pcp->diagn) 
-	       printf ("Length of long queue after short queue closed is %d\n", 
+	    if (pcp->fullop || pcp->diagn)
+	       printf ("Length of long queue after short queue closed is %d\n",
 		       long_queue_length);
-	    close_relations (TRUE, limit, 2, *head, *list, long_queue, 
+	    close_relations (TRUE, limit, 2, *head, *list, long_queue,
 			     long_queue_length, long_queue, &long_queue_length, pcp);
 	    if (pcp->fullop || pcp->diagn)  {
 	       printf ("Final long queue length was %d\n", long_queue_length);
 	    }
 	 }
 
-	 if (pcp->complete && output_level <= 1) 
+	 if (pcp->complete && output_level <= 1)
 	    text (5, pcp->cc, pcp->p, pcp->lastg, 0);
 
 	 queue_length = long_queue_length = 0;
@@ -381,17 +381,17 @@ void interactive_pq (Logical group_present, int format, int output_level, int **
 	 break;
 
       case STRUCTURE:
-	 read_value (TRUE, "Input initial pcp generator number: ", 
+	 read_value (TRUE, "Input initial pcp generator number: ",
 		     &start_gen, 1);
-	 if (start_gen <= pcp->lastg) { 
-	    read_value (TRUE, "Input final pcp generator number: ", 
+	 if (start_gen <= pcp->lastg) {
+	    read_value (TRUE, "Input final pcp generator number: ",
 			&final_gen, start_gen);
 	    print_structure (start_gen, MIN (final_gen, pcp->lastg), pcp);
 	 }
 	 else
 	    printf ("Invalid range supplied for pcp generator numbers\n");
 	 break;
-         
+
       case ENGEL:
 	 t = runTime ();
 	 queue_setup = TRUE;
@@ -417,7 +417,7 @@ void interactive_pq (Logical group_present, int format, int output_level, int **
 	 if (pcp->m != 0) {
 	    queue_setup = TRUE;
 	    start_length = queue_length;
-	    queue_space (&queue, &long_queue, &current_qlength, 
+	    queue_space (&queue, &long_queue, &current_qlength,
 			 &prev_qlength, pcp);
 	 }
 
@@ -425,7 +425,7 @@ void interactive_pq (Logical group_present, int format, int output_level, int **
 
 	 if (pcp->m != 0) {
 	    s = (queue_length - start_length == 1) ? "y" : "ies";
-	    printf ("Relation file gave %d redundanc%s\n", 
+	    printf ("Relation file gave %d redundanc%s\n",
 		    queue_length - start_length, s);
 	    if (queue_length != 0)
 	       print_array (queue, 1, queue_length + 1);
@@ -441,7 +441,7 @@ void interactive_pq (Logical group_present, int format, int output_level, int **
 	 }
 	 type = WORD;
 	 if (!is_space_exhausted (3 * pcp->lastg + 2, pcp)) {
-	    cp = pcp->lused; 
+	    cp = pcp->lused;
 	    setup_defgen_word_to_collect (stdin, format, type, pcp->lused, pcp);
 	    echelon_ready = TRUE;
 	 }
@@ -463,25 +463,25 @@ void interactive_pq (Logical group_present, int format, int output_level, int **
 	 }
 	 auts = determine_action (format, &nmr_of_auts, pcp);
 	 break;
- 
+
       case COMPACT:
 	 compact (pcp);
 	 break;
 
       case FORMULA:
-	 t = runTime (); 
+	 t = runTime ();
 	 if (pcp->m != 0) {
 	    queue_setup = TRUE;
 	    start_length = queue_length;
-	    queue_space (&queue, &long_queue, &current_qlength, 
+	    queue_space (&queue, &long_queue, &current_qlength,
 			 &prev_qlength, pcp);
 	 }
 
 	 evaluate_formula (queue, &queue_length, pcp);
-         
+
 	 if (pcp->m != 0) {
 	    s = (queue_length - start_length == 1) ? "y" : "ies";
-	    printf ("Formula checks gave %d redundanc%s\n", 
+	    printf ("Formula checks gave %d redundanc%s\n",
 		    queue_length - start_length, s);
 	    if (queue_length != 0)
 	       print_array (queue, 1, queue_length + 1);
@@ -496,7 +496,7 @@ void interactive_pq (Logical group_present, int format, int output_level, int **
       GAP output is supported. As such, the following query is no redundant.
       We keep it for backward compatibility only. */
 	 name = GetString ("Enter output file name: ");
-	 read_value (TRUE, "Output file in GAP (2) format? ", 
+	 read_value (TRUE, "Output file in GAP (2) format? ",
 		     &file_format, GAP_PRES_FORMAT);
 	 FileName = OpenFile (name, "a+");
 	 if (FileName != NULL) {
@@ -520,7 +520,7 @@ void interactive_pq (Logical group_present, int format, int output_level, int **
 	 break;
 
       }                         /* switch */
-   } while (option != 0 && option != MAXOPTION);      
+   } while (option != 0 && option != MAXOPTION);
 
    if (queue_setup) {
       free_vector (queue, 1);
@@ -534,7 +534,7 @@ void list_interactive_pq_menu (void)
 {
    printf ("\nAdvanced p-Quotient Menu\n");
    printf ("-------------------------\n");
-   printf ("%d. Do individual collection\n", COLLECT); 
+   printf ("%d. Do individual collection\n", COLLECT);
    printf ("%d. Solve the equation ax = b for x\n", SOLVE);
    printf ("%d. Calculate commutator\n", COMMUTATOR);
    printf ("%d. Display group presentation\n", DISPLAY_PRESENTATION);
@@ -554,13 +554,13 @@ void list_interactive_pq_menu (void)
    printf ("%d. Supply and/or extend automorphisms\n", AUTS);
    printf ("%d. Close relations under automorphism actions\n", CLOSE_RELATIONS);
    printf ("%d. Print structure of a range of pcp generators\n", STRUCTURE);
-   printf ("%d. Display automorphism actions on generators\n", 
+   printf ("%d. Display automorphism actions on generators\n",
 	   LIST_AUTOMORPHISMS);
    printf ("%d. Collect word in defining generators\n", DGEN_WORD);
    printf ("%d. Compute commutator of defining generators\n", DGEN_COMM);
-   printf ("%d. Write presentation to file in GAP format\n", 
+   printf ("%d. Write presentation to file in GAP format\n",
 	   OUTPUT_PRESENTATION);
-   printf ("%d. Write compact description of group to file\n", 
+   printf ("%d. Write compact description of group to file\n",
 	   COMPACT_PRESENTATION);
    printf ("%d. Evaluate certain formulae\n", FORMULA);
    printf ("%d. Evaluate action specified on defining generators\n", DGEN_AUT);
@@ -581,9 +581,9 @@ int queue_space (int **queue, int **long_queue, int *current_qlength, int *prev_
       *long_queue = allocate_vector (*current_qlength, 1, FALSE);
    }
    else if (*current_qlength != *prev_qlength) {
-      *queue = reallocate_vector (*queue, *prev_qlength, 
+      *queue = reallocate_vector (*queue, *prev_qlength,
 				  *current_qlength, 1, FALSE);
-      *long_queue = reallocate_vector (*long_queue, *prev_qlength, 
+      *long_queue = reallocate_vector (*long_queue, *prev_qlength,
 				       *current_qlength, 1, FALSE);
    }
    *prev_qlength = *current_qlength;

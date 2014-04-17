@@ -11,8 +11,8 @@
 #include "pcp_vars.h"
 #include "pq_functions.h"
 
-/* the new values for irredundant generators have been 
-   assembled in eliminate in a table pointed to by y[dgen]; 
+/* the new values for irredundant generators have been
+   assembled in eliminate in a table pointed to by y[dgen];
    update the value represented by y[ptr] and y[ptr] if necessary */
 
 void update (int ptr, struct pcp_vars *pcp)
@@ -161,7 +161,7 @@ void update (int ptr, struct pcp_vars *pcp)
       return;
    }
 
-   /* new part is nontrivial; check if it is longer 
+   /* new part is nontrivial; check if it is longer
       than the old class pcp->cc part */
 
    if (count > count1 + count2) {
@@ -184,7 +184,7 @@ void update (int ptr, struct pcp_vars *pcp)
       return;
    }
 
-   /* new part is longer than the old part; move up the new 
+   /* new part is longer than the old part; move up the new
       class pcp->cc part to copy in the earlier parts */
    k = lused + count2 + 1;
    for (i = 1; i <= count2; i++) {

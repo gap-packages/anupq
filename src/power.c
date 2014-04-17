@@ -15,11 +15,11 @@ static void copy_array (int old, int length, int new, struct pcp_vars *pcp);
 
 /* power routine - written by M J Smith, May 1991.
 
-   raise exponent vector with base address cp to power exp; 
+   raise exponent vector with base address cp to power exp;
    the method used depends on the value of the prime P;
 
    P = 2, 3: For each factor of P in the power the word is raised
-   to the power P by multiplication P - 1 times. Any factor of the 
+   to the power P by multiplication P - 1 times. Any factor of the
    power remaining is done using a P-ary decomposition.
 
    P > 3: A P-ary decomposition is used. Calculation of the powers
@@ -72,7 +72,7 @@ void power (int exp, int cp, struct pcp_vars *pcp)
 
       if (nn == 1) return;
 
-      /* have extracted all powers of p from exponent - 
+      /* have extracted all powers of p from exponent -
 	 now do rest using prime p expansion */
 
       /* move X into Z, set X to 1 */
@@ -83,14 +83,14 @@ void power (int exp, int cp, struct pcp_vars *pcp)
 	 r = MOD (nn, p);
 	 nn /= p;
 
-	 /* move Z into A to multiply onto Z p - 1 times and 
+	 /* move Z into A to multiply onto Z p - 1 times and
 	    onto X r times */
 	 vector_to_string (z, a, pcp);
 
 	 /* now calculate Z = Z^p and X = X * Z^r */
 	 if (y[a + 1] != 0) {
 	    for (i = 1; i <= p - 1; ++i) {
-	       if (i <= r) 
+	       if (i <= r)
 		  collect (-a, x, pcp);
 	       collect (-a, z, pcp);
 	    }
@@ -98,7 +98,7 @@ void power (int exp, int cp, struct pcp_vars *pcp)
       }
    }
 
-   /* for larger primes, use prime p decomposition and subsequent 
+   /* for larger primes, use prime p decomposition and subsequent
       binary expansion */
 
    else {
@@ -108,8 +108,8 @@ void power (int exp, int cp, struct pcp_vars *pcp)
 
       while (nn > 0) {
 
-	 /* move word w in Z into A, and set Z to 1; A will square each 
-	    iteration, and Z will accumulate some of these powers to 
+	 /* move word w in Z into A, and set Z to 1; A will square each
+	    iteration, and Z will accumulate some of these powers to
 	    end up with w^p at end of while loop */
 
 	 string_to_vector (z, a, pcp);
@@ -121,7 +121,7 @@ void power (int exp, int cp, struct pcp_vars *pcp)
 
 	 /* Now use binary expansion of both PP (ie p) and remainder R
 	    to accumulate w^p in Z and w^R onto X from squaring of w.
-	    Must continue until we have last w^R on X or until we get 
+	    Must continue until we have last w^R on X or until we get
 	    w^p in Z if there is any remaining exponent (ie Q > 0) */
 
 	 while (r > 0 || (pp > 0 && q > 0)) {

@@ -16,18 +16,18 @@
 
 #if defined (STANDARD_PCP)
 
-/* given a presentation for the p-covering group of a 
-   class c p-quotient; find the allowable subgroup which 
-   determines the presentation for the class c + 1 quotient; 
+/* given a presentation for the p-covering group of a
+   class c p-quotient; find the allowable subgroup which
+   determines the presentation for the class c + 1 quotient;
    set up its definition set both as a bit_string and as a subset */
 
 int **
 find_allowable_subgroup (int option, FILE *cover_tmp_file, FILE *group_tmp_file, int *bit_string, int **subset, struct pga_vars *pga, struct pcp_vars *pcp)
-{ 
+{
    register int *y = y_address;
 
    register int generator, exp, r, i;
-   register int structure, lastg; 
+   register int structure, lastg;
    register int start = pcp->ccbeg;
    register int q = pga->q;
    register int end = start + q - 1;
@@ -49,7 +49,7 @@ find_allowable_subgroup (int option, FILE *cover_tmp_file, FILE *group_tmp_file,
 
    structure = pcp->structure;
 
-   /* store the definitions of the generators of the relevant 
+   /* store the definitions of the generators of the relevant
       initial segment subgroup of the p-multiplicator */
    for (generator = start; generator <= end; ++generator) {
       pointer = y[structure + generator];
@@ -83,9 +83,9 @@ find_allowable_subgroup (int option, FILE *cover_tmp_file, FILE *group_tmp_file,
    *bit_string = 0;
    *subset = allocate_vector (lastg - start + 1, 0, FALSE);
 
-   /* check the values of the definitions in this quotient 
+   /* check the values of the definitions in this quotient
       and set up its definition set */
-   index = 0; 
+   index = 0;
    for (generator = start; generator <= lastg; ++generator) {
       pointer = y[structure + generator];
       u = PART2 (pointer);
@@ -105,11 +105,11 @@ find_allowable_subgroup (int option, FILE *cover_tmp_file, FILE *group_tmp_file,
    printf ("Bit string and matrix are %d and ", *bit_string);
    print_array (*subset, 0, lastg - start);
 #endif
-      
+
    if (option == RELATIVE) {
       nmr_defs = 0;
       for (i = 0; i < lastg - start + 1; ++i)
-	 if ((*subset)[i] >= 0) 
+	 if ((*subset)[i] >= 0)
 	    ++nmr_defs;
       pga->s = nmr_defs;
 
@@ -119,23 +119,23 @@ find_allowable_subgroup (int option, FILE *cover_tmp_file, FILE *group_tmp_file,
       free_matrix (subgroup, pga->s, 0);
       free_vector (*subset, 0);
       *subset = (int *) 0;
- 
+
       return (int **) 0;
    }
 
-   /* look up necessary relations in the class c + 1 quotient 
+   /* look up necessary relations in the class c + 1 quotient
       and store the appropriate exponents in subgroup matrix */
    for (r = 0; r < q; ++r) {
       if (relation[r] == TRUE)
 	 continue;
-      
+
       u = definition[r][0];
       v = definition[r][1];
-  
+
       /* look up u^p or [u, v] */
       pointer = (v == 0) ? y[pcp->ppower + u] : y[y[pcp->ppcomm + u] + v];
-      
-      /* set up the exponents of these relations in the subgroup matrix */ 
+
+      /* set up the exponents of these relations in the subgroup matrix */
       if (pointer > 0)
 	 subgroup[pointer - start][r] = 1;
       else if (pointer < 0) {
@@ -153,7 +153,7 @@ find_allowable_subgroup (int option, FILE *cover_tmp_file, FILE *group_tmp_file,
 #if defined (DEBUG)
    printf ("The subgroup matrix is\n");
    print_matrix (subgroup, pga->s, q);
-#endif 
+#endif
 
    free_matrix (definition, q, 0);
    free_vector (relation, 0);
@@ -163,15 +163,15 @@ find_allowable_subgroup (int option, FILE *cover_tmp_file, FILE *group_tmp_file,
 
 /* which generator of the p-covering group did u and v define? */
 
-int 
+int
 find_index (int u, int v, int **definition, int q)
 {
    register int i;
 
-   for (i = 0; i < q; ++i)  
-      if (u == definition[i][0] && v == definition[i][1])  
+   for (i = 0; i < q; ++i)
+      if (u == definition[i][0] && v == definition[i][1])
 	 return i;
 
    return -1;
 }
-#endif 
+#endif

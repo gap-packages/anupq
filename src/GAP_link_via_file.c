@@ -64,26 +64,26 @@ void start_GAP_file ( FILE **GAP_input, int ***auts, struct pga_vars *pga, struc
    fprintf( *GAP_input, "ANUPQglb.genQ := [];;\n"              );
 
    /* write the generators <gendp> to file                                */
-   for (i = 1; i <= nmr_soluble; ++i) 
+   for (i = 1; i <= nmr_soluble; ++i)
      write_GAP_matrix(*GAP_input,"ANUPQglb.agAutos",auts[i],pcp->ccbeg - 1,1,i);
 
 
-#ifdef DEBUG1 
+#ifdef DEBUG1
    printf ("The relative orders are ");
-      for (i = 1; i <= nmr_soluble; ++i) 
+      for (i = 1; i <= nmr_soluble; ++i)
           printf ("%d, ", pga->relative[i]);
       printf ("\n");
 #endif
 
    fprintf( *GAP_input, "relativeOrders := [" );
    if (nmr_soluble > 0) {
-      for (i = 1; i < nmr_soluble; ++i) 
+      for (i = 1; i < nmr_soluble; ++i)
           fprintf (*GAP_input, "%d, ", pga->relative[i]);
       fprintf (*GAP_input, "%d", pga->relative[nmr_soluble]);
    }
    fprintf (*GAP_input, "];\n");
 
-   for (i = nmr_soluble + 1; i <= pga->m; ++i) 
+   for (i = nmr_soluble + 1; i <= pga->m; ++i)
      write_GAP_matrix(*GAP_input,"ANUPQglb.glAutos",auts[i],pcp->ccbeg - 1,
                       1, i - nmr_soluble);
 }
@@ -95,7 +95,7 @@ void start_GAP_file ( FILE **GAP_input, int ***auts, struct pga_vars *pga, struc
 **                                     write out a matrix in a GAP input form
 **
 */
-void 
+void
 write_GAP_matrix (FILE *GAP_input, char *gen, int **A, int size, int start, int nr)
 {
    int         i, j;
@@ -104,7 +104,7 @@ write_GAP_matrix (FILE *GAP_input, char *gen, int **A, int size, int start, int 
    for ( i = start;  i < start + size;  ++i )
    {
       fprintf( GAP_input, "[" );
-      for ( j = start;  j < start + size - 1;  ++j )  
+      for ( j = start;  j < start + size - 1;  ++j )
 	 fprintf( GAP_input, "%d, ", A[i][j] );
       if ( i != start + size - 1 )
 	 fprintf( GAP_input, "%d],\n", A[i][j] );
@@ -120,7 +120,7 @@ write_GAP_matrix (FILE *GAP_input, char *gen, int **A, int size, int start, int 
 **          calculate the stabiliser of the supplied representative using GAP
 **
 */
-void 
+void
 insoluble_stab_gens (int rep, int orbit_length, struct pga_vars *pga, struct pcp_vars *pcp)
 {
    FILE  * GAP_rep;
@@ -128,7 +128,7 @@ insoluble_stab_gens (int rep, int orbit_length, struct pga_vars *pga, struct pcp
    char  c;
    int index;
    int *subset;
-   int **S;                                                                     
+   int **S;
 
    /* append the commands to compute the stabilizer                       */
    GAP_rep = OpenFile( "GAP_rep", "w+" );
@@ -136,7 +136,7 @@ insoluble_stab_gens (int rep, int orbit_length, struct pga_vars *pga, struct pcp
    S = label_to_subgroup (&index, &subset, rep, pga);
    GAP_factorise_subgroup (GAP_rep, S, index, subset, pga, pcp);
    free_matrix (S, pga->s, 0);
-   free_vector (subset, 0);                                                     
+   free_vector (subset, 0);
    if ( !GAP4iostream ) {
      fprintf( GAP_rep, "LoadPackage(\"autpgrp\", \"1.5\");\n" );
      fprintf( GAP_rep, "if TestPackageAvailability(" );
@@ -167,7 +167,7 @@ insoluble_stab_gens (int rep, int orbit_length, struct pga_vars *pga, struct pcp
      if ( c == 'p' ) putchar( c );
      while( (c = getchar()) != '\n' ) putchar( c );
      putchar( c );
-   } 
+   }
    else {
      /* try to find gap                                                   */
      if ( ( path = (char*) getenv( "ANUPQ_GAP_EXEC" ) ) == NULL )
@@ -181,7 +181,7 @@ insoluble_stab_gens (int rep, int orbit_length, struct pga_vars *pga, struct pcp
      strcat( command, " -r -q -A GAP_input < GAP_rep" );
 
      /* inform the user that we are about to call GAP                     */
-     if (isatty (0)) 
+     if (isatty (0))
        printf ("Now calling GAP to compute stabiliser...\n");
      unlink( "LINK_output" );
 
@@ -190,7 +190,7 @@ insoluble_stab_gens (int rep, int orbit_length, struct pga_vars *pga, struct pcp
      if ( vsystem(command) != 0 )
 #   else
        if ( system(command) != 0 )
-#   endif 
+#   endif
        {
 	 printf( "Error in system call to GAP\n" );
 	 exit(FAILURE);
@@ -202,4 +202,4 @@ insoluble_stab_gens (int rep, int orbit_length, struct pga_vars *pga, struct pcp
    unlink( "GAP_rep" );
 }
 
-#endif 
+#endif

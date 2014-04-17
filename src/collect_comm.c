@@ -71,7 +71,7 @@ void collect_def_comm (int ptr, int cp, struct pcp_vars *pcp)
    pcp->submlg += total;
 }
 
-/* collect value of defining generator stored at y[ptr] to 
+/* collect value of defining generator stored at y[ptr] to
    storage location cp */
 
 void collect_defining_generator (int ptr, int cp, struct pcp_vars *pcp)
@@ -82,13 +82,13 @@ void collect_defining_generator (int ptr, int cp, struct pcp_vars *pcp)
    int i, generator, genval;
 
 #ifdef DEBUG
-   int j, word_len; 
+   int j, word_len;
 #endif
 
    /* zero out lastg entries in array in order to store result */
-   for (i = 1; i <= lastg; ++i)  
+   for (i = 1; i <= lastg; ++i)
       y[cp + i] = 0;
-   
+
    generator = y[ptr];
    genval = y[pcp->dgen + generator];
 
@@ -97,15 +97,15 @@ void collect_defining_generator (int ptr, int cp, struct pcp_vars *pcp)
       report_error (0, generator, 0);
 
 #ifdef DEBUG
-   if (genval > 0) 
+   if (genval > 0)
       printf ("%d %d\n", generator, genval);
    else if (genval < 0) {
       printf ("%d %d ", generator, y[-genval]);
       word_len = y[-genval + 1];
-      for (j = 1; j <= word_len; ++j) 
+      for (j = 1; j <= word_len; ++j)
 	 printf (" %d", y[-genval + 1 + j]);
    }
-   else 
+   else
       printf ("generator %d is trivial\n", generator);
 #endif
 

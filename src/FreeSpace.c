@@ -16,7 +16,7 @@
 void free_vector (int *a, int start)
 {
 
-#ifdef DEBUG 
+#ifdef DEBUG
    printf ("Free vector\n");
 #endif
 
@@ -29,7 +29,7 @@ void free_vector (int *a, int start)
 void free_matrix (int **a, int n, int start)
 {
    register int i;
-#ifdef DEBUG 
+#ifdef DEBUG
    printf ("Free matrix\n");
 #endif
 
@@ -49,7 +49,7 @@ void free_matrix (int **a, int n, int start)
 void free_array (int ***a, int n, int m, int start)
 {
    register int i, j;
-#ifdef DEBUG 
+#ifdef DEBUG
    printf ("Free array\n");
 #endif
 
@@ -74,7 +74,7 @@ void free_array (int ***a, int n, int m, int start)
 void free_char_vector (char *a, int start)
 {
 
-#ifdef DEBUG 
+#ifdef DEBUG
    printf ("Free char vector\n");
 #endif
 
@@ -82,18 +82,18 @@ void free_char_vector (char *a, int start)
    free (a);
 }
 
-/* free space used by character matrix, a */ 
+/* free space used by character matrix, a */
 
 void free_char_matrix (char **a, int n)
 {
    register int i;
-#ifdef DEBUG 
+#ifdef DEBUG
    printf ("Free char matrix\n");
 #endif
 
    if (n == 0) n = 1;
 
-   for (i = 0; i < n; ++i)  
+   for (i = 0; i < n; ++i)
       free (a[i]);
 
    free (a);
@@ -105,7 +105,7 @@ void free_space (Logical soluble_computation, int **perms, int *orbit_length, in
 {
    int nmr_of_perms = (pga->space_efficient ? 1 : pga->nmr_of_perms);
 
-#ifdef DEBUG 
+#ifdef DEBUG
    printf ("Free space routine\n");
 #endif
 

@@ -28,11 +28,11 @@ void print_generator (int generator, int pointer, struct pcp_vars *pcp)
    printf ("\n");
 }
 
-/* find the definition of generator of supplied weight 
+/* find the definition of generator of supplied weight
    and set it up with address pointer */
 
 int find_definition (int generator, int pointer, int weight, struct pcp_vars *pcp)
-{  
+{
    register int *y = y_address;
 
    register int u, v;
@@ -43,11 +43,11 @@ int find_definition (int generator, int pointer, int weight, struct pcp_vars *pc
    do {
       u = PART2 (y[structure + generator]);
       v = PART3 (y[structure + generator]);
-      
+
       /* deal with case where generator is a defining generator */
       if (generator < v) v = generator;
 
-      if (u == 0)  
+      if (u == 0)
 	 y[--pointer] = v;
       else {
 	 if (v == 0) {
@@ -77,7 +77,7 @@ int find_definition (int generator, int pointer, int weight, struct pcp_vars *pc
 int layer (int generator, struct pcp_vars *pcp)
 {
    register int *y = y_address;
-   
+
    int i;
 
    for (i = 1; i <= pcp->cc && y[pcp->clend + i] != 0 &&
@@ -87,7 +87,7 @@ int layer (int generator, struct pcp_vars *pcp)
    return MIN (i, pcp->cc);
 }
 
-/* print the structure of each of the pcp generators, 
+/* print the structure of each of the pcp generators,
    numbered from first to last inclusive */
 
 void print_structure (int first, int last, struct pcp_vars *pcp)
@@ -120,19 +120,19 @@ void print_structure (int first, int last, struct pcp_vars *pcp)
       else {
 	 u = PART2 (pointer);
 	 v = PART3 (pointer);
-	 if (u == 0)  
+	 if (u == 0)
 	    printf ("%d is defined on image of defining generator %d\n", gen, v);
 	 else {
 	    for (i = 1; i <= weight; ++i)
 	       y[pcp->lused + i] = 0;
 
 	    find_definition (gen, pcp->lused, weight, pcp);
-	    if (v == 0)  
+	    if (v == 0)
 	       printf ("%d is defined on %d^%d = ", gen, u, pcp->p);
-	    else   
+	    else
 	       printf ("%d is defined on [%d, %d] = ", gen, u, v);
 
-	    for (i = 1; i <= weight; ++i)  
+	    for (i = 1; i <= weight; ++i)
 	       if ((value = y[pcp->lused + i]) != 0)
 		  printf ("%d ", value);
 	    printf ("\n");

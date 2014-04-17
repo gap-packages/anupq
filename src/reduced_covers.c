@@ -15,16 +15,16 @@
 
 void trace_details (struct pga_vars *pga);
 
-/* default processing -- 
-   1. calculate the extended automorphisms 
-   2. characteristically close k-initial segment subgroup 
-   3. calculate the relevant permutations of the allowable 
-      subgroups relative to this subgroup 
-   4. compute orbits of the allowable subgroups and choose 
-      the representatives of these orbits 
+/* default processing --
+   1. calculate the extended automorphisms
+   2. characteristically close k-initial segment subgroup
+   3. calculate the relevant permutations of the allowable
+      subgroups relative to this subgroup
+   4. compute orbits of the allowable subgroups and choose
+      the representatives of these orbits
    4. factor each orbit representative to obtain descendant
-   5. save presentation + automorphisms to file 
-   
+   5. save presentation + automorphisms to file
+
    return the number of reduced p-covering groups constructed */
 
 int reduced_covers (FILE *descendant_file, FILE *covers_file, int k, int ***auts, struct pga_vars *pga, struct pcp_vars *pcp)
@@ -36,17 +36,17 @@ int reduced_covers (FILE *descendant_file, FILE *covers_file, int k, int ***auts
    int **perms;                 /* store all permutations */
    int *orbit_length;           /* length of orbits */
    FILE * LINK_input;        /* input file for GAP */
-#if defined (GAP_LINK) 
-   Logical process_fork = FALSE; /* has GAP process forked? */        
+#if defined (GAP_LINK)
+   Logical process_fork = FALSE; /* has GAP process forked? */
 #endif
-   Logical soluble_group;       /* indicates that orbits and stabilisers may 
+   Logical soluble_group;       /* indicates that orbits and stabilisers may
 				   be computed using soluble machinery */
 
    /* calculate the extended automorphisms */
    extend_automorphisms (auts, pga->m, pcp);
    if (pcp->overflow) return 0;
 
-   if (pga->print_extensions && pga->m != 0) {  
+   if (pga->print_extensions && pga->m != 0) {
       printf ("\nThe extension%s:\n", pga->m == 1 ? " is" : "s are");
       print_auts (pga->m, pcp->lastg, auts, pcp);
    }
@@ -57,7 +57,7 @@ int reduced_covers (FILE *descendant_file, FILE *covers_file, int k, int ***auts
    /* set up space for definition sets */
    store_definition_sets (pga->r, lower_step, upper_step, pga);
 
-   /* loop over each permitted step size */ 
+   /* loop over each permitted step size */
    for (pga->s = lower_step; pga->s <= upper_step; ++pga->s) {
 
       if (pga->trace)
@@ -66,24 +66,24 @@ int reduced_covers (FILE *descendant_file, FILE *covers_file, int k, int ***auts
       get_definition_sets (pga);
       compute_degree (pga);
 
-      /* establish which automorphisms induce the identity 
+      /* establish which automorphisms induce the identity
 	 on the relevant subgroup of the p-multiplicator */
       strip_identities (auts, pga, pcp);
 
       /* if possible, use the more efficient soluble code --
 	 in particular, certain extreme cases can be handled */
-      soluble_group = (pga->soluble || pga->Degree == 1 || 
+      soluble_group = (pga->soluble || pga->Degree == 1 ||
 		       pga->nmr_of_perms == 0);
 
       if (!soluble_group) {
-#if defined (GAP_LINK) 
+#if defined (GAP_LINK)
 	 if (!process_fork) {
 	    start_GAP_file (auts, pga);
 	    process_fork = TRUE;
 	 }
 	 StartGapFile (pga);
 #else
-#if defined (GAP_LINK_VIA_FILE) 
+#if defined (GAP_LINK_VIA_FILE)
 	 start_GAP_file (&LINK_input, auts, pga, pcp);
 #endif
 #endif
@@ -108,25 +108,25 @@ int reduced_covers (FILE *descendant_file, FILE *covers_file, int k, int ***auts
       pga->final_stage = (pga->q == pga->multiplicator_rank);
 
       if (!soluble_group) {
-#if defined (GAP_LINK_VIA_FILE) 
+#if defined (GAP_LINK_VIA_FILE)
 	 CloseFile (LINK_input);
-#endif 
+#endif
       }
 
-      setup_reps (pga->rep, pga->nmr_orbits, orbit_length, perms, a, b, c, 
+      setup_reps (pga->rep, pga->nmr_orbits, orbit_length, perms, a, b, c,
 		  auts, descendant_file, covers_file, pga, pcp);
 
       if (!pga->final_stage)
 	 nmr_of_covers += pga->nmr_orbits;
 
-      free_space (soluble_group, perms, orbit_length, 
-		  a, b, c, pga); 
-   }     
+      free_space (soluble_group, perms, orbit_length,
+		  a, b, c, pga);
+   }
 
 #if defined (GAP_LINK)
-   if (process_fork) 
+   if (process_fork)
       QuitGap ();
-#endif 
+#endif
 
    free_vector (pga->list, 0);
    free_vector (pga->available, 0);

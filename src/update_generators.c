@@ -14,10 +14,10 @@
 /* add pseudo-generators to redundant defining generators;
    also recompute required inverses of defining generators;
 
-   this routine must be called before a call to collect defining 
-   relations; if there are redundant defining generators, calls to 
-   eliminate should only be done after calling update_generator 
-   because the space reserved for the pseudo-generator(s) added 
+   this routine must be called before a call to collect defining
+   relations; if there are redundant defining generators, calls to
+   eliminate should only be done after calling update_generator
+   because the space reserved for the pseudo-generator(s) added
    by update_generator in structure is not set up yet */
 
 void update_generators (struct pcp_vars *pcp)
@@ -37,7 +37,7 @@ void update_generators (struct pcp_vars *pcp)
    register int dgen = pcp->dgen;
    register int ndgen = pcp->ndgen;
    register int lused;
-   register int lastg; 
+   register int lastg;
 
 #include "access.h"
 
@@ -64,7 +64,7 @@ void update_generators (struct pcp_vars *pcp)
 	 y[lused] = PACK2 (1, pcp->lastg);
 
 	 /* if there are greater than MAXGENS defining generators
-	    then this field will overflow; such an overflow causes 
+	    then this field will overflow; such an overflow causes
 	    some output idiocies, but no logical errors */
 
 	 y[pcp->structure + pcp->lastg] = PACK3 (0, 0, f) + INSWT (pcp->cc);
@@ -82,9 +82,9 @@ void update_generators (struct pcp_vars *pcp)
    /* update submlg to account for any new pseudo-generators introduced */
    pcp->submlg = pcp->subgrp - pcp->lastg;
 
-   /* now, recompute required inverses -- 
+   /* now, recompute required inverses --
       we know the inverse of f to the end of class pcp->cc - 1;
-      denote this by f'; evaluate f * f' and take the inverse of 
+      denote this by f'; evaluate f * f' and take the inverse of
       this result to give the class pcp->cc part of f^-1 */
 
    for (f = 1; f <= ndgen; f++) {
@@ -104,8 +104,8 @@ void update_generators (struct pcp_vars *pcp)
       ycol = y[dgen - f];
       collect (ycol, cp, pcp);
 
-      /* inverse of the class pcp->cc part of f^(-1) is now in 
-	 y[cp + pcp->ccbeg] to y[cp + pcp->lastg] in exponent form; 
+      /* inverse of the class pcp->cc part of f^(-1) is now in
+	 y[cp + pcp->ccbeg] to y[cp + pcp->lastg] in exponent form;
 	 convert it to string form */
 
       length = 0;

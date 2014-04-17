@@ -15,11 +15,11 @@
 
 void step_range (int k, int *lower_step, int *upper_step, int ***auts, struct pga_vars *pga, struct pcp_vars *pcp)
 {
-   /* the k-initial segment subgroup must include those 
+   /* the k-initial segment subgroup must include those
       generators previously fixed */
    k = MAX(k, pga->fixed);
 
-   /* find the rank of the characteristic closure of 
+   /* find the rank of the characteristic closure of
       k-initial segment subgroup of the p-multiplicator */
    pga->q = close_subgroup (k, auts, pga, pcp);
 
@@ -28,7 +28,7 @@ void step_range (int k, int *lower_step, int *upper_step, int ***auts, struct pg
 
    /* is the rank of the subgroup < nuclear rank? */
    if (pga->q < pga->nuclear_rank)
-      *lower_step = MAX(pga->fixed, 
+      *lower_step = MAX(pga->fixed,
 			pga->step_size + pga->q - pga->nuclear_rank);
    else
       *lower_step = pga->step_size;

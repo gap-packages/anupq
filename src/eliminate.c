@@ -11,10 +11,10 @@
 #include "pcp_vars.h"
 #include "pq_functions.h"
 
-/* eliminate all redundant generators to construct the consistent 
+/* eliminate all redundant generators to construct the consistent
    power commutator presentation for the group to class current_class;
-   
-   if middle_of_tails is TRUE, do not delete space set aside in 
+
+   if middle_of_tails is TRUE, do not delete space set aside in
    setup; in this case, only deallocate redundant generators */
 
 void eliminate (Logical middle_of_tails, struct pcp_vars *pcp)
@@ -42,9 +42,9 @@ void eliminate (Logical middle_of_tails, struct pcp_vars *pcp)
 
 #include "access.h"
 
-   /* calculate new values for irredundant generators and set them up 
-      in a renumbering table of length pcp->lastg - pcp->ccbeg + 1 
-      which looks to compact like a normal exponent-generator string 
+   /* calculate new values for irredundant generators and set them up
+      in a renumbering table of length pcp->lastg - pcp->ccbeg + 1
+      which looks to compact like a normal exponent-generator string
       pointed to by y[dgen] */
 
    if (current_class != 1) {
@@ -69,7 +69,7 @@ void eliminate (Logical middle_of_tails, struct pcp_vars *pcp)
 
       /* update pcp->first_pseudo */
       bound = pcp->lastg;
-      for (i = pcp->first_pseudo; i <= bound && y[structure + i] <= 0; i++)  
+      for (i = pcp->first_pseudo; i <= bound && y[structure + i] <= 0; i++)
 	 ;
       pcp->first_pseudo = (i > pcp->lastg) ? lg + 1 : y[ba + i];
 
@@ -104,7 +104,7 @@ void eliminate (Logical middle_of_tails, struct pcp_vars *pcp)
       if (middle_of_tails) {
 	 pointer = pcp->structure + pcp->ccbeg - 1;
 	 for (i = pcp->ccbeg; i <= pcp->lastg; ++i) {
-	    if ((value = y[pcp->structure + i]) > 0)  
+	    if ((value = y[pcp->structure + i]) > 0)
 	       y[++pointer] = value;
 	    else if (value < 0)
 	       y[-value] = 0;
@@ -115,7 +115,7 @@ void eliminate (Logical middle_of_tails, struct pcp_vars *pcp)
 	 structure = pcp->structure;
 	 for (i = pcp->lastg; i >= pcp->ccbeg; i--) {
 	    if ((j = y[structure + i]) > 0) {
-	       y[k] = j; 
+	       y[k] = j;
 	       k--;
 	    }
 	    else if (j < 0) {
@@ -134,7 +134,7 @@ void eliminate (Logical middle_of_tails, struct pcp_vars *pcp)
 	 pcp->words = k;
 	 pcp->subgrp = k;
 	 pcp->submlg = pcp->subgrp - lg;
-      } 
+      }
 
       pcp->lastg = lg;
       y[pcp->clend + current_class] = pcp->lastg;
@@ -161,7 +161,7 @@ void eliminate (Logical middle_of_tails, struct pcp_vars *pcp)
 	 }
       }
       else if (j < 0) {
-	 /* defining generator i is redundant with value pointed 
+	 /* defining generator i is redundant with value pointed
 	    to by -y[structure + i] */
 	 y[dgen + i] = y[structure + i];
 	 p1 = -y[dgen + i];
@@ -175,7 +175,7 @@ void eliminate (Logical middle_of_tails, struct pcp_vars *pcp)
 	 }
 
 	 if (y[dgen - i] < 0) {
-	    /* i inverse occurs in a defining relation, so recompute 
+	    /* i inverse occurs in a defining relation, so recompute
 	       the inverse and set up header block for inverse */
 	    y[lused + 1] = dgen - i;
 	    y[lused + 2] = length;
@@ -199,7 +199,7 @@ void eliminate (Logical middle_of_tails, struct pcp_vars *pcp)
 	 pcp->lastg++;
 	 y[dgen + i] = pcp->lastg;
 	 /* note that its weight is set to be 1 */
-	 y[structure + pcp->lastg] = PACK3 (1, 0, i); 
+	 y[structure + pcp->lastg] = PACK3 (1, 0, i);
 
 	 /* check if inverse of i is required */
 	 if (y[dgen - i] < 0) {

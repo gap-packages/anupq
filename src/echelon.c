@@ -12,13 +12,13 @@
 #include "pq_functions.h"
 #define CAREFUL
 
-/* echelonise the relation stored in exponent form in two parts; 
-   left-hand side is in y[lused + 1] to y[lused + lastg]; 
-   right-hand side is in y[lused + lastg + 1] to y[lused + 2 * lastg]; 
+/* echelonise the relation stored in exponent form in two parts;
+   left-hand side is in y[lused + 1] to y[lused + lastg];
+   right-hand side is in y[lused + lastg + 1] to y[lused + 2 * lastg];
 
-   the relation should be homogeneous of class pcp->cc; 
-   if the result is nontrivial, set it up as a new relation pointed 
-   to by the appropriate y[structure + ..]; then remove all occurrences 
+   the relation should be homogeneous of class pcp->cc;
+   if the result is nontrivial, set it up as a new relation pointed
+   to by the appropriate y[structure + ..]; then remove all occurrences
    of newly found redundant generator from the other equations */
 
 int echelon (struct pcp_vars *pcp)
@@ -63,7 +63,7 @@ int echelon (struct pcp_vars *pcp)
       }
    }
 
-   /* compute quotient of the relations and store quotient as an exponent 
+   /* compute quotient of the relations and store quotient as an exponent
       vector in y[pcp->lused + pcp->ccbeg] to y[pcp->lused + pcp->lastg] */
    k = 0;
    offset = pcp->lused;
@@ -89,7 +89,7 @@ int echelon (struct pcp_vars *pcp)
 	    y[free + i] = 0;
 	 for (i = pcp->ccbeg; i <= pcp->lastg; ++i)
 	    y[free + i] = y[pcp->lused + i];
-	 setup_word_to_print ("quotient relation", free, 
+	 setup_word_to_print ("quotient relation", free,
 			      free + pcp->lastg + 1, pcp);
       }
    }
@@ -113,14 +113,14 @@ int echelon (struct pcp_vars *pcp)
 	    for (i = 1; i <= count; i++) {
 	       value = y[p1 + i + 1];
 	       j = FIELD2 (value);
-	       /* integer overflow can occur here; see comments in collect */ 
+	       /* integer overflow can occur here; see comments in collect */
 	       y[offset + j] = (y[offset + j] + exp * FIELD1 (value)) % p;
 	    }
 	 }
 	 y[pcp->lused + k] = 0;
       }
       else {
-	 /* generator k was previously irredundant; have we already 
+	 /* generator k was previously irredundant; have we already
 	    found a generator to eliminate using this relation? */
 	 if (redgen > 0) {
 	    /* yes, so multiply this term by the appropriate factor
@@ -134,16 +134,16 @@ int echelon (struct pcp_vars *pcp)
 	    redgen = k;
 	    trivial = TRUE;
 
-	    /* we want to compute the value of k so we will multiply the 
+	    /* we want to compute the value of k so we will multiply the
 	       rest of the relation by the appropriate factor;
 	       integer overflow can occur here; see comments in collect */
 	    factor = pm1 * invert_modp (exp, p);
 
-	    /* we carry out this mod computation to reduce possibility 
+	    /* we carry out this mod computation to reduce possibility
 	       of integer overflow */
 #if defined (CAREFUL)
 	    factor = factor % p;
-#endif 
+#endif
 	    y[pcp->lused + k] = 0;
 	 }
       }
@@ -151,7 +151,7 @@ int echelon (struct pcp_vars *pcp)
 
    if (redgen <= 0)
       return -1;
-   else 
+   else
       pcp->redgen = redgen;
 
    /* the relation is nontrivial; redgen is either trivial or redundant */
@@ -203,14 +203,14 @@ int echelon (struct pcp_vars *pcp)
    pcp->complete = 1;
    last_class (pcp);
 
-   if (pcp->fullop || pcp->diagn) 
+   if (pcp->fullop || pcp->diagn)
       text (5, pcp->cc, p, pcp->lastg, 0);
 
    return -1;
 }
 
 /* complete echelonisation of this relation by removing all occurrences
-   of redgen from the other relations; if the generator redgen is 
+   of redgen from the other relations; if the generator redgen is
    trivial, then the flag trivial is TRUE */
 
 void complete_echelon (Logical trivial, int redgen, struct pcp_vars *pcp)
@@ -271,7 +271,7 @@ void complete_echelon (Logical trivial, int redgen, struct pcp_vars *pcp)
       p1 = -y[pcp->structure + redgen];
       count = y[p1 + 1];
 
-      /* eliminate all occurrences of redgen from the other relations 
+      /* eliminate all occurrences of redgen from the other relations
 	 by substituting its value */
       for (k = redgen + 1, bound = pcp->lastg; k <= bound; k++) {
 	 if (y[pcp->structure + k] >= 0)
@@ -290,7 +290,7 @@ void complete_echelon (Logical trivial, int redgen, struct pcp_vars *pcp)
 	 factor = FIELD1 (y[p1 + j + 1]);
 	 predg = -y[pcp->structure + redgen];
 
-	 /* merge old relation with factor * (new relation), deleting redgen; 
+	 /* merge old relation with factor * (new relation), deleting redgen;
 	    old relation is longer than new relation since it contains redgen */
 
 	 /* commence merge */
@@ -307,7 +307,7 @@ void complete_echelon (Logical trivial, int redgen, struct pcp_vars *pcp)
 	       count2++;
 	       /* integer overflow can occur here; see comments in collect */
 	       value = y[predg + l + 1];
-	       y[offset + count2] = PACK2 ((factor * FIELD1 (value)) % p, 
+	       y[offset + count2] = PACK2 ((factor * FIELD1 (value)) % p,
 					   FIELD2 (value));
 	       if (++l > count)
 		  break;

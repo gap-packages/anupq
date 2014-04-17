@@ -11,9 +11,9 @@
 #include "pcp_vars.h"
 #include "word_types.h"
 
-/* calculate a solution, x, to the equation a * x = b, 
-   where a and b are supplied as exponent vectors with 
-   addresses cp1 and cp2; the result is stored as an 
+/* calculate a solution, x, to the equation a * x = b,
+   where a and b are supplied as exponent vectors with
+   addresses cp1 and cp2; the result is stored as an
    exponent vector with address result */
 
 void solve_equation (int cp1, int cp2, int result, struct pcp_vars *pcp)
@@ -46,7 +46,7 @@ void solve_equation (int cp1, int cp2, int result, struct pcp_vars *pcp)
 
       y[cp1 + i] = 0;
    }
-} 
+}
 
 /* set up input for solve_equation procedure */
 

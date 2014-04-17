@@ -10,7 +10,7 @@
 #include "pq_defs.h"
 #include "pcp_vars.h"
 
-/* convert exponent vector with base address  
+/* convert exponent vector with base address
    cp to string whose base address is str */
 
 void vector_to_string (int cp, int str, struct pcp_vars *pcp)
@@ -18,11 +18,11 @@ void vector_to_string (int cp, int str, struct pcp_vars *pcp)
    register int *y = y_address;
 
    register int i;
-   register int length = 0;   
+   register int length = 0;
    register int lastg = pcp->lastg;
 
-#include "access.h" 
-   
+#include "access.h"
+
    for (i = 1; i <= lastg; ++i) {
       if (y[cp + i] != 0) {
 	 ++length;
@@ -33,11 +33,11 @@ void vector_to_string (int cp, int str, struct pcp_vars *pcp)
    y[str + 1] = length;
 }
 
-/* convert exponent-vector with base address cp 
+/* convert exponent-vector with base address cp
    to word with base address ptr */
 
 int vector_to_word (int cp, int ptr, struct pcp_vars *pcp)
-{   
+{
    register int *y = y_address;
 
    int i, j;
@@ -52,18 +52,18 @@ int vector_to_word (int cp, int ptr, struct pcp_vars *pcp)
       }
    }
 
-   y[ptr] = length; 
+   y[ptr] = length;
    return length;
 }
 
-/* convert normal word with base address ptr and exponent 1 
+/* convert normal word with base address ptr and exponent 1
    to string with base address str */
 void word_to_string (int ptr, int str, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
    register int i;
-   register int length = y[ptr];   
+   register int length = y[ptr];
    /* register int exp = y[ptr + 1]; */
 #include "access.h"
 
@@ -73,7 +73,7 @@ void word_to_string (int ptr, int str, struct pcp_vars *pcp)
    y[str + 1] = length;
 }
 
-/* convert string with base address str to 
+/* convert string with base address str to
    exponent vector whose base address is cp */
 
 void string_to_vector (int str, int cp, struct pcp_vars *pcp)

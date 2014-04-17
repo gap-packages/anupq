@@ -13,14 +13,14 @@
 #include "pq_functions.h"
 #define BITES_IN_INT 8 * sizeof (int)
 
-/* given a label, find the standard matrix, S, for the 
+/* given a label, find the standard matrix, S, for the
    corresponding allowable subgroup and its definition set */
 
 int** label_to_subgroup (int *Index, int **subset, int label, struct pga_vars *pga)
-                  
+
                   /* definition set for subgroup */
-          
-                     
+
+
 {
    register int i, j;
 
@@ -30,13 +30,13 @@ int** label_to_subgroup (int *Index, int **subset, int label, struct pga_vars *p
    int position = 0;
 
    /* deduct the appropriate offset + 1 */
-   while (index < pga->nmr_def_sets && label > pga->offset[index])  
+   while (index < pga->nmr_def_sets && label > pga->offset[index])
       ++index;
 
    --index;
    label -= (pga->offset[index] + 1);
 
-   /* set up room to store the p-adic expansion of the remainder */ 
+   /* set up room to store the p-adic expansion of the remainder */
    expand = allocate_vector (pga->available[index], 0, 1);
    find_padic (label, pga->available[index] - 1, pga->p, expand, pga);
 
@@ -60,15 +60,15 @@ int** label_to_subgroup (int *Index, int **subset, int label, struct pga_vars *p
    return S;
 }
 
-/* factorise subgroup determined by standard matrix S from 
+/* factorise subgroup determined by standard matrix S from
    p-covering group; the definition set for S is pga->list[index] */
 
 void factorise_subgroup (int **S, int index, int *subset, struct pga_vars *pga, struct pcp_vars *pcp)
-        
-          
+
+
                    /* definition set for subgroup */
-                     
-                     
+
+
 {
    register int *y = y_address;
 
@@ -81,7 +81,7 @@ void factorise_subgroup (int **S, int index, int *subset, struct pga_vars *pga, 
       for (j = 1; j <= 2 * pcp->lastg; ++j)
 	 y[pcp->lused + j] = 0;
 
-      for (j = 0; j < pga->s; ++j) 
+      for (j = 0; j < pga->s; ++j)
 	 if (S[j][i] != 0)
 	    y[pcp->lused + pcp->ccbeg + subset[j]] = pga->p - S[j][i];
 
@@ -93,16 +93,16 @@ void factorise_subgroup (int **S, int index, int *subset, struct pga_vars *pga, 
    eliminate (0, pcp);
 }
 
-/* factorise subgroup determined by standard matrix S from 
+/* factorise subgroup determined by standard matrix S from
    p-covering group; the definition set for S is pga->list[index] */
 
 void GAP_factorise_subgroup (FILE *GAP_input, int **S, int index, int *subset, struct pga_vars *pga, struct pcp_vars *pcp)
-                
-        
-          
+
+
+
                    /* definition set for subgroup */
-                     
-                     
+
+
 {
    register int *y = y_address;
 
@@ -116,17 +116,17 @@ void GAP_factorise_subgroup (FILE *GAP_input, int **S, int index, int *subset, s
       for (j = 1; j <= 2 * pcp->lastg; ++j)
 	 y[pcp->lused + j] = 0;
 
-      for (j = 0; j < pga->s; ++j) 
+      for (j = 0; j < pga->s; ++j)
 	 if (S[j][i] != 0)
 	    y[pcp->lused + pcp->ccbeg + subset[j]] = pga->p - S[j][i];
 
       y[pcp->lused + pcp->ccbeg + i] = 1;
 
       fprintf (GAP_input, "[");
-      for (j = pcp->ccbeg; j < pcp->ccbeg + pga->q - 1; ++j) 
+      for (j = pcp->ccbeg; j < pcp->ccbeg + pga->q - 1; ++j)
          fprintf (GAP_input, "%d, ", y[pcp->lused + j]);
       fprintf (GAP_input, "%d]", y[pcp->lused + pcp->ccbeg + pga->q - 1]);
-      if (i < pga->q - 1) fprintf (GAP_input, ",\n"); 
+      if (i < pga->q - 1) fprintf (GAP_input, ",\n");
    }
    fprintf (GAP_input, "];;\n");
 }
@@ -144,11 +144,11 @@ void find_padic (int x, int k, int p, int *expand, struct pga_vars *pga)
 	 alpha = p - 1;
 	 while (alpha * val > x)
 	    --alpha;
-	 expand[k] = alpha; 
+	 expand[k] = alpha;
 	 x -= alpha * val;
       }
       --k;
-   }      
+   }
 }
 
 /* decode the bit string K and store as subset */

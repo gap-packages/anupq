@@ -17,7 +17,7 @@
 
 void verify_read (int nmr_items, int required)
 {
-   if (nmr_items != required) { 
+   if (nmr_items != required) {
       printf ("Insufficent data read in from or written to file\n");
       exit (FAILURE);
    }
@@ -30,7 +30,7 @@ void restore_pcp (FILE *ifp, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
-   register int i, j, l; 
+   register int i, j, l;
    int new_workspace = pcp->backy;
    int offset = 0;
    int value, end, min;
@@ -54,7 +54,7 @@ void restore_pcp (FILE *ifp, struct pcp_vars *pcp)
 	    exit (FAILURE);
 	 }
       }
-      offset = new_workspace - pcp->backy; 
+      offset = new_workspace - pcp->backy;
       pcp->backy += offset;
       pcp->structure += offset;
       pcp->subgrp += offset;
@@ -67,22 +67,22 @@ void restore_pcp (FILE *ifp, struct pcp_vars *pcp)
    nmr_items = fread (y, sizeof(int), pcp->lused + 1, ifp);
    verify_read (nmr_items, pcp->lused + 1);
 
-   total = pcp->backy - pcp->subgrp + 1; 
+   total = pcp->backy - pcp->subgrp + 1;
    nmr_items = fread (y + pcp->subgrp, sizeof(int), total, ifp);
    verify_read (nmr_items, total);
 
    if (offset != 0) {
       end = pcp->structure + pcp->lastg;
       for (i = pcp->structure + 1; i <= end; ++i) {
-	 if ((value = y[i]) < 0) 
+	 if ((value = y[i]) < 0)
 	    y[-value] += offset;
       }
       end = y[pcp->clend + pcp->cc - 1];
       for (i = 1; i <= end; i++) {
-	 if ((value = y[pcp->ppower + i]) < 0) 
+	 if ((value = y[pcp->ppower + i]) < 0)
 	    y[-value] += offset;
       }
-      for (i = 2; i <= end; i++)  
+      for (i = 2; i <= end; i++)
 	 y[pcp->ppcomm + i] += offset;
 
       for (i = 2; i <= end; i++) {
@@ -106,7 +106,7 @@ int*** restore_pga (FILE *ifp, struct pga_vars *pga, struct pcp_vars *pcp)
 
    register int i, j;
    int ***auts;
-   int nmr_generators; 
+   int nmr_generators;
    int nmr_items;
 
 #ifdef HAVE_GMP
@@ -114,7 +114,7 @@ int*** restore_pga (FILE *ifp, struct pga_vars *pga, struct pcp_vars *pcp)
 
    mpz_init (&aut_ord);
    mpz_inp_str (&aut_ord, ifp, 10);
-#endif 
+#endif
 
    nmr_items = fread (pga, sizeof (struct pga_vars), 1, ifp);
    verify_read (nmr_items, 1);
@@ -122,24 +122,24 @@ int*** restore_pga (FILE *ifp, struct pga_vars *pga, struct pcp_vars *pcp)
 #ifdef HAVE_GMP
    mpz_init_set (&pga->aut_order, &aut_ord);
    mpz_clear (&aut_ord);
-#endif 
+#endif
 
-   auts = allocate_array (pga->m, pcp->lastg, pcp->lastg, TRUE); 
+   auts = allocate_array (pga->m, pcp->lastg, pcp->lastg, TRUE);
 
    nmr_generators = pga->final_stage ?
       y[pcp->clend + pcp->cc - 1] : pcp->lastg;
 
-   if (pga->nuclear_rank == 0) 
+   if (pga->nuclear_rank == 0)
       nmr_generators = pcp->lastg;
 
-   for (i = 1; i <= pga->m; ++i) { 
+   for (i = 1; i <= pga->m; ++i) {
       for (j = 1; j <= pga->ndgen; ++j) {
 	 nmr_items = fread (auts[i][j] + 1, sizeof (int), nmr_generators, ifp);
 	 verify_read (nmr_items, nmr_generators);
       }
    }
 
-   pga->relative = allocate_vector (pga->nmr_soluble, 1, FALSE); 
-   fread (pga->relative + 1, sizeof (int), pga->nmr_soluble, ifp);                 
+   pga->relative = allocate_vector (pga->nmr_soluble, 1, FALSE);
+   fread (pga->relative + 1, sizeof (int), pga->nmr_soluble, ifp);
    return auts;
 }

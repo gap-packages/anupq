@@ -14,7 +14,7 @@
 #include "standard.h"
 #include "word_types.h"
 
-/* specify automorphims in terms of defining generators 
+/* specify automorphims in terms of defining generators
    and compute resultant action on pc generators;
    return action as array auts */
 
@@ -28,14 +28,14 @@ int*** determine_action (int format, int *nmr_of_auts, struct pcp_vars *pcp)
 
    read_value (TRUE, "Input the number of automorphisms: ", nmr_of_auts, 0);
 
-   auts = allocate_array (*nmr_of_auts, pcp->lastg, pcp->lastg, TRUE); 
+   auts = allocate_array (*nmr_of_auts, pcp->lastg, pcp->lastg, TRUE);
 
    cp = pcp->lused;
    for (i = 1; i <= *nmr_of_auts; ++i) {
       printf ("Now enter the data for automorphism %d\n", i);
       for (j = 1; j <= pcp->ndgen; ++j) {
 	 pcp_generator = y[pcp->dgen + j];
-	 printf ("Input image of defining generator %d as word:\n", j); 
+	 printf ("Input image of defining generator %d as word:\n", j);
 	 setup_defgen_word_to_collect (stdin, format, ACTION, cp, pcp);
 	 if (pcp_generator > 0) {
 	    for (k = 1; k <= pcp->lastg; ++k)

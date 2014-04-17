@@ -21,10 +21,10 @@
 static Logical select_group (int *min_step, int *max_step, int order_bound, struct pga_vars *pga, struct pcp_vars *pcp);
 
 
-/* prepare to construct, partially or completely, some or all of the 
+/* prepare to construct, partially or completely, some or all of the
    immediate descendants of group group_nmr stored on start_file */
 
-int construct (int call_depth, struct pga_vars *flag, int option, FILE *output_file, FILE *start_file, int k, 
+int construct (int call_depth, struct pga_vars *flag, int option, FILE *output_file, FILE *start_file, int k,
                int order_bound, int group_nmr, struct pga_vars *pga, struct pcp_vars *pcp)
 {
    int ***auts;
@@ -32,7 +32,7 @@ int construct (int call_depth, struct pga_vars *flag, int option, FILE *output_f
    register int step;
    int min_step, max_step;
    int nmr_of_descendants = 0;
-   int nmr_of_capables = 0; 
+   int nmr_of_capables = 0;
    int nmr_of_covers;
    int x_dim, y_dim;
    FILE * tmp_file;
@@ -42,7 +42,7 @@ int construct (int call_depth, struct pga_vars *flag, int option, FILE *output_f
       restore_pcp (start_file, pcp);
       auts = restore_pga (start_file, pga, pcp);
       /* enforce any law on the p-covering group of starting group */
-      if (call_depth == 1)  
+      if (call_depth == 1)
 	 enforce_laws (flag, pga, pcp);
       start_group (&tmp_file, auts, pga, pcp);
    }
@@ -68,7 +68,7 @@ int construct (int call_depth, struct pga_vars *flag, int option, FILE *output_f
       output_file = OpenFileOutput (name);
       enforce_laws (flag, pga, pcp);
       print_group_details (pga, pcp);
-      nmr_of_covers = reduced_covers (output_file, output_file, k, 
+      nmr_of_covers = reduced_covers (output_file, output_file, k,
 				      auts, pga, pcp);
       if (pcp->overflow) exit (FAILURE);
       nmr_of_descendants = pga->nmr_of_descendants;
@@ -94,16 +94,16 @@ int construct (int call_depth, struct pga_vars *flag, int option, FILE *output_f
       for (step = min_step; step <= max_step; ++step) {
 	 pga->step_size = step;
 	 start_stage (output_file, k, auts, pga, pcp);
-	 report (pga->nmr_of_capables - nmr_of_capables, 
+	 report (pga->nmr_of_capables - nmr_of_capables,
 		 pga->nmr_of_descendants - nmr_of_descendants, 0, pga, pcp);
 	 nmr_of_descendants = pga->nmr_of_descendants;
-	 nmr_of_capables = pga->nmr_of_capables; 
+	 nmr_of_capables = pga->nmr_of_capables;
 	 free_array (auts, x_dim, y_dim, 1);
 	 if (step != max_step) {
 	    auts = restore_group (TRUE, tmp_file, 1, pga, pcp);
 	    RESET(tmp_file);
 	 }
-	 pga->nmr_of_descendants = nmr_of_descendants;           
+	 pga->nmr_of_descendants = nmr_of_descendants;
 	 pga->nmr_of_capables = nmr_of_capables;
 	 change = (pga->soluble == LINK_SOLUBLE_FLAG);
 	 copy_flags (flag, pga);
@@ -116,7 +116,7 @@ int construct (int call_depth, struct pga_vars *flag, int option, FILE *output_f
    /* were terminal groups processed? */
    if (pga->terminal)
       return nmr_of_descendants;
-   else 
+   else
       return nmr_of_capables;
 }
 
@@ -126,19 +126,19 @@ void report (int nmr_of_capables, int nmr_of_descendants, int nmr_of_covers, str
 {
    register int *y = y_address;
 
-/* 
+/*
   FILE * COUNT;
   COUNT = OpenFile ("COUNT", "a+");
   fprintf (COUNT, "%d,\n", nmr_of_descendants);
 */
 
    if (nmr_of_descendants != 0) {
-      printf ("# of immediate descendants of order %d^%d is %d\n", pcp->p, 
+      printf ("# of immediate descendants of order %d^%d is %d\n", pcp->p,
       y[pcp->clend + pcp->cc - 1] + pga->step_size,  nmr_of_descendants);
-      if (nmr_of_capables != 0) 
+      if (nmr_of_capables != 0)
 	 printf ("# of capable immediate descendants is %d\n", nmr_of_capables);
    }
-   else if (nmr_of_covers != 0) 
+   else if (nmr_of_covers != 0)
       printf ("# of reduced %d-covering groups is %d\n", pcp->p, nmr_of_covers);
 }
 
@@ -167,15 +167,15 @@ static Logical select_group (int *min_step, int *max_step, int order_bound, stru
    Logical select = TRUE;
 
    if (pga->step_size == ALL) {
-      *max_step = MIN(pcp->newgen, max_extension); 
+      *max_step = MIN(pcp->newgen, max_extension);
       if (*max_step <= 0) {
 	 invalid_group (pcp);
 	 return FALSE;
       }
-      else 
+      else
 	 *min_step = 1;
    }
-        
+
    else {
       if (pga->step_size > pcp->newgen || pga->step_size > max_extension) {
 	 invalid_group (pcp);
@@ -192,7 +192,7 @@ static Logical select_group (int *min_step, int *max_step, int order_bound, stru
 
 void invalid_group (struct pcp_vars *pcp)
 {
-   printf ("Group %s is an invalid starting group\n", pcp->ident); 
+   printf ("Group %s is an invalid starting group\n", pcp->ident);
 }
 
 /* enforce laws on p-covering group of starting group --

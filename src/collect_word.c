@@ -13,7 +13,7 @@
 #include "constants.h"
 #include "word_types.h"
 
-/* collect word in pcp generators of group; word has base address ptr; 
+/* collect word in pcp generators of group; word has base address ptr;
    set up the result as exponent vector with base address cp */
 
 void collect_word (int ptr, int cp, struct pcp_vars *pcp)
@@ -27,12 +27,12 @@ void collect_word (int ptr, int cp, struct pcp_vars *pcp)
    register int length = y[ptr];
 
    /* zero out lastg entries in array in order to store result */
-   for (i = 1; i <= lastg; ++i)  
+   for (i = 1; i <= lastg; ++i)
       y[cp + i] = 0;
 
    /* collect the word */
    for (i = 2; i <= length; ++i) {
-      if ((gen = y[ptr + i]) > 0) 
+      if ((gen = y[ptr + i]) > 0)
 	 collect (gen, cp, pcp);
       else
 	 invert_generator (-gen, 1, cp, pcp);
@@ -48,7 +48,7 @@ void collect_word (int ptr, int cp, struct pcp_vars *pcp)
 /* calculate the exp power of word stored as exponent-vector at cp;
    ptr is index of free position for temporary storage in y */
 void calculate_power (int exp, int ptr, int cp, struct pcp_vars *pcp)
-{ 
+{
    register int *y = y_address;
 
    register int i;
@@ -60,7 +60,7 @@ void calculate_power (int exp, int ptr, int cp, struct pcp_vars *pcp)
    if (exp < 0) {
       ++ptr;
       vector_to_word (cp, ptr, pcp);
-      for (i = 1; i <= lastg; ++i) 
+      for (i = 1; i <= lastg; ++i)
 	 y[cp + i] = 0;
       invert_word (ptr, cp, pcp);
    }
@@ -79,9 +79,9 @@ void setup_word_to_collect (FILE *file, int format, int type, int cp, struct pcp
    ptr = pcp->lused + 1 + disp;
 
    if (type != FIRST_ENTRY && type != NEXT_ENTRY) {
-      if (format == BASIC) 
+      if (format == BASIC)
 	 read_word (file, disp, type, pcp);
-      else 
+      else
 	 pretty_read_word (file, disp, type, pcp);
    }
 

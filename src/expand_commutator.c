@@ -17,11 +17,11 @@ void invert_symbols (int *x);
 /* expand the commutator of s and t */
 
 void expand_commutator (int *s, int t)
-{   
+{
    int a[MAXWORD];
    register int i;
 
-   for (i = 0; i < MAXWORD; ++i)  
+   for (i = 0; i < MAXWORD; ++i)
       a[i] = s[i];
 
    invert_symbols (s);
@@ -36,8 +36,8 @@ int length (int *s)
 {
    register int i = 0;
 
-   while (i < MAXWORD && s[i] != 0) 
-      ++i; 
+   while (i < MAXWORD && s[i] != 0)
+      ++i;
 
    return i;
 }

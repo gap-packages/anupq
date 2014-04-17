@@ -15,19 +15,19 @@
 
 /* close a queue of relations under the action of the automorphisms;
 
-   each of length entries in the queue is a pointer to 
+   each of length entries in the queue is a pointer to
    a relation of the sort
 
-          x = y1^a1 ... yq^aq 
-         
+          x = y1^a1 ... yq^aq
+
    where each of x and y<i> are among the new generators introduced;
-   apply automorphism alpha to this relation and rewrite to obtain 
+   apply automorphism alpha to this relation and rewrite to obtain
 
            (y1^a1 ... yq^aq)<alpha> * x<alpha>^-1 = identity
 
    this new relation is now echelonised */
 
-void 
+void
 close_relations (Logical report, int limit, int queue_type, int *head, int *list, int *queue, int length, int *long_queue, int *long_queue_length, struct pcp_vars *pcp)
 {
    register int *y = y_address;
@@ -54,7 +54,7 @@ close_relations (Logical report, int limit, int queue_type, int *head, int *list
 #include "access.h"
 
    while (current <= length) {
-   
+
       gen = queue[current];
       ++current;
 
@@ -64,7 +64,7 @@ close_relations (Logical report, int limit, int queue_type, int *head, int *list
 	 copy = queue + current - 1;
 	 bubble_sort (copy, length - current + 1, pcp);
       }
-        
+
       /* apply automorphism alpha to the relation */
       for (alpha = 1; alpha <= pcp->m; ++alpha) {
 
@@ -73,22 +73,22 @@ close_relations (Logical report, int limit, int queue_type, int *head, int *list
 	    return;
 	 }
 
-	 cp = pcp->lused; 
+	 cp = pcp->lused;
 	 for (i = 1; i <= 2 * pcp->lastg; ++i)
 	    y[cp + i] = 0;
-        
+
 	 offset = (alpha - 1) * pcp->lastg;
-         
+
 	 /* is the relation trivial? */
-	 if (y[pcp->structure + gen] == 0)  
+	 if (y[pcp->structure + gen] == 0)
 	    traverse_list (1, head[offset + gen], list, cp, pcp);
 	 else {
 	    /* the relation was non-trivial; first, set up (gen<alpha>)^-1 */
 	    traverse_list (pm1, head[offset + gen], list, cp, pcp);
 
-	    /* now apply the automorphism to each entry of 
+	    /* now apply the automorphism to each entry of
 	       the string pointed to by y[pcp->structure + gen] */
-             
+
 	    p1 = -y[pcp->structure + gen];
 	    relation_length = y[p1 + 1];
 
@@ -109,7 +109,7 @@ close_relations (Logical report, int limit, int queue_type, int *head, int *list
 	 }
 
 	 relation_length = echelon (pcp);
-	 if (pcp->complete)  
+	 if (pcp->complete)
 	    return;
 
 	 /* if appropriate, add a new relation to the queue */
@@ -125,14 +125,14 @@ close_relations (Logical report, int limit, int queue_type, int *head, int *list
 
    if (report || pcp->fullop || pcp->diagn) {
       if (queue_type == 1) s = "Short"; else s = "Long";
-      if (nmr_reds == 1) t = "y"; else t = "ies"; 
+      if (nmr_reds == 1) t = "y"; else t = "ies";
       printf ("%s queue gave %d redundanc%s\n", s, nmr_reds, t);
    }
 }
 
 /* add exponent times the action of automorphism with pointer head
    to the contents of the exponent-vector with base address cp */
-   
+
 void traverse_list (int exponent, int head, int *list, int cp, struct pcp_vars *pcp)
 {
    register int *y = y_address;

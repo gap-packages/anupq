@@ -10,57 +10,57 @@
 #include "pq_defs.h"
 #include "pcp_vars.h"
 #include "constants.h"
-#define MAXEXP (1 << 30) 
+#define MAXEXP (1 << 30)
 
 void stack_overflow (void);
 void integer_overflow (void);
 void add_string (int string, int length, int exponent, int collected_part, struct pcp_vars *pcp);
 
-/* an exponent vector with base address collected_part 
-   is multiplied on the right by a string with base address 
-   pointer; the string is assumed to be normal    
+/* an exponent vector with base address collected_part
+   is multiplied on the right by a string with base address
+   pointer; the string is assumed to be normal
 
-   this routine follows the algorithm devised by 
-   M.R. Vaughan-Lee for collection from the left; 
-   step numbers correspond to step numbers in 
-   "Collection from the Left" by M.R. Vaughan-Lee, 
-   J. Symbolic Computation (1990) 9, 725-733   
-      
-   this version embodies a simpler form of combinatorial 
-   collection as described on page 733, which lessens the 
-   chance of integer overflow; it also incorporates recursion 
+   this routine follows the algorithm devised by
+   M.R. Vaughan-Lee for collection from the left;
+   step numbers correspond to step numbers in
+   "Collection from the Left" by M.R. Vaughan-Lee,
+   J. Symbolic Computation (1990) 9, 725-733
+
+   this version embodies a simpler form of combinatorial
+   collection as described on page 733, which lessens the
+   chance of integer overflow; it also incorporates recursion
    when adding strings and generators to the exponent vector
 
-   during the collection algorithm, pointers to a number of strings 
-   are stored on a stack; theoretically, the stack depth could get 
-   as large as (p - 1) * pcp->lastg * pcp->cc, but, in practice, depths 
-   this large do not arise; however, it could be necessary to increase 
-   the dimensions of the stack arrays for some calculations with large 
-   groups; STACK_SIZE is the maximum depth of the stack; this constant 
-   is declared in the constants header file; overflow is tested in 
+   during the collection algorithm, pointers to a number of strings
+   are stored on a stack; theoretically, the stack depth could get
+   as large as (p - 1) * pcp->lastg * pcp->cc, but, in practice, depths
+   this large do not arise; however, it could be necessary to increase
+   the dimensions of the stack arrays for some calculations with large
+   groups; STACK_SIZE is the maximum depth of the stack; this constant
+   is declared in the constants header file; overflow is tested in
    this algorithm
 
-   integer overflow is also tested for, although it can only arise 
-   if p^3 > 2^31; if p^2 > 2^31, integer overflow can arise which 
-   is not tested for 
-   
-   if either overflow arises, a message is printed out and 
+   integer overflow is also tested for, although it can only arise
+   if p^3 > 2^31; if p^2 > 2^31, integer overflow can arise which
+   is not tested for
+
+   if either overflow arises, a message is printed out and
    the program terminates;
-   
+
    #####################################################################
 
-   note the sections in this code enclosed within  
+   note the sections in this code enclosed within
 
-   #ifndef EXPONENT_P  
-   #endif 
+   #ifndef EXPONENT_P
+   #endif
 
-   if you insert as part of the header material of this file 
-   
-   #define EXPONENT_P 
+   if you insert as part of the header material of this file
 
-   or supply EXPONENT_P as a -D flag to the compiler, then the 
-   resulting collector assumes that all generators of the pcp 
-   have order p and does not execute these portions of the code */ 
+   #define EXPONENT_P
+
+   or supply EXPONENT_P as a -D flag to the compiler, then the
+   resulting collector assumes that all generators of the pcp
+   have order p and does not execute these portions of the code */
 
    /* stack size on Apollo causes problems */
 
@@ -70,8 +70,8 @@ void add_string (int string, int length, int exponent, int collected_part, struc
    static t_int expstk[STACK_SIZE]; /* exponent stack */
 #endif
 
-   /* if Lie program, use different collect routine */ 
-#if defined (GROUP) 
+   /* if Lie program, use different collect routine */
+#if defined (GROUP)
 
 void collect (int pointer, int collected_part, struct pcp_vars *pcp)
 {
@@ -95,7 +95,7 @@ void collect (int pointer, int collected_part, struct pcp_vars *pcp)
    register int maxexp;         /* max exponent allowed in call to add_string */
 
    register int cp = collected_part;
-   register int class_end = pcp->clend; 
+   register int class_end = pcp->clend;
    register int current_class = pcp->cc;
    register int prime = pcp->p;
    register int pm1 = pcp->pm1;
@@ -115,7 +115,7 @@ void collect (int pointer, int collected_part, struct pcp_vars *pcp)
 
    /* if prime is 2, use special collector */
    if (prime == 2) {
-      collectp2 (pointer, collected_part, pcp);  
+      collectp2 (pointer, collected_part, pcp);
       return;
    }
 
@@ -134,7 +134,7 @@ void collect (int pointer, int collected_part, struct pcp_vars *pcp)
    halfwt = y[class_end + current_class / 2];
    thirdwt = y[class_end + current_class / 3];
 
-   /* Step (1) -- 
+   /* Step (1) --
       process next word on stack */
 
    while (sp >= 0) {
@@ -179,8 +179,8 @@ void collect (int pointer, int collected_part, struct pcp_vars *pcp)
 	 }
       }
 
-      /* ug <= halfwt; if ug > thirdwt, any commutators arising in 
-	 collecting ug commute with all generators after ug, so ug 
+      /* ug <= halfwt; if ug > thirdwt, any commutators arising in
+	 collecting ug commute with all generators after ug, so ug
 	 can be collected without stacking up collected part */
 
       if (ug <= thirdwt) {
@@ -189,12 +189,12 @@ void collect (int pointer, int collected_part, struct pcp_vars *pcp)
 	    combinatorial collection;
 	    scan collected part towards the left;
 	    bypass generators we know must commute with ug;
-	    when 2 * WT(cg) + WT(ug) > current_class, all generators 
-	    occurring in [cg, ug] commute with each other;   
+	    when 2 * WT(cg) + WT(ug) > current_class, all generators
+	    occurring in [cg, ug] commute with each other;
 	    [cg^ce, ug] = [cg, ug]^ce;
 	    if cg1,..., cgk all satisfy this weight condition then
 	    [cg1 * ... * cgk, ug] = [cg1, ug] ... [cgk, ug] */
-      
+
 	 if (ue != 1) {
 	    /* we only move one ug at a time; stack ug^(ue - 1) */
 	    if (++sp >= STACK_SIZE)
@@ -209,7 +209,7 @@ void collect (int pointer, int collected_part, struct pcp_vars *pcp)
 	 lastcg = y[class_end + weight_diff / 2];
 
 	 /* scan collected part to the left, bypassing generators
-	    which must commute with ug; the collected part between 
+	    which must commute with ug; the collected part between
 	    lastcg and firstcg contains a word w; we add in [w, ug] */
 
 	 for (cg = firstcg; cg > ug; cg--) {
@@ -230,7 +230,7 @@ void collect (int pointer, int collected_part, struct pcp_vars *pcp)
 
 	 if (cg == ug) {
 	    /* we have reached ug position during combinatorial
-	       collection; add 1 to ug entry of collected part 
+	       collection; add 1 to ug entry of collected part
 	       without stacking any entries if appropriate */
 	    if (y[cp + ug] == pm1) {
 	       if (y[p_power + ug] == 0) {
@@ -258,7 +258,7 @@ void collect (int pointer, int collected_part, struct pcp_vars *pcp)
 	 }
 
 	 /* Step (3) --
-	    ordinary collection; we have moved ug to the cg position;  
+	    ordinary collection; we have moved ug to the cg position;
 	    continue scanning to the left */
 	 for (; cg > ug; cg--) {
 	    ce = y[cp + cg];
@@ -278,7 +278,7 @@ void collect (int pointer, int collected_part, struct pcp_vars *pcp)
 	       }
 	       else {
 		  /* cg does not commute with ug;
-		     we can only move ug past one cg at a time; 
+		     we can only move ug past one cg at a time;
 		     stack [cg, ug] and then cg a total of ce times */
 
 		  if (sp + ce + ce >= STACK_SIZE)
@@ -297,7 +297,7 @@ void collect (int pointer, int collected_part, struct pcp_vars *pcp)
 	    }
 	 }
 
-	 /* we have moved ug to the correct position;  
+	 /* we have moved ug to the correct position;
 	    add 1 to the ug entry of collected part */
 	 add_string (ug, 1, 1, cp, pcp);
 	 continue;
@@ -346,7 +346,7 @@ void collect (int pointer, int collected_part, struct pcp_vars *pcp)
 	    continue;
       }
 
-      /* adding ue to the ug entry has created an entry >= prime;   
+      /* adding ue to the ug entry has created an entry >= prime;
 	 we have to stack some of collected part */
       for (cg = firstcg; cg > ug; cg--) {
 	 ce = y[cp + cg];
@@ -372,7 +372,7 @@ void collect (int pointer, int collected_part, struct pcp_vars *pcp)
 #endif /* GROUP*/
 
 /* add exponent times the string with address string and length length
-   directly to the collected part with base address collected_part, 
+   directly to the collected part with base address collected_part,
    recursively adding powers as required */
 
 void add_string (int string, int length, int exponent, int collected_part, struct pcp_vars *pcp)
@@ -422,9 +422,9 @@ void add_string (int string, int length, int exponent, int collected_part, struc
    }
    else {
       /* Step (5) --
-	 add string with base address -str and length len 
-	 directly to the collected part exp times; if this 
-	 creates an entry >= prime we reduce the entry modulo 
+	 add string with base address -str and length len
+	 directly to the collected part exp times; if this
+	 creates an entry >= prime we reduce the entry modulo
 	 prime and add in the appropriate power */
 
       lower = -str + 2;

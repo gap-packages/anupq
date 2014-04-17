@@ -11,15 +11,15 @@
 #include "pcp_vars.h"
 #include "pq_functions.h"
 
-/* eliminate all redundant generators to construct the consistent 
+/* eliminate all redundant generators to construct the consistent
    power commutator presentation for the class 1 quotient;
 
-   this procedure is called only for class 1 in order to 
-   eliminate redundancies brought about by collecting and 
-   then echelonising words against an existing consistent 
+   this procedure is called only for class 1 in order to
+   eliminate redundancies brought about by collecting and
+   then echelonising words against an existing consistent
    class 1 presentation;
 
-   in all other circumstances, the usual eliminate procedure 
+   in all other circumstances, the usual eliminate procedure
    is called */
 
 void class1_eliminate (struct pcp_vars *pcp)
@@ -40,9 +40,9 @@ void class1_eliminate (struct pcp_vars *pcp)
    register int dgen = pcp->dgen;
    register int ndgen = pcp->ndgen;
 
-   /* calculate new values for irredundant generators and set them up 
-      in a renumbering table of length pcp->lastg - pcp->ccbeg + 1 
-      which looks to compact like a normal exponent-generator string 
+   /* calculate new values for irredundant generators and set them up
+      in a renumbering table of length pcp->lastg - pcp->ccbeg + 1
+      which looks to compact like a normal exponent-generator string
       pointed to by y[dgen] */
 
    structure = pcp->structure;
@@ -78,7 +78,7 @@ void class1_eliminate (struct pcp_vars *pcp)
    structure = pcp->structure;
    for (i = pcp->lastg; i >= pcp->ccbeg; i--) {
       if ((j = y[structure + i]) > 0) {
-	 y[k] = j; 
+	 y[k] = j;
 	 k--;
       }
       else if (j < 0) {

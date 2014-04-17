@@ -26,7 +26,7 @@ int **extend_matrix (int **current, struct pcp_vars *pcp)
    nmr_of_generators = y[pcp->clend + 1];
 
    auts = reallocate_matrix (current, nmr_of_generators,
-			     nmr_of_generators, pcp->lastg, pcp->lastg, TRUE); 
+			     nmr_of_generators, pcp->lastg, pcp->lastg, TRUE);
 
    return auts;
 }

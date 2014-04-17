@@ -19,7 +19,7 @@ void exponent_info (struct exp_vars *exp_flag, struct pcp_vars *pcp)
 {
    Logical reading = TRUE;
    Logical Default;
-   
+
    read_value (TRUE, "Accept default exponent checking? ", &Default, INT_MIN);
 
    if (Default) {
@@ -37,21 +37,21 @@ void exponent_info (struct exp_vars *exp_flag, struct pcp_vars *pcp)
    }
 
    while (reading) {
-      read_value (TRUE, "Complete list (1), reduced list (2), or word list (3)? ", 
+      read_value (TRUE, "Complete list (1), reduced list (2), or word list (3)? ",
 		  &exp_flag->list, 1);
       reading = !(exp_flag->list == ALL_WORDS || exp_flag->list == REDUCED_LIST
-		  || exp_flag->list == INITIAL_SEGMENT); 
+		  || exp_flag->list == INITIAL_SEGMENT);
       if (reading) printf ("Supplied value must be one of %d, %d, or %d\n",
-			   ALL_WORDS, REDUCED_LIST, INITIAL_SEGMENT); 
+			   ALL_WORDS, REDUCED_LIST, INITIAL_SEGMENT);
    }
 
-   read_value (TRUE, "Power valid words and echelonise results? ", 
+   read_value (TRUE, "Power valid words and echelonise results? ",
 	       &exp_flag->process, INT_MIN);
 
-   if (exp_flag->process) { 
-      read_value (TRUE, "Input number of the first valid word to process? ", 
+   if (exp_flag->process) {
+      read_value (TRUE, "Input number of the first valid word to process? ",
 		  &exp_flag->start_process, 0);
-      read_value (TRUE, "Report after collecting how many words (0 for no report)? ", 
+      read_value (TRUE, "Report after collecting how many words (0 for no report)? ",
 		  &exp_flag->report_unit, 0);
    }
    else {
@@ -59,14 +59,14 @@ void exponent_info (struct exp_vars *exp_flag, struct pcp_vars *pcp)
       exp_flag->report_unit = 0;
    }
 
-   read_value (TRUE, "Print list prior to applying filters? ", 
+   read_value (TRUE, "Print list prior to applying filters? ",
 	       &exp_flag->complete, INT_MIN);
 
 
-   read_value (TRUE, "Identify filter applied to remove word? ", 
+   read_value (TRUE, "Identify filter applied to remove word? ",
 	       &exp_flag->filter, INT_MIN);
 
-   read_value (TRUE, "Write list of test words to relation file? ", 
+   read_value (TRUE, "Write list of test words to relation file? ",
 	       &exp_flag->word_list, INT_MIN);
 
    exp_flag->partitions = FALSE;
@@ -75,7 +75,7 @@ void exponent_info (struct exp_vars *exp_flag, struct pcp_vars *pcp)
 /* default exponent flag settings */
 
 void initialise_exponent (struct exp_vars *exp_flag, struct pcp_vars *pcp)
-{  
+{
    int length;
 
    exp_flag->list = ALL_WORDS;

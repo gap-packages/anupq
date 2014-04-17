@@ -12,8 +12,8 @@
 #include "constants.h"
 #include "word_types.h"
 
-/* this procedure multiplies the exponent vector with 
-   address cp by gen^(-exp), where gen is a pcp-generator 
+/* this procedure multiplies the exponent vector with
+   address cp by gen^(-exp), where gen is a pcp-generator
    and exp is a positive integer in the range 0 to p */
 
 void invert_generator (int gen, int exp, int cp, struct pcp_vars *pcp)
@@ -23,7 +23,7 @@ void invert_generator (int gen, int exp, int cp, struct pcp_vars *pcp)
    register int i;
    register int inverse;
    register int entry;
-   register int lastg = pcp->lastg; 
+   register int lastg = pcp->lastg;
    register int cp1 = pcp->submlg;
    register int p = pcp->p;
 
@@ -50,7 +50,7 @@ void invert_generator (int gen, int exp, int cp, struct pcp_vars *pcp)
    }
 }
 
-/* calculate the inverse of the string with base address 
+/* calculate the inverse of the string with base address
    y[str], using the collected part referenced by cp */
 
 void invert_string (int str, int cp, struct pcp_vars *pcp)
@@ -68,11 +68,11 @@ void invert_string (int str, int cp, struct pcp_vars *pcp)
    }
 }
 
-/* invert word with base address ptr; store result 
+/* invert word with base address ptr; store result
    as exponent vector with base address cp */
 
 void invert_word (int ptr, int cp, struct pcp_vars *pcp)
-{ 
+{
    register int *y = y_address;
 
    register int gen;
@@ -81,9 +81,9 @@ void invert_word (int ptr, int cp, struct pcp_vars *pcp)
 
    for (; length > 1; --length) {
       gen = y[ptr + length];
-      if (gen < 0)      
+      if (gen < 0)
 	 collect (-gen, cp, pcp);
-      else 
+      else
 	 invert_generator (gen, 1, cp, pcp);
    }
 
@@ -99,13 +99,13 @@ void setup_word_to_invert (struct pcp_vars *pcp)
    register int *y = y_address;
 
    int type = INVERSE_OF_WORD;
-   int disp = pcp->lastg; 
+   int disp = pcp->lastg;
    int cp = pcp->lused;
    int ptr = pcp->lused + 1 + disp;
    int str;
    register int i;
 
-   for (i = 1; i <= pcp->lastg; ++i) 
+   for (i = 1; i <= pcp->lastg; ++i)
       y[cp + i] = 0;
 
    read_word (stdin, disp, type, pcp);

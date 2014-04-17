@@ -25,12 +25,12 @@ void extend_automorphisms (int ***auts, int nmr_of_auts, struct pcp_vars *pcp)
    if (is_space_exhausted (7 * pcp->lastg + 4, pcp))
       return;
 
-   for (alpha = 1; alpha <= nmr_of_auts; ++alpha)  
+   for (alpha = 1; alpha <= nmr_of_auts; ++alpha)
       extend_automorphism (auts[alpha], pcp);
 }
 
-/* extend the automorphism whose action on the defining generators 
-   of the group is described by the supplied 2-dimensional matrix, 
+/* extend the automorphism whose action on the defining generators
+   of the group is described by the supplied 2-dimensional matrix,
    auts, to act on all of the generators of the group */
 
 static void extend_automorphism (int **auts, struct pcp_vars *pcp)
@@ -39,7 +39,7 @@ static void extend_automorphism (int **auts, struct pcp_vars *pcp)
 
    register int generator;
    register int lastg = pcp->lastg;
-   register int structure = pcp->structure; 
+   register int structure = pcp->structure;
 
    int cp1 = pcp->submlg - lastg - 2;
    int cp2 = cp1 - lastg;
@@ -61,12 +61,12 @@ static void extend_automorphism (int **auts, struct pcp_vars *pcp)
       u = PART2 (value);
       v = PART3 (value);
 
-      if (v == 0)  
+      if (v == 0)
 	 extend_power (cp1, cp2, u, auts, pcp);
-      else  
+      else
 	 extend_commutator (cp1, cp2, u, v, auts, pcp);
 
-      /* solve the appropriate equation, storing the image 
+      /* solve the appropriate equation, storing the image
 	 of generator under the action of alpha at result */
       solve_equation (cp1, cp2, result, pcp);
 
@@ -78,13 +78,13 @@ static void extend_automorphism (int **auts, struct pcp_vars *pcp)
    pcp->submlg += (3 * lastg + 2);
 }
 
-/* given generator t of the p-multiplicator, whose definition is 
+/* given generator t of the p-multiplicator, whose definition is
    u^p; hence, we have the equation
-   
+
                       u^p = W * t
 
    where W is a word (possibly trivial) in the generators of the group;
-   find the image of t under alpha by setting up (W)alpha at cp1, 
+   find the image of t under alpha by setting up (W)alpha at cp1,
    ((u)alpha)^p at cp2, and then call solve_equation */
 
 void extend_power (int cp1, int cp2, int u, int **auts, struct pcp_vars *pcp)
@@ -95,7 +95,7 @@ void extend_power (int cp1, int cp2, int u, int **auts, struct pcp_vars *pcp)
    register int lastg = pcp->lastg;
 
    /* set up the image of u under alpha at cp2 and zero vector at cp1 */
-   for (i = 1; i <= lastg; ++i) { 
+   for (i = 1; i <= lastg; ++i) {
       y[cp2 + i] = auts[u][i];
       y[cp1 + i] = 0;
    }
@@ -104,18 +104,18 @@ void extend_power (int cp1, int cp2, int u, int **auts, struct pcp_vars *pcp)
    power (pcp->p, cp2, pcp);
 
    /* set up image of W under alpha at cp1 */
-   if (y[pcp->ppower + u] < 0)  
+   if (y[pcp->ppower + u] < 0)
       collect_image_of_string (-y[pcp->ppower + u], cp1, auts, pcp);
 }
 
-/* given generator t of the p-multiplicator, whose definition is 
-   [u, v]; hence, we have the equation  
-    
-   [u, v] = W * t, or equivalently, u * v = v * u * W * t 
+/* given generator t of the p-multiplicator, whose definition is
+   [u, v]; hence, we have the equation
+
+   [u, v] = W * t, or equivalently, u * v = v * u * W * t
 
    where W is a word (possibly trivial) in the generators of the group;
-   find the image of t under alpha by setting up 
-   (v)alpha * (u)alpha * (W)alpha at cp1, (u)alpha * (v)alpha at cp2 
+   find the image of t under alpha by setting up
+   (v)alpha * (u)alpha * (W)alpha at cp1, (u)alpha * (v)alpha at cp2
    and then call solve_equation */
 
 void extend_commutator (int cp1, int cp2, int u, int v, int **auts, struct pcp_vars *pcp)
@@ -140,7 +140,7 @@ void extend_commutator (int cp1, int cp2, int u, int v, int **auts, struct pcp_v
       collect_image_of_string (-y[pointer + v], cp1, auts, pcp);
 }
 
-/* collect the image of a generator under the action of 
+/* collect the image of a generator under the action of
    an automorphism and store the result at cp */
 
 void collect_image_of_generator (int cp, int *auts, struct pcp_vars *pcp)
@@ -155,8 +155,8 @@ void collect_image_of_generator (int cp, int *auts, struct pcp_vars *pcp)
 
 #include "access.h"
 
-   for (i = 1; i <= lastg; ++i) { 
-      if ((exp = auts[i]) != 0) 
+   for (i = 1; i <= lastg; ++i) {
+      if ((exp = auts[i]) != 0)
 	 y[lused + 1 + (++length)] = PACK2 (exp, i);
    }
 
@@ -164,7 +164,7 @@ void collect_image_of_generator (int cp, int *auts, struct pcp_vars *pcp)
    collect (-lused, cp, pcp);
 }
 
-/* collect image of supplied string under the action of 
+/* collect image of supplied string under the action of
    supplied automorphism, auts, and store the result at cp */
 
 void collect_image_of_string (int string, int cp, int **auts, struct pcp_vars *pcp)
@@ -173,7 +173,7 @@ void collect_image_of_string (int string, int cp, int **auts, struct pcp_vars *p
 
    register int i;
    int generator, exp;
-   int length = y[string + 1] - 1; /* last element of string 
+   int length = y[string + 1] - 1; /* last element of string
 				      is in p-multiplicator */
 #include "access.h"
 
@@ -185,5 +185,5 @@ void collect_image_of_string (int string, int cp, int **auts, struct pcp_vars *p
 	 collect_image_of_generator (cp, auts[generator], pcp);
 	 --exp;
       }
-   } 
+   }
 }

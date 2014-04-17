@@ -12,7 +12,7 @@
 #include "constants.h"
 #include "pq_functions.h"
 
-/* print the structure of each of the pcp generators, 
+/* print the structure of each of the pcp generators,
    numbered from first to last inclusive */
 
 void print_multiweight (int first, int last, struct pcp_vars *pcp)
@@ -38,10 +38,10 @@ void print_multiweight (int first, int last, struct pcp_vars *pcp)
    int *gens;
 
 #include "access.h"
-   
+
    printf ("Print number of occurrences of multiweights: ");
    scanf ("%d", &print_mwt);
-   
+
    if (print_mwt) {
       printf ("Enter weight pattern on %d gens (0 for all): ", pcp->ndgen);
       scanf ("%c", &start);
@@ -58,17 +58,17 @@ void print_multiweight (int first, int last, struct pcp_vars *pcp)
 	 for (i = 1; i <= pcp->ndgen; ++i) {
 	    scanf ("%d", &pattern[i]);
 	    wt += pattern[i];
-	 }      
+	 }
 	 scanf ("%c", &start);
       }
    }
 
    gens = allocate_vector (pcp->ndgen + 1, 1, TRUE);
-  
+
    for (gen = first; gen <= last; ++gen) {
       pointer = y[structure + gen];
       weight = WT(pointer);
-     
+
       if (((current = layer (gen, pcp)) != previous) && ((wt == 0) || (wt == current))) {
 	 printf ("Class %d\n", current);
 	 previous = current;
@@ -82,9 +82,9 @@ void print_multiweight (int first, int last, struct pcp_vars *pcp)
       else {
 	 u = PART2 (pointer);
 	 v = PART3 (pointer);
-       
+
 	 if (u == 0) {
-	    if (print_mwt) { 
+	    if (print_mwt) {
 	       if (start == '0')
 		  for (i = 1; i <= pcp->ndgen; ++i)
 		     gens[i] = 0;
@@ -96,19 +96,19 @@ void print_multiweight (int first, int last, struct pcp_vars *pcp)
 	       for (i = 1; i <= weight; ++i)
 		  y[pcp->lused + i] = 0;
 	    }
-         
+
 	    find_definition (gen, pcp->lused, weight, pcp);
-         
+
 	    for (i = 1; i <= pcp->ndgen; ++i)
 	       gens[i] = 0;
-         
+
 	    for (i = 1; i <= weight; ++i)
 	       ++gens[y[pcp->lused + i]];
 	 }
 
 	 if (print_mwt) {
 	    if (start == '0') {
-	       k = pcp->ndgen; 
+	       k = pcp->ndgen;
 	       for (i = 1; i <= pcp->ndgen; ++i)
 		  k += gens[i]*pattern[i];
 	       ++pattern[k];
@@ -123,17 +123,17 @@ void print_multiweight (int first, int last, struct pcp_vars *pcp)
 	       }
 	    }
 	 }
-       
+
 	 if (print_pattern) {
 	    if (u == 0)
 	       printf ("%d is defined on image of defining generator %d\n", gen, v);
-	    if (v == 0)  
+	    if (v == 0)
 	       printf ("%d is defined on %d^%d = ", gen, u, pcp->p);
-	    else if (u != 0)   
+	    else if (u != 0)
 	       printf ("%d is defined on [%d, %d] = ", gen, u, v);
-           
+
 	    if (gen > pcp->ndgen) {
-	       for (i = 1; i <= weight; ++i)  
+	       for (i = 1; i <= weight; ++i)
 		  if ((value = y[pcp->lused + i]) != 0)
 		     printf ("%d ", value);
 	    }
@@ -147,7 +147,7 @@ void print_multiweight (int first, int last, struct pcp_vars *pcp)
 		     printf (" ");
 	       }
 	       printf (")");
-	       printf ("\n"); 
+	       printf ("\n");
 	       if (start != '0')
 		  ++counter;
 	    }
@@ -155,8 +155,8 @@ void print_multiweight (int first, int last, struct pcp_vars *pcp)
 	       printf ("\n");
 	 }
       }
-   }  
-   
+   }
+
    if (print_mwt) {
       if (start == '0')
 	 for (k = 1; k <= weight; ++k) {
@@ -189,7 +189,7 @@ void print_multiweight (int first, int last, struct pcp_vars *pcp)
 	 }
       else {
 	 if (counter > 0) {
-	    if (counter == 1)    
+	    if (counter == 1)
 	       printf ("1 occurrence of pattern (");
 	    else
 	       printf ("%d occurences of pattern (", counter);
@@ -200,6 +200,6 @@ void print_multiweight (int first, int last, struct pcp_vars *pcp)
       }
 
       free (++gens);
-      free (++pattern);  
+      free (++pattern);
    }
 }

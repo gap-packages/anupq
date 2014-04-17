@@ -44,7 +44,7 @@ void read_value (Logical newline, char *string, int *value, int lower_bound)
       if (!isatty (0)) printf ("%s ", response);
       if (!isatty (0) && newline) printf ("\n");
       *value = string_to_int (response, &error);
-      if (error) 
+      if (error)
 	 printf ("Error in input -- must be integer only\n");
       else if ((reading = (*value < lower_bound)))
 	 printf ("Error: supplied value must be at least %d\n", lower_bound);
@@ -67,7 +67,7 @@ int string_to_int (char *s, Logical *error)
       i++;
    for (n = 0; s[i] != '\0'; i++) {
       if (isdigit (s[i])) {
-	 n = 10 * n + (s[i] - '0'); 
+	 n = 10 * n + (s[i] - '0');
       }
       else {
 	 *error = TRUE;
@@ -79,7 +79,7 @@ int string_to_int (char *s, Logical *error)
 }
 
 /* read in string */
- 
+
 char* GetString (char *string)
 {
    int nmr_items;

@@ -13,7 +13,7 @@
 #include "constants.h"
 #include "pq_functions.h"
 
-/* restore the pcp description of group group_number 
+/* restore the pcp description of group group_number
    and its pga structure from input_file */
 
 int*** restore_group (Logical rewind_flag, FILE *input_file, int group_number, struct pga_vars *pga, struct pcp_vars *pcp)
@@ -21,15 +21,15 @@ int*** restore_group (Logical rewind_flag, FILE *input_file, int group_number, s
    int ***auts;
 
    while (group_number > 0) {
-      restore_pcp (input_file, pcp); 
+      restore_pcp (input_file, pcp);
       auts = restore_pga (input_file, pga, pcp);
       --group_number;
-      if (group_number > 0)  
+      if (group_number > 0)
 	 free_array (auts, pga->m, pcp->lastg, 1);
    }
 
-   if (rewind_flag) 
-      RESET(input_file); 
+   if (rewind_flag)
+      RESET(input_file);
 
    return auts;
 }

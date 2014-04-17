@@ -31,9 +31,9 @@ void save_auts (FILE *ofp, int *head, int *list, struct pcp_vars *pcp)
    int nmr_items;
    int *copy_head;
 
-   /* the action on more than lastg generators may be stored in 
-      list; if this is the case, establish how many entries from 
-      the array list must be stored in order to retain the 
+   /* the action on more than lastg generators may be stored in
+      list; if this is the case, establish how many entries from
+      the array list must be stored in order to retain the
       description of the automorphisms on lastg generators */
 
    original = head[0];
@@ -62,34 +62,34 @@ void save_auts (FILE *ofp, int *head, int *list, struct pcp_vars *pcp)
    }
    else {
       copy_head = head;
-      retain = head[0]; 
+      retain = head[0];
       list_length = list[0];
    }
 
    prev = 0;
 
    nmr_items = fwrite (&retain, sizeof (int), 1, ofp);
-   verify_read (nmr_items, 1); 
+   verify_read (nmr_items, 1);
    nmr_items = fwrite (&list_length, sizeof (int), 1, ofp);
-   verify_read (nmr_items, 1); 
+   verify_read (nmr_items, 1);
 
    for (alpha = 1; alpha <= m; ++alpha) {
       offset = (alpha - 1) * original;
       required_offset = (alpha - 1) * retain;
       nmr_items = fwrite (copy_head + required_offset + 1, sizeof (int), retain, ofp);
-      verify_read (nmr_items, retain); 
+      verify_read (nmr_items, retain);
       required_ptr = head[offset + retain];
       stored_ptr = head[offset + original];
       stored_length = stored_ptr + list[stored_ptr + 1] + 1 - prev;
       required_length = required_ptr + list[required_ptr + 1] + 1 - prev;
       nmr_items = fwrite (&required_length, sizeof (int), 1, ofp);
-      verify_read (nmr_items, 1); 
+      verify_read (nmr_items, 1);
       nmr_items = fwrite (list + prev + 1, sizeof (int), required_length, ofp);
-      verify_read (nmr_items, required_length); 
+      verify_read (nmr_items, required_length);
       prev += stored_length;
    }
 
-   if (original != retain) 
+   if (original != retain)
       free_vector (copy_head, 0);
 
    RESET(ofp);
@@ -119,7 +119,7 @@ int restore_auts (FILE *ifp, int offset, int nmr_saved, int retain, int *new_ind
    verify_read (nmr_items, alpha_length);
 
    *new_index = head[offset + retain] + list[head[offset + retain] + 1] + 1;
-   
+
    return alpha_length;
 }
 
@@ -145,7 +145,7 @@ void restore_automorphisms (FILE *ifp, int **head, int **list, struct pcp_vars *
 
    *list = allocate_vector (list_length + 1, 0, FALSE);
    (*list)[0] = list_length;
- 
+
    retain = MIN (pcp->lastg, nmr_saved);
    for (alpha = 1; alpha <= pcp->m; ++alpha) {
       offset = (alpha - 1) * retain;

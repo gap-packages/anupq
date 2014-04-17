@@ -13,23 +13,23 @@
 #include "word_types.h"
 #include "constants.h"
 
-/* calculate a solution, x, to the equation 
-          
-          u_1 * v_1 * x = u_2 * v_2  
+/* calculate a solution, x, to the equation
 
-   where u_1, v_1, u_2, v_2 are exponent vectors with 
+          u_1 * v_1 * x = u_2 * v_2
+
+   where u_1, v_1, u_2, v_2 are exponent vectors with
    base addresses cp1, cp2, cp3, cp4, respectively;
 
    the result is stored as an exponent vector with address result;
-   
+
    with appropriate initial values, this procedure may be
-   used to calculate a commutator; the algorithm finds a 
+   used to calculate a commutator; the algorithm finds a
    solution generator by generator */
 
 void find_commutator (int cp1, int cp2, int cp3, int cp4, int result, struct pcp_vars *pcp)
 {
    register int *y = y_address;
-   int r;     
+   int r;
    int exp;
    register int i;
    int str = pcp->lused + 1;
@@ -39,7 +39,7 @@ void find_commutator (int cp1, int cp2, int cp3, int cp4, int result, struct pcp
 #include "access.h"
 
    y[str] = 1;
-    
+
    for (i = 1; i <= lastg; ++i) {
 
       /* compute r and adjust its value mod p */
@@ -90,9 +90,9 @@ void copy (int old, int length, int new, struct pcp_vars *pcp)
       y[new + length] = y[old + length];
 }
 
-/* calculate a power of a left-normed commutator of supplied depth 
-   by repeated calls to find_commutator; set up the result as an 
-   exponent vector with base address pcp->lused in order to permit 
+/* calculate a power of a left-normed commutator of supplied depth
+   by repeated calls to find_commutator; set up the result as an
+   exponent vector with base address pcp->lused in order to permit
    the result to be handed to echelon easily */
 
 void calculate_commutator (int format, struct pcp_vars *pcp)
@@ -128,7 +128,7 @@ void calculate_commutator (int format, struct pcp_vars *pcp)
 
    if (format == BASIC)
       read_word (stdin, disp, type, pcp);
-   else 
+   else
       pretty_read_word (stdin, disp, type, pcp);
 
    collect_word (ptr, cp2, pcp);
@@ -142,7 +142,7 @@ void calculate_commutator (int format, struct pcp_vars *pcp)
       /* read in next component, b, and set it up at cp1 and cp4 */
       if (format == BASIC)
 	 read_word (stdin, disp, type, pcp);
-      else 
+      else
 	 pretty_read_word (stdin, disp, type, pcp);
 
       collect_word (ptr + disp, cp1, pcp);

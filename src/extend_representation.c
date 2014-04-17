@@ -12,15 +12,15 @@
 #include "constants.h"
 #include "pq_functions.h"
 
-/* compute a matrix which permits the extension of an existing 
-   permutation representation for a group by a group of order 
+/* compute a matrix which permits the extension of an existing
+   permutation representation for a group by a group of order
    p^rank; the matrix rows are indexed from 0 .. p^rank - 1;
-   the matrix columns are indexed by the defining generators and 
-   their inverses in the sequence 1, 1^-1, 2, 2^-1, etc. 
+   the matrix columns are indexed by the defining generators and
+   their inverses in the sequence 1, 1^-1, 2, 2^-1, etc.
 
-   M[i][j] = k, where a = (a_1,.....a_rank) is the vector of 
-   coefficients of the p-adic expansion of i, b is the vector of 
-   coefficients of the p-adic expansion of k, and within the 
+   M[i][j] = k, where a = (a_1,.....a_rank) is the vector of
+   coefficients of the p-adic expansion of i, b is the vector of
+   coefficients of the p-adic expansion of k, and within the
    p-group b = a * im(j) */
 
 void extend_representation (struct pcp_vars *pcp)
@@ -28,7 +28,7 @@ void extend_representation (struct pcp_vars *pcp)
    register int *y = y_address;
 
    int *expand;                 /* array to store p-adic expansion */
-   register int rank = y[pcp->clend + pcp->cc]; 
+   register int rank = y[pcp->clend + pcp->cc];
    register int i, j, gen, sum;
    int bound;
    int **M;
@@ -40,7 +40,7 @@ void extend_representation (struct pcp_vars *pcp)
 
    bound = int_power (p, rank);
 
-   /* set up room to store p-adic expansion and powers of p */ 
+   /* set up room to store p-adic expansion and powers of p */
    expand = allocate_vector (rank, 0, TRUE);
    powers = allocate_vector (rank, 0, FALSE);
 
@@ -49,14 +49,14 @@ void extend_representation (struct pcp_vars *pcp)
 
    /* set up matrix to store results */
    M = allocate_matrix (bound, 2 * pcp->ndgen, 0, FALSE);
-  
+
    for (i = 0; i < bound; ++i) {
 
       /* find the p-adic expansion of i */
       compute_padic (powers, i, rank - 1, p, expand);
 
       /* now process each defining generator and its inverse in turn */
-      
+
       for (gen = -pcp->ndgen; gen <= pcp->ndgen; ++gen) {
 
 	 if (gen == 0) continue;
@@ -74,8 +74,8 @@ void extend_representation (struct pcp_vars *pcp)
 	 printf ("\n");
 #endif
 
-	 /* look up image of gen which is stored as a generator-exponent 
-	    string in y; post-multiply the p-adic expansion by this image */ 
+	 /* look up image of gen which is stored as a generator-exponent
+	    string in y; post-multiply the p-adic expansion by this image */
 
 	 ptr = y[pcp->dgen + gen];
 	 if (ptr != 0)
@@ -88,17 +88,17 @@ void extend_representation (struct pcp_vars *pcp)
 	 }
 	 printf ("\n");
 #endif
- 
+
 	 /* store the result of the multiplication */
-	 sum = 0; 
-	 for (j = 1; j <= pcp->lastg; ++j)  
+	 sum = 0;
+	 for (j = 1; j <= pcp->lastg; ++j)
 	    sum += (y[cp + j] * powers[j - 1]);
-      
+
 	 index = (gen < 0) ? 2 * (-gen) - 1: 2 * gen - 2;
 	 M[i][index] = sum;
       }
 
-      for (j = 0; j < rank; ++j)  
+      for (j = 0; j < rank; ++j)
 	 expand[j] = 0;
    }
 
@@ -124,9 +124,9 @@ void compute_padic (int *powers, int x, int k, int p, int *expand)
 	 alpha = p - 1;
 	 while (alpha * val > x)
 	    --alpha;
-	 expand[k] = alpha; 
+	 expand[k] = alpha;
 	 x -= alpha * val;
       }
       --k;
-   }      
+   }
 }

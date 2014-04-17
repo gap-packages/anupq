@@ -13,7 +13,7 @@
 
 void add_p2string (int string, int length, int collected_part, struct pcp_vars *pcp);
 
-/* collection procedure for the prime 2; 
+/* collection procedure for the prime 2;
    this routine is documented in the file collect.c */
 
 void collectp2 (int pointer, int collected_part, struct pcp_vars *pcp)
@@ -32,7 +32,7 @@ void collectp2 (int pointer, int collected_part, struct pcp_vars *pcp)
    register int lastcg;         /* last collected generator for loop counter */
 
    register int cp = collected_part;
-   register int class_end = pcp->clend; 
+   register int class_end = pcp->clend;
    register int current_class = pcp->cc;
    register int p_pcomm = pcp->ppcomm;
    register int p_power = pcp->ppower;
@@ -56,7 +56,7 @@ void collectp2 (int pointer, int collected_part, struct pcp_vars *pcp)
    halfwt = y[class_end + current_class / 2];
    strstk[0] = pointer;
 
-   /* Step (1) -- 
+   /* Step (1) --
       process next word on stack */
 
    while (sp >= 0) {
@@ -69,7 +69,7 @@ void collectp2 (int pointer, int collected_part, struct pcp_vars *pcp)
 	 /* get first generator from string */
 	 i = y[-str + 2];
 	 ug = FIELD2 (i);
-	 /* if ug > halfwt, whole string can be added to the  
+	 /* if ug > halfwt, whole string can be added to the
 	    collected part without creating any commutators */
 	 if (ug > halfwt) {
 	    add_p2string (str, len, cp, pcp);
@@ -97,9 +97,9 @@ void collectp2 (int pointer, int collected_part, struct pcp_vars *pcp)
 	 combinatorial collection;
 	 move ug past entries in the collected part, adding
 	 commutators directly to the collected part;
-	 if 2 * WT(cg) + WT(ug) > current_class then [cg, ug] 
+	 if 2 * WT(cg) + WT(ug) > current_class then [cg, ug]
 	 commutes with all generators k such that k >= cg;
-	 scan collected part towards the left, bypassing 
+	 scan collected part towards the left, bypassing
 	 generators we know must commute with ug */
 
       weight_diff = current_class - WT(y[structure + ug]);
@@ -149,7 +149,7 @@ void collectp2 (int pointer, int collected_part, struct pcp_vars *pcp)
 
       /* Step (3) --
 	 ordinary collection; continue scanning towards the left,
-	 stacking up commutators and entries in collected part 
+	 stacking up commutators and entries in collected part
 	 until we reach ug position */
 
       for (; cg > ug; cg--) {
@@ -182,7 +182,7 @@ void collectp2 (int pointer, int collected_part, struct pcp_vars *pcp)
 
 /* prime = 2;
    add the string with address string and length length
-   directly to the collected part with base address collected_part, 
+   directly to the collected part with base address collected_part,
    recursively adding powers as required */
 
 void add_p2string (int string, int length, int collected_part, struct pcp_vars *pcp)
@@ -203,8 +203,8 @@ void add_p2string (int string, int length, int collected_part, struct pcp_vars *
 
    if (str > 0) {
       /* Step (4) --
-	 we have moved generator str to the correct position;  
-	 add 1 to the str entry of the collected part; reduce 
+	 we have moved generator str to the correct position;
+	 add 1 to the str entry of the collected part; reduce
 	 entry modulo 2 and add str^2 to collected part if necessary */
 
       if (y[cp + str] == 0)
@@ -225,7 +225,7 @@ void add_p2string (int string, int length, int collected_part, struct pcp_vars *
    else {
       /* Step (5) --
 	 add string with base address -str and length len directly
-	 to the collected part; if this creates an entry >= 2, reduce 
+	 to the collected part; if this creates an entry >= 2, reduce
 	 entry modulo 2 and recursively add in the appropriate power */
 
       lower = -str + 2;

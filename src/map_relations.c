@@ -14,10 +14,10 @@
 #include "constants.h"
 #include "pq_functions.h"
 
-#if defined (STANDARD_PCP) 
+#if defined (STANDARD_PCP)
 
 #define POWER -100
-#undef COMMUTATOR 
+#undef COMMUTATOR
 #define COMMUTATOR -200
 
 
@@ -28,8 +28,8 @@ static void print_image_under_aut (FILE *present, int *preimage, int gen, Logica
 static void print_definition (FILE *present, int *preimage, int gen, int *definition, struct pcp_vars *pcp);
 
 
-/* modify the stored relations under the action of the standard 
-   automorphism and print out the result -- this code is complex 
+/* modify the stored relations under the action of the standard
+   automorphism and print out the result -- this code is complex
    as a result of two problems:
 
    a. the "strange" form in which definitions of group generators
@@ -37,7 +37,7 @@ static void print_definition (FILE *present, int *preimage, int gen, int *defini
 
    b. the need to meet the limitations imposed by the input routines of pq */
 
-/* find the structure of pcp generator gen and store it in definition */ 
+/* find the structure of pcp generator gen and store it in definition */
 
 static void find_structure (int gen, int *definition, struct pcp_vars *pcp)
 {
@@ -66,12 +66,12 @@ static void find_structure (int gen, int *definition, struct pcp_vars *pcp)
       definition[0] = POWER;
 #if defined (DEBUG)
       printf ("%d is defined on %d^%d = ", gen, u, pcp->p);
-#endif 
+#endif
    }
    else {
 #if defined (DEBUG)
       printf ("%d is defined on [%d, %d] = ", gen, u, v);
-#endif 
+#endif
       definition[0] = COMMUTATOR;
    }
 
@@ -83,7 +83,7 @@ static void find_structure (int gen, int *definition, struct pcp_vars *pcp)
       if (definition[i] != 0)
 	 printf ("%d ", definition[i]);
    printf ("\n");
-#endif 
+#endif
 
 }
 
@@ -99,7 +99,7 @@ void map_relations (int **map, struct pga_vars *pga, struct pcp_vars *pcp)
    register int lastg = pcp->lastg;
    register int relp = pcp->relp;
    register int dgen = pcp->dgen;
-   register int generator; 
+   register int generator;
    int *definition;
    register int i, j, k, l;
    register int pointer, length;
@@ -116,21 +116,21 @@ void map_relations (int **map, struct pga_vars *pga, struct pcp_vars *pcp)
    fprintf (present, "prime %d\n", pcp->p);
    fprintf (present, "class %d\n", pcp->cc);
    fprintf (present, "output %d\n", MIN_PRINT);
-   if (pcp->extra_relations != 0) 
+   if (pcp->extra_relations != 0)
       fprintf (present, "exponent %d\n", pcp->extra_relations);
-   if (pcp->metabelian == TRUE) 
+   if (pcp->metabelian == TRUE)
       fprintf (present, "metabelian\n");
 
    fprintf (present, "generators  {");
 
-   /* if the map is the identity, then we need only 
+   /* if the map is the identity, then we need only
       the existing generators and relations */
 
    if ((identity_map = is_identity_map (map, pga->ndgen, lastg))) {
 #if defined (DEBUG)
       printf ("map is the identity map\n");
-#endif 
-      for (i = 1; i <= ndgen; ++i) 
+#endif
+      for (i = 1; i <= ndgen; ++i)
 	 fprintf (present, "x%d, ", i);
    }
    else {
@@ -138,9 +138,9 @@ void map_relations (int **map, struct pga_vars *pga, struct pcp_vars *pcp)
       preimage = allocate_vector (lastg, 1, TRUE);
       image = allocate_vector (ndgen, 1, TRUE);
 
-      /* identify which defining generators map to which pcp generators 
+      /* identify which defining generators map to which pcp generators
 	 of the Frattini quotient; two arrays are stored as follows  --
-         
+
 	 preimage[i] = defining generator j
 	 image[k] = pcp generator l */
 
@@ -178,20 +178,20 @@ void map_relations (int **map, struct pga_vars *pga, struct pcp_vars *pcp)
       print_array (image, 1, ndgen + 1);
 #endif
 
-      /* which pcp generators turn up in the image of the 
+      /* which pcp generators turn up in the image of the
 	 pcp generators of the Frattini quotient? */
-      for (i = 1; i <= pga->ndgen; ++i) 
+      for (i = 1; i <= pga->ndgen; ++i)
 	 length_of_image (i, defn, map, pcp);
 
       /* what are the new defining generators needed for new presentation? */
 
       for (i = y[pcp->clend + 1] + 1; i <= lastg; ++i)
-	 if (defn[i] == TRUE) 
+	 if (defn[i] == TRUE)
 	    fprintf (present, "y%d, ", i);
 
       /* print the remaining defining generators for the new presentation */
       for (i = 1; i <= ndgen; ++i) {
-	 if (image[i] >= 0) 
+	 if (image[i] >= 0)
 	    fprintf (present, "x%d, ", i);
       }
    }
@@ -201,13 +201,13 @@ void map_relations (int **map, struct pga_vars *pga, struct pcp_vars *pcp)
 #if defined (DEBUG)
    printf ("First the generators\n");
    printf ("\nNow the relations\n");
-#endif 
+#endif
 
    /* print the existing relations */
 
    if (ndrel == 0)
       fprintf (present, " ;\n");
-   else 
+   else
       fprintf (present, "relations {\n");
 
    for (k = 1; k <= ndrel; ++k) {
@@ -277,14 +277,14 @@ void map_relations (int **map, struct pga_vars *pga, struct pcp_vars *pcp)
 #if defined (DEBUG)
       printf ("the required pcp definitions are ");
       print_array (defn, 1, 1 + lastg);
-#endif 
+#endif
 
       definition = allocate_vector (pcp->cc + 1, 0, FALSE);
       for (i = y[pcp->clend + 1] + 1; i <= lastg; ++i)
 	 if (defn[i] == TRUE) {
-	    /* look up and print the structure of the pcp generator i */ 
+	    /* look up and print the structure of the pcp generator i */
 	    find_structure (i, definition, pcp);
-	    print_definition (present, preimage, i, definition, pcp); 
+	    print_definition (present, preimage, i, definition, pcp);
 	 }
 
       free_vector (definition, 0);
@@ -322,7 +322,7 @@ static Logical is_identity_map (int **map, int ndgen, int lastg)
    register int i;
 
    i = 1;
-   while (i <= ndgen && (identity = is_ident (map[i], i, lastg))) 
+   while (i <= ndgen && (identity = is_ident (map[i], i, lastg)))
       ++i;
 
    return identity;
@@ -337,7 +337,7 @@ static int length_of_image (int gen, Logical *defn, int **map, struct pcp_vars *
    int non_zero = 0;
 
    for (i = 1; i <= lastg; ++i) {
-      if (map[gen][i] != 0) { 
+      if (map[gen][i] != 0) {
 	 defn[i] = TRUE;
 	 ++non_zero;
       }
@@ -366,11 +366,11 @@ static void print_image_under_aut (FILE *present, int *preimage, int gen, Logica
       preim = preimage[i];
       s = (preim != 0) ? "x" : "y";
       value = (preim != 0) ? preim : i;
-      
+
       fprintf (present, "%s%d", s, value);
       if (map[gen][i] != 1)
 	 fprintf (present, "^%d", map[gen][i]);
-      
+
       if (nmr_printed != non_zero)
 	 fprintf (present, " * ");
    }
@@ -393,7 +393,7 @@ static void print_definition (FILE *present, int *preimage, int gen, int *defini
 #include "access.h"
 
    fprintf (present, "y%d = ", gen);
-   
+
    if (gen < start) {
       fprintf (present, "y%d", gen);
    }
@@ -401,14 +401,14 @@ static void print_definition (FILE *present, int *preimage, int gen, int *defini
       /* replace generator by its definition */
       if (definition[0] == POWER) {
 	 power = 0;
-	 first = TRUE; 
+	 first = TRUE;
 	 limit = WT (y[pcp->structure + gen]);
 	 for (m = 1; m <= limit; ++m) {
 	    if (definition[m] != 0) {
 	       ++power;
 	       if (first) {
-		  root = definition[m]; 
-		  first = FALSE; 
+		  root = definition[m];
+		  first = FALSE;
 	       }
 	    }
 	 }
@@ -422,10 +422,10 @@ static void print_definition (FILE *present, int *preimage, int gen, int *defini
 
 	 /* a "commutator" definition may be of the sort
 	    [b, ..., b, a, a, a] where there are k occurrences
-	    of the first term, b; in fact, this corresponds to 
+	    of the first term, b; in fact, this corresponds to
 	    a definition [b^(p^(k - 1)), a, a, a]; we must first
 	    check to see if this is the case */
-            
+
 	 power = 1;
 	 root = definition[1];
 	 limit = WT (y[pcp->structure + gen]);
@@ -437,7 +437,7 @@ static void print_definition (FILE *present, int *preimage, int gen, int *defini
 	 r = preimage[root] != 0 ?  preimage[root] : root;
 	 if (exponent != 1)
 	    fprintf (present, "%s%d^%d,", s, r, exponent);
-	 else 
+	 else
 	    fprintf (present, "%s%d,", s, r);
 
 	 for (m = i; m <= limit; ++m) {
@@ -446,12 +446,12 @@ static void print_definition (FILE *present, int *preimage, int gen, int *defini
 	    r = preimage[root] != 0 ? preimage[root] : root;
 	    fprintf (present, " %s%d", s, r);
 	    if (m != limit)
-	       fprintf (present, ","); 
-	    else 
-	       fprintf (present, "]"); 
+	       fprintf (present, ",");
+	    else
+	       fprintf (present, "]");
 	 }
       }
       fprintf (present, ",\n");
    }
 }
-#endif 
+#endif

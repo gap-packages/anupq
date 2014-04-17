@@ -11,7 +11,7 @@
 #include "pcp_vars.h"
 #include "pq_functions.h"
 
-/* print relationship between group defining generators and 
+/* print relationship between group defining generators and
    consistent power-commutator presentation generators */
 
 void print_map (struct pcp_vars *pcp)
@@ -26,7 +26,7 @@ void print_map (struct pcp_vars *pcp)
 #if defined (GROUP)
    printf ("\nRelationship between group defining generators and ");
    printf ("consistent\npower-commutator presentation generators:\n");
-#endif 
+#endif
 
    for (i = 1; i <= ndgen; i++) {
       p2 = y[dgen + i];
@@ -43,8 +43,8 @@ void print_map (struct pcp_vars *pcp)
    }
 }
 
-/* print the pcp presentation of the group; if full output, print 
-   non-trivial power and commutator relations; if diagnostic output, 
+/* print the pcp presentation of the group; if full output, print
+   non-trivial power and commutator relations; if diagnostic output,
    also print relationship and structure information */
 
 void print_presentation (Logical full, struct pcp_vars *pcp)
@@ -58,14 +58,14 @@ void print_presentation (Logical full, struct pcp_vars *pcp)
 
    register int relp = pcp->relp;
    register int ndrel = pcp->ndrel;
-   register int gen, pointer;   
+   register int gen, pointer;
 
    Logical commutator_relation;
 
    char *s;
 
 #if defined (GROUP)
-   printf ("\nGroup: %s to lower exponent-%d central class %d has order %d^%d\n", 
+   printf ("\nGroup: %s to lower exponent-%d central class %d has order %d^%d\n",
 	   pcp->ident, pcp->p, pcp->cc, pcp->p, pcp->lastg);
 #endif
 
@@ -74,8 +74,8 @@ void print_presentation (Logical full, struct pcp_vars *pcp)
    if (pcp->diagn) {
 
       /* print out the defining relations of the group */
-    
-#if defined (GROUP) 
+
+#if defined (GROUP)
       s = "Group";
 #endif
       if (pcp->ndrel != 0)
@@ -112,7 +112,7 @@ void print_presentation (Logical full, struct pcp_vars *pcp)
       print_structure (1, pcp->lastg, pcp);
    }
 
-   if (pcp->cc != 1) 
+   if (pcp->cc != 1)
       print_pcp_relations (pcp);
 }
 

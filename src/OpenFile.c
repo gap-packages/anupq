@@ -14,8 +14,8 @@
 
 FILE* OpenFile (const char *file_name, const char *mode)
 {
-   FILE *fp; 
-  
+   FILE *fp;
+
    if ((fp = fopen (file_name, mode)) == NULL) {
       printf ("Cannot open %s\n", file_name);
       if (!isatty (0))
@@ -39,8 +39,8 @@ FILE* OpenFileInput (const char *file_name)
 
 FILE* OpenSystemFile (const char *file_name, const char *mode)
 {
-   FILE *fp; 
-     
+   FILE *fp;
+
    if ((fp = fopen (file_name, mode)) == NULL) {
       perror (NULL);
       printf ("Cannot open %s\n", file_name);

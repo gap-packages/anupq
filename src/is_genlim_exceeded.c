@@ -10,8 +10,8 @@
 #include "pq_defs.h"
 #include "pcp_vars.h"
 
-/* test that the total number of occurrences of each defining 
-   generator in the structure of a pcp-generator about to be 
+/* test that the total number of occurrences of each defining
+   generator in the structure of a pcp-generator about to be
    introduced in tails does not exceed some maximum set up in option */
 
 Logical is_genlim_exceeded (struct pcp_vars *pcp)

@@ -100,14 +100,14 @@ void GAP_presentation (FILE *file, struct pcp_vars *pcp, int aspcgroup)
 	 print_GAP_word( file, p2, pcp );
       }
    }
-            
+
    /* write power-relators with trivial rhs                               */
    for ( i = k + 1;  i <= pcp->lastg;  ++i )
    {
       if ( comma )  fprintf( file, ",\n" );  else comma = 1;
       fprintf( file, " F.%d^%d", i, pcp->p );
    }
-    
+
    /* write commutator-relators                                           */
    for ( i = 2;  i <= k;  i++ )
    {
@@ -144,7 +144,7 @@ void GAP_presentation (FILE *file, struct pcp_vars *pcp, int aspcgroup)
 /****************************************************************************
 **
 *F  MakeNameList
-**                             create p-group generation identifier for group  
+**                             create p-group generation identifier for group
 */
 char * nextnumber (char *ident)
 {
@@ -193,7 +193,7 @@ int countcall = 0;
 void write_GAP_library (FILE *file, struct pcp_vars *pcp)
 {
    /* if this is the first call initialise 'ANUgroups'                    */
-   if ( countcall == 0 ) 
+   if ( countcall == 0 )
    {
       fprintf( file, "ANUPQgroups := [];\n"                           );
       fprintf( file, "ANUPQautos  := [];\n\n"                         );
@@ -210,7 +210,7 @@ void write_GAP_library (FILE *file, struct pcp_vars *pcp)
 
    /* convert <F> to a pc group in descendants case
       ... has to be done here; otherwise, we lose the property/attributes */
-   fprintf( file, "if IsList(L) then\n    F := PcGroupFpGroupNC(F);\nfi;\n" ); 
+   fprintf( file, "if IsList(L) then\n    F := PcGroupFpGroupNC(F);\nfi;\n" );
 
    /* add info. whether group is capable, and its nuclear and mult'r ranks*/
    fprintf( file, "SetIsCapable(F, %s);\n", (pcp->newgen)?"true":"false" );
@@ -221,7 +221,7 @@ void write_GAP_library (FILE *file, struct pcp_vars *pcp)
    MakeNameList( file, pcp->ident );
 
    /* add the group <F> to <L>                                            */
-   fprintf( file, "if IsList(L) then\n    Add( L, F );\n" ); 
+   fprintf( file, "if IsList(L) then\n    Add( L, F );\n" );
    fprintf( file, "else\n    L.group := F;\n    L.map := MapImages;\nfi;" );
 
    fprintf( file, "\nend;\n\n\n"       );
@@ -271,7 +271,7 @@ void GAP_auts (FILE *file, int ***central, int ***stabiliser, struct pga_vars *p
    }
    fprintf( file, "];\n" );
 
-   fprintf (file, "centralAutos := [];  # nr of central autos: %d\n", 
+   fprintf (file, "centralAutos := [];  # nr of central autos: %d\n",
             pga->nmr_centrals );
 
    /* write out all central automorphisms                                 */
@@ -305,8 +305,8 @@ void GAP_auts (FILE *file, int ***central, int ***stabiliser, struct pga_vars *p
       fprintf( file, "] );\n" );
    }
 
-   
-   fprintf (file, "otherAutos := [];  # nr of other autos: %d\n", 
+
+   fprintf (file, "otherAutos := [];  # nr of other autos: %d\n",
             pga->nmr_stabilisers );
 
    /* write out all other automorphisms                                   */
@@ -352,6 +352,6 @@ void GAP_auts (FILE *file, int ***central, int ***stabiliser, struct pga_vars *p
 
    fprintf( file, "ANUPQSetAutomorphismGroup( " );
    fprintf( file, "G, frattGens, centralAutos, otherAutos, relOrders, " );
-   fprintf( file, "%s );\n", pga->soluble?"true":"false"); 
+   fprintf( file, "%s );\n", pga->soluble?"true":"false");
    fprintf( file, "end;\n\n\n" );
 }

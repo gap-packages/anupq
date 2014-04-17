@@ -12,7 +12,7 @@
 #include "constants.h"
 #include "pq_functions.h"
 
-#if defined (TAILS_FILTER) && defined (GROUP) 
+#if defined (TAILS_FILTER) && defined (GROUP)
 
 /* look up the definitions of two pcp generator */
 
@@ -36,7 +36,7 @@ int lookup_structure(int generator, int *weight_vector, struct pcp_vars *pcp)
 
    for (i = 1; i <= weight; ++i) {
       index = y[pointer + i];
-      ++weight_vector[index]; 
+      ++weight_vector[index];
    }
 }
 
@@ -50,8 +50,8 @@ int *add_weights(int *vec1, int *vec2, int length)
    sum = allocate_vector (length, 1, TRUE);
    for (i = 1; i <= length; ++i)
       sum[i] = vec1[i] + vec2[i];
-   
-   return sum; 
+
+   return sum;
 }
 
 /* where maximal occurrence for each generator is set to 1,
@@ -62,13 +62,13 @@ Logical mo_filter(int *weight_vector, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
-   Logical filter; 
-   int frattini_rank = y[pcp->clend + 1]; 
+   Logical filter;
+   int frattini_rank = y[pcp->clend + 1];
    int moccur = pcp->ndgen + pcp->dgen;
 
    int i;
 
-#ifdef DEBUG 
+#ifdef DEBUG
    printf ("Definition array total is ");
    print_array (weight_vector, 1, y[pcp->clend + 1] + 1);
 #endif
@@ -89,14 +89,14 @@ Logical exp4_filter(int left, int right, int *weight_vector, struct pcp_vars *pc
 {
    register int *y = y_address;
 
-   Logical filter; 
-   int frattini_rank = y[pcp->clend + 1]; 
+   Logical filter;
+   int frattini_rank = y[pcp->clend + 1];
    int structure = pcp->structure;
    int i;
 
 #include "access.h"
 
-#ifdef DEBUG 
+#ifdef DEBUG
    printf ("Definition array total is ");
    print_array (weight_vector, 1, y[pcp->clend + 1] + 1);
 #endif
@@ -116,8 +116,8 @@ Logical exp5_filter(int *weight_vector, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
-   int frattini_rank = y[pcp->clend + 1]; 
-   Logical filter; 
+   int frattini_rank = y[pcp->clend + 1];
+   Logical filter;
    int i;
 
 #ifdef DEBUG
@@ -156,7 +156,7 @@ void calculate_tails(int final_class, int start_weight, int end_weight, struct p
    int **definition;
 
    int exponent = pcp->extra_relations;
-   Logical filter = (pcp->nocset || exponent == 4 || exponent == 5); 
+   Logical filter = (pcp->nocset || exponent == 4 || exponent == 5);
    Logical compute;
    int *weight_vector;
    int frattini_rank = y[pcp->clend + 1];
@@ -164,11 +164,11 @@ void calculate_tails(int final_class, int start_weight, int end_weight, struct p
 
 #include "access.h"
 
-   if (filter) 
+   if (filter)
       definition = allocate_matrix (pcp->lastg, frattini_rank + 1, 0, TRUE);
 
-   if (filter || pcp->fullop || pcp->diagn)  
-      printf ("Processing tails for generators of weight %d and %d\n", 
+   if (filter || pcp->fullop || pcp->diagn)
+      printf ("Processing tails for generators of weight %d and %d\n",
 	      final_class, 1);
 
    for (f = start; f <= end; f++) {
@@ -180,11 +180,11 @@ void calculate_tails(int final_class, int start_weight, int end_weight, struct p
       if (a == 0)
 	 break;
       b = PART2 (value);
-      
+
       /* f is the commutator (b, a);
-	 calculate the class current_class part of f^p by collecting 
-	 (b^p) a = b^(p-1) (ba); by formal collection, we see that 
-	 the class current_class part of f^p is obtained by subtracting 
+	 calculate the class current_class part of f^p by collecting
+	 (b^p) a = b^(p-1) (ba); by formal collection, we see that
+	 the class current_class part of f^p is obtained by subtracting
 	 (modulo p) the rhs of the above equation from the lhs */
 
       jacobi (b, b, a, pcp->ppower + f, pcp);
@@ -193,7 +193,7 @@ void calculate_tails(int final_class, int start_weight, int end_weight, struct p
    }
 
 
-   /* calculate the non left-normed commutators of class work_class 
+   /* calculate the non left-normed commutators of class work_class
       in the order (work_class - 2, 2), (work_class - 3, 3) .. */
 
    class_end = pcp->clend;
@@ -201,8 +201,8 @@ void calculate_tails(int final_class, int start_weight, int end_weight, struct p
 
       processed = 0; filtered = 0;
 
-      if (filter || pcp->fullop || pcp->diagn)  
-	 printf ("Processing tails for generators of weight %d and %d\n", 
+      if (filter || pcp->fullop || pcp->diagn)
+	 printf ("Processing tails for generators of weight %d and %d\n",
 		 final_class, start_class);
 
       start = y[class_end + final_class - 1] + 1;
@@ -230,51 +230,51 @@ void calculate_tails(int final_class, int start_weight, int end_weight, struct p
 	    value = y[structure + s];
 	    b = PART2 (value);
 	    a = PART3 (value);
-	    if (a == 0)  
+	    if (a == 0)
 	       a = b;
 	    else if (pcp->metabelian && PART3 (y[structure + f]) != 0)
 	       continue;
-               
-	    /* s = (b, a); calculate the class current_class part 
-	       of (f, (b, a)) by collecting (fb) a = f (ba) or the 
-	       class current_class part of (f, (b^p)) by collecting 
+
+	    /* s = (b, a); calculate the class current_class part
+	       of (f, (b, a)) by collecting (fb) a = f (ba) or the
+	       class current_class part of (f, (b^p)) by collecting
 	       (fb) b^(p - 1) = f (b^p);
-	       since we require only the class current_class part - 
-	       the rest has been computed earlier -  we calculate it 
-	       by subtracting (modulo p) the rhs of the above equation 
+	       since we require only the class current_class part -
+	       the rest has been computed earlier -  we calculate it
+	       by subtracting (modulo p) the rhs of the above equation
 	       from the lhs (proof by formal collection) */
 	    if (filter) {
 	       if (definition[s][0] == FALSE) {
 		  lookup_structure (s, definition[s], pcp);
 		  definition[s][0] = TRUE;
 	       }
-	       weight_vector = add_weights (definition[f], definition[s], 
+	       weight_vector = add_weights (definition[f], definition[s],
 					    y[pcp->clend + 1]);
 	       free_vector (weight_vector, 1);
-	       if (pcp->nocset) 
-		  compute = (mo_filter (weight_vector, pcp) == FALSE); 
-	       else if (exponent == 4) 
-		  compute = (exp4_filter (f, s, weight_vector, pcp) == FALSE); 
-	       else if (exponent == 5) 
-		  compute = (exp5_filter (weight_vector, pcp) == FALSE); 
+	       if (pcp->nocset)
+		  compute = (mo_filter (weight_vector, pcp) == FALSE);
+	       else if (exponent == 4)
+		  compute = (exp4_filter (f, s, weight_vector, pcp) == FALSE);
+	       else if (exponent == 5)
+		  compute = (exp5_filter (weight_vector, pcp) == FALSE);
 	       else
 		  compute = TRUE;
 
 	       if (compute) {
 		  jacobi (f, b, a, p1 + s, pcp);
-		  ++processed; 
+		  ++processed;
 	       }
-	       else 
+	       else
 		  ++filtered;
 	    }
-	    else 
+	    else
 	       jacobi (f, b, a, p1 + s, pcp);
 	    if (pcp->overflow)
 	       return;
 	 }
       }
       if (filter) {
-	 printf ("Number evaluated = %d, Number filtered = %d\n", 
+	 printf ("Number evaluated = %d, Number filtered = %d\n",
 		 processed, filtered);
       }
    }

@@ -17,7 +17,7 @@
 static void evaluate_generators (int pointer, int nmr_of_generators, int ***stabiliser, int ***auts, struct pga_vars *pga, struct pcp_vars *pcp);
 
 
-/* find the stabiliser of the representative, rep; 
+/* find the stabiliser of the representative, rep;
    all of the permutations are stored in perms;
    nmr_of_generators is the number of pcp generators in the descendant */
 
@@ -29,7 +29,7 @@ int*** stabiliser_of_rep (int **perms, int rep, int orbit_length,
 
    int*** stabiliser;
    int pointer = pcp->lused + 1;
-   Logical soluble_group = (pga->soluble || pga->Degree == 1 || 
+   Logical soluble_group = (pga->soluble || pga->Degree == 1 ||
 			    pga->nmr_of_perms == 0);
    int nmr_of_generators;
    int restriction;
@@ -38,69 +38,69 @@ int*** stabiliser_of_rep (int **perms, int rep, int orbit_length,
 
    nmr_of_generators = pga->final_stage ? y[pcp->clend + pcp->cc - 1] + pga->s :
       pcp->lastg + pga->s - pga->q;
-                              
+
    pga->nmr_stabilisers = 0;
 
-   /* if necessary, compute the stabiliser of the representative 
-      in the insoluble portion using a system call to GAP -- 
-      this is done before setting up the remainder of the automorphisms 
+   /* if necessary, compute the stabiliser of the representative
+      in the insoluble portion using a system call to GAP --
+      this is done before setting up the remainder of the automorphisms
       to minimise the size of the workspace created by the system call */
 
-   if (!soluble_group) { 
+   if (!soluble_group) {
 
 #if defined (GAP_LINK) || defined (GAP_LINK_VIA_FILE)
       insoluble_stab_gens (rep, orbit_length, pga, pcp);
 #else
       printf ("To compute stabilisers in insoluble automorphism groups, ");
-      printf ("you must compile pq\nwith the compiler flag GAP_LINK set\n"); 
+      printf ("you must compile pq\nwith the compiler flag GAP_LINK set\n");
       exit (FAILURE);
 #endif
    }
 
    /* determine the generators for the stabiliser if soluble */
-   if (soluble_group) { 
+   if (soluble_group) {
       stabiliser_generators (perms, rep, a, b, c, d, auts, pga, pcp);
 
       /* allocate space for stabiliser */
       stabiliser = allocate_array (pga->nmr_stabilisers, pga->ndgen,
 				nmr_of_generators, TRUE);
-                                 
-      /* construct the generators of the stabiliser in the soluble group 
+
+      /* construct the generators of the stabiliser in the soluble group
          as automorphisms */
 
       if (pga->nmr_stabilisers != 0 && soluble_group) {
-         restriction = pga->final_stage ? 
+         restriction = pga->final_stage ?
            y[pcp->clend + pcp->cc - 1] + pga->s : y[pcp->clend + pcp->cc - 1];
            evaluate_generators (pointer, restriction, stabiliser, auts, pga, pcp);
       }
    }
    else {
-      /* read in the generators of the stabiliser in the insoluble case -- 
+      /* read in the generators of the stabiliser in the insoluble case --
           these were computed using GAP */
 
 #if defined (GAP_LINK) || defined (GAP_LINK_VIA_FILE)
       stabiliser = read_stabiliser_gens (nmr_of_generators, stabiliser, pga, pcp);
 #endif
    }
- 
+
    pcp->lastg = nmr_of_generators;
 
    if (pga->final_stage) {
       /* include relative orders for central generators */
       relative = allocate_vector (pga->nmr_soluble + pga->nmr_centrals, 1, 0);
-      for (j = pga->nmr_soluble; j >= 1; --j) 
-         relative[pga->nmr_centrals + j] = pga->relative[j]; 
-      for (j = 1; j <= pga->nmr_centrals; ++j) 
-         relative[j] = pga->p;         
+      for (j = pga->nmr_soluble; j >= 1; --j)
+         relative[pga->nmr_centrals + j] = pga->relative[j];
+      for (j = 1; j <= pga->nmr_centrals; ++j)
+         relative[j] = pga->p;
 
       /* free_vector (pga->relative, 1); */
       pga->relative = relative;
       pga->nmr_soluble += pga->nmr_centrals;
    }
 
-   if (pga->print_automorphisms && pga->final_stage) { 
-/* 
-	if (pga->print_automorphisms) { 
+   if (pga->print_automorphisms && pga->final_stage) {
+/*
+	if (pga->print_automorphisms) {
 */
       printf ("Number of stabiliser generators is %d\n", pga->nmr_stabilisers);
       print_auts (pga->nmr_stabilisers, pga->ndgen, stabiliser, pcp);
@@ -125,9 +125,9 @@ void stabiliser_generators (int **perms, int rep, int *a, int *b, char *c, char 
    int index;
    int perm_number;
 
-   /* let k run over the elements of orbit with representative rep; 
-      if c[k] >= 2, then some permutation did not extend the orbit of k; 
-      hence, there is some product of subsequent permutations which 
+   /* let k run over the elements of orbit with representative rep;
+      if c[k] >= 2, then some permutation did not extend the orbit of k;
+      hence, there is some product of subsequent permutations which
       stabilises the representative a[k] */
 
    k = rep;
@@ -142,8 +142,8 @@ void stabiliser_generators (int **perms, int rep, int *a, int *b, char *c, char 
 	    if ((perm_number = pga->map[alpha]) == 0)
 	       next = a[k];
 	    else {
-	       next = pga->space_efficient ? 
-		  find_image (a[k], auts[alpha], pga, pcp) : 
+	       next = pga->space_efficient ?
+		  find_image (a[k], auts[alpha], pga, pcp) :
 		  perms[perm_number][a[k]];
 	    }
 
@@ -152,13 +152,13 @@ void stabiliser_generators (int **perms, int rep, int *a, int *b, char *c, char 
 	       ++word_length;
 	       y[pointer + word_length] = index;
 	       if ((perm_number = pga->map[index]) != 0) {
-		  next = pga->space_efficient ? 
-		     find_image (next, auts[index], pga, pcp) : 
+		  next = pga->space_efficient ?
+		     find_image (next, auts[index], pga, pcp) :
 		     perms[perm_number][next];
 	       }
 	    }
 	    y[pointer] = word_length;
-	    pointer += word_length + 1; 
+	    pointer += word_length + 1;
 	 }
       }
       k = b[k];
@@ -167,9 +167,9 @@ void stabiliser_generators (int **perms, int rep, int *a, int *b, char *c, char 
    pcp->lused = pointer;
 }
 
-/* evaluate the action of a stabiliser of a representative on the 
-   defining generators of the group; each stabiliser generator is 
-   stored as a word in the automorphisms, auts, of the parent, where 
+/* evaluate the action of a stabiliser of a representative on the
+   defining generators of the group; each stabiliser generator is
+   stored as a word in the automorphisms, auts, of the parent, where
    y[pointer] = length of word defining first generator */
 
 static void evaluate_generators (int pointer, int nmr_of_generators, int ***stabiliser, int ***auts, struct pga_vars *pga, struct pcp_vars *pcp)
@@ -183,21 +183,21 @@ static void evaluate_generators (int pointer, int nmr_of_generators, int ***stab
    for (gamma = 1; gamma <= pga->nmr_stabilisers; ++gamma) {
 
       for (i = 1; i <= pga->ndgen; ++i) {
-	 /* compute image of defining generator i 
+	 /* compute image of defining generator i
 	    under generator gamma of stabiliser */
 	 image_of_generator (i, pointer, auts, pga, pcp);
 
 	 /* copy restriction of result into stabiliser array */
-	 for (j = 1; j <= nmr_of_generators; ++j) 
+	 for (j = 1; j <= nmr_of_generators; ++j)
 	    stabiliser[gamma][i][j] = y[cp + j];
       }
-      pointer += y[pointer] + 1; 
+      pointer += y[pointer] + 1;
    }
 }
 
 /* compute the image of group generator under a stabiliser generator,
    whose definition as a word in the automorphisms, auts, of the parent
-   is stored at y[pointer + 1], .., y[pointer + y[pointer]] */ 
+   is stored at y[pointer + 1], .., y[pointer + y[pointer]] */
 
 void image_of_generator (int generator, int pointer, int ***auts, struct pga_vars *pga, struct pcp_vars *pcp)
 {
@@ -205,7 +205,7 @@ void image_of_generator (int generator, int pointer, int ***auts, struct pga_var
 
    register int i, j, k, l;
    register int alpha, letter;
-   register int length, exp; 
+   register int length, exp;
    int cp = pcp->lused;
    int ptr = cp + pcp->lastg;
    int nmr_of_letters = y[pointer];
@@ -216,9 +216,9 @@ void image_of_generator (int generator, int pointer, int ***auts, struct pga_var
 
    /* set up the image of gen under the action of alpha at cp */
    for (i = 1; i <= pcp->lastg; ++i)
-      y[cp + i] = auts[alpha][generator][i]; 
+      y[cp + i] = auts[alpha][generator][i];
 
-   /* for each remaining letter in the generator word, set up as a 
+   /* for each remaining letter in the generator word, set up as a
       word its action on each of the elements of the image under alpha */
 
    for (letter = nmr_of_letters - 1; letter >= 1; --letter) {
@@ -229,11 +229,11 @@ void image_of_generator (int generator, int pointer, int ***auts, struct pga_var
       length = 0;
       for (i = 1; i <= pcp->lastg; ++i) {
 	 if ((exp = y[cp + i]) > 0) {
-	    /* set up exp copies of the image of generator i under 
+	    /* set up exp copies of the image of generator i under
 	       action of automorphism alpha */
 	    for (j = 1; j <= exp; ++j) {
 	       for (k = 1; k <= pcp->lastg; ++k) {
-		  bound = auts[alpha][i][k]; 
+		  bound = auts[alpha][i][k];
 		  for (l = 1; l <= bound; ++l) {
 		     ++length;
 		     y[ptr + length] = k;
@@ -267,7 +267,7 @@ int preimage (int perm, struct pga_vars *pga)
    exit (FAILURE);
 }
 
-/* set up those automorphisms which induced the identity on the 
+/* set up those automorphisms which induced the identity on the
    p-multiplicator as the leading elements of the stabiliser */
 /*
 static int ***setup_identity_auts (int nmr_of_generators, int ***auts, struct pga_vars *pga)
@@ -277,7 +277,7 @@ static int ***setup_identity_auts (int nmr_of_generators, int ***auts, struct pg
 
    stabiliser = allocate_array (pga->nmr_stabilisers, pga->ndgen,
 				nmr_of_generators, TRUE);
-                                 
+
    for (alpha = 1; alpha <= pga->m; ++alpha) {
       if (pga->map[alpha] == 0) {
 	 ++i;
@@ -294,8 +294,8 @@ static int ***setup_identity_auts (int nmr_of_generators, int ***auts, struct pg
 #if defined (GAP_LINK_VIA_FILE)
 
 /* read the insoluble stabiliser generators from LINK file;
-   each list of stabilisers is preceded by a list of integers -- 
-   the first indicates whether the stabiliser is soluble; 
+   each list of stabilisers is preceded by a list of integers --
+   the first indicates whether the stabiliser is soluble;
    the second is the number of soluble generators for the stabiliser;
    for each soluble generator, its relative order is now listed;
    finally the total number of generators is listed */
@@ -328,7 +328,7 @@ int*** read_stabiliser_gens (int nmr_of_generators, int ***soluble_generators, s
    nmr_items = fscanf (LINK_output, "%d", &pga->nmr_stabilisers);
    verify_read (nmr_items, 1);
 
-#ifdef DEBUG1 
+#ifdef DEBUG1
    printf ("Nmr of soluble gens for stabiliser is %d\n", pga->nmr_soluble);
    printf ("FROM GAP Relative orders are ");
    for (i = 1; i <= pga->nmr_soluble ; ++i)
@@ -337,12 +337,12 @@ int*** read_stabiliser_gens (int nmr_of_generators, int ***soluble_generators, s
    printf ("Total Nmr of gens for stabiliser is %d\n", pga->nmr_stabilisers);
 #endif
 
-   stabiliser = allocate_array (pga->nmr_stabilisers, ndgen, 
+   stabiliser = allocate_array (pga->nmr_stabilisers, ndgen,
                                 nmr_of_generators, TRUE);
 
    /* now read in the insoluble generators */
-   for (gamma = 1; gamma <= pga->nmr_stabilisers; ++gamma)  
-      for (i = 1; i <= ndgen; ++i)  
+   for (gamma = 1; gamma <= pga->nmr_stabilisers; ++gamma)
+      for (i = 1; i <= ndgen; ++i)
 	 for (j = 1; j <= pcp->ccbeg - 1; ++j) {
 	    nmr_items = fscanf (LINK_output, "%d", &stabiliser[gamma][i][j]);
 	    verify_read (nmr_items, 1);
@@ -350,7 +350,7 @@ int*** read_stabiliser_gens (int nmr_of_generators, int ***soluble_generators, s
 
    CloseFile (LINK_output);
 
-   return stabiliser; 
+   return stabiliser;
 }
 
-#endif 
+#endif

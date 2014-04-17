@@ -19,9 +19,9 @@ void read_parameters (int format, int *max_class, int *output, struct pcp_vars *
    Logical reading = TRUE;
    char *ident;
 
-#if defined (GROUP) 
+#if defined (GROUP)
    ident = GetString ("Input group identifier: ");
-#endif 
+#endif
 
    strcpy (pcp->ident, ident);
 
@@ -42,7 +42,7 @@ void read_parameters (int format, int *max_class, int *output, struct pcp_vars *
       text (15, MAXCLASS, 0, 0, 0);
    }
 
-   print_level (output, pcp); 
+   print_level (output, pcp);
 
    if (format == BASIC) {
       reading = TRUE;
@@ -55,7 +55,7 @@ void read_parameters (int format, int *max_class, int *output, struct pcp_vars *
 
 #if defined (GROUP)
       read_value (TRUE, "Input number of relations: ", &pcp->ndrel, 0);
-      read_value (TRUE, "Input exponent law (0 if none): ", 
+      read_value (TRUE, "Input exponent law (0 if none): ",
 		  &pcp->extra_relations, 0);
 #endif
 

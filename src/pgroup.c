@@ -18,12 +18,12 @@
 #if defined (CARANTI)
 #define CARANTI_DISPLAY 7
 #define MAX_PGA_OPTION 8
-#else 
+#else
 #define MAX_PGA_OPTION 7
 #endif
 
-/* coordinating routine for the pgroup generation part of the program; 
-   group_present flag indicates whether a group description has 
+/* coordinating routine for the pgroup generation part of the program;
+   group_present flag indicates whether a group description has
    been constructed or restored in previous menu */
 
 void pgroup_generation (Logical *group_present, struct pcp_vars *pcp)
@@ -35,7 +35,7 @@ void pgroup_generation (Logical *group_present, struct pcp_vars *pcp)
    int option;
    int subgroup_rank;
 
-   char *StartName; 
+   char *StartName;
    FILE * StartFile;
 
    int ***auts;
@@ -43,7 +43,7 @@ void pgroup_generation (Logical *group_present, struct pcp_vars *pcp)
 
    int group_nmr = 1;
    int *step_sequence = NULL;
-   int class_bound, order_bound;  
+   int class_bound, order_bound;
    int nmr_of_exponents;
 
    Logical new_group = FALSE;
@@ -63,7 +63,7 @@ void pgroup_generation (Logical *group_present, struct pcp_vars *pcp)
    list_pga_menu ();
 
    do {
-      option = read_option (MAX_PGA_OPTION);      
+      option = read_option (MAX_PGA_OPTION);
       switch (option) {
 
       case -1:
@@ -80,8 +80,8 @@ void pgroup_generation (Logical *group_present, struct pcp_vars *pcp)
 
         new_group = TRUE;
 
-        read_value (TRUE, 
-                    "Input number of soluble generators for automorphism group: ", 
+        read_value (TRUE,
+                    "Input number of soluble generators for automorphism group: ",
                     &pga.nmr_soluble, INT_MIN);
 
         if( pga.nmr_soluble > 0 ) {
@@ -92,12 +92,12 @@ void pgroup_generation (Logical *group_present, struct pcp_vars *pcp)
 
           for (k = 1; k <= pga.nmr_soluble; ++k) {
             printf("Input relative order of soluble generator %d: ", k);
-            read_value (TRUE, "", &pga.relative[k], 0); 
+            read_value (TRUE, "", &pga.relative[k], 0);
           }
         }
-        
+
         start_group (&StartFile, auts, &pga, pcp);
-        
+
         break;
 
 
@@ -137,20 +137,20 @@ void pgroup_generation (Logical *group_present, struct pcp_vars *pcp)
 	       exit (FAILURE);
 	 }
 	 else {
-	    if (new_group) 
+	    if (new_group)
 	       start_group (&StartFile, auts, &pga, pcp);
 	    else
 	       StartFile = OpenFile (StartName, "r");
-            
+
 
 	    /*
 	      free_array (auts, pga.m, pcp->lastg, 1);
 	      */
 	    pga.nmr_of_perms = pga.m;
-	    iteration_information (&subgroup_rank, &flag, &class_bound, 
+	    iteration_information (&subgroup_rank, &flag, &class_bound,
 				   &order_bound, &step_sequence, &pga, pcp);
-	    iteration (1, step_sequence, subgroup_rank, &flag, StartFile, 
-		       group_nmr, class_bound, order_bound, &pga, pcp); 
+	    iteration (1, step_sequence, subgroup_rank, &flag, StartFile,
+		       group_nmr, class_bound, order_bound, &pga, pcp);
 	    if (!new_group)  {
 	       StartFile = OpenFile (StartName, "r");
 	       auts = restore_group (TRUE, StartFile, group_nmr, &pga, pcp);
@@ -161,7 +161,7 @@ void pgroup_generation (Logical *group_present, struct pcp_vars *pcp)
 	    }
 
 	    t = runTime () - t;
-	    printf ("Construction of descendants took %.2f seconds\n", 
+	    printf ("Construction of descendants took %.2f seconds\n",
 		    t * CLK_SCALE);
 	 }
 	 CloseFile (StartFile);
@@ -187,7 +187,7 @@ void pgroup_generation (Logical *group_present, struct pcp_vars *pcp)
 
       }                         /* switch */
 
-   } while (option != EXIT && option != MAX_PGA_OPTION);      
+   } while (option != EXIT && option != MAX_PGA_OPTION);
 }
 
 /* list available menu options */
@@ -196,7 +196,7 @@ void list_pga_menu (void)
 {
    printf ("\nMenu for p-Group Generation\n");
    printf ("-----------------------------\n");
-   printf ("%d. Read automorphism information for starting group\n", 
+   printf ("%d. Read automorphism information for starting group\n",
 	   SUPPLY_AUTOMORPHISMS);
    printf ("%d. Extend and display automorphisms\n", EXTEND_AUTOMORPHISMS);
    printf ("%d. Specify input file and group number\n", RESTORE_GROUP);

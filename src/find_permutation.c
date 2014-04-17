@@ -28,7 +28,7 @@ char* find_permutation (int *b, char *c, struct pga_vars *pga)
    for (i = 1; i <= pga->nmr_orbits; ++i) {
       j = pga->rep[i];
       /* trace the orbit with leading term j */
-      k = j; 
+      k = j;
       l = b[j];
       while (l != 0) {
 	 d[l] = d[k] + c[k];

@@ -35,7 +35,7 @@ void set_values (struct pga_vars *pga, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
-   pga->multiplicator_rank = y[pcp->clend + pcp->cc] - 
+   pga->multiplicator_rank = y[pcp->clend + pcp->cc] -
       y[pcp->clend + pcp->cc - 1];
    pga->nuclear_rank = pcp->newgen;
 }

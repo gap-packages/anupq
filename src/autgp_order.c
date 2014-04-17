@@ -19,7 +19,7 @@
 
 /* update the order of the automorphism group */
 
-void 
+void
 update_autgp_order (int orbit_length, struct pga_vars *pga, struct pcp_vars *pcp)
 {
    register int *y = y_address;
@@ -36,7 +36,7 @@ update_autgp_order (int orbit_length, struct pga_vars *pga, struct pcp_vars *pcp
    if (pga->final_stage) {
 
       d = y[pcp->clend + 1];
-/* 
+/*
       nmr_cent = y[pcp->clend + pcp->cc] - y[pcp->clend + pcp->cc - 1];
 */
       nmr_cent = pga->nmr_centrals;
@@ -44,7 +44,7 @@ update_autgp_order (int orbit_length, struct pga_vars *pga, struct pcp_vars *pcp
       mpz_init_set_si (&prime, pcp->p);
       mpz_init (&nmr_centrals);
 
-/* 
+/*
       mpz_pow_ui (&nmr_centrals, &prime, nmr_cent * d);
 */
       mpz_pow_ui (&nmr_centrals, &prime, nmr_cent);
@@ -63,7 +63,7 @@ update_autgp_order (int orbit_length, struct pga_vars *pga, struct pcp_vars *pcp
 
 /* report the group and automorphism group order */
 
-void 
+void
 report_autgp_order (struct pga_vars *pga, struct pcp_vars *pcp)
 {
    int p, n;
@@ -77,7 +77,7 @@ report_autgp_order (struct pga_vars *pga, struct pcp_vars *pcp)
    if (pga->print_automorphism_order && (pga->capable || pga->terminal)) {
       s = pga->upper_bound ? "at most " : "";
       printf ("Order of group is %d^%d;", p, n);
-      printf (" automorphism group order is %s", s); 
+      printf (" automorphism group order is %s", s);
       mpz_out_str (stdout, 10, &(pga->aut_order));
       printf ("\n");
    }
@@ -85,7 +85,7 @@ report_autgp_order (struct pga_vars *pga, struct pcp_vars *pcp)
 
 /* compute (an upper bound for) the order of the automorphism group */
 
-void 
+void
 autgp_order (struct pga_vars *pga, struct pcp_vars *pcp)
 {
    register int *y = y_address;
@@ -100,7 +100,7 @@ autgp_order (struct pga_vars *pga, struct pcp_vars *pcp)
    d = y[pcp->clend + 1];
    n = y[pcp->clend + pcp->cc - 1];
 
-   mpz_init_set_si (&(pga->aut_order), 1);  
+   mpz_init_set_si (&(pga->aut_order), 1);
    mpz_init_set_si (&prime, pcp->p);
 
    /* large = p^d */
@@ -112,7 +112,7 @@ autgp_order (struct pga_vars *pga, struct pcp_vars *pcp)
    for (i = 0; i < d; ++i) {
       mpz_init (&diff);
       mpz_sub (&diff, &large, &sub);
-      mpz_mul (&(pga->aut_order), &(pga->aut_order), &diff); 
+      mpz_mul (&(pga->aut_order), &(pga->aut_order), &diff);
       mpz_mul (&sub, &sub, &prime);
       mpz_clear (&diff);
    }
@@ -137,9 +137,9 @@ autgp_order (struct pga_vars *pga, struct pcp_vars *pcp)
    if (StandardPresentation) {
       s = pga->upper_bound ? "at most " : "";
       printf ("Starting group has order %d^%d;", p, n);
-      printf (" its automorphism group order is %s", s); 
+      printf (" its automorphism group order is %s", s);
       mpz_out_str (stdout, 10, &(pga->aut_order));
       printf (" \n");
    }
 }
-#endif 
+#endif

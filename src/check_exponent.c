@@ -13,7 +13,7 @@
 #include "pq_functions.h"
 #include "exp_vars.h"
 
-/* determine whether trial value is upper bound on exponent of the 
+/* determine whether trial value is upper bound on exponent of the
    group; do this by checking that all test words are trivial */
 
 Logical check_exponent (int trial_exponent, struct exp_vars *exp_flag, struct pcp_vars *pcp)
@@ -36,5 +36,5 @@ Logical check_exponent (int trial_exponent, struct exp_vars *exp_flag, struct pc
    pcp->extra_relations = known_exponent;
 
    /* if trivial flag is true, we have (upper bound on) exponent */
-   return exp_flag->all_trivial; 
+   return exp_flag->all_trivial;
 }

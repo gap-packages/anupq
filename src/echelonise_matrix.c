@@ -33,7 +33,7 @@ int echelonise_matrix (int **a, int nmr_rows, int nmr_columns, int p, int *subse
 	 while (index < nmr_rows && (zero = (a[index][column] == 0)))
 	    ++index;
 	 if (zero) {
-	    if (column < bound)  
+	    if (column < bound)
 	       ++column;
 	    else
 	       return bit_string;

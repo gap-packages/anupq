@@ -11,14 +11,14 @@
 #include "pga_vars.h"
 #include "pq_functions.h"
 
-/* set up the maximum storage space required for the definition sets -- 
+/* set up the maximum storage space required for the definition sets --
    this is the maximum of r choose s where lower_step <= s <= upper_step */
 
 void store_definition_sets (int r, int lower_step, int upper_step, struct pga_vars *pga)
 {
    int s, nmr_of_sets = 0;
 
-   for (s = lower_step; s <= upper_step; ++s) 
+   for (s = lower_step; s <= upper_step; ++s)
       nmr_of_sets = MAX (nmr_of_sets, choose (r, s));
 
    pga->list = allocate_vector (nmr_of_sets, 0, FALSE);

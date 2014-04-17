@@ -27,7 +27,7 @@ void insoluble_compute_orbits (int **orbit, int **backptr, char **schreier, int 
 
    *orbit = allocate_vector (Degree, 1, FALSE);
 
-   /* if standard presentation computation, set 
+   /* if standard presentation computation, set
       up schreier vectors and backward pointers */
 
    if (StandardPresentation) {
@@ -77,8 +77,8 @@ void insoluble_list_orbit (int rep, int orbit_length, int *a, struct pga_vars *p
    printf ("%d ", rep);
    --orbit_length;
 
-   for (j = rep + 1; j <= Degree && orbit_length > 0; ++j)  
-      if (*(a + j) == rep) { 
+   for (j = rep + 1; j <= Degree && orbit_length > 0; ++j)
+      if (*(a + j) == rep) {
 	 printf ("%d ", j);
 	 --orbit_length;
       }
@@ -94,7 +94,7 @@ void list_orbit (int j, int *b)
    }
 }
 
-/* find the orbit representatives, number of orbits, and 
+/* find the orbit representatives, number of orbits, and
    orbit lengths; if required, list the individual orbits */
 
 int* find_orbit_reps (int *a, int *b, struct pga_vars *pga)
@@ -125,7 +125,7 @@ int* find_orbit_reps (int *a, int *b, struct pga_vars *pga)
       }
       else
 	 ++length[-a[a[j]]];
-   } 
+   }
 
    soluble = (pga->soluble || pga->nmr_of_perms == 0 || Degree == 1);
 
@@ -136,11 +136,11 @@ int* find_orbit_reps (int *a, int *b, struct pga_vars *pga)
 
    for (j = 1; j <= Degree && counter < pga->nmr_orbits; ++j) {
       if (*(a + j) < 0) {
-	 ++counter; 
+	 ++counter;
 	 if (soluble) *(a + j) = j;
 	 if (pga->print_orbits) {
 	    printf ("\nOrbit %d has length %d:\n", counter, length[counter]);
-	    if (soluble)  
+	    if (soluble)
 	       list_orbit (j, b);
 	    else
 	       insoluble_list_orbit (j, length[counter], a, pga);

@@ -11,7 +11,7 @@
 #include "pretty_filterfns.h"
 #include "constants.h"
 
-/* filter functions to process "pretty" presentation input; 
+/* filter functions to process "pretty" presentation input;
    this code was written and supplied by Sarah Rees */
 
 static void word_double (word * wp);
@@ -25,8 +25,8 @@ int * pairnumber=0;
 int paired_gens;
 
 void pc_word_init (word *wp)
-{ 
-   wp->g =anu_valloc(gen_type,16); 
+{
+   wp->g =anu_valloc(gen_type,16);
    wp->first = 0;
    wp->last = -1;
    wp->space = 16;
@@ -34,52 +34,52 @@ void pc_word_init (word *wp)
    wp->n = 1;                   /* only one for trivial or unexpanded words. After initialisation
 				   this is set to 0 if the word is not a proper power, and to the power otherwise.
 				   */
-} 
+}
 
 void word_init (word *wp)
 {
-   wp->g =anu_valloc(gen_type,16); 
+   wp->g =anu_valloc(gen_type,16);
    wp->first = 0;
    wp->last = -1;
    wp->space = 16;
-   wp->type = 's'; 
-   wp->n = 0; 
-} 
+   wp->type = 's';
+   wp->n = 0;
+}
 
 /* Clear space allocated to a word.
 The space assigned to a word (as a pointer to generators) is cleared.
 */
 void word_clear (word *wp)
-{ 
-   free((char*)wp->g); wp->g = 0; 
-} 
+{
+   free((char*)wp->g); wp->g = 0;
+}
 
 void pc_word_reset (word *wp)
-{ 
+{
    wp->last = wp->first - 1;
    wp->type = 0;
    wp->n = 1;
-} 
+}
 
 void word_reset (word *wp)
-{ 
+{
    wp->last = wp->first - 1;
-} 
+}
 
-/* 
+/*
 The word |*wp| has certainly been initialized, and may already contain a
 non-trivial word. But the information it contains, if any, is redundant, and
 can be thrown away. We just require the space for new information but there
 may not be enough of it. If the word currently contains space for less than
 n generators we increase the amount of space to this. We set the position
 for the first word entry at a, and the last at a-1 (since at this stage the
-word is empty).  
+word is empty).
 */
 void word_stretch_reset (word *wp, int N, int a)
 {
    if (wp->space < N) {
-      free((char*) wp->g); wp->g = 0; 
-      wp->g = anu_valloc(gen_type,N); 
+      free((char*) wp->g); wp->g = 0;
+      wp->g = anu_valloc(gen_type,N);
       wp->space = N;
    }
    wp->first = a;
@@ -92,10 +92,10 @@ void word_stretch_reset (word *wp, int N, int a)
 word, whose address is given in the second argument.
 */
 static void word_traverser_init (word_traverser *wtp, word *wp)
-{ 
-   wtp->wp = wp; 
+{
+   wtp->wp = wp;
    wtp->posn = wp->first;
-} 
+}
 
 word_link * word_link_create (void)
 {
@@ -119,42 +119,42 @@ void word_link_clear (word_link * wlp)
 
 
 /* |word_get_first ()| gets hold of the first generator in a word without
-changing it. It returns |1| provided the word is non-trivial, |0| 
+changing it. It returns |1| provided the word is non-trivial, |0|
 otherwise.
 The  pointer |gp| is set to point to the first generator in the word pointed
 to by |wp|.
 */
-char word_get_first (word *wp, gen_type *gp) 
-{ 
+char word_get_first (word *wp, gen_type *gp)
+{
    if (wp->first <= wp->last) {
       *gp = (wp->g)[wp->first];
       return 1;
    }
    else {
       *gp = 0;
-      return 0; 
+      return 0;
    }
-} 
+}
 
 /* |word_next ()| is used when traversing a word, generator by generator. It
-returns |1| while the |list_traverser| points to a generator, |0| 
+returns |1| while the |list_traverser| points to a generator, |0|
 once the last generator in the word has been passed.
 The  pointer |gp| is set to point to the generator at which the
 |word_traverser| is currently positioned..
 The procedure does not change the word being traversed.
 */
 char word_next (word_traverser *wtp, gen_type *gp)
-{ 
+{
    if (wtp->posn <= wtp->wp->last) {
-      *gp = (wtp->wp->g)[wtp->posn]; 
+      *gp = (wtp->wp->g)[wtp->posn];
       wtp->posn++;
-      return 1; 
-   } 
+      return 1;
+   }
    else {
       *gp = 0;
-      return 0; 
+      return 0;
    }
-} 
+}
 
 
 
@@ -173,7 +173,7 @@ void word_inv (word *given, word *inverse)
    gen_type * gp=0;
    gp = anu_valloc(gen_type,given->space);
    for (i=given->first,j=given->last;i<=given->last;i++,j--)
-      gp[i] = inv(given->g[j]);  
+      gp[i] = inv(given->g[j]);
    inverse->space=given->space;
    inverse->first=given->first;
    inverse->last = given->last;
@@ -182,7 +182,7 @@ void word_inv (word *given, word *inverse)
 }
 
 void word_put_last (word *wp, gen_type g)
-{ 
+{
    int i;
    int n;
    n=wp->space;
@@ -201,16 +201,16 @@ void word_put_last (word *wp, gen_type g)
    }
    (wp->last)++;
    wp->g[wp->last] = g;
-}   
+}
 
 /*Adding on a generator to the left hand end of a word (left
 multiplication).
 */
 void word_put_first (word *wp, gen_type g)
-{ 
+{
    if (wp->first == 0) {
       int i;
-      int n;  
+      int n;
       n = wp->space;
       if (wp->last<=n/2) {
 	 int k;
@@ -220,12 +220,12 @@ void word_put_first (word *wp, gen_type g)
 	 for (i=wp->last;i>=wp->first;--i)
 	    wp->g[i]=wp->g[i-k];
       }
-      else  
+      else
 	 word_double (wp);
    }
    (wp->first)--;
    wp->g[wp->first] = g;
-}   
+}
 
 /* Double the amount of space available to a word, while preserving the
 information stored in the word.
@@ -239,43 +239,43 @@ static void word_double (word * wp)
    n = wp->space;
    k = n/2;
    gp = anu_valloc(gen_type,2*n);
-   for (i=k;i<3*k;++i) 
+   for (i=k;i<3*k;++i)
       gp[i] = (wp->g)[i-k];
    free((char*)wp->g); wp->g=0;
    wp->g = gp;
    wp->space *= 2 ;
    wp->first += k;
-   wp->last += k; 
+   wp->last += k;
 }
 
-/*Get the first generator out of a word, and at the same time delete it from 
-that word. 
+/*Get the first generator out of a word, and at the same time delete it from
+that word.
 The function returns |0| if the word is trivial, |1| otherwise.
 */
 char word_delget_first (word *wp, gen_type *gp)
-{ 
+{
    if (wp->first > wp->last) {
       *gp = 0;
       return 0;
    }
    else {
       *gp =  wp->g[wp->first++];
-      return 1; 
-   } 
-} 
-    
+      return 1;
+   }
+}
+
 /* Delete the last generator in a word.
 The function returns |0| if the word is trivial, |1| otherwise.
 */
 char word_del_last (word *wp)
 {
-   if (wp->first > wp->last) 
+   if (wp->first > wp->last)
       return 0;
    else  {
       wp->last--;
-      return 1; 
+      return 1;
    }
-} 
+}
 
 /* Concatenate two words.
 |wp1|, |wp2| and |wp3| are pointers to initialized words. |*wp1| and |*wp2| are
@@ -284,11 +284,11 @@ not changed by this procedure (provided that they are both distinct from
 of |*wp1| and |*wp2|.
 */
 void word_concat (word *wp1, word *wp2, word *wp3)
-{ 
-   int n1,n2,n; 
+{
+   int n1,n2,n;
    int N;
    int i;
-   gen_type *factor,*concat; 
+   gen_type *factor,*concat;
 
    n1 = word_length(wp1);
    n2 = word_length(wp2);
@@ -297,13 +297,13 @@ void word_concat (word *wp1, word *wp2, word *wp3)
       wp3->last = wp3->first -1;
       return;
    } /* avoid malloc()ing 0 bytes */
-   concat = anu_valloc(gen_type,n); 
-   factor = wp1->g + wp1->first; 
+   concat = anu_valloc(gen_type,n);
+   factor = wp1->g + wp1->first;
    for (i=0;i<n1;i++)
       concat[i] = factor[i];
-   factor = wp2->g + wp2->first; 
+   factor = wp2->g + wp2->first;
    for (i=n1;i<n;i++)
-      concat[i] = factor[i-n1]; 
+      concat[i] = factor[i-n1];
    N = wp1->space>wp2->space? wp1->space:wp2->space;
    while (N<2*n)
       N *=2;
@@ -312,7 +312,7 @@ void word_concat (word *wp1, word *wp2, word *wp3)
       wp3->g[wp3->first + i] = concat[i];
    wp3->last = wp3->first + n - 1;
    free((char*)concat); concat = 0;
-}   
+}
 
 void word_append (word *wp1, word *wp2)
 {
@@ -357,30 +357,30 @@ char word_eq (word *w1p, word *w2p)
 
 
 void word_cpy (word *oldwp, word *newwp)
-{ 
+{
    int m;
    int n;
    int i;
-   gen_type *newgp, *oldgp; 
+   gen_type *newgp, *oldgp;
 
    newwp->type = oldwp->type;
    newwp->n = oldwp->n;
-    
-   m = word_length(oldwp); 
+
+   m = word_length(oldwp);
    if ((n=newwp->space) < 2*m) {
       while (n<2*m)
 	 n *= 2;
-      free((char*)(newwp->g)); newwp->g = 0; 
-      newwp->g = anu_valloc(gen_type,n); 
+      free((char*)(newwp->g)); newwp->g = 0;
+      newwp->g = anu_valloc(gen_type,n);
       newwp->space = n;
    }
    newwp->first = m/2;
    newwp->last = newwp->first+m-1;
-   newgp = newwp->g + newwp->first; 
-   oldgp = oldwp->g + oldwp->first; 
+   newgp = newwp->g + newwp->first;
+   oldgp = oldwp->g + oldwp->first;
    for (i=0;i<m;++i)
       newgp[i]=oldgp[i];
-} 
+}
 
 static void bad_data (void)
 {
@@ -394,7 +394,7 @@ char read_next_gen (word *wp, FILE *file)
    int c;
    word_reset (wp);
    while ((c=read_char (file))!=EOF && !(isalpha(c))){
-      if (c=='$') 
+      if (c=='$')
 	 return 1;
       if (c=='}') {
 	 /* a '}' is used to terminate the input of gens */
@@ -429,7 +429,7 @@ char read_next_gen (word *wp, FILE *file)
 	    c=read_char (file);
 	    break;
 	 }
-      
+
 	 if (!isalpha(c) && !isdigit(c) && c!='_' && c!='.'){
 	    fprintf(stderr,
 		    "Only letters, digits, underscores and .'s are allowed in generator names.\n");
@@ -465,7 +465,7 @@ char read_next_word (word *wp, FILE *file)
    word_reset (wp);
    while ((c=read_char (file))!=EOF && !(isalpha(c)) &&!(isdigit(c))&&
 	  c!='(' && c!='['){
-      if (c=='$') 
+      if (c=='$')
 	 return 1;
       if (c=='}') {
 	 /* a '}' is used to terminate the input of words */
@@ -479,7 +479,7 @@ char read_next_word (word *wp, FILE *file)
       bad_data ();
    }
    if (ans==1 && c=='1') return ans;
-   /* 1 is used to represent the identity. It will only be the first symbol in a 
+   /* 1 is used to represent the identity. It will only be the first symbol in a
       word when it's the whole word. */
    if (ans==1){
       char bracket_level=0;
@@ -489,7 +489,7 @@ char read_next_word (word *wp, FILE *file)
 	    break;
 	 if (c==' '||(c==','&&comm_level==0)){
 	    /* if this happens, the previous character must have been an
-	       alphanumeric character or a ), and we are not within commutators (since 
+	       alphanumeric character or a ), and we are not within commutators (since
 	       spaces after ^,( and * and inside commutators are dealt with
 	       elsewhere). If the next non-space character is not *,^ or ) we must have
 	       reached the end of the word. */
@@ -497,7 +497,7 @@ char read_next_word (word *wp, FILE *file)
 	       c=read_char (file);
 	       if (c==EOF) break;
 	    } while (c==' ');
-	    if (c==EOF||(c!='^'&&c!='*'&&c!=']'&&c!=')')) 
+	    if (c==EOF||(c!='^'&&c!='*'&&c!=']'&&c!=')'))
 	       break; /* we have got to the end of the word */
 	 }
 	 if (c=='['){
@@ -506,12 +506,12 @@ char read_next_word (word *wp, FILE *file)
 	    if (wp->type==0) wp->type = 'c';
 	 }
 	 else if (c==']')
-	    comm_level--;  
+	    comm_level--;
 	 else if (c=='(')
 	    bracket_level++;
 	 else if (c==')')
-	    bracket_level--;  
-	 if ((c=='*')|| (wp->type==0 && c!='(')|| (comm_level==0 && c!=']' 
+	    bracket_level--;
+	 if ((c=='*')|| (wp->type==0 && c!='(')|| (comm_level==0 && c!=']'
 						   && c!='('&& c!=')' && c!='^' && c!='-' && (!isdigit(c))))
 	    wp->type = 's';
 	 if (bracket_level==0 && comm_level==0 && c=='*') wp->n=0;
@@ -520,7 +520,7 @@ char read_next_word (word *wp, FILE *file)
 	 else break;
 	 /* word reading is terminated by an unmatched right bracket of either type */
 	 if (c=='*'||c=='^'||c=='('|| comm_level!=0){
-	    /* '*','^' and '(' are non-terminal characters, so we can automatically 
+	    /* '*','^' and '(' are non-terminal characters, so we can automatically
 	       skip over any
 	       white spaces that appear after them, without further investigation */
 	    do {
@@ -528,7 +528,7 @@ char read_next_word (word *wp, FILE *file)
 	       if (c==EOF) break;
 	    } while (c==' ');
 	 }
-	 else { 
+	 else {
 	    c = read_char (file);
 	    if (c==EOF) break;
 	 }
@@ -541,7 +541,7 @@ char read_next_word (word *wp, FILE *file)
       fprintf(stderr,"Unexpected end of file.\n");
       bad_data ();
    }
-   else if (word_length(wp)==0) 
+   else if (word_length(wp)==0)
       wp->type = 's'; /* then we'd have the trivial word */
    else word_expand (wp);
    return ans;
@@ -570,14 +570,14 @@ void word_expand (word *wp)
 	    if ((*gp)=='^'){
 	       int j=i;
 	       exponent = 0;
-	       gp++; i++; 
+	       gp++; i++;
 	       if ((*gp)=='-') sign = -1; else exponent = (*gp) - '0';
 	       gp++; i++;
 	       while (gp<=ggp && isdigit(*gp)){
 		  exponent = 10*exponent + (*gp) - '0'; gp++; i++;
 	       }
 	       exponent *= sign;
-	       if (commutator_level==0){ 
+	       if (commutator_level==0){
 		  /* in the case the whole commutator is raised to a power */
 		  wp->last = j-1; /* this is to delete the exponent from the end */
 		  if (exponent==0) word_reset(wp);
@@ -593,7 +593,7 @@ void word_expand (word *wp)
 	    else {
 	       if ((*gp)=='[') commutator_level=1;
 	       else if ((*gp)==']') commutator_level=0;
-	       gp++; i++; 
+	       gp++; i++;
 	    }
 	 }
 	 wp->n = n;
@@ -616,7 +616,7 @@ void word_expand (word *wp)
       }
       else if (g=='^'){
 	 /*  read the exponent that follows and replace whatever's currently in
-	     the buf by the appropriate number of copies of it or its inverse */ 
+	     the buf by the appropriate number of copies of it or its inverse */
 	 int i;
 	 sign=1;
 	 (void)word_delget_first (wp,&g);
@@ -633,7 +633,7 @@ void word_expand (word *wp)
 	       word_delget_first (wp,&g);
 	    }
 	    if ((n) && word_length(wp)==0){
-	       /* wp->n non-zero means we believe we're looking for a power at the end of 
+	       /* wp->n non-zero means we believe we're looking for a power at the end of
 		  the word. We know we are at the end of the word if we've deleted every character */
 	       if (exponent==0) word_reset(wp);
 	       else n = sign*exponent;
@@ -763,9 +763,9 @@ void word_expand (word *wp)
 	    word_put_last (&buf,separator);
 	    word_append (&buf,&w2);
 	    word_reset (&temp);
-	    word_reset (&temp2);  
+	    word_reset (&temp2);
 	 }
-	 word_clear (&w1); word_clear (&w2); 
+	 word_clear (&w1); word_clear (&w2);
       }
    }
    if (bracket_level!=0 || commutator_level!=0){
@@ -796,7 +796,7 @@ char word_get_last (word *wp, gen_type *gp)
       *gp = wp->g[wp->last];
    return ans;
 }
-  
+
 char word_delget_last (word *wp, gen_type *gp)
 {
    char ans = 1;
@@ -810,21 +810,21 @@ char word_delget_last (word *wp, gen_type *gp)
    }
    return ans;
 }
-  
+
 
 
 void word2prog_gen (word *user_namep, gen_type *prog_genp)
-{ 
+{
 
-   gen_type g; 
+   gen_type g;
 
    *prog_genp=0;
-   for (g=1;g<=num_gens;++g) 
-      if (word_eq (user_namep,user_gen_name+g)) { 
-	 *prog_genp = g; 
-	 break; 
-      } 
-}  
+   for (g=1;g<=num_gens;++g)
+      if (word_eq (user_namep,user_gen_name+g)) {
+	 *prog_genp = g;
+	 break;
+      }
+}
 
 void word2prog_word (word *user_wordp, word *prog_wordp)
 {
@@ -872,17 +872,17 @@ void gen2prog_gen (gen_type user_gen, gen_type *prog_genp)
 
 
 void gen2user_name (gen_type program_gen, word *user_wordp)
-{ 
+{
 
    word_reset (user_wordp);
    if (program_gen==0||(num_gens!=0 && program_gen>num_gens)){
       gen_type g='$';
       word_put_last (user_wordp,g);
    }
-   else 
-      word_cpy (user_gen_name+program_gen,user_wordp); 
+   else
+      word_cpy (user_gen_name+program_gen,user_wordp);
 
-}  
+}
 
 static void word2user_name (word *prog_wordp, word *user_wordp)
 {
@@ -915,14 +915,14 @@ static void define_next_gen (word * wp)
 {
    word * ucpy;
    num_gens++;
-   if (num_gens==gen_array_size-1){ 
+   if (num_gens==gen_array_size-1){
       /* need more space */
       int i;
       gen_array_size = 2*num_gens + 1;
       ucpy = vzalloc(word,gen_array_size);
-      for (i=0;i<gen_array_size;++i) 
+      for (i=0;i<gen_array_size;++i)
 	 word_init (ucpy+i);
-      for (i=0;i<num_gens;++i){ 
+      for (i=0;i<num_gens;++i){
 	 word_cpy (user_gen_name+i,ucpy+i);
 	 word_clear (user_gen_name+i);
       }
@@ -958,18 +958,18 @@ void insert_gen (gen_type h, word *wp)
    int i;
    int size = gen_array_size;
    num_gens++;
-   if (num_gens==gen_array_size-1) 
+   if (num_gens==gen_array_size-1)
       /* need more space */
       gen_array_size = 2*num_gens + 1;
    ucpy = vzalloc(word,gen_array_size);
    icpy = vzalloc(gen_type,gen_array_size);
-   for (i=0;i<gen_array_size;++i) 
+   for (i=0;i<gen_array_size;++i)
       word_init (ucpy+i);
-   for (i=0;i<h;++i){ 
+   for (i=0;i<h;++i){
       word_cpy (user_gen_name+i,ucpy+i);
    }
    word_cpy (wp,ucpy+h);
-   for (i=h;i<=num_gens-1;++i) 
+   for (i=h;i<=num_gens-1;++i)
       word_cpy (user_gen_name+i,ucpy+i+1);
    for (i=0;i<size;++i)
       word_clear (user_gen_name+i);
@@ -999,7 +999,7 @@ void default_inverse_array (void)
    if (inv_of==0)
       inv_of=vzalloc(gen_type,gen_array_size);
    word_init (&w);
-   for (g = 1; g <= num_gens; ++g) { 
+   for (g = 1; g <= num_gens; ++g) {
       if (inv_of[g]!=0)
 	 continue;
       /* we may have set some inverses already explicitly */
@@ -1049,7 +1049,7 @@ void default_inverse_array (void)
       word_reset (&w);
    }
    word_clear (&w);
-} 
+}
 
 
 void word_factor (word *wp, word *wwp, int *ep)
@@ -1073,19 +1073,19 @@ void word_factor (word *wp, word *wwp, int *ep)
 	 baselength++;
 	 if (baselength>length/2 ||length%baselength==0)
 	    break;
-      }  
+      }
       if (baselength > length/2){
 	 baselength = length;
 	 *ep = 1;
 	 break;
-      }  
+      }
       else {
 	 *ep = length/baselength;
 	 for (i=1;i<=*ep;i++)
 	    word_append (&power,wwp);
 	 if (word_eq (wp,&power))
 	    break;
-      }  
+      }
       word_reset (&power);
    }
    word_clear (&power);
@@ -1122,7 +1122,7 @@ char read_next_int (int *kp, FILE *rfile)
    *kp = sign*(*kp);
    return ans;
 }
-  
+
 /* The next complete string is read and the first n or less  non-null characters are
 stored in cp. Any space between the last non-null character of the string
 and
@@ -1184,8 +1184,8 @@ char read_next_string (char *cp, int n, FILE *rfile)
    cp[n]='\0';
    return ans;
 }
- 
- 
+
+
 char find_keyword (char *label, FILE *rfile)
 {
    char * string;
@@ -1204,7 +1204,7 @@ char find_keyword (char *label, FILE *rfile)
    free(string); string=0;
    return found;
 }
- 
+
 /* The next function should be used in place of getc. It reads and returns
 the next character, except that comments (preceded by # and going to the
 next new line) and tabs and new lines are replaced by a single space.
@@ -1216,13 +1216,13 @@ n=getc(rfile);
    -- this is particularly true if the input file is generated by GAP */
 if (n=='\\') {
    n = getc(rfile);
-   if (n == '\n') n = getc (rfile); 
+   if (n == '\n') n = getc (rfile);
 }
 if (n=='#') while ((n=getc(rfile))!='\n' && n!=EOF);
 if (n=='\n' || n=='\t') return(' ');
 return(n);
 }
- 
+
 void find_char (char c, FILE *rfile)
 { int n;
 while ((n=read_char (rfile))!=c){

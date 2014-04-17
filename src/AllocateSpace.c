@@ -15,7 +15,7 @@
 
 void Allocate_WorkSpace (int work_space, struct pcp_vars *pcp)
 {
-   if ((y_address = 
+   if ((y_address =
 	(int *) malloc ((work_space + 1) * sizeof (int))) == (int *) 0) {
       perror ("malloc failed in Allocate_WorkSpace ()");
       exit (FAILURE);
@@ -27,20 +27,20 @@ void Allocate_WorkSpace (int work_space, struct pcp_vars *pcp)
 
 }
 
-/* allocate space for a vector, a, of size n, 
+/* allocate space for a vector, a, of size n,
    whose subscript commences at position start */
 
 int* allocate_vector (int n, int start, Logical zero)
-                
+
                 /* start may be 0 or 1 */
-             
+
 {
    int *a;
 
 #ifdef DEBUG
    printf ("allocate vector of size %d\n", n);
 #endif
-   
+
    /* some versions of malloc crash when repeatedly asked to allocate
       small amounts of space -- in particular, under AIX and Ultrix */
    if (n < 4)
@@ -66,7 +66,7 @@ int* allocate_vector (int n, int start, Logical zero)
 
 }
 
-/* allocate space for an n x m integer matrix a, 
+/* allocate space for an n x m integer matrix a,
    whose subscripts start at position 0 or 1 */
 
 int** allocate_matrix (int n, int m, int start, Logical zero)
@@ -155,9 +155,9 @@ int*** allocate_array (int n, int m, int r, Logical zero)
    }
 
    return a;
-} 
+}
 
-/* reallocate space for a vector, a, of size new which 
+/* reallocate space for a vector, a, of size new which
    was originally of size original */
 
 int* reallocate_vector (int *a, int original, int new, int start, Logical zero)
@@ -167,8 +167,8 @@ int* reallocate_vector (int *a, int original, int new, int start, Logical zero)
 #ifdef DEBUG
    printf ("reallocate vector\n");
 #endif
- 
-   if (original < 4) 
+
+   if (original < 4)
       original = 4;
 
    if (start && original != 0) ++a;
@@ -188,7 +188,7 @@ int* reallocate_vector (int *a, int original, int new, int start, Logical zero)
 
    if (start) --a;
 
-   if (zero)  
+   if (zero)
       for (j = start + original; j < start + new; ++j)
 	 a[j] = 0;
 
@@ -198,7 +198,7 @@ int* reallocate_vector (int *a, int original, int new, int start, Logical zero)
    return a;
 }
 
-/* reallocate space for an n x m integer matrix a, whose subscripts begin 
+/* reallocate space for an n x m integer matrix a, whose subscripts begin
    at 1, not 0; the original sizes are supplied */
 
 int** reallocate_matrix (int **a, int orig_n, int orig_m, int n, int m, Logical zero)
@@ -227,7 +227,7 @@ int** reallocate_matrix (int **a, int orig_n, int orig_m, int n, int m, Logical 
 	    exit (FAILURE);
 	 }
       }
-      else { 
+      else {
 	 if ((a[i] = (int *) realloc (++a[i], m * sizeof (int))) == (int *) 0) {
 	    perror ("Call to reallocate_matrix");
 	    exit (FAILURE);
@@ -239,12 +239,12 @@ int** reallocate_matrix (int **a, int orig_n, int orig_m, int n, int m, Logical 
    if (zero) {
       for (i = 1; i <= n; ++i)
 	 for (j = 1; j <= m; ++j)
-	    if (i > orig_n || j > orig_m) 
+	    if (i > orig_n || j > orig_m)
 	       a[i][j] = 0;
    }
 
    return a;
-} 
+}
 
 /* reallocate space for an n x m x r integer array a,
    whose subscripts begin at 1, not 0; the original
@@ -278,8 +278,8 @@ int*** reallocate_array (int ***a, int orig_n, int orig_m, int orig_r, int n, in
 	    exit (FAILURE);
 	 }
       }
-      else { 
-	 if ((a[i] = (int **) realloc (++a[i], 
+      else {
+	 if ((a[i] = (int **) realloc (++a[i],
 				       m * sizeof (int *))) == (int **) 0) {
 	    perror ("Call to reallocate_array");
 	    exit (FAILURE);
@@ -295,7 +295,7 @@ int*** reallocate_array (int ***a, int orig_n, int orig_m, int orig_r, int n, in
 	    }
 	 }
 	 else {
-	    if ((a[i][j] = (int *) realloc (++a[i][j], 
+	    if ((a[i][j] = (int *) realloc (++a[i][j],
 					    r * sizeof (int))) == (int *) 0) {
 	       perror ("Call to allocate_array");
 	       exit (FAILURE);
@@ -308,15 +308,15 @@ int*** reallocate_array (int ***a, int orig_n, int orig_m, int orig_r, int n, in
    if (zero) {
       for (i = 1; i <= n; ++i)
 	 for (j = 1; j <= m; ++j)
-	    for (k = 1; k <= r; ++k)  
-	       if (i > orig_n || j > orig_m || k > orig_r) 
+	    for (k = 1; k <= r; ++k)
+	       if (i > orig_n || j > orig_m || k > orig_r)
 		  a[i][j][k] = 0;
    }
 
    return a;
-} 
+}
 
-/* allocate space for a character vector, a, of size n, 
+/* allocate space for a character vector, a, of size n,
    whose subscript commences at position start */
 
 char* allocate_char_vector (int n, int start, Logical zero)
@@ -349,7 +349,7 @@ char* allocate_char_vector (int n, int start, Logical zero)
    return a;
 }
 
-/* allocate space for an n x m character matrix a, 
+/* allocate space for an n x m character matrix a,
    whose subscripts start at position 0 or 1 */
 
 char** allocate_char_matrix (int n, int m, int start, Logical zero)
@@ -364,7 +364,7 @@ char** allocate_char_matrix (int n, int m, int start, Logical zero)
    if (n == 0)
       n = 1;
    if (m < 4)
-      m = 4; 
+      m = 4;
 
    if ((a = (char **) malloc (n * sizeof (char *))) == (char **) 0) {
       perror ("Call to allocate_matrix");
@@ -408,7 +408,7 @@ char*** allocate_char_array (int n, int m, int r, Logical zero)
    if (m == 0)
       m = 1;
    if (r < 4)
-      r = 4; 
+      r = 4;
 
    if ((a = (char ***) malloc (n * sizeof (char **))) == (char ***) 0) {
       perror ("Call to allocate_char_array");

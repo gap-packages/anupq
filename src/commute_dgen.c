@@ -16,9 +16,9 @@
 
 static void collect_defining_generator_word (int ptr, int cp, struct pcp_vars *pcp);
 
-/* calculate a power of a left-normed commutator of supplied depth 
-   by repeated calls to find_commutator; set up the result as an 
-   exponent vector with base address pcp->lused in order to permit 
+/* calculate a power of a left-normed commutator of supplied depth
+   by repeated calls to find_commutator; set up the result as an
+   exponent vector with base address pcp->lused in order to permit
    the result to be handed to echelon easily; each component
    is a defining generator */
 
@@ -55,7 +55,7 @@ void commute_defining_generators (int format, struct pcp_vars *pcp)
 
    if (format == BASIC)
       read_word (stdin, disp, type, pcp);
-   else 
+   else
       pretty_read_word (stdin, disp, type, pcp);
 
    collect_defining_generator_word (ptr, cp2, pcp);
@@ -69,7 +69,7 @@ void commute_defining_generators (int format, struct pcp_vars *pcp)
       /* read in next component, b, and set it up at cp1 and cp4 */
       if (format == BASIC)
 	 read_word (stdin, disp, type, pcp);
-      else 
+      else
 	 pretty_read_word (stdin, disp, type, pcp);
 
       collect_defining_generator_word (ptr + disp, cp1, pcp);
@@ -95,7 +95,7 @@ void commute_defining_generators (int format, struct pcp_vars *pcp)
    pcp->submlg += total;
 }
 
-/* collect word in defining generators stored as string at 
+/* collect word in defining generators stored as string at
    y[ptr] and place the result as exponent vector at cp */
 
 static void collect_defining_generator_word (int ptr, int cp, struct pcp_vars *pcp)
@@ -105,32 +105,32 @@ static void collect_defining_generator_word (int ptr, int cp, struct pcp_vars *p
    int i, generator, genval;
 #if defined (DEBUG)
    int j, word_len;
-#endif 
+#endif
    int length, exp;
    register int lastg = pcp->lastg;
 
    /* zero out lastg entries in array in order to store result */
-   for (i = 1; i <= lastg; ++i)  
+   for (i = 1; i <= lastg; ++i)
       y[cp + i] = 0;
-   
+
    length = y[ptr];
    for (i = 1; i < length; ++i) {
       generator = y[ptr + 1 + i];
       genval = y[pcp->dgen + generator];
 
 #if defined (DEBUG)
-      if (genval > 0) 
+      if (genval > 0)
 	 printf ("%d %d\n", generator, genval);
       else if (genval < 0) {
 	 printf ("%d %d ", generator, y[-genval]);
 	 word_len = y[-genval + 1];
-	 for (j = 1; j <= word_len; ++j) 
+	 for (j = 1; j <= word_len; ++j)
 	    printf (" %d", y[-genval + 1 + j]);
       };
       if (genval == 0)
-	 printf ("No defining generator %d -- taken to be the identity\n", 
+	 printf ("No defining generator %d -- taken to be the identity\n",
 		 generator);
-#endif 
+#endif
 
       collect (genval, cp, pcp);
    }
@@ -141,7 +141,7 @@ static void collect_defining_generator_word (int ptr, int cp, struct pcp_vars *p
 
 #if defined (DEBUG)
    print_array (y, cp, cp + pcp->lastg + 1);
-#endif 
+#endif
 }
 
 /* prepare to collect word in defining generators */

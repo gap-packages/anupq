@@ -30,13 +30,13 @@ void compute_degree (struct pga_vars *pga)
 
       if (int_power (pga->p, pga->available[i]) > (INT_MAX - pga->Degree)) {
 	 text (19, 0, 0, 0, 0);
-	 if (!isatty (0)) 
+	 if (!isatty (0))
 	    exit (FAILURE);
-	 else 
+	 else
 	    return;
       }
       pga->Degree += int_power (pga->p, pga->available[i]);
-      if (maximum < pga->available[i]) 
+      if (maximum < pga->available[i])
 	 maximum = pga->available[i];
    }
 

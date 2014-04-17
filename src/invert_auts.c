@@ -31,10 +31,10 @@ int*** invert_automorphisms (int ***auts, struct pga_vars *pga, struct pcp_vars 
    register int i, j;
    int loop;
 
-   inverse = allocate_array (pga->m, pcp->lastg, pcp->lastg, TRUE); 
-   Power = allocate_matrix (pcp->lastg, pcp->lastg, 1, FALSE); 
+   inverse = allocate_array (pga->m, pcp->lastg, pcp->lastg, TRUE);
+   Power = allocate_matrix (pcp->lastg, pcp->lastg, 1, FALSE);
 
-   for (alpha = 1; alpha <= pga->m; ++alpha) { 
+   for (alpha = 1; alpha <= pga->m; ++alpha) {
       printf ("Processing alpha_%d\n", alpha);
 
       Copy_Matrix (auts[alpha], inverse[alpha], pcp->lastg, nmr_of_bytes);
@@ -93,7 +93,7 @@ void image_to_word (int string, int *image, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
-   register int i; 
+   register int i;
    register int length = 0;
 #include "access.h"
 

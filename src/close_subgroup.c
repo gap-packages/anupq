@@ -11,7 +11,7 @@
 #include "pcp_vars.h"
 #include "pga_vars.h"
 
-/* return the rank, t, of the smallest characteristic, 
+/* return the rank, t, of the smallest characteristic,
    k-initial segment subgroup in the p-multiplicator */
 
 int close_subgroup (int k, int ***auts, struct pga_vars *pga, struct pcp_vars *pcp)
@@ -25,7 +25,7 @@ int close_subgroup (int k, int ***auts, struct pga_vars *pga, struct pcp_vars *p
 
    Logical complete = (t == pga->multiplicator_rank);
 
-   int start = t; 
+   int start = t;
 
    for (alpha = 1; alpha <= pga->m && !complete; ++alpha) {
       i = n;

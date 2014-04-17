@@ -17,7 +17,7 @@ void read_matrix (int **a, int n, int m)
    register int i, j;
 
    for (i = 0; i < n; ++i) {
-      for (j = 0; j < m - 1; ++j) 
+      for (j = 0; j < m - 1; ++j)
 	 read_value (FALSE, "", &a[i][j], 0);
       read_value (TRUE, "", &a[i][j], 0);
    }
@@ -31,7 +31,7 @@ void print_matrix (int **a, int n, int m)
    register int i, j;
 
    for (i = 0; i < n; ++i) {
-      for (j = 0; j < m; ++j) 
+      for (j = 0; j < m; ++j)
 	 printf ("%d ", a[i][j]);
       printf ("\n");
    }
@@ -40,12 +40,12 @@ void print_matrix (int **a, int n, int m)
 /* modulo p, multiply the n x m matrix a by the m x q matrix b */
 
 int** multiply_matrix (int **a, int n, int m, int **b, int q, int p)
-{ 
+{
    register int i, j, k;
    int **product = allocate_matrix (n, q, 0, 1);
 
    for (i = 0; i < n; ++i)
-      for (j = 0; j < q; ++j) { 
+      for (j = 0; j < q; ++j) {
 	 for (k = 0; k < m; ++k)
 	    product[i][j] += a[i][k] * b[k][j];
 	 product[i][j] %= p;
@@ -87,13 +87,13 @@ Logical is_identity (int **a, int n, int start)
    return identity;
 }
 
-/* check if each row of the n x n matrix a has a non-zero 
-   entry and whether its entries lie between 0 and p - 1; 
+/* check if each row of the n x n matrix a has a non-zero
+   entry and whether its entries lie between 0 and p - 1;
    start is its first index position */
 
 Logical valid_matrix (int **a, int n, int p, int start)
 {
-   register int i, j; 
+   register int i, j;
    int non_zero = 0;
    Logical valid = TRUE;
    Logical first;
@@ -109,8 +109,8 @@ Logical valid_matrix (int **a, int n, int p, int start)
       }
    }
 
-   if (valid && non_zero == n) 
-      return TRUE; 
-   else 
+   if (valid && non_zero == n)
+      return TRUE;
+   else
       return FALSE;
 }
