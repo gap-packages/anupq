@@ -9,8 +9,8 @@
 
 /* constants used in p-quotient program */
 
-#ifndef __PQ_CONSTANTS__
-#define __PQ_CONSTANTS__
+#ifndef ANUPQ_CONSTANTS_H
+#define ANUPQ_CONSTANTS_H
 
 #define PQSPACE 10000000       /* space allocated for computation in array y */
 #define MAXWORD 10000          /* maximum length of word */

@@ -9,8 +9,8 @@
 
 /* definition file for p-quotient program */
 
-#ifndef PQ_DEFINES
-#define PQ_DEFINES
+#ifndef ANUPQ_DEFINES_H
+#define ANUPQ_DEFINES_H
 
 #include "config.h"
 

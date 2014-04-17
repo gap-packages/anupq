@@ -10,8 +10,8 @@
 /* header file for call types to procedures to read words and for 
    symbols used in words */
 
-#ifndef __WORD_TYPES__
-#define __WORD_TYPES__
+#ifndef ANUPQ_WORD_TYPES_H
+#define ANUPQ_WORD_TYPES_H
 
 #define LHS 1
 #define RHS 2

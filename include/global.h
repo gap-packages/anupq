@@ -9,8 +9,8 @@
 
 /* global variables used in main and setup_reps */
 
-#ifndef __GLOBALS__
-#define __GLOBALS__
+#ifndef ANUPQ_GLOBAL_H
+#define ANUPQ_GLOBAL_H
 
 #define GAP_LIBRARY 2
 

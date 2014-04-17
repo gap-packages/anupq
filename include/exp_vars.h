@@ -9,8 +9,8 @@
 
 /* definition file for structure to store exponent flag information */
 
-#ifndef __EXP_VARS__
-#define __EXP_VARS__
+#ifndef ANUPQ_EXP_VARS_H
+#define ANUPQ_EXP_VARS_H
 
 struct exp_vars {
    int list;          /* which list to generate? */

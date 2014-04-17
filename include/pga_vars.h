@@ -9,8 +9,8 @@
 
 /* definition file for structure used in p-group generation */
 
-#ifndef __PGA_VARS__
-#define __PGA_VARS__
+#ifndef ANUPQ_PGA_VARS_H
+#define ANUPQ_PGA_VARS_H
 
 struct pga_vars {
    int     p;			/* prime */

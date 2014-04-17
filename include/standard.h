@@ -9,8 +9,8 @@
 
 /* header file for standard pcp calculation */
 
-#ifndef __STANDARD_PCP__
-#define __STANDARD_PCP__
+#ifndef ANUPQ_STANDARD_PCP_H
+#define ANUPQ_STANDARD_PCP_H
 
 #define STANDARDISE 1000
 #define MIDDLE_OF_CLASS 2000

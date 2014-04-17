@@ -10,8 +10,8 @@
 /* definition file for structure used in computing 
    power-commutator presentation and for array y */
 
-#ifndef __PCP_VARS__
-#define __PCP_VARS__
+#ifndef ANUPQ_PCP_VARS_H
+#define ANUPQ_PCP_VARS_H
 
 #define MAXIDENT 100 
 

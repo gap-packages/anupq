@@ -9,8 +9,8 @@
 
 /* list all of the menu options */
 
-#ifndef __PQ_MENUS__
-#define __PQ_MENUS__
+#ifndef ANUPQ_MENUS_H
+#define ANUPQ_MENUS_H
 
 #define EXIT 0 
 #define LEAST_OPTION -1            /* least option */

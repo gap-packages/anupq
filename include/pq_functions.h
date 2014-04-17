@@ -9,8 +9,8 @@
 
 /* prototypes for functions used in the p-Quotient Program */
 
-#ifndef PQ_FUNCTIONS
-#define PQ_FUNCTIONS
+#ifndef ANUPQ_FUNCTIONS_H
+#define ANUPQ_FUNCTIONS_H
 
 #include "pq_defs.h"
 #include "pcp_vars.h"

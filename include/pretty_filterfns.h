@@ -9,8 +9,8 @@
 
 /* header file supplied by Sarah Rees */
 
-#ifndef __PRETTY_FILTER__
-#define __PRETTY_FILTER__
+#ifndef ANUPQ_PRETTY_FILTER_H
+#define ANUPQ_PRETTY_FILTER_H
 
 #include <stdlib.h>
 
