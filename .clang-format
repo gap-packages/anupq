@@ -1,0 +1,25 @@
+#BasedOnStyle: WebKit
+BreakBeforeBraces: Stroustrup
+UseTab: Never
+IndentWidth: 3
+
+AlignTrailingComments: true
+SpacesBeforeTrailingComments: 4
+
+AllowShortIfStatementsOnASingleLine: false
+AllowShortLoopsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: false
+
+BinPackParameters: false
+
+#BreakBeforeBinaryOperators: true
+#ColumnLimit: 80
+#ContinuationIndentWidth: 4
+PointerBindsToType: false
+#IndentCaseLabels: true
+MaxEmptyLinesToKeep: 2
+
+#PenaltyBreakBeforeFirstCallParameter: 60
+#PenaltyExcessCharacter: 10
+
+Cpp11BracedListStyle: false
