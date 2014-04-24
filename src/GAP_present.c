@@ -21,35 +21,34 @@
 *F  print_GAP_word
 **                                     print out a word of a pcp presentation
 */
-void print_GAP_word (FILE *file, int ptr, struct pcp_vars *pcp)
+void print_GAP_word(FILE *file, int ptr, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
-   int                 gen,  exp;
-   int                 i;
-   int                 count;
+   int gen, exp;
+   int i;
+   int count;
 #include "access.h"
 
-   if ( ptr == 0 )
-      fprintf( file, " One(F)" );
-   else if ( ptr > 0 )
-      fprintf( file, " F.%d", ptr );
-   else
-   {
+   if (ptr == 0)
+      fprintf(file, " One(F)");
+   else if (ptr > 0)
+      fprintf(file, " F.%d", ptr);
+   else {
       ptr = -ptr + 1;
       count = y[ptr];
-      fprintf( file, " %s", ( 1 < count ) ? "(" : "" );
-      for ( i = 1;  i <= count; i++ )
-      {
-	 exp = FIELD1(y[ptr + i]);
-	 gen = FIELD2(y[ptr + i]);
-	 fprintf( file, "F.%d", gen );
-	 if ( exp != 1 )
-            fprintf( file, "^%d", exp );
-	 if ( i != count )
-            fprintf( file, "*" );
+      fprintf(file, " %s", (1 < count) ? "(" : "");
+      for (i = 1; i <= count; i++) {
+         exp = FIELD1(y[ptr + i]);
+         gen = FIELD2(y[ptr + i]);
+         fprintf(file, "F.%d", gen);
+         if (exp != 1)
+            fprintf(file, "^%d", exp);
+         if (i != count)
+            fprintf(file, "*");
       }
-      if ( 1 < count )  fprintf (file, ")");
+      if (1 < count)
+         fprintf(file, ")");
    }
 }
 
@@ -59,84 +58,84 @@ void print_GAP_word (FILE *file, int ptr, struct pcp_vars *pcp)
 *F  GAP_presentation
 **                                write pq presentation to file in GAP format
 */
-void GAP_presentation (FILE *file, struct pcp_vars *pcp, int aspcgroup)
+void GAP_presentation(FILE *file, struct pcp_vars *pcp, int aspcgroup)
 {
    register int *y = y_address;
 
-   int                 i;
-   int                 j;
-   int                 k;
-   int                 l;
-   int                 p1;
-   int                 p2;
-   int                 weight;
-   int                 comma;
-   int                 ndgen = pcp->ndgen;
-   int                 dgen = pcp->dgen;
+   int i;
+   int j;
+   int k;
+   int l;
+   int p1;
+   int p2;
+   int weight;
+   int comma;
+   int ndgen = pcp->ndgen;
+   int dgen = pcp->dgen;
 
 #include "access.h"
 
    /* construct a free group with enough generators                       */
-   fprintf( file, "F := FreeGroup( %d );\n",  pcp->lastg );
+   fprintf(file, "F := FreeGroup( %d );\n", pcp->lastg);
 
-   if( aspcgroup ) {
-     fprintf( file, "F := PcGroupFpGroupNC( F / [\n" );
-   }
-   else
-     fprintf( file, "F := F / [\n" );
+   if (aspcgroup) {
+      fprintf(file, "F := PcGroupFpGroupNC( F / [\n");
+   } else
+      fprintf(file, "F := F / [\n");
 
    /* write power-relators with possible non-trivial rhs                  */
    comma = 0;
    k = y[pcp->clend + pcp->cc - 1];
-   for ( i = 1;  i <= k;  i++ )
-   {
-      if ( comma )  fprintf( file, ",\n" );  else comma = 1;
-      p2 = y[pcp->ppower + i];
-      if ( p2 == 0 )
-	 fprintf( file, " F.%d^%d", i, pcp->p );
+   for (i = 1; i <= k; i++) {
+      if (comma)
+         fprintf(file, ",\n");
       else
-      {
-	 fprintf( file, " F.%d^%d /", i, pcp->p );
-	 print_GAP_word( file, p2, pcp );
+         comma = 1;
+      p2 = y[pcp->ppower + i];
+      if (p2 == 0)
+         fprintf(file, " F.%d^%d", i, pcp->p);
+      else {
+         fprintf(file, " F.%d^%d /", i, pcp->p);
+         print_GAP_word(file, p2, pcp);
       }
    }
 
    /* write power-relators with trivial rhs                               */
-   for ( i = k + 1;  i <= pcp->lastg;  ++i )
-   {
-      if ( comma )  fprintf( file, ",\n" );  else comma = 1;
-      fprintf( file, " F.%d^%d", i, pcp->p );
+   for (i = k + 1; i <= pcp->lastg; ++i) {
+      if (comma)
+         fprintf(file, ",\n");
+      else
+         comma = 1;
+      fprintf(file, " F.%d^%d", i, pcp->p);
    }
 
    /* write commutator-relators                                           */
-   for ( i = 2;  i <= k;  i++ )
-   {
+   for (i = 2; i <= k; i++) {
       weight = WT(y[pcp->structure + i]);
       p1 = y[pcp->ppcomm + i];
-      l = MIN( i - 1, y[pcp->clend + pcp->cc - weight] );
-      for ( j = 1; j <= l; j++ )
-      {
-	 p2 = y[p1 + j];
-	 if ( p2 != 0 )
-	 {
-	    fprintf( file, ",\n" );
-	    fprintf( file, " Comm( F.%d, F.%d ) /", i, j );
-	    print_GAP_word( file, p2, pcp );
-	 }
+      l = MIN(i - 1, y[pcp->clend + pcp->cc - weight]);
+      for (j = 1; j <= l; j++) {
+         p2 = y[p1 + j];
+         if (p2 != 0) {
+            fprintf(file, ",\n");
+            fprintf(file, " Comm( F.%d, F.%d ) /", i, j);
+            print_GAP_word(file, p2, pcp);
+         }
       }
    }
 
-   if( aspcgroup ) fprintf( file, "] );\n" );
-   else            fprintf( file, "];\n" );
+   if (aspcgroup)
+      fprintf(file, "] );\n");
+   else
+      fprintf(file, "];\n");
 
    /* store the relation between pc gens and fp gens                      */
-   fprintf( file, "MapImages := [];\n" );
-   for  ( i = 1;  i <= ndgen;  i++ )
-   {
-      p2 = y[dgen+i];
-      fprintf( file, "MapImages[%d] := ", i );
-      print_GAP_word( file, p2, pcp );
-      fprintf( file, ";\n" );
+   fprintf(file, "MapImages := [];\n");
+   for (i = 1; i <= ndgen; i++) {
+      p2 = y[dgen + i];
+      fprintf(file, "MapImages[%d] := ", i);
+      print_GAP_word(file, p2, pcp);
+      fprintf(file, ";\n");
    }
 }
 
@@ -146,40 +145,37 @@ void GAP_presentation (FILE *file, struct pcp_vars *pcp, int aspcgroup)
 *F  MakeNameList
 **                             create p-group generation identifier for group
 */
-char * nextnumber (char *ident)
+char *nextnumber(char *ident)
 {
-   while ( *ident != '\0' && *ident != '#' )
+   while (*ident != '\0' && *ident != '#')
       ident++;
-   if ( *ident == '#' )
+   if (*ident == '#')
       ident++;
    return ident;
 }
 
-void MakeNameList (FILE *file, char *ident)
+void MakeNameList(FILE *file, char *ident)
 {
-   int         first = 1;
+   int first = 1;
 
-   fprintf( file, "SetANUPQIdentity( F, [ " );
-   while ( *(ident = nextnumber(ident)) != '\0' )
-   {
+   fprintf(file, "SetANUPQIdentity( F, [ ");
+   while (*(ident = nextnumber(ident)) != '\0') {
       if (!first)
-	 fprintf( file, "," );
+         fprintf(file, ",");
       first = 0;
       fprintf(file, "[");
       do
-	 fprintf( file, "%c", *ident );
-      while ( *++ident != ';' );
+         fprintf(file, "%c", *ident);
+      while (*++ident != ';');
       ident++;
-      fprintf( file, "," );
-      do
-      {
-	 fprintf( file, "%c", *ident );
-	 ident++;
-      }
-      while ( '0' <= *ident && *ident <='9');
-      fprintf( file, "]" );
+      fprintf(file, ",");
+      do {
+         fprintf(file, "%c", *ident);
+         ident++;
+      } while ('0' <= *ident && *ident <= '9');
+      fprintf(file, "]");
    }
-   fprintf( file, " ] );\n" );
+   fprintf(file, " ] );\n");
 }
 
 
@@ -190,41 +186,40 @@ void MakeNameList (FILE *file, char *ident)
 */
 int countcall = 0;
 
-void write_GAP_library (FILE *file, struct pcp_vars *pcp)
+void write_GAP_library(FILE *file, struct pcp_vars *pcp)
 {
    /* if this is the first call initialise 'ANUgroups'                    */
-   if ( countcall == 0 )
-   {
-      fprintf( file, "ANUPQgroups := [];\n"                           );
-      fprintf( file, "ANUPQautos  := [];\n\n"                         );
+   if (countcall == 0) {
+      fprintf(file, "ANUPQgroups := [];\n");
+      fprintf(file, "ANUPQautos  := [];\n\n");
    }
    countcall++;
 
    /* write function call to <countcall>.th position of <ANUPQgroups>     */
-   fprintf( file, "## group number: %d\n", countcall              );
-   fprintf( file, "ANUPQgroups[%d] := function( L )\n", countcall );
-   fprintf( file, "local   MapImages,  F;\n\n"        );
+   fprintf(file, "## group number: %d\n", countcall);
+   fprintf(file, "ANUPQgroups[%d] := function( L )\n", countcall);
+   fprintf(file, "local   MapImages,  F;\n\n");
 
    /* write the GAP presentation to file                                  */
-   GAP_presentation( file, pcp, 0 );
+   GAP_presentation(file, pcp, 0);
 
    /* convert <F> to a pc group in descendants case
       ... has to be done here; otherwise, we lose the property/attributes */
-   fprintf( file, "if IsList(L) then\n    F := PcGroupFpGroupNC(F);\nfi;\n" );
+   fprintf(file, "if IsList(L) then\n    F := PcGroupFpGroupNC(F);\nfi;\n");
 
    /* add info. whether group is capable, and its nuclear and mult'r ranks*/
-   fprintf( file, "SetIsCapable(F, %s);\n", (pcp->newgen)?"true":"false" );
-   fprintf( file, "SetNuclearRank(F, %d);\n", pcp->newgen                  );
-   fprintf( file, "SetMultiplicatorRank (F, %d);\n", pcp->multiplicator_rank );
+   fprintf(file, "SetIsCapable(F, %s);\n", (pcp->newgen) ? "true" : "false");
+   fprintf(file, "SetNuclearRank(F, %d);\n", pcp->newgen);
+   fprintf(file, "SetMultiplicatorRank (F, %d);\n", pcp->multiplicator_rank);
 
    /* add the pq identitfier                                              */
-   MakeNameList( file, pcp->ident );
+   MakeNameList(file, pcp->ident);
 
    /* add the group <F> to <L>                                            */
-   fprintf( file, "if IsList(L) then\n    Add( L, F );\n" );
-   fprintf( file, "else\n    L.group := F;\n    L.map := MapImages;\nfi;" );
+   fprintf(file, "if IsList(L) then\n    Add( L, F );\n");
+   fprintf(file, "else\n    L.group := F;\n    L.map := MapImages;\nfi;");
 
-   fprintf( file, "\nend;\n\n\n"       );
+   fprintf(file, "\nend;\n\n\n");
 }
 
 
@@ -234,124 +229,120 @@ void write_GAP_library (FILE *file, struct pcp_vars *pcp)
 **               write a description of the automorphism group of the current
 **                      group to a file in a format suitable for input to GAP
 */
-void GAP_auts (FILE *file, int ***central, int ***stabiliser, struct pga_vars *pga, struct pcp_vars *pcp)
+void GAP_auts(FILE *file,
+              int ***central,
+              int ***stabiliser,
+              struct pga_vars *pga,
+              struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
-   int                 i, j, k, ngens,  first;
+   int i, j, k, ngens, first;
 
    /* if this is the first call something is wrong  '                     */
-   if ( countcall == 0 )
-   {
-      fprintf( stderr, "internal error in 'GAP_auts'" );
-      exit( FAILURE );
+   if (countcall == 0) {
+      fprintf(stderr, "internal error in 'GAP_auts'");
+      exit(FAILURE);
    }
 
    /* write function call to <countcall>.th position of <ANUPQgroups>     */
-   fprintf( file, "## automorphisms number: %d\n", countcall             );
-   fprintf( file, "ANUPQautos[%d] := function( G )\n", countcall         );
-   fprintf( file, "local   frattGens,\n"                                 );
-   fprintf( file, "        relOrders,\n"                                 );
-   fprintf( file, "        centralAutos,\n"                              );
-   fprintf( file, "        otherAutos;\n"                                );
+   fprintf(file, "## automorphisms number: %d\n", countcall);
+   fprintf(file, "ANUPQautos[%d] := function( G )\n", countcall);
+   fprintf(file, "local   frattGens,\n");
+   fprintf(file, "        relOrders,\n");
+   fprintf(file, "        centralAutos,\n");
+   fprintf(file, "        otherAutos;\n");
 
 
    /* write information about automorphisms to file                       */
-   ngens= y[pcp->clend + 1];
-   fprintf(file,"SetIsPcgsAutomorphisms(G,%s);\n",pga->soluble?"true":"false");
-   fprintf(file,"SetIsCapable(G,%s);\n", pga->capable ? "true" : "false"  );
+   ngens = y[pcp->clend + 1];
+   fprintf(file,
+           "SetIsPcgsAutomorphisms(G,%s);\n",
+           pga->soluble ? "true" : "false");
+   fprintf(file, "SetIsCapable(G,%s);\n", pga->capable ? "true" : "false");
 
    /* first write the Frattini generators                                 */
-   fprintf( file, "frattGens := ["                                        );
-   for ( k = 1;  k <= ngens; k++ )
-   {
-      if ( k != 1 )
-	 fprintf( file, "," );
-      fprintf( file, "G.%d", k );
+   fprintf(file, "frattGens := [");
+   for (k = 1; k <= ngens; k++) {
+      if (k != 1)
+         fprintf(file, ",");
+      fprintf(file, "G.%d", k);
    }
-   fprintf( file, "];\n" );
+   fprintf(file, "];\n");
 
-   fprintf (file, "centralAutos := [];  # nr of central autos: %d\n",
-            pga->nmr_centrals );
+   fprintf(file,
+           "centralAutos := [];  # nr of central autos: %d\n",
+           pga->nmr_centrals);
 
    /* write out all central automorphisms                                 */
-   for ( i = 1;  i <= pga->nmr_centrals;  ++i )
-   {
-      fprintf( file, "Add( centralAutos, [" );
-      for ( j = 1;  j <= pga->ndgen;  ++j )
-      {
-	 if ( j != 1 )
-            fprintf( file, "," );
-	 first = 1;
-	 for ( k = 1;  k <= pcp->lastg;  ++k )
-	 {
-	    if ( 0 != central[i][j][k] )
-	    {
-	       if ( !first )
-		  fprintf( file, "*" );
-	       first = 0;
-	       if ( 1 != central[i][j][k] )
-		  fprintf( file, "G.%d^%d", k, central[i][j][k] );
-	       else
-		  fprintf( file, "G.%d", k );
-	    }
-	 }
-	 if ( first )
-	 {
-	    fprintf( stderr, "internal error in 'GAP_auts'\n" );
-	    exit( FAILURE );
-	 }
+   for (i = 1; i <= pga->nmr_centrals; ++i) {
+      fprintf(file, "Add( centralAutos, [");
+      for (j = 1; j <= pga->ndgen; ++j) {
+         if (j != 1)
+            fprintf(file, ",");
+         first = 1;
+         for (k = 1; k <= pcp->lastg; ++k) {
+            if (0 != central[i][j][k]) {
+               if (!first)
+                  fprintf(file, "*");
+               first = 0;
+               if (1 != central[i][j][k])
+                  fprintf(file, "G.%d^%d", k, central[i][j][k]);
+               else
+                  fprintf(file, "G.%d", k);
+            }
+         }
+         if (first) {
+            fprintf(stderr, "internal error in 'GAP_auts'\n");
+            exit(FAILURE);
+         }
       }
-      fprintf( file, "] );\n" );
+      fprintf(file, "] );\n");
    }
 
 
-   fprintf (file, "otherAutos := [];  # nr of other autos: %d\n",
-            pga->nmr_stabilisers );
+   fprintf(file,
+           "otherAutos := [];  # nr of other autos: %d\n",
+           pga->nmr_stabilisers);
 
    /* write out all other automorphisms                                   */
-   for ( i = 1;  i <= pga->nmr_stabilisers;  ++i )
-   {
-      fprintf( file, "Add( otherAutos, [" );
-      for ( j = 1;  j <= pga->ndgen;  ++j )
-      {
-	 if ( j != 1 )
-            fprintf( file, "," );
-	 first = 1;
-	 for ( k = 1;  k <= pcp->lastg;  ++k )
-	 {
-	    if ( 0 != stabiliser[i][j][k] )
-	    {
-	       if ( !first )
-		  fprintf( file, "*" );
-	       first = 0;
-	       if ( 1 != stabiliser[i][j][k] )
-		  fprintf( file, "G.%d^%d", k, stabiliser[i][j][k] );
-	       else
-		  fprintf( file, "G.%d", k );
-	    }
-	 }
-	 if ( first )
-	 {
-	    fprintf( stderr, "internal error in 'GAP_auts'\n" );
-	    exit( FAILURE );
-	 }
+   for (i = 1; i <= pga->nmr_stabilisers; ++i) {
+      fprintf(file, "Add( otherAutos, [");
+      for (j = 1; j <= pga->ndgen; ++j) {
+         if (j != 1)
+            fprintf(file, ",");
+         first = 1;
+         for (k = 1; k <= pcp->lastg; ++k) {
+            if (0 != stabiliser[i][j][k]) {
+               if (!first)
+                  fprintf(file, "*");
+               first = 0;
+               if (1 != stabiliser[i][j][k])
+                  fprintf(file, "G.%d^%d", k, stabiliser[i][j][k]);
+               else
+                  fprintf(file, "G.%d", k);
+            }
+         }
+         if (first) {
+            fprintf(stderr, "internal error in 'GAP_auts'\n");
+            exit(FAILURE);
+         }
       }
-      fprintf( file, "] );\n" );
+      fprintf(file, "] );\n");
    }
 
 
-   fprintf( file , "relOrders := [");
+   fprintf(file, "relOrders := [");
    if (pga->nmr_soluble > 0) {
-     for (i = 1; i <= pga->nmr_soluble; ++i)
-       fprintf (file, "%d, ", pga->relative[i]);
-     fprintf (file, "%d", pga->relative[pga->nmr_soluble]);
+      for (i = 1; i <= pga->nmr_soluble; ++i)
+         fprintf(file, "%d, ", pga->relative[i]);
+      fprintf(file, "%d", pga->relative[pga->nmr_soluble]);
    }
-   fprintf (file, "];\n");
+   fprintf(file, "];\n");
 
 
-   fprintf( file, "ANUPQSetAutomorphismGroup( " );
-   fprintf( file, "G, frattGens, centralAutos, otherAutos, relOrders, " );
-   fprintf( file, "%s );\n", pga->soluble?"true":"false");
-   fprintf( file, "end;\n\n\n" );
+   fprintf(file, "ANUPQSetAutomorphismGroup( ");
+   fprintf(file, "G, frattGens, centralAutos, otherAutos, relOrders, ");
+   fprintf(file, "%s );\n", pga->soluble ? "true" : "false");
+   fprintf(file, "end;\n\n\n");
 }

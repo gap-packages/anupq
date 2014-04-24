@@ -12,10 +12,10 @@
 
 /* compute the label for the allowable subgroup having standard matrix S */
 
-int subgroup_to_label (int **S, int K, int *subset, struct pga_vars *pga)
+int subgroup_to_label(int **S, int K, int *subset, struct pga_vars *pga)
 
-              /* bit string representation of definition set */
-              /* definition set */
+/* bit string representation of definition set */
+/* definition set */
 
 {
    register int i, j;
@@ -30,10 +30,11 @@ int subgroup_to_label (int **S, int K, int *subset, struct pga_vars *pga)
 
    for (i = 0; i < pga->s; ++i)
       for (j = subset[i] + 1; j < pga->q; ++j) {
-	 if  (1 << j & K) continue;
-	 if (S[i][j] != 0)
-	    label += S[i][j] * pga->powers[exp];
-	 ++exp;
+         if (1 << j & K)
+            continue;
+         if (S[i][j] != 0)
+            label += S[i][j] * pga->powers[exp];
+         ++exp;
       }
 
    return label;

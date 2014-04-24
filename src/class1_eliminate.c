@@ -22,7 +22,7 @@
    in all other circumstances, the usual eliminate procedure
    is called */
 
-void class1_eliminate (struct pcp_vars *pcp)
+void class1_eliminate(struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -57,17 +57,17 @@ void class1_eliminate (struct pcp_vars *pcp)
    for (i = pcp->ccbeg, bound = pcp->lastg; i <= bound; i++) {
       y[ba + i] = 0;
       if (y[structure + i] > 0)
-	 y[ba + i] = ++lg;
+         y[ba + i] = ++lg;
    }
 
    /* update the redundant defining generators and inverses */
    for (i = 1; i <= ndgen; i++) {
-      update (dgen + i, pcp);
+      update(dgen + i, pcp);
       if (pcp->overflow)
-	 return;
-      update (dgen - i, pcp);
+         return;
+      update(dgen - i, pcp);
       if (pcp->overflow)
-	 return;
+         return;
    }
 
    /* finally update and move structure information */
@@ -78,20 +78,19 @@ void class1_eliminate (struct pcp_vars *pcp)
    structure = pcp->structure;
    for (i = pcp->lastg; i >= pcp->ccbeg; i--) {
       if ((j = y[structure + i]) > 0) {
-	 y[k] = j;
-	 k--;
-      }
-      else if (j < 0) {
-	 /* deallocate equation for redundant generator i */
-	 p1 = -j;
-	 y[p1] = 0;
+         y[k] = j;
+         k--;
+      } else if (j < 0) {
+         /* deallocate equation for redundant generator i */
+         p1 = -j;
+         y[p1] = 0;
       }
    }
 
    for (; i > 0; i--)
       y[k--] = y[structure + i];
    if (pcp->subgrp != structure)
-      delete_tables (0, pcp);
+      delete_tables(0, pcp);
    pcp->structure = k;
    structure = pcp->structure;
    pcp->words = k;

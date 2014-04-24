@@ -14,9 +14,9 @@
    string, of the parent a ' #' followed by its number, x, in the
    sequence of immediate descendants constructed,  a '; ', and step size */
 
-void update_name (char *string, int x, int step_size)
+void update_name(char *string, int x, int step_size)
 {
    register int length;
-   if ((length = strlen (string)) < MAXIDENT - 15)
-      sprintf (string + length, " #%d;%d", x, step_size);
+   if ((length = strlen(string)) < MAXIDENT - 15)
+      sprintf(string + length, " #%d;%d", x, step_size);
 }

@@ -16,7 +16,7 @@
 /* collect word in pcp generators of group; word has base address ptr;
    set up the result as exponent vector with base address cp */
 
-void collect_word (int ptr, int cp, struct pcp_vars *pcp)
+void collect_word(int ptr, int cp, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -33,36 +33,36 @@ void collect_word (int ptr, int cp, struct pcp_vars *pcp)
    /* collect the word */
    for (i = 2; i <= length; ++i) {
       if ((gen = y[ptr + i]) > 0)
-	 collect (gen, cp, pcp);
+         collect(gen, cp, pcp);
       else
-	 invert_generator (-gen, 1, cp, pcp);
+         invert_generator(-gen, 1, cp, pcp);
    }
 
    /* now calculate the appropriate power of the collected part */
    if ((exp = y[ptr + 1]) != 1) {
-      temp =  ptr + y[ptr] + 1;
-      calculate_power (exp, temp, cp, pcp);
+      temp = ptr + y[ptr] + 1;
+      calculate_power(exp, temp, cp, pcp);
    }
 }
 
 /* calculate the exp power of word stored as exponent-vector at cp;
    ptr is index of free position for temporary storage in y */
-void calculate_power (int exp, int ptr, int cp, struct pcp_vars *pcp)
+void calculate_power(int exp, int ptr, int cp, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
    register int i;
    register int lastg = pcp->lastg;
 
-   power (abs (exp), cp, pcp);
+   power(abs(exp), cp, pcp);
 
    /* if necessary, calculate the inverse */
    if (exp < 0) {
       ++ptr;
-      vector_to_word (cp, ptr, pcp);
+      vector_to_word(cp, ptr, pcp);
       for (i = 1; i <= lastg; ++i)
-	 y[cp + i] = 0;
-      invert_word (ptr, cp, pcp);
+         y[cp + i] = 0;
+      invert_word(ptr, cp, pcp);
    }
 }
 
@@ -71,7 +71,8 @@ void calculate_power (int exp, int ptr, int cp, struct pcp_vars *pcp)
    as an exponent vector at cp; convert exponent vector
    to string with base address ptr; and print out result */
 
-void setup_word_to_collect (FILE *file, int format, int type, int cp, struct pcp_vars *pcp)
+void setup_word_to_collect(
+    FILE *file, int format, int type, int cp, struct pcp_vars *pcp)
 {
    int disp = pcp->lastg + 2;
    register int ptr;
@@ -80,14 +81,15 @@ void setup_word_to_collect (FILE *file, int format, int type, int cp, struct pcp
 
    if (type != FIRST_ENTRY && type != NEXT_ENTRY) {
       if (format == BASIC)
-	 read_word (file, disp, type, pcp);
+         read_word(file, disp, type, pcp);
       else
-	 pretty_read_word (file, disp, type, pcp);
+         pretty_read_word(file, disp, type, pcp);
    }
 
-   collect_word (ptr, cp, pcp);
+   collect_word(ptr, cp, pcp);
 
-   if (type == VALUE_A || type == VALUE_B || file != stdin) return;
+   if (type == VALUE_A || type == VALUE_B || file != stdin)
+      return;
 
-   setup_word_to_print ("result of collection", cp, ptr, pcp);
+   setup_word_to_print("result of collection", cp, ptr, pcp);
 }

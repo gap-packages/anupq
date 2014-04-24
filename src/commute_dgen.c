@@ -14,7 +14,8 @@
 #include "pretty_filterfns.h"
 #include "word_types.h"
 
-static void collect_defining_generator_word (int ptr, int cp, struct pcp_vars *pcp);
+static void
+collect_defining_generator_word(int ptr, int cp, struct pcp_vars *pcp);
 
 /* calculate a power of a left-normed commutator of supplied depth
    by repeated calls to find_commutator; set up the result as an
@@ -22,7 +23,7 @@ static void collect_defining_generator_word (int ptr, int cp, struct pcp_vars *p
    the result to be handed to echelon easily; each component
    is a defining generator */
 
-void commute_defining_generators (int format, struct pcp_vars *pcp)
+void commute_defining_generators(int format, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -35,7 +36,7 @@ void commute_defining_generators (int format, struct pcp_vars *pcp)
    int exp;
 
    total = 6 * lastg + 6;
-   if (is_space_exhausted (total, pcp))
+   if (is_space_exhausted(total, pcp))
       return;
 
    cp1 = pcp->submlg - lastg - 2;
@@ -48,18 +49,18 @@ void commute_defining_generators (int format, struct pcp_vars *pcp)
    /* fudge the value of submlg because of possible call to power */
    pcp->submlg -= total;
 
-   read_value (TRUE, "Input number of components of commutator: ", &depth, 2);
+   read_value(TRUE, "Input number of components of commutator: ", &depth, 2);
 
    /* read in a and set it up at cp2 and cp3 */
    type = FIRST_ENTRY;
 
    if (format == BASIC)
-      read_word (stdin, disp, type, pcp);
+      read_word(stdin, disp, type, pcp);
    else
-      pretty_read_word (stdin, disp, type, pcp);
+      pretty_read_word(stdin, disp, type, pcp);
 
-   collect_defining_generator_word (ptr, cp2, pcp);
-   copy (cp2, lastg, cp3, pcp);
+   collect_defining_generator_word(ptr, cp2, pcp);
+   copy(cp2, lastg, cp3, pcp);
 
    type = NEXT_ENTRY;
    disp = y[ptr] + 1;
@@ -68,28 +69,28 @@ void commute_defining_generators (int format, struct pcp_vars *pcp)
 
       /* read in next component, b, and set it up at cp1 and cp4 */
       if (format == BASIC)
-	 read_word (stdin, disp, type, pcp);
+         read_word(stdin, disp, type, pcp);
       else
-	 pretty_read_word (stdin, disp, type, pcp);
+         pretty_read_word(stdin, disp, type, pcp);
 
-      collect_defining_generator_word (ptr + disp, cp1, pcp);
-      copy (cp1, lastg, cp4, pcp);
+      collect_defining_generator_word(ptr + disp, cp1, pcp);
+      copy(cp1, lastg, cp4, pcp);
 
       /* solve the equation (ba) * x = ab to obtain [a, b] */
-      find_commutator (cp1, cp2, cp3, cp4, result, pcp);
+      find_commutator(cp1, cp2, cp3, cp4, result, pcp);
 
-      copy (result, lastg, cp2, pcp);
-      copy (result, lastg, cp3, pcp);
+      copy(result, lastg, cp2, pcp);
+      copy(result, lastg, cp3, pcp);
    }
 
-   read_value (TRUE, "Input required power of this commutator: ", &exp, 1);
-   power (exp, result, pcp);
+   read_value(TRUE, "Input required power of this commutator: ", &exp, 1);
+   power(exp, result, pcp);
 
    /* print the commutator */
-   setup_word_to_print ("commutator", result, ptr, pcp);
+   setup_word_to_print("commutator", result, ptr, pcp);
 
    /* copy result to pcp->lused */
-   copy (result, lastg, pcp->lused, pcp);
+   copy(result, lastg, pcp->lused, pcp);
 
    /* reset the value of submlg */
    pcp->submlg += total;
@@ -98,12 +99,13 @@ void commute_defining_generators (int format, struct pcp_vars *pcp)
 /* collect word in defining generators stored as string at
    y[ptr] and place the result as exponent vector at cp */
 
-static void collect_defining_generator_word (int ptr, int cp, struct pcp_vars *pcp)
+static void
+collect_defining_generator_word(int ptr, int cp, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
    int i, generator, genval;
-#if defined (DEBUG)
+#if defined(DEBUG)
    int j, word_len;
 #endif
    int length, exp;
@@ -118,35 +120,36 @@ static void collect_defining_generator_word (int ptr, int cp, struct pcp_vars *p
       generator = y[ptr + 1 + i];
       genval = y[pcp->dgen + generator];
 
-#if defined (DEBUG)
+#if defined(DEBUG)
       if (genval > 0)
-	 printf ("%d %d\n", generator, genval);
+         printf("%d %d\n", generator, genval);
       else if (genval < 0) {
-	 printf ("%d %d ", generator, y[-genval]);
-	 word_len = y[-genval + 1];
-	 for (j = 1; j <= word_len; ++j)
-	    printf (" %d", y[-genval + 1 + j]);
+         printf("%d %d ", generator, y[-genval]);
+         word_len = y[-genval + 1];
+         for (j = 1; j <= word_len; ++j)
+            printf(" %d", y[-genval + 1 + j]);
       };
       if (genval == 0)
-	 printf ("No defining generator %d -- taken to be the identity\n",
-		 generator);
+         printf("No defining generator %d -- taken to be the identity\n",
+                generator);
 #endif
 
-      collect (genval, cp, pcp);
+      collect(genval, cp, pcp);
    }
 
    /* calculate power of this word */
    exp = y[ptr + 1];
-   power (exp, cp, pcp);
+   power(exp, cp, pcp);
 
-#if defined (DEBUG)
-   print_array (y, cp, cp + pcp->lastg + 1);
+#if defined(DEBUG)
+   print_array(y, cp, cp + pcp->lastg + 1);
 #endif
 }
 
 /* prepare to collect word in defining generators */
 
-void setup_defgen_word_to_collect (FILE *file, int format, int type, int cp, struct pcp_vars *pcp)
+void setup_defgen_word_to_collect(
+    FILE *file, int format, int type, int cp, struct pcp_vars *pcp)
 {
    int disp = pcp->lastg + 2;
    register int ptr;
@@ -154,13 +157,14 @@ void setup_defgen_word_to_collect (FILE *file, int format, int type, int cp, str
    ptr = pcp->lused + 1 + disp;
 
    if (format == BASIC)
-      read_word (file, disp, type, pcp);
+      read_word(file, disp, type, pcp);
    else
-      pretty_read_word (file, disp, type, pcp);
+      pretty_read_word(file, disp, type, pcp);
 
-   collect_defining_generator_word (ptr, cp, pcp);
+   collect_defining_generator_word(ptr, cp, pcp);
 
-   if (type == ACTION || file != stdin) return;
+   if (type == ACTION || file != stdin)
+      return;
 
-   setup_word_to_print ("result of collection", cp, ptr, pcp);
+   setup_word_to_print("result of collection", cp, ptr, pcp);
 }

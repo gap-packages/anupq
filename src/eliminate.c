@@ -17,7 +17,7 @@
    if middle_of_tails is TRUE, do not delete space set aside in
    setup; in this case, only deallocate redundant generators */
 
-void eliminate (Logical middle_of_tails, struct pcp_vars *pcp)
+void eliminate(Logical middle_of_tails, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -49,8 +49,8 @@ void eliminate (Logical middle_of_tails, struct pcp_vars *pcp)
 
    if (current_class != 1) {
 
-      if (is_space_exhausted (pcp->lastg - pcp->ccbeg + 3, pcp))
-	 return;
+      if (is_space_exhausted(pcp->lastg - pcp->ccbeg + 3, pcp))
+         return;
 
       structure = pcp->structure;
       lused = pcp->lused;
@@ -62,78 +62,76 @@ void eliminate (Logical middle_of_tails, struct pcp_vars *pcp)
       lused = pcp->lused;
       lg = pcp->ccbeg - 1;
       for (i = pcp->ccbeg, bound = pcp->lastg; i <= bound; i++) {
-	 y[ba + i] = 0;
-	 if (y[structure + i] > 0)
-	    y[ba + i] = ++lg;
+         y[ba + i] = 0;
+         if (y[structure + i] > 0)
+            y[ba + i] = ++lg;
       }
 
       /* update pcp->first_pseudo */
       bound = pcp->lastg;
       for (i = pcp->first_pseudo; i <= bound && y[structure + i] <= 0; i++)
-	 ;
+         ;
       pcp->first_pseudo = (i > pcp->lastg) ? lg + 1 : y[ba + i];
 
       /* update the commutator tables */
       p1 = y[pcp->ppcomm + 2];
       for (i = 1, bound = pcp->ncomm; i <= bound; i++) {
-	 update (p1 + i, pcp);
-	 if (pcp->overflow)
-	    return;
+         update(p1 + i, pcp);
+         if (pcp->overflow)
+            return;
       }
 
       /* update the power tables */
       for (i = 2, bound = pcp->ccbeg; i <= bound; i++) {
-	 /* fix (i - 1)^p */
-	 update (pcp->ppower + i - 1, pcp);
-	 if (pcp->overflow)
-	    return;
+         /* fix (i - 1)^p */
+         update(pcp->ppower + i - 1, pcp);
+         if (pcp->overflow)
+            return;
       }
 
       /* update the redundant defining generators and inverses */
       for (i = 1; i <= ndgen; i++) {
-	 update (dgen + i, pcp);
-	 if (pcp->overflow)
-	    return;
-	 update (dgen - i, pcp);
-	 if (pcp->overflow)
-	    return;
+         update(dgen + i, pcp);
+         if (pcp->overflow)
+            return;
+         update(dgen - i, pcp);
+         if (pcp->overflow)
+            return;
       }
 
       /* finally update and move structure information */
 
       if (middle_of_tails) {
-	 pointer = pcp->structure + pcp->ccbeg - 1;
-	 for (i = pcp->ccbeg; i <= pcp->lastg; ++i) {
-	    if ((value = y[pcp->structure + i]) > 0)
-	       y[++pointer] = value;
-	    else if (value < 0)
-	       y[-value] = 0;
-	 }
-      }
-      else {
-	 k = pcp->ppower;
-	 structure = pcp->structure;
-	 for (i = pcp->lastg; i >= pcp->ccbeg; i--) {
-	    if ((j = y[structure + i]) > 0) {
-	       y[k] = j;
-	       k--;
-	    }
-	    else if (j < 0) {
-	       /* deallocate equation for redundant generator i */
-	       p1 = -j;
-	       y[p1] = 0;
-	    }
-	 }
+         pointer = pcp->structure + pcp->ccbeg - 1;
+         for (i = pcp->ccbeg; i <= pcp->lastg; ++i) {
+            if ((value = y[pcp->structure + i]) > 0)
+               y[++pointer] = value;
+            else if (value < 0)
+               y[-value] = 0;
+         }
+      } else {
+         k = pcp->ppower;
+         structure = pcp->structure;
+         for (i = pcp->lastg; i >= pcp->ccbeg; i--) {
+            if ((j = y[structure + i]) > 0) {
+               y[k] = j;
+               k--;
+            } else if (j < 0) {
+               /* deallocate equation for redundant generator i */
+               p1 = -j;
+               y[p1] = 0;
+            }
+         }
 
-	 for (; i > 0; i--)
-	    y[k--] = y[structure + i];
-	 if (pcp->subgrp != structure)
-	    delete_tables (0, pcp);
-	 pcp->structure = k;
-	 structure = pcp->structure;
-	 pcp->words = k;
-	 pcp->subgrp = k;
-	 pcp->submlg = pcp->subgrp - lg;
+         for (; i > 0; i--)
+            y[k--] = y[structure + i];
+         if (pcp->subgrp != structure)
+            delete_tables(0, pcp);
+         pcp->structure = k;
+         structure = pcp->structure;
+         pcp->words = k;
+         pcp->subgrp = k;
+         pcp->submlg = pcp->subgrp - lg;
       }
 
       pcp->lastg = lg;
@@ -150,72 +148,69 @@ void eliminate (Logical middle_of_tails, struct pcp_vars *pcp)
    pcp->lastg = 0;
    for (i = 1; i <= ndgen; i++) {
       if ((j = y[structure + i]) == 0) {
-	 /* defining generator i is trivially redundant */
-	 y[dgen + i] = 0;
-	 if (y[dgen - i] < 0) {
-	    /* deallocate old inverse */
-	    p1 = -y[dgen - i];
-	    y[p1] = 0;
-	    /* set new inverse trivial */
-	    y[dgen - i] = 0;
-	 }
-      }
-      else if (j < 0) {
-	 /* defining generator i is redundant with value pointed
-	    to by -y[structure + i] */
-	 y[dgen + i] = y[structure + i];
-	 p1 = -y[dgen + i];
-	 length = y[p1 + 1];
-	 y[p1] = dgen + i;
+         /* defining generator i is trivially redundant */
+         y[dgen + i] = 0;
+         if (y[dgen - i] < 0) {
+            /* deallocate old inverse */
+            p1 = -y[dgen - i];
+            y[p1] = 0;
+            /* set new inverse trivial */
+            y[dgen - i] = 0;
+         }
+      } else if (j < 0) {
+         /* defining generator i is redundant with value pointed
+            to by -y[structure + i] */
+         y[dgen + i] = y[structure + i];
+         p1 = -y[dgen + i];
+         length = y[p1 + 1];
+         y[p1] = dgen + i;
 
-	 /* renumber value of defining generator i */
-	 for (k = 1; k <= length; k++) {
-	    l = FIELD2 (y[p1 + k + 1]);
-	    y[p1 + k + 1] += y[dgen + l] - l;
-	 }
+         /* renumber value of defining generator i */
+         for (k = 1; k <= length; k++) {
+            l = FIELD2(y[p1 + k + 1]);
+            y[p1 + k + 1] += y[dgen + l] - l;
+         }
 
-	 if (y[dgen - i] < 0) {
-	    /* i inverse occurs in a defining relation, so recompute
-	       the inverse and set up header block for inverse */
-	    y[lused + 1] = dgen - i;
-	    y[lused + 2] = length;
+         if (y[dgen - i] < 0) {
+            /* i inverse occurs in a defining relation, so recompute
+               the inverse and set up header block for inverse */
+            y[lused + 1] = dgen - i;
+            y[lused + 2] = length;
 
-	    /* set up inverse */
-	    for (j = 1; j <= length; j++) {
-	       k = y[p1 + j + 1];
-	       y[lused + 2 + j] = PACK2 (prime - FIELD1 (k), FIELD2 (k));
-	    }
+            /* set up inverse */
+            for (j = 1; j <= length; j++) {
+               k = y[p1 + j + 1];
+               y[lused + 2 + j] = PACK2(prime - FIELD1(k), FIELD2(k));
+            }
 
-	    /* deallocate old inverse */
-	    p1 = -y[dgen - i];
-	    y[p1] = 0;
-	    y[dgen - i] = -(lused + 1);
-	    pcp->lused += length + 2;
-	    lused = pcp->lused;
-	 }
-      }
-      else {
-	 /* i is an irredundant generator */
-	 pcp->lastg++;
-	 y[dgen + i] = pcp->lastg;
-	 /* note that its weight is set to be 1 */
-	 y[structure + pcp->lastg] = PACK3 (1, 0, i);
+            /* deallocate old inverse */
+            p1 = -y[dgen - i];
+            y[p1] = 0;
+            y[dgen - i] = -(lused + 1);
+            pcp->lused += length + 2;
+            lused = pcp->lused;
+         }
+      } else {
+         /* i is an irredundant generator */
+         pcp->lastg++;
+         y[dgen + i] = pcp->lastg;
+         /* note that its weight is set to be 1 */
+         y[structure + pcp->lastg] = PACK3(1, 0, i);
 
-	 /* check if inverse of i is required */
-	 if (y[dgen - i] < 0) {
-	    /* yes, so renumber previously set up inverse */
-	    p1 = -y[dgen - i];
-	    y[p1 + 2] += pcp->lastg - i;
-	 }
+         /* check if inverse of i is required */
+         if (y[dgen - i] < 0) {
+            /* yes, so renumber previously set up inverse */
+            p1 = -y[dgen - i];
+            y[p1 + 2] += pcp->lastg - i;
+         }
       }
    }
 
    if (pcp->lastg < 1) {
-      text (7, prime, 0, 0, 0);
+      text(7, prime, 0, 0, 0);
       pcp->complete = 1;
       pcp->cc = 0;
-   }
-   else {
+   } else {
       y[pcp->clend + 1] = pcp->lastg;
       pcp->submlg = pcp->subgrp - pcp->lastg;
    }

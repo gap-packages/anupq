@@ -21,7 +21,7 @@
    and run under Solaris, then multiply reported times by
    3/5 to get correct user time */
 
-int runTime (void)
+int runTime(void)
 {
    struct tms buffer;
 
@@ -31,31 +31,31 @@ int runTime (void)
 
 /* print startup message */
 
-void print_message (int work_space)
+void print_message(int work_space)
 {
    time_t now;
    char *id;
    char string[100];
 
-#if defined (HAVE_GETHOSTNAME)
+#if defined(HAVE_GETHOSTNAME)
    char s[100];
-   gethostname (s, 100);
+   gethostname(s, 100);
 #else
-   char *s = (char *)getenv ("HOST");
-   if (s == NULL) s = "unknown";
+   char *s = (char *)getenv("HOST");
+   if (s == NULL)
+      s = "unknown";
 #endif
 
-#if defined (GROUP)
+#if defined(GROUP)
    id = PQ_VERSION;
 #endif
 
-   printf ("%s running with workspace %d on %s\n",
-	   id, work_space, s);
-   now = time (NULL);
+   printf("%s running with workspace %d on %s\n", id, work_space, s);
+   now = time(NULL);
 #ifdef HAVE_STRFTIME
-   strftime (string, 100, "%a %b %d %H:%M:%S %Z %Y", localtime (&now));
-   printf ("%s\n", string);
+   strftime(string, 100, "%a %b %d %H:%M:%S %Z %Y", localtime(&now));
+   printf("%s\n", string);
 #else
-   printf ("\n");
+   printf("\n");
 #endif
 }

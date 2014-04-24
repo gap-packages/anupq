@@ -17,33 +17,33 @@
    and record the correspondence from the non-identity automorphisms
    to the non-identity permutations */
 
-void strip_identities (int ***auts, struct pga_vars *pga, struct pcp_vars *pcp)
+void strip_identities(int ***auts, struct pga_vars *pga, struct pcp_vars *pcp)
 {
    register int alpha;
-   int **A;                     /* automorphism matrix */
+   int **A; /* automorphism matrix */
    int nmr_soluble = pga->nmr_soluble;
 
    pga->nmr_of_perms = 0;
 
    /* set up space for automorphism matrix */
-   A = allocate_matrix (pga->q, pga->q, 0, FALSE);
-   pga->map = allocate_vector (pga->m, 1, TRUE);
+   A = allocate_matrix(pga->q, pga->q, 0, FALSE);
+   pga->map = allocate_vector(pga->m, 1, TRUE);
 
    for (alpha = 1; alpha <= pga->m; ++alpha) {
       if (alpha <= nmr_soluble)
-	 assemble_matrix (A, pga->q, auts[alpha], pcp);
-      if (alpha > nmr_soluble || !is_identity (A, pga->q, 0))  {
-	 ++pga->nmr_of_perms;
-	 pga->map[alpha] = pga->nmr_of_perms;
+         assemble_matrix(A, pga->q, auts[alpha], pcp);
+      if (alpha > nmr_soluble || !is_identity(A, pga->q, 0)) {
+         ++pga->nmr_of_perms;
+         pga->map[alpha] = pga->nmr_of_perms;
       }
    }
 
-/* EOB - new 26/7/00 */
+   /* EOB - new 26/7/00 */
 
    pga->nmr_of_perms = 0;
    for (alpha = 1; alpha <= pga->m; ++alpha) {
-	 ++pga->nmr_of_perms;
-	 pga->map[alpha] = pga->nmr_of_perms;
+      ++pga->nmr_of_perms;
+      pga->map[alpha] = pga->nmr_of_perms;
    }
 
    /*
@@ -51,5 +51,5 @@ void strip_identities (int ***auts, struct pga_vars *pga, struct pcp_vars *pcp)
      print_array (pga->map, 1, pga->m + 1);
      */
 
-   free_matrix (A, pga->q, 0);
+   free_matrix(A, pga->q, 0);
 }

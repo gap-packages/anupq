@@ -14,7 +14,7 @@
 /* print relationship between group defining generators and
    consistent power-commutator presentation generators */
 
-void print_map (struct pcp_vars *pcp)
+void print_map(struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -23,22 +23,22 @@ void print_map (struct pcp_vars *pcp)
    int p2;
    int i;
 
-#if defined (GROUP)
-   printf ("\nRelationship between group defining generators and ");
-   printf ("consistent\npower-commutator presentation generators:\n");
+#if defined(GROUP)
+   printf("\nRelationship between group defining generators and ");
+   printf("consistent\npower-commutator presentation generators:\n");
 #endif
 
    for (i = 1; i <= ndgen; i++) {
       p2 = y[dgen + i];
-      printf ("%d", i);
-      printf ("  ");
-      printf ("  =");
-      print_word (p2, pcp);
+      printf("%d", i);
+      printf("  ");
+      printf("  =");
+      print_word(p2, pcp);
       p2 = y[dgen - i];
       if (p2 <= 0) {
-	 printf ("%d", i);
-	 printf ("^-1 =");
-	 print_word (p2, pcp);
+         printf("%d", i);
+         printf("^-1 =");
+         print_word(p2, pcp);
       }
    }
 }
@@ -47,7 +47,7 @@ void print_map (struct pcp_vars *pcp)
    non-trivial power and commutator relations; if diagnostic output,
    also print relationship and structure information */
 
-void print_presentation (Logical full, struct pcp_vars *pcp)
+void print_presentation(Logical full, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -64,61 +64,66 @@ void print_presentation (Logical full, struct pcp_vars *pcp)
 
    char *s;
 
-#if defined (GROUP)
-   printf ("\nGroup: %s to lower exponent-%d central class %d has order %d^%d\n",
-	   pcp->ident, pcp->p, pcp->cc, pcp->p, pcp->lastg);
+#if defined(GROUP)
+   printf("\nGroup: %s to lower exponent-%d central class %d has order %d^%d\n",
+          pcp->ident,
+          pcp->p,
+          pcp->cc,
+          pcp->p,
+          pcp->lastg);
 #endif
 
-   if (!full) return;
+   if (!full)
+      return;
 
    if (pcp->diagn) {
 
-      /* print out the defining relations of the group */
+/* print out the defining relations of the group */
 
-#if defined (GROUP)
+#if defined(GROUP)
       s = "Group";
 #endif
       if (pcp->ndrel != 0)
-	 printf ("\n%s defining relations:\n", s);
+         printf("\n%s defining relations:\n", s);
       for (k = 1; k <= ndrel; ++k) {
-	 for (l = 1; l <= 2; ++l) {
-	    i = (k - 1) * 2 + l;
-	    pointer = y[relp + i];
-	    commutator_relation = (y[pointer] < 0);
-	    length = abs (y[pointer]);
-	    if (length == 0)
-	       printf ("0");
-	    else
-	       printf ("%d", y[pointer + 1]);
-	    if (commutator_relation)
-	       printf (" [");
-	    for (i = 2; i <= length; ++i) {
-	       gen = y[pointer + i];
-	       printf (" %d", gen);
-	    }
-	    if (commutator_relation)
-	       printf (" ]");
-	    printf ("\n");
-	 }
-	 printf ("\n");
+         for (l = 1; l <= 2; ++l) {
+            i = (k - 1) * 2 + l;
+            pointer = y[relp + i];
+            commutator_relation = (y[pointer] < 0);
+            length = abs(y[pointer]);
+            if (length == 0)
+               printf("0");
+            else
+               printf("%d", y[pointer + 1]);
+            if (commutator_relation)
+               printf(" [");
+            for (i = 2; i <= length; ++i) {
+               gen = y[pointer + i];
+               printf(" %d", gen);
+            }
+            if (commutator_relation)
+               printf(" ]");
+            printf("\n");
+         }
+         printf("\n");
       }
 
       /* print map from defining generators to pcp generators */
-      print_map (pcp);
+      print_map(pcp);
 
-#if defined (GROUP)
-      printf ("\nValues of power-commutator presentation generators\n");
+#if defined(GROUP)
+      printf("\nValues of power-commutator presentation generators\n");
 #endif
-      print_structure (1, pcp->lastg, pcp);
+      print_structure(1, pcp->lastg, pcp);
    }
 
    if (pcp->cc != 1)
-      print_pcp_relations (pcp);
+      print_pcp_relations(pcp);
 }
 
 /* print out non-trivial pcp relations */
 
-void print_pcp_relations (struct pcp_vars *pcp)
+void print_pcp_relations(struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -133,26 +138,26 @@ void print_pcp_relations (struct pcp_vars *pcp)
 #include "access.h"
 
    k = y[pcp->clend + pcp->cc - 1];
-   /*
-     int start, finish;
-     printf ("input start, finish: ");
-     scanf ("%d %d", &start, &finish);
-     */
+/*
+  int start, finish;
+  printf ("input start, finish: ");
+  scanf ("%d %d", &start, &finish);
+  */
 
-#if defined (GROUP)
-   printf ("\nNon-trivial powers:\n");
+#if defined(GROUP)
+   printf("\nNon-trivial powers:\n");
    /*
      for (i = start; i <= finish; i++) {
      */
    for (i = 1; i <= k; i++) {
       p2 = y[pcp->ppower + i];
       if (p2 != 0) {
-	 printf (" .%d^%d =", i, pcp->p);
-	 print_word (p2, pcp);
+         printf(" .%d^%d =", i, pcp->p);
+         print_word(p2, pcp);
       }
    }
 
-   printf ("\nNon-trivial commutators:\n");
+   printf("\nNon-trivial commutators:\n");
 #endif
 
    /*
@@ -163,11 +168,11 @@ void print_pcp_relations (struct pcp_vars *pcp)
       p1 = y[pcp->ppcomm + i];
       l = MIN(i - 1, y[pcp->clend + pcp->cc - weight]);
       for (j = 1; j <= l; j++) {
-	 p2 = y[p1 + j];
-	 if (p2 != 0) {
-	    printf ("[ .%d, .%d ] =", i, j);
-	    print_word (p2, pcp);
-	 }
+         p2 = y[p1 + j];
+         if (p2 != 0) {
+            printf("[ .%d, .%d ] =", i, j);
+            print_word(p2, pcp);
+         }
       }
    }
 }

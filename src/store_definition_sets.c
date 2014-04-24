@@ -14,21 +14,24 @@
 /* set up the maximum storage space required for the definition sets --
    this is the maximum of r choose s where lower_step <= s <= upper_step */
 
-void store_definition_sets (int r, int lower_step, int upper_step, struct pga_vars *pga)
+void store_definition_sets(int r,
+                           int lower_step,
+                           int upper_step,
+                           struct pga_vars *pga)
 {
    int s, nmr_of_sets = 0;
 
    for (s = lower_step; s <= upper_step; ++s)
-      nmr_of_sets = MAX (nmr_of_sets, choose (r, s));
+      nmr_of_sets = MAX(nmr_of_sets, choose(r, s));
 
-   pga->list = allocate_vector (nmr_of_sets, 0, FALSE);
-   pga->available = allocate_vector (nmr_of_sets, 0, FALSE);
-   pga->offset = allocate_vector (nmr_of_sets, 0, FALSE);
+   pga->list = allocate_vector(nmr_of_sets, 0, FALSE);
+   pga->available = allocate_vector(nmr_of_sets, 0, FALSE);
+   pga->offset = allocate_vector(nmr_of_sets, 0, FALSE);
 }
 
 /* calculate r choose s */
 
-int choose (int r, int s)
+int choose(int r, int s)
 {
    register int i;
    int binom = 1;

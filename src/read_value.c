@@ -13,7 +13,7 @@
 
 /* function to read line */
 
-void read_line (void)
+void read_line(void)
 {
    int c;
 
@@ -23,7 +23,7 @@ void read_line (void)
 
 /* continue to read parameter until its value is at least lower_bound */
 
-void read_value (Logical newline, char *string, int *value, int lower_bound)
+void read_value(Logical newline, char *string, int *value, int lower_bound)
 {
    char response[MAXWORD];
    Logical error;
@@ -31,47 +31,47 @@ void read_value (Logical newline, char *string, int *value, int lower_bound)
    int nmr_items;
 
    while (reading) {
-      printf ("%s", string);
-      nmr_items = scanf ("%s", response);
-      verify_read (nmr_items, 1);
+      printf("%s", string);
+      nmr_items = scanf("%s", response);
+      verify_read(nmr_items, 1);
 
       /* read past any comments */
       while (response[0] == COMMENT) {
-	 read_line ();
-	 nmr_items = scanf ("%s", response);
-	 verify_read (nmr_items, 1);
+         read_line();
+         nmr_items = scanf("%s", response);
+         verify_read(nmr_items, 1);
       }
-      if (!isatty (0)) printf ("%s ", response);
-      if (!isatty (0) && newline) printf ("\n");
-      *value = string_to_int (response, &error);
+      if (!isatty(0))
+         printf("%s ", response);
+      if (!isatty(0) && newline)
+         printf("\n");
+      *value = string_to_int(response, &error);
       if (error)
-	 printf ("Error in input -- must be integer only\n");
+         printf("Error in input -- must be integer only\n");
       else if ((reading = (*value < lower_bound)))
-	 printf ("Error: supplied value must be at least %d\n", lower_bound);
-
+         printf("Error: supplied value must be at least %d\n", lower_bound);
    }
 }
 
 /* convert string s to integer */
 
-int string_to_int (char *s, Logical *error)
+int string_to_int(char *s, Logical *error)
 {
    int i, n, sign;
 
    *error = FALSE;
 
-   for (i = 0; isspace (s[i]); i++) /* skip white space */
+   for (i = 0; isspace(s[i]); i++) /* skip white space */
       ;
    sign = (s[i] == '-') ? -1 : 1;
    if (s[i] == '+' || s[i] == '-') /* skip sign */
       i++;
    for (n = 0; s[i] != '\0'; i++) {
-      if (isdigit (s[i])) {
-	 n = 10 * n + (s[i] - '0');
-      }
-      else {
-	 *error = TRUE;
-	 return 0;
+      if (isdigit(s[i])) {
+         n = 10 * n + (s[i] - '0');
+      } else {
+         *error = TRUE;
+         return 0;
       }
    }
 
@@ -80,21 +80,22 @@ int string_to_int (char *s, Logical *error)
 
 /* read in string */
 
-char* GetString (char *string)
+char *GetString(char *string)
 {
    int nmr_items;
-   char *s = (char *) malloc (MAXIDENT * sizeof (char));
+   char *s = (char *)malloc(MAXIDENT * sizeof(char));
 
-   printf ("%s", string);
+   printf("%s", string);
 
-   nmr_items = scanf ("%s", s);
-   verify_read (nmr_items, 1);
+   nmr_items = scanf("%s", s);
+   verify_read(nmr_items, 1);
    while (s[0] == COMMENT) {
-      read_line ();
-      nmr_items = scanf ("%s", s);
-      verify_read (nmr_items, 1);
+      read_line();
+      nmr_items = scanf("%s", s);
+      verify_read(nmr_items, 1);
    }
-   if (!isatty (0)) printf ("%s\n", s);
+   if (!isatty(0))
+      printf("%s\n", s);
 
    return s;
 }

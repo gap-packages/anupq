@@ -11,17 +11,17 @@
 #include "pcp_vars.h"
 #include "pq_functions.h"
 
-#if defined (CONSISTENCY_FILTER)
+#if defined(CONSISTENCY_FILTER)
 
-int *add_weights ();
+int *add_weights();
 
 
 /* process those consistency relations of weight wc not already used;
    the value of type determines the consistency relations processed;
    if type = 0 then all relations are processed */
 
-void
-consistency (int type, int *queue, int *queue_length, int wc, struct pcp_vars *pcp)
+void consistency(
+    int type, int *queue, int *queue_length, int wc, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -32,10 +32,10 @@ consistency (int type, int *queue, int *queue_length, int wc, struct pcp_vars *p
    int *copy_vector;
    int processed, filtered;
 
-   register int wta;            /* weight of a */
+   register int wta; /* weight of a */
 
-   register int a_start;        /* start of range for a */
-   register int a_end;          /* end of range for a */
+   register int a_start; /* start of range for a */
+   register int a_end;   /* end of range for a */
    register int b_start;
    register int b_end;
    register int c_start;
@@ -54,7 +54,7 @@ consistency (int type, int *queue, int *queue_length, int wc, struct pcp_vars *p
    register int structure = pcp->structure;
 
    register Logical metabelian = pcp->metabelian;
-   register Logical compute;    /* is it necessary to compute jacobi? */
+   register Logical compute; /* is it necessary to compute jacobi? */
    register filter = (pcp->nocset);
    Logical can_filter;
 
@@ -65,10 +65,11 @@ consistency (int type, int *queue, int *queue_length, int wc, struct pcp_vars *p
 
 #include "access.h"
 
-   processed = 0; filtered = 0;
+   processed = 0;
+   filtered = 0;
 
    if (filter) {
-      definition = allocate_matrix (pcp->lastg, frattini_rank + 1, 0, TRUE);
+      definition = allocate_matrix(pcp->lastg, frattini_rank + 1, 0, TRUE);
    }
 
    /* process the consistency equations (a^p) a = a (a^p)
@@ -77,22 +78,23 @@ consistency (int type, int *queue, int *queue_length, int wc, struct pcp_vars *p
    if (type == 0 || type == 1) {
       if (MOD(jacobi_wt, 2) != 0) {
 
-	 /* find range of a */
-	 offset = class_end + bound - 1;
-	 a_start = y[offset] + 1;
-	 a_end = y[++offset];
+         /* find range of a */
+         offset = class_end + bound - 1;
+         a_start = y[offset] + 1;
+         a_end = y[++offset];
 
-	 for (a = a_start; a <= a_end; a++) {
-	    compute = (!metabelian || (metabelian &&
-				       (PART2 (y[structure + a]) == 0 || PART3 (y[structure + a]) == 0)));
-	    if (compute) {
-	       jacobi (a, a, a, 0, pcp);
-	       if (pcp->redgen != 0 && pcp->m != 0)
-		  queue[++*queue_length] = pcp->redgen;
-	    }
-	    if (pcp->overflow || (pcp->complete != 0 && !pcp->multiplicator))
-	       return;
-	 }
+         for (a = a_start; a <= a_end; a++) {
+            compute =
+                (!metabelian || (metabelian && (PART2(y[structure + a]) == 0 ||
+                                                PART3(y[structure + a]) == 0)));
+            if (compute) {
+               jacobi(a, a, a, 0, pcp);
+               if (pcp->redgen != 0 && pcp->m != 0)
+                  queue[++*queue_length] = pcp->redgen;
+            }
+            if (pcp->overflow || (pcp->complete != 0 && !pcp->multiplicator))
+               return;
+         }
       }
    }
 
@@ -103,56 +105,60 @@ consistency (int type, int *queue, int *queue_length, int wc, struct pcp_vars *p
    if (type == 0 || type == 2) {
       for (wta = 1; wta <= bound; ++wta) {
 
-	 /* find range of a */
-	 offset = class_end + wta - 1;
-	 a_start = y[offset] + 1;
-	 a_end = y[++offset];
+         /* find range of a */
+         offset = class_end + wta - 1;
+         a_start = y[offset] + 1;
+         a_end = y[++offset];
 
-	 /* find maximum value of b */
-	 offset = class_end + jacobi_wt - wta - 2;
-	 b_end = y[offset + 1];
+         /* find maximum value of b */
+         offset = class_end + jacobi_wt - wta - 2;
+         b_end = y[offset + 1];
 
-	 for (a = a_start; a <= a_end; ++a) {
+         for (a = a_start; a <= a_end; ++a) {
 
-	    /* ensure b > a */
-	    b_start = MAX(y[offset] + 1, a + 1);
-	    for (b = b_start; b <= b_end; ++b) {
+            /* ensure b > a */
+            b_start = MAX(y[offset] + 1, a + 1);
+            for (b = b_start; b <= b_end; ++b) {
 
-	       /* introduce Vaughan-Lee consistency check restriction */
-	       if (wta == 1) {
-		  /* check if this jacobi relation has already been used
-		     in filling in the tail on (b, a)^p */
-		  p1 = y[p_pcomm + b];
-		  if (y[p1 + a] <= 0 || y[p1 + a] >= pcp->first_pseudo) {
-		     compute = (!metabelian || (metabelian && (PART2
-							       (y[structure + b]) == 0 || PART3(y[structure + b]) == 0)));
-		     if (compute) {
-			jacobi (b, b, a, 0, pcp);
-			if (pcp->redgen != 0 && pcp->m != 0)
-			   queue[++*queue_length] = pcp->redgen;
-		     }
-		     if (pcp->overflow || pcp->complete && !pcp->multiplicator)
-			return;
-		  }
-	       }
+               /* introduce Vaughan-Lee consistency check restriction */
+               if (wta == 1) {
+                  /* check if this jacobi relation has already been used
+                     in filling in the tail on (b, a)^p */
+                  p1 = y[p_pcomm + b];
+                  if (y[p1 + a] <= 0 || y[p1 + a] >= pcp->first_pseudo) {
+                     compute = (!metabelian ||
+                                (metabelian && (PART2(y[structure + b]) == 0 ||
+                                                PART3(y[structure + b]) == 0)));
+                     if (compute) {
+                        jacobi(b, b, a, 0, pcp);
+                        if (pcp->redgen != 0 && pcp->m != 0)
+                           queue[++*queue_length] = pcp->redgen;
+                     }
+                     if (pcp->overflow || pcp->complete && !pcp->multiplicator)
+                        return;
+                  }
+               }
 
-	       /* check if this jacobi relation has already been
-		  used in filling in the tail on (b, a^p) */
-	       entry = y[p_power + a];
-	       if (entry <= 0 || entry >= b) {
-		  compute = (!metabelian || (metabelian && (
-		     PART2 (y[structure + a]) == 0 || PART3 (y[structure + a]) == 0 ||
-		     PART2 (y[structure + b]) == 0 || PART3(y[structure + b]) == 0)));
-		  if (compute) {
-		     jacobi (b, a, a, 0, pcp);
-		     if (pcp->redgen != 0 && pcp->m != 0)
-			queue[++*queue_length] = pcp->redgen;
-		  }
-		  if (pcp->overflow || (pcp->complete != 0 && !pcp->multiplicator))
-		     return;
-	       }
-	    }
-	 }
+               /* check if this jacobi relation has already been
+                  used in filling in the tail on (b, a^p) */
+               entry = y[p_power + a];
+               if (entry <= 0 || entry >= b) {
+                  compute = (!metabelian ||
+                             (metabelian && (PART2(y[structure + a]) == 0 ||
+                                             PART3(y[structure + a]) == 0 ||
+                                             PART2(y[structure + b]) == 0 ||
+                                             PART3(y[structure + b]) == 0)));
+                  if (compute) {
+                     jacobi(b, a, a, 0, pcp);
+                     if (pcp->redgen != 0 && pcp->m != 0)
+                        queue[++*queue_length] = pcp->redgen;
+                  }
+                  if (pcp->overflow ||
+                      (pcp->complete != 0 && !pcp->multiplicator))
+                     return;
+               }
+            }
+         }
       }
    }
 
@@ -167,73 +173,76 @@ consistency (int type, int *queue, int *queue_length, int wc, struct pcp_vars *p
       constant = class_end + jacobi_wt - 2;
 
       for (a = 1; a <= a_end; ++a) {
-	 if (filter) {
-	    if (definition[a][0] == FALSE) {
-	       lookup_structure (a, definition[a], pcp);
-	       definition[a][0] = TRUE;
-	    }
-	 }
+         if (filter) {
+            if (definition[a][0] == FALSE) {
+               lookup_structure(a, definition[a], pcp);
+               definition[a][0] = TRUE;
+            }
+         }
 
-	 for (b = a + 1; b <= b_end; ++b) {
+         for (b = a + 1; b <= b_end; ++b) {
 
-	    if (filter) {
-	       if (definition[b][0] == FALSE) {
-		  lookup_structure (b, definition[b], pcp);
-		  definition[b][0] = TRUE;
-	       }
-	    }
+            if (filter) {
+               if (definition[b][0] == FALSE) {
+                  lookup_structure(b, definition[b], pcp);
+                  definition[b][0] = TRUE;
+               }
+            }
 
-	    /* find range of c and ensure c > b */
-	    offset = constant - WT(y[structure + b]);
-	    c_start = MAX(y[offset] + 1, b + 1);
-	    c_end = y[++offset];
+            /* find range of c and ensure c > b */
+            offset = constant - WT(y[structure + b]);
+            c_start = MAX(y[offset] + 1, b + 1);
+            c_end = y[++offset];
 
-	    /* where possible, avoid redoing those jacobis used to
-	       fill in tails on (c, (b, a)) */
-	    if (!metabelian) {
-	       p1 = y[p_pcomm + b];
-	       if (y[p1 + a] > 0)
-		  c_end = MIN(c_end, y[p1 + a]);
-	    }
+            /* where possible, avoid redoing those jacobis used to
+               fill in tails on (c, (b, a)) */
+            if (!metabelian) {
+               p1 = y[p_pcomm + b];
+               if (y[p1 + a] > 0)
+                  c_end = MIN(c_end, y[p1 + a]);
+            }
 
-	    for (c = c_start; c <= c_end; ++c) {
-	       can_filter = FALSE;
-	       if (filter) {
-		  if (definition[c][0] == FALSE) {
-		     lookup_structure (c, definition[c], pcp);
-		     definition[c][0] = TRUE;
-		  }
-		  weight_vector = add_weights (definition[a], definition[b],
-					       y[pcp->clend + 1]);
-		  weight_vector = add_weights (weight_vector, definition[c],
-					       y[pcp->clend + 1]);
-		  for (l = 1; l <= frattini_rank && !can_filter; ++l)
-		     can_filter = (weight_vector[l] > y[moccur + l]);
-	       }
-	       if (can_filter) ++filtered;
+            for (c = c_start; c <= c_end; ++c) {
+               can_filter = FALSE;
+               if (filter) {
+                  if (definition[c][0] == FALSE) {
+                     lookup_structure(c, definition[c], pcp);
+                     definition[c][0] = TRUE;
+                  }
+                  weight_vector = add_weights(
+                      definition[a], definition[b], y[pcp->clend + 1]);
+                  weight_vector = add_weights(
+                      weight_vector, definition[c], y[pcp->clend + 1]);
+                  for (l = 1; l <= frattini_rank && !can_filter; ++l)
+                     can_filter = (weight_vector[l] > y[moccur + l]);
+               }
+               if (can_filter)
+                  ++filtered;
 
-	       compute = (!metabelian || (metabelian &&
-					  (PART2 (y[structure + b]) == 0 || PART3 (y[structure + b]) == 0 ||
-					   PART2 (y[structure + c]) == 0 || PART3 (y[structure + c]) == 0)));
+               compute = (!metabelian ||
+                          (metabelian && (PART2(y[structure + b]) == 0 ||
+                                          PART3(y[structure + b]) == 0 ||
+                                          PART2(y[structure + c]) == 0 ||
+                                          PART3(y[structure + c]) == 0)));
 
-	       /* only evaluate if we must */
-	       if (compute && can_filter == FALSE) {
-		  ++processed;
-		  jacobi (c, b, a, 0, pcp);
-		  if (pcp->redgen != 0 && pcp->m != 0)
-		     queue[++*queue_length] = pcp->redgen;
-	       }
-	       if (pcp->overflow || (pcp->complete != 0 && !pcp->multiplicator))
-		  return;
-	    }
-	 }
+               /* only evaluate if we must */
+               if (compute && can_filter == FALSE) {
+                  ++processed;
+                  jacobi(c, b, a, 0, pcp);
+                  if (pcp->redgen != 0 && pcp->m != 0)
+                     queue[++*queue_length] = pcp->redgen;
+               }
+               if (pcp->overflow || (pcp->complete != 0 && !pcp->multiplicator))
+                  return;
+            }
+         }
       }
    }
 
    if (filter) {
-      printf ("Number evaluated = %d, Number filtered = %d\n",
-	      processed, filtered);
-      free_matrix (definition, pcp->lastg, 0);
+      printf(
+          "Number evaluated = %d, Number filtered = %d\n", processed, filtered);
+      free_matrix(definition, pcp->lastg, 0);
    }
 }
 

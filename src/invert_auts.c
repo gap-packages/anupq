@@ -14,11 +14,15 @@
 
 /* developmental code -- not finished */
 
-void new_collect_image_of_string (int string, int cp, int **auts, struct pcp_vars *pcp);
+void new_collect_image_of_string(int string,
+                                 int cp,
+                                 int **auts,
+                                 struct pcp_vars *pcp);
 
 /* for each automorphism, compute its inverse */
 
-int*** invert_automorphisms (int ***auts, struct pga_vars *pga, struct pcp_vars *pcp)
+int ***
+invert_automorphisms(int ***auts, struct pga_vars *pga, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -31,31 +35,31 @@ int*** invert_automorphisms (int ***auts, struct pga_vars *pga, struct pcp_vars 
    register int i, j;
    int loop;
 
-   inverse = allocate_array (pga->m, pcp->lastg, pcp->lastg, TRUE);
-   Power = allocate_matrix (pcp->lastg, pcp->lastg, 1, FALSE);
+   inverse = allocate_array(pga->m, pcp->lastg, pcp->lastg, TRUE);
+   Power = allocate_matrix(pcp->lastg, pcp->lastg, 1, FALSE);
 
    for (alpha = 1; alpha <= pga->m; ++alpha) {
-      printf ("Processing alpha_%d\n", alpha);
+      printf("Processing alpha_%d\n", alpha);
 
-      Copy_Matrix (auts[alpha], inverse[alpha], pcp->lastg, nmr_of_bytes);
-      Copy_Matrix (auts[alpha], Power, pcp->lastg, nmr_of_bytes);
+      Copy_Matrix(auts[alpha], inverse[alpha], pcp->lastg, nmr_of_bytes);
+      Copy_Matrix(auts[alpha], Power, pcp->lastg, nmr_of_bytes);
 
       loop = 0;
-      while (!is_identity (Power, pcp->lastg, 1)) {
+      while (!is_identity(Power, pcp->lastg, 1)) {
 
-	 ++loop;
-	 printf ("loop is %d\n", loop);
-	 Copy_Matrix (Power, inverse[alpha], pcp->lastg, nmr_of_bytes);
+         ++loop;
+         printf("loop is %d\n", loop);
+         Copy_Matrix(Power, inverse[alpha], pcp->lastg, nmr_of_bytes);
 
-	 for (i = 1; i <= pcp->lastg; ++i) {
-	    image_to_word (string, Power[i], pcp);
-	    for (j = 1; j <= pcp->lastg; ++j)
-	       y[cp + j] = 0;
-	    collect_image_of_string (string, cp, auts[alpha], pcp);
-	    for (j = 1; j <= pcp->lastg; ++j)
-	       Power[i][j] = y[cp + j];
-	    print_matrix (Power, pcp->lastg, pcp->lastg, 1);
-	 }
+         for (i = 1; i <= pcp->lastg; ++i) {
+            image_to_word(string, Power[i], pcp);
+            for (j = 1; j <= pcp->lastg; ++j)
+               y[cp + j] = 0;
+            collect_image_of_string(string, cp, auts[alpha], pcp);
+            for (j = 1; j <= pcp->lastg; ++j)
+               Power[i][j] = y[cp + j];
+            print_matrix(Power, pcp->lastg, pcp->lastg, 1);
+         }
       }
    }
 
@@ -65,23 +69,26 @@ int*** invert_automorphisms (int ***auts, struct pga_vars *pga, struct pcp_vars 
 /* collect image of supplied string under the action of
    supplied automorphism, auts, and store the result at cp */
 
-void new_collect_image_of_string (int string, int cp, int **auts, struct pcp_vars *pcp)
+void new_collect_image_of_string(int string,
+                                 int cp,
+                                 int **auts,
+                                 struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
    register int i;
    int generator, exp;
-   int length = y[string + 1];  /* last element of string
-				   is in p-multiplicator */
+   int length = y[string + 1]; /* last element of string
+                                  is in p-multiplicator */
 #include "access.h"
 
    /* collect the string generator by generator */
    for (i = 1; i <= length; ++i) {
-      generator = FIELD2 (y[string + 1 + i]);
-      exp = FIELD1 (y[string + 1 + i]);
+      generator = FIELD2(y[string + 1 + i]);
+      exp = FIELD1(y[string + 1 + i]);
       while (exp > 0) {
-	 collect_image_of_generator (cp, auts[generator], pcp);
-	 --exp;
+         collect_image_of_generator(cp, auts[generator], pcp);
+         --exp;
       }
    }
 }
@@ -89,7 +96,7 @@ void new_collect_image_of_string (int string, int cp, int **auts, struct pcp_var
 
 /* convert image of generator to word with base address string */
 
-void image_to_word (int string, int *image, struct pcp_vars *pcp)
+void image_to_word(int string, int *image, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -99,18 +106,18 @@ void image_to_word (int string, int *image, struct pcp_vars *pcp)
 
    for (i = 1; i <= pcp->lastg; ++i)
       if (image[i] != 0) {
-	 ++length;
-	 y[string + length + 1] = PACK2 (image[i], i);
+         ++length;
+         y[string + length + 1] = PACK2(image[i], i);
       }
    y[string + 1] = length + 1;
 }
 
-void Copy_Matrix (int **A, int **B, int nmr_of_rows, int nmr_of_bytes)
+void Copy_Matrix(int **A, int **B, int nmr_of_rows, int nmr_of_bytes)
 {
    register int i, j;
    for (i = 1; i <= nmr_of_rows; ++i)
       for (j = 1; j <= nmr_of_bytes; ++j)
-	 B[i][j] = A[i][j];
+         B[i][j] = A[i][j];
 
    /* memcpy (B[i], A[i], nmr_of_bytes); */
 }

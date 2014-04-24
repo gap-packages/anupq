@@ -14,58 +14,58 @@
 
 /* read parameters for p-quotient calculation */
 
-void read_parameters (int format, int *max_class, int *output, struct pcp_vars *pcp)
+void
+read_parameters(int format, int *max_class, int *output, struct pcp_vars *pcp)
 {
    Logical reading = TRUE;
    char *ident;
 
-#if defined (GROUP)
-   ident = GetString ("Input group identifier: ");
+#if defined(GROUP)
+   ident = GetString("Input group identifier: ");
 #endif
 
-   strcpy (pcp->ident, ident);
+   strcpy(pcp->ident, ident);
 
    while (reading) {
-      read_value (TRUE, "Input prime: ", &pcp->p, 2);
+      read_value(TRUE, "Input prime: ", &pcp->p, 2);
       reading = (pcp->p != 2 && MOD(pcp->p, 2) == 0);
       if (reading)
-	 printf ("%d is not a prime\n", pcp->p);
+         printf("%d is not a prime\n", pcp->p);
    }
 
-   read_value (TRUE, "Input maximum class: ", max_class, 0);
+   read_value(TRUE, "Input maximum class: ", max_class, 0);
    if (*max_class == 0) {
       *max_class = DEFAULT_CLASS;
-      text (15, DEFAULT_CLASS, 0, 0, 0);
-   }
-   else if (*max_class > MAXCLASS) {
+      text(15, DEFAULT_CLASS, 0, 0, 0);
+   } else if (*max_class > MAXCLASS) {
       *max_class = MAXCLASS;
-      text (15, MAXCLASS, 0, 0, 0);
+      text(15, MAXCLASS, 0, 0, 0);
    }
 
-   print_level (output, pcp);
+   print_level(output, pcp);
 
    if (format == BASIC) {
       reading = TRUE;
       while (reading) {
-	 read_value (TRUE, "Input number of generators: ", &pcp->ndgen, 1);
-	 reading = (pcp->ndgen > MAXGENS);
-	 if (reading)
-	    printf ("The maximum number of defining generators is %d\n", MAXGENS);
+         read_value(TRUE, "Input number of generators: ", &pcp->ndgen, 1);
+         reading = (pcp->ndgen > MAXGENS);
+         if (reading)
+            printf("The maximum number of defining generators is %d\n",
+                   MAXGENS);
       }
 
-#if defined (GROUP)
-      read_value (TRUE, "Input number of relations: ", &pcp->ndrel, 0);
-      read_value (TRUE, "Input exponent law (0 if none): ",
-		  &pcp->extra_relations, 0);
+#if defined(GROUP)
+      read_value(TRUE, "Input number of relations: ", &pcp->ndrel, 0);
+      read_value(
+          TRUE, "Input exponent law (0 if none): ", &pcp->extra_relations, 0);
 #endif
 
       /* initialise pcp structure */
-      initialise_pcp (*output, pcp);
-      setup (pcp);
-      read_relations (pcp);
-   }
-   else {
-      pretty_read_generators (pcp);
-      pretty_read_relations (*output, max_class, pcp);
+      initialise_pcp(*output, pcp);
+      setup(pcp);
+      read_relations(pcp);
+   } else {
+      pretty_read_generators(pcp);
+      pretty_read_relations(*output, max_class, pcp);
    }
 }

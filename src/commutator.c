@@ -26,7 +26,8 @@
    used to calculate a commutator; the algorithm finds a
    solution generator by generator */
 
-void find_commutator (int cp1, int cp2, int cp3, int cp4, int result, struct pcp_vars *pcp)
+void find_commutator(
+    int cp1, int cp2, int cp3, int cp4, int result, struct pcp_vars *pcp)
 {
    register int *y = y_address;
    int r;
@@ -44,45 +45,48 @@ void find_commutator (int cp1, int cp2, int cp3, int cp4, int result, struct pcp
 
       /* compute r and adjust its value mod p */
       r = (y[cp3 + i] + y[cp4 + i]) - (y[cp1 + i] + y[cp2 + i]);
-      while (r < 0) r += p;
-      while (r >= p) r -= p;
+      while (r < 0)
+         r += p;
+      while (r >= p)
+         r -= p;
 
       /* store the exponent of generator i in x */
       y[result + i] = r;
 
       /* now compute the new u_2 */
       if (y[cp4 + i] != 0) {
-	 y[str + 1] = PACK2 (y[cp4 + i], i);
-	 collect (-str + 1, cp3, pcp);
-	 y[cp3 + i] = 0;
+         y[str + 1] = PACK2(y[cp4 + i], i);
+         collect(-str + 1, cp3, pcp);
+         y[cp3 + i] = 0;
       }
 
       /* compute the residue mod p */
       exp = y[cp2 + i] + r;
-      while (exp < 0) exp += p;
+      while (exp < 0)
+         exp += p;
       exp %= p;
 
       /* now compute the new v_1 */
       if (y[cp2 + i] + r >= p)
-	 y[cp2 + i] = p - r;
+         y[cp2 + i] = p - r;
       if (r != 0) {
-	 y[str + 1] = PACK2 (r, i);
-	 collect (-str + 1, cp2, pcp);
+         y[str + 1] = PACK2(r, i);
+         collect(-str + 1, cp2, pcp);
       }
 
       /* now compute the new u_1 */
       if (y[cp1 + i] + exp >= p)
-	 y[cp2 + i] = p - exp;
+         y[cp2 + i] = p - exp;
       if (exp != 0) {
-	 y[str + 1] = PACK2 (exp, i);
-	 collect (-str + 1, cp1, pcp);
+         y[str + 1] = PACK2(exp, i);
+         collect(-str + 1, cp1, pcp);
       }
    }
 }
 
 /* copy a section of the array, y, to another part of y */
 
-void copy (int old, int length, int new, struct pcp_vars *pcp)
+void copy(int old, int length, int new, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -95,7 +99,7 @@ void copy (int old, int length, int new, struct pcp_vars *pcp)
    exponent vector with base address pcp->lused in order to permit
    the result to be handed to echelon easily */
 
-void calculate_commutator (int format, struct pcp_vars *pcp)
+void calculate_commutator(int format, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -108,7 +112,7 @@ void calculate_commutator (int format, struct pcp_vars *pcp)
    int exp;
 
    total = 6 * lastg + 6;
-   if (is_space_exhausted (total, pcp))
+   if (is_space_exhausted(total, pcp))
       return;
 
    cp1 = pcp->submlg - lastg - 2;
@@ -121,18 +125,18 @@ void calculate_commutator (int format, struct pcp_vars *pcp)
    /* fudge the value of submlg because of possible call to power */
    pcp->submlg -= total;
 
-   read_value (TRUE, "Input number of components of commutator: ", &depth, 2);
+   read_value(TRUE, "Input number of components of commutator: ", &depth, 2);
 
    /* read in a and set it up at cp2 and cp3 */
    type = FIRST_ENTRY;
 
    if (format == BASIC)
-      read_word (stdin, disp, type, pcp);
+      read_word(stdin, disp, type, pcp);
    else
-      pretty_read_word (stdin, disp, type, pcp);
+      pretty_read_word(stdin, disp, type, pcp);
 
-   collect_word (ptr, cp2, pcp);
-   copy (cp2, lastg, cp3, pcp);
+   collect_word(ptr, cp2, pcp);
+   copy(cp2, lastg, cp3, pcp);
 
    type = NEXT_ENTRY;
    disp = y[ptr] + 1;
@@ -141,28 +145,28 @@ void calculate_commutator (int format, struct pcp_vars *pcp)
 
       /* read in next component, b, and set it up at cp1 and cp4 */
       if (format == BASIC)
-	 read_word (stdin, disp, type, pcp);
+         read_word(stdin, disp, type, pcp);
       else
-	 pretty_read_word (stdin, disp, type, pcp);
+         pretty_read_word(stdin, disp, type, pcp);
 
-      collect_word (ptr + disp, cp1, pcp);
-      copy (cp1, lastg, cp4, pcp);
+      collect_word(ptr + disp, cp1, pcp);
+      copy(cp1, lastg, cp4, pcp);
 
       /* solve the equation (ba) * x = ab to obtain [a, b] */
-      find_commutator (cp1, cp2, cp3, cp4, result, pcp);
+      find_commutator(cp1, cp2, cp3, cp4, result, pcp);
 
-      copy (result, lastg, cp2, pcp);
-      copy (result, lastg, cp3, pcp);
+      copy(result, lastg, cp2, pcp);
+      copy(result, lastg, cp3, pcp);
    }
 
-   read_value (TRUE, "Input required power of this commutator: ", &exp, 1);
-   power (exp, result, pcp);
+   read_value(TRUE, "Input required power of this commutator: ", &exp, 1);
+   power(exp, result, pcp);
 
    /* print the commutator */
-   setup_word_to_print ("commutator", result, ptr, pcp);
+   setup_word_to_print("commutator", result, ptr, pcp);
 
    /* copy result to pcp->lused */
-   copy (result, lastg, pcp->lused, pcp);
+   copy(result, lastg, pcp->lused, pcp);
 
    /* reset the value of submlg */
    pcp->submlg += total;

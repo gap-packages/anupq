@@ -13,7 +13,7 @@
 
 /* set maximal occurrences for pcp generators of weight one */
 
-void set_maxoccur (struct pcp_vars *pcp)
+void set_maxoccur(struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -26,12 +26,12 @@ void set_maxoccur (struct pcp_vars *pcp)
    Logical zero = FALSE;
    Logical flag;
 
-   printf ("Input occurrence limits for each of the %d", nmr_of_generators);
-   printf (" pcp generators of weight one: ");
+   printf("Input occurrence limits for each of the %d", nmr_of_generators);
+   printf(" pcp generators of weight one: ");
 
    for (i = 1; i <= nmr_of_generators; i++) {
       flag = (i == nmr_of_generators) ? TRUE : FALSE;
-      read_value (flag, "", &y[moccur + i], 0);
+      read_value(flag, "", &y[moccur + i], 0);
       sum += y[moccur + i];
       zero |= (y[moccur + i] == 0);
    }

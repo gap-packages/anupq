@@ -23,96 +23,97 @@
    coefficients of the p-adic expansion of k, and within the
    p-group b = a * im(j) */
 
-void extend_representation (struct pcp_vars *pcp)
+void extend_representation(struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
-   int *expand;                 /* array to store p-adic expansion */
+   int *expand; /* array to store p-adic expansion */
    register int rank = y[pcp->clend + pcp->cc];
    register int i, j, gen, sum;
    int bound;
    int **M;
    int index;
-   int *powers;                 /* store powers of p to avoid recomputation */
+   int *powers; /* store powers of p to avoid recomputation */
    register int p = pcp->p;
    int cp = pcp->lused;
    int ptr;
 
-   bound = int_power (p, rank);
+   bound = int_power(p, rank);
 
    /* set up room to store p-adic expansion and powers of p */
-   expand = allocate_vector (rank, 0, TRUE);
-   powers = allocate_vector (rank, 0, FALSE);
+   expand = allocate_vector(rank, 0, TRUE);
+   powers = allocate_vector(rank, 0, FALSE);
 
    for (i = 0; i < rank; ++i)
-      powers[i] = int_power (p, i);
+      powers[i] = int_power(p, i);
 
    /* set up matrix to store results */
-   M = allocate_matrix (bound, 2 * pcp->ndgen, 0, FALSE);
+   M = allocate_matrix(bound, 2 * pcp->ndgen, 0, FALSE);
 
    for (i = 0; i < bound; ++i) {
 
       /* find the p-adic expansion of i */
-      compute_padic (powers, i, rank - 1, p, expand);
+      compute_padic(powers, i, rank - 1, p, expand);
 
       /* now process each defining generator and its inverse in turn */
 
       for (gen = -pcp->ndgen; gen <= pcp->ndgen; ++gen) {
 
-	 if (gen == 0) continue;
+         if (gen == 0)
+            continue;
 
-	 /* now copy p-adic expansion to y */
-	 for (j = 0; j < rank; ++j)
-	    y[cp + j + 1] = expand[j];
+         /* now copy p-adic expansion to y */
+         for (j = 0; j < rank; ++j)
+            y[cp + j + 1] = expand[j];
 
-#if defined (DEBUG)
-	 printf ("processing generator %d \n", gen);
-	 printf ("Stored p-adic expansion for %d in y is ", i);
-	 for (j = 1; j <= pcp->lastg; ++j) {
-	    printf ("%d ", y[cp + j]);
-	 }
-	 printf ("\n");
+#if defined(DEBUG)
+         printf("processing generator %d \n", gen);
+         printf("Stored p-adic expansion for %d in y is ", i);
+         for (j = 1; j <= pcp->lastg; ++j) {
+            printf("%d ", y[cp + j]);
+         }
+         printf("\n");
 #endif
 
-	 /* look up image of gen which is stored as a generator-exponent
-	    string in y; post-multiply the p-adic expansion by this image */
+         /* look up image of gen which is stored as a generator-exponent
+            string in y; post-multiply the p-adic expansion by this image */
 
-	 ptr = y[pcp->dgen + gen];
-	 if (ptr != 0)
-	    collect (ptr, cp, pcp);
+         ptr = y[pcp->dgen + gen];
+         if (ptr != 0)
+            collect(ptr, cp, pcp);
 
-#if defined (DEBUG)
-	 printf ("result of collection is ");
-	 for (j = 1; j <= pcp->lastg; ++j) {
-	    printf ("%d ", y[cp + j]);
-	 }
-	 printf ("\n");
+#if defined(DEBUG)
+         printf("result of collection is ");
+         for (j = 1; j <= pcp->lastg; ++j) {
+            printf("%d ", y[cp + j]);
+         }
+         printf("\n");
 #endif
 
-	 /* store the result of the multiplication */
-	 sum = 0;
-	 for (j = 1; j <= pcp->lastg; ++j)
-	    sum += (y[cp + j] * powers[j - 1]);
+         /* store the result of the multiplication */
+         sum = 0;
+         for (j = 1; j <= pcp->lastg; ++j)
+            sum += (y[cp + j] * powers[j - 1]);
 
-	 index = (gen < 0) ? 2 * (-gen) - 1: 2 * gen - 2;
-	 M[i][index] = sum;
+         index = (gen < 0) ? 2 * (-gen) - 1 : 2 * gen - 2;
+         M[i][index] = sum;
       }
 
       for (j = 0; j < rank; ++j)
-	 expand[j] = 0;
+         expand[j] = 0;
    }
 
-   printf ("The extension matrix is\n");
-   print_matrix (M, bound, 2 * pcp->ndgen);
+   printf("The extension matrix is\n");
+   print_matrix(M, bound, 2 * pcp->ndgen);
 
-   free_vector (expand, 0);
-   free_vector (powers, 0);
-   free_matrix (M, bound, 0);
+   free_vector(expand, 0);
+   free_vector(powers, 0);
+   free_matrix(M, bound, 0);
 }
 
 /* compute p-adic expansion of x, where x < p^(k + 1) */
 
-void compute_padic (int *powers, int x, int k, int p, int *expand)
+void compute_padic(int *powers, int x, int k, int p, int *expand)
 {
    register int alpha;
    register int val;
@@ -120,12 +121,12 @@ void compute_padic (int *powers, int x, int k, int p, int *expand)
    while (x > 0 && k >= 0) {
       val = powers[k];
       if (val <= x) {
-	 /* find largest multiple of p^k < x */
-	 alpha = p - 1;
-	 while (alpha * val > x)
-	    --alpha;
-	 expand[k] = alpha;
-	 x -= alpha * val;
+         /* find largest multiple of p^k < x */
+         alpha = p - 1;
+         while (alpha * val > x)
+            --alpha;
+         expand[k] = alpha;
+         x -= alpha * val;
       }
       --k;
    }

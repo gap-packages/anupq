@@ -12,7 +12,7 @@
 
 /* remove any class pcp->cc + 1 part on the value represented by y[ptr] */
 
-void down_class (int ptr, struct pcp_vars *pcp)
+void down_class(int ptr, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -26,17 +26,17 @@ void down_class (int ptr, struct pcp_vars *pcp)
    p1 = ptr;
    if (y[p1] >= 0) {
       if (y[p1] > lastg)
-	 y[p1] = 0;
+         y[p1] = 0;
       return;
    }
 
    p2 = -y[p1];
    count = y[p2 + 1];
    count1 = count;
-   while (FIELD2 (y[p2 + count1 + 1]) > lastg) {
+   while (FIELD2(y[p2 + count1 + 1]) > lastg) {
       if (--count1 <= 0) {
-	 y[p2] = y[p1] = 0;
-	 return;
+         y[p2] = y[p1] = 0;
+         return;
       }
    }
 
@@ -45,7 +45,7 @@ void down_class (int ptr, struct pcp_vars *pcp)
 
    if (count == count1 + 1)
       /* only 1 generator of class pcp->cc + 1 found; mark
-	 it with a -1 header block */
+         it with a -1 header block */
       y[p2 + count1 + 2] = -1;
    else {
       y[p2 + count1 + 2] = 0;

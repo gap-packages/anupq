@@ -16,7 +16,7 @@
    address cp by gen^(-exp), where gen is a pcp-generator
    and exp is a positive integer in the range 0 to p */
 
-void invert_generator (int gen, int exp, int cp, struct pcp_vars *pcp)
+void invert_generator(int gen, int exp, int cp, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -43,9 +43,9 @@ void invert_generator (int gen, int exp, int cp, struct pcp_vars *pcp)
    for (i = gen; i <= lastg; ++i) {
       entry = y[cp1 + i];
       if (entry != 0) {
-	 y[inverse + 2] = PACK2 (p - entry, i);
-	 collect (-inverse, cp, pcp);
-	 collect (-inverse, cp1, pcp);
+         y[inverse + 2] = PACK2(p - entry, i);
+         collect(-inverse, cp, pcp);
+         collect(-inverse, cp1, pcp);
       }
    }
 }
@@ -53,7 +53,7 @@ void invert_generator (int gen, int exp, int cp, struct pcp_vars *pcp)
 /* calculate the inverse of the string with base address
    y[str], using the collected part referenced by cp */
 
-void invert_string (int str, int cp, struct pcp_vars *pcp)
+void invert_string(int str, int cp, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -61,17 +61,17 @@ void invert_string (int str, int cp, struct pcp_vars *pcp)
    register int gen, exp;
 #include "access.h"
 
-   for (length = abs (y[str + 1]); length > 0; --length) {
-      gen = FIELD2 (y[str + length]);
-      exp = FIELD1 (y[str + length]);
-      invert_generator (gen, exp, cp, pcp);
+   for (length = abs(y[str + 1]); length > 0; --length) {
+      gen = FIELD2(y[str + length]);
+      exp = FIELD1(y[str + length]);
+      invert_generator(gen, exp, cp, pcp);
    }
 }
 
 /* invert word with base address ptr; store result
    as exponent vector with base address cp */
 
-void invert_word (int ptr, int cp, struct pcp_vars *pcp)
+void invert_word(int ptr, int cp, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -82,19 +82,19 @@ void invert_word (int ptr, int cp, struct pcp_vars *pcp)
    for (; length > 1; --length) {
       gen = y[ptr + length];
       if (gen < 0)
-	 collect (-gen, cp, pcp);
+         collect(-gen, cp, pcp);
       else
-	 invert_generator (gen, 1, cp, pcp);
+         invert_generator(gen, 1, cp, pcp);
    }
 
    exp = y[ptr + 1];
    if (exp != 1)
-      calculate_power (exp, ptr, cp, pcp);
+      calculate_power(exp, ptr, cp, pcp);
 }
 
 /* read word, compute its inverse, and print out result */
 
-void setup_word_to_invert (struct pcp_vars *pcp)
+void setup_word_to_invert(struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -108,9 +108,9 @@ void setup_word_to_invert (struct pcp_vars *pcp)
    for (i = 1; i <= pcp->lastg; ++i)
       y[cp + i] = 0;
 
-   read_word (stdin, disp, type, pcp);
-   invert_word (ptr, cp, pcp);
+   read_word(stdin, disp, type, pcp);
+   invert_word(ptr, cp, pcp);
 
    str = ptr + y[ptr] + 1;
-   setup_word_to_print ("inverse", cp, str, pcp);
+   setup_word_to_print("inverse", cp, str, pcp);
 }

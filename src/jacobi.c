@@ -22,7 +22,7 @@
    if ptr = 0, use this equation to check consistency so we
    calculate a new relation among the class pcp->cc generators */
 
-void jacobi (int c, int b, int a, int ptr, struct pcp_vars *pcp)
+void jacobi(int c, int b, int a, int ptr, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -47,8 +47,8 @@ void jacobi (int c, int b, int a, int ptr, struct pcp_vars *pcp)
 
 #include "access.h"
 
-#if defined (GROUP)
-   if (is_space_exhausted (2 * lastg + 3, pcp))
+#if defined(GROUP)
+   if (is_space_exhausted(2 * lastg + 3, pcp))
       return;
 #endif
 
@@ -66,53 +66,50 @@ void jacobi (int c, int b, int a, int ptr, struct pcp_vars *pcp)
 
    if (c == b) {
       ycol = y[p_power + b];
-      collect (ycol, cp1, pcp);
-      collect (a, cp1, pcp);
+      collect(ycol, cp1, pcp);
+      collect(a, cp1, pcp);
 
       if (b != a) {
-	 y[cp2 + b] = pm1;
-	 p1 = y[p_pcomm + b];
-	 commba = y[p1 + a];
-	 collect (a, cp2, pcp);
-	 collect (b, cp2, pcp);
-	 collect (commba, cp2, pcp);
+         y[cp2 + b] = pm1;
+         p1 = y[p_pcomm + b];
+         commba = y[p1 + a];
+         collect(a, cp2, pcp);
+         collect(b, cp2, pcp);
+         collect(commba, cp2, pcp);
+      } else {
+         /* we are processing (a^p) a = a (a^p) */
+         ycol = y[p_power + a];
+         y[cp2 + a] = 1;
+         collect(ycol, cp2, pcp);
       }
-      else  {
-	 /* we are processing (a^p) a = a (a^p) */
-	 ycol = y[p_power + a];
-	 y[cp2 + a] = 1;
-	 collect (ycol, cp2, pcp);
-      }
-   }
-   else {
+   } else {
       if (b - a > 0) {
-#if defined (GROUP)
-	 /* calculate the class pcp->cc part of the jacobi relation
-	    (cb) a = c (ba); set up a as the collected part for lhs */
-	 y[cp1 + c] = 1;
-	 collect (b, cp1, pcp);
-	 collect (a, cp1, pcp);
-	 y[cp2 + c] = 1;
-	 collect (a, cp2, pcp);
-	 collect (b, cp2, pcp);
-	 p1 = y[p_pcomm + b];
-	 commba = y[p1 + a];
-	 collect (commba, cp2, pcp);
+#if defined(GROUP)
+         /* calculate the class pcp->cc part of the jacobi relation
+            (cb) a = c (ba); set up a as the collected part for lhs */
+         y[cp1 + c] = 1;
+         collect(b, cp1, pcp);
+         collect(a, cp1, pcp);
+         y[cp2 + c] = 1;
+         collect(a, cp2, pcp);
+         collect(b, cp2, pcp);
+         p1 = y[p_pcomm + b];
+         commba = y[p1 + a];
+         collect(commba, cp2, pcp);
 #endif
-      }
-      else {
-	 /* calculate the class pcp->cc part of the jacobi relation
-	    (ca) a^(p - 1) = c (a^p); first collect rhs */
-	 ycol = y[p_power + a];
-	 y[cp2 + c] = 1;
-	 collect (ycol, cp2, pcp);
+      } else {
+         /* calculate the class pcp->cc part of the jacobi relation
+            (ca) a^(p - 1) = c (a^p); first collect rhs */
+         ycol = y[p_power + a];
+         y[cp2 + c] = 1;
+         collect(ycol, cp2, pcp);
 
-	 /* collect lhs; set up c as collected part */
-	 y[cp1 + c] = 1;
-	 collect (a, cp1, pcp);
-	 y[unc] = 1;
-	 y[unc + 1] = PACK2 (pm1, a);
-	 collect (-unc + 1, cp1, pcp);
+         /* collect lhs; set up c as collected part */
+         y[cp1 + c] = 1;
+         collect(a, cp1, pcp);
+         y[unc] = 1;
+         y[unc + 1] = PACK2(pm1, a);
+         collect(-unc + 1, cp1, pcp);
       }
    }
 
@@ -120,60 +117,58 @@ void jacobi (int c, int b, int a, int ptr, struct pcp_vars *pcp)
 
    if ((p1 = ptr) > 0) {
       /* we are filling in the tail on y[p1]; convert the class pcp->cc
-	 part to string form in y[cp1 + 2 + 1] to y[cp1 + 2 + count]
-	 where count is the string length */
+         part to string form in y[cp1 + 2 + 1] to y[cp1 + 2 + count]
+         where count is the string length */
 
       count = 0;
       for (i = pcp->ccbeg; i <= lastg; i++) {
-	 k = y[cp1 + i] - y[cp2 + i];
-	 if (k != 0) {
-	    if (k < 0)
-	       k += prime;
-	    ++count;
-	    y[cp1 + 2 + count] = PACK2 (k, i);
-	 }
+         k = y[cp1 + i] - y[cp2 + i];
+         if (k != 0) {
+            if (k < 0)
+               k += prime;
+            ++count;
+            y[cp1 + 2 + count] = PACK2(k, i);
+         }
       }
 
       if (count > 0) {
-	 /* y[p1] was trivial to class pcp->cc - 1 so create a new entry */
-	 if (y[p1] >= 0) {
-	    y[p1] = -(cp1 + 1);
-	    y[cp1 + 1] = p1;
-	    y[cp1 + 2] = count;
-	    pcp->lused += count + 2;
-	 }
-	 else {
-	    /* the class pcp->cc part is nontrivial so make room for
-	       lower class terms */
-	    address = -y[p1];
-	    count2 = y[address + 1];
+         /* y[p1] was trivial to class pcp->cc - 1 so create a new entry */
+         if (y[p1] >= 0) {
+            y[p1] = -(cp1 + 1);
+            y[cp1 + 1] = p1;
+            y[cp1 + 2] = count;
+            pcp->lused += count + 2;
+         } else {
+            /* the class pcp->cc part is nontrivial so make room for
+               lower class terms */
+            address = -y[p1];
+            count2 = y[address + 1];
 
-	    /* move class pcp->cc part up */
-	    offset = cp1 + count + 3;
-	    for (i = 1; i <= count; i++)
-	       y[offset + count2 - i] = y[offset - i];
+            /* move class pcp->cc part up */
+            offset = cp1 + count + 3;
+            for (i = 1; i <= count; i++)
+               y[offset + count2 - i] = y[offset - i];
 
-	    /* copy in lower class terms */
-	    for (i = 1; i <= count2; i++)
-	       y[cp1 + 2 + i] = y[address + i + 1];
+            /* copy in lower class terms */
+            for (i = 1; i <= count2; i++)
+               y[cp1 + 2 + i] = y[address + i + 1];
 
-	    /* create new header block */
-	    y[cp1 + 1] = y[address];
-	    y[cp1 + 2] = count + count2;
+            /* create new header block */
+            y[cp1 + 1] = y[address];
+            y[cp1 + 2] = count + count2;
 
-	    /* deallocate old entry */
-	    y[address] = 0;
+            /* deallocate old entry */
+            y[address] = 0;
 
-	    /* set up pointer to new entry */
-	    y[p1] = -(cp1 + 1);
-	    pcp->lused += count + count2 + 2;
-	 }
+            /* set up pointer to new entry */
+            y[p1] = -(cp1 + 1);
+            pcp->lused += count + count2 + 2;
+         }
       }
-   }
-   else {
+   } else {
       /* we are checking consistency equations */
-      echelon (pcp);
+      echelon(pcp);
       if ((pcp->fullop && pcp->eliminate_flag) || pcp->diagn)
-	 text (9, c, b, a, 0);
+         text(9, c, b, a, 0);
    }
 }

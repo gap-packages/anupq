@@ -12,10 +12,10 @@
 
 /* close file */
 
-void CloseFile (FILE* file)
+void CloseFile(FILE *file)
 {
    if (fclose(file) != 0) {
-      perror (NULL);
-      exit (FAILURE);
+      perror(NULL);
+      exit(FAILURE);
    }
 }

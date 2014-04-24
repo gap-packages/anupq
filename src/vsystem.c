@@ -28,32 +28,29 @@
 
 int vsystem(char *string)
 {
-   int             status;
-   int             pid;
-   void            (*f1)();
-   void            (*f2)();
+   int status;
+   int pid;
+   void (*f1)();
+   void (*f2)();
 
-   if( (pid = vfork()) == 0 )
-   {
-      execl( "/bin/sh", "sh", "-c", string, (char*) 0 );
-      _exit( 0x7f );
-   }
-   else if ( pid == -1 )
+   if ((pid = vfork()) == 0) {
+      execl("/bin/sh", "sh", "-c", string, (char *)0);
+      _exit(0x7f);
+   } else if (pid == -1)
       return -1;
-   else
-   {
-      f1 = signal( SIGINT,  SIG_IGN );
-      f2 = signal( SIGQUIT, SIG_IGN );
+   else {
+      f1 = signal(SIGINT, SIG_IGN);
+      f2 = signal(SIGQUIT, SIG_IGN);
 #ifdef HAVE_WAITPID
-      pid = waitpid( pid, &status, 0 );
+      pid = waitpid(pid, &status, 0);
 #elif defined(HAVE_WAIT4)
-      pid = wait4( pid, &status, 0, 0 );
+      pid = wait4(pid, &status, 0, 0);
 #else
-#     error At least one of waitpid or wait4 must be available
+#error At least one of waitpid or wait4 must be available
 #endif
-      signal( SIGQUIT, f2 );
-      signal( SIGINT, f1 );
-      if( pid != -1 )
+      signal(SIGQUIT, f2);
+      signal(SIGINT, f1);
+      if (pid != -1)
          return WEXITSTATUS(status);
       else
          return -1;

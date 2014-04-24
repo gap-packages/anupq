@@ -19,7 +19,7 @@
    and try again; if there is still no room, report this,
    set pcp->overflow TRUE, and return TRUE */
 
-Logical is_space_exhausted (int required, struct pcp_vars *pcp)
+Logical is_space_exhausted(int required, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -29,12 +29,12 @@ Logical is_space_exhausted (int required, struct pcp_vars *pcp)
       return FALSE;
 
    /* not enough room currently available, so we compact tables */
-   compact (pcp);
+   compact(pcp);
    if (pcp->lused + required - pcp->subgrp <= 0)
       return FALSE;
    pcp->overflow = TRUE;
    /* number of generators in last class */
    remain = pcp->lastg - y[pcp->clend + pcp->cc - 1];
-   text (11, remain, 0, 0, 0);
+   text(11, remain, 0, 0, 0);
    return TRUE;
 }

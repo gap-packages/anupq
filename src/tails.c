@@ -17,7 +17,11 @@
 
 /* introduce tails for the class work_class part of class pcp->cc */
 
-void tails (int type, int work_class, int start_weight, int end_weight, struct pcp_vars *pcp)
+void tails(int type,
+           int work_class,
+           int start_weight,
+           int end_weight,
+           struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -28,7 +32,7 @@ void tails (int type, int work_class, int start_weight, int end_weight, struct p
    register int nmr_at_start = pcp->lastg;
    register int final_class = work_class - 1;
    register int start = y[class_end + final_class - 1] + 1;
-   register int end   = y[class_end + final_class];
+   register int end = y[class_end + final_class];
    register int f, ff;
 
    register int s, bound;
@@ -44,79 +48,78 @@ void tails (int type, int work_class, int start_weight, int end_weight, struct p
    if (type == NEW_TAILS || type == BOTH_TAILS) {
 
       /* first, introduce left-normed commutators of class
-	 work_class as generators or pseudo-generators */
+         work_class as generators or pseudo-generators */
 
       for (f = start; f <= end; f++) {
-	 bound = MIN(f - 1, y[class_end + 1]);
-	 if (bound > 0) {
-	    p1 = y[pcp->ppcomm + f];
-	    for (s = 1; s <= bound; s++) {
-	       value = y[p1 + s];
-	       if (value == 0)
-		  /* we are inserting generators or pseudo-generators with
-		     old entry trivial; if we are inserting pseudo-generators
-		     we do not insert one if (f, s) is defining */
-		  create_tail (p1 + s, f, s, pcp);
-	       else if (value < 0)
-		  /* old entry was non-trivial so we deallocate it
-		     and insert pseudo-generator */
-		  extend_tail (p1 + s, f, s, pcp);
-	       if (pcp->overflow)
-		  return;
-	       lastg = pcp->lastg;
-	    }
-	 }
+         bound = MIN(f - 1, y[class_end + 1]);
+         if (bound > 0) {
+            p1 = y[pcp->ppcomm + f];
+            for (s = 1; s <= bound; s++) {
+               value = y[p1 + s];
+               if (value == 0)
+                  /* we are inserting generators or pseudo-generators with
+                     old entry trivial; if we are inserting pseudo-generators
+                     we do not insert one if (f, s) is defining */
+                  create_tail(p1 + s, f, s, pcp);
+               else if (value < 0)
+                  /* old entry was non-trivial so we deallocate it
+                     and insert pseudo-generator */
+                  extend_tail(p1 + s, f, s, pcp);
+               if (pcp->overflow)
+                  return;
+               lastg = pcp->lastg;
+            }
+         }
       }
 
-#if defined (GROUP)
+#if defined(GROUP)
 #ifndef EXPONENT_P
       /* now, introduce pth powers of final_class generators which
-	 are pth powers or correspond to defining generators */
+         are pth powers or correspond to defining generators */
 
       if (final_class == 1)
-	 ff = 1;
+         ff = 1;
       else {
-	 ff = end;
-	 while (PART3 (y[structure + ff]) == 0 && --ff >= start)
-	    ;
-	 if (ff != end)
-	    ++ff;
-	 else
-	    equal = TRUE;
+         ff = end;
+         while (PART3(y[structure + ff]) == 0 && --ff >= start)
+            ;
+         if (ff != end)
+            ++ff;
+         else
+            equal = TRUE;
       }
 
       if (!equal) {
-	 for (f = ff; f <= end; f++) {
-	    /* f is a pth power or corresponds to a defining generator;
-	       if we are inserting pseudo-generators, we do not insert
-	       one if f^p is defining */
-	    value = y[pcp->ppower + f];
-	    if (value == 0)
-	       /* we are inserting generators or pseudo-generators
-		  with old entry trivial */
-	       create_tail (pcp->ppower + f, f, 0, pcp);
-	    else if (value < 0)
-	       /* old entry was non-trivial so we deallocate it
-		  and insert pseudo-generator */
-	       extend_tail (pcp->ppower + f, f, 0, pcp);
-	    if (pcp->overflow)
-	       return;
-	    lastg = pcp->lastg;
-	 }
+         for (f = ff; f <= end; f++) {
+            /* f is a pth power or corresponds to a defining generator;
+               if we are inserting pseudo-generators, we do not insert
+               one if f^p is defining */
+            value = y[pcp->ppower + f];
+            if (value == 0)
+               /* we are inserting generators or pseudo-generators
+                  with old entry trivial */
+               create_tail(pcp->ppower + f, f, 0, pcp);
+            else if (value < 0)
+               /* old entry was non-trivial so we deallocate it
+                  and insert pseudo-generator */
+               extend_tail(pcp->ppower + f, f, 0, pcp);
+            if (pcp->overflow)
+               return;
+            lastg = pcp->lastg;
+         }
       }
 #endif
 #endif
-
    }
 
    if (type == COMPUTE_TAILS || type == BOTH_TAILS) {
 
       /* calculate pth powers of class final_class generators which
-	 are commutators by doing the appropriate collections */
+         are commutators by doing the appropriate collections */
       if (final_class != 1)
-	 calculate_tails (final_class, start_weight, end_weight, pcp);
+         calculate_tails(final_class, start_weight, end_weight, pcp);
       if (pcp->overflow)
-	 return;
+         return;
    }
 
    pcp->submlg = pcp->subgrp - lastg;
@@ -129,16 +132,20 @@ void tails (int type, int work_class, int start_weight, int end_weight, struct p
 
    /* report on the number of new generators added */
    if ((pcp->fullop || pcp->diagn) && type != COMPUTE_TAILS)
-      printf ("The number of new generators introduced for weight %d is %d\n",
-	      work_class, pcp->lastg - nmr_at_start);
+      printf("The number of new generators introduced for weight %d is %d\n",
+             work_class,
+             pcp->lastg - nmr_at_start);
 }
 
-#if !defined (TAILS_FILTER)
+#if !defined(TAILS_FILTER)
 
 /* calculate pth powers of class final_class generators which
    are commutators by doing the appropriate collections */
 
-void calculate_tails (int final_class, int start_weight, int end_weight, struct pcp_vars *pcp)
+void calculate_tails(int final_class,
+                     int start_weight,
+                     int end_weight,
+                     struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -147,7 +154,7 @@ void calculate_tails (int final_class, int start_weight, int end_weight, struct 
 
    register int f;
    register int start = y[class_end + final_class - 1] + 1;
-   register int end   = y[class_end + final_class];
+   register int end = y[class_end + final_class];
 
    register int s, s1, s2;
    register int start_class = 1;
@@ -158,32 +165,33 @@ void calculate_tails (int final_class, int start_weight, int end_weight, struct 
 
 #include "access.h"
 
-#if defined (GROUP)
+#if defined(GROUP)
 
    if (pcp->fullop || pcp->diagn)
-      printf ("Processing tails for generators of weight %d and %d\n",
-	      final_class, 1);
+      printf("Processing tails for generators of weight %d and %d\n",
+             final_class,
+             1);
 
    for (f = start; f <= end; f++) {
 
 #ifdef DEBUG
-      printf ("Processing generator f = %d, Lused = %d\n", f, pcp->lused);
+      printf("Processing generator f = %d, Lused = %d\n", f, pcp->lused);
 #endif
       value = y[structure + f];
-      a = PART3 (value);
+      a = PART3(value);
       if (a == 0)
-	 break;
-      b = PART2 (value);
+         break;
+      b = PART2(value);
 
       /* f is the commutator (b, a);
-	 calculate the class current_class part of f^p by collecting
-	 (b^p) a = b^(p-1) (ba); by formal collection, we see that
-	 the class current_class part of f^p is obtained by subtracting
-	 (modulo p) the rhs of the above equation from the lhs */
+         calculate the class current_class part of f^p by collecting
+         (b^p) a = b^(p-1) (ba); by formal collection, we see that
+         the class current_class part of f^p is obtained by subtracting
+         (modulo p) the rhs of the above equation from the lhs */
 
-      jacobi (b, b, a, pcp->ppower + f, pcp);
+      jacobi(b, b, a, pcp->ppower + f, pcp);
       if (pcp->overflow)
-	 return;
+         return;
    }
 #endif
 
@@ -194,8 +202,9 @@ void calculate_tails (int final_class, int start_weight, int end_weight, struct 
    while (--final_class >= ++start_class) {
 
       if (pcp->fullop || pcp->diagn)
-	 printf ("Processing tails for generators of weight %d and %d\n",
-		 final_class, start_class);
+         printf("Processing tails for generators of weight %d and %d\n",
+                final_class,
+                start_class);
 
       start = y[class_end + final_class - 1] + 1;
       end = y[class_end + final_class];
@@ -203,35 +212,35 @@ void calculate_tails (int final_class, int start_weight, int end_weight, struct 
 
       for (f = start; f <= end; f++) {
 #ifdef DEBUG
-	 printf ("Processing generator f = %d, Lused = %d\n", f, pcp->lused);
+         printf("Processing generator f = %d, Lused = %d\n", f, pcp->lused);
 #endif
-	 s2 = MIN(f - 1, y[class_end + start_class]);
-	 if (s2 - s1 < 0)
-	    continue;
-	 p1 = y[pcp->ppcomm + f];
-	 for (s = s1; s <= s2; s++) {
-	    /* insert the class current_class part on (f, s) */
-	    value = y[structure + s];
-	    b = PART2 (value);
-	    a = PART3 (value);
-	    if (a == 0)
-	       a = b;
-	    else if (pcp->metabelian && PART3 (y[structure + f]) != 0)
-	       continue;
+         s2 = MIN(f - 1, y[class_end + start_class]);
+         if (s2 - s1 < 0)
+            continue;
+         p1 = y[pcp->ppcomm + f];
+         for (s = s1; s <= s2; s++) {
+            /* insert the class current_class part on (f, s) */
+            value = y[structure + s];
+            b = PART2(value);
+            a = PART3(value);
+            if (a == 0)
+               a = b;
+            else if (pcp->metabelian && PART3(y[structure + f]) != 0)
+               continue;
 
-	    /* s = (b, a); calculate the class current_class part
-	       of (f, (b, a)) by collecting (fb) a = f (ba) or the
-	       class current_class part of (f, (b^p)) by collecting
-	       (fb) b^(p - 1) = f (b^p);
-	       since we require only the class current_class part -
-	       the rest has been computed earlier -  we calculate it
-	       by subtracting (modulo p) the rhs of the above equation
-	       from the lhs (proof by formal collection) */
+            /* s = (b, a); calculate the class current_class part
+               of (f, (b, a)) by collecting (fb) a = f (ba) or the
+               class current_class part of (f, (b^p)) by collecting
+               (fb) b^(p - 1) = f (b^p);
+               since we require only the class current_class part -
+               the rest has been computed earlier -  we calculate it
+               by subtracting (modulo p) the rhs of the above equation
+               from the lhs (proof by formal collection) */
 
-	    jacobi (f, b, a, p1 + s, pcp);
-	    if (pcp->overflow)
-	       return;
-	 }
+            jacobi(f, b, a, p1 + s, pcp);
+            if (pcp->overflow)
+               return;
+         }
       }
    }
 }
@@ -240,7 +249,7 @@ void calculate_tails (int final_class, int start_weight, int end_weight, struct 
 
 /* insert a new generator or pseudo-generator */
 
-void create_tail (int address, int f, int s, struct pcp_vars *pcp)
+void create_tail(int address, int f, int s, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -258,7 +267,7 @@ void create_tail (int address, int f, int s, struct pcp_vars *pcp)
    pcp->lastg++;
    lastg = pcp->lastg;
    y[address] = lastg;
-   y[structure + lastg] = PACK3 (0, f, s) + INSWT (current_class);
+   y[structure + lastg] = PACK3(0, f, s) + INSWT(current_class);
 
    if (pcp->nocset == 0)
       return;
@@ -268,11 +277,11 @@ void create_tail (int address, int f, int s, struct pcp_vars *pcp)
       y[lused + current_class] -- the entry y[lused + current_class + gen]
       is the number of occurrences of defining generator gen */
 
-   if (is_space_exhausted (current_class + pcp->ndgen, pcp))
+   if (is_space_exhausted(current_class + pcp->ndgen, pcp))
       return;
 
    lused = pcp->lused;
-   pointer = find_definition (lastg, lused, current_class, pcp);
+   pointer = find_definition(lastg, lused, current_class, pcp);
    for (i = 1, bound = pcp->ndgen; i <= bound; i++)
       y[lused + current_class + i] = 0;
    for (i = pointer, bound = lused + current_class; i <= bound; i++)
@@ -280,7 +289,7 @@ void create_tail (int address, int f, int s, struct pcp_vars *pcp)
 
    /* see that the number of occurrences of a defining generator
       passes some test that has been set up in option */
-   if (is_genlim_exceeded (pcp))
+   if (is_genlim_exceeded(pcp))
       return;
 
    /* the test wasn't passed, so we discard the new generator */
@@ -291,7 +300,7 @@ void create_tail (int address, int f, int s, struct pcp_vars *pcp)
 /* insert a new pseudo-generator, where the old
    entry was non-trivial and must be deallocated */
 
-void extend_tail (int address, int f, int s, struct pcp_vars *pcp)
+void extend_tail(int address, int f, int s, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -304,7 +313,7 @@ void extend_tail (int address, int f, int s, struct pcp_vars *pcp)
 
 #include "access.h"
 
-   if (is_space_exhausted (pcp->ccbeg + 1, pcp))
+   if (is_space_exhausted(pcp->ccbeg + 1, pcp))
       return;
 
    lused = pcp->lused;
@@ -331,6 +340,6 @@ void extend_tail (int address, int f, int s, struct pcp_vars *pcp)
    /* add pseudo-generator */
    pcp->lastg++;
    lastg = pcp->lastg;
-   y[lused] = PACK2 (1, lastg);
-   y[pcp->structure + lastg] = PACK3 (0, f, s) + INSWT (current_class);
+   y[lused] = PACK2(1, lastg);
+   y[pcp->structure + lastg] = PACK3(0, f, s) + INSWT(current_class);
 }

@@ -16,7 +16,11 @@
 
 /* set up algorithm and print defaults for p-group generation calculation */
 
-void defaults_pga (int option, int *k, struct pga_vars *flag, struct pga_vars *pga, struct pcp_vars *pcp)
+void defaults_pga(int option,
+                  int *k,
+                  struct pga_vars *flag,
+                  struct pga_vars *pga,
+                  struct pcp_vars *pcp)
 {
    int default_algorithm;
    int default_output;
@@ -25,60 +29,70 @@ void defaults_pga (int option, int *k, struct pga_vars *flag, struct pga_vars *p
    int default_orbit_info;
    int default_automorphism_info;
 
-   set_defaults (flag);
+   set_defaults(flag);
 
    if (option == SINGLE_STAGE)
-      read_step_size (pga, pcp);
+      read_step_size(pga, pcp);
    flag->step_size = pga->step_size;
 
-   query_solubility (flag);
+   query_solubility(flag);
 
-   read_value (TRUE, "Do you want default algorithm? ",
-	       &default_algorithm, INT_MIN);
+   read_value(
+       TRUE, "Do you want default algorithm? ", &default_algorithm, INT_MIN);
    if (!default_algorithm) {
-      read_subgroup_rank (k);
+      read_subgroup_rank(k);
       if (flag->soluble)
-	 query_space_efficiency (flag);
-      query_terminal (flag);
-      query_exponent_law (flag);
-      query_metabelian_law (flag);
-   }
-   else {
+         query_space_efficiency(flag);
+      query_terminal(flag);
+      query_exponent_law(flag);
+      query_metabelian_law(flag);
+   } else {
       *k = 0;
    }
 
-   read_value (TRUE, "Do you want default output? ", &default_output, INT_MIN);
-   if (default_output) return;
+   read_value(TRUE, "Do you want default output? ", &default_output, INT_MIN);
+   if (default_output)
+      return;
 
-   read_value (TRUE, "Do you want default permutation group output? ",
-	       &default_perm_info, INT_MIN);
-   if (!default_perm_info)  {
-      query_degree_aut_information (flag);
-      query_perm_information (flag);
+   read_value(TRUE,
+              "Do you want default permutation group output? ",
+              &default_perm_info,
+              INT_MIN);
+   if (!default_perm_info) {
+      query_degree_aut_information(flag);
+      query_perm_information(flag);
    }
 
-   read_value (TRUE, "Do you want default orbit information? ",
-	       &default_orbit_info, INT_MIN);
+   read_value(TRUE,
+              "Do you want default orbit information? ",
+              &default_orbit_info,
+              INT_MIN);
    if (!default_orbit_info)
-      query_orbit_information (flag);
+      query_orbit_information(flag);
 
-   read_value (TRUE, "Do you want default group information? ",
-	       &default_group_info, INT_MIN);
+   read_value(TRUE,
+              "Do you want default group information? ",
+              &default_group_info,
+              INT_MIN);
    if (!default_group_info)
-      query_group_information (pcp->p, flag);
+      query_group_information(pcp->p, flag);
 
-   read_value (TRUE, "Do you want default automorphism group information? ",
-	       &default_automorphism_info, INT_MIN);
+   read_value(TRUE,
+              "Do you want default automorphism group information? ",
+              &default_automorphism_info,
+              INT_MIN);
    if (!default_automorphism_info)
-      query_aut_group_information (flag);
+      query_aut_group_information(flag);
 
-   read_value (TRUE, "Do you want algorithm trace information? ",
-	       &flag->trace, INT_MIN);
+   read_value(TRUE,
+              "Do you want algorithm trace information? ",
+              &flag->trace,
+              INT_MIN);
 }
 
 /* set printing and algorithm defaults up in flag structure for storage */
 
-void set_defaults (struct pga_vars *flag)
+void set_defaults(struct pga_vars *flag)
 {
    flag->print_extensions = FALSE;
    flag->print_automorphism_matrix = FALSE;
@@ -112,7 +126,7 @@ void set_defaults (struct pga_vars *flag)
 
 /* copy printing and algorithm defaults from flag structure to pga */
 
-void copy_flags (struct pga_vars *flag, struct pga_vars *pga)
+void copy_flags(struct pga_vars *flag, struct pga_vars *pga)
 {
    pga->print_extensions = flag->print_extensions;
    pga->print_automorphism_matrix = flag->print_automorphism_matrix;
@@ -148,58 +162,76 @@ void copy_flags (struct pga_vars *flag, struct pga_vars *pga)
 
 /* use space efficient option? */
 
-void query_space_efficiency (struct pga_vars *pga)
+void query_space_efficiency(struct pga_vars *pga)
 {
-   read_value (TRUE, "Space efficient computation? ",
-	       &pga->space_efficient, INT_MIN);
+   read_value(
+       TRUE, "Space efficient computation? ", &pga->space_efficient, INT_MIN);
 }
 
 /* orbit information to be printed */
 
-void query_orbit_information (struct pga_vars *pga)
+void query_orbit_information(struct pga_vars *pga)
 {
-   read_value (TRUE, "Summary of orbit information? ",
-	       &pga->print_orbit_summary, INT_MIN);
+   read_value(TRUE,
+              "Summary of orbit information? ",
+              &pga->print_orbit_summary,
+              INT_MIN);
 
-   read_value (TRUE, "Complete listing of orbits? ",
-	       &pga->print_orbits, INT_MIN);
+   read_value(
+       TRUE, "Complete listing of orbits? ", &pga->print_orbits, INT_MIN);
 
    pga->print_orbit_arrays = FALSE;
 }
 
 /* group information to be printed */
 
-void query_group_information (int p, struct pga_vars *pga)
+void query_group_information(int p, struct pga_vars *pga)
 {
-   read_value (TRUE, "Print standard matrix of allowable subgroup? ",
-	       &pga->print_subgroup, INT_MIN);
+   read_value(TRUE,
+              "Print standard matrix of allowable subgroup? ",
+              &pga->print_subgroup,
+              INT_MIN);
 
-   read_value (TRUE, "Presentation of reduced p-covering groups? ",
-	       &pga->print_reduced_cover, INT_MIN);
+   read_value(TRUE,
+              "Presentation of reduced p-covering groups? ",
+              &pga->print_reduced_cover,
+              INT_MIN);
 
-   read_value (TRUE, "Presentation of immediate descendants? ",
-	       &pga->print_group, INT_MIN);
+   read_value(TRUE,
+              "Presentation of immediate descendants? ",
+              &pga->print_group,
+              INT_MIN);
 
-   read_value (TRUE, "Print nuclear rank of descendants? ",
-	       &pga->print_nuclear_rank, INT_MIN);
+   read_value(TRUE,
+              "Print nuclear rank of descendants? ",
+              &pga->print_nuclear_rank,
+              INT_MIN);
 
-   read_value (TRUE, "Print p-multiplicator rank of descendants? ",
-	       &pga->print_multiplicator_rank, INT_MIN);
+   read_value(TRUE,
+              "Print p-multiplicator rank of descendants? ",
+              &pga->print_multiplicator_rank,
+              INT_MIN);
 }
 
 /* automorphism group information to be printed */
 
-void query_aut_group_information (struct pga_vars *pga)
+void query_aut_group_information(struct pga_vars *pga)
 {
-   read_value (TRUE, "Print commutator matrix? ",
-	       &pga->print_commutator_matrix, INT_MIN);
+   read_value(TRUE,
+              "Print commutator matrix? ",
+              &pga->print_commutator_matrix,
+              INT_MIN);
 
-   read_value (TRUE, "Automorphism group description of descendants? ",
-	       &pga->print_automorphisms, INT_MIN);
+   read_value(TRUE,
+              "Automorphism group description of descendants? ",
+              &pga->print_automorphisms,
+              INT_MIN);
 
 #ifdef HAVE_GMP
-   read_value (TRUE, "Automorphism group order of descendants? ",
-	       &pga->print_automorphism_order, INT_MIN);
+   read_value(TRUE,
+              "Automorphism group order of descendants? ",
+              &pga->print_automorphism_order,
+              INT_MIN);
 #endif
 
    pga->print_stabiliser_array = FALSE;
@@ -207,98 +239,106 @@ void query_aut_group_information (struct pga_vars *pga)
 
 /* degree and extended automorphism information to be printed */
 
-void query_degree_aut_information (struct pga_vars *pga)
+void query_degree_aut_information(struct pga_vars *pga)
 {
-   read_value (TRUE, "Print degree of permutation group? ",
-	       &pga->print_degree, INT_MIN);
+   read_value(TRUE,
+              "Print degree of permutation group? ",
+              &pga->print_degree,
+              INT_MIN);
 
-   read_value (TRUE, "Print extended automorphisms? ",
-	       &pga->print_extensions, INT_MIN);
+   read_value(
+       TRUE, "Print extended automorphisms? ", &pga->print_extensions, INT_MIN);
 }
 
 /* other permutation group information to be printed */
 
-void query_perm_information (struct pga_vars *pga)
+void query_perm_information(struct pga_vars *pga)
 {
-   read_value (TRUE, "Print automorphism matrices? ",
-	       &pga->print_automorphism_matrix, INT_MIN);
+   read_value(TRUE,
+              "Print automorphism matrices? ",
+              &pga->print_automorphism_matrix,
+              INT_MIN);
 
-   read_value (TRUE, "Print permutations? ", &pga->print_permutation, INT_MIN);
+   read_value(TRUE, "Print permutations? ", &pga->print_permutation, INT_MIN);
 }
 
 /* read step size */
 
-void read_step_size (struct pga_vars *pga, struct pcp_vars *pcp)
+void read_step_size(struct pga_vars *pga, struct pcp_vars *pcp)
 {
    Logical reading = TRUE;
 
    while (reading) {
-      read_value (TRUE, "Input step size: ", &pga->step_size, 1);
+      read_value(TRUE, "Input step size: ", &pga->step_size, 1);
       reading = (pga->step_size <= 0);
-      if (isatty (0)) reading = (reading || (pga->step_size > pcp->newgen));
+      if (isatty(0))
+         reading = (reading || (pga->step_size > pcp->newgen));
       if (reading)
-	 printf ("Error: step sizes range from 1 to %d only\n", pcp->newgen);
+         printf("Error: step sizes range from 1 to %d only\n", pcp->newgen);
       /*
-	if (reading = (pga->step_size <= 0 || pga->step_size > pcp->newgen))
-	printf ("Error: step sizes range from 1 to %d only\n", pcp->newgen);
-	*/
+        if (reading = (pga->step_size <= 0 || pga->step_size > pcp->newgen))
+        printf ("Error: step sizes range from 1 to %d only\n", pcp->newgen);
+        */
    }
 }
 
 /* read class bound */
 
-void read_class_bound (int *class_bound, struct pcp_vars *pcp)
+void read_class_bound(int *class_bound, struct pcp_vars *pcp)
 {
-   read_value (TRUE, "Input class bound on descendants: ",
-	       class_bound, pcp->cc);
+   read_value(TRUE, "Input class bound on descendants: ", class_bound, pcp->cc);
 }
 
 /* read order bound */
 
-void read_order_bound (int *order_bound, struct pcp_vars *pcp)
+void read_order_bound(int *order_bound, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
    int least_order = y[pcp->clend + pcp->cc - 1] + 1;
-   read_value (TRUE, "Input order bound on descendants: ",
-	       order_bound, least_order);
+   read_value(
+       TRUE, "Input order bound on descendants: ", order_bound, least_order);
 }
 
 /* read rank of initial-segment subgroup */
 
-void read_subgroup_rank (int *k)
+void read_subgroup_rank(int *k)
 {
-   read_value (TRUE, "Rank of the initial segment subgroup? ", k, 0);
+   read_value(TRUE, "Rank of the initial segment subgroup? ", k, 0);
    *k = MAX(0, *k - 1);
 }
 
 /* supply a PAG-generating sequence for automorphism group? */
 
-void query_solubility (struct pga_vars *pga)
+void query_solubility(struct pga_vars *pga)
 {
-   read_value (TRUE, "PAG-generating sequence for automorphism group? ",
-	       &pga->soluble, INT_MIN);
+   read_value(TRUE,
+              "PAG-generating sequence for automorphism group? ",
+              &pga->soluble,
+              INT_MIN);
 }
 
 /* completely process all (capable and terminal) descendants? */
 
-void query_terminal (struct pga_vars *pga)
+void query_terminal(struct pga_vars *pga)
 {
-   read_value (TRUE, "Completely process terminal descendants? ",
-	       &pga->terminal, INT_MIN);
+   read_value(TRUE,
+              "Completely process terminal descendants? ",
+              &pga->terminal,
+              INT_MIN);
 }
 
 /* set exponent law for all descendants to satisfy */
 
-void query_exponent_law (struct pga_vars *pga)
+void query_exponent_law(struct pga_vars *pga)
 {
-   read_value (TRUE, "Input exponent law (0 if none): ", &pga->exponent_law,
-	       INT_MIN);
+   read_value(
+       TRUE, "Input exponent law (0 if none): ", &pga->exponent_law, INT_MIN);
 }
 
 /* enforce metabelian law on all descendants */
 
-void query_metabelian_law (struct pga_vars *pga)
+void query_metabelian_law(struct pga_vars *pga)
 {
-   read_value (TRUE, "Enforce metabelian law? ", &pga->metabelian, INT_MIN);
+   read_value(TRUE, "Enforce metabelian law? ", &pga->metabelian, INT_MIN);
 }

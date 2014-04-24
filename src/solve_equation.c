@@ -16,7 +16,7 @@
    addresses cp1 and cp2; the result is stored as an
    exponent vector with address result */
 
-void solve_equation (int cp1, int cp2, int result, struct pcp_vars *pcp)
+void solve_equation(int cp1, int cp2, int result, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -33,15 +33,15 @@ void solve_equation (int cp1, int cp2, int result, struct pcp_vars *pcp)
       r = y[cp2 + i] - y[cp1 + i];
 
       if (r < 0) {
-	 r += p;
-	 y[cp1 + i] = p - r;
+         r += p;
+         y[cp1 + i] = p - r;
       }
 
       y[result + i] = r;
 
       if (r != 0) {
-	 y[str + 1] = PACK2 (r, i);
-	 collect (-str + 1, cp1, pcp);
+         y[str + 1] = PACK2(r, i);
+         collect(-str + 1, cp1, pcp);
       }
 
       y[cp1 + i] = 0;
@@ -50,7 +50,7 @@ void solve_equation (int cp1, int cp2, int result, struct pcp_vars *pcp)
 
 /* set up input for solve_equation procedure */
 
-void setup_to_solve_equation (int format, struct pcp_vars *pcp)
+void setup_to_solve_equation(int format, struct pcp_vars *pcp)
 {
    register int lastg = pcp->lastg;
    register int cp1, cp2, result;
@@ -58,7 +58,7 @@ void setup_to_solve_equation (int format, struct pcp_vars *pcp)
    int type;
 
    total = 5 * lastg + 5;
-   if (is_space_exhausted (total, pcp))
+   if (is_space_exhausted(total, pcp))
       return;
 
    cp1 = pcp->submlg - lastg - 2;
@@ -70,16 +70,16 @@ void setup_to_solve_equation (int format, struct pcp_vars *pcp)
 
    /* read in a */
    type = VALUE_A;
-   setup_word_to_collect (stdin, format, type, cp1, pcp);
+   setup_word_to_collect(stdin, format, type, cp1, pcp);
 
    /* read in b */
    type = VALUE_B;
-   setup_word_to_collect (stdin, format, type, cp2, pcp);
+   setup_word_to_collect(stdin, format, type, cp2, pcp);
 
    /* solve a * x = b and print result */
-   solve_equation (cp1, cp2, result, pcp);
+   solve_equation(cp1, cp2, result, pcp);
 
-   setup_word_to_print ("value of x", result, pcp->lused, pcp);
+   setup_word_to_print("value of x", result, pcp->lused, pcp);
 
    /* reset the value of submlg */
    pcp->submlg += total;

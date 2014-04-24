@@ -27,8 +27,16 @@
 
    this new relation is now echelonised */
 
-void
-close_relations (Logical report, int limit, int queue_type, int *head, int *list, int *queue, int length, int *long_queue, int *long_queue_length, struct pcp_vars *pcp)
+void close_relations(Logical report,
+                     int limit,
+                     int queue_type,
+                     int *head,
+                     int *list,
+                     int *queue,
+                     int length,
+                     int *long_queue,
+                     int *long_queue_length,
+                     struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -58,82 +66,90 @@ close_relations (Logical report, int limit, int queue_type, int *head, int *list
       gen = queue[current];
       ++current;
 
-      if (gen == 0) continue;
+      if (gen == 0)
+         continue;
 
       if (current % SORT_FACTOR == 1) {
-	 copy = queue + current - 1;
-	 bubble_sort (copy, length - current + 1, pcp);
+         copy = queue + current - 1;
+         bubble_sort(copy, length - current + 1, pcp);
       }
 
       /* apply automorphism alpha to the relation */
       for (alpha = 1; alpha <= pcp->m; ++alpha) {
 
-	 if (is_space_exhausted (2 * pcp->lastg, pcp)) {
-	    pcp->overflow = TRUE;
-	    return;
-	 }
+         if (is_space_exhausted(2 * pcp->lastg, pcp)) {
+            pcp->overflow = TRUE;
+            return;
+         }
 
-	 cp = pcp->lused;
-	 for (i = 1; i <= 2 * pcp->lastg; ++i)
-	    y[cp + i] = 0;
+         cp = pcp->lused;
+         for (i = 1; i <= 2 * pcp->lastg; ++i)
+            y[cp + i] = 0;
 
-	 offset = (alpha - 1) * pcp->lastg;
+         offset = (alpha - 1) * pcp->lastg;
 
-	 /* is the relation trivial? */
-	 if (y[pcp->structure + gen] == 0)
-	    traverse_list (1, head[offset + gen], list, cp, pcp);
-	 else {
-	    /* the relation was non-trivial; first, set up (gen<alpha>)^-1 */
-	    traverse_list (pm1, head[offset + gen], list, cp, pcp);
+         /* is the relation trivial? */
+         if (y[pcp->structure + gen] == 0)
+            traverse_list(1, head[offset + gen], list, cp, pcp);
+         else {
+            /* the relation was non-trivial; first, set up (gen<alpha>)^-1 */
+            traverse_list(pm1, head[offset + gen], list, cp, pcp);
 
-	    /* now apply the automorphism to each entry of
-	       the string pointed to by y[pcp->structure + gen] */
+            /* now apply the automorphism to each entry of
+               the string pointed to by y[pcp->structure + gen] */
 
-	    p1 = -y[pcp->structure + gen];
-	    relation_length = y[p1 + 1];
+            p1 = -y[pcp->structure + gen];
+            relation_length = y[p1 + 1];
 
-	    if (queue_type == 1 && relation_length > limit) {
-	       long_queue[++*long_queue_length] = gen;
-	       break;
-	    }
+            if (queue_type == 1 && relation_length > limit) {
+               long_queue[++*long_queue_length] = gen;
+               break;
+            }
 
-	    for (i = 1; i <= relation_length; ++i) {
-	       generator = FIELD2 (y[p1 + 1 + i]);
-	       exponent  = FIELD1 (y[p1 + 1 + i]);
-	       traverse_list (exponent, head[offset + generator], list, cp, pcp);
-	    }
+            for (i = 1; i <= relation_length; ++i) {
+               generator = FIELD2(y[p1 + 1 + i]);
+               exponent = FIELD1(y[p1 + 1 + i]);
+               traverse_list(exponent, head[offset + generator], list, cp, pcp);
+            }
 
-	    /* now reduce the entries mod p */
-	    for (i = start; i <= pcp->lastg; ++i)
-	       y[cp + i] %= prime;
-	 }
+            /* now reduce the entries mod p */
+            for (i = start; i <= pcp->lastg; ++i)
+               y[cp + i] %= prime;
+         }
 
-	 relation_length = echelon (pcp);
-	 if (pcp->complete)
-	    return;
+         relation_length = echelon(pcp);
+         if (pcp->complete)
+            return;
 
-	 /* if appropriate, add a new relation to the queue */
-	 if (pcp->eliminate_flag) {
-	    ++nmr_reds;
-	    if (relation_length <= limit || queue_type == 2)
-	       queue[++length] = pcp->redgen;
-	    if (relation_length > limit || queue_type == 2)
-	       long_queue[++*long_queue_length] = pcp->redgen;
-	 }
+         /* if appropriate, add a new relation to the queue */
+         if (pcp->eliminate_flag) {
+            ++nmr_reds;
+            if (relation_length <= limit || queue_type == 2)
+               queue[++length] = pcp->redgen;
+            if (relation_length > limit || queue_type == 2)
+               long_queue[++*long_queue_length] = pcp->redgen;
+         }
       }
    }
 
    if (report || pcp->fullop || pcp->diagn) {
-      if (queue_type == 1) s = "Short"; else s = "Long";
-      if (nmr_reds == 1) t = "y"; else t = "ies";
-      printf ("%s queue gave %d redundanc%s\n", s, nmr_reds, t);
+      if (queue_type == 1)
+         s = "Short";
+      else
+         s = "Long";
+      if (nmr_reds == 1)
+         t = "y";
+      else
+         t = "ies";
+      printf("%s queue gave %d redundanc%s\n", s, nmr_reds, t);
    }
 }
 
 /* add exponent times the action of automorphism with pointer head
    to the contents of the exponent-vector with base address cp */
 
-void traverse_list (int exponent, int head, int *list, int cp, struct pcp_vars *pcp)
+void
+traverse_list(int exponent, int head, int *list, int cp, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -143,7 +159,7 @@ void traverse_list (int exponent, int head, int *list, int cp, struct pcp_vars *
 
    while (length != 0) {
       value = list[head + length];
-      y[cp + FIELD2 (value)] += FIELD1 (value) * exponent;
+      y[cp + FIELD2(value)] += FIELD1(value) * exponent;
       --length;
    }
 }

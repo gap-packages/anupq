@@ -14,7 +14,8 @@
 /* return the rank, t, of the smallest characteristic,
    k-initial segment subgroup in the p-multiplicator */
 
-int close_subgroup (int k, int ***auts, struct pga_vars *pga, struct pcp_vars *pcp)
+int
+close_subgroup(int k, int ***auts, struct pga_vars *pga, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -30,19 +31,19 @@ int close_subgroup (int k, int ***auts, struct pga_vars *pga, struct pcp_vars *p
    for (alpha = 1; alpha <= pga->m && !complete; ++alpha) {
       i = n;
       while (i < n + t && !complete) {
-	 ++i;
-	 j = y[pcp->clend + pcp->cc];
-	 /* find the last non-zero entry in the image of generator i */
-	 while (auts[alpha][i][j] == 0 && j > n + t)
-	    --j;
-	 t = j - n;
-	 complete = (t == pga->multiplicator_rank);
+         ++i;
+         j = y[pcp->clend + pcp->cc];
+         /* find the last non-zero entry in the image of generator i */
+         while (auts[alpha][i][j] == 0 && j > n + t)
+            --j;
+         t = j - n;
+         complete = (t == pga->multiplicator_rank);
       }
    }
 
    /* if rank of closure has increased, must now close new subgroup */
    if (t != start)
-      t = close_subgroup (t - 1, auts, pga, pcp);
+      t = close_subgroup(t - 1, auts, pga, pcp);
 
    return t;
 }

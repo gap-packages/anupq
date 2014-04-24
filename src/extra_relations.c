@@ -13,7 +13,7 @@
 #include "pq_functions.h"
 #include "exp_vars.h"
 
-#if defined (GROUP)
+#if defined(GROUP)
 
 /* this procedure collect extra relations which hold in the group;
 
@@ -69,91 +69,96 @@
 
 #define MCLASS 10000
 
-int initial_length;       /* length of initial segment */
-int least_weight;         /* lower bound on weight of remaining letters */
-int max_weight;           /* upper bound on weight of remaining letters */
-int initial_weight;       /* weight of initial segment */
-int first_entry;          /* lower bound on new letters in word */
-int least_entry;          /* lower bound on remaining new letters in word */
-int max_entry;            /* upper bound on new letters in word */
+int initial_length; /* length of initial segment */
+int least_weight;   /* lower bound on weight of remaining letters */
+int max_weight;     /* upper bound on weight of remaining letters */
+int initial_weight; /* weight of initial segment */
+int first_entry;    /* lower bound on new letters in word */
+int least_entry;    /* lower bound on remaining new letters in word */
+int max_entry;      /* upper bound on new letters in word */
 
 /* read in the initial segment to be used in generating the words */
 
-static void read_initial_segment (int *initial, int *initial_coeff, struct pcp_vars *pcp)
+static void
+read_initial_segment(int *initial, int *initial_coeff, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
    register int i;
-   int lower_bound;             /* lower bound on next letter in word */
-   int lower_bound_weight;      /* lower bound on weight of next letter */
+   int lower_bound;        /* lower bound on next letter in word */
+   int lower_bound_weight; /* lower bound on weight of next letter */
 
 #include "access.h"
 
    /* read in details of the initial segment of the words to be processed */
-   read_value (TRUE, "Input length of initial segment of words: ",
-	       &initial_length, 0);
+   read_value(
+       TRUE, "Input length of initial segment of words: ", &initial_length, 0);
 
    lower_bound = 0;
    if (initial_length != 0) {
-      printf ("Input initial segment of words as a generator exponent list: ");
+      printf("Input initial segment of words as a generator exponent list: ");
       for (i = 1; i < initial_length; ++i) {
-	 read_value (FALSE, "", &initial[i], lower_bound + 1);
-	 read_value (FALSE, "", &initial_coeff[i], 1);
-	 lower_bound = initial[i];
+         read_value(FALSE, "", &initial[i], lower_bound + 1);
+         read_value(FALSE, "", &initial_coeff[i], 1);
+         lower_bound = initial[i];
       }
-      read_value (FALSE, "", &initial[i], lower_bound + 1);
-      read_value (TRUE, "", &initial_coeff[i], 1);
+      read_value(FALSE, "", &initial[i], lower_bound + 1);
+      read_value(TRUE, "", &initial_coeff[i], 1);
       lower_bound = initial[i];
    }
 
    /* find initial weight */
    initial_weight = 0;
    for (i = 1; i <= initial_length; ++i)
-      initial_weight += initial_coeff[i] * WT (y[pcp->structure + initial[i]]);
+      initial_weight += initial_coeff[i] * WT(y[pcp->structure + initial[i]]);
 
    /* all other entries in this word must have weight as least
       as great as the last letter of the initial segment */
    if (lower_bound == 0)
       lower_bound_weight = 1;
    else
-      lower_bound_weight = MAX (1, WT (y[pcp->structure + lower_bound]));
+      lower_bound_weight = MAX(1, WT(y[pcp->structure + lower_bound]));
 
-   read_value (TRUE, "Input lower bound for weight of remaining letters: ",
-	       &least_weight, lower_bound_weight);
+   read_value(TRUE,
+              "Input lower bound for weight of remaining letters: ",
+              &least_weight,
+              lower_bound_weight);
 
    /* first entry in the remainder of word */
-   first_entry = y[pcp->clend + MIN (least_weight - 1, pcp->cc)];
+   first_entry = y[pcp->clend + MIN(least_weight - 1, pcp->cc)];
 
    /* the first new letter must be larger than the last letter
       of the initial segment */
-   first_entry = MAX (lower_bound, first_entry);
+   first_entry = MAX(lower_bound, first_entry);
 
    /* if using automorphisms and initial segment has length 0,
       we skip all but first of those pcp generators of weight 1 */
-   least_entry = (pcp->m != 0 && initial_length == 0) ?
-      y[pcp->clend + 1] : first_entry;
+   least_entry =
+       (pcp->m != 0 && initial_length == 0) ? y[pcp->clend + 1] : first_entry;
 
-   read_value (TRUE, "Input upper bound for weight of remaining letters: ",
-	       &max_weight, least_weight);
+   read_value(TRUE,
+              "Input upper bound for weight of remaining letters: ",
+              &max_weight,
+              least_weight);
 
    max_entry = pcp->ccbeg;
    if (max_weight < pcp->cc)
       max_entry = y[pcp->clend + max_weight] + 1;
 }
 
-void extra_relations (struct exp_vars *exp_flag, struct pcp_vars *pcp)
+void extra_relations(struct exp_vars *exp_flag, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
-   register int nmr_words;      /* number of normal words powered in class */
-   register int length;         /* number of generators in normal word */
-   register int exp_length;     /* sum of exponents in normal word */
-   register int nextg;          /* next generator added to normal word */
-   register int w;              /* weight of generator in normal word */
-   register int weight;         /* weight of normal word */
-   register int wt_gen1;        /* weight of first generator in normal word */
-   register int gen_i;          /* ith generator in normal word */
-   register Logical exit;       /* exit from loop? */
+   register int nmr_words;  /* number of normal words powered in class */
+   register int length;     /* number of generators in normal word */
+   register int exp_length; /* sum of exponents in normal word */
+   register int nextg;      /* next generator added to normal word */
+   register int w;          /* weight of generator in normal word */
+   register int weight;     /* weight of normal word */
+   register int wt_gen1;    /* weight of first generator in normal word */
+   register int gen_i;      /* ith generator in normal word */
+   register Logical exit;   /* exit from loop? */
 
    int gen[MCLASS + 1];           /* generators of normal word */
    int coeff[MCLASS + 1];         /* exponents of these generators */
@@ -166,14 +171,14 @@ void extra_relations (struct exp_vars *exp_flag, struct pcp_vars *pcp)
    register int prime = pcp->p;
    register int pm1 = pcp->pm1;
 
-   register int end_class;      /* end class for check */
+   register int end_class; /* end class for check */
    register int class;
    register int entry;
    register int i, j;
-   int  *queue;
+   int *queue;
    char *s;
 
-   FILE * RelationList;
+   FILE *RelationList;
 
 #include "access.h"
 
@@ -182,7 +187,7 @@ void extra_relations (struct exp_vars *exp_flag, struct pcp_vars *pcp)
 
    /* relation file */
    if (exp_flag->word_list)
-      RelationList = OpenFile ("Relation_list", "w");
+      RelationList = OpenFile("Relation_list", "w");
 
    /* determine whether the supplied exponent is
       valid and what classes must be checked */
@@ -190,9 +195,9 @@ void extra_relations (struct exp_vars *exp_flag, struct pcp_vars *pcp)
    j = extra_relations;
    while (j > 1) {
       if (MOD(j, prime) != 0) {
-	 text (14, extra_relations, 0, 0, 0);
-	 pcp->valid = FALSE;
-	 return;
+         text(14, extra_relations, 0, 0, 0);
+         pcp->valid = FALSE;
+         return;
       }
       ++i;
       j /= prime;
@@ -210,9 +215,8 @@ void extra_relations (struct exp_vars *exp_flag, struct pcp_vars *pcp)
       first_entry = 0;
       least_entry = (exp_flag->list == REDUCED_LIST) ? y[pcp->clend + 1] : 0;
       max_entry = pcp->ccbeg;
-   }
-   else {
-      read_initial_segment (initial, initial_coeff, pcp);
+   } else {
+      read_initial_segment(initial, initial_coeff, pcp);
    }
    queue = exp_flag->queue;
 
@@ -252,264 +256,267 @@ void extra_relations (struct exp_vars *exp_flag, struct pcp_vars *pcp)
 
       /* set up the initial-segment of the word */
       for (i = 1; i <= initial_length; ++i) {
-	 gen[i] = initial[i];
-	 coeff[i] = initial_coeff[i];
+         gen[i] = initial[i];
+         coeff[i] = initial_coeff[i];
       }
 
       nextg = first_entry + 1;
-      w = WT (y[structure + nextg]);
+      w = WT(y[structure + nextg]);
 
       do {
-	 /* backtrack process -- start to construct the next normal word */
-	 exit = FALSE;
-	 while (weight + w > class || nextg >= max_entry) {
+         /* backtrack process -- start to construct the next normal word */
+         exit = FALSE;
+         while (weight + w > class || nextg >= max_entry) {
 
-	    /* if length = 0, we have finished this class */
-	    exit = (length == initial_length);
-	    if (exit) break;
+            /* if length = 0, we have finished this class */
+            exit = (length == initial_length);
+            if (exit)
+               break;
 
-	    /* strip off last generator from the normal word and
-	       decrease the weight of the word accordingly */
-	    nextg = gen[length];
-	    if (--coeff[length] == 0)
-	       --length;
-	    weight -= WT(y[structure + nextg]);
+            /* strip off last generator from the normal word and
+               decrease the weight of the word accordingly */
+            nextg = gen[length];
+            if (--coeff[length] == 0)
+               --length;
+            weight -= WT(y[structure + nextg]);
 
-	    if (nextg >= 1 && nextg < least_entry)
-	       /* nextg should now start with first generator of next weight */
-	       nextg = least_entry + 1;
-	    else
-	       ++nextg;
+            if (nextg >= 1 && nextg < least_entry)
+               /* nextg should now start with first generator of next weight */
+               nextg = least_entry + 1;
+            else
+               ++nextg;
 
-	    w = WT(y[structure + nextg]);
-	 }
-	 if (exit) break;
+            w = WT(y[structure + nextg]);
+         }
+         if (exit)
+            break;
 
-	 /* add in nextg as last pcp generator with exponent
-	    one of normal word; increase weight accordingly */
-	 coeff[++length] = 1;
-	 if (nextg > 1 && nextg <= least_entry) {
-	    /* nextg should now start with first generator of weight 2 */
-	    nextg = least_entry + 1;
-	    w = WT(y[structure + nextg]);
-	 }
-	 gen[length] = nextg;
-	 weight += w;
+         /* add in nextg as last pcp generator with exponent
+            one of normal word; increase weight accordingly */
+         coeff[++length] = 1;
+         if (nextg > 1 && nextg <= least_entry) {
+            /* nextg should now start with first generator of weight 2 */
+            nextg = least_entry + 1;
+            w = WT(y[structure + nextg]);
+         }
+         gen[length] = nextg;
+         weight += w;
 
-	 /* keep extending normal word as long as its weight is < class */
-	 while (weight < class) {
-	    if (coeff[length] == pm1 || length == 1) {
-	       /* add in a new pcp generator with exponent 1 */
-	       coeff[++length] = 1;
-	       ++nextg;
-	       if (nextg > 1 && nextg <= least_entry)
-		  /* nextg now starts with first generator of next weight */
-		  nextg = least_entry + 1;
-	       gen[length] = nextg;
-	       w = WT(y[structure + nextg]);
-	    }
-	    else
-	       /* add in another copy of nextg */
-	       ++coeff[length];
+         /* keep extending normal word as long as its weight is < class */
+         while (weight < class) {
+            if (coeff[length] == pm1 || length == 1) {
+               /* add in a new pcp generator with exponent 1 */
+               coeff[++length] = 1;
+               ++nextg;
+               if (nextg > 1 && nextg <= least_entry)
+                  /* nextg now starts with first generator of next weight */
+                  nextg = least_entry + 1;
+               gen[length] = nextg;
+               w = WT(y[structure + nextg]);
+            } else
+               /* add in another copy of nextg */
+               ++coeff[length];
 
-	    /* update weight for new word */
-	    weight += w;
-	 }
+            /* update weight for new word */
+            weight += w;
+         }
 
-	 /* if weight > class, we have extended the normal
-	    word too far, and we need to backtrack */
-	 if (weight > class) continue;
+         /* if weight > class, we have extended the normal
+            word too far, and we need to backtrack */
+         if (weight > class)
+            continue;
 
-	 /* if appropriate, print out weight partitions */
+         /* if appropriate, print out weight partitions */
 
-	 if (exp_flag->partitions) {
-	    printf ("seq (");
-	    for (i = 1; i < length; ++i)
-	       for (j = 1; j <= coeff[i]; ++j)
-		  printf ("%d, ", WT (y[structure + gen[i]]));
+         if (exp_flag->partitions) {
+            printf("seq (");
+            for (i = 1; i < length; ++i)
+               for (j = 1; j <= coeff[i]; ++j)
+                  printf("%d, ", WT(y[structure + gen[i]]));
 
-	    for (j = 1; j < coeff[length]; ++j)
-	       printf ("%d, ", WT (y[structure + gen[length]]));
-	    printf ("%d),\n", WT (y[structure + gen[length]]));
-	 }
+            for (j = 1; j < coeff[length]; ++j)
+               printf("%d, ", WT(y[structure + gen[length]]));
+            printf("%d),\n", WT(y[structure + gen[length]]));
+         }
 
-	 if (exp_flag->complete) {
-	    printf ("Seek to collect power %d of the following word: ",
-		    extra_relations);
-	    for (i = 1; i <= length; ++i)
-	       printf ("%d^%d ", gen[i], coeff[i]);
-	    printf ("\n");
-	 }
+         if (exp_flag->complete) {
+            printf("Seek to collect power %d of the following word: ",
+                   extra_relations);
+            for (i = 1; i <= length; ++i)
+               printf("%d^%d ", gen[i], coeff[i]);
+            printf("\n");
+         }
 
-	 /* we now have a normal word of weight class; run a number of
-	    checks to establish if it is necessary to exponentiate it;
-	    first, use commutator identities to possibly eliminate it;
+         /* we now have a normal word of weight class; run a number of
+            checks to establish if it is necessary to exponentiate it;
+            first, use commutator identities to possibly eliminate it;
 
-	    if the conditions in the if clause below are satisfied,
-	    then the normal closure of nextg has prime exponent;
+            if the conditions in the if clause below are satisfied,
+            then the normal closure of nextg has prime exponent;
 
-	    if this is the case, we can express the normal word in
-	    the form u * nextg, where u is a normal word of lower weight;
-	    we assume by induction that u^extra_relations = 1,
-	    and this, together with the fact that the normal
-	    closure of nextg has exponent prime, implies that
-	    (u * nextg)^extra_relations is a product of commutators
-	    which have length at least extra_relations and which have
-	    entries gen[1],..., gen[length]; we may also assume that
-	    gen[i] occurs at least coeff[i] times for i = 1, ..., length
-	    in each of these commutators;
+            if this is the case, we can express the normal word in
+            the form u * nextg, where u is a normal word of lower weight;
+            we assume by induction that u^extra_relations = 1,
+            and this, together with the fact that the normal
+            closure of nextg has exponent prime, implies that
+            (u * nextg)^extra_relations is a product of commutators
+            which have length at least extra_relations and which have
+            entries gen[1],..., gen[length]; we may also assume that
+            gen[i] occurs at least coeff[i] times for i = 1, ..., length
+            in each of these commutators;
 
-	    let exp_length = sum of coeff[i] for i = 1, ..., length;
-	    if extra_relations > exp_length then these commutators
-	    have extra entries of weight at least wt_gen1; check whether
-	    the extra entries make the total weight of the commutators
-	    exceed the current class; if so, the power of this word
-	    is trivial */
+            let exp_length = sum of coeff[i] for i = 1, ..., length;
+            if extra_relations > exp_length then these commutators
+            have extra entries of weight at least wt_gen1; check whether
+            the extra entries make the total weight of the commutators
+            exceed the current class; if so, the power of this word
+            is trivial */
 
-	 wt_gen1 = WT(y[structure + gen[1]]);
+         wt_gen1 = WT(y[structure + gen[1]]);
 
-	 if (prime * w >= pcp->cc && y[pcp->ppower + nextg] == 0) {
-	    /* find the sum of the coefficients */
-	    for (i = 1, exp_length = 0; i <= length; ++i)
-	       exp_length += coeff[i];
-	    if (weight + (extra_relations - exp_length) * wt_gen1 > pcp->cc) {
-	       if (exp_flag->filter) {
-		  printf ("Filtered from list using normal closure\n");
-	       }
-	       continue;
-	    }
-	 }
+         if (prime * w >= pcp->cc && y[pcp->ppower + nextg] == 0) {
+            /* find the sum of the coefficients */
+            for (i = 1, exp_length = 0; i <= length; ++i)
+               exp_length += coeff[i];
+            if (weight + (extra_relations - exp_length) * wt_gen1 > pcp->cc) {
+               if (exp_flag->filter) {
+                  printf("Filtered from list using normal closure\n");
+               }
+               continue;
+            }
+         }
 
-	 /* seek to eliminate conjugates and powers of words
-	    which are tested at other times;
+         /* seek to eliminate conjugates and powers of words
+            which are tested at other times;
 
-	    the Felsch-Neubueser conjugacy class algorithm provides
-	    a list of class representatives for a group described
-	    by a pcp; these representatives have the property that
-	    if a word occurs in the list, then any of its subwords
-	    also occurs as a representative; the calculations listed
-	    below allow us to recognise that certain words would
-	    not occur in the list; if we can deduce that our
-	    normal word, w, would not occur, we do not power w;
+            the Felsch-Neubueser conjugacy class algorithm provides
+            a list of class representatives for a group described
+            by a pcp; these representatives have the property that
+            if a word occurs in the list, then any of its subwords
+            also occurs as a representative; the calculations listed
+            below allow us to recognise that certain words would
+            not occur in the list; if we can deduce that our
+            normal word, w, would not occur, we do not power w;
 
-	    in the iteration listed below, if gen_i = PART2(entry) or
-	    PART3(entry) then gen[j] is a commutator or power of gen_i;
-	    this means that our normal word, w, is a conjugate or a power
-	    of another normal word which starts off with the same first
-	    i generator-exponent pairs as w, but which does not have
-	    gen[j] anywhere in it;
+            in the iteration listed below, if gen_i = PART2(entry) or
+            PART3(entry) then gen[j] is a commutator or power of gen_i;
+            this means that our normal word, w, is a conjugate or a power
+            of another normal word which starts off with the same first
+            i generator-exponent pairs as w, but which does not have
+            gen[j] anywhere in it;
 
-	    note that this reduction is critically sensitive to
-	    the way in which generators are numbered, and to the
-	    way eliminations are carried out in this program;
+            note that this reduction is critically sensitive to
+            the way in which generators are numbered, and to the
+            way eliminations are carried out in this program;
 
-	    Michael Vaughan-Lee provided this refinement */
+            Michael Vaughan-Lee provided this refinement */
 
-	 /* first, find last generator in normal word with weight = wt_gen1 */
-	 for (i = length; WT(y[structure + gen[i]]) > wt_gen1; --i)
-	    ;
+         /* first, find last generator in normal word with weight = wt_gen1 */
+         for (i = length; WT(y[structure + gen[i]]) > wt_gen1; --i)
+            ;
 
-	 if (i != length) {
-	    exit = FALSE;
-	    gen_i = gen[i];
-	    for (j = i + 1; j <= length && !exit; ++j) {
-	       entry = y[structure + gen[j]];
-	       exit = (gen_i == PART2(entry) || gen_i == PART3(entry));
-	    }
-	    if (exit) {
-	       if (exp_flag->filter == TRUE)
-		  printf ("Filtered from list using conjugacy checks\n");
-	       continue;
-	    }
-	 }
+         if (i != length) {
+            exit = FALSE;
+            gen_i = gen[i];
+            for (j = i + 1; j <= length && !exit; ++j) {
+               entry = y[structure + gen[j]];
+               exit = (gen_i == PART2(entry) || gen_i == PART3(entry));
+            }
+            if (exit) {
+               if (exp_flag->filter == TRUE)
+                  printf("Filtered from list using conjugacy checks\n");
+               continue;
+            }
+         }
 
-	 /* we have a word to exponentiate */
-	 ++nmr_words;
+         /* we have a word to exponentiate */
+         ++nmr_words;
 
-	 /* we may want to save all test words generated to
-	    a relation file for later processing */
-	 if (exp_flag->word_list) {
-	    fprintf (RelationList, "%d ", extra_relations);
-	    for (i = 1; i <= length; ++i)
-	       for (j = 1; j <= coeff[i]; ++j)
-		  fprintf (RelationList, "%d ", gen[i]);
-	    fprintf (RelationList, ";\n");
-	 }
+         /* we may want to save all test words generated to
+            a relation file for later processing */
+         if (exp_flag->word_list) {
+            fprintf(RelationList, "%d ", extra_relations);
+            for (i = 1; i <= length; ++i)
+               for (j = 1; j <= coeff[i]; ++j)
+                  fprintf(RelationList, "%d ", gen[i]);
+            fprintf(RelationList, ";\n");
+         }
 
-	 /* space is required for three collected parts set up in power */
-	 if (is_space_exhausted (6 * lastg + 6, pcp))
-	    return;
+         /* space is required for three collected parts set up in power */
+         if (is_space_exhausted(6 * lastg + 6, pcp))
+            return;
 
-	 structure = pcp->structure;
+         structure = pcp->structure;
 
-	 /* put one copy of word into collected part in exponent-vector form */
-	 for (i = 1; i <= lastg; ++i)
-	    y[pcp->lused + i] = 0;
+         /* put one copy of word into collected part in exponent-vector form */
+         for (i = 1; i <= lastg; ++i)
+            y[pcp->lused + i] = 0;
 
-	 for (i = 1; i <= length; ++i) {
-	    nextg = gen[i];
-	    y[pcp->lused + nextg] = coeff[i];
-	 }
+         for (i = 1; i <= length; ++i) {
+            nextg = gen[i];
+            y[pcp->lused + nextg] = coeff[i];
+         }
 
-	 /* if process flag is true, and the number of the word is higher
-	    than supplied value, power the word and echelonise the result */
+         /* if process flag is true, and the number of the word is higher
+            than supplied value, power the word and echelonise the result */
 
-	 if (exp_flag->process && nmr_words >= exp_flag->start_process) {
+         if (exp_flag->process && nmr_words >= exp_flag->start_process) {
 
-	    power (extra_relations, pcp->lused, pcp);
+            power(extra_relations, pcp->lused, pcp);
 
-	    /* is the result trivial? if not, group has larger exponent */
-	    if (exp_flag->check_exponent == TRUE) {
-	       i = 1;
-	       while (i <= lastg && exp_flag->all_trivial) {
-		  exp_flag->all_trivial = (y[pcp->lused + i] == 0);
-		  ++i;
-	       }
-	       if (exp_flag->all_trivial == FALSE) return;
-	    }
+            /* is the result trivial? if not, group has larger exponent */
+            if (exp_flag->check_exponent == TRUE) {
+               i = 1;
+               while (i <= lastg && exp_flag->all_trivial) {
+                  exp_flag->all_trivial = (y[pcp->lused + i] == 0);
+                  ++i;
+               }
+               if (exp_flag->all_trivial == FALSE)
+                  return;
+            }
 
-	    /* set second collected part trivial for echelonisation */
-	    for (i = 1; i <= lastg; ++i)
-	       y[pcp->lused + lastg + i] = 0;
+            /* set second collected part trivial for echelonisation */
+            for (i = 1; i <= lastg; ++i)
+               y[pcp->lused + lastg + i] = 0;
 
-	    echelon (pcp);
-	 }
+            echelon(pcp);
+         }
 
-	 /* if appropriate, print out the normal word */
-	 if (((pcp->fullop && pcp->eliminate_flag) ||
-	      (pcp->diagn && exp_flag->process) ||
-	      (pcp->diagn && !exp_flag->process && !exp_flag->filter)) &&
-	     nmr_words >= exp_flag->start_process) {
-	    s = exp_flag->process ? "Collected" : "Will collect";
-	    printf ("%s power %d of the following word: ",
-		    s, extra_relations);
-	    for (i = 1; i <= length; ++i)
-	       printf ("%d^%d ", gen[i], coeff[i]);
-	    printf ("\n");
-	 }
+         /* if appropriate, print out the normal word */
+         if (((pcp->fullop && pcp->eliminate_flag) ||
+              (pcp->diagn && exp_flag->process) ||
+              (pcp->diagn && !exp_flag->process && !exp_flag->filter)) &&
+             nmr_words >= exp_flag->start_process) {
+            s = exp_flag->process ? "Collected" : "Will collect";
+            printf("%s power %d of the following word: ", s, extra_relations);
+            for (i = 1; i <= length; ++i)
+               printf("%d^%d ", gen[i], coeff[i]);
+            printf("\n");
+         }
 
-	 if (pcp->redgen != 0 && pcp->m != 0)
-	    queue[++exp_flag->queue_length] = pcp->redgen;
+         if (pcp->redgen != 0 && pcp->m != 0)
+            queue[++exp_flag->queue_length] = pcp->redgen;
 
-	 /* report intermediate statistics */
-	 if (exp_flag->report_unit && nmr_words % exp_flag->report_unit == 0) {
-	    s = nmr_words == 1 ? "" : "s";
-	    printf ("%d relation%s of class %d collected\n", nmr_words, s, class);
-	 }
+         /* report intermediate statistics */
+         if (exp_flag->report_unit && nmr_words % exp_flag->report_unit == 0) {
+            s = nmr_words == 1 ? "" : "s";
+            printf(
+                "%d relation%s of class %d collected\n", nmr_words, s, class);
+         }
 
-	 if (pcp->overflow || pcp->complete != 0 || pcp->newgen == 0)
-	    return;
+         if (pcp->overflow || pcp->complete != 0 || pcp->newgen == 0)
+            return;
 
       } while (length != 0);
 
       /* if appropriate, report the number of words raised to power */
-      if (!exp_flag->process || exp_flag->report_unit ||
-	  pcp->fullop || pcp->diagn)
-	 text (13, nmr_words, class, exp_flag->process, 0);
+      if (!exp_flag->process || exp_flag->report_unit || pcp->fullop ||
+          pcp->diagn)
+         text(13, nmr_words, class, exp_flag->process, 0);
    }
 
    if (exp_flag->word_list)
-      CloseFile (RelationList);
+      CloseFile(RelationList);
 }
 
 #endif

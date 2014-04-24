@@ -13,14 +13,14 @@
 #include "pq_functions.h"
 #include "constants.h"
 
-#if defined (GAP_LINK)
+#if defined(GAP_LINK)
 
 
 /****************************************************************************
 **
 *V  p1, p2
 */
-int     p1[2],  p2[2];
+int p1[2], p2[2];
 
 
 /****************************************************************************
@@ -28,10 +28,9 @@ int     p1[2],  p2[2];
 *F  WriteGap( <str> )
 **                                          write <str> to gap via input pipe
 */
-void
-WriteGap (char *str)
+void WriteGap(char *str)
 {
-   write( p2[1], str, strlen (str) );
+   write(p2[1], str, strlen(str));
 }
 
 
@@ -40,26 +39,24 @@ WriteGap (char *str)
 *F  ReadGap( <str> )
 **                     read string from gap via output pipe into buffer <str>
 */
-void
-ReadGap (char *str)
+void ReadGap(char *str)
 {
-   char  * ptr;
+   char *ptr;
 
    /* read next line                                                      */
    ptr = str;
    do
-      while ( read( p1[0], ptr, 1 ) != 1)
-	 ;
-   while ( *ptr++ != '\n' );
+      while (read(p1[0], ptr, 1) != 1)
+         ;
+   while (*ptr++ != '\n');
 
    /* append a trailing '\0'                                              */
    *(--ptr) = 0;
 
    /* if line begins with a '#' ignore this line and start again          */
-   if ( *str == '#' )
-   {
-      fprintf( stderr, "%s\n", str );
-      ReadGap( str );
+   if (*str == '#') {
+      fprintf(stderr, "%s\n", str);
+      ReadGap(str);
    }
 }
 
@@ -69,32 +66,36 @@ ReadGap (char *str)
 *F  WriteGapInfo( <auts>, <pga> )
 **                                write initial information to GAP input pipe
 */
-void
-WriteGapInfo (int ***auts, struct pga_vars *pga)
+void WriteGapInfo(int ***auts, struct pga_vars *pga)
 {
-   int                 i;
-   char                str[MAXWORD];
+   int i;
+   char str[MAXWORD];
 
    /* we need the GAP library files defined in the package "anupq"        */
-   WriteGap( "LoadPackage( \"anupq\" );\n" );
+   WriteGap("LoadPackage( \"anupq\" );\n");
 
    /* give debug information if 'ANUPQlog' is set to 'LogTo'              */
-   WriteGap( "ANUPQlog( \"debug.out\" );\n"    );
+   WriteGap("ANUPQlog( \"debug.out\" );\n");
 
    /* use a record 'ANUPQglb' to hold all global variables                */
-   WriteGap( "ANUPQglb := rec();;\n" );
-   sprintf( str, "ANUPQglb.d := %d;\n", pga->ndgen     );
-   WriteGap( str );  ReadGap( str );
-   sprintf( str, "ANUPQglb.F := GF(%d);\n", pga->p     );
-   WriteGap( str );  ReadGap( str );
-   sprintf( str, "ANUPQglb.q := %d;\n", pga->q         );
-   WriteGap( str );  ReadGap( str );
-   sprintf( str, "ANUPQglb.genD := [];\n"              );
-   WriteGap( str );  ReadGap( str );
-   sprintf( str, "ANUPQglb.genQ := [];\n"              );
-   WriteGap( str );  ReadGap( str );
-   for ( i = 1;  i <= pga->m; ++i )
-      write_GAP_matrix( 0, "ANUPQglb.genD", auts[i], pga->ndgen, 1, i );
+   WriteGap("ANUPQglb := rec();;\n");
+   sprintf(str, "ANUPQglb.d := %d;\n", pga->ndgen);
+   WriteGap(str);
+   ReadGap(str);
+   sprintf(str, "ANUPQglb.F := GF(%d);\n", pga->p);
+   WriteGap(str);
+   ReadGap(str);
+   sprintf(str, "ANUPQglb.q := %d;\n", pga->q);
+   WriteGap(str);
+   ReadGap(str);
+   sprintf(str, "ANUPQglb.genD := [];\n");
+   WriteGap(str);
+   ReadGap(str);
+   sprintf(str, "ANUPQglb.genQ := [];\n");
+   WriteGap(str);
+   ReadGap(str);
+   for (i = 1; i <= pga->m; ++i)
+      write_GAP_matrix(0, "ANUPQglb.genD", auts[i], pga->ndgen, 1, i);
 }
 
 
@@ -103,59 +104,51 @@ WriteGapInfo (int ***auts, struct pga_vars *pga)
 *F  start_GAP_file( <auts>, <pga> )
 **       start GAP process or write necessary information to existing process
 */
-void
-start_GAP_file (int ***auts, struct pga_vars *pga)
+void start_GAP_file(int ***auts, struct pga_vars *pga)
 {
-   int                 pid;
-   char              * path;
-   int                 i;
-   char                tmp[200];
+   int pid;
+   char *path;
+   int i;
+   char tmp[200];
 
    pipe(p1);
    pipe(p2);
 #ifdef HAVE_WORKING_VFORK
-   if ( (pid = vfork()) == 0 )
+   if ((pid = vfork()) == 0)
 #else
-      if ( (pid = fork()) == 0 )
+   if ((pid = fork()) == 0)
 #endif
-      {
-	 dup2( p1[1], 1 );
-	 dup2( p2[0], 0 );
-	 if ( ( path = (char*) getenv( "ANUPQ_GAP_EXEC" ) ) == NULL )
-#           if defined( ANUPQ_GAP_EXEC )
-	    path = ANUPQ_GAP_EXEC;
-#           else
-	 path = "gap";
-#           endif
-	 if ( execlp( path, path, "-r -q", 0 ) == -1 )
-	 {
-            perror( "Error in system call to GAP" );
-            exit( FAILURE );
-	 }
+   {
+      dup2(p1[1], 1);
+      dup2(p2[0], 0);
+      if ((path = (char *)getenv("ANUPQ_GAP_EXEC")) == NULL)
+#if defined(ANUPQ_GAP_EXEC)
+         path = ANUPQ_GAP_EXEC;
+#else
+         path = "gap";
+#endif
+      if (execlp(path, path, "-r -q", 0) == -1) {
+         perror("Error in system call to GAP");
+         exit(FAILURE);
       }
-      else if ( pid == -1 )
-      {
-	 perror( "cannot fork" );
-	 exit( FAILURE );
-      }
-      else
-      {
+   } else if (pid == -1) {
+      perror("cannot fork");
+      exit(FAILURE);
+   } else {
 
-	 /* write GAP information to file                                   */
-	 WriteGapInfo( auts, pga );
+      /* write GAP information to file                                   */
+      WriteGapInfo(auts, pga);
 
-	 /* try to syncronise with gap process                              */
-	 WriteGap("165287638495312637;\n");
-	 for ( i = 0;  i < 100;  i++ )
-	 {
-            ReadGap(tmp);
-            if ( !strcmp(tmp,"165287638495312637") )
-	       break;
-	 }
-	 if ( i == 100 )
-	    fprintf( stderr, "WARNING: did not got magic number, got '%s'\n",
-		     tmp );
+      /* try to syncronise with gap process                              */
+      WriteGap("165287638495312637;\n");
+      for (i = 0; i < 100; i++) {
+         ReadGap(tmp);
+         if (!strcmp(tmp, "165287638495312637"))
+            break;
       }
+      if (i == 100)
+         fprintf(stderr, "WARNING: did not got magic number, got '%s'\n", tmp);
+   }
 }
 
 
@@ -164,15 +157,14 @@ start_GAP_file (int ***auts, struct pga_vars *pga)
 *F  QuitGap()
 **                                                     close the pipes to GAP
 */
-void
-QuitGap (void)
+void QuitGap(void)
 {
-   WriteGap( "quit;\n" );
+   WriteGap("quit;\n");
    close(p1[1]);
    close(p2[1]);
    close(p1[0]);
    close(p2[0]);
-   wait( (int *) 0 );
+   wait((int *)0);
 }
 
 
@@ -181,19 +173,17 @@ QuitGap (void)
 *F  ReadFromGapPipe( <value> )
 **  read a string from the GAP output pipe and check whether it is an integer
 */
-void
-ReadFromGapPipe (int *value)
+void ReadFromGapPipe(int *value)
 {
-   Logical     error;
-   char        str[MAXWORD];
+   Logical error;
+   char str[MAXWORD];
 
    ReadGap(str);
    *value = string_to_int(str, &error);
-   if (error)
-   {
+   if (error) {
       fprintf(stderr, "Error in reading stabiliser data from GAP pipe\n");
-      fprintf(stderr, "got line: '%s'\n", str                           );
-      exit (FAILURE);
+      fprintf(stderr, "got line: '%s'\n", str);
+      exit(FAILURE);
    }
 }
 
@@ -206,13 +196,12 @@ ReadFromGapPipe (int *value)
 **                     the first indicates whether the stabiliser is soluble;
 **                  the second is the number of generators for the stabiliser
 */
-int ***
-read_stabiliser_gens (int nr_gens, int ***sol_gens, struct pga_vars *pga)
+int ***read_stabiliser_gens(int nr_gens, int ***sol_gens, struct pga_vars *pga)
 {
-   int                 ndgen = pga->ndgen;
-   int                 gamma,  i,  j;
-   int             *** stabiliser;
-   int                 current;
+   int ndgen = pga->ndgen;
+   int gamma, i, j;
+   int ***stabiliser;
+   int current;
 
    /* check if any gens for the stabiliser have already been computed     */
    current = pga->nmr_stabilisers;
@@ -225,26 +214,31 @@ read_stabiliser_gens (int nr_gens, int ***sol_gens, struct pga_vars *pga)
    pga->nmr_stabilisers += current;
 
    /* memory leakage September 1996 */
-   stabiliser = reallocate_array( sol_gens, current, ndgen,
-				  nr_gens, pga->nmr_stabilisers,
-				  ndgen, nr_gens, TRUE );
-/*
-   if (current != 0) {
-   stabiliser = reallocate_array( sol_gens, current, ndgen,
-   nr_gens, pga->nmr_stabilisers,
-   ndgen, nr_gens, TRUE );
-   }
-   else {
-   stabiliser = allocate_array( pga->nmr_stabilisers, ndgen,
-   nr_gens, TRUE );
-   }
-   */
+   stabiliser = reallocate_array(sol_gens,
+                                 current,
+                                 ndgen,
+                                 nr_gens,
+                                 pga->nmr_stabilisers,
+                                 ndgen,
+                                 nr_gens,
+                                 TRUE);
+   /*
+      if (current != 0) {
+      stabiliser = reallocate_array( sol_gens, current, ndgen,
+      nr_gens, pga->nmr_stabilisers,
+      ndgen, nr_gens, TRUE );
+      }
+      else {
+      stabiliser = allocate_array( pga->nmr_stabilisers, ndgen,
+      nr_gens, TRUE );
+      }
+      */
 
    /* now read in the insoluble generators                                */
-   for ( gamma = current + 1;  gamma <= pga->nmr_stabilisers;  ++gamma )
-      for ( i = 1;  i <= ndgen;  ++i )
-	 for ( j = 1;  j <= ndgen;  ++j )
-	    ReadFromGapPipe(&stabiliser[gamma][i][j]);
+   for (gamma = current + 1; gamma <= pga->nmr_stabilisers; ++gamma)
+      for (i = 1; i <= ndgen; ++i)
+         for (j = 1; j <= ndgen; ++j)
+            ReadFromGapPipe(&stabiliser[gamma][i][j]);
 
    /* return the result                                                   */
    return stabiliser;
@@ -256,15 +250,17 @@ read_stabiliser_gens (int nr_gens, int ***sol_gens, struct pga_vars *pga)
 *F  insoluble_stab_gens( <rep>, <orbit_length> )
 **          calculate the stabiliser of the supplied representative using GAP
 */
-void
-insoluble_stab_gens (int rep, int orbit_length)
+void insoluble_stab_gens(int rep, int orbit_length)
 {
-   char    str[MAXWORD];
+   char str[MAXWORD];
 
-   sprintf( str, "stab := ANUPQstabilizer( %d, %d, ANUPQglb );;1;\n",
-	    rep, orbit_length );
-   WriteGap(str);  ReadGap(str);
-   sprintf( str, "ANUPQoutputResult( stab, \"*stdout*\" );;\n" );
+   sprintf(str,
+           "stab := ANUPQstabilizer( %d, %d, ANUPQglb );;1;\n",
+           rep,
+           orbit_length);
+   WriteGap(str);
+   ReadGap(str);
+   sprintf(str, "ANUPQoutputResult( stab, \"*stdout*\" );;\n");
    WriteGap(str);
 }
 
@@ -275,26 +271,24 @@ insoluble_stab_gens (int rep, int orbit_length)
 **                                     write out a matrix in a GAP input form
 **
 */
-void
-write_GAP_matrix (FILE *GAP_input, char *gen, int **A, int size, int start, int nr)
+void write_GAP_matrix(
+    FILE *GAP_input, char *gen, int **A, int size, int start, int nr)
 {
-   int         i, j;
-   char        str[MAXWORD];
+   int i, j;
+   char str[MAXWORD];
 
-   sprintf( str, "%s[%d] := [\n", gen, nr );
+   sprintf(str, "%s[%d] := [\n", gen, nr);
    WriteGap(str);
-   for ( i = start;  i < start + size;  ++i )
-   {
-      WriteGap( "[" );
-      for ( j = start;  j < start + size - 1;  ++j )
-      {
-	 sprintf( str, "%d, ", A[i][j] );
-	 WriteGap(str);
+   for (i = start; i < start + size; ++i) {
+      WriteGap("[");
+      for (j = start; j < start + size - 1; ++j) {
+         sprintf(str, "%d, ", A[i][j]);
+         WriteGap(str);
       }
-      if ( i != start + size - 1 )
-	 sprintf( str, "%d],\n", A[i][j] );
+      if (i != start + size - 1)
+         sprintf(str, "%d],\n", A[i][j]);
       else
-	 sprintf( str, "%d]] * One( ANUPQglb.F );;\n", A[i][j] );
+         sprintf(str, "%d]] * One( ANUPQglb.F );;\n", A[i][j]);
       WriteGap(str);
    }
 }
@@ -305,17 +299,17 @@ write_GAP_matrix (FILE *GAP_input, char *gen, int **A, int size, int start, int 
 *F  StartGapFile( <pga> )
 **                            write basic input information to GAP input pipe
 */
-void
-StartGapFile (struct pga_vars *pga)
+void StartGapFile(struct pga_vars *pga)
 {
-   char                str[MAXWORD];
+   char str[MAXWORD];
 
-   sprintf( str, "ANUPQglb.s := %d;\n", pga->s );
-   WriteGap( str );  ReadGap( str );
-   sprintf( str, "ANUPQglb.r := %d;\n", pga->r );
-   WriteGap( str );  ReadGap( str );
+   sprintf(str, "ANUPQglb.s := %d;\n", pga->s);
+   WriteGap(str);
+   ReadGap(str);
+   sprintf(str, "ANUPQglb.r := %d;\n", pga->r);
+   WriteGap(str);
+   ReadGap(str);
 }
 
 
 #endif
-

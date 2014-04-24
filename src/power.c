@@ -10,8 +10,8 @@
 #include "pq_defs.h"
 #include "pcp_vars.h"
 
-static void zero_array (int ptr, int length, struct pcp_vars *pcp);
-static void copy_array (int old, int length, int new, struct pcp_vars *pcp);
+static void zero_array(int ptr, int length, struct pcp_vars *pcp);
+static void copy_array(int old, int length, int new, struct pcp_vars *pcp);
 
 /* power routine - written by M J Smith, May 1991.
 
@@ -35,7 +35,7 @@ static void copy_array (int old, int length, int new, struct pcp_vars *pcp);
    B - Is used only in binary expansion to square the string A.
        A is unpacked into B, then collected onto B, then packed from B. */
 
-void power (int exp, int cp, struct pcp_vars *pcp)
+void power(int exp, int cp, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -48,7 +48,8 @@ void power (int exp, int cp, struct pcp_vars *pcp)
    register int q, r, pp, nn;
    register int i;
 
-   if (exp == 1) return;
+   if (exp == 1)
+      return;
 
    /* nn is the exponent requested */
    nn = exp;
@@ -57,120 +58,121 @@ void power (int exp, int cp, struct pcp_vars *pcp)
    if (p == 2 || p == 3) {
 
       /* extract all powers of the prime from the exponent */
-      while (MOD (nn, p) == 0) {
-	 nn /= p;
+      while (MOD(nn, p) == 0) {
+         nn /= p;
 
-	 /* pack word in X into string for multiplication p - 1 times */
-	 vector_to_string (x, a, pcp);
-	 if (y[a + 1] == 0) return;
+         /* pack word in X into string for multiplication p - 1 times */
+         vector_to_string(x, a, pcp);
+         if (y[a + 1] == 0)
+            return;
 
-	 /* now multiply p - 1 times to get X^p */
-	 for (i = 1; i <= p - 1; ++i) {
-	    collect (-a, x, pcp);
-	 }
+         /* now multiply p - 1 times to get X^p */
+         for (i = 1; i <= p - 1; ++i) {
+            collect(-a, x, pcp);
+         }
       }
 
-      if (nn == 1) return;
+      if (nn == 1)
+         return;
 
       /* have extracted all powers of p from exponent -
-	 now do rest using prime p expansion */
+         now do rest using prime p expansion */
 
       /* move X into Z, set X to 1 */
-      copy_array (x, lastg, z, pcp);
-      zero_array (x, lastg, pcp);
+      copy_array(x, lastg, z, pcp);
+      zero_array(x, lastg, pcp);
 
       while (nn > 0) {
-	 r = MOD (nn, p);
-	 nn /= p;
+         r = MOD(nn, p);
+         nn /= p;
 
-	 /* move Z into A to multiply onto Z p - 1 times and
-	    onto X r times */
-	 vector_to_string (z, a, pcp);
+         /* move Z into A to multiply onto Z p - 1 times and
+            onto X r times */
+         vector_to_string(z, a, pcp);
 
-	 /* now calculate Z = Z^p and X = X * Z^r */
-	 if (y[a + 1] != 0) {
-	    for (i = 1; i <= p - 1; ++i) {
-	       if (i <= r)
-		  collect (-a, x, pcp);
-	       collect (-a, z, pcp);
-	    }
-	 }
+         /* now calculate Z = Z^p and X = X * Z^r */
+         if (y[a + 1] != 0) {
+            for (i = 1; i <= p - 1; ++i) {
+               if (i <= r)
+                  collect(-a, x, pcp);
+               collect(-a, z, pcp);
+            }
+         }
       }
    }
 
    /* for larger primes, use prime p decomposition and subsequent
       binary expansion */
-
    else {
       /* move X into Z and set X to 1 */
-      vector_to_string (x, z, pcp);
-      zero_array (x, lastg, pcp);
+      vector_to_string(x, z, pcp);
+      zero_array(x, lastg, pcp);
 
       while (nn > 0) {
 
-	 /* move word w in Z into A, and set Z to 1; A will square each
-	    iteration, and Z will accumulate some of these powers to
-	    end up with w^p at end of while loop */
+         /* move word w in Z into A, and set Z to 1; A will square each
+            iteration, and Z will accumulate some of these powers to
+            end up with w^p at end of while loop */
 
-	 string_to_vector (z, a, pcp);
-	 zero_array (z, lastg, pcp);
+         string_to_vector(z, a, pcp);
+         zero_array(z, lastg, pcp);
 
-	 q = nn / p;
-	 r = MOD (nn, p);
-	 pp = p;
+         q = nn / p;
+         r = MOD(nn, p);
+         pp = p;
 
-	 /* Now use binary expansion of both PP (ie p) and remainder R
-	    to accumulate w^p in Z and w^R onto X from squaring of w.
-	    Must continue until we have last w^R on X or until we get
-	    w^p in Z if there is any remaining exponent (ie Q > 0) */
+         /* Now use binary expansion of both PP (ie p) and remainder R
+            to accumulate w^p in Z and w^R onto X from squaring of w.
+            Must continue until we have last w^R on X or until we get
+            w^p in Z if there is any remaining exponent (ie Q > 0) */
 
-	 while (r > 0 || (pp > 0 && q > 0)) {
+         while (r > 0 || (pp > 0 && q > 0)) {
 
-	    /* collect onto answer if needed (ie R = 1) */
-	    if (MOD (r, 2) == 1) {
-	       copy_array (a, lastg, b, pcp);
-	       if (y[x + 1] > 0) {
-		  collect (-x, b, pcp);
-	       }
-	       vector_to_string (b, x, pcp);
-	    }
+            /* collect onto answer if needed (ie R = 1) */
+            if (MOD(r, 2) == 1) {
+               copy_array(a, lastg, b, pcp);
+               if (y[x + 1] > 0) {
+                  collect(-x, b, pcp);
+               }
+               vector_to_string(b, x, pcp);
+            }
 
-	    /* collect onto Z for next power of w if next iteration reqd */
-	    if (MOD (pp, 2) == 1 && q > 0) {
-	       copy_array (a, lastg, b, pcp);
-	       if (y[z + 1] > 0) {
-		  collect (-z, b, pcp);
-	       }
-	       vector_to_string (b, z, pcp);
-	    }
+            /* collect onto Z for next power of w if next iteration reqd */
+            if (MOD(pp, 2) == 1 && q > 0) {
+               copy_array(a, lastg, b, pcp);
+               if (y[z + 1] > 0) {
+                  collect(-z, b, pcp);
+               }
+               vector_to_string(b, z, pcp);
+            }
 
-	    r = r >> 1;
-	    pp = pp >> 1;
+            r = r >> 1;
+            pp = pp >> 1;
 
-	    /* if powers still needed for answer X or for w^p in Z for
-	       another iteration (ie Q > 0) then square A by unpacking into
-	       exponent vector B, collecting A and B, then repacking into A */
+            /* if powers still needed for answer X or for w^p in Z for
+               another iteration (ie Q > 0) then square A by unpacking into
+               exponent vector B, collecting A and B, then repacking into A */
 
-	    if (r > 0 || (pp > 0 && q > 0)) {
-	       /* square A */
-	       vector_to_string (a, b, pcp);
-	       if (y[b + 1] > 0) {
-		  collect (-b, a, pcp);
-	       }
-	    }
-	 }
-	 nn = q;
+            if (r > 0 || (pp > 0 && q > 0)) {
+               /* square A */
+               vector_to_string(a, b, pcp);
+               if (y[b + 1] > 0) {
+                  collect(-b, a, pcp);
+               }
+            }
+         }
+         nn = q;
       }
 
       /* now X is the answer as a string, so convert to exponent vector */
-      string_to_vector (x, b, pcp);
-      copy_array (b, lastg, x, pcp);
+      string_to_vector(x, b, pcp);
+      copy_array(b, lastg, x, pcp);
    }
 }
 
 /* zero a section of the array, y */
 
-static void zero_array (int ptr, int length, struct pcp_vars *pcp)
+static void zero_array(int ptr, int length, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -182,7 +184,7 @@ static void zero_array (int ptr, int length, struct pcp_vars *pcp)
 
 /* copy a section of the array, y */
 
-static void copy_array (int old, int length, int new, struct pcp_vars *pcp)
+static void copy_array(int old, int length, int new, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 

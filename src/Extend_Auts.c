@@ -29,64 +29,66 @@
          storing action;
    list[ptr + 2] ... list[ptr + 1 + length] contains the string */
 
-void Extend_Auts (int **head, int **list, int start, struct pcp_vars *pcp)
+void Extend_Auts(int **head, int **list, int start, struct pcp_vars *pcp)
 {
    register int lastg = pcp->lastg;
    register int offset;
    register int alpha;
    int index = 0;
    int max_length;
-   FILE * fp;
+   FILE *fp;
    int nmr_saved;
    int list_length;
 
-   int saved_length;            /* total length of description saved to file */
-   int restored_length = 0;     /* amount of description restored from file */
-   int new;                     /* new storage requirement */
+   int saved_length;        /* total length of description saved to file */
+   int restored_length = 0; /* amount of description restored from file */
+   int new;                 /* new storage requirement */
 
    /* this used to be 5 * lastg + 4 -- April 1994 */
-   if (is_space_exhausted (7 * lastg + 4, pcp))
+   if (is_space_exhausted(7 * lastg + 4, pcp))
       return;
 
-   fp = TemporaryFile ();
+   fp = TemporaryFile();
 
-   save_auts (fp, *head, *list, pcp);
+   save_auts(fp, *head, *list, pcp);
 
-   fread (&nmr_saved, sizeof (int), 1, fp);
-   fread (&saved_length, sizeof (int), 1, fp);
+   fread(&nmr_saved, sizeof(int), 1, fp);
+   fread(&saved_length, sizeof(int), 1, fp);
 
    max_length = MIN(SIZE, lastg) * lastg;
    list_length = max_length + DEFAULT_SIZE;
 
    if (pcp->cc != 1) {
       if ((*head)[0] < lastg)
-	 *head = reallocate_vector (*head, 1 + (*head)[0] * pcp->m,
-				    1 + lastg * pcp->m, 0, FALSE);
+         *head = reallocate_vector(
+             *head, 1 + (*head)[0] * pcp->m, 1 + lastg * pcp->m, 0, FALSE);
       if ((*list)[0] < list_length)
-	 *list = reallocate_vector (*list, (*list)[0] + 1,
-				    list_length + 1, 0, FALSE);
-      else list_length = (*list)[0];
+         *list = reallocate_vector(
+             *list, (*list)[0] + 1, list_length + 1, 0, FALSE);
+      else
+         list_length = (*list)[0];
    }
 
    for (alpha = 1; alpha <= pcp->m; ++alpha) {
       offset = (alpha - 1) * lastg;
-      restored_length += restore_auts (fp, offset, nmr_saved,
-				       start - 1, &index, *head, *list);
-      Extend_Aut (start, max_length, &list_length, *head, list,
-		  offset, &index, pcp);
+      restored_length +=
+          restore_auts(fp, offset, nmr_saved, start - 1, &index, *head, *list);
+      Extend_Aut(
+          start, max_length, &list_length, *head, list, offset, &index, pcp);
 #ifdef DEBUG
       if (alpha != pcp->m) {
-	 printf ("*** After automorphism %d, allocation is %d\n",
-		 alpha, list_length);
-	 printf ("*** Value of index is now %d\n", index);
+         printf("*** After automorphism %d, allocation is %d\n",
+                alpha,
+                list_length);
+         printf("*** Value of index is now %d\n", index);
       }
 #endif
 
       if ((new = saved_length - restored_length + index) > list_length) {
-	 *list = reallocate_vector (*list, list_length + 1, new + 1, 0, FALSE);
-	 list_length = new;
+         *list = reallocate_vector(*list, list_length + 1, new + 1, 0, FALSE);
+         list_length = new;
 #ifdef DEBUG
-	 printf ("*** Allocation is increased to %d\n", list_length);
+         printf("*** Allocation is increased to %d\n", list_length);
 #endif
       }
    }
@@ -94,18 +96,18 @@ void Extend_Auts (int **head, int **list, int start, struct pcp_vars *pcp)
    (*head)[0] = lastg;
    (*list)[0] = list_length;
 
-   CloseFile (fp);
+   CloseFile(fp);
 
 #ifdef DEBUG1
-   printf ("*** Final allocated space for automorphisms is %d\n", list_length);
-   printf ("*** Final amount used is %d\n", index);
+   printf("*** Final allocated space for automorphisms is %d\n", list_length);
+   printf("*** Final amount used is %d\n", index);
 #endif
 }
 
 /* list the action of each automorphism on each of the
    pcp generators, first .. last, by their image */
 
-void List_Auts (int *head, int *list, int first, int last, struct pcp_vars *pcp)
+void List_Auts(int *head, int *list, int first, int last, struct pcp_vars *pcp)
 {
    register int alpha, i, j, ptr, length;
    int offset = 0;
@@ -113,13 +115,13 @@ void List_Auts (int *head, int *list, int first, int last, struct pcp_vars *pcp)
 
    for (alpha = 1; alpha <= pcp->m; ++alpha) {
       for (i = first; i <= MIN(last, pcp->lastg); ++i) {
-	 ptr = head[offset + i];
-	 length = list[ptr + 1];
-	 printf ("%d --> ", i);
-	 for (j = ptr + 2; j <= ptr + length + 1; ++j) {
-	    printf ("%d^%d ", FIELD2 (list[j]), FIELD1 (list[j]));
-	 }
-	 printf ("\n");
+         ptr = head[offset + i];
+         length = list[ptr + 1];
+         printf("%d --> ", i);
+         for (j = ptr + 2; j <= ptr + length + 1; ++j) {
+            printf("%d^%d ", FIELD2(list[j]), FIELD1(list[j]));
+         }
+         printf("\n");
       }
       offset += pcp->lastg;
    }
@@ -127,7 +129,11 @@ void List_Auts (int *head, int *list, int first, int last, struct pcp_vars *pcp)
 
 /* set up description of action of automorphisms on defining generators */
 
-void Setup_Action (int **head, int **list, int ***auts, int nmr_of_exponents, struct pcp_vars *pcp)
+void Setup_Action(int **head,
+                  int **list,
+                  int ***auts,
+                  int nmr_of_exponents,
+                  struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -140,23 +146,23 @@ void Setup_Action (int **head, int **list, int ***auts, int nmr_of_exponents, st
 
 #include "access.h"
 
-   *head = allocate_vector (fq_rank * pcp->m + 1, 0, FALSE);
+   *head = allocate_vector(fq_rank * pcp->m + 1, 0, FALSE);
    max_length = MIN(SIZE, lastg) * lastg;
    list_length = max_length + DEFAULT_SIZE;
-   *list = allocate_vector (list_length + 1, 0, FALSE);
+   *list = allocate_vector(list_length + 1, 0, FALSE);
 
    for (alpha = 1; alpha <= pcp->m; ++alpha) {
       offset = (alpha - 1) * fq_rank;
       for (generator = 1; generator <= fq_rank; ++generator) {
-	 position = (*head)[offset + generator] = index;
-	 (*list)[++position] = 0;
-	 ++index;
-	 for (i = 1; i <= nmr_of_exponents; ++i) {
-	    if ((exp = auts[alpha][generator][i]) != 0) {
-	       ++(*list)[position];
-	       (*list)[++index] = PACK2 (exp, i);
-	    }
-	 }
+         position = (*head)[offset + generator] = index;
+         (*list)[++position] = 0;
+         ++index;
+         for (i = 1; i <= nmr_of_exponents; ++i) {
+            if ((exp = auts[alpha][generator][i]) != 0) {
+               ++(*list)[position];
+               (*list)[++index] = PACK2(exp, i);
+            }
+         }
       }
    }
 
@@ -169,7 +175,14 @@ void Setup_Action (int **head, int **list, int ***auts, int nmr_of_exponents, st
    and list, to act on the generators of the group; the first
    generator whose image is computed is start */
 
-void Extend_Aut (int start, int max_length, int *list_length, int *head, int **list, int offset, int *index, struct pcp_vars *pcp)
+void Extend_Aut(int start,
+                int max_length,
+                int *list_length,
+                int *head,
+                int **list,
+                int offset,
+                int *index,
+                struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -196,38 +209,37 @@ void Extend_Aut (int start, int max_length, int *list_length, int *head, int **l
 
 #ifdef DEBUG
       if (generator % 100 == 0)
-	 printf ("Processed generator %d\n", generator);
+         printf("Processed generator %d\n", generator);
 #endif
 
       /* check if there is sufficient space allocated */
       if (generator % SIZE == 1 && (new = *index + max_length) > *list_length) {
-	 *list = reallocate_vector (*list, *list_length + 1, new + 1, 0, FALSE);
-	 *list_length = new;
+         *list = reallocate_vector(*list, *list_length + 1, new + 1, 0, FALSE);
+         *list_length = new;
       }
 
       /* examine the definition of generator */
       value = y[structure + generator];
 
       if (value <= 0) {
-	 evaluate_image (head, *list, offset, -value, result, pcp);
-      }
-      else {
+         evaluate_image(head, *list, offset, -value, result, pcp);
+      } else {
 
-	 u = PART2 (value);
-	 v = PART3 (value);
+         u = PART2(value);
+         v = PART3(value);
 
-	 if (v == 0)
-	    Extend_Pow (cp1, cp2, u, offset, head, *list, pcp);
-	 else
-	    Extend_Comm (cp1, cp2, u, v, offset, head, *list, pcp);
+         if (v == 0)
+            Extend_Pow(cp1, cp2, u, offset, head, *list, pcp);
+         else
+            Extend_Comm(cp1, cp2, u, v, offset, head, *list, pcp);
 
-#if defined (GROUP)
-	 /* solve the appropriate equation, storing the image
-	    of generator under the action of alpha at result;
-	    in the Lie Program, Extend_Comm has already
-	    set up the answer at location result */
+#if defined(GROUP)
+         /* solve the appropriate equation, storing the image
+            of generator under the action of alpha at result;
+            in the Lie Program, Extend_Comm has already
+            set up the answer at location result */
 
-	 solve_equation (cp1, cp2, result, pcp);
+         solve_equation(cp1, cp2, result, pcp);
 
 #endif
       }
@@ -240,19 +252,19 @@ void Extend_Aut (int start, int max_length, int *list_length, int *head, int **l
 
 
       for (i = 1; i <= lastg; ++i) {
-	 if ((exp = y[result + i]) != 0) {
-	    ++(*list)[position];
-	    (*list)[++*index] = PACK2 (exp, i);
-	 }
+         if ((exp = y[result + i]) != 0) {
+            ++(*list)[position];
+            (*list)[++*index] = PACK2(exp, i);
+         }
       }
    }
 
    /* reset value of submlg */
    pcp->submlg += (3 * lastg + 2);
-
 }
 
-void evaluate_image (int *head, int *list, int offset, int ptr, int cp, struct pcp_vars *pcp)
+void evaluate_image(
+    int *head, int *list, int offset, int ptr, int cp, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -268,19 +280,20 @@ void evaluate_image (int *head, int *list, int offset, int ptr, int cp, struct p
    for (i = 1; i <= lastg; ++i)
       y[cp + i] = 0;
 
-   if (ptr == 0) return;
+   if (ptr == 0)
+      return;
 
    /* length of redundant relation */
    relation_length = y[ptr + 1];
 
    /* first generator in redundant relation */
-   u = FIELD2 (y[ptr + 1 + 1]);
+   u = FIELD2(y[ptr + 1 + 1]);
 
    /* its exponent */
-   exp = FIELD1 (y[ptr + 1 + 1]);
+   exp = FIELD1(y[ptr + 1 + 1]);
 
    /* set up exp power of the image of u under alpha as exponent vector at cp */
-   traverse_list (exp, head[offset + u], list, cp, pcp);
+   traverse_list(exp, head[offset + u], list, cp, pcp);
 
    /* now reduce the entries mod p */
    for (i = 1; i <= lastg; ++i)
@@ -291,15 +304,15 @@ void evaluate_image (int *head, int *list, int offset, int ptr, int cp, struct p
 
    pointer = pcp->lused + 1;
    for (i = 2; i <= relation_length; ++i) {
-      next_gen = FIELD2 (y[ptr + 1 + i]);
-      next_exp = FIELD1 (y[ptr + 1 + i]);
+      next_gen = FIELD2(y[ptr + 1 + i]);
+      next_exp = FIELD1(y[ptr + 1 + i]);
       start = head[offset + next_gen];
       image_length = list[++start];
       y[pointer + 1] = image_length;
       for (j = 1; j <= image_length; ++j)
-	 y[pointer + 1 + j] = list[start + j];
-      for ( ; next_exp > 0; --next_exp)
-	 collect (-pointer, cp, pcp);
+         y[pointer + 1 + j] = list[start + j];
+      for (; next_exp > 0; --next_exp)
+         collect(-pointer, cp, pcp);
    }
 }
 
@@ -312,7 +325,13 @@ void evaluate_image (int *head, int *list, int offset, int ptr, int cp, struct p
    find the image of t under alpha by setting up (W)alpha at cp1,
    ((u)alpha)^p at cp2, and then call solve_equation */
 
-void Extend_Pow (int cp1, int cp2, int u, int offset, int *head, int *list, struct pcp_vars *pcp)
+void Extend_Pow(int cp1,
+                int cp2,
+                int u,
+                int offset,
+                int *head,
+                int *list,
+                struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -324,17 +343,17 @@ void Extend_Pow (int cp1, int cp2, int u, int offset, int *head, int *list, stru
       y[cp1 + i] = y[cp2 + i] = 0;
 
    /* set up the image of u under alpha at cp2 */
-   traverse_list (1, head[offset + u], list, cp2, pcp);
+   traverse_list(1, head[offset + u], list, cp2, pcp);
 
    /* raise the image of u under alpha to its pth power */
-   power (pcp->p, cp2, pcp);
+   power(pcp->p, cp2, pcp);
 
    /* set up image of W under alpha at cp1 */
    if ((value = y[pcp->ppower + u]) < 0)
-      Collect_Image_Of_Str (-value, cp1, offset, head, list, pcp);
+      Collect_Image_Of_Str(-value, cp1, offset, head, list, pcp);
 }
 
-#if defined (GROUP)
+#if defined(GROUP)
 
 /* given generator t of the p-multiplicator, whose definition is
    [u, v]; hence, we have the equation
@@ -346,7 +365,14 @@ void Extend_Pow (int cp1, int cp2, int u, int offset, int *head, int *list, stru
    (v)alpha * (u)alpha * (W)alpha at cp1, (u)alpha * (v)alpha at cp2
    and then call solve_equation */
 
-void Extend_Comm (int cp1, int cp2, int u, int v, int offset, int *head, int *list, struct pcp_vars *pcp)
+void Extend_Comm(int cp1,
+                 int cp2,
+                 int u,
+                 int v,
+                 int offset,
+                 int *head,
+                 int *list,
+                 struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -358,21 +384,21 @@ void Extend_Comm (int cp1, int cp2, int u, int v, int offset, int *head, int *li
       y[cp1 + i] = y[cp2 + i] = 0;
 
    /* set up the image of u under alpha at cp2 */
-   traverse_list (1, head[offset + u], list, cp2, pcp);
+   traverse_list(1, head[offset + u], list, cp2, pcp);
 
    /* collect image of v under alpha at cp2 */
-   Collect_Image_Of_Gen (cp2, head[offset + v], list, pcp);
+   Collect_Image_Of_Gen(cp2, head[offset + v], list, pcp);
 
    /* set up image of v under alpha at cp1 */
-   traverse_list (1, head[offset + v], list, cp1, pcp);
+   traverse_list(1, head[offset + v], list, cp1, pcp);
 
    /* collect image of u under alpha at cp1 */
-   Collect_Image_Of_Gen (cp1, head[offset + u], list, pcp);
+   Collect_Image_Of_Gen(cp1, head[offset + u], list, pcp);
 
    /* collect image of W under alpha at cp1 */
    pointer = y[pcp->ppcomm + u];
    if ((value = y[pointer + v]) < 0)
-      Collect_Image_Of_Str (-value, cp1, offset, head, list, pcp);
+      Collect_Image_Of_Str(-value, cp1, offset, head, list, pcp);
 }
 
 #endif
@@ -382,7 +408,8 @@ void Extend_Comm (int cp1, int cp2, int u, int v, int offset, int *head, int *li
    image of generator under automorphism -- it does not seem to
    be worthwhile where p = 5 -- needs further investigation */
 
-void Pq_Collect_Image_Of_Gen (int exp, int cp, int head, int *list, struct pcp_vars *pcp)
+void Pq_Collect_Image_Of_Gen(
+    int exp, int cp, int head, int *list, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -393,17 +420,17 @@ void Pq_Collect_Image_Of_Gen (int exp, int cp, int head, int *list, struct pcp_v
    for (i = 1; i <= pcp->lastg; ++i)
       y[lused + i] = 0;
 
-   traverse_list (1, head, list, lused, pcp);
-   power (exp, lused, pcp);
-   vector_to_string (lused, str, pcp);
+   traverse_list(1, head, list, lused, pcp);
+   power(exp, lused, pcp);
+   vector_to_string(lused, str, pcp);
 
-   collect (-str, cp, pcp);
+   collect(-str, cp, pcp);
 }
 
 /* collect image of a generator under the
    action of an automorphism and store the result at cp */
 
-void Collect_Image_Of_Gen (int cp, int head, int *list, struct pcp_vars *pcp)
+void Collect_Image_Of_Gen(int cp, int head, int *list, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -416,13 +443,14 @@ void Collect_Image_Of_Gen (int cp, int head, int *list, struct pcp_vars *pcp)
    for (i = 1; i <= length; ++i)
       y[lused + 1 + i] = list[head + i];
 
-   collect (-lused, cp, pcp);
+   collect(-lused, cp, pcp);
 }
 
 /* collect image of supplied string under the action of
    supplied automorphism and store the result at cp */
 
-void Collect_Image_Of_Str (int string, int cp, int offset, int *head, int *list, struct pcp_vars *pcp)
+void Collect_Image_Of_Str(
+    int string, int cp, int offset, int *head, int *list, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -430,7 +458,7 @@ void Collect_Image_Of_Str (int string, int cp, int offset, int *head, int *list,
    register int generator, exp;
    register int value;
    register int length = y[string + 1] - 1; /* last element of string
-					       is in p-multiplicator */
+                                               is in p-multiplicator */
 #include "access.h"
 
    /* process the string generator by generator, collecting exp
@@ -439,11 +467,11 @@ void Collect_Image_Of_Str (int string, int cp, int offset, int *head, int *list,
 
    for (i = 1; i <= length; ++i) {
       value = y[string + 1 + i];
-      generator = FIELD2 (value);
-      exp = FIELD1 (value);
+      generator = FIELD2(value);
+      exp = FIELD1(value);
       while (exp > 0) {
-	 Collect_Image_Of_Gen (cp, head[offset + generator], list, pcp);
-	 --exp;
+         Collect_Image_Of_Gen(cp, head[offset + generator], list, pcp);
+         --exp;
       }
    }
 }

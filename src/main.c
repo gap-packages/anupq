@@ -16,7 +16,7 @@
 #include "global.h"
 #include "standard.h"
 
-#if defined (RUN_TIME)
+#if defined(RUN_TIME)
 #include "runtime.h"
 #endif
 
@@ -48,180 +48,188 @@ int menu = DEFAULT_MENU;
 Logical StandardPresentation = FALSE;
 Logical GAP4iostream = FALSE;
 
-int main (int argc, char **argv)
+int main(int argc, char **argv)
 {
    int t;
    struct pcp_vars pcp;
 #include "access.h"
 
-   setbuf (stdout, NULL);
+   setbuf(stdout, NULL);
 
    Compact_Description = FALSE;
 
    /* process run-time parameters */
-   if (process_parameters (argc, argv) == 0) {
-#if defined (RUN_TIME)
-      printf ("Usage: pq [-b] [-c] [-d] [-G] [-g] [-i] [-k] [-s <integer>] [-v] [-w <filename>]\n");
+   if (process_parameters(argc, argv) == 0) {
+#if defined(RUN_TIME)
+      printf("Usage: pq [-b] [-c] [-d] [-G] [-g] [-i] [-k] [-s <integer>] [-v] "
+             "[-w <filename>]\n");
 #else
-      printf ("Usage: pq [-b] [-G] [-g] [-i] [-k] [-s <integer>] [-v] [-w <filename>]\n");
+      printf("Usage: pq [-b] [-G] [-g] [-i] [-k] [-s <integer>] [-v] [-w "
+             "<filename>]\n");
 #endif
-      exit (INPUT_ERROR);
+      exit(INPUT_ERROR);
    }
 
-   Allocate_WorkSpace (work_space, &pcp);
+   Allocate_WorkSpace(work_space, &pcp);
 
    /* print startup message */
-   print_message (work_space);
+   print_message(work_space);
 
-#if defined (GROUP)
-#if defined (STANDARD_PCP)
-      if (menu == ISOM_MENU)
-	 isom_options (format, &pcp);
-      else
+#if defined(GROUP)
+#if defined(STANDARD_PCP)
+   if (menu == ISOM_MENU)
+      isom_options(format, &pcp);
+   else
 #endif
 #endif
-	 options (DEFAULT_MENU, format, &pcp);
+      options(DEFAULT_MENU, format, &pcp);
 
-   t = runTime ();
-   printf ("Total user time in seconds is %.2f\n", t * CLK_SCALE);
+   t = runTime();
+   printf("Total user time in seconds is %.2f\n", t * CLK_SCALE);
 
-   exit (SUCCESS);
+   exit(SUCCESS);
 }
 
 /* process run-time parameters */
 
-int process_parameters (int argc, char **argv)
+int process_parameters(int argc, char **argv)
 {
    int i;
    Logical error;
 
-#if defined (RUN_TIME)
+#if defined(RUN_TIME)
    int A1, A3;
-   A1 = 0; A3 = 0;
+   A1 = 0;
+   A3 = 0;
 #endif
 
    Group_library_file = NULL;
 
    for (i = 1; i < argc; ++i) {
-      if (strcmp (argv[i], "-s") == 0) {
-	 if (i == argc - 1) return (0);
-	 work_space = string_to_int (argv[++i], &error);
-	 if (error) return (0);
-      }
-      else if (strcmp (argv[i], "-w") == 0) {
-	 if (i == argc - 1 || argv[++i][0] == '-')
-	    return (0);
-	 Group_library_file = allocate_char_vector (strlen (argv[i]), 0, FALSE);
-	 strcpy (Group_library_file, argv[i]);
-      }
-      else if (strcmp (argv[i], "-b") == 0)
-	 format = BASIC;
-#if defined (RUN_TIME)
-      else if (strcmp (argv[i], "-d") == 0) {
-	 if (i == argc - 1) return (0);
-	 A1 = string_to_int (argv[++i], &error);
-	 if (error) return (0);
-      }
-      else if (strcmp (argv[i], "-c") == 0)  {
-	 if (i == argc - 1) return (0);
-	 A3 = string_to_int (argv[++i], &error);
-	 if (error) return (0);
+      if (strcmp(argv[i], "-s") == 0) {
+         if (i == argc - 1)
+            return (0);
+         work_space = string_to_int(argv[++i], &error);
+         if (error)
+            return (0);
+      } else if (strcmp(argv[i], "-w") == 0) {
+         if (i == argc - 1 || argv[++i][0] == '-')
+            return (0);
+         Group_library_file = allocate_char_vector(strlen(argv[i]), 0, FALSE);
+         strcpy(Group_library_file, argv[i]);
+      } else if (strcmp(argv[i], "-b") == 0)
+         format = BASIC;
+#if defined(RUN_TIME)
+      else if (strcmp(argv[i], "-d") == 0) {
+         if (i == argc - 1)
+            return (0);
+         A1 = string_to_int(argv[++i], &error);
+         if (error)
+            return (0);
+      } else if (strcmp(argv[i], "-c") == 0) {
+         if (i == argc - 1)
+            return (0);
+         A3 = string_to_int(argv[++i], &error);
+         if (error)
+            return (0);
       }
 #endif
-#if defined (STANDARD_PCP)
-      else if (strcmp (argv[i], "-i") == 0)
-	 menu = ISOM_MENU;
+#if defined(STANDARD_PCP)
+      else if (strcmp(argv[i], "-i") == 0)
+         menu = ISOM_MENU;
 #endif
-      else if (strcmp (argv[i], "-k") == 0)
-	 format = FILE_INPUT;
-      else if (strcmp (argv[i], "-G") == 0)
-	{Group_library = GAP_LIBRARY;
-	 menu = ISOM_MENU;
-	 format = FILE_INPUT;
-         GAP4iostream = TRUE;}
-      else if (strcmp (argv[i], "-g") == 0)
-	 Group_library = GAP_LIBRARY;
-      else if (strcmp (argv[i], "-v") == 0)
-	{printf ("%s\n", PQ_VERSION);
-         exit (SUCCESS);}
-      else
-	 return (0);
+      else if (strcmp(argv[i], "-k") == 0)
+         format = FILE_INPUT;
+      else if (strcmp(argv[i], "-G") == 0) {
+         Group_library = GAP_LIBRARY;
+         menu = ISOM_MENU;
+         format = FILE_INPUT;
+         GAP4iostream = TRUE;
+      } else if (strcmp(argv[i], "-g") == 0)
+         Group_library = GAP_LIBRARY;
+      else if (strcmp(argv[i], "-v") == 0) {
+         printf("%s\n", PQ_VERSION);
+         exit(SUCCESS);
+      } else
+         return (0);
    }
 
-#if defined (RUN_TIME)
-   ExamineOptions (A1, A3);
+#if defined(RUN_TIME)
+   ExamineOptions(A1, A3);
 #endif
 
-#if defined (GAP)
-   CreateGAPLibraryFile ();
+#if defined(GAP)
+   CreateGAPLibraryFile();
 #endif
 
    return 1;
 }
 
-#if defined (RUN_TIME)
+#if defined(RUN_TIME)
 
 /* how many bits are needed to store x? */
 
-int
-NmrOfBits (int x)
+int NmrOfBits(int x)
 {
    int nmr = 0;
-   while (x >= 1) {x = x >> 1; ++nmr;}
+   while (x >= 1) {
+      x = x >> 1;
+      ++nmr;
+   }
    return nmr;
 }
 
-int
-ExamineOptions (int A1, int A3)
+int ExamineOptions(int A1, int A3)
 {
-   if (A1 == 0 && A3 == 0) return;
+   if (A1 == 0 && A3 == 0)
+      return;
 
    if (A1 <= 0 || A3 <= 0) {
-      printf ("You must supply positive values for each of -d and -c\n");
-      exit (INPUT_ERROR);
+      printf("You must supply positive values for each of -d and -c\n");
+      exit(INPUT_ERROR);
    }
 
-   A1 = NmrOfBits (A1);
-   A3 = NmrOfBits (A3);
+   A1 = NmrOfBits(A1);
+   A3 = NmrOfBits(A3);
 
    if (A1 + A3 >= WORD_LENGTH) {
-      printf ("Product of the values for -d and -c must need at most %d bits\n",
-	      WORD_LENGTH - 1);
-      exit (INPUT_ERROR);
+      printf("Product of the values for -d and -c must need at most %d bits\n",
+             WORD_LENGTH - 1);
+      exit(INPUT_ERROR);
    }
 
    GSC1 = A1;
    GSC2 = WORD_LENGTH - (A1 + A3);
 
-   MAXGENS = int_power (2, GSC1) - 1;
-   MAXPC = int_power (2, GSC2) - 1;
-   MAXCLASS = int_power (2, A3) - 1;
+   MAXGENS = int_power(2, GSC1) - 1;
+   MAXPC = int_power(2, GSC2) - 1;
+   MAXCLASS = int_power(2, A3) - 1;
 
-   printf ("********************************************\n");
-   printf ("Program now uses the following bounds:\n");
-   printf ("Number of defining generators: %d\n", MAXGENS);
-   printf ("Number of pc generators: %d\n", MAXPC);
-   printf ("Class bound: %d\n", MAXCLASS);
-   printf ("********************************************\n");
+   printf("********************************************\n");
+   printf("Program now uses the following bounds:\n");
+   printf("Number of defining generators: %d\n", MAXGENS);
+   printf("Number of pc generators: %d\n", MAXPC);
+   printf("Class bound: %d\n", MAXCLASS);
+   printf("********************************************\n");
 }
 
 #endif
 
-#if defined (GAP)
+#if defined(GAP)
 
 /* if pq is called successfully from GAP, we want GAP_library file to exist
    in all cases, even if no group descriptions have been saved to it */
 
-void CreateGAPLibraryFile (void)
+void CreateGAPLibraryFile(void)
 {
    FILE *GAP_library;
 
    if (Group_library == GAP_LIBRARY) {
       if (Group_library_file == NULL)
-	 Group_library_file = "GAP_library";
-      GAP_library = OpenFile (Group_library_file, "a+");
-      fprintf (GAP_library, "ANUPQmagic := \"groups saved to file\";\n");
-      CloseFile (GAP_library);
+         Group_library_file = "GAP_library";
+      GAP_library = OpenFile(Group_library_file, "a+");
+      fprintf(GAP_library, "ANUPQmagic := \"groups saved to file\";\n");
+      CloseFile(GAP_library);
    }
 }
 

@@ -10,7 +10,7 @@
 /* compute the multiplicative inverse of x modulo p
    using the forward extended euclidean algorithm */
 
-int invert_modp (int x, int p)
+int invert_modp(int x, int p)
 {
    register int q;
    register int a1 = p;

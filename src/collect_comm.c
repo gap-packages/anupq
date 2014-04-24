@@ -16,7 +16,7 @@
 
 /* collect a commutator relation in the defining generators of the group */
 
-void collect_def_comm (int ptr, int cp, struct pcp_vars *pcp)
+void collect_def_comm(int ptr, int cp, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -40,32 +40,32 @@ void collect_def_comm (int ptr, int cp, struct pcp_vars *pcp)
    depth = -y[ptr] - 1;
    exp = y[ptr + 1];
 
-   collect_defining_generator (ptr + 2, cp2, pcp);
-   copy (cp2, lastg, cp3, pcp);
+   collect_defining_generator(ptr + 2, cp2, pcp);
+   copy(cp2, lastg, cp3, pcp);
 
    disp = 0;
    while (--depth > 0) {
 
       ++disp;
-      collect_defining_generator (ptr + 2 + disp, cp1, pcp);
-      copy (cp1, lastg, cp4, pcp);
+      collect_defining_generator(ptr + 2 + disp, cp1, pcp);
+      copy(cp1, lastg, cp4, pcp);
 
       /* solve the equation (ba) * x = ab to obtain [a, b] */
-      find_commutator (cp1, cp2, cp3, cp4, result, pcp);
+      find_commutator(cp1, cp2, cp3, cp4, result, pcp);
 
-      copy (result, lastg, cp2, pcp);
-      copy (result, lastg, cp3, pcp);
+      copy(result, lastg, cp2, pcp);
+      copy(result, lastg, cp3, pcp);
    }
 
-   power (exp, result, pcp);
+   power(exp, result, pcp);
 
 #ifdef DEBUG
    /* print the commutator */
-   setup_word_to_print ("commutator", result, pcp->lused, pcp);
+   setup_word_to_print("commutator", result, pcp->lused, pcp);
 #endif
 
    /* copy result to cp */
-   copy (result, lastg, cp, pcp);
+   copy(result, lastg, cp, pcp);
 
    /* reset the value of submlg */
    pcp->submlg += total;
@@ -74,7 +74,7 @@ void collect_def_comm (int ptr, int cp, struct pcp_vars *pcp)
 /* collect value of defining generator stored at y[ptr] to
    storage location cp */
 
-void collect_defining_generator (int ptr, int cp, struct pcp_vars *pcp)
+void collect_defining_generator(int ptr, int cp, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -93,25 +93,24 @@ void collect_defining_generator (int ptr, int cp, struct pcp_vars *pcp)
    genval = y[pcp->dgen + generator];
 
    /* check for illegal defining generators */
-   if (abs (generator) > pcp->ndgen || generator == 0)
-      report_error (0, generator, 0);
+   if (abs(generator) > pcp->ndgen || generator == 0)
+      report_error(0, generator, 0);
 
 #ifdef DEBUG
    if (genval > 0)
-      printf ("%d %d\n", generator, genval);
+      printf("%d %d\n", generator, genval);
    else if (genval < 0) {
-      printf ("%d %d ", generator, y[-genval]);
+      printf("%d %d ", generator, y[-genval]);
       word_len = y[-genval + 1];
       for (j = 1; j <= word_len; ++j)
-	 printf (" %d", y[-genval + 1 + j]);
-   }
-   else
-      printf ("generator %d is trivial\n", generator);
+         printf(" %d", y[-genval + 1 + j]);
+   } else
+      printf("generator %d is trivial\n", generator);
 #endif
 
-   collect (genval, cp, pcp);
+   collect(genval, cp, pcp);
 
 #ifdef DEBUG
-   print_array (y, cp, cp + pcp->lastg + 1);
+   print_array(y, cp, cp + pcp->lastg + 1);
 #endif
 }

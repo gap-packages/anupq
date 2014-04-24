@@ -12,7 +12,7 @@
 
 /* compact the group tables from pcp->gspace onwards */
 
-void compact (struct pcp_vars *pcp)
+void compact(struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -28,27 +28,26 @@ void compact (struct pcp_vars *pcp)
 #ifndef DEBUG
    if (pcp->fullop || pcp->diagn)
 #endif
-      text (2, pcp->lused, pcp->structure, 0, 0);
+      text(2, pcp->lused, pcp->structure, 0, 0);
 
    while (i < pcp->lused) {
 
       /* the next block is currently allocated */
       if (y[i] > 0) {
-	 p1 = y[i];
-	 ++new_address;
-	 y[p1] = -new_address;
-	 y[new_address] = y[i];
-	 bound = y[i + 1] + 1;
-	 for (j = 1; j <= bound; ++j)
-	    y[++new_address] = y[++i];
-	 ++i;
-      }
-      else if (y[i] == 0)
-	 /* this block is currently deallocated */
-	 i += y[i + 1] + 2;
+         p1 = y[i];
+         ++new_address;
+         y[p1] = -new_address;
+         y[new_address] = y[i];
+         bound = y[i + 1] + 1;
+         for (j = 1; j <= bound; ++j)
+            y[++new_address] = y[++i];
+         ++i;
+      } else if (y[i] == 0)
+         /* this block is currently deallocated */
+         i += y[i + 1] + 2;
       else
-	 /* this block consists only of the header block of length 1 */
-	 ++i;
+         /* this block consists only of the header block of length 1 */
+         ++i;
    }
 
    pcp->lused = new_address;
@@ -56,7 +55,7 @@ void compact (struct pcp_vars *pcp)
 #ifndef DEBUG
    if (pcp->fullop || pcp->diagn)
 #endif
-      PRINT ("After compaction Lused = %d\n", pcp->lused);
+      PRINT("After compaction Lused = %d\n", pcp->lused);
 
    return;
 }

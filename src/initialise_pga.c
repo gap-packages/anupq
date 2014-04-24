@@ -13,7 +13,7 @@
 
 /* initialise the pga structure */
 
-void initialise_pga (struct pga_vars *pga, struct pcp_vars *pcp)
+void initialise_pga(struct pga_vars *pga, struct pcp_vars *pcp)
 {
    pga->p = pcp->p;
    pga->q = pga->r = pga->s = 0;
@@ -31,11 +31,11 @@ void initialise_pga (struct pga_vars *pga, struct pcp_vars *pcp)
 
 /* set up values for pga structure */
 
-void set_values (struct pga_vars *pga, struct pcp_vars *pcp)
+void set_values(struct pga_vars *pga, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
-   pga->multiplicator_rank = y[pcp->clend + pcp->cc] -
-      y[pcp->clend + pcp->cc - 1];
+   pga->multiplicator_rank =
+       y[pcp->clend + pcp->cc] - y[pcp->clend + pcp->cc - 1];
    pga->nuclear_rank = pcp->newgen;
 }

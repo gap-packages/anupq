@@ -24,11 +24,11 @@
 
    the word need NOT be in normal form */
 
-void read_relator_file (int *queue, int *queue_length, struct pcp_vars *pcp)
+void read_relator_file(int *queue, int *queue_length, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
-   FILE * relation_file;
+   FILE *relation_file;
    int nmr_relations;
    int format = BASIC;
    char *name;
@@ -41,29 +41,31 @@ void read_relator_file (int *queue, int *queue_length, struct pcp_vars *pcp)
 
    int nmr_items;
 
-   name = GetString ("Enter relation file name: ");
-   relation_file = OpenFile (name, "r+");
-   if (relation_file == NULL) return;
+   name = GetString("Enter relation file name: ");
+   relation_file = OpenFile(name, "r+");
+   if (relation_file == NULL)
+      return;
 
-   nmr_items = fscanf (relation_file, "%d", &nmr_relations);
-   verify_read (nmr_items, 1);
+   nmr_items = fscanf(relation_file, "%d", &nmr_relations);
+   verify_read(nmr_items, 1);
 
    type = WORD;
    for (i = 1; i <= nmr_relations; ++i) {
-      if (pcp->complete) break;
-      if (!is_space_exhausted (3 * lastg + 2, pcp)) {
-	 cp = pcp->lused;
-	 setup_word_to_collect (relation_file, format, type, cp, pcp);
-	 if (pcp->diagn)
-	    setup_word_to_print ("collected word", cp, cp + pcp->lastg + 1, pcp);
-	 for (k = 1; k <= lastg; ++k)
-	    y[cp + lastg + k] = 0;
+      if (pcp->complete)
+         break;
+      if (!is_space_exhausted(3 * lastg + 2, pcp)) {
+         cp = pcp->lused;
+         setup_word_to_collect(relation_file, format, type, cp, pcp);
+         if (pcp->diagn)
+            setup_word_to_print("collected word", cp, cp + pcp->lastg + 1, pcp);
+         for (k = 1; k <= lastg; ++k)
+            y[cp + lastg + k] = 0;
       }
 
-      echelon (pcp);
+      echelon(pcp);
       if (pcp->redgen != 0 && pcp->m != 0)
-	 queue[++*queue_length] = pcp->redgen;
+         queue[++*queue_length] = pcp->redgen;
    }
 
-   CloseFile (relation_file);
+   CloseFile(relation_file);
 }

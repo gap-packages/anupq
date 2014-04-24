@@ -16,7 +16,7 @@
    if type = 2, delete only the subgroup table entries;
    if type = 0, delete both */
 
-void delete_tables (int type, struct pcp_vars *pcp)
+void delete_tables(int type, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -30,25 +30,25 @@ void delete_tables (int type, struct pcp_vars *pcp)
    /* delete all entries (pointers) in the words table */
    if (type != 2) {
       if ((n = pcp->nwords) != 0) {
-	 address = pcp->words;
-	 for (i = 1; i <= n; i++)
-	    if ((p1 = -y[address + i]) != 0)
-	       y[p1] = 0;
+         address = pcp->words;
+         for (i = 1; i <= n; i++)
+            if ((p1 = -y[address + i]) != 0)
+               y[p1] = 0;
 
-	 /* shift up the subgroup table, if it exists */
-	 if (type && pcp->nsubgp) {
-	    j = pcp->structure + 1;
-	    for (i = 1; i <= nsubgp; i++, j--) {
-	       p1 = y[j - n];
-	       y[j] = p1;
-	       if (p1 != 0)
-		  y[-p1] = j;
-	    }
-	    pcp->subgrp = j - 1;
-	    pcp->submlg = pcp->subgrp - pcp->lastg;
-	 }
-	 pcp->words = pcp->structure;
-	 pcp->nwords = 0;
+         /* shift up the subgroup table, if it exists */
+         if (type && pcp->nsubgp) {
+            j = pcp->structure + 1;
+            for (i = 1; i <= nsubgp; i++, j--) {
+               p1 = y[j - n];
+               y[j] = p1;
+               if (p1 != 0)
+                  y[-p1] = j;
+            }
+            pcp->subgrp = j - 1;
+            pcp->submlg = pcp->subgrp - pcp->lastg;
+         }
+         pcp->words = pcp->structure;
+         pcp->nwords = 0;
       }
    }
 
@@ -56,10 +56,10 @@ void delete_tables (int type, struct pcp_vars *pcp)
    if (type != 1) {
       address = pcp->subgrp;
       for (i = 1; i <= nsubgp; i++) {
-	 if ((p1 = -y[address + i]) != 0) {
-	    y[address + i] = 0;
-	    y[p1] = 0;
-	 }
+         if ((p1 = -y[address + i]) != 0) {
+            y[address + i] = 0;
+            y[p1] = 0;
+         }
       }
       pcp->nsubgp = 0;
       pcp->subgrp = pcp->words;

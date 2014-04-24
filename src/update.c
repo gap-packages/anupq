@@ -15,7 +15,7 @@
    assembled in eliminate in a table pointed to by y[dgen];
    update the value represented by y[ptr] and y[ptr] if necessary */
 
-void update (int ptr, struct pcp_vars *pcp)
+void update(int ptr, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -48,39 +48,37 @@ void update (int ptr, struct pcp_vars *pcp)
    if (y[p1] > 0) {
 
       if (class_beg - y[p1] > 0)
-	 return;
+         return;
 
       /* the generator is of class pcp->cc */
       g = y[p1];
 
       value = y[structure + g];
       if (value == 0) {
-	 /* g is now trivial */
-	 y[p1] = 0;
-      }
-      else if (value > 0) {
-	 /* g is an irredundant generator */
-	 renumb = -y[dgen] - class_beg + 2;
-	 y[p1] = y[renumb + g];
-      }
-      else {
-	 /* g is redundant with value pointed to by y[structure + g] */
-	 if (is_space_exhausted (g - class_beg + 1, pcp))
-	    return;
-	 lused = pcp->lused;
-	 p2 = -y[structure + g];
-	 count = y[p2 + 1];
-	 renumb = -y[dgen] - class_beg + 2;
+         /* g is now trivial */
+         y[p1] = 0;
+      } else if (value > 0) {
+         /* g is an irredundant generator */
+         renumb = -y[dgen] - class_beg + 2;
+         y[p1] = y[renumb + g];
+      } else {
+         /* g is redundant with value pointed to by y[structure + g] */
+         if (is_space_exhausted(g - class_beg + 1, pcp))
+            return;
+         lused = pcp->lused;
+         p2 = -y[structure + g];
+         count = y[p2 + 1];
+         renumb = -y[dgen] - class_beg + 2;
 
-	 /* make a renumbered copy of the value of g */
-	 for (i = 1; i <= count; i++) {
-	    k = FIELD2 (y[p2 + i + 1]);
-	    y[lused + 2 + i] = PACK2 (FIELD1 (y[p2 + i + 1]), y[renumb + k]);
-	 }
-	 y[lused + 1] = p1;
-	 y[lused + 2] = count;
-	 y[p1] = -(lused + 1);
-	 pcp->lused += count + 2;
+         /* make a renumbered copy of the value of g */
+         for (i = 1; i <= count; i++) {
+            k = FIELD2(y[p2 + i + 1]);
+            y[lused + 2 + i] = PACK2(FIELD1(y[p2 + i + 1]), y[renumb + k]);
+         }
+         y[lused + 1] = p1;
+         y[lused + 2] = count;
+         y[p1] = -(lused + 1);
+         pcp->lused += count + 2;
       }
 
       return;
@@ -90,7 +88,7 @@ void update (int ptr, struct pcp_vars *pcp)
       find the length of the old class pcp->cc part and calculate
       the new class pcp->cc part (in exponent form from y[lused + 1]) */
 
-   if (is_space_exhausted (pcp->lastg + 2, pcp))
+   if (is_space_exhausted(pcp->lastg + 2, pcp))
       return;
 
    lused = pcp->lused;
@@ -106,24 +104,24 @@ void update (int ptr, struct pcp_vars *pcp)
 
    /* convert each symbol of old class pcp->cc part */
    for (count1 = count;
-	(g = FIELD2 (y[p3 + count1 + 1])) >= class_beg && count1 > 0; count1--) {
+        (g = FIELD2(y[p3 + count1 + 1])) >= class_beg && count1 > 0;
+        count1--) {
       if ((i = y[structure + g]) >= 0) {
-	 /* g is irredundant so renumber it */
-	 if (i > 0) {
-	    g = y[renumb + g];
-	    y[expfba + g] += FIELD1 (y[p3 + count1 + 1]);
-	 }
-      }
-      else {
-	 /* g is redundant */
-	 p2 = -y[structure + g];
-	 factor = FIELD1 (y[p3 + count1 + 1]);
-	 count2 = y[p2 + 1];
-	 for (i = 1; i <= count2; i++) {
-	    g = FIELD2 (y[p2 + i + 1]);
-	    g = y[renumb + g];
-	    y[expfba + g] += factor * FIELD1 (y[p2 + i + 1]);
-	 }
+         /* g is irredundant so renumber it */
+         if (i > 0) {
+            g = y[renumb + g];
+            y[expfba + g] += FIELD1(y[p3 + count1 + 1]);
+         }
+      } else {
+         /* g is redundant */
+         p2 = -y[structure + g];
+         factor = FIELD1(y[p3 + count1 + 1]);
+         count2 = y[p2 + 1];
+         for (i = 1; i <= count2; i++) {
+            g = FIELD2(y[p2 + i + 1]);
+            g = y[renumb + g];
+            y[expfba + g] += factor * FIELD1(y[p2 + i + 1]);
+         }
       }
    }
 
@@ -135,8 +133,8 @@ void update (int ptr, struct pcp_vars *pcp)
    count2 = 0;
    for (i = class_beg, lastg = pcp->lastg; i <= lastg; i++) {
       if (y[expfba + i] % pcp->p > 0) {
-	 count2++;
-	 y[lused + count2] = PACK2 (y[expfba + i] % pcp->p, i);
+         count2++;
+         y[lused + count2] = PACK2(y[expfba + i] % pcp->p, i);
       }
    }
 
@@ -144,16 +142,16 @@ void update (int ptr, struct pcp_vars *pcp)
    if (count2 <= 0) {
       /* if entire value is trivial, deallocate old value */
       if (count1 <= 0) {
-	 y[p1] = y[p3] = 0;
-	 return;
+         y[p1] = y[p3] = 0;
+         return;
       }
 
       /* deallocate old class pcp->cc part */
       if (count == count1 + 1)
-	 y[p3 + count1 + 2] = -1;
+         y[p3 + count1 + 2] = -1;
       else {
-	 y[p3 + count1 + 3] = count - count1 - 2;
-	 y[p3 + count1 + 2] = 0;
+         y[p3 + count1 + 3] = count - count1 - 2;
+         y[p3 + count1 + 2] = 0;
       }
 
       /* fix header block */
@@ -167,17 +165,17 @@ void update (int ptr, struct pcp_vars *pcp)
    if (count > count1 + count2) {
       /* new part is shorter than old part so deallocate the spare words */
       if (count == count1 + count2 + 1)
-	 y[p3 + count1 + count2 + 2] = -1;
+         y[p3 + count1 + count2 + 2] = -1;
       else {
-	 y[p3 + count1 + count2 + 2] = 0;
-	 y[p3 + count1 + count2 + 3] = count - count1 - count2 - 2;
+         y[p3 + count1 + count2 + 2] = 0;
+         y[p3 + count1 + count2 + 3] = count - count1 - count2 - 2;
       }
    }
 
    if (count >= count1 + count2) {
       /* copy in the new class pcp->cc part */
       for (i = 1; i <= count2; i++)
-	 y[p3 + count1 + i + 1] = y[lused + i];
+         y[p3 + count1 + i + 1] = y[lused + i];
 
       /* fix header block */
       y[p3 + 1] = count1 + count2;

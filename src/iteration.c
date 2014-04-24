@@ -23,13 +23,21 @@
    subgroup_rank is the rank of the initial segment subgroup;
    flag is a copy of the basic pga flags */
 
-void
-iteration (int call_depth, int *step_sequence, int subgroup_rank, struct pga_vars *flag, FILE *input_file, int nmr_of_descendants, int class_bound, int order_bound, struct pga_vars *pga, struct pcp_vars *pcp)
+void iteration(int call_depth,
+               int *step_sequence,
+               int subgroup_rank,
+               struct pga_vars *flag,
+               FILE *input_file,
+               int nmr_of_descendants,
+               int class_bound,
+               int order_bound,
+               struct pga_vars *pga,
+               struct pcp_vars *pcp)
 {
    int ***auts;
    register int group_nmr, first = 1;
    int next_class = 0;
-   FILE * descendant_file;
+   FILE *descendant_file;
    char name[MAXWORD];
    char *s, *t;
 
@@ -38,52 +46,67 @@ iteration (int call_depth, int *step_sequence, int subgroup_rank, struct pga_var
       flag->step_size = step_sequence[call_depth];
    }
 
-   CreateName (name, call_depth, pcp);
+   CreateName(name, call_depth, pcp);
 
    if (call_depth == 1) {
       first = nmr_of_descendants;
       if (nmr_of_descendants > 1) {
-	 auts = restore_group (FALSE, input_file, nmr_of_descendants - 1,
-			       pga, pcp);
-	 free_array (auts, pga->m, pcp->lastg, 1);
+         auts =
+             restore_group(FALSE, input_file, nmr_of_descendants - 1, pga, pcp);
+         free_array(auts, pga->m, pcp->lastg, 1);
       }
    }
 
-   descendant_file = OpenFile (name, "w+");
+   descendant_file = OpenFile(name, "w+");
 
    for (group_nmr = first; group_nmr <= nmr_of_descendants; ++group_nmr)
-      next_class += construct (call_depth, flag, ITERATION, descendant_file,
-			       input_file, subgroup_rank, order_bound, group_nmr, pga, pcp);
+      next_class += construct(call_depth,
+                              flag,
+                              ITERATION,
+                              descendant_file,
+                              input_file,
+                              subgroup_rank,
+                              order_bound,
+                              group_nmr,
+                              pga,
+                              pcp);
 
    if (call_depth != 1)
-      CloseFile (input_file);
+      CloseFile(input_file);
 
    if (next_class != 0) {
       RESET(descendant_file);
-      printf ("\n**************************************************\n");
+      printf("\n**************************************************\n");
       s = (next_class == 1) ? "" : "s";
       t = (pga->terminal) ? "" : " capable";
-      printf ("%d%s group%s saved on file %s\n", next_class, t, s, name);
-      if ((pcp->newgen == 0 && pcp->cc < class_bound  - 1)
-	  || (pcp->newgen != 0 && pcp->cc < class_bound))
-	 iteration (call_depth + 1, step_sequence, subgroup_rank, flag,
-		    descendant_file, next_class, class_bound, order_bound, pga, pcp);
-   }
-   else
-      CloseFile (descendant_file);
+      printf("%d%s group%s saved on file %s\n", next_class, t, s, name);
+      if ((pcp->newgen == 0 && pcp->cc < class_bound - 1) ||
+          (pcp->newgen != 0 && pcp->cc < class_bound))
+         iteration(call_depth + 1,
+                   step_sequence,
+                   subgroup_rank,
+                   flag,
+                   descendant_file,
+                   next_class,
+                   class_bound,
+                   order_bound,
+                   pga,
+                   pcp);
+   } else
+      CloseFile(descendant_file);
 }
 
 /* set up output file name */
 
-void CreateName (char *name, int call_depth, struct pcp_vars *pcp)
+void CreateName(char *name, int call_depth, struct pcp_vars *pcp)
 {
    register int i, adjoin;
 
-   for (i = 0; i <= (int) strlen (pcp->ident) && pcp->ident[i] != ' '; ++i)
+   for (i = 0; i <= (int)strlen(pcp->ident) && pcp->ident[i] != ' '; ++i)
       name[i] = pcp->ident[i];
    name[i] = '\0';
 
-   strcat (name, "_class");
+   strcat(name, "_class");
 
    if (call_depth == 1)
       adjoin = pcp->cc;
@@ -92,5 +115,5 @@ void CreateName (char *name, int call_depth, struct pcp_vars *pcp)
    else
       adjoin = pcp->cc + 1;
 
-   sprintf (name + strlen (name), "%d", adjoin);
+   sprintf(name + strlen(name), "%d", adjoin);
 }

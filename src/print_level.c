@@ -13,16 +13,16 @@
 
 /* set print levels for p-quotient calculation */
 
-void print_level (int *output, struct pcp_vars *pcp)
+void print_level(int *output, struct pcp_vars *pcp)
 {
    Logical reading = TRUE;
 
    while (reading) {
-      read_value (TRUE, "Input print level (0-3): ", output, MIN_PRINT);
+      read_value(TRUE, "Input print level (0-3): ", output, MIN_PRINT);
       reading = (*output > MAX_PRINT);
       if (reading)
-	 printf ("Print level must lie between %d and %d\n",
-		 MIN_PRINT, MAX_PRINT);
+         printf(
+             "Print level must lie between %d and %d\n", MIN_PRINT, MAX_PRINT);
    }
 
    pcp->diagn = (*output == MAX_PRINT);

@@ -15,38 +15,37 @@
    storing the result in y[pcp->lused + k] to y[pcp->lused + pcp->cc];
    room is needed to store a string of length pcp->cc */
 
-void generator_definition (int gen, int *k, struct pcp_vars *pcp)
+void generator_definition(int gen, int *k, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
    register int i, j;
 #include "access.h"
 
-   if (is_space_exhausted (pcp->cc, pcp))
+   if (is_space_exhausted(pcp->cc, pcp))
       return;
 
    *k = pcp->cc + 1;
 
    do {
-      i = PART2 (y[pcp->structure + gen]);
-      j = PART3 (y[pcp->structure + gen]);
+      i = PART2(y[pcp->structure + gen]);
+      j = PART3(y[pcp->structure + gen]);
 
       if (j != 0) {
-	 --(*k);
-	 y[pcp->lused + *k] = j;
-	 gen = i;
-      }
-      else {
-	 /* we have a power entry -- work out its structure recursively;
-	    the structure (d^p)^j, where d is a defining generator, has
-	    weight j + 1 and thus its structure is j + 1 copies of d */
-	 j = 2;
-	 while (i > pcp->ndgen) {
-	    i = PART2 (y[pcp->structure + i]);
-	    ++j;
-	 }
-	 for (; j > 0; --j, --(*k))
-	    y[pcp->lused + *k] = i;
+         --(*k);
+         y[pcp->lused + *k] = j;
+         gen = i;
+      } else {
+         /* we have a power entry -- work out its structure recursively;
+            the structure (d^p)^j, where d is a defining generator, has
+            weight j + 1 and thus its structure is j + 1 copies of d */
+         j = 2;
+         while (i > pcp->ndgen) {
+            i = PART2(y[pcp->structure + i]);
+            ++j;
+         }
+         for (; j > 0; --j, --(*k))
+            y[pcp->lused + *k] = i;
       }
    } while (i != 0);
 }

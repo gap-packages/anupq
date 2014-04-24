@@ -12,7 +12,7 @@
 
 /* read defining relations and store each relation as a word */
 
-void read_relations (struct pcp_vars *pcp)
+void read_relations(struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -30,22 +30,22 @@ void read_relations (struct pcp_vars *pcp)
 
    for (k = 1; k <= ndrel; ++k) {
       for (l = 1; l <= 2; ++l) {
-	 type = l;
+         type = l;
 
-	 ++relp;
-	 read_word (stdin, disp, type, pcp);
+         ++relp;
+         read_word(stdin, disp, type, pcp);
 
-	 /* note length of relation */
-	 length = abs (y[pcp->lused + disp + 1]);
+         /* note length of relation */
+         length = abs(y[pcp->lused + disp + 1]);
 
-	 /* an zero exponent signifies a trivial relation */
-	 if (y[pcp->lused + disp + 2] == 0) {
-	    y[pcp->lused + disp + 1] = 1;
-	    length = 1;
-	 }
+         /* an zero exponent signifies a trivial relation */
+         if (y[pcp->lused + disp + 2] == 0) {
+            y[pcp->lused + disp + 1] = 1;
+            length = 1;
+         }
 
-	 y[relp] = pcp->lused + 1;
-	 pcp->lused += length + 1;
+         y[relp] = pcp->lused + 1;
+         pcp->lused += length + 1;
       }
    }
 

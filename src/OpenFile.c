@@ -12,41 +12,41 @@
 
 /* fopen file */
 
-FILE* OpenFile (const char *file_name, const char *mode)
+FILE *OpenFile(const char *file_name, const char *mode)
 {
    FILE *fp;
 
-   if ((fp = fopen (file_name, mode)) == NULL) {
-      printf ("Cannot open %s\n", file_name);
-      if (!isatty (0))
-	 exit (FAILURE);
+   if ((fp = fopen(file_name, mode)) == NULL) {
+      printf("Cannot open %s\n", file_name);
+      if (!isatty(0))
+         exit(FAILURE);
    }
 
    return fp;
 }
 
-FILE* OpenFileOutput (const char *file_name)
+FILE *OpenFileOutput(const char *file_name)
 {
-   return OpenFile (file_name, "w");
+   return OpenFile(file_name, "w");
 }
 
-FILE* OpenFileInput (const char *file_name)
+FILE *OpenFileInput(const char *file_name)
 {
-   return OpenFile (file_name, "r");
+   return OpenFile(file_name, "r");
 }
 
 /* open file for fread and fwrite */
 
-FILE* OpenSystemFile (const char *file_name, const char *mode)
+FILE *OpenSystemFile(const char *file_name, const char *mode)
 {
    FILE *fp;
 
-   if ((fp = fopen (file_name, mode)) == NULL) {
-      perror (NULL);
-      printf ("Cannot open %s\n", file_name);
-      exit (FAILURE);
+   if ((fp = fopen(file_name, mode)) == NULL) {
+      perror(NULL);
+      printf("Cannot open %s\n", file_name);
+      exit(FAILURE);
    }
 
-   setbuf (fp, NULL);
+   setbuf(fp, NULL);
    return fp;
 }

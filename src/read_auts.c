@@ -16,7 +16,10 @@
 /* for each automorphism in turn, read its actions on each
    of the pcp generators of the Frattini quotient */
 
-int*** read_auts (int option, int *nmr_of_auts, int *nmr_of_exponents, struct pcp_vars *pcp)
+int ***read_auts(int option,
+                 int *nmr_of_auts,
+                 int *nmr_of_exponents,
+                 struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -24,9 +27,10 @@ int*** read_auts (int option, int *nmr_of_auts, int *nmr_of_exponents, struct pc
    int ***auts;
    int nmr_of_generators;
 
-   read_value (TRUE, "Input the number of automorphisms: ", nmr_of_auts, 0);
+   read_value(TRUE, "Input the number of automorphisms: ", nmr_of_auts, 0);
 
-   if (*nmr_of_auts == 0) return NULL;
+   if (*nmr_of_auts == 0)
+      return NULL;
 
    /* allocate sufficient space to store the automorphisms --
       the indices of the array have been adjusted to start at 1,
@@ -36,28 +40,31 @@ int*** read_auts (int option, int *nmr_of_auts, int *nmr_of_exponents, struct pc
       *nmr_of_exponents = y[pcp->clend + pcp->cc - 1];
    else {
       if (option == PQ && pcp->cc > 1)
-	 read_value (TRUE, "Input the number of exponents: ",
-		     nmr_of_exponents, y[pcp->clend + 1]);
+         read_value(TRUE,
+                    "Input the number of exponents: ",
+                    nmr_of_exponents,
+                    y[pcp->clend + 1]);
       else
-	 *nmr_of_exponents = y[pcp->clend + 1];
+         *nmr_of_exponents = y[pcp->clend + 1];
    }
 
    nmr_of_generators = y[pcp->clend + 1];
 
    if (option == PGA || option == STANDARDISE)
-      auts = allocate_array (*nmr_of_auts, pcp->lastg, pcp->lastg, TRUE);
+      auts = allocate_array(*nmr_of_auts, pcp->lastg, pcp->lastg, TRUE);
    else
-      auts = allocate_array (*nmr_of_auts, nmr_of_generators,
-			     *nmr_of_exponents, TRUE);
+      auts = allocate_array(
+          *nmr_of_auts, nmr_of_generators, *nmr_of_exponents, TRUE);
 
    for (i = 1; i <= *nmr_of_auts; ++i) {
-      printf ("Now enter the data for automorphism %d\n", i);
+      printf("Now enter the data for automorphism %d\n", i);
       for (j = 1; j <= nmr_of_generators; ++j) {
-	 printf ("Input %d exponents for image of pcp generator %d: ",
-		 *nmr_of_exponents, j);
-	 for (k = 1; k < *nmr_of_exponents; ++k)
-	    read_value (FALSE, "", &auts[i][j][k], 0);
-	 read_value (TRUE, "", &auts[i][j][k], 0);
+         printf("Input %d exponents for image of pcp generator %d: ",
+                *nmr_of_exponents,
+                j);
+         for (k = 1; k < *nmr_of_exponents; ++k)
+            read_value(FALSE, "", &auts[i][j][k], 0);
+         read_value(TRUE, "", &auts[i][j][k], 0);
       }
    }
 

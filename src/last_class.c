@@ -13,7 +13,7 @@
 /* delete all entries for class pcp->cc and note that
    it is still set up (that is, set pcp->ncset = 1) */
 
-void last_class (struct pcp_vars *pcp)
+void last_class(struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -25,19 +25,19 @@ void last_class (struct pcp_vars *pcp)
    register int ndgen = pcp->ndgen;
 
    if (pcp->ncset != 0 || pcp->cc == 1) {
-      text (10, 0, 0, 0, 0);
+      text(10, 0, 0, 0, 0);
       return;
    }
 
    /* remove all word and subgroup tables entries */
-   delete_tables (0, pcp);
+   delete_tables(0, pcp);
 
    /* remove all equations */
    structure = pcp->structure;
    for (i = pcp->ccbeg, bound = pcp->lastg; i <= bound; i++) {
       if ((j = y[structure + i]) < 0) {
-	 /* deallocate this equation */
-	 y[-j] = 0;
+         /* deallocate this equation */
+         y[-j] = 0;
       }
    }
 
@@ -50,15 +50,15 @@ void last_class (struct pcp_vars *pcp)
    pcp->ccbeg = y[pcp->clend + pcp->cc - 1] + 1;
 
    for (i = 1, bound = pcp->lastg; i <= bound; i++)
-      down_class (pcp->ppower + i, pcp);
+      down_class(pcp->ppower + i, pcp);
 
    p1 = y[pcp->ppcomm + 2];
    for (i = 1, bound = pcp->ncomm; i <= bound; i++)
-      down_class (p1 + i, pcp);
+      down_class(p1 + i, pcp);
 
    for (i = 1; i <= ndgen; i++) {
-      down_class (pcp->dgen + i, pcp);
-      down_class (pcp->dgen - i, pcp);
+      down_class(pcp->dgen + i, pcp);
+      down_class(pcp->dgen - i, pcp);
    }
 
    pcp->ncset = 1;

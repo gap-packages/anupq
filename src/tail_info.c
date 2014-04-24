@@ -12,14 +12,17 @@
 
 /* read information for tails */
 
-void tail_info (int *tail_type)
+void tail_info(int *tail_type)
 {
    Logical reading = TRUE;
 
    while (reading) {
-      read_value (TRUE, "Add new tails (1), compute tails (2) or both (0): ",
-		  tail_type, 0);
+      read_value(TRUE,
+                 "Add new tails (1), compute tails (2) or both (0): ",
+                 tail_type,
+                 0);
       reading = (*tail_type > 2);
-      if (reading) printf ("Supplied value must lie between 0 and 2\n");
+      if (reading)
+         printf("Supplied value must lie between 0 and 2\n");
    }
 }

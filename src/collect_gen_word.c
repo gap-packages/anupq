@@ -14,7 +14,7 @@
   is ptr and whose length is length to the storage location
   referenced by cp */
 
-void collect_gen_word (int ptr, int length, int cp, struct pcp_vars *pcp)
+void collect_gen_word(int ptr, int length, int cp, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
@@ -28,15 +28,15 @@ void collect_gen_word (int ptr, int length, int cp, struct pcp_vars *pcp)
       gen = y[ptr + entry];
 
       /* check for illegal defining generators */
-      if (abs (gen) > pcp->ndgen || gen == 0)
-	 report_error (0, gen, 0);
+      if (abs(gen) > pcp->ndgen || gen == 0)
+         report_error(0, gen, 0);
 
       gen_val = y[pcp->dgen + gen];
       if (gen < 0 && gen_val == 1)
-	 report_error (0, gen, 0);
+         report_error(0, gen, 0);
 
-      collect (gen_val, cp, pcp);
+      collect(gen_val, cp, pcp);
    }
 
-   calculate_power (exp, cp + 2 * pcp->lastg + 1, cp, pcp);
+   calculate_power(exp, cp + 2 * pcp->lastg + 1, cp, pcp);
 }

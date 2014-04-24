@@ -13,7 +13,7 @@
 
 /* initialise the contents of the pcp structure */
 
-void initialise_pcp (int output, struct pcp_vars *pcp)
+void initialise_pcp(int output, struct pcp_vars *pcp)
 {
    pcp->fullop = output >= 2;
    pcp->diagn = output == 3;

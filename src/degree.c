@@ -15,7 +15,7 @@
 /* compute the number of allowable subgroups;
    also, set up powers, offset, and inverses arrays */
 
-void compute_degree (struct pga_vars *pga)
+void compute_degree(struct pga_vars *pga)
 {
    register int i;
    register int maximum = 0;
@@ -28,28 +28,28 @@ void compute_degree (struct pga_vars *pga)
 
       /* this is a test to try to prevent integer overflow */
 
-      if (int_power (pga->p, pga->available[i]) > (INT_MAX - pga->Degree)) {
-	 text (19, 0, 0, 0, 0);
-	 if (!isatty (0))
-	    exit (FAILURE);
-	 else
-	    return;
+      if (int_power(pga->p, pga->available[i]) > (INT_MAX - pga->Degree)) {
+         text(19, 0, 0, 0, 0);
+         if (!isatty(0))
+            exit(FAILURE);
+         else
+            return;
       }
-      pga->Degree += int_power (pga->p, pga->available[i]);
+      pga->Degree += int_power(pga->p, pga->available[i]);
       if (maximum < pga->available[i])
-	 maximum = pga->available[i];
+         maximum = pga->available[i];
    }
 
    /* store powers of prime */
-   pga->powers = allocate_vector (maximum + 1, 0, 0);
+   pga->powers = allocate_vector(maximum + 1, 0, 0);
    for (i = 0; i <= maximum; ++i)
-      pga->powers[i] = int_power (pga->p, i);
+      pga->powers[i] = int_power(pga->p, i);
 
    /* store inverses of 1 .. p - 1 */
-   pga->inverse_modp = allocate_vector (pga->p, 0, 0);
+   pga->inverse_modp = allocate_vector(pga->p, 0, 0);
    for (i = 1; i < pga->p; ++i)
-      pga->inverse_modp[i] = invert_modp (i, pga->p);
+      pga->inverse_modp[i] = invert_modp(i, pga->p);
 
    if (pga->print_degree)
-      printf ("Degree of permutation group is %d\n", pga->Degree);
+      printf("Degree of permutation group is %d\n", pga->Degree);
 }
