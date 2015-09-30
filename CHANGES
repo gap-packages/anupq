@@ -7,7 +7,7 @@ Version X.Y (TODO)
      shares code with other packages like io and nq. This fixes various
      annoyances and will make it easy to share future fixes and
      improvements between multiple GAP packages.
-   o ...
+   o Moved the homepage to http://gap-packages.github.io/anupq/
 
 Version 3.1.1 (2013-11-19)
    o Updated the manual to match recent changes.

@@ -43,7 +43,7 @@ with cygwin.
 You can download `anupq-XXX.tar.gz' (where `XXX' is the  package  version
 number) from the home page for the ANUPQ package
 
-http://gap-system.github.io/anupq/
+http://gap-packages.github.io/anupq/
 
 or via the GAP web site
 
@@ -185,12 +185,9 @@ The output you see should be something like the following:
                                Bug reports
                                -----------
 
-If you encounter problems with the `pq' binary, please contact the C code
-author: Eamonn O'Brien <obrien@math.auckland.ac.nz>.
+For bug reports, feature requests and suggestions, please refer to
 
-If you encounter problems at the GAP level, please  contact one of the
-GAP package maintainers, Greg Gamble <Greg.Gamble@uwa.edu.au> or
-Max Horn <max.horn@math.uni-giessen.de>.
+   https://github.com/gap-packages/anupq/issues
 
 When sending a bug report, remember we will need to be able to  reproduce
 the problem; so please include:
