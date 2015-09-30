@@ -9,7 +9,6 @@ AC_CONFIG_AUX_DIR(cnf)
 AC_CONFIG_MACRO_DIR([m4])
 AM_INIT_AUTOMAKE([1.11 -Wall foreign subdir-objects])
 AM_SILENT_RULES([yes])
-AM_MAINTAINER_MODE
 
 dnl ##
 dnl ## C is the language
