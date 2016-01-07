@@ -135,8 +135,13 @@ AC_SEARCH_LIBS([log10], [m], [], [
 ])
 
 
+# hack for testPq:
+GAP_EXEC=gap
+AC_SUBST(GAP_EXEC)
+
+
 dnl ##
 dnl ## Finally, generate the Makefiles and output everything
 dnl ##
-AC_CONFIG_FILES([Makefile])
+AC_CONFIG_FILES([Makefile testPq], [chmod +x testPq])
 AC_OUTPUT

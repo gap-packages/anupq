@@ -172,18 +172,10 @@ pq_SOURCES = \
     src/main.c
 
 
-all-local: pq testPq
+all-local: pq
 	$(mkdir_p) $(top_srcdir)/$(BINARCHDIR)
 	cp pq $(abs_top_srcdir)/$(BINARCHDIR)
 	@echo "SUCCESS!"
-
-testPq: testPq.in
-	$(SED) \
-	  -e "s/\@GAPARCH\@/@GAPARCH@/g" \
-	  -e "s/\@PACKAGE_VERSION\@/@PACKAGE_VERSION@/g" \
-	  -e "s|\@GAP_EXEC\@|$(GAP_EXEC)|g" \
-	  < $< > $@
-	chmod +x $@
 
 clean-local:
 	rm -rf $(BINARCHDIR)
