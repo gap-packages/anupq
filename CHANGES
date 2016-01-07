@@ -1,13 +1,13 @@
 In this file we record the changes since the first GAP 4 release of
 the ANUPQ package.
 
-Version X.Y (TODO)
+Version 3.1.2 (2016-01-07)
    o Converted manual to GAPDoc format.
-   o Once again improved the build system. It now uses automake, and
+   o Once again tweaked the build system. It now uses automake, and
      shares code with other packages like io and nq. This fixes various
      annoyances and will make it easy to share future fixes and
      improvements between multiple GAP packages.
-   o Moved the homepage to http://gap-packages.github.io/anupq/
+   o Moved package homepage to http://gap-packages.github.io/anupq/
 
 Version 3.1.1 (2013-11-19)
    o Updated the manual to match recent changes.
