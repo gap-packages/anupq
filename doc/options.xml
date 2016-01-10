@@ -288,7 +288,8 @@ this case may be set by giving <C>PqStart</C> a second argument
 <Item></Item>
 
 <Mark><C>PcgsAutomorphisms := false</C>
-<Label Name="option PcgsAutomorphisms"/><Index>option PcgsAutomorphisms</Index></Mark>
+<!--<Label Name="option PcgsAutomorphisms"/><Index>option PcgsAutomorphisms</Index>-->
+</Mark>
 <Item>
 Let <A>G</A> be the group associated with the calling function (or associated
 interactive process). Passing the option <C>PcgsAutomorphisms</C> without a
@@ -322,7 +323,8 @@ non-negative integer, be generated. Note that you cannot set both
 <Item></Item>
 
 <Mark><C>StepSize := <A>list</A></C>
-<Label Name="option StepSize"/><Index>option StepSize</Index></Mark>
+<!--<Label Name="option StepSize"/><Index>option StepSize</Index>-->
+</Mark>
 <Item>
 For a positive integer <A>n</A>, <C>StepSize</C> specifies that only those
 immediate descendants which are a factor <M>p^<A>n</A></M> bigger than their parent

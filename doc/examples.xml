@@ -643,7 +643,7 @@ To automate the above procedure to some extent we provide:
 
 <ManSection>
 <Func Name="PqDescendantsTreeCoclassOne" Arg="i"/>
-<Func Name="PqDescendantsTreeCoclassOne" Arg=""/>
+<Func Name="PqDescendantsTreeCoclassOne" Arg="" Label="for default process"/>
 
 <Description>
 for the <A>i</A>th or default interactive &ANUPQ; process, generate a

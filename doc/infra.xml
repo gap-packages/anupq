@@ -473,9 +473,9 @@ generator names for the group provided by the user to a function like
 </ManSection>
 
 <ManSection>
-<Func Name="PqExample" Arg=""/>
+<Func Name="PqExample" Arg="" Label="no arguments"/>
 <Func Name="PqExample" Arg="example[, PqStart][, Display]"/>
-<Func Name="PqExample" Arg="example[, PqStart][, filename]"/>
+<Func Name="PqExample" Arg="example[, PqStart][, filename]" Label="with filename"/>
 <Description>
 With no arguments, or with single argument <C>"index"</C>, or a string
 <A>example</A> that is not the name of a file in the <C>examples</C> directory, an
