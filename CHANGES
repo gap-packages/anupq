@@ -1,6 +1,11 @@
 In this file we record the changes since the first GAP 4 release of
 the ANUPQ package.
 
+Version 3.1.3 (2016-01-10)
+   * Fixed version and release date in the manual
+   * Fixed some minor issues with the manual contents
+   * Fixed the PackageDoc entry in the PackageInfo.g file
+
 Version 3.1.2 (2016-01-07)
    o Converted manual to GAPDoc format.
    o Once again tweaked the build system. It now uses automake, and
