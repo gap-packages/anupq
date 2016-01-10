@@ -797,10 +797,9 @@ cause the program to crash. While a number of safeguards have been
 provided in the &GAP; interface to the <C>pq</C> program, these are <E>not</E>
 foolproof, and the user should exercise care and ensure pre-requisites of
 the various commands are met.
-<P/>
+</Section>
 
-<E>General commands</E>
-<P/>
+<Section><Heading>General commands</Heading>
 
 The following commands either use a menu item from whatever menu is
 <Q>current</Q> for the <C>pq</C> program, or have general application and are not
@@ -931,11 +930,12 @@ unnecessary to pass the <C>Identities</C> if set previously.
 
 <E>Note:</E> This function is mainly implemented at the &GAP; level. It does
 not correspond to a menu item of the <C>pq</C> program.
-<P/>
-
-<E>Commands from the Main <M>p</M>-Quotient menu</E>
 </Description>
 </ManSection>
+
+</Section>
+
+<Section><Heading>Commands from the Main <M>p</M>-Quotient menu</Heading>
 
 <ManSection>
 <Func Name="PqPcPresentation" Arg="i : options"/>
@@ -1085,11 +1085,12 @@ PqEliminateRedundantGenerators(i);
 
 For those familiar with the <C>pq</C> program, <C>PqComputePCover</C> performs menu
 item 7 of the main <M>p</M>-Quotient menu.
-<P/>
-
-<E>Commands from the Advanced <M>p</M>-Quotient menu</E>
 </Description>
 </ManSection>
+
+</Section>
+
+<Section><Heading>Commands from the Advanced <M>p</M>-Quotient menu</Heading>
 
 <ManSection>
 <Func Name="PqCollect" Arg="i, word"/>
@@ -1740,11 +1741,12 @@ performs menu item 25 of the Advanced <M>p</M>-Quotient menu.
 <!-- %<E>Note:</E> -->
 <!-- %For those familiar with the <C>pq</C> program, <C>PqWriteCompactDescription</C> -->
 <!-- %performs menu item 26 of the Advanced <M>p</M>-Quotient menu. -->
-<P/>
-
-<E>Commands from the Standard Presentation menu</E>
 </Description>
 </ManSection>
+
+</Section>
+
+<Section><Heading>Commands from the Standard Presentation menu</Heading>
 
 <ManSection>
 <Func Name="PqSPComputePcpAndPCover" Arg="i : options"/>
@@ -1879,16 +1881,16 @@ description only; for a &GAP; object, use
 
 <E>Note:</E> For those familiar with the <C>pq</C> program, <C>PqSPIsomorphism</C>
 performs menu item 8 of the Standard Presentation menu.
-<P/>
+</Description>
+</ManSection>
 
-<E>Commands from the Main <M>p</M>-Group Generation menu</E>
-<P/>
+</Section>
+
+<Section><Heading>Commands from the Main <M>p</M>-Group Generation menu</Heading>
 
 Note that the <M>p</M>-group generation commands can only be applied once the
 <C>pq</C> program has produced a pc presentation of some quotient group of the
 <Q>group of the process</Q>.
-</Description>
-</ManSection>
 
 <ManSection>
 <Func Name="PqPGSupplyAutomorphisms" Arg="i[, mlist] : options"/>
@@ -1991,10 +1993,12 @@ program computes the <M>p</M>-cover of the restored descendant. Hence,
 For those familiar with the <C>pq</C> program, <C>PqPGSetDescendantToPcp</C> and
 <C>PqPGRestoreDescendantFromFile</C> perform menu item 3 of the main or
 advanced <M>p</M>-Group Generation menu.
-<P/>
+</Description>
+</ManSection>
 
-<E>Commands from the Advanced <M>p</M>-Group Generation menu</E>
-<P/>
+</Section>
+
+<Section><Heading>Commands from the Advanced <M>p</M>-Group Generation menu</Heading>
 
 The functions below perform the component algorithms of
 <C>PqPGConstructDescendants</C> (see&nbsp;<Ref Func="PqPGConstructDescendants" Style="Text"/>). You can get
@@ -2007,8 +2011,6 @@ these functions by comparing the previous output with
 These functions are intended for use only by <Q>experts</Q>; please contact
 the authors of the package if you genuinely have a need for them and need
 any amplified descriptions.
-</Description>
-</ManSection>
 
 <ManSection>
 <Func Name="PqAPGDegree" Arg="i, step, rank : [ Exponent := n ]"/>
