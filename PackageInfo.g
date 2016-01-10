@@ -95,8 +95,8 @@ AbstractHTML :=
 
 PackageDoc := rec(
   BookName  := "ANUPQ",
-  ArchiveURLSubset := ["doc", "htm"],
-  HTMLStart := "htm/chapters.htm",
+  ArchiveURLSubset := ["doc"],
+  HTMLStart := "doc/chap0.html",
   PDFFile   := "doc/manual.pdf",
   SixFile   := "doc/manual.six",
   LongTitle := "ANU p-Quotient",
