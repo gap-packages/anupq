@@ -6,14 +6,13 @@
 <!ENTITY see '<Alt Only="LaTeX">$	o$</Alt><Alt Not="LaTeX">--&gt;</Alt>'>
 <!ENTITY ANUPQ '<Package>ANUPQ</Package>'>
 <!ENTITY AutPGrp '<Package>AutPGrp</Package>'>
-<!ENTITY anupq '<Package>anupq</Package>'>
+<!ENTITY ANUPQ '<Package>ANUPQ</Package>'>
 ]
 >
-<Book Name="anupq">
+<Book Name="ANUPQ">
 <#Include SYSTEM "title.xml">
 <TableOfContents/>
 <Body>
-<Index>&anupq;</Index>
 <#Include SYSTEM "intro.xml">
 <#Include SYSTEM "basics.xml">
 <#Include SYSTEM "infra.xml">
@@ -23,6 +22,6 @@
 <#Include SYSTEM "install.xml">
 </Body>
 <#Include SYSTEM "examples.xml">
-<Bibliography Databases="anupq.bib"/>
+<Bibliography Databases="ANUPQ.bib"/>
 <TheIndex/>
 </Book>
