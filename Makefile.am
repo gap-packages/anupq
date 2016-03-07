@@ -187,10 +187,10 @@ distclean-local:
 	(cd examples; make distclean)
 	rm -rf standalone/bin
 
-doc:	doc/manual.six
+doc:
+	echo 'Read("makedoc.g");\n' | gap -A -q
 
-doc/manual.six: doc/*.tex PackageInfo.g
-	(cd doc && ./make_doc)
+.PHONY: doc
 
 #test:
 #	(cd examples; make)
