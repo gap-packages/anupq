@@ -39,7 +39,7 @@ local opts, iorec, topqlogfile;
                                              ANUPQData.binary, 
                                              opts );
     if iorec.stream = fail then
-      Error( "sorry! Run out of pseudo-ttys. Can't open an io stream.\n" );
+      Error( "failed to launch child process" );
     fi;
     # menus are flushed at InfoANUPQ level 6, prompts at level 5
     FLUSH_PQ_STREAM_UNTIL(iorec.stream, 6, 5, PQ_READ_NEXT_LINE, IS_PQ_PROMPT);
