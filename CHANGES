@@ -1,6 +1,12 @@
 In this file we record the changes since the first GAP 4 release of
 the ANUPQ package.
 
+Version 3.1.5 (2017-07-20)
+  * Fix bug in configure script which made it warn about testPq
+    missing when running configure the first time
+  * Improve error message when launching child processes fails
+  * Updated README section about the ANUPQ documentation
+
 Version 3.1.4 (2016-03-08)
    * Remove some obsolete test scripts
    * Revise how the manual is built
