@@ -593,7 +593,7 @@ by the functions <C>Pq</C> and <C>PqPCover</C>, and the image group of the
 epimorphism returned by <C>PqEpimorphism</C>. Otherwise, if you know the group
 to be a <M>p</M>-group, then this can be set by typing
 <Listing><![CDATA[
-SetFeatureObj( G, IsPGroup, true );
+SetIsPGroup( G, true );
 ]]></Listing>
 or by invoking <C>IsPGroup( <A>G</A> )</C>. Note that for an fp group <A>G</A>, the
 latter may result in a coset enumeration which might not terminate in a

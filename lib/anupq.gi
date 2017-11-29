@@ -212,7 +212,7 @@ InstallGlobalFunction( PQ_GROUP_FROM_PCP, function( datarec, out )
                            GeneratorsOfGroup( datarec.group ),
                            ValueGlobal( "MapImages" )
                            );
-      SetFeatureObj( datarec.pQepi, IsSurjective, true );
+      SetIsSurjective( datarec.pQepi, true );
       datarec.pQuotient := Image( datarec.pQepi );
       IsPGroup( datarec.pQuotient );
     fi;
@@ -232,7 +232,7 @@ local Q;
     else
       datarec.pQepi := GroupHomomorphismByFunction( 
                            datarec.group, Q, g -> One(Q) );
-      SetFeatureObj( datarec.pQepi, IsSurjective, true );
+      SetIsSurjective( datarec.pQepi, true );
       datarec.pQuotient := Image( datarec.pQepi );
       IsPGroup( datarec.pQuotient );
     fi;
@@ -403,7 +403,7 @@ InstallGlobalFunction( PqAutomorphism, function( epi, autoimages )
     od;
             
     phi := GroupHomomorphismByImages( G, G, gens, definitions );
-    SetFeatureObj( phi, IsBijective, true );
+    SetIsBijective( phi, true );
 
     return phi;
 end );

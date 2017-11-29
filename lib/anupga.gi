@@ -412,7 +412,8 @@ InstallGlobalFunction( PQ_DESCENDANTS, function( args )
         if not HasIsCapable(G)  then
             SetIsCapable( G, false );
         fi;
-        SetFeatureObj( G, IsPGroup, true );
+        SetIsPGroup( G, true );
+        SetPrimePGroup( G, p );
     od;
 
     return datarec.descendants;
