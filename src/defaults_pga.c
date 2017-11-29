@@ -232,6 +232,15 @@ void query_aut_group_information(struct pga_vars *pga)
               "Automorphism group order of descendants? ",
               &pga->print_automorphism_order,
               INT_MIN);
+#else
+   /* HACK: still ask the question, to prevent the GAP interface from
+      getting "confused" (it blindly fires input at us, without checking
+      what the prompt is). */
+   int fake;
+   read_value(TRUE,
+              "PLACEHOLDER QUESTION (GMP disabled), input any integer? ",
+              &fake,
+              INT_MIN);
 #endif
 
    pga->print_stabiliser_array = FALSE;
