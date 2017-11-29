@@ -1,6 +1,16 @@
 In this file we record the changes since the first GAP 4 release of
 the ANUPQ package.
 
+Version 3.2 (2017-11-29)
+  * Document that ANUPQ is 32-bit only and requires a 32-bit compiler.
+  * Change build system to enforce 32-bit compilation by adding -m32 to CFLAGS
+    and LDFLAGS.
+  * Fix compilation if GMP was not found, and fix interaction between
+    GAP code and the anupq binary in that case
+  * Compatible with GAP 4.9
+  * Internal changes (avoid using GAP function SetFeatureObj, and the
+    unix functions tmpnam() and tempnam())
+
 Version 3.1.5 (2017-07-20)
   * Fix bug in configure script which made it warn about testPq
     missing when running configure the first time
