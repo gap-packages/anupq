@@ -80,13 +80,29 @@ else
 	# Try using static linked GMP in the specified location
 	if test "x$with_gmp" = "xyes" ; then
 		# Try to use GAP's GMP, if available
+		# first for GAP <= 4.8 ...
 		GMP_HOME="$GAPROOT/bin/$GAPARCH/extern/gmp"
+		# ... then for GAP >= 4.9
+		if ! test -d "$GMP_HOME" ; then
+			GMP_HOME="$GAPROOT/extern/install/gmp"
+		fi
 	else
 		GMP_HOME="$with_gmp"
 	fi;
-	if test -d ${GMP_HOME}/include && test -f ${GMP_HOME}/lib/libgmp.a ; then
+	if test -d ${GMP_HOME}/include && test -d ${GMP_HOME}/lib ; then
 		GMP_CPPFLAGS="-I${GMP_HOME}/include"
-		GMP_LIBS="${GMP_HOME}/lib/libgmp.a"
+		# gross hack follows
+		if test -r "${GMP_HOME}/lib/libgmp.a" ; then
+			GMP_LIBS="${GMP_HOME}/lib/libgmp.a"
+		elif test -r "${GMP_HOME}/lib/libgmp.dylib" ; then
+			GMP_LIBS="${GMP_HOME}/lib/libgmp.dylib"
+		elif test -r "${GMP_HOME}/lib/libgmp.so" ; then
+			GMP_LIBS="${GMP_HOME}/lib/libgmp.so"
+		else
+			# generic fallback -- unfortunately, this does not ensure that we
+			# link against exactly that version of libgmp
+			GMP_LIBS="-L${GMP_HOME}/lib -lgmp"
+		fi
 	elif test "x$with_gmp" = "xyes" ; then
 		# fallback to trying system wide GMP
 		GMP_CPPFLAGS=""

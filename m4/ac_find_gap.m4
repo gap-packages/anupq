@@ -151,6 +151,9 @@ AC_DEFUN([AC_FIND_GAP],
   if test -r "$ARCHPATH/extern/gmp/include/gmp.h"; then
     GAP_CPPFLAGS="$GAP_CPPFLAGS -I$ARCHPATH/extern/gmp/include"
     AC_MSG_RESULT([$ARCHPATH/extern/gmp/include/gmp.h])
+  elif test -r "$GAPROOT/extern/install/gmp/include/gmp.h"; then
+    GAP_CPPFLAGS="$GAP_CPPFLAGS -I$GAPROOT/extern/install/gmp/include"
+    AC_MSG_RESULT([$GAPROOT/extern/install/gmp/include/gmp.h])
   else
     AC_MSG_RESULT([not found, GAP was compiled without GMP])
   fi;
