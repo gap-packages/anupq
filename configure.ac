@@ -116,6 +116,9 @@ fi;
 
 if test "x$have_gmp" = xyes; then
 	AC_DEFINE(HAVE_GMP, 1, [Define if GMP is installed and usable])
+else
+GMP_CPPFLAGS=""
+GMP_LIBS=""
 fi
 
 AC_SUBST(GMP_CPPFLAGS)
