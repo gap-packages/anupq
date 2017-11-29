@@ -252,12 +252,7 @@ gap> F := FreeGroup("a", "b"); a := F.1; b := F.2;
 a
 b
 gap> R := [a^11, b^11/PqLeftNormComm([b, a, a])^2, 
->       PqLeftNormComm([b, a, b, b, b, b])];
-[ a^11, b^11*a^-2*b^-1*a*b*a*b^-1*a^-1*b*a^-1*b^-1*a*b*a*b^-1*a^-1*b*a, 
-  b^-3*a^-1*b^-1*a*b*a^-1*b*a*b*a^-1*b^-1*a*b^-1*a^-1*b*a*b*a^-1*b^-1*a*b*a^
-    -1*b*a*b^-1*a^-1*b^-1*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b*a^-1*b*a*b*a^
-    -1*b^-1*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b*a^-1*b*a*b^-1*a^-1*b^-1*a*b^
-    -1*a^-1*b*a*b^4 ]
+>       PqLeftNormComm([b, a, b, b, b, b])];;
 gap> procId := PqStart(F/R : Prime := 11);
 1
 gap> PqSetOutputLevel(procId, 0);
@@ -352,12 +347,7 @@ a
 b
 c
 gap> R := [a^11, b^11, c^11, PqLeftNormComm([b, a, a, a, b, a]),
->       Comm(c, a), Comm(c, b), PqLeftNormComm([b, a, b])];
-[ a^11, b^11, c^11, b^-1*a^-3*b^-1*a*b*a*b^-1*a^-1*b*a*b^-1*a*b*a^-1*b^-1*a^
-    -1*b*a^2*b*a^-2*b^-1*a*b*a*b^-1*a^-1*b*a^-1*b^-1*a*b*a^-1*b^-1*a^-1*b*a^
-    -1*b^-1*a*b*a*b^-1*a^-1*b*a*b^-1*a*b*a^-1*b^-1*a^-1*b*a^2*b^-1*a^-2*b^
-    -1*a*b*a*b^-1*a^-1*b*a^-1*b^-1*a*b*a^-1*b^-1*a^-1*b*a^3*b*a, 
-  c^-1*a^-1*c*a, c^-1*b^-1*c*b, a^-1*b^-1*a*b^-1*a^-1*b*a*b ]
+>       Comm(c, a), Comm(c, b), PqLeftNormComm([b, a, b])];;
 gap> procId := PqStart(F/R : Prime := 11);
 3
 gap> PqSetOutputLevel(procId, 0);
@@ -492,76 +482,7 @@ a
 b
 c
 gap> R := [PqLeftNormComm([b, a, a, b, c])^11, 
->       PqLeftNormComm([a, b, b, a, b, c])^11, (a * b)^11];
-[ b^-1*a^-2*b^-1*a*b*a*b^-1*a^-1*b*a*b*a^-1*b^-1*a*b*a^-1*b^-1*a^-1*b*a^2*c^
-    -1*a^-2*b^-1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b*a^-1*b^-1*a^-1*b*a^
-    2*b*c*b^-1*a^-2*b^-1*a*b*a*b^-1*a^-1*b*a*b*a^-1*b^-1*a*b*a^-1*b^-1*a^
-    -1*b*a^2*c^-1*a^-2*b^-1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b*a^-1*b^
-    -1*a^-1*b*a^2*b*c*b^-1*a^-2*b^-1*a*b*a*b^-1*a^-1*b*a*b*a^-1*b^-1*a*b*a^
-    -1*b^-1*a^-1*b*a^2*c^-1*a^-2*b^-1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^
-    -1*a*b*a^-1*b^-1*a^-1*b*a^2*b*c*b^-1*a^-2*b^-1*a*b*a*b^-1*a^-1*b*a*b*a^
-    -1*b^-1*a*b*a^-1*b^-1*a^-1*b*a^2*c^-1*a^-2*b^-1*a*b*a*b^-1*a^-1*b*a*b^
-    -1*a^-1*b^-1*a*b*a^-1*b^-1*a^-1*b*a^2*b*c*b^-1*a^-2*b^-1*a*b*a*b^-1*a^
-    -1*b*a*b*a^-1*b^-1*a*b*a^-1*b^-1*a^-1*b*a^2*c^-1*a^-2*b^-1*a*b*a*b^-1*a^
-    -1*b*a*b^-1*a^-1*b^-1*a*b*a^-1*b^-1*a^-1*b*a^2*b*c*b^-1*a^-2*b^-1*a*b*a*b^
-    -1*a^-1*b*a*b*a^-1*b^-1*a*b*a^-1*b^-1*a^-1*b*a^2*c^-1*a^-2*b^-1*a*b*a*b^
-    -1*a^-1*b*a*b^-1*a^-1*b^-1*a*b*a^-1*b^-1*a^-1*b*a^2*b*c*b^-1*a^-2*b^
-    -1*a*b*a*b^-1*a^-1*b*a*b*a^-1*b^-1*a*b*a^-1*b^-1*a^-1*b*a^2*c^-1*a^-2*b^
-    -1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b*a^-1*b^-1*a^-1*b*a^2*b*c*b^-1*a^
-    -2*b^-1*a*b*a*b^-1*a^-1*b*a*b*a^-1*b^-1*a*b*a^-1*b^-1*a^-1*b*a^2*c^-1*a^
-    -2*b^-1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b*a^-1*b^-1*a^-1*b*a^2*b*c*b^
-    -1*a^-2*b^-1*a*b*a*b^-1*a^-1*b*a*b*a^-1*b^-1*a*b*a^-1*b^-1*a^-1*b*a^2*c^
-    -1*a^-2*b^-1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b*a^-1*b^-1*a^-1*b*a^
-    2*b*c*b^-1*a^-2*b^-1*a*b*a*b^-1*a^-1*b*a*b*a^-1*b^-1*a*b*a^-1*b^-1*a^
-    -1*b*a^2*c^-1*a^-2*b^-1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b*a^-1*b^
-    -1*a^-1*b*a^2*b*c*b^-1*a^-2*b^-1*a*b*a*b^-1*a^-1*b*a*b*a^-1*b^-1*a*b*a^
-    -1*b^-1*a^-1*b*a^2*c^-1*a^-2*b^-1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^
-    -1*a*b*a^-1*b^-1*a^-1*b*a^2*b*c, b^-1*a^-1*b^-2*a^-1*b*a*b*a^-1*b^
-    -1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b*a^-1*b*a*b*a^-1*b^-1*a*b*a^-1*b^
-    -1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^2*a*c^-1*a^-1*b^-2*a^-1*b*a*b*a^-1*b^
-    -1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^-1*a^-1*b*a*b*a^-1*b^-1*a*b*a^
-    -1*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^2*a*b*c*b^-1*a^-1*b^-2*a^-1*b*a*b*a^
-    -1*b^-1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b*a^-1*b*a*b*a^-1*b^-1*a*b*a^
-    -1*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^2*a*c^-1*a^-1*b^-2*a^-1*b*a*b*a^-1*b^
-    -1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^-1*a^-1*b*a*b*a^-1*b^-1*a*b*a^
-    -1*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^2*a*b*c*b^-1*a^-1*b^-2*a^-1*b*a*b*a^
-    -1*b^-1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b*a^-1*b*a*b*a^-1*b^-1*a*b*a^
-    -1*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^2*a*c^-1*a^-1*b^-2*a^-1*b*a*b*a^-1*b^
-    -1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^-1*a^-1*b*a*b*a^-1*b^-1*a*b*a^
-    -1*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^2*a*b*c*b^-1*a^-1*b^-2*a^-1*b*a*b*a^
-    -1*b^-1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b*a^-1*b*a*b*a^-1*b^-1*a*b*a^
-    -1*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^2*a*c^-1*a^-1*b^-2*a^-1*b*a*b*a^-1*b^
-    -1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^-1*a^-1*b*a*b*a^-1*b^-1*a*b*a^
-    -1*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^2*a*b*c*b^-1*a^-1*b^-2*a^-1*b*a*b*a^
-    -1*b^-1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b*a^-1*b*a*b*a^-1*b^-1*a*b*a^
-    -1*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^2*a*c^-1*a^-1*b^-2*a^-1*b*a*b*a^-1*b^
-    -1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^-1*a^-1*b*a*b*a^-1*b^-1*a*b*a^
-    -1*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^2*a*b*c*b^-1*a^-1*b^-2*a^-1*b*a*b*a^
-    -1*b^-1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b*a^-1*b*a*b*a^-1*b^-1*a*b*a^
-    -1*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^2*a*c^-1*a^-1*b^-2*a^-1*b*a*b*a^-1*b^
-    -1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^-1*a^-1*b*a*b*a^-1*b^-1*a*b*a^
-    -1*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^2*a*b*c*b^-1*a^-1*b^-2*a^-1*b*a*b*a^
-    -1*b^-1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b*a^-1*b*a*b*a^-1*b^-1*a*b*a^
-    -1*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^2*a*c^-1*a^-1*b^-2*a^-1*b*a*b*a^-1*b^
-    -1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^-1*a^-1*b*a*b*a^-1*b^-1*a*b*a^
-    -1*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^2*a*b*c*b^-1*a^-1*b^-2*a^-1*b*a*b*a^
-    -1*b^-1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b*a^-1*b*a*b*a^-1*b^-1*a*b*a^
-    -1*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^2*a*c^-1*a^-1*b^-2*a^-1*b*a*b*a^-1*b^
-    -1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^-1*a^-1*b*a*b*a^-1*b^-1*a*b*a^
-    -1*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^2*a*b*c*b^-1*a^-1*b^-2*a^-1*b*a*b*a^
-    -1*b^-1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b*a^-1*b*a*b*a^-1*b^-1*a*b*a^
-    -1*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^2*a*c^-1*a^-1*b^-2*a^-1*b*a*b*a^-1*b^
-    -1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^-1*a^-1*b*a*b*a^-1*b^-1*a*b*a^
-    -1*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^2*a*b*c*b^-1*a^-1*b^-2*a^-1*b*a*b*a^
-    -1*b^-1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b*a^-1*b*a*b*a^-1*b^-1*a*b*a^
-    -1*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^2*a*c^-1*a^-1*b^-2*a^-1*b*a*b*a^-1*b^
-    -1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^-1*a^-1*b*a*b*a^-1*b^-1*a*b*a^
-    -1*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^2*a*b*c*b^-1*a^-1*b^-2*a^-1*b*a*b*a^
-    -1*b^-1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b*a^-1*b*a*b*a^-1*b^-1*a*b*a^
-    -1*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^2*a*c^-1*a^-1*b^-2*a^-1*b*a*b*a^-1*b^
-    -1*a*b*a*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^-1*a^-1*b*a*b*a^-1*b^-1*a*b*a^
-    -1*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^2*a*b*c, 
-  a*b*a*b*a*b*a*b*a*b*a*b*a*b*a*b*a*b*a*b*a*b ]
+>       PqLeftNormComm([a, b, b, a, b, c])^11, (a * b)^11];;
 gap> procId := PqStart(F/R : Prime := 11);
 3
 gap> PqPcPresentation(procId : ClassBound := 7, 

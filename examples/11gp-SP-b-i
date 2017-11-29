@@ -3,7 +3,7 @@
 #options: OutputLevel, ClassBound, StandardPresentationFile
 F := FreeGroup("a", "b", "c"); a := F.1; b := F.2; c := F.3;
 R := [a^11, b^11, c^11, PqLeftNormComm([b, a, a, a, b, a]),
-      Comm(c, a), Comm(c, b), PqLeftNormComm([b, a, b])];
+      Comm(c, a), Comm(c, b), PqLeftNormComm([b, a, b])];;
 procId := PqStart(F/R : Prime := 11);
 #comment: set a different print level by supplying <OutputLevel>
 #sub <OutputLevel> for <0> if set and ok

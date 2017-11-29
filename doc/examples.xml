@@ -172,13 +172,7 @@ a
 b
 c
 gap> R := [PqLeftNormComm([b, a, a, b, c])^11, 
->          PqLeftNormComm([a, b, b, a, b, c])^11, (a * b)^11];
-[ b^-1*a^-2*b^-1*a*b*a*b^-1*a^-1*b*a*b*a^-1*b^-1*a*b*a^-1*b^-1*a^-1*b*a^2*c^
-    ... 22 lines deleted here ...
-    -1*a*b*a^-1*b^-1*a^-1*b*a^2*b*c, b^-1*a^-1*b^-2*a^-1*b*a*b*a^-1*b^
-    ... 43 lines deleted here ...
-    -1*b^-1*a^-1*b*a*b^-1*a^-1*b^-1*a*b^2*a*b*c, 
-  a*b*a*b*a*b*a*b*a*b*a*b*a*b*a*b*a*b*a*b*a*b ]
+>          PqLeftNormComm([a, b, b, a, b, c])^11, (a * b)^11];;
 gap> procId := PqStart(F/R : Prime := 11);
 1
 gap> PqPcPresentation(procId : ClassBound := 7, 
