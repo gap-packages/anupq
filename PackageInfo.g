@@ -143,7 +143,7 @@ BannerString := Concatenation(
 
 Autoload := false,
 
-TestFile := "tst/anupqeg.tst",
+TestFile := "tst/testinstall.g",
 
 Keywords := [
   "p-quotient",

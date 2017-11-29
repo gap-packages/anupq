@@ -8,7 +8,6 @@
 ##  The number of GAPstones returned at the end do not mean much as  they  do
 ##  not measure the time spent by the `pq' binary.
 ##
-
 gap> START_TEST( "Testing one ANUPQ example" );
 gap> SetInfoLevel(InfoANUPQ, 1);
 gap> ##Example: "EpimorphismStandardPresentation-i" . . based on manual example

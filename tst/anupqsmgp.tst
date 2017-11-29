@@ -8,7 +8,6 @@
 ##  not measure the time spent by the `pq' binary.
 ##  The tests made are based on some examples provided by Bettina Eick.
 ##
-
 gap> START_TEST( "Testing ANUPQ with some SmallGroup groups" );
 gap> SetInfoLevel(InfoANUPQ, 1);
 gap> G := SmallGroup(8, 3);

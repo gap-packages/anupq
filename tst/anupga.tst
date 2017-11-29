@@ -10,7 +10,6 @@
 ##  *Note:* `PqDescendants' now computes *all* descendants  by  default,  not
 ##  just the capable ones.
 ##
-
 gap> START_TEST( "Testing ANUPQ p-group generation" );
 gap> SetInfoLevel(InfoANUPQ, 1);
 gap> F := FreeGroup(2);
@@ -65,53 +64,6 @@ gap> List( L, P->Rules(ElementsFamily(FamilyObj(P))!.rewritingSystem) );
   [ f1^2*f4^-1, f2^2*f4^-1, f3^2*f4^-1, f4^2, f1^-1*f2*f1*f3^-1*f2^-1, 
       f1^-1*f3*f1*f4^-1*f3^-1, f2^-1*f3*f2*f4^-1*f3^-1, f1^-1*f4*f1*f4^-1, 
       f2^-1*f4*f2*f4^-1, f3^-1*f4*f3*f4^-1 ] ]
-gap> List( L, P->GeneratorsOfGroup(AutomorphismGroup(P)) );
-[ [ Pcgs([ f1, f2, f3 ]) -> [ f1*f2, f2, f3 ], 
-      Pcgs([ f1, f2, f3 ]) -> [ f1*f3, f2, f3 ], 
-      Pcgs([ f1, f2, f3 ]) -> [ f1, f2*f3, f3 ] ], 
-  [ Pcgs([ f1, f2, f3 ]) -> [ f2, f1, f3 ], 
-      Pcgs([ f1, f2, f3 ]) -> [ f1*f3, f2, f3 ], 
-      Pcgs([ f1, f2, f3 ]) -> [ f1, f2*f3, f3 ] ], 
-  [ Pcgs([ f1, f2, f3 ]) -> [ f1*f2, f2, f3 ], 
-      Pcgs([ f1, f2, f3 ]) -> [ f2, f1*f2, f3 ], 
-      Pcgs([ f1, f2, f3 ]) -> [ f1*f3, f2, f3 ], 
-      Pcgs([ f1, f2, f3 ]) -> [ f1, f2*f3, f3 ] ], 
-  [ Pcgs([ f1, f2, f3, f4 ]) -> [ f1*f2, f2, f3*f4, f4 ], 
-      Pcgs([ f1, f2, f3, f4 ]) -> [ f2, f1, f4, f3 ], 
-      Pcgs([ f1, f2, f3, f4 ]) -> [ f1*f3, f2, f3, f4 ], 
-      Pcgs([ f1, f2, f3, f4 ]) -> [ f1, f2*f3, f3, f4 ], 
-      Pcgs([ f1, f2, f3, f4 ]) -> [ f1*f4, f2, f3, f4 ], 
-      Pcgs([ f1, f2, f3, f4 ]) -> [ f1, f2*f4, f3, f4 ] ], 
-  [ Pcgs([ f1, f2, f3, f4 ]) -> [ f1*f2, f2, f3, f3*f4 ], 
-      Pcgs([ f1, f2, f3, f4 ]) -> [ f1*f3, f2, f3, f4 ], 
-      Pcgs([ f1, f2, f3, f4 ]) -> [ f1, f2*f3, f3, f4 ], 
-      Pcgs([ f1, f2, f3, f4 ]) -> [ f1*f4, f2, f3, f4 ], 
-      Pcgs([ f1, f2, f3, f4 ]) -> [ f1, f2*f4, f3, f4 ] ], 
-  [ Pcgs([ f1, f2, f3, f4 ]) -> [ f1*f2, f2, f3, f4 ], 
-      Pcgs([ f1, f2, f3, f4 ]) -> [ f1*f3, f2, f3, f4 ], 
-      Pcgs([ f1, f2, f3, f4 ]) -> [ f1, f2*f3, f3, f4 ], 
-      Pcgs([ f1, f2, f3, f4 ]) -> [ f1*f4, f2, f3, f4 ], 
-      Pcgs([ f1, f2, f3, f4 ]) -> [ f1, f2*f4, f3, f4 ] ], 
-  [ Pcgs([ f1, f2, f3, f4 ]) -> [ f1*f2, f2, f3, f4 ], 
-      Pcgs([ f1, f2, f3, f4 ]) -> [ f1*f3, f2, f3*f4, f4 ], 
-      Pcgs([ f1, f2, f3, f4 ]) -> [ f1*f4, f2, f3, f4 ], 
-      Pcgs([ f1, f2, f3, f4 ]) -> [ f1, f2*f4, f3, f4 ] ], 
-  [ Pcgs([ f1, f2, f3, f4 ]) -> [ f1*f2, f2, f3*f4, f4 ], 
-      Pcgs([ f1, f2, f3, f4 ]) -> [ f1*f3, f2, f3*f4, f4 ], 
-      Pcgs([ f1, f2, f3, f4 ]) -> [ f1*f4, f2, f3, f4 ], 
-      Pcgs([ f1, f2, f3, f4 ]) -> [ f1, f2*f4, f3, f4 ] ], 
-  [ Pcgs([ f1, f2, f3, f4 ]) -> [ f2, f1, f3*f4, f4 ], 
-      Pcgs([ f1, f2, f3, f4 ]) -> [ f1*f3, f2, f3*f4, f4 ], 
-      Pcgs([ f1, f2, f3, f4 ]) -> [ f1, f2*f3, f3*f4, f4 ], 
-      Pcgs([ f1, f2, f3, f4 ]) -> [ f1*f4, f2, f3, f4 ], 
-      Pcgs([ f1, f2, f3, f4 ]) -> [ f1, f2*f4, f3, f4 ] ], 
-  [ Pcgs([ f1, f2, f3, f4 ]) -> [ f1*f3, f2, f3*f4, f4 ], 
-      Pcgs([ f1, f2, f3, f4 ]) -> [ f1, f2*f3, f3*f4, f4 ], 
-      Pcgs([ f1, f2, f3, f4 ]) -> [ f1*f4, f2, f3, f4 ], 
-      Pcgs([ f1, f2, f3, f4 ]) -> [ f1, f2*f4, f3, f4 ] ], 
-  [ Pcgs([ f1, f2, f3, f4 ]) -> [ f2, f1, f3*f4, f4 ], 
-      Pcgs([ f1, f2, f3, f4 ]) -> [ f1*f3, f2, f3*f4, f4 ], 
-      Pcgs([ f1, f2, f3, f4 ]) -> [ f1, f2*f3, f3*f4, f4 ], 
-      Pcgs([ f1, f2, f3, f4 ]) -> [ f1*f4, f2, f3, f4 ], 
-      Pcgs([ f1, f2, f3, f4 ]) -> [ f1, f2*f4, f3, f4 ] ] ]
+gap> List( L, P->Size(AutomorphismGroup(P)) );
+[ 8, 8, 24, 96, 32, 32, 16, 16, 32, 16, 32 ]
 gap> STOP_TEST( "anupga.tst", 1000000 );
