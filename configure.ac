@@ -143,7 +143,7 @@ AC_FUNC_MALLOC
 AC_FUNC_REALLOC
 AC_FUNC_FORK
 AC_HEADER_SYS_WAIT
-AC_CHECK_FUNCS([gethostname waitpid wait4 tmpnam tempnam strftime])
+AC_CHECK_FUNCS([gethostname waitpid wait4 strftime])
 
 AC_SEARCH_LIBS([log10], [m], [], [
   AC_MSG_ERROR([unable to find the log10() function])

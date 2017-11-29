@@ -17,44 +17,12 @@
 
 FILE *TemporaryFile(void)
 {
-   FILE *file;
+   FILE *file = tmpfile();
 
-/* TODO: Rewrite this, e.g. using tmpfile */
-
-#if defined(HAVE_TEMPNAM) || defined(HAVE_TMPNAM)
-
-   char *name;
-
-#if !defined(HAVE_TEMPNAM)
-   name = allocate_char_vector(L_tmpnam + 1, 0, FALSE);
-   if ((name = tmpnam(name)) == NULL) {
+   if (file == NULL) {
       perror("Cannot open temporary file");
       exit(FAILURE);
    }
-#else
-   if ((name = tempnam(NULL, "PQ")) == NULL) {
-      perror("Cannot open temporary file");
-      exit(FAILURE);
-   }
-#endif
-
-   file = OpenFile(name, "w+");
-
-   if (unlink(name) != 0) {
-      perror("Cannot unlink temporary file");
-      exit(FAILURE);
-   }
-
-   free(name);
-
-#else
-
-   if ((file = tmpfile()) == NULL) {
-      perror("Cannot open temporary file");
-      exit(FAILURE);
-   }
-
-#endif
 
    return file;
 }
