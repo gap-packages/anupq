@@ -7,7 +7,7 @@ it is known to work on Linux and Mac OS X, and also on Windows
 equipped with cygwin.
 <P/>
 
-The current version of the &ANUPQ; package requires &GAP;&nbsp;4.4, and
+The current version of the &ANUPQ; package requires &GAP;&nbsp;4.8, and
 version 1.2 of the &AutPGrp; package. However, we recommend using
 at least &GAP;&nbsp;4.6 and &AutPGrp;&nbsp;1.5.
 <P/>
