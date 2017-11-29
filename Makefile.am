@@ -38,7 +38,7 @@ pq_CPPFLAGS = $(GMP_CPPFLAGS) $(PQFLAGS)
 
 # FIXME: Add prototypes for all C functions and then remove -Wno-implicit.
 # FIXME: Fix all -Wall warnings
-pq_CFLAGS = -O2 -Wno-implicit
+pq_CFLAGS = -Wno-implicit
 
 
 pq_SOURCES = \
