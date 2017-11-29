@@ -47,7 +47,7 @@ void read_value(Logical newline, char *string, int *value, int lower_bound)
          printf("\n");
       *value = string_to_int(response, &error);
       if (error)
-         printf("Error in input -- must be integer only\n");
+         printf("Error in input -- must be integer only (but is '%s')\n", response);
       else if ((reading = (*value < lower_bound)))
          printf("Error: supplied value must be at least %d\n", lower_bound);
    }
