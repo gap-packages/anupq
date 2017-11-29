@@ -2821,6 +2821,7 @@ local nodescendants, class, firstStep, expectedNsteps, optrec, line, ngroups,
   if not onestage then
     # deal with the easy answer
     if VALUE_PQ_OPTION("OrderBound", 0, datarec.des) <> 0 and 
+       HasIsFinite(datarec.group) and IsFinite(datarec.group) and
        IsPGroup(datarec.group) and
        datarec.des.OrderBound <= LogInt(Size(datarec.group), 
                                         PrimePGroup(datarec.group)) then
