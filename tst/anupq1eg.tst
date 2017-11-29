@@ -4,7 +4,7 @@
 ##
 ##  Tests one of the ANUPQ examples. This is  done  on  its  own  because  it
 ##  outputs timing data which varies from machine to machine.
-##  Execute this file with `ReadTest( "anupq1eg.tst" );'.
+##  Execute this file with `Test( "anupq1eg.tst" );'.
 ##  The number of GAPstones returned at the end do not mean much as  they  do
 ##  not measure the time spent by the `pq' binary.
 ##

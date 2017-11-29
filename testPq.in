@@ -164,7 +164,7 @@ open( GAPIN, ">$tmpdir/gapinput");
 print GAPIN "SetInfoLevel(InfoWarning, 0); LoadPackage( \"anupq\" );;\n",
             "SetInfoLevel(InfoWarning, 1);\n",
             "SetInfoLevel(InfoANUPQ, 1);\n",
-            "ReadTest( \"tst/anupga.tst\" );\n";
+            "Test( \"tst/anupga.tst\" );\n";
 close GAPIN;
 system("$gap -b < $tmpdir/gapinput > $tmpdir/gapout");
 open(GAPOUT, "<$tmpdir/gapout");
