@@ -36,18 +36,6 @@ dnl ##
 AC_FIND_GAP
 
 
-dnl
-dnl anupq require a 32bit compiler, so force that.
-dnl
-dnl Note that using -m32 like this is of course not universally portable;
-dnl but for now, all systems and compilers I know and care about do support it.
-dnl If this causes problems for you, please report them via the issue tracker,
-dnl including information about your operating system and compiler.
-dnl
-CFLAGS="$CFLAGS -m32"
-LDFLAGS="$LDFLAGS -m32"
-
-
 dnl ##
 dnl ## Check for GMP
 dnl ## If the user specified a specific GMP, try to use that.

@@ -60,17 +60,8 @@ directories, see section "ref:Installing  GAP  Packages"  of  the  GAP  4
 reference manual for details on how to do this.)
 
 ANUPQ package requires at least GAP 4.8 and AutPGrp 1.5, although we
-recommend using the most recent versions of each. Moreover, ANUPQ is
-currently a 32-bit only program, and will not work correctly if compiled
-as a 64-bit program. This also means a compiler with 32-bit support is
-required. This is the default on Mac OS X. On other operating systems,
-you may need to install a suitable compiler, e.g. on Debian or Ubuntu,
-you can install the gcc-multilib package.
-
-ANUPQ optionally supports using GMP for large integer support. However,
-since ANUPQ must be compiled as a 32-bit program, this only works if
-GMP also is available as a 32-bit library. For example, on Debian and
-Ubuntu, you need to install libgmp-dev:i386
+recommend using the most recent versions of each. ANUPQ optionally
+supports using GMP for large integer support.
 
 Unpack the archive `anupq-<XXX>.tar.gz' in the `pkg' directory.
 
