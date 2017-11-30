@@ -155,16 +155,22 @@ void interactive_pq(Logical group_present,
          read_value(TRUE,
                     "Input class for tails computation (0 for all): ",
                     &class,
-                    0);
+                    -9999);
+	 /* by negative class we mean that we want to extend the lower central
+	    series up to -class, by adding p-powers. Variable i is hijacked. */
+	 if (class < 0) { i = class; class = 0; } else { i = 1; }
+
          tail_info(&tail_type);
          if (class == 0 || (class > 1 && class <= pcp->cc)) {
             if (class > 0) {
-               tails(tail_type, class, pcp->cc, 1, pcp);
+               tails(tail_type, class, pcp->cc, i, pcp);
                if (class != 2)
                   pcp->middle_of_tails = TRUE;
             } else {
+	      /* variable end_weight is never used. We hijack it to pass the
+		 l.c.s. desired depth. */
                for (class = pcp->cc; class > 1; --class)
-                  tails(tail_type, class, pcp->cc, 1, pcp);
+                  tails(tail_type, class, pcp->cc, i, pcp);
             }
             if (pcp->overflow && !isatty(0))
                exit(FAILURE);
