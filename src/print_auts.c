@@ -18,7 +18,7 @@
 
 void Aprint_auts(int nmr_auts, int nmr_gens, int ***auts, struct pcp_vars *pcp)
 {
-   register int i, j, k, x;
+   register int i, j, k;
    FILE *output_file;
    char *file_name;
    int image;
@@ -40,7 +40,7 @@ void Aprint_auts(int nmr_auts, int nmr_gens, int ***auts, struct pcp_vars *pcp)
 
          fprintf(output_file, "%d", image);
          if (i == nmr_auts && j == nmr_gens)
-            x = 1;
+            /*x = 1*/;
          else
             fprintf(output_file, ",");
          /*

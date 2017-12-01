@@ -20,7 +20,7 @@ int ***central_automorphisms(struct pga_vars *pga, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
-   int ***central;
+   int ***central = 0;
    int **commutator; /* result of commutator calculations */
    char **redundant; /* automorphisms which are not required */
    Logical found;

@@ -24,8 +24,8 @@ int ***immediate_descendant(FILE *descendant_file,
 {
    register int *y = y_address;
 
-   int ***central;
-   int **auts;
+   int ***central = 0;
+   int **auts = 0;
    struct exp_vars exp_flag;
 
    /* compute the p-covering group of the descendant */

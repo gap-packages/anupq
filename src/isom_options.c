@@ -108,9 +108,9 @@ void isom_options(int format, struct pcp_vars *pcp)
 {
    register int *y = y_address;
 
-   FILE *Status;
-   FILE *FileName;
-   FILE *Subgroup;
+   FILE *Status = 0;
+   FILE *FileName = 0;
+   FILE *Subgroup = 0;
 
    struct pga_vars pga;
 
@@ -134,8 +134,8 @@ void isom_options(int format, struct pcp_vars *pcp)
    int nmr_items;
    int ***auts;
    int x_dim, y_dim;
-   FILE *GAP_library;
-   char *name;
+   FILE *GAP_library = 0;
+   char *name = 0;
    int nmr_of_exponents;
 
    StandardPresentation = TRUE;
@@ -393,6 +393,7 @@ void isom_options(int format, struct pcp_vars *pcp)
          break;
 
       case ISOM_OPTION:
+         assert(name);
          FileName = OpenFile(name, "r");
          group_present =
              setup_start_info(FALSE, 0, FileName, FILE_INPUT, &pga, pcp);

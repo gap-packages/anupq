@@ -123,7 +123,7 @@ void enforce_exponent(Logical report,
    int t;
 #endif
    int factor;
-   int limit;
+   int limit = 0;
 
    int *queue, queue_length;
    int list_length;

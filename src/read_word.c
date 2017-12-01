@@ -322,7 +322,7 @@ static void setup_relation(int disp,
 
 static int check_for_commutator(char *s)
 {
-   int not_found;
+   int not_found = 0;
    register int length = strlen(s);
 
    while (length > 0 && (not_found = (s[length - 1] != LHS_COMMUTATOR &&
@@ -336,7 +336,7 @@ static int check_for_commutator(char *s)
 
 static int check_for_symbol(char *s)
 {
-   int not_found;
+   int not_found = 0;
    register int length = strlen(s);
 
    while (length > 0 && (not_found = (s[length - 1] != END_OF_WORD)))

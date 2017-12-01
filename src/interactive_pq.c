@@ -50,7 +50,7 @@ void interactive_pq(Logical group_present,
    FILE *FileName;
 
    int *queue, *long_queue;
-   int start_length;
+   int start_length = 0;
    int prev_qlength = 0, current_qlength;
    int long_queue_length = 0, queue_length = 0;
    int consistency_type;
@@ -471,6 +471,7 @@ void interactive_pq(Logical group_present,
          break;
 
       case RELATIONS_FILE:
+         t = runTime();
          if (pcp->m != 0) {
             queue_setup = TRUE;
             start_length = queue_length;

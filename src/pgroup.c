@@ -32,13 +32,13 @@ void pgroup_generation(Logical *group_present, struct pcp_vars *pcp)
 
    struct pga_vars pga;
    struct pga_vars flag;
-   int option;
-   int subgroup_rank;
+   int option = 0;
+   int subgroup_rank = 0;
 
-   char *StartName;
-   FILE *StartFile;
+   char *StartName = 0;
+   FILE *StartFile = 0;
 
-   int ***auts;
+   int ***auts = 0;
    int t;
 
    int group_nmr = 1;

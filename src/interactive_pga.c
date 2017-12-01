@@ -33,23 +33,23 @@ void interactive_pga(Logical group_present,
    int option;
    Logical soluble_group = TRUE;
 
-   FILE *OutputFile;
-   FILE *LINK_input;
+   FILE *OutputFile = 0;
+   FILE *LINK_input = 0;
 
-   char *StartName;
+   char *StartName = 0;
    int t;
 
-   int **perms;
+   int **perms = 0;
    int index;
-   int **S;
+   int **S = 0;
    int k;
    int K;
    int label;
-   int *a, *b;
-   char *c;
-   int *orbit_length;
+   int *a = 0, *b = 0;
+   char *c = 0;
+   int *orbit_length = 0;
    int nmr_of_exponents;
-   int *subset;
+   int *subset = 0;
    int alpha;
    int upper_step;
    int rep;
@@ -99,6 +99,7 @@ void interactive_pga(Logical group_present,
          t = runTime();
          if (group_present && pga->m == 0)
             start_group(&StartFile, auts, pga, pcp);
+         assert(OutputFile);
          construct(1,
                    &flag,
                    SINGLE_STAGE,
@@ -185,6 +186,7 @@ void interactive_pga(Logical group_present,
 
       case STABILISERS:
       case STABILISER:
+         assert(perms);
          stabiliser_option(
              option, auts, perms, a, b, c, orbit_length, pga, pcp);
          /*
@@ -405,7 +407,7 @@ void stabiliser_option(int option,
 {
    int t;
    int i;
-   Logical soluble_group;
+   /*Logical soluble_group;*/
    FILE *OutputFile;
    char *StartName;
    int *rep;
@@ -420,7 +422,7 @@ void stabiliser_option(int option,
       query_space_efficiency(pga);
    else
       pga->space_efficient = FALSE;
-   soluble_group = (pga->soluble || pga->Degree == 1 || pga->nmr_of_perms == 0);
+   /*soluble_group = (pga->soluble || pga->Degree == 1 || pga->nmr_of_perms == 0);*/
 
    query_terminal(pga);
    query_exponent_law(pga);

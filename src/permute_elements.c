@@ -82,7 +82,7 @@ void permute_elements(void)
    int map;
    int **A;
    int **B;
-   int subgp;
+   int subgp = 0;
    int **permutation;
    struct pga_vars pga;
 

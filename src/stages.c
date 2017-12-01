@@ -66,8 +66,6 @@ void intermediate_stage(FILE *descendant_file,
       nmr_of_capables = pga->nmr_of_capables;
       restore_pcp(input_file, pcp);
 
-      if (i != 1)
-         free_array(auts, x_dim, y_dim, 1);
       auts = restore_pga(input_file, pga, pcp);
       x_dim = pga->m;
       y_dim = pcp->lastg;
@@ -77,9 +75,8 @@ void intermediate_stage(FILE *descendant_file,
           reduced_covers(descendant_file, covers_file, 0, auts, pga, pcp);
       if (pcp->overflow)
          exit(FAILURE);
+      free_array(auts, x_dim, y_dim, 1);
    }
-
-   free_array(auts, x_dim, y_dim, 1);
 
    CloseFile(input_file);
 

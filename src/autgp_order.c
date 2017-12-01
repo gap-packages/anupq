@@ -22,9 +22,9 @@
 void
 update_autgp_order(int orbit_length, struct pga_vars *pga, struct pcp_vars *pcp)
 {
-   register int *y = y_address;
+/*   register int *y = y_address; */
 
-   register int d, nmr_cent;
+   register int nmr_cent;
    MP_INT prime, nmr_centrals, orbit_size;
    MP_INT t;
 
@@ -35,8 +35,8 @@ update_autgp_order(int orbit_length, struct pga_vars *pga, struct pcp_vars *pcp)
    /* multiply existing order by order of new central automorphisms */
    if (pga->final_stage) {
 
-      d = y[pcp->clend + 1];
       /*
+      int d = y[pcp->clend + 1];
             nmr_cent = y[pcp->clend + pcp->cc] - y[pcp->clend + pcp->cc - 1];
       */
       nmr_cent = pga->nmr_centrals;

@@ -55,7 +55,8 @@ static void find_structure(int gen, int *definition, struct pcp_vars *pcp)
 
    register int structure = pcp->structure;
    register int lastg = pcp->lastg;
-   register int u, v;
+/*   register int u; */
+   register int v;
    register int i;
    int weight;
    int pointer;
@@ -68,7 +69,7 @@ static void find_structure(int gen, int *definition, struct pcp_vars *pcp)
    for (i = 1; i <= lastg; ++i)
       y[pcp->lused + i] = 0;
 
-   u = PART2(pointer);
+   /*u = PART2(pointer);*/
    v = PART3(pointer);
    find_definition(gen, pcp->lused, weight, pcp);
 
@@ -114,7 +115,7 @@ void map_relations(int **map, struct pga_vars *pga, struct pcp_vars *pcp)
    int exp, absgen;
    FILE *present;
    Logical *defn;
-   int *preimage;
+   int *preimage = 0;
    int *image;
    Logical identity_map;
 
@@ -373,6 +374,10 @@ static void print_image_under_aut(FILE *present,
 
    non_zero = length_of_image(gen, defn, map, pcp);
 
+   assert(preimage);
+   assert(defn);
+   assert(map);
+
    for (i = 1; i <= lastg; ++i) {
       if (map[gen][i] == 0)
          continue;
@@ -405,7 +410,7 @@ static void print_definition(FILE *present,
    register int exponent;
    register int limit;
    register int i;
-   int power, m, root;
+   int power, m, root = 0;
    Logical first;
    char *s;
    int r;

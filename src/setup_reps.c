@@ -33,7 +33,7 @@ void setup_reps(int *reps,
                 struct pcp_vars *pcp)
 {
 
-   char *d; /* used in stabiliser computation */
+   char *d = 0; /* used in stabiliser computation */
    FILE *tmp_file;
    struct pga_vars original; /* copy of pga structure */
    register int i;
@@ -143,12 +143,12 @@ void process_rep(int **perms,
 {
    int index;
    int *subset;
-   int ***central;
-   int ***stabiliser;
-   int **S;
-   int *seq;
-   FILE *file;
-   FILE *GAP_library;
+   int ***central = 0;
+   int ***stabiliser = 0;
+   int **S = 0;
+   int *seq = 0;
+   FILE *file = 0;
+   FILE *GAP_library = 0;
    int lused, rank_of_cover;
 
    /* construct the presentation for the descendant and

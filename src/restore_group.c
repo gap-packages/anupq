@@ -22,7 +22,7 @@ int ***restore_group(Logical rewind_flag,
                      struct pga_vars *pga,
                      struct pcp_vars *pcp)
 {
-   int ***auts;
+   int ***auts = 0;
 
    while (group_number > 0) {
       restore_pcp(input_file, pcp);

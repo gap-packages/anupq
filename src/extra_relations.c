@@ -178,7 +178,7 @@ void extra_relations(struct exp_vars *exp_flag, struct pcp_vars *pcp)
    int *queue;
    char *s;
 
-   FILE *RelationList;
+   FILE *RelationList = 0;
 
 #include "access.h"
 
@@ -434,7 +434,7 @@ void extra_relations(struct exp_vars *exp_flag, struct pcp_vars *pcp)
 
          /* we may want to save all test words generated to
             a relation file for later processing */
-         if (exp_flag->word_list) {
+         if (RelationList) {
             fprintf(RelationList, "%d ", extra_relations);
             for (i = 1; i <= length; ++i)
                for (j = 1; j <= coeff[i]; ++j)
@@ -515,7 +515,7 @@ void extra_relations(struct exp_vars *exp_flag, struct pcp_vars *pcp)
          text(13, nmr_words, class, exp_flag->process, 0);
    }
 
-   if (exp_flag->word_list)
+   if (RelationList)
       CloseFile(RelationList);
 }
 

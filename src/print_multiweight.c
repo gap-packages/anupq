@@ -31,11 +31,11 @@ void print_multiweight(int first, int last, struct pcp_vars *pcp)
    int value;
    int wt = 0;
    int length;
-   int weight;
+   int weight = 0;
    int pointer;
    int address;
-   int *pattern;
-   int *gens;
+   int *pattern = 0;
+   int *gens = 0;
 
 #include "access.h"
 

@@ -29,6 +29,7 @@ typedef int Logical;
 #include <string.h>
 #include <limits.h> 
 #include <time.h> 
+#include <assert.h> 
 
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>

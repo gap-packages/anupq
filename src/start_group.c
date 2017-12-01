@@ -24,7 +24,7 @@ void start_group(FILE **StartFile,
    register int *y = y_address;
 
    int retain;
-   int ***central;
+   int ***central = 0;
 
    *StartFile = TemporaryFile();
    save_pcp(*StartFile, pcp);

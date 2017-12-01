@@ -40,7 +40,7 @@ int ***stabiliser_of_rep(int **perms,
 {
    register int *y = y_address;
 
-   int ***stabiliser;
+   int ***stabiliser = 0;
    int pointer = pcp->lused + 1;
    Logical soluble_group =
        (pga->soluble || pga->Degree == 1 || pga->nmr_of_perms == 0);
