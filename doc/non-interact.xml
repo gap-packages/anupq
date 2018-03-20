@@ -729,7 +729,7 @@ gap> List(des, d -> Length( PCentralSeries( d, 5 ) ) - 1 );
 [ 2, 3, 3 ]
 gap> List(des, d -> Length( DerivedSeries( d ) ) );
 [ 3, 3, 3 ]
-gap> List(des, d -> Maximum( List( Elements(d), Order ) ) );
+gap> List(des, d -> Maximum( List( d, Order ) ) );
 [ 5, 5, 5 ]
 ]]></Example>
 

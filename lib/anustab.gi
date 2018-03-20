@@ -93,7 +93,7 @@ local m, n, H, pcgs, aut, NumberAgAutos, i, imgs, NumberGlAutos, p, d,
         Info(InfoANUPQ + InfoWarning, 1,
              "... this may take a while, if it succeeds at all!");
     fi;
-    elm := Elements( V );
+    elm := AsSet( V );
     aut.glOper := [];
     for i in [1..NumberGlAutos] do
         a := aut.glAutos[i]; 

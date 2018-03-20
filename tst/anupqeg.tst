@@ -47813,7 +47813,7 @@ gap> List(des, d -> Length( PCentralSeries( d, 5 ) ) - 1 );
 [ 2, 3, 3 ]
 gap> List(des, d -> Length( DerivedSeries( d ) ) );
 [ 3, 3, 3 ]
-gap> List(des, d -> Maximum( List( Elements(d), Order ) ) );
+gap> List(des, d -> Maximum( List( d, Order ) ) );
 [ 5, 5, 5 ]
 gap> # Executing interactive variant of example: "PqDescendants-3"
 gap> ##Example: "PqDescendants-3" . . . based on manual example
@@ -47835,7 +47835,7 @@ gap> List(des, d -> Length( PCentralSeries( d, 5 ) ) - 1 );
 [ 2, 3, 3 ]
 gap> List(des, d -> Length( DerivedSeries( d ) ) );
 [ 3, 3, 3 ]
-gap> List(des, d -> Maximum( List( Elements(d), Order ) ) );
+gap> List(des, d -> Maximum( List( d, Order ) ) );
 [ 5, 5, 5 ]
 gap> PqQuitAll();
 gap> ##Example: "PqDescendants-treetraverse-i" . . . based on manual example
