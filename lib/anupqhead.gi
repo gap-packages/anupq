@@ -23,7 +23,7 @@
 ##    "version" . . the version of the current pq binary
 ##
 InstallValue( ANUPQData,
-  rec( binary := Filename( DirectoriesPackagePrograms( "anupq" ), "pq"),
+  rec( binary := ExternalFilename( DirectoriesPackagePrograms( "anupq" ), "pq" ),
        tmpdir := DirectoryTemporary(),
        ni := rec(), # record for non-interactive functions
        io := []     # list of records for PqStart IO Streams,
