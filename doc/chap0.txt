@@ -1,1 +1,215 @@
-Placeholder
+  
+  
+                                    [1X ANUPQ [101X
+  
+  
+                                [1X ANU p-Quotient [101X
+  
+  
+                                      3.2
+  
+  
+                                29 November 2017
+  
+  
+                                  Greg Gamble
+  
+                                 Werner Nickel
+  
+                                 Eamonn O'Brien
+  
+                                    Max Horn
+  
+  
+  
+  Greg Gamble
+      Email:    [7Xmailto:Greg.Gamble@uwa.edu.au[107X
+      Homepage: [7Xhttp://school.maths.uwa.edu.au/~gregg[107X
+      Address:  [33X[0;14YGreg Gamble[133X
+                [33X[0;14YDepartment of Mathematics and Statistics[133X
+                [33X[0;14YCurtin University[133X
+                [33X[0;14YGPO Box U 1987[133X
+                [33X[0;14YPerth WA 6845[133X
+                [33X[0;14YAustralia[133X
+  
+  
+  Werner Nickel
+      Homepage: [7Xhttp://www.mathematik.tu-darmstadt.de/~nickel/[107X
+  Eamonn O'Brien
+      Email:    [7Xmailto:obrien@math.auckland.ac.nz[107X
+      Homepage: [7Xhttp://www.math.auckland.ac.nz/~obrien[107X
+      Address:  [33X[0;14YDepartment of Mathematics[133X
+                [33X[0;14YUniversity of Auckland[133X
+                [33X[0;14YPrivate Bag 92019[133X
+                [33X[0;14YAuckland[133X
+                [33X[0;14YNew Zealand[133X
+  
+  
+  Max Horn
+      Email:    [7Xmailto:max.horn@math.uni-giessen.de[107X
+      Homepage: [7Xhttp://www.quendi.de/math[107X
+      Address:  [33X[0;14YAG Algebra[133X
+                [33X[0;14YMathematisches Institut[133X
+                [33X[0;14YJustus-Liebig-Universität Gießen[133X
+                [33X[0;14YArndtstraße 2[133X
+                [33X[0;14Y35392 Gießen[133X
+                [33X[0;14YGermany[133X
+  
+  
+  
+  -------------------------------------------------------
+  
+  
+  [1XContents (ANUPQ)[101X
+  
+  1 [33X[0;0YIntroduction[133X
+    1.1 [33X[0;0YOverview[133X
+    1.2 [33X[0;0YHow to read this manual[133X
+    1.3 [33X[0;0YAuthors and Acknowledgements[133X
+  2 [33X[0;0YMathematical Background and Terminology[133X
+    2.1 [33X[0;0YBasic notions[133X
+      2.1-1 [33X[0;0Ypc Presentations and Consistency[133X
+      2.1-2 [33X[0;0YExponent-[22Xp[122X Central Series and Weighted pc Presentations[133X
+      2.1-3 [33X[0;0Y[22Xp[122X-Cover, [22Xp[122X-Multiplicator[133X
+      2.1-4 [33X[0;0YDescendants, Capable, Terminal, Nucleus[133X
+      2.1-5 [33X[0;0YLaws[133X
+    2.2 [33X[0;0YThe p-quotient Algorithm[133X
+      2.2-1 [33X[0;0YFinding the [22Xp[122X-cover[133X
+      2.2-2 [33X[0;0YImposing the Relations of the fp Group[133X
+      2.2-3 [33X[0;0YImposing Laws[133X
+    2.3 [33X[0;0YThe p-group generation Algorithm, Standard Presentation, Isomorphism
+    Testing[133X
+  3 [33X[0;0YInfrastructure[133X
+    3.1 [33X[0;0YLoading the ANUPQ Package[133X
+    3.2 [33X[0;0YThe ANUPQData Record[133X
+      3.2-1 ANUPQData
+      3.2-2 ANUPQDirectoryTemporary
+    3.3 [33X[0;0YSetting the Verbosity of ANUPQ via Info and InfoANUPQ[133X
+      3.3-1 InfoANUPQ
+    3.4 [33X[0;0YUtility Functions[133X
+      3.4-1 PqLeftNormComm
+      3.4-2 PqGAPRelators
+      3.4-3 PqParseWord
+      3.4-4 PqExample
+      3.4-5 AllPqExamples
+      3.4-6 GrepPqExamples
+      3.4-7 ToPQLog
+    3.5 [33X[0;0YAttributes and a Property for fp and pc p-groups[133X
+      3.5-1 NuclearRank
+    3.6 [33X[0;0YHints and Warnings regarding the use of Options[133X
+      3.6-1 ANUPQWarnOfOtherOptions
+  4 [33X[0;0YNon-interactive ANUPQ functions[133X
+    4.1 [33X[0;0YComputing p-Quotients[133X
+      4.1-1 Pq
+      4.1-2 PqEpimorphism
+      4.1-3 PqPCover
+    4.2 [33X[0;0YComputing Standard Presentations[133X
+      4.2-1 PqStandardPresentation
+      4.2-2 EpimorphismPqStandardPresentation
+    4.3 [33X[0;0YTesting p-Groups for Isomorphism[133X
+      4.3-1 IsPqIsomorphicPGroup
+    4.4 [33X[0;0YComputing Descendants of a p-Group[133X
+      4.4-1 PqDescendants
+      4.4-2 PqSupplementInnerAutomorphisms
+      4.4-3 PqList
+      4.4-4 SavePqList
+  5 [33X[0;0YInteractive ANUPQ functions[133X
+    5.1 [33X[0;0YStarting and Stopping Interactive ANUPQ Processes[133X
+      5.1-1 PqStart
+      5.1-2 PqQuit
+      5.1-3 PqQuitAll
+    5.2 [33X[0;0YInteractive ANUPQ Process Utility Functions[133X
+      5.2-1 PqProcessIndex
+      5.2-2 PqProcessIndices
+      5.2-3 IsPqProcessAlive
+    5.3 [33X[0;0YInteractive Versions of Non-interactive ANUPQ Functions[133X
+      5.3-1 Pq
+      5.3-2 PqEpimorphism
+      5.3-3 PqPCover
+      5.3-4 PqStandardPresentation
+      5.3-5 EpimorphismPqStandardPresentation
+      5.3-6 PqDescendants
+      5.3-7 PqSetPQuotientToGroup
+    5.4 [33X[0;0YLow-level Interactive ANUPQ functions based on menu items of the pq
+    program[133X
+    5.5 [33X[0;0YGeneral commands[133X
+      5.5-1 PqNrPcGenerators
+      5.5-2 PqFactoredOrder
+      5.5-3 PqOrder
+      5.5-4 PqPClass
+      5.5-5 PqWeight
+      5.5-6 PqCurrentGroup
+      5.5-7 PqDisplayPcPresentation
+      5.5-8 PqSetOutputLevel
+      5.5-9 PqEvaluateIdentities
+    5.6 [33X[0;0YCommands from the Main [22Xp[122X-Quotient menu[133X
+      5.6-1 PqPcPresentation
+      5.6-2 PqSavePcPresentation
+      5.6-3 PqRestorePcPresentation
+      5.6-4 PqNextClass
+      5.6-5 PqComputePCover
+    5.7 [33X[0;0YCommands from the Advanced [22Xp[122X-Quotient menu[133X
+      5.7-1 PqCollect
+      5.7-2 PqSolveEquation
+      5.7-3 PqCommutator
+      5.7-4 PqSetupTablesForNextClass
+      5.7-5 PqTails
+      5.7-6 PqComputeTails
+      5.7-7 PqAddTails
+      5.7-8 PqDoConsistencyChecks
+      5.7-9 PqCollectDefiningRelations
+      5.7-10 PqCollectWordInDefiningGenerators
+      5.7-11 PqCommutatorDefiningGenerators
+      5.7-12 PqDoExponentChecks
+      5.7-13 PqEliminateRedundantGenerators
+      5.7-14 PqRevertToPreviousClass
+      5.7-15 PqSetMaximalOccurrences
+      5.7-16 PqSetMetabelian
+      5.7-17 PqDoConsistencyCheck
+      5.7-18 PqCompact
+      5.7-19 PqEchelonise
+      5.7-20 PqSupplyAutomorphisms
+      5.7-21 PqExtendAutomorphisms
+      5.7-22 PqApplyAutomorphisms
+      5.7-23 PqDisplayStructure
+      5.7-24 PqDisplayAutomorphisms
+      5.7-25 PqWritePcPresentation
+    5.8 [33X[0;0YCommands from the Standard Presentation menu[133X
+      5.8-1 PqSPComputePcpAndPCover
+      5.8-2 PqSPStandardPresentation
+      5.8-3 PqSPSavePresentation
+      5.8-4 PqSPCompareTwoFilePresentations
+      5.8-5 PqSPIsomorphism
+    5.9 [33X[0;0YCommands from the Main [22Xp[122X-Group Generation menu[133X
+      5.9-1 PqPGSupplyAutomorphisms
+      5.9-2 PqPGExtendAutomorphisms
+      5.9-3 PqPGConstructDescendants
+      5.9-4 PqPGSetDescendantToPcp
+    5.10 [33X[0;0YCommands from the Advanced [22Xp[122X-Group Generation menu[133X
+      5.10-1 PqAPGDegree
+      5.10-2 PqAPGPermutations
+      5.10-3 PqAPGOrbits
+      5.10-4 PqAPGOrbitRepresentatives
+      5.10-5 PqAPGSingleStage
+    5.11 [33X[0;0YPrimitive Interactive ANUPQ Process Read/Write Functions[133X
+      5.11-1 PqRead
+      5.11-2 PqReadAll
+      5.11-3 PqReadUntil
+      5.11-4 PqWrite
+  6 [33X[0;0YANUPQ Options[133X
+    6.1 [33X[0;0YOverview[133X
+      6.1-1 AllANUPQoptions
+      6.1-2 ANUPQoptions
+    6.2 [33X[0;0YDetailed descriptions of ANUPQ Options[133X
+  7 [33X[0;0YInstalling the ANUPQ Package[133X
+    7.1 [33X[0;0YTesting your ANUPQ installation[133X
+    7.2 [33X[0;0YRunning the pq program as a standalone[133X
+  A [33X[0;0YExamples[133X
+    A.1 [33X[0;0YThe Relators Option[133X
+    A.2 [33X[0;0YThe Identities Option and PqEvaluateIdentities Function[133X
+    A.3 [33X[0;0YA Large Example[133X
+    A.4 [33X[0;0YDeveloping descendants trees[133X
+      A.4-1 PqDescendantsTreeCoclassOne
+  
+  
+  [32X

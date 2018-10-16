@@ -1,0 +1,116 @@
+  
+  [1X1 [33X[0;0YIntroduction[133X[101X
+  
+  
+  [1X1.1 [33X[0;0YOverview[133X[101X
+  
+  [33X[0;0YThe [5XGAP[105X 4 package [5XANUPQ[105X provides an interface to the ANU [10Xpq[110X C progam written
+  by  Eamonn  O'Brien,  making the functionality of the C program available to
+  [5XGAP[105X.  Henceforth,  we shall refer to the [5XANUPQ[105X package when referring to the
+  [5XGAP[105X interface, and to the ANU [10Xpq[110X program or just [10Xpq[110X when referring to that C
+  program.[133X
+  
+  [33X[0;0YThe [10Xpq[110X program consists of implementations of the following algorithms:[133X
+  
+  [31X1[131X   [33X[0;6YA [13X[22Xp[122X-quotient algorithm[113X to compute pc-presentations for [22Xp[122X-factor groups
+        of finitely presented groups.[133X
+  
+  [31X2[131X   [33X[0;6YA  [13X[22Xp[122X-group generation algorithm[113X to generate pc presentations of groups
+        of prime power order.[133X
+  
+  [31X3[131X   [33X[0;6YA   [13Xstandard  presentation  algorithm[113X  used  to  compute  a  canonical
+        pc-presentation of a [22Xp[122X-group.[133X
+  
+  [31X4[131X   [33X[0;6YAn  algorithm which can be used to compute the [13Xautomorphism group[113X of a
+        [22Xp[122X-group.[133X
+  
+        [33X[0;6YThis  part  of  the  [10Xpq[110X  program  is  not accessible through the [5XANUPQ[105X
+        package.  Instead,  users  are  advised  to consider the [5XGAP[105X 4 package
+        [5XAutPGrp[105X  by Bettina Eick and Eamonn O'Brien, which implements a better
+        algorithm  in  [5XGAP[105X  for  the  computation  of  automorphism  groups of
+        [22Xp[122X-groups.[133X
+  
+  [33X[0;0YThe  current  version of the [5XANUPQ[105X package requires [5XGAP[105X 4.5, and version 1.5
+  of  the  [5XAutPGrp[105X  package.  All  code  that made the package compatible with
+  earlier  versions  of  [5XGAP[105X  has  been  removed. If you must use an older [5XGAP[105X
+  version  and  cannot upgrade, then you may try using an older [5XANUPQ[105X version.
+  However,  you  should  not use versions of the [5XANUPQ[105X package older than 2.2,
+  since they are known to have bugs.[133X
+  
+  
+  [1X1.2 [33X[0;0YHow to read this manual[133X[101X
+  
+  [33X[0;0YIt  is  not  expected  that  readers of this manual will read it in a linear
+  fashion  from cover to cover; some sections contain material that is far too
+  technical to be absorbed on a first reading.[133X
+  
+  [33X[0;0YFirstly,   installers   of   the   [5XANUPQ[105X   package   will   need   to   read
+  Chapter [14X'[33X[0;0YInstalling  the  ANUPQ  Package[133X'[114X,  if they have not already gleaned
+  these details from the [10XREADME[110X file.[133X
+  
+  [33X[0;0YOnce the [5XANUPQ[105X package is installed, users of the [5XANUPQ[105X package will benefit
+  most  by  first  reading  Chapter [14X'[33X[0;0YMathematical Background and Terminology[133X'[114X,
+  which gives a brief description of the background and terminology used (this
+  chapter  also  cites  a  number  of references for further reading), and the
+  introduction  of Chapter [14X'[33X[0;0YInfrastructure[133X'[114X (skip the remainder of the chapter
+  on a first reading).[133X
+  
+  [33X[0;0YThen the user/reader should pursue Chapter [14X'[33X[0;0YNon-interactive ANUPQ functions[133X'[114X
+  in detail, delving into Chapter [14X'[33X[0;0YANUPQ Options[133X'[114X as necessary for the options
+  of  the  functions  that are described. The user will become best acquainted
+  with  the  [5XANUPQ[105X  package by trying the examples. This chapter describes the
+  non-interactive functions of the [5XANUPQ[105X package, i.e. [21Xone-shot[121X functions that
+  invoke the [10Xpq[110X program in such a way that once [5XGAP[105X has got what it needs, the
+  [10Xpq[110X is allowed to exit. It is expected that most of the time, users will only
+  need these functions.[133X
+  
+  [33X[0;0YAdvanced  users  will  want to explore Chapter [14X'[33X[0;0YInteractive ANUPQ functions[133X'[114X
+  which  describes  all  the interactive functions of the [5XANUPQ[105X package; these
+  are  functions  that  extract  information  via a dialogue with a running [10Xpq[110X
+  process. Occasionally, a user needs the [21Xnext step[121X; the functions provided in
+  this  chapter  make  use  of  data  from  previous  steps retained by the [10Xpq[110X
+  program, thus allowing the user to interact with the [10Xpq[110X program like one can
+  when  one  uses  the  [10Xpq[110X  program  as  a  stand-alone  (see [10Xguide.dvi[110X in the
+  [10Xstandalone-doc[110X directory).[133X
+  
+  [33X[0;0YAfter     having    read    Chapters [14X'[33X[0;0YNon-interactive    ANUPQ    functions[133X'[114X
+  and [14X'[33X[0;0YInteractive  ANUPQ  functions[133X'[114X,  cross-references  will  have taken the
+  reader  into  Chapter [14X'[33X[0;0YANUPQ  Options[133X'[114X;  by this stage, the reader need only
+  read the introduction of Chapter [14X'[33X[0;0YANUPQ Options[133X'[114X.[133X
+  
+  [33X[0;0YAfter  the  reader  has  developed some facility with the [5XANUPQ[105X package, she
+  should explore the examples described in Appendix [14X'[33X[0;0YExamples[133X'[114X.[133X
+  
+  [33X[0;0YIf  you  run  into  trouble  using the [5XANUPQ[105X functions, some troubleshooting
+  hints  are  given  in  Section [14X'[33X[0;0YHints  and  Warnings  regarding  the  use of
+  Options[133X'[114X.  If  the  troubleshooting  hints  don't help, Section [14X'[33X[0;0YAuthors and
+  Acknowledgements[133X'[114X  below,  gives  contact  details  for  the  authors of the
+  components of the [5XANUPQ[105X package.[133X
+  
+  
+  [1X1.3 [33X[0;0YAuthors and Acknowledgements[133X[101X
+  
+  [33X[0;0YThe  C  implementation  of  the  ANU  [10Xpq[110X  standalone was developed by Eamonn
+  O'Brien.[133X
+  
+  [33X[0;0YAn  interactive  interface using iostreams was developed with the assistance
+  of Werner Nickel by Greg Gamble.[133X
+  
+  [33X[0;0YThe  [5XGAP[105X  4  version  of  this package was adapted from the [5XGAP[105X 3 version by
+  Werner Nickel.[133X
+  
+  [33X[0;0YA new co-maintainer, Max Horn, joined the team in November, 2011.[133X
+  
+  [33X[0;0YThe   authors   would  like  to  thank  Joachim  Neubüser  for  his  careful
+  proof-reading   and   advice,   and  for  formulating  Chapter [14X'[33X[0;0YMathematical
+  Background and Terminology[133X'[114X.[133X
+  
+  [33X[0;0YWe would also like to thank Bettina Eick who by her testing and provision of
+  examples  helped  us to eliminate a number of bugs and who provided a number
+  of  valuable  suggestions  for  extensions  of  the package beyond the [5XGAP[105X 3
+  capabilities.[133X
+  
+  [33X[0;0YIf  you  find  a  bug,  the  last  section  of  [5XANUPQ[105X's [10XREADME[110X describes the
+  information  we need and where to send us a bug report; please take the time
+  to read this (i.e. help us to help you).[133X
+  

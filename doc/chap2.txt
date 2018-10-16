@@ -1,0 +1,292 @@
+  
+  [1X2 [33X[0;0YMathematical Background and Terminology[133X[101X
+  
+  [33X[0;0YIn this chapter we will give a brief description of the mathematical notions
+  used  in  the  algorithms  implemented  in  the ANU [10Xpq[110X program that are made
+  accessible  from  [5XGAP[105X  through  this package. For proofs and details we will
+  point  to  relevant  places in the published literature. Also we will try to
+  give  some  explanation  of  terminology  that may help to use the [21Xlow-level[121X
+  interactive  functions  described  in  Section [14X'[33X[0;0YLow-level  Interactive ANUPQ
+  functions  based on menu items of the pq program[133X'[114X. However, users who intend
+  to   use  these  functions  are  strongly  advised  to  acquire  a  thorough
+  understanding  of the algorithms from the quoted literature. There is little
+  or no checking done in these functions and naive use may result in incorrect
+  results.[133X
+  
+  
+  [1X2.1 [33X[0;0YBasic notions[133X[101X
+  
+  
+  [1X2.1-1 [33X[0;0Ypc Presentations and Consistency[133X[101X
+  
+  [33X[0;0YFor details, see e.g. [NNN98].[133X
+  
+  [33X[0;0YEvery finite [22Xp[122X-group [22XG[122X has a presentation of the form:[133X
+  
+  
+  [24X[33X[0;6Y\{a_1,\dots,a_n  \mid  a_i^p = v_{ii}, 1 \le i \le n, [a_k, a_j] = v_{jk}, 1
+  \le j < k \le n \}.[133X
+  
+  [124X
+  
+  [33X[0;0Ywhere [22Xv_jk[122X is a word in the elements [22Xa_k+1,dots,a_n[122X for [22X1 le j ≤ k le n[122X.[133X
+  
+  [33X[0;0YThis  is  called a [13Xpower-commutator[113X presentation (or [13Xpc presentation[113X or [13Xpcp[113X)
+  of  [22XG[122X,  generators  from  such  a  presentation  will  be  referred to as [13Xpc
+  generators[113X. In terms of such pc generators every element of [22XG[122X can be written
+  in  a  [21Xnormal form[121X [22Xa_1^e_1dots a_n^e_n[122X with [22X0 le e_i < p[122X. Moreover any given
+  product  of  the generators can be brought into such a normal form using the
+  defining  relations  in  the  above  presentation as rewrite rules. Any such
+  process  is  called  [13Xcollection[113X.  For  the  discussion of various collection
+  methods see [LGS90] and [VL90b].[133X
+  
+  [33X[0;0YEvery  [22Xp[122X-group  of  order  [22Xp^n[122X has such a pcp on [22Xn[122X generators and conversely
+  every  such  presentation  defines a [22Xp[122X-group. However a [22Xp[122X-group defined by a
+  pcp  on  [22Xn[122X  generators  can  be  of  smaller  order [22Xp^m[122X with [22Xm<n[122X. A pcp on [22Xn[122X
+  generators  that  does  in  fact  define  a  [22Xp[122X-group  of order [22Xp^n[122X is called
+  [13Xconsistent[113X  in  this  manual,  in  line  with  most of the literature on the
+  algorithms occurring here. A consistent pcp determines a [13Xconfluent rewriting
+  system[113X  (see [2XIsConfluent[102X  ([14XReference:  IsConfluent[114X)  of  the  [5XGAP[105X  Reference
+  Manual) for the group it defines and for this reason often (in particular in
+  the [5XGAP[105X Reference Manual) such a pcp presentation is also called [13Xconfluent[113X.[133X
+  
+  [33X[0;0YConsistency  of  a  pcp is tantamount to the fact that for any given word in
+  the generators any two collections will yield the same normal form.[133X
+  
+  [33X[0;0YConsistency  of  a  pcp  can  be  checked  by  a  finite  set of [13Xconsistency
+  conditions[113X, demanding that collection of the left hand side and of the right
+  hand  side  of  certain  equations,  starting  with subproducts indicated by
+  bracketing,  will  result in the same normal form. There are 3 types of such
+  equations (that will be referred to in the manual):[133X
+  
+  
+  [24X[33X[0;6Y\begin{array}{rclrl}  (a^n)a  &=&  a(a^n)  &&{\rm  (Type  1)}  \\ (b^n)a &=&
+  b^{(n-1)}(ba),  b(a^n)  =  (ba)a^{(n-1)} &&{\rm (Type 2)} \\ c(ba) &=& (cb)a
+  &&{\rm (Type 3)} \\ \end{array}[133X
+  
+  [124X
+  
+  [33X[0;0YSee  [VL84]  for a description of a sufficient set of consistency conditions
+  in the context of the [22Xp[122X-quotient algorithm.[133X
+  
+  
+  [1X2.1-2 [33X[0;0YExponent-[22Xp[122X[101X[1X Central Series and Weighted pc Presentations[133X[101X
+  
+  [33X[0;0YFor details, see [NNN98].[133X
+  
+  [33X[0;0YThe  ([13Xdescending[113X or [13Xlower[113X) ([13Xexponent-[113X)[13X[22Xp[122X-central series[113X of an arbitrary group
+  [22XG[122X is defined by[133X
+  
+  
+  [24X[33X[0;6YP_0(G) := G, P_i(G) := [G, P_{i-1}(G)] P_{i-1}(G)^p.[133X
+  
+  [124X
+  
+  [33X[0;0YFor a [22Xp[122X-group [22XG[122X this series terminates with the trivial group. [22XG[122X has [13X[22Xp[122X-class[113X
+  [22Xc[122X  if  [22Xc[122X  is  the smallest integer such that [22XP_c(G)[122X is the trivial group. In
+  this  manual, as well as in much of the literature about the [10Xpq[110X- and related
+  algorithms, the [22Xp[122X-class is often referred to simply by [13Xclass[113X.[133X
+  
+  [33X[0;0YLet the [22Xp[122X-group [22XG[122X have a consistent pcp as above. Then the subgroups[133X
+  
+  
+  [24X[33X[0;6Y\langle1\rangle < {\langle}a_n\rangle < {\langle}a_n, a_{n-1}\rangle < \dots
+  < {\langle}a_n,\dots,a_i\rangle < \dots < G[133X
+  
+  [124X
+  
+  [33X[0;0Yform  a  central  series  of [22XG[122X. If this refines the [22Xp[122X-central series, we can
+  define  the [13Xweight function[113X [22Xw[122X for the pc generators by [22Xw(a_i) = k[122X, if [22Xa_i[122X is
+  contained in [22XP_k-1(G)[122X but not in [22XP_k(G)[122X.[133X
+  
+  [33X[0;0YThe  pair  of  such  a  weight  function  and a pcp allowing it, is called a
+  [13Xweighted pcp[113X.[133X
+  
+  
+  [1X2.1-3 [33X[0;0Y[22Xp[122X[101X[1X-Cover, [22Xp[122X[101X[1X-Multiplicator[133X[101X
+  
+  [33X[0;0YFor details, see [NNN98].[133X
+  
+  [33X[0;0YLet  [22Xd[122X  be  the  minimal number of generators of the [22Xp[122X-group [22XG[122X of [22Xp[122X-class [22Xc[122X.
+  Then  [22XG[122X  is isomorphic to a factor group [22XF/R[122X of a free group [22XF[122X of rank [22Xd[122X. We
+  denote  [22X[F,  R]  R^p[122X  by  [22XR^*[122X.  It can be proved (see e.g. [O'B90]) that the
+  isomorphism  type  of  [22XG^*  :=  F/R^*[122X  depends  only on [22XG[122X. [22XG^*[122X is called the
+  [13X[22Xp[122X-covering  group[113X  or  [13X[22Xp[122X-cover[113X of [22XG[122X, and [22XR/R^*[122X the [13X[22Xp[122X-multiplicator[113X of [22XG[122X. The
+  [22Xp[122X-multiplicator  is,  of  course, an elementary abelian [22Xp[122X-group; its minimal
+  number of generators is called the [13X([22Xp[122X-)multiplicator rank[113X.[133X
+  
+  
+  [1X2.1-4 [33X[0;0YDescendants, Capable, Terminal, Nucleus[133X[101X
+  
+  [33X[0;0YFor details, see [New77] and [O'B90].[133X
+  
+  [33X[0;0YLet again [22XG[122X be a [22Xp[122X-group of [22Xp[122X-class [22Xc[122X and [22Xd[122X the minimal number of generators
+  of  [22XG[122X.  A [22Xp[122X-group [22XH[122X is a [13Xdescendant[113X of [22XG[122X if the minimal number of generators
+  of  [22XH[122X  is  [22Xd[122X  and  [22XH/P_c(H)[122X  is  isomorphic  to [22XG[122X. A descendant [22XH[122X of [22XG[122X is an
+  [13Ximmediate  descendant[113X  if  it has [22Xp[122X-class [22Xc+1[122X. [22XG[122X is called [13Xcapable[113X if it has
+  immediate descendants; otherwise it is [13Xterminal[113X.[133X
+  
+  [33X[0;0YLet [22XG^* = F/R^*[122X again be the [22Xp[122X-cover of [22XG[122X. Then the group [22XP_c(G^*)[122X is called
+  the  [13Xnucleus[113X  of  [22XG[122X.  Note that [22XP_c(G^*)[122X is contained in the [22Xp[122X-multiplicator
+  [22XR/R^*[122X.[133X
+  
+  [33X[0;0YIt  is  proved  (e.g. in  [O'B90])  that  the immediate descendants of [22XG[122X are
+  obtained  as  factor  groups  of  the [22Xp[122X-cover by (proper) supplements of the
+  nucleus  in  the (elementary abelian) [22Xp[122X-multiplicator. These are also called
+  [13Xallowable[113X.[133X
+  
+  [33X[0;0YIt  is  further  proved there that every automorphism [22Xα[122X of [22XF/R[122X extends to an
+  automorphism [22Xα^*[122X of the [22Xp[122X-cover [22XF/R^*[122X and that the restriction of [22Xα^*[122X to the
+  multiplicator  [22XR/R^*[122X is uniquely determined by [22Xα[122X. Each [13Xextended automorphism[113X
+  [22Xα^*[122X  induces  a  permutation  of  the allowable subgroups. Thus the extended
+  automorphisms  determine a group [22XP[122X of [13Xpermutations[113X on the set [22XA[122X of allowable
+  subgroups  (The  group  [22XP[122X  of permutations will appear in the description of
+  some  interactive functions). Choosing a representative [22XS[122X from each orbit of
+  [22XP[122X  on  [22XA[122X,  the  set of factor groups [22XF/S[122X contains each (isomorphism type of)
+  immediate  descendant  of [22XG[122X exactly once. For each immediate descendant, the
+  procedure   of  computing  the  [22Xp[122X-cover,  extending  the  automorphisms  and
+  computing  the  orbits  on allowable subgroups can be repeated. Iteration of
+  this  procedure  can  in principle be used to determine all descendants of a
+  [22Xp[122X-group.[133X
+  
+  
+  [1X2.1-5 [33X[0;0YLaws[133X[101X
+  
+  [33X[0;0YLet  [22Xl(x_1,  dots, x_n)[122X be a word in the free generators [22Xx_1, dots, x_n[122X of a
+  free  group  of  rank  [22Xn[122X.  Then  [22Xl(x_1,  dots,  x_n)  = 1[122X is called a [13Xlaw[113X or
+  [13Xidentical  relation[113X  in a group [22XG[122X if [22Xl(g_1, dots, g_n) = 1[122X for any choice of
+  elements  [22Xg_1,  dots, g_n[122X in [22XG[122X. In particular, [22Xx^e = 1[122X is called an [13Xexponent
+  law[113X,  [22X[[x,y],[u,v]]  = 1[122X the [13Xmetabelian law[113X, and [22X[dots [[x_1,x_2],x_2],dots,
+  x_2] = 1[122X an [13XEngel identity[113X.[133X
+  
+  
+  [1X2.2 [33X[0;0YThe p-quotient Algorithm[133X[101X
+  
+  [33X[0;0YFor  details,  see  [HN80],  [NO96]  and  [VL84].  Other descriptions of the
+  algorithm are given in [Sim94].[133X
+  
+  [33X[0;0YThe  [10Xpq[110X algorithm successively determines the factor groups of the groups of
+  the  [22Xp[122X-central series of a finitely presented (fp) group [22XG[122X. If a bound [22Xb[122X for
+  the [22Xp[122X-class is given, the algorithm will determine those factor groups up to
+  at most [22Xp[122X-class [22Xb[122X. If the [22Xp[122X-central series terminates with a subgroup [22XP_k(G)[122X
+  with  [22Xk  <  b[122X,  the algorithm will stop with that group. If no such bound is
+  given, it will try to find the biggest such factor group.[133X
+  
+  [33X[0;0Y[22XG/P_1(G)[122X  is the largest elementary abelian [22Xp[122X-factor group of [22XG[122X and this can
+  be  found  from the relation matrix of [22XG[122X using matrix diagonalisation modulo
+  [22Xp[122X. So it suffices to explain how [22XG/P_i+1(G)[122X is found from [22XG[122X and [22XG/P_i(G)[122X for
+  some [22Xi ge 1[122X.[133X
+  
+  [33X[0;0YThis  is  done,  in  principle,  in  two  steps: first the [22Xp[122X-cover of [22XG_i :=
+  G/P_i(G)[122X  is  determined  (which  depends  only  on  [22XG_i[122X, not on [22XG[122X) and then
+  [22XG/P_i+1(G)[122X as a factor group of this [22Xp[122X-cover.[133X
+  
+  
+  [1X2.2-1 [33X[0;0YFinding the [22Xp[122X[101X[1X-cover[133X[101X
+  
+  [33X[0;0YA  very  detailed  description  of  the first step is given in [NNN98], from
+  which  we  just  extract  some  passages  in  order  to  point to some terms
+  occurring in this manual.[133X
+  
+  [33X[0;0YLet  [22XH[122X be a [22Xp[122X-group and [22Xp^d(b)[122X be the order of [22XH/P_b(H)[122X. So [22Xd := d(1)[122X is the
+  minimal  number  of  generators  of  [22XH[122X.  A  weighted pcp of [22XH[122X will be called
+  [13Xlabelled[113X  if  for  each  generator  [22Xa_k[122X,  [22Xk  >  d[122X  one relation, having this
+  generator as its right hand side, is marked as [13Xdefinition[113X of this generator.[133X
+  
+  [33X[0;0YAs  described  in  [NNN98],  a  weighted  labelled  pcp  of a [22Xp[122X-group can be
+  obtained stepping down its [22Xp[122X-central series.[133X
+  
+  [33X[0;0YSo  let  us  assume  that  a  weighted  labelled  pcp  of  [22XG_i[122X  is  given. A
+  straightforward  way  of  of writing down a (not necessarily consistent) pcp
+  for  its  [22Xp[122X-cover is to add generators, one for each relation which is not a
+  definition,  and  modify  the  right  hand  side  of  each  such relation by
+  multiplying  it  on  the  right  by one of the new generators -- a different
+  generator  for  each such relation. Further relations are then added to make
+  the  new  generators central and of order [22Xp[122X. This procedure is called [13Xadding
+  tails[113X. A more formal description of it is again given in [NNN98].[133X
+  
+  [33X[0;0YIt  is  important  to  realise  that  the  [21Xnew[121X  generators  will generate an
+  elementary abelian group, that is, in additive notation, a vector space over
+  the  field  of  [22Xp[122X elements. As said, the pcp of the [22Xp[122X-cover obtained in this
+  way  need  not  be consistent. Since the pcp of [22XG_i[122X was consistent, applying
+  the  consistency  conditions  to  the  pcp  of  the  [22Xp[122X-cover,  in  case  the
+  presentation  obtained  for [22Xp[122X-cover is not consistent, will produce a set of
+  equations  between  the new generators, that, written additively, are linear
+  equations  over  the  field  of  [22Xp[122X  elements and can hence be used to remove
+  redundant generators until a consistent pcp is obtained.[133X
+  
+  [33X[0;0YIn  reality,  to follow this straightforward procedure would be forbiddingly
+  inefficient  except for very small examples. There are many ways of a priori
+  reducing  the  number  of  [21Xnew  generators[121X  to be introduced, using e.g. the
+  weights  attached to the generators, and the main part of [NNN98] is devoted
+  to a detailed discussion with proofs of these possibilities.[133X
+  
+  
+  [1X2.2-2 [33X[0;0YImposing the Relations of the fp Group[133X[101X
+  
+  [33X[0;0YIn order to obtain [22XG/P_i+1(G)[122X from the pcp of the [22Xp[122X-cover of [22XG_i = G/P_i(G)[122X,
+  the  defining relations from the original presentation of [22XG[122X must be imposed.
+  Since [22XG_i[122X is a homomorphic image of [22XG[122X, these relations again yield relations
+  between the [21Xnew generators[121X in the presentation of the [22Xp[122X-cover of [22XG_i[122X.[133X
+  
+  
+  [1X2.2-3 [33X[0;0YImposing Laws[133X[101X
+  
+  [33X[0;0YWhile we have so far only considered the computation of the factor groups of
+  a  given  fp  group  by  the  groups of its descending [22Xp[122X-central series, the
+  [22Xp[122X-quotient  algorithm allows a very important variant of this idea: laws can
+  be  prescribed  that  should be fulfilled by the [22Xp[122X-factor groups computed by
+  the  algorithm.  The key observation here is the fact that at each step down
+  the  descending [22Xp[122X-central series it suffices to impose these laws only for a
+  finite  number of words. Again for efficiency of the method it is crucial to
+  keep  the  number of such words small, and much of [NO96] and the literature
+  quoted in this paper is devoted to this problem.[133X
+  
+  [33X[0;0YIn  this form, starting with a free group and imposing an exponent law (also
+  referred  to  as  an  [13Xexponent check[113X) the [10Xpq[110X program has, in fact, found its
+  most  noted application in the determination of (restricted) Burnside groups
+  (as reported in e.g. [HN80], [NO96] and [VL90a]).[133X
+  
+  [33X[0;0YVia  a  [5XGAP[105X  program using the [21Xlocal[121X interactive functions of the [10Xpq[110X program
+  made available through this interface also arbitrary laws can be imposed via
+  the option [10XIdentities[110X (see [14X6.2[114X).[133X
+  
+  
+  [1X2.3  [33X[0;0YThe  p-group  generation  Algorithm, Standard Presentation, Isomorphism[101X
+  [1XTesting[133X[101X
+  
+  [33X[0;0YFor details, see [New77] and [O'B90].[133X
+  
+  [33X[0;0YThe  [22Xp[122X-group  generation algorithm determines the immediate descendants of a
+  given  [22Xp[122X-group  [22XG[122X  up  to  isomorphism.  From  what  has  been  explained in
+  Section [14X'[33X[0;0YBasic  notions[133X'[114X,  it is clear that this amounts to the construction
+  of  the  [22Xp[122X-cover, the extension of the automorphisms of [22XG[122X to the [22Xp[122X-cover and
+  the  determination  of  representatives of the orbits of the action of these
+  automorphisms   on   the   set   of   supplements  of  the  nucleus  in  the
+  [22Xp[122X-multiplicator.[133X
+  
+  [33X[0;0YThe   main   practical   problem   here   is   the  determination  of  these
+  representatives.  [O'B90]  describes  methods  for  this  and the [10Xpq[110X program
+  allows choices according to whether space or time limitations must be met.[133X
+  
+  [33X[0;0YAs   well  as  the  descendants  of  [22XG[122X,  the  [10Xpq[110X  program  determines  their
+  automorphism  groups from that of [22XG[122X (see [O'B95]), which is important for an
+  iteration  of the process; this has been used by Eamonn O'Brien, e.g. in the
+  classification  of  the  [22X2[122X-groups that are now also part of the [13XSmall Groups[113X
+  library available through [5XGAP[105X.[133X
+  
+  [33X[0;0YA  variant  of  the  [22Xp[122X-group  generation  algorithm is also used to define a
+  [13Xstandard  presentation[113X  of  a given [22Xp[122X-group. This is done by constructing an
+  isomorphic  copy  of  the  given group through a chain of descendants and at
+  each  step making a choice of a particular representative for the respective
+  orbit  of  capable  groups.  In  a fairly delicate process, subgroups of the
+  [22Xp[122X-multiplicator  are  represented  by [13Xechelonised matrices[113X and a first among
+  the  [13Xlabels  for standard matrices[113X is chosen (this is described in detail in
+  [O'B94]).[133X
+  
+  [33X[0;0YFinally,  the  standard  presentation provides a way of testing if two given
+  [22Xp[122X-groups  are  isomorphic:  the  standard  presentations  of  the groups are
+  computed,  for  practical  purposes  [13Xcompacted[113X  and the results compared for
+  being  identical,  i.e. the  groups  are  isomorphic  if  and  only if their
+  standard presentations are identical.[133X
+  

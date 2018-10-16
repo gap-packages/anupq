@@ -1,0 +1,52 @@
+  
+  
+  [1XReferences[101X
+  
+  [[20XHN80[120X]  [16XHavas,  G.  and Newman, M. F.[116X, [17XApplication of computers to questions
+  like those of Burnside[117X, in Burnside groups (Proc. Workshop, Univ. Bielefeld,
+  Bielefeld,  1977),  Springer,  Lecture  Notes  in Math., [19X806[119X, Berlin (1980),
+  211--230.
+  
+  [[20XLGS90[120X]  [16XLeedham-Green,  C.  R. and Soicher, L. H.[116X, [17XCollection from the left
+  and  other  strategies[117X,  [18XJ.  Symbolic  Comput.[118X,  [19X9[119X,  5-6  (1990),  665--675,
+  ((Computational group theory, Part 1)).
+  
+  [[20XNew77[120X]  [16XNewman,  M.  F.[116X,  [17XDetermination  of groups of prime-power order[117X, in
+  Group  theory  (Proc.  Miniconf.,  Australian  Nat.  Univ., Canberra, 1975),
+  Springer, Berlin (1977), 73--84. Lecture Notes in Math., Vol. 573.
+  
+  [[20XNNN98[120X]  [16XNewman,  M.  F.,  Nickel,  W.  and Niemeyer, A. C.[116X, [17XDescriptions of
+  groups of prime-power order[117X, [18XJ. Symbolic Comput.[118X, [19X25[119X, 5 (1998), 665--682.
+  
+  [[20XNO96[120X]  [16XNewman,  M.  F.  and  O'Brien,  E.  A.[116X,  [17XApplication of computers to
+  questions  like  those  of  Burnside. II[117X, [18XInternat. J. Algebra Comput.[118X, [19X6[119X, 5
+  (1996), 593--605.
+  
+  [[20XO'B90[120X]  [16XO'Brien,  E.  A.[116X,  [17XThe  p-group  generation  algorithm[117X, [18XJ. Symbolic
+  Comput.[118X, [19X9[119X, 5-6 (1990), 677--698, ((Computational group theory, Part 1)).
+  
+  [[20XO'B94[120X]  [16XO'Brien,  E.  A.[116X,  [17XIsomorphism  testing  for  p-groups[117X, [18XJ. Symbolic
+  Comput.[118X, [19X17[119X, 2 (1994), 131, 133--147.
+  
+  [[20XO'B95[120X]  [16XO'Brien,  E.  A.[116X,  [17XComputing  automorphism  groups  of p-groups[117X, in
+  Computational  algebra and number theory (Sydney, 1992), Kluwer Acad. Publ.,
+  Math. Appl., [19X325[119X, Dordrecht (1995), 83--90.
+  
+  [[20XSim94[120X]  [16XSims,  C. C.[116X, [17XComputation with finitely presented groups[117X, Cambridge
+  University  Press,  Encyclopedia  of  Mathematics  and its Applications, [19X48[119X,
+  Cambridge (1994), xiii+604 pages.
+  
+  [[20XVL84[120X] [16XVaughan-Lee, M. R.[116X, [17XAn aspect of the nilpotent quotient algorithm[117X, in
+  Computational  group  theory  (Durham, 1982), Academic Press, London (1984),
+  75--83.
+  
+  [[20XVL90a[120X]  [16XVaughan-Lee,  M.[116X,  [17XThe  restricted  Burnside problem[117X, The Clarendon
+  Press  Oxford  University Press, London Mathematical Society Monographs. New
+  Series, [19X5[119X, New York (1990), xiv+209 pages, ((Oxford Science Publications)).
+  
+  [[20XVL90b[120X]  [16XVaughan-Lee,  M. R.[116X, [17XCollection from the left[117X, [18XJ. Symbolic Comput.[118X,
+  [19X9[119X, 5-6 (1990), 725--733, ((Computational group theory, Part 1)).
+  
+  
+  
+  [32X

@@ -1,0 +1,690 @@
+  
+  [1XA [33X[0;0YExamples[133X[101X
+  
+  [33X[0;0YThere  are a large number of examples provided with the [5XANUPQ[105X package. These
+  may  be  executed  or  displayed  via  the function [10XPqExample[110X (see [2XPqExample[102X
+  ([14X3.4-4[114X)).  Each  example resides in a file of the same name in the directory
+  [10Xexamples[110X.  Most of the examples are translations to [5XGAP[105X of examples provided
+  for  the  [10Xpq[110X standalone by Eamonn O'Brien; the standalone examples are found
+  in   directories  [10Xstandalone/examples[110X  ([22Xp[122X-quotient  and  [22Xp[122X-group  generation
+  examples)  and  [10Xstandalone/isom[110X  (standard presentation examples). The first
+  line  of each example indicates its origin. All the examples seen in earlier
+  chapters  of  this  manual  are  also  available  as examples, in a slightly
+  modified  form (the example which one can run in order to see something very
+  close  to  the  text  example  [21Xlive[121X  is  always  indicated  near  -- usually
+  immediately  after  --  the  text  example).  The  format of the ([10XPqExample[110X)
+  examples is such that they can be read by the standard [10XRead[110X function of [5XGAP[105X,
+  but  certain features and comments are interpreted by the function [10XPqExample[110X
+  to  do  somewhat  more than [10XRead[110X does. In particular, any function without a
+  [10X-i[110X,  [10X-ni[110X  or  [10X.g[110X  suffix has both a non-interactive and interactive form; in
+  these  cases,  the  default  form  is  the  non-interactive form, and giving
+  [10XPqStart[110X as second argument generates the interactive form.[133X
+  
+  [33X[0;0YRunning  [10XPqExample[110X  without an argument or with a non-existent example [10XInfo[110Xs
+  the available examples and some hints on usage:[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XPqExample();[127X[104X
+    [4X[28X#I                   PqExample Index (Table of Contents)[128X[104X
+    [4X[28X#I                   -----------------------------------[128X[104X
+    [4X[28X#I  This table of possible examples is displayed when calling `PqExample'[128X[104X
+    [4X[28X#I  with no arguments, or with the argument: "index" (meant in the  sense[128X[104X
+    [4X[28X#I  of ``list''), or with a non-existent example name.[128X[104X
+    [4X[28X#I  [128X[104X
+    [4X[28X#I  Examples that have a name ending in `-ni' are  non-interactive  only.[128X[104X
+    [4X[28X#I  Examples that have a  name  ending  in  `-i'  are  interactive  only.[128X[104X
+    [4X[28X#I  Examples with names ending in `.g' also have  only  one  form.  Other[128X[104X
+    [4X[28X#I  examples have both a non-interactive and an  interactive  form;  call[128X[104X
+    [4X[28X#I  `PqExample' with 2nd argument `PqStart' to get the  interactive  form[128X[104X
+    [4X[28X#I  of the example. The substring `PG' in an  example  name  indicates  a[128X[104X
+    [4X[28X#I  p-Group Generation example, `SP' indicates  a  Standard  Presentation[128X[104X
+    [4X[28X#I  example, `Rel' indicates it uses  the  `Relators'  option,  and  `Id'[128X[104X
+    [4X[28X#I  indicates it uses the `Identities' option.[128X[104X
+    [4X[28X#I  [128X[104X
+    [4X[28X#I  The following ANUPQ examples are available:[128X[104X
+    [4X[28X#I  [128X[104X
+    [4X[28X#I   p-Quotient examples:[128X[104X
+    [4X[28X#I    general:[128X[104X
+    [4X[28X#I     "Pq"                   "Pq-ni"                "PqEpimorphism"        [128X[104X
+    [4X[28X#I     "PqPCover"             "PqSupplementInnerAutomorphisms"[128X[104X
+    [4X[28X#I    2-groups:[128X[104X
+    [4X[28X#I     "2gp-Rel"              "2gp-Rel-i"            "2gp-a-Rel-i"[128X[104X
+    [4X[28X#I     "B2-4"                 "B2-4-Id"              "B2-8-i"[128X[104X
+    [4X[28X#I     "B4-4-i"               "B4-4-a-i"             "B5-4.g"[128X[104X
+    [4X[28X#I    3-groups:[128X[104X
+    [4X[28X#I     "3gp-Rel-i"            "3gp-a-Rel"            "3gp-a-Rel-i"[128X[104X
+    [4X[28X#I     "3gp-a-x-Rel-i"        "3gp-maxoccur-Rel-i"[128X[104X
+    [4X[28X#I    5-groups:[128X[104X
+    [4X[28X#I     "5gp-Rel-i"            "5gp-a-Rel-i"          "5gp-b-Rel-i"[128X[104X
+    [4X[28X#I     "5gp-c-Rel-i"          "5gp-metabelian-Rel-i" "5gp-maxoccur-Rel-i"[128X[104X
+    [4X[28X#I     "F2-5-i"               "B2-5-i"               "R2-5-i"[128X[104X
+    [4X[28X#I     "R2-5-x-i"             "B5-5-Engel3-Id"[128X[104X
+    [4X[28X#I    7-groups:[128X[104X
+    [4X[28X#I     "7gp-Rel-i"[128X[104X
+    [4X[28X#I    11-groups:[128X[104X
+    [4X[28X#I     "11gp-i"               "11gp-Rel-i"           "11gp-a-Rel-i"[128X[104X
+    [4X[28X#I     "11gp-3-Engel-Id"      "11gp-3-Engel-Id-i"[128X[104X
+    [4X[28X#I  [128X[104X
+    [4X[28X#I   p-Group Generation examples:[128X[104X
+    [4X[28X#I    general:[128X[104X
+    [4X[28X#I     "PqDescendants-1"      "PqDescendants-2"      "PqDescendants-3"[128X[104X
+    [4X[28X#I     "PqDescendants-1-i"[128X[104X
+    [4X[28X#I    2-groups:[128X[104X
+    [4X[28X#I     "2gp-PG-i"             "2gp-PG-2-i"           "2gp-PG-3-i"[128X[104X
+    [4X[28X#I     "2gp-PG-4-i"           "2gp-PG-e4-i"[128X[104X
+    [4X[28X#I     "PqDescendantsTreeCoclassOne-16-i"[128X[104X
+    [4X[28X#I    3-groups:[128X[104X
+    [4X[28X#I     "3gp-PG-i"             "3gp-PG-4-i"           "3gp-PG-x-i"[128X[104X
+    [4X[28X#I     "3gp-PG-x-1-i"         "PqDescendants-treetraverse-i"[128X[104X
+    [4X[28X#I     "PqDescendantsTreeCoclassOne-9-i"[128X[104X
+    [4X[28X#I    5-groups:[128X[104X
+    [4X[28X#I     "5gp-PG-i"             "Nott-PG-Rel-i"        "Nott-APG-Rel-i"[128X[104X
+    [4X[28X#I     "PqDescendantsTreeCoclassOne-25-i"[128X[104X
+    [4X[28X#I    7,11-groups:[128X[104X
+    [4X[28X#I     "7gp-PG-i"             "11gp-PG-i"[128X[104X
+    [4X[28X#I  [128X[104X
+    [4X[28X#I   Standard Presentation examples:[128X[104X
+    [4X[28X#I    general:[128X[104X
+    [4X[28X#I     "StandardPresentation" "StandardPresentation-i"[128X[104X
+    [4X[28X#I     "EpimorphismStandardPresentation"[128X[104X
+    [4X[28X#I     "EpimorphismStandardPresentation-i"           "IsIsomorphicPGroup-ni"[128X[104X
+    [4X[28X#I    2-groups:[128X[104X
+    [4X[28X#I     "2gp-SP-Rel-i"         "2gp-SP-1-Rel-i"       "2gp-SP-2-Rel-i"[128X[104X
+    [4X[28X#I     "2gp-SP-3-Rel-i"       "2gp-SP-4-Rel-i"       "2gp-SP-d-Rel-i"[128X[104X
+    [4X[28X#I     "gp-256-SP-Rel-i"      "B2-4-SP-i"            "G2-SP-Rel-i"[128X[104X
+    [4X[28X#I    3-groups:[128X[104X
+    [4X[28X#I     "3gp-SP-Rel-i"         "3gp-SP-1-Rel-i"       "3gp-SP-2-Rel-i"[128X[104X
+    [4X[28X#I     "3gp-SP-3-Rel-i"       "3gp-SP-4-Rel-i"       "G3-SP-Rel-i"[128X[104X
+    [4X[28X#I    5-groups:[128X[104X
+    [4X[28X#I     "5gp-SP-Rel-i"         "5gp-SP-a-Rel-i"       "5gp-SP-b-Rel-i"[128X[104X
+    [4X[28X#I     "5gp-SP-big-Rel-i"     "5gp-SP-d-Rel-i"       "G5-SP-Rel-i"[128X[104X
+    [4X[28X#I     "G5-SP-a-Rel-i"        "Nott-SP-Rel-i"[128X[104X
+    [4X[28X#I    7-groups:[128X[104X
+    [4X[28X#I     "7gp-SP-Rel-i"         "7gp-SP-a-Rel-i"       "7gp-SP-b-Rel-i"[128X[104X
+    [4X[28X#I    11-groups:[128X[104X
+    [4X[28X#I     "11gp-SP-a-i"          "11gp-SP-a-Rel-i"      "11gp-SP-a-Rel-1-i"[128X[104X
+    [4X[28X#I     "11gp-SP-b-i"          "11gp-SP-b-Rel-i"      "11gp-SP-c-Rel-i"[128X[104X
+    [4X[28X#I  [128X[104X
+    [4X[28X#I  Notes[128X[104X
+    [4X[28X#I  -----[128X[104X
+    [4X[28X#I  1. The example (first) argument of  `PqExample'  is  a  string;  each[128X[104X
+    [4X[28X#I     example above is in double quotes to remind you to include them.[128X[104X
+    [4X[28X#I  2. Some examples accept options. To find  out  whether  a  particular[128X[104X
+    [4X[28X#I     example accepts options, display it first (by including  `Display'[128X[104X
+    [4X[28X#I     as  last  argument)  which  will  also  indicate  how  `PqExample'[128X[104X
+    [4X[28X#I     interprets the options, e.g. `PqExample("11gp-SP-a-i", Display);'.[128X[104X
+    [4X[28X#I  3. Try `SetInfoLevel(InfoANUPQ, <n>);' for  some  <n>  in  [2  ..  4][128X[104X
+    [4X[28X#I     before calling PqExample, to see what's going on behind the scenes.[128X[104X
+    [4X[28X#I  [128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YIf  on your terminal you are unable to scroll back, an alternative to typing
+  [10XPqExample();[110X to see the displayed examples is to use on-line help, i.e.  you
+  may type:[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27X?anupq:examples[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0Ywhich  will  display  this  appendix in a [5XGAP[105X session. If you are not fussed
+  about  the order in which the examples are organised, [10XAllPqExamples();[110X lists
+  the available examples relatively compactly (see [2XAllPqExamples[102X ([14X3.4-5[114X)).[133X
+  
+  [33X[0;0YIn the remainder of this appendix we will discuss particular aspects related
+  to  the  [10XRelators[110X  (see [14X6.2[114X)  and  [10XIdentities[110X  (see [14X6.2[114X)  options,  and  the
+  construction of the Burnside group [22XB(5, 4)[122X.[133X
+  
+  
+  [1XA.1 [33X[0;0YThe Relators Option[133X[101X
+  
+  [33X[0;0YThe  [10XRelators[110X  option  was  included  because  computations  involving words
+  containing  commutators  that are pre-expanded by [5XGAP[105X before being passed to
+  the  [10Xpq[110X program may run considerably more slowly, than the same computations
+  being   run   with   [5XGAP[105X  pre-expansions  avoided.  The  following  examples
+  demonstrate  a  case  where  the  performance  hit  due  to pre-expansion of
+  commutators  by  [5XGAP[105X  is  a  factor  of  order  100  (in order to see timing
+  information from the [10Xpq[110X program, we set the [10XInfoANUPQ[110X level to 2).[133X
+  
+  [33X[0;0YFirstly,  we  run  the example that allows pre-expansion of commutators (the
+  function [10XPqLeftNormComm[110X is provided by the [5XANUPQ[105X package; see [2XPqLeftNormComm[102X
+  ([14X3.4-1[114X)).  Note that since the two commutators of this example are [13Xvery[113X long
+  (taking  more  than  an  page  to  print), we have edited the output at this
+  point.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XSetInfoLevel(InfoANUPQ, 2); #to see timing information[127X[104X
+    [4X[25Xgap>[125X [27XPqExample("11gp-i");[127X[104X
+    [4X[28X#I  #Example: "11gp-i" . . . based on: examples/11gp[128X[104X
+    [4X[28X#I  F, a, b, c, R, procId are local to `PqExample'[128X[104X
+    [4X[25Xgap>[125X [27XF := FreeGroup("a", "b", "c"); a := F.1; b := F.2; c := F.3;[127X[104X
+    [4X[28X<free group on the generators [ a, b, c ]>[128X[104X
+    [4X[28Xa[128X[104X
+    [4X[28Xb[128X[104X
+    [4X[28Xc[128X[104X
+    [4X[25Xgap>[125X [27XR := [PqLeftNormComm([b, a, a, b, c])^11, [127X[104X
+    [4X[25X>[125X [27X         PqLeftNormComm([a, b, b, a, b, c])^11, (a * b)^11];;[127X[104X
+    [4X[25Xgap>[125X [27XprocId := PqStart(F/R : Prime := 11);[127X[104X
+    [4X[28X1[128X[104X
+    [4X[25Xgap>[125X [27XPqPcPresentation(procId : ClassBound := 7, [127X[104X
+    [4X[25X>[125X [27X                             OutputLevel := 1);[127X[104X
+    [4X[28X#I  Lower exponent-11 central series for [grp][128X[104X
+    [4X[28X#I  Group: [grp] to lower exponent-11 central class 1 has order 11^3[128X[104X
+    [4X[28X#I  Group: [grp] to lower exponent-11 central class 2 has order 11^8[128X[104X
+    [4X[28X#I  Group: [grp] to lower exponent-11 central class 3 has order 11^19[128X[104X
+    [4X[28X#I  Group: [grp] to lower exponent-11 central class 4 has order 11^42[128X[104X
+    [4X[28X#I  Group: [grp] to lower exponent-11 central class 5 has order 11^98[128X[104X
+    [4X[28X#I  Group: [grp] to lower exponent-11 central class 6 has order 11^228[128X[104X
+    [4X[28X#I  Group: [grp] to lower exponent-11 central class 7 has order 11^563[128X[104X
+    [4X[28X#I  Computation of presentation took 27.04 seconds[128X[104X
+    [4X[25Xgap>[125X [27XPqSavePcPresentation(procId, ANUPQData.outfile);[127X[104X
+    [4X[28X#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YNow  we  do the same calculation using the [10XRelators[110X option. In this way, the
+  commutators  are  passed  directly as strings to the [10Xpq[110X program, so that [5XGAP[105X
+  does not [21Xsee[121X them and pre-expand them.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XPqExample("11gp-Rel-i");[127X[104X
+    [4X[28X#I  #Example: "11gp-Rel-i" . . . based on: examples/11gp[128X[104X
+    [4X[28X#I  #(equivalent to "11gp-i" example but uses `Relators' option)[128X[104X
+    [4X[28X#I  F, rels, procId are local to `PqExample'[128X[104X
+    [4X[25Xgap>[125X [27XF := FreeGroup("a", "b", "c");[127X[104X
+    [4X[28X<free group on the generators [ a, b, c ]>[128X[104X
+    [4X[25Xgap>[125X [27Xrels := ["[b, a, a, b, c]^11", "[a, b, b, a, b, c]^11", "(a * b)^11"];[127X[104X
+    [4X[28X[ "[b, a, a, b, c]^11", "[a, b, b, a, b, c]^11", "(a * b)^11" ][128X[104X
+    [4X[25Xgap>[125X [27XprocId := PqStart(F : Prime := 11, Relators := rels);[127X[104X
+    [4X[28X2[128X[104X
+    [4X[25Xgap>[125X [27XPqPcPresentation(procId : ClassBound := 7, [127X[104X
+    [4X[25X>[125X [27X                             OutputLevel := 1);[127X[104X
+    [4X[28X#I  Relators parsed ok.[128X[104X
+    [4X[28X#I  Lower exponent-11 central series for [grp][128X[104X
+    [4X[28X#I  Group: [grp] to lower exponent-11 central class 1 has order 11^3[128X[104X
+    [4X[28X#I  Group: [grp] to lower exponent-11 central class 2 has order 11^8[128X[104X
+    [4X[28X#I  Group: [grp] to lower exponent-11 central class 3 has order 11^19[128X[104X
+    [4X[28X#I  Group: [grp] to lower exponent-11 central class 4 has order 11^42[128X[104X
+    [4X[28X#I  Group: [grp] to lower exponent-11 central class 5 has order 11^98[128X[104X
+    [4X[28X#I  Group: [grp] to lower exponent-11 central class 6 has order 11^228[128X[104X
+    [4X[28X#I  Group: [grp] to lower exponent-11 central class 7 has order 11^563[128X[104X
+    [4X[28X#I  Computation of presentation took 0.27 seconds[128X[104X
+    [4X[25Xgap>[125X [27XPqSavePcPresentation(procId, ANUPQData.outfile);[127X[104X
+    [4X[28X#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.[128X[104X
+  [4X[32X[104X
+  
+  
+  [1XA.2 [33X[0;0YThe Identities Option and PqEvaluateIdentities Function[133X[101X
+  
+  [33X[0;0YPlease  pay  heed to the warnings given for the [10XIdentities[110X option (see [14X6.2[114X);
+  it is written mainly at the [5XGAP[105X level and is not particularly optimised. The
+  [10XIdentities[110X  option  allows  one  to  compute  [22Xp[122X-quotients  that  satisfy  an
+  identity. A trivial example better done using the [10XExponent[110X option, but which
+  nevertheless demonstrates the usage of the [10XIdentities[110X option, is as follows:[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XSetInfoLevel(InfoANUPQ, 1);[127X[104X
+    [4X[25Xgap>[125X [27XPqExample("B2-4-Id");[127X[104X
+    [4X[28X#I  #Example: "B2-4-Id" . . . alternative way to generate B(2, 4)[128X[104X
+    [4X[28X#I  #Generates B(2, 4) by using the `Identities' option[128X[104X
+    [4X[28X#I  #... this is not as efficient as using `Exponent' but[128X[104X
+    [4X[28X#I  #demonstrates the usage of the `Identities' option.[128X[104X
+    [4X[28X#I  F, f, procId are local to `PqExample'[128X[104X
+    [4X[25Xgap>[125X [27XF := FreeGroup("a", "b");[127X[104X
+    [4X[28X<free group on the generators [ a, b ]>[128X[104X
+    [4X[25Xgap>[125X [27X# All words w in the pc generators of B(2, 4) satisfy f(w) = 1 [127X[104X
+    [4X[25Xgap>[125X [27Xf := w -> w^4;[127X[104X
+    [4X[28Xfunction( w ) ... end[128X[104X
+    [4X[25Xgap>[125X [27XPq( F : Prime := 2, Identities := [ f ] );[127X[104X
+    [4X[28X#I  Class 1 with 2 generators.[128X[104X
+    [4X[28X#I  Class 2 with 5 generators.[128X[104X
+    [4X[28X#I  Class 3 with 7 generators.[128X[104X
+    [4X[28X#I  Class 4 with 10 generators.[128X[104X
+    [4X[28X#I  Class 5 with 12 generators.[128X[104X
+    [4X[28X#I  Class 5 with 12 generators.[128X[104X
+    [4X[28X<pc group of size 4096 with 12 generators>[128X[104X
+    [4X[28X#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.[128X[104X
+    [4X[25Xgap>[125X [27Xtime; [127X[104X
+    [4X[28X1400[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YNote  that the [10Xtime[110X statement gives the time in milliseconds spent by [5XGAP[105X in
+  executing  the  [10XPqExample("B2-4-Id");[110X  command  (i.e. everything  up  to the
+  [10XInfo[110X-ing  of  the variables used), but over 90% of that time is spent in the
+  final  [10XPq[110X  statement.  The time spent by the [10Xpq[110X program, which is negligible
+  anyway  (you can check this by running the example while the [10XInfoANUPQ[110X level
+  is set to 2), is not counted by [10Xtime[110X.[133X
+  
+  [33X[0;0YSince  the  identity  used  in  the above construction of [22XB(2, 4)[122X is just an
+  exponent  law,  the  [21Xright[121X  way  to  compute  it  is via the [10XExponent[110X option
+  (see [14X6.2[114X),  which  is  implemented  at  the C level and [13Xis[113X highly optimised.
+  Consequently,  the  [10XExponent[110X  option  is  significantly faster, generally by
+  several orders of magnitude:[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XSetInfoLevel(InfoANUPQ, 2); # to see time spent by the `pq' program[127X[104X
+    [4X[25Xgap>[125X [27XPqExample("B2-4");[127X[104X
+    [4X[28X#I  #Example: "B2-4" . . . the ``right'' way to generate B(2, 4)[128X[104X
+    [4X[28X#I  #Generates B(2, 4) by using the `Exponent' option[128X[104X
+    [4X[28X#I  F, procId are local to `PqExample'[128X[104X
+    [4X[25Xgap>[125X [27XF := FreeGroup("a", "b");[127X[104X
+    [4X[28X<free group on the generators [ a, b ]>[128X[104X
+    [4X[25Xgap>[125X [27XPq( F : Prime := 2, Exponent := 4 );[127X[104X
+    [4X[28X#I  Computation of presentation took 0.00 seconds[128X[104X
+    [4X[28X<pc group of size 4096 with 12 generators>[128X[104X
+    [4X[28X#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.[128X[104X
+    [4X[25Xgap>[125X [27Xtime; # time spent by GAP in executing `PqExample("B2-4");' [127X[104X
+    [4X[28X50[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  following example uses the [10XIdentities[110X option to compute a 3-Engel group
+  for  the prime 11. As is the case for the example [10X"B2-4-Id"[110X, the example has
+  both  a  non-interactive  and an interactive form; below, we demonstrate the
+  interactive form.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XSetInfoLevel(InfoANUPQ, 1); # reset InfoANUPQ to default level[127X[104X
+    [4X[25Xgap>[125X [27XPqExample("11gp-3-Engel-Id", PqStart);[127X[104X
+    [4X[28X#I  #Example: "11gp-3-Engel-Id" . . . 3-Engel group for prime 11[128X[104X
+    [4X[28X#I  #Non-trivial example of using the `Identities' option[128X[104X
+    [4X[28X#I  F, a, b, G, f, procId, Q are local to `PqExample'[128X[104X
+    [4X[25Xgap>[125X [27XF := FreeGroup("a", "b"); a := F.1; b := F.2;[127X[104X
+    [4X[28X<free group on the generators [ a, b ]>[128X[104X
+    [4X[28Xa[128X[104X
+    [4X[28Xb[128X[104X
+    [4X[25Xgap>[125X [27XG := F/[ a^11, b^11 ];[127X[104X
+    [4X[28X<fp group on the generators [ a, b ]>[128X[104X
+    [4X[25Xgap>[125X [27X# All word pairs u, v in the pc generators of the 11-quotient Q of G [127X[104X
+    [4X[25Xgap>[125X [27X# must satisfy the Engel identity: [u, v, v, v] = 1.[127X[104X
+    [4X[25Xgap>[125X [27Xf := function(u, v) return PqLeftNormComm( [u, v, v, v] ); end;[127X[104X
+    [4X[28Xfunction( u, v ) ... end[128X[104X
+    [4X[25Xgap>[125X [27XprocId := PqStart( G );[127X[104X
+    [4X[28X3[128X[104X
+    [4X[25Xgap>[125X [27XQ := Pq( procId : Prime := 11, Identities := [ f ] );[127X[104X
+    [4X[28X#I  Class 1 with 2 generators.[128X[104X
+    [4X[28X#I  Class 2 with 3 generators.[128X[104X
+    [4X[28X#I  Class 3 with 5 generators.[128X[104X
+    [4X[28X#I  Class 3 with 5 generators.[128X[104X
+    [4X[28X<pc group of size 161051 with 5 generators>[128X[104X
+    [4X[25Xgap>[125X [27X# We do a ``sample'' check that pairs of elements of Q do satisfy[127X[104X
+    [4X[25Xgap>[125X [27X# the given identity:[127X[104X
+    [4X[25Xgap>[125X [27Xf( Random(Q), Random(Q) );[127X[104X
+    [4X[28X<identity> of ...[128X[104X
+    [4X[25Xgap>[125X [27Xf( Q.1, Q.2 );[127X[104X
+    [4X[28X<identity> of ...[128X[104X
+    [4X[28X#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  (interactive)  call  to [10XPq[110X above is essentially equivalent to a call to
+  [10XPqPcPresentation[110X  with  the same arguments and options followed by a call to
+  [10XPqCurrentGroup[110X.   Moreover,  the  call  to  [10XPqPcPresentation[110X  (as  described
+  in [2XPqPcPresentation[102X   ([14X5.6-1[114X))   is   equivalent   to  a  [21Xclass  1[121X  call  to
+  [10XPqPcPresentation[110X  followed  by the requisite number of calls to [10XPqNextClass[110X,
+  and  with  the  [10XIdentities[110X option set, both [10XPqPcPresentation[110X and [10XPqNextClass[110X
+  [21Xquietly[121X  perform  the  equivalent  of  a  [10XPqEvaluateIdentities[110X  call. In the
+  following  example we break down the [10XPq[110X call into its low-level equivalents,
+  and  set  and unset the [10XIdentities[110X option to show where [10XPqEvaluateIdentities[110X
+  fits into this scheme.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XPqExample("11gp-3-Engel-Id-i");[127X[104X
+    [4X[28X#I  #Example: "11gp-3-Engel-Id-i" . . . 3-Engel grp for prime 11[128X[104X
+    [4X[28X#I  #Variation of "11gp-3-Engel-Id" broken down into its lower-level component[128X[104X
+    [4X[28X#I  #command parts.[128X[104X
+    [4X[28X#I  F, a, b, G, f, procId, Q are local to `PqExample'[128X[104X
+    [4X[25Xgap>[125X [27XF := FreeGroup("a", "b"); a := F.1; b := F.2;[127X[104X
+    [4X[28X<free group on the generators [ a, b ]>[128X[104X
+    [4X[28Xa[128X[104X
+    [4X[28Xb[128X[104X
+    [4X[25Xgap>[125X [27XG := F/[ a^11, b^11 ];[127X[104X
+    [4X[28X<fp group on the generators [ a, b ]>[128X[104X
+    [4X[25Xgap>[125X [27X# All word pairs u, v in the pc generators of the 11-quotient Q of G [127X[104X
+    [4X[25Xgap>[125X [27X# must satisfy the Engel identity: [u, v, v, v] = 1.[127X[104X
+    [4X[25Xgap>[125X [27Xf := function(u, v) return PqLeftNormComm( [u, v, v, v] ); end;[127X[104X
+    [4X[28Xfunction( u, v ) ... end[128X[104X
+    [4X[25Xgap>[125X [27XprocId := PqStart( G : Prime := 11 );[127X[104X
+    [4X[28X4[128X[104X
+    [4X[25Xgap>[125X [27XPqPcPresentation( procId : ClassBound := 1);[127X[104X
+    [4X[25Xgap>[125X [27XPqEvaluateIdentities( procId : Identities := [f] );[127X[104X
+    [4X[28X#I  Class 1 with 2 generators.[128X[104X
+    [4X[25Xgap>[125X [27Xfor c in [2 .. 4] do[127X[104X
+    [4X[25X>[125X [27X     PqNextClass( procId : Identities := [] ); #reset `Identities' option[127X[104X
+    [4X[25X>[125X [27X     PqEvaluateIdentities( procId : Identities := [f] );[127X[104X
+    [4X[25X>[125X [27X   od;[127X[104X
+    [4X[28X#I  Class 2 with 3 generators.[128X[104X
+    [4X[28X#I  Class 3 with 5 generators.[128X[104X
+    [4X[28X#I  Class 3 with 5 generators.[128X[104X
+    [4X[25Xgap>[125X [27XQ := PqCurrentGroup( procId );[127X[104X
+    [4X[28X<pc group of size 161051 with 5 generators>[128X[104X
+    [4X[25Xgap>[125X [27X# We do a ``sample'' check that pairs of elements of Q do satisfy[127X[104X
+    [4X[25Xgap>[125X [27X# the given identity:[127X[104X
+    [4X[25Xgap>[125X [27Xf( Random(Q), Random(Q) );[127X[104X
+    [4X[28X<identity> of ...[128X[104X
+    [4X[25Xgap>[125X [27Xf( Q.1, Q.2 );[127X[104X
+    [4X[28X<identity> of ...[128X[104X
+    [4X[28X#I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.[128X[104X
+  [4X[32X[104X
+  
+  
+  [1XA.3 [33X[0;0YA Large Example[133X[101X
+  
+  [33X[0;0YAn  example  demonstrating how a large computation can be organised with the
+  [5XANUPQ[105X  package is the computation of the Burnside group [22XB(5, 4)[122X, the largest
+  group  of  exponent 4 generated by 5 elements. It has order [22X2^2728[122X and lower
+  exponent-[22Xp[122X  central  class  13. The example [10X"B5-4.g"[110X computes [22XB(5, 4)[122X; it is
+  based on a [10Xpq[110X standalone input file written by M. F. Newman.[133X
+  
+  [33X[0;0YTo  be  able  to do examples like this was part of the motivation to provide
+  access to the low-level functions of the standalone program from within [5XGAP[105X.[133X
+  
+  [33X[0;0YPlease  note  that  the construction uses the knowledge gained by Newman and
+  O'Brien  in  their  initial  construction of [22XB(5, 4)[122X, in particular, insight
+  into  the  commutator  structure  of  the  group  and  the  knowledge of the
+  [22Xp[122X-central class and the order of [22XB(5, 4)[122X. Therefore, the construction cannot
+  be used to prove that [22XB(5, 4)[122X has the order and class mentioned above. It is
+  merely  a  reconstruction of the group. More information is contained in the
+  header of the file [10Xexamples/B5-4.g[110X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28XprocId := PqStart( FreeGroup(5) : Exponent := 4, Prime := 2 );[128X[104X
+    [4X[28XPq( procId : ClassBound := 2 );[128X[104X
+    [4X[28XPqSupplyAutomorphisms( procId,[128X[104X
+    [4X[28X      [[128X[104X
+    [4X[28X        [ [ 1, 1, 0, 0, 0],      # first automorphism[128X[104X
+    [4X[28X          [ 0, 1, 0, 0, 0],[128X[104X
+    [4X[28X          [ 0, 0, 1, 0, 0],[128X[104X
+    [4X[28X          [ 0, 0, 0, 1, 0],[128X[104X
+    [4X[28X          [ 0, 0, 0, 0, 1] ],[128X[104X
+    [4X[28X[128X[104X
+    [4X[28X        [ [ 0, 0, 0, 0, 1],      # second automorphism[128X[104X
+    [4X[28X          [ 1, 0, 0, 0, 0],[128X[104X
+    [4X[28X          [ 0, 1, 0, 0, 0],[128X[104X
+    [4X[28X          [ 0, 0, 1, 0, 0],[128X[104X
+    [4X[28X          [ 0, 0, 0, 1, 0] ][128X[104X
+    [4X[28X                             ] );;[128X[104X
+    [4X[28X[128X[104X
+    [4X[28XRelations :=[128X[104X
+    [4X[28X  [ [],          ## class 1[128X[104X
+    [4X[28X    [],          ## class 2[128X[104X
+    [4X[28X    [],          ## class 3[128X[104X
+    [4X[28X    [],          ## class 4[128X[104X
+    [4X[28X    [],          ## class 5[128X[104X
+    [4X[28X    [],          ## class 6[128X[104X
+    [4X[28X    ## class 7     [128X[104X
+    [4X[28X    [ [ "x2","x1","x1","x3","x4","x4","x4" ] ],[128X[104X
+    [4X[28X    ## class 8[128X[104X
+    [4X[28X    [ [ "x2","x1","x1","x3","x4","x5","x5","x5" ] ],[128X[104X
+    [4X[28X    ## class 9[128X[104X
+    [4X[28X    [ [ "x2","x1","x1","x3","x4","x4","x5","x5","x5" ],[128X[104X
+    [4X[28X      [ "x2","x1","x1","x2","x3","x4","x5","x5","x5" ],[128X[104X
+    [4X[28X      [ "x2","x1","x1","x3","x3","x4","x5","x5","x5" ] ],[128X[104X
+    [4X[28X    ## class 10[128X[104X
+    [4X[28X    [ [ "x2","x1","x1","x2","x3","x3","x4","x5","x5","x5" ],[128X[104X
+    [4X[28X      [ "x2","x1","x1","x3","x3","x4","x4","x5","x5","x5" ] ],[128X[104X
+    [4X[28X    ## class 11[128X[104X
+    [4X[28X    [ [ "x2","x1","x1","x2","x3","x3","x4","x4","x5","x5","x5" ],[128X[104X
+    [4X[28X      [ "x2","x1","x1","x2","x3","x1","x3","x4","x2","x4","x3" ] ],[128X[104X
+    [4X[28X    ## class 12[128X[104X
+    [4X[28X    [ [ "x2","x1","x1","x2","x3","x1","x3","x4","x2","x5","x5","x5" ],[128X[104X
+    [4X[28X      [ "x2","x1","x1","x3","x2","x4","x3","x5","x4","x5","x5","x5" ] ],[128X[104X
+    [4X[28X    ## class 13[128X[104X
+    [4X[28X    [ [ "x2","x1","x1","x2","x3","x1","x3","x4","x2","x4","x5","x5","x5" [128X[104X
+    [4X[28X        ] ][128X[104X
+    [4X[28X];[128X[104X
+    [4X[28X[128X[104X
+    [4X[28Xfor class in [ 3 .. 13 ] do[128X[104X
+    [4X[28X    Print( "Computing class ", class, "\n" );[128X[104X
+    [4X[28X    PqSetupTablesForNextClass( procId );[128X[104X
+    [4X[28X[128X[104X
+    [4X[28X    for w in [ class, class-1 .. 7 ] do[128X[104X
+    [4X[28X[128X[104X
+    [4X[28X        PqAddTails( procId, w );   [128X[104X
+    [4X[28X        PqDisplayPcPresentation( procId );[128X[104X
+    [4X[28X[128X[104X
+    [4X[28X        if Relations[ w ] <> [] then[128X[104X
+    [4X[28X            # recalculate automorphisms[128X[104X
+    [4X[28X            PqExtendAutomorphisms( procId );[128X[104X
+    [4X[28X[128X[104X
+    [4X[28X            for r in Relations[ w ] do[128X[104X
+    [4X[28X                Print( "Collecting ", r, "\n" );[128X[104X
+    [4X[28X                PqCommutator( procId, r, 1 );[128X[104X
+    [4X[28X                PqEchelonise( procId );[128X[104X
+    [4X[28X                PqApplyAutomorphisms( procId, 15 ); #queue factor = 15[128X[104X
+    [4X[28X            od;[128X[104X
+    [4X[28X[128X[104X
+    [4X[28X            PqEliminateRedundantGenerators( procId );[128X[104X
+    [4X[28X        fi;   [128X[104X
+    [4X[28X        PqComputeTails( procId, w );[128X[104X
+    [4X[28X    od;[128X[104X
+    [4X[28X    PqDisplayPcPresentation( procId );[128X[104X
+    [4X[28X[128X[104X
+    [4X[28X    smallclass := Minimum( class, 6 );[128X[104X
+    [4X[28X    for w in [ smallclass, smallclass-1 .. 2 ] do[128X[104X
+    [4X[28X        PqTails( procId, w );[128X[104X
+    [4X[28X    od;[128X[104X
+    [4X[28X    # recalculate automorphisms[128X[104X
+    [4X[28X    PqExtendAutomorphisms( procId );[128X[104X
+    [4X[28X    PqCollect( procId, "x5^4" );[128X[104X
+    [4X[28X    PqEchelonise( procId );[128X[104X
+    [4X[28X    PqApplyAutomorphisms( procId, 15 ); #queue factor = 15[128X[104X
+    [4X[28X    PqEliminateRedundantGenerators( procId );[128X[104X
+    [4X[28X    PqDisplayPcPresentation( procId );[128X[104X
+    [4X[28Xod;[128X[104X
+  [4X[32X[104X
+  
+  
+  [1XA.4 [33X[0;0YDeveloping descendants trees[133X[101X
+  
+  [33X[0;0YIn  the  following  example  we  will  explore  the  3-groups  of rank 2 and
+  3-coclass  1 up to 3-class 5. This will be done using the [22Xp[122X-group generation
+  machinery  of  the  package. We start with the elementary abelian 3-group of
+  rank  2. From within [5XGAP[105X, run the example [10X"PqDescendants-treetraverse-i"[110X via
+  [10XPqExample[110X (see [2XPqExample[102X ([14X3.4-4[114X)).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XG := ElementaryAbelianGroup( 9 );[127X[104X
+    [4X[28X<pc group of size 9 with 2 generators>[128X[104X
+    [4X[25Xgap>[125X [27XprocId := PqStart( G );[127X[104X
+    [4X[28X5[128X[104X
+    [4X[25Xgap>[125X [27X#[127X[104X
+    [4X[25Xgap>[125X [27X#  Below, we use the option StepSize in order to construct descendants[127X[104X
+    [4X[25Xgap>[125X [27X#  of coclass 1. This is equivalent to setting the StepSize to 1 in[127X[104X
+    [4X[25Xgap>[125X [27X#  each descendant calculation.[127X[104X
+    [4X[25Xgap>[125X [27X#[127X[104X
+    [4X[25Xgap>[125X [27X#  The elementary abelian group of order 9 has 3 descendants of[127X[104X
+    [4X[25Xgap>[125X [27X#  3-class 2 and 3-coclass 1, as the result of the next command[127X[104X
+    [4X[25Xgap>[125X [27X#  shows. [127X[104X
+    [4X[25Xgap>[125X [27X#[127X[104X
+    [4X[25Xgap>[125X [27XPqDescendants( procId : StepSize := 1 );[127X[104X
+    [4X[28X[ <pc group of size 27 with 3 generators>, [128X[104X
+    [4X[28X  <pc group of size 27 with 3 generators>, [128X[104X
+    [4X[28X  <pc group of size 27 with 3 generators> ][128X[104X
+    [4X[25Xgap>[125X [27X#[127X[104X
+    [4X[25Xgap>[125X [27X#  Now we will compute the descendants of coclass 1 for each of the[127X[104X
+    [4X[25Xgap>[125X [27X#  groups above. Then we will compute the descendants  of coclass 1[127X[104X
+    [4X[25Xgap>[125X [27X#  of each descendant and so  on.  Note  that the  pq program keeps[127X[104X
+    [4X[25Xgap>[125X [27X#  one file for each class at a time.  For example, the descendants[127X[104X
+    [4X[25Xgap>[125X [27X#  calculation for  the  second  group  of class  2  overwrites the[127X[104X
+    [4X[25Xgap>[125X [27X#  descendant file  obtained  from  the  first  group  of  class 2.[127X[104X
+    [4X[25Xgap>[125X [27X#  Hence,  we have to traverse the descendants tree  in depth first[127X[104X
+    [4X[25Xgap>[125X [27X#  order.[127X[104X
+    [4X[25Xgap>[125X [27X#[127X[104X
+    [4X[25Xgap>[125X [27XPqPGSetDescendantToPcp( procId, 2, 1 );[127X[104X
+    [4X[25Xgap>[125X [27XPqPGExtendAutomorphisms( procId );[127X[104X
+    [4X[25Xgap>[125X [27XPqPGConstructDescendants( procId : StepSize := 1 );[127X[104X
+    [4X[28X2[128X[104X
+    [4X[25Xgap>[125X [27XPqPGSetDescendantToPcp( procId, 3, 1 );[127X[104X
+    [4X[25Xgap>[125X [27XPqPGExtendAutomorphisms( procId );[127X[104X
+    [4X[25Xgap>[125X [27XPqPGConstructDescendants( procId : StepSize := 1 );[127X[104X
+    [4X[28X2[128X[104X
+    [4X[25Xgap>[125X [27XPqPGSetDescendantToPcp( procId, 4, 1 );[127X[104X
+    [4X[25Xgap>[125X [27XPqPGExtendAutomorphisms( procId );[127X[104X
+    [4X[25Xgap>[125X [27XPqPGConstructDescendants( procId : StepSize := 1 );[127X[104X
+    [4X[28X2[128X[104X
+    [4X[25Xgap>[125X [27X#[127X[104X
+    [4X[25Xgap>[125X [27X#  At this point we stop traversing the ``left most'' branch of the[127X[104X
+    [4X[25Xgap>[125X [27X#  descendants tree and move upwards.[127X[104X
+    [4X[25Xgap>[125X [27X#[127X[104X
+    [4X[25Xgap>[125X [27XPqPGSetDescendantToPcp( procId, 4, 2 );[127X[104X
+    [4X[25Xgap>[125X [27XPqPGExtendAutomorphisms( procId );[127X[104X
+    [4X[25Xgap>[125X [27XPqPGConstructDescendants( procId : StepSize := 1 );[127X[104X
+    [4X[28X#I  group restored from file is incapable[128X[104X
+    [4X[28X0[128X[104X
+    [4X[25Xgap>[125X [27XPqPGSetDescendantToPcp( procId, 3, 2 );[127X[104X
+    [4X[25Xgap>[125X [27XPqPGExtendAutomorphisms( procId );[127X[104X
+    [4X[25Xgap>[125X [27XPqPGConstructDescendants( procId : StepSize := 1 );[127X[104X
+    [4X[28X#I  group restored from file is incapable[128X[104X
+    [4X[28X0[128X[104X
+    [4X[25Xgap>[125X [27X#  [127X[104X
+    [4X[25Xgap>[125X [27X#  The computations above indicate that the descendants subtree under[127X[104X
+    [4X[25Xgap>[125X [27X#  the first descendant of the elementary abelian group of order 9[127X[104X
+    [4X[25Xgap>[125X [27X#  will have only one path of infinite length.[127X[104X
+    [4X[25Xgap>[125X [27X#[127X[104X
+    [4X[25Xgap>[125X [27XPqPGSetDescendantToPcp( procId, 2, 2 );[127X[104X
+    [4X[25Xgap>[125X [27XPqPGExtendAutomorphisms( procId );[127X[104X
+    [4X[25Xgap>[125X [27XPqPGConstructDescendants( procId : StepSize := 1 );[127X[104X
+    [4X[28X4[128X[104X
+    [4X[25Xgap>[125X [27X#[127X[104X
+    [4X[25Xgap>[125X [27X#  We get four descendants here, three of which will turn out to be[127X[104X
+    [4X[25Xgap>[125X [27X#  incapable, i.e., they have no descendants and are terminal nodes[127X[104X
+    [4X[25Xgap>[125X [27X#  in the descendants tree.[127X[104X
+    [4X[25Xgap>[125X [27X#[127X[104X
+    [4X[25Xgap>[125X [27XPqPGSetDescendantToPcp( procId, 2, 3 );[127X[104X
+    [4X[25Xgap>[125X [27XPqPGExtendAutomorphisms( procId );[127X[104X
+    [4X[25Xgap>[125X [27XPqPGConstructDescendants( procId : StepSize := 1 );[127X[104X
+    [4X[28X#I  group restored from file is incapable[128X[104X
+    [4X[28X0[128X[104X
+    [4X[25Xgap>[125X [27X#[127X[104X
+    [4X[25Xgap>[125X [27X#  The third descendant of class three is incapable.  Let us return[127X[104X
+    [4X[25Xgap>[125X [27X#  to the second descendant of class 2.[127X[104X
+    [4X[25Xgap>[125X [27X#[127X[104X
+    [4X[25Xgap>[125X [27XPqPGSetDescendantToPcp( procId, 2, 2 );[127X[104X
+    [4X[25Xgap>[125X [27XPqPGExtendAutomorphisms( procId );[127X[104X
+    [4X[25Xgap>[125X [27XPqPGConstructDescendants( procId : StepSize := 1 );[127X[104X
+    [4X[28X4[128X[104X
+    [4X[25Xgap>[125X [27XPqPGSetDescendantToPcp( procId, 3, 1 );[127X[104X
+    [4X[25Xgap>[125X [27XPqPGExtendAutomorphisms( procId );[127X[104X
+    [4X[25Xgap>[125X [27XPqPGConstructDescendants( procId : StepSize := 1 );[127X[104X
+    [4X[28X#I  group restored from file is incapable[128X[104X
+    [4X[28X0[128X[104X
+    [4X[25Xgap>[125X [27XPqPGSetDescendantToPcp( procId, 3, 2 );[127X[104X
+    [4X[25Xgap>[125X [27XPqPGExtendAutomorphisms( procId );[127X[104X
+    [4X[25Xgap>[125X [27XPqPGConstructDescendants( procId : StepSize := 1 );[127X[104X
+    [4X[28X#I  group restored from file is incapable[128X[104X
+    [4X[28X0[128X[104X
+    [4X[25Xgap>[125X [27X#[127X[104X
+    [4X[25Xgap>[125X [27X#  We skip the third descendant for the moment ... [127X[104X
+    [4X[25Xgap>[125X [27X#[127X[104X
+    [4X[25Xgap>[125X [27XPqPGSetDescendantToPcp( procId, 3, 4 );[127X[104X
+    [4X[25Xgap>[125X [27XPqPGExtendAutomorphisms( procId );[127X[104X
+    [4X[25Xgap>[125X [27XPqPGConstructDescendants( procId : StepSize := 1 );[127X[104X
+    [4X[28X#I  group restored from file is incapable[128X[104X
+    [4X[28X0[128X[104X
+    [4X[25Xgap>[125X [27X#[127X[104X
+    [4X[25Xgap>[125X [27X#  ... and look at it now.[127X[104X
+    [4X[25Xgap>[125X [27X#[127X[104X
+    [4X[25Xgap>[125X [27XPqPGSetDescendantToPcp( procId, 3, 3 );[127X[104X
+    [4X[25Xgap>[125X [27XPqPGExtendAutomorphisms( procId );[127X[104X
+    [4X[25Xgap>[125X [27XPqPGConstructDescendants( procId : StepSize := 1 );[127X[104X
+    [4X[28X6[128X[104X
+    [4X[25Xgap>[125X [27X#[127X[104X
+    [4X[25Xgap>[125X [27X#  In this branch of the descendant tree we get 6 descendants of class[127X[104X
+    [4X[25Xgap>[125X [27X#  three.  Of those 5 will turn out to be incapable and one will have[127X[104X
+    [4X[25Xgap>[125X [27X#  7 descendants.[127X[104X
+    [4X[25Xgap>[125X [27X#[127X[104X
+    [4X[25Xgap>[125X [27XPqPGSetDescendantToPcp( procId, 4, 1 );[127X[104X
+    [4X[25Xgap>[125X [27XPqPGExtendAutomorphisms( procId );[127X[104X
+    [4X[25Xgap>[125X [27XPqPGConstructDescendants( procId : StepSize := 1 );[127X[104X
+    [4X[28X#I  group restored from file is incapable[128X[104X
+    [4X[28X0[128X[104X
+    [4X[25Xgap>[125X [27XPqPGSetDescendantToPcp( procId, 4, 2 );[127X[104X
+    [4X[25Xgap>[125X [27XPqPGExtendAutomorphisms( procId );[127X[104X
+    [4X[25Xgap>[125X [27XPqPGConstructDescendants( procId : StepSize := 1 );[127X[104X
+    [4X[28X7[128X[104X
+    [4X[25Xgap>[125X [27XPqPGSetDescendantToPcp( procId, 4, 3 );[127X[104X
+    [4X[25Xgap>[125X [27XPqPGExtendAutomorphisms( procId );[127X[104X
+    [4X[25Xgap>[125X [27XPqPGConstructDescendants( procId : StepSize := 1 );[127X[104X
+    [4X[28X#I  group restored from file is incapable[128X[104X
+    [4X[28X0[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YTo automate the above procedure to some extent we provide:[133X
+  
+  [1XA.4-1 PqDescendantsTreeCoclassOne[101X
+  
+  [33X[1;0Y[29X[2XPqDescendantsTreeCoclassOne[102X( [3Xi[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XPqDescendantsTreeCoclassOne[102X(  ) [32X function[133X
+  
+  [33X[0;0Yfor the [3Xi[103Xth or default interactive [5XANUPQ[105X process, generate a descendant tree
+  for  the  group  of  the  process (which must be a pc [22Xp[122X-group) consisting of
+  descendants  of  [22Xp[122X-coclass  1  and  extending to the class determined by the
+  option  [10XTreeDepth[110X  (or  6  if  the option is omitted). In an [5XXGAP[105X session, a
+  graphical  representation  of  the  descendants  tree  appears in a separate
+  window. Subsequent calls to [10XPqDescendantsTreeCoclassOne[110X for the same process
+  may  be used to extend the descendant tree from the last descendant computed
+  that  itself  has more than one descendant. [10XPqDescendantsTreeCoclassOne[110X also
+  accepts  the  options [10XCapableDescendants[110X (or [10XAllDescendants[110X) and any options
+  accepted   by  the  interactive  [10XPqDescendants[110X  function  (see [2XPqDescendants[102X
+  ([14X5.3-6[114X)).[133X
+  
+  [33X[0;0Y[13XNotes[113X[133X
+  
+  [31X1[131X   [33X[0;6Y[10XPqDescendantsTreeCoclassOne[110X     first    calls    [10XPqDescendants[110X.    If
+        [10XPqDescendants[110X  has  already  been called for the process, the previous
+        value computed is used and a warning is [10XInfo[110X-ed at [10XInfoANUPQ[110X level 1.[133X
+  
+  [31X2[131X   [33X[0;6YAs  each  descendant  is  processed its unique label defined by the [10Xpq[110X
+        program and number of descendants is [10XInfo[110X-ed at [10XInfoANUPQ[110X level 1.[133X
+  
+  [31X3[131X   [33X[0;6Y[10XPqDescendantsTreeCoclassOne[110X   is  an  [21Xexperimental[121X  function  that  is
+        included  to demonstrate the sort of things that are possible with the
+        [22Xp[122X-group generation machinery.[133X
+  
+  [33X[0;0YIgnoring   the   extra   functionality   provided   in   an   [5XXGAP[105X  session,
+  [10XPqDescendantsTreeCoclassOne[110X,  with  one  argument  that  is  the index of an
+  interactive [5XANUPQ[105X process, is approximately equivalent to:[133X
+  
+  [4X[32X[104X
+    [4XPqDescendantsTreeCoclassOne := function( procId )[104X
+    [4X    local des, i;[104X
+    [4X[104X
+    [4X    des := PqDescendants( procId : StepSize := 1 );[104X
+    [4X    RecurseDescendants( procId, 2, Length(des) );[104X
+    [4Xend;[104X
+  [4X[32X[104X
+  
+  [33X[0;0Ywhere [10XRecurseDescendants[110X is (approximately) defined as follows:[133X
+  
+  [4X[32X[104X
+    [4XRecurseDescendants := function( procId, class, n )[104X
+    [4X    local i, nr;[104X
+    [4X[104X
+    [4X    if class > ValueOption("TreeDepth") then return; fi;[104X
+    [4X[104X
+    [4X    for i in [1..n] do[104X
+    [4X        PqPGSetDescendantToPcp( procId, class, i );[104X
+    [4X        PqPGExtendAutomorphisms( procId );[104X
+    [4X        nr := PqPGConstructDescendants( procId : StepSize := 1 );[104X
+    [4X        Print( "Number of descendants of group ", i,[104X
+    [4X               " at class ", class, ": ", nr, "\n" );[104X
+    [4X        RecurseDescendants( procId, class+1, nr );[104X
+    [4X    od;[104X
+    [4X    return;[104X
+    [4Xend;[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  following  examples  (executed  via  [10XPqExample[110X; see [2XPqExample[102X ([14X3.4-4[114X)),
+  demonstrate the use of [10XPqDescendantsTreeCoclassOne[110X:[133X
+  
+  [8X[10X"PqDescendantsTreeCoclassOne-9-i"[110X[8X[108X
+        [33X[0;6Yapproximately  does example [10X"PqDescendants-treetraverse-i"[110X again using
+        [10XPqDescendantsTreeCoclassOne[110X;[133X
+  
+  [8X[10X"PqDescendantsTreeCoclassOne-16-i"[110X[8X[108X
+        [33X[0;6Yuses the option [10XCapableDescendants[110X; and[133X
+  
+  [8X[10X"PqDescendantsTreeCoclassOne-25-i"[110X[8X[108X
+        [33X[0;6Ycalculates all descendants by omitting the [10XCapableDescendants[110X option.[133X
+  
+  [33X[0;0YThe  numbers [10X9[110X, [10X16[110X and [10X25[110X respectively, indicate the order of the elementary
+  abelian  group  to  which  [10XPqDescendantsTreeCoclassOne[110X  is applied for these
+  examples.[133X
+  

@@ -1,0 +1,209 @@
+  
+  [1X7 [33X[0;0YInstalling the ANUPQ Package[133X[101X
+  
+  [33X[0;0YThe  ANU  [10Xpq[110X  program is written in C and the package can be installed under
+  UNIX  and in environments similar to UNIX. In particular it is known to work
+  on Linux and Mac OS X, and also on Windows equipped with cygwin.[133X
+  
+  [33X[0;0YThe  current  version of the [5XANUPQ[105X package requires [5XGAP[105X 4.8, and version 1.2
+  of  the  [5XAutPGrp[105X  package.  However, we recommend using at least [5XGAP[105X 4.6 and
+  [5XAutPGrp[105X 1.5.[133X
+  
+  [33X[0;0YTo  install  the  [5XANUPQ[105X  package,  move  the  file [10Xanupq-[3XXXX[103X[10X.tar.gz[110X for some
+  version  number  [3XXXX[103X  into  the  [10Xpkg[110X  directory in which you plan to install
+  [5XANUPQ[105X.  Usually,  this  will  be  the directory [10Xpkg[110X in the hierarchy of your
+  version  of  [5XGAP[105X;  it  is  however  also  possible to keep an additional [10Xpkg[110X
+  directory  in  your  private directories. The only essential difference with
+  installing  [5XANUPQ[105X  in a [10Xpkg[110X directory different to the [5XGAP[105X home directory is
+  that  one  must start [5XGAP[105X with the [10X-l[110X switch (see Section [14XReference: Command
+  Line Options[114X), e.g. if your private [10Xpkg[110X directory is a subdirectory of [10Xmygap[110X
+  in your home directory you might type:[133X
+  
+  [4X[32X[104X
+    [4Xgap -l ";myhomedir/mygap"[104X
+  [4X[32X[104X
+  
+  [33X[0;0Ywhere [3Xmyhomedir[103X is the path to your home directory, which may be replaced by
+  a  tilde.  The  empty  path before the semicolon is filled in by the default
+  path of the [5XGAP[105X home directory.[133X
+  
+  [33X[0;0YThen, in your chosen [10Xpkg[110X directory, unpack [10Xanupq-[3XXXX[103X[10X.tar.gz[110X by[133X
+  
+  [4X[32X[104X
+    [4Xtar xf anupq-<XXX>.tar.gz[104X
+  [4X[32X[104X
+  
+  [33X[0;0YChange to the newly created [10Xanupq[110X directory. Now you need to call [10Xconfigure[110X.
+  If you installed [5XANUPQ[105X into the main [10Xpkg[110X directory, call[133X
+  
+  [4X[32X[104X
+    [4X./configure[104X
+  [4X[32X[104X
+  
+  [33X[0;0YIf   you   installed  ANUPQ  in  another  directory  than  the  usual  'pkg'
+  subdirectory, instead call[133X
+  
+  [4X[32X[104X
+    [4X./configure --with-gaproot=<path>[104X
+  [4X[32X[104X
+  
+  [33X[0;0Ywhere [3Xpath[103X is the path to the [5XGAP[105X home directory. (You can also call[133X
+  
+  [4X[32X[104X
+    [4X./configure --help[104X
+  [4X[32X[104X
+  
+  [33X[0;0Yfor further options.)[133X
+  
+  [33X[0;0YWhat  this  does is look for a file [10Xsysinfo.gap[110X in the root directory of [5XGAP[105X
+  in  order  to  determine an architecture name for the subdirectory of [10Xbin[110X in
+  which  to  put  the  compiled  [10Xpq[110X  binary.  This only makes sense if [5XGAP[105X was
+  compiled  for  the  same  architecture that [10Xpq[110X will be. If you have a shared
+  file  system  mounted  across  different  architectures, then you should run
+  [10Xconfigure[110X  and  [10Xmake[110X  for  [5XANUPQ[105X  for  each  architecture  immediately after
+  compiling [5XGAP[105X on the same architecture.[133X
+  
+  [33X[0;0YIf  you had to install the package in your own directory but wish to use the
+  system [5XGAP[105X then you will need to find out what [3Xpath[103X is. To do this, start up
+  [5XGAP[105X  and  find  out  what  [5XGAP[105X's  root path is from finding the value of the
+  variable [10XGAPInfo.RootPaths[110X, e.g.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XGAPInfo.RootPaths;[127X[104X
+    [4X[28X[ "/usr/local/lib/gap4r4/" ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0Ywould tell you to use [10X/usr/local/lib/gap4r4[110X for [3Xpath[103X.[133X
+  
+  [33X[0;0YThe  [10Xconfigure[110X  command  will  fetch the architecture type for which [5XGAP[105X has
+  been compiled last and create a [10XMakefile[110X. You can now simply call[133X
+  
+  [4X[32X[104X
+    [4Xmake[104X
+  [4X[32X[104X
+  
+  [33X[0;0Yto compile the binary and to install it in the appropriate place.[133X
+  
+  [33X[0;0YThe path of [5XGAP[105X (see [13XNote[113X below) used by the [10Xpq[110X binary (the value [10XGAP[110X is set
+  to  in  the  [10Xmake[110X  command)  may  be  over-ridden by setting the environment
+  variable  [10XANUPQ_GAP_EXEC[110X.  These  values  are  only  of interest when the [10Xpq[110X
+  program  is run as a standalone; however, the [10XtestPq[110X script assumes you have
+  set  one of these correctly (see Section [14X'[33X[0;0YTesting your ANUPQ installation[133X'[114X).
+  When  the  [10Xpq[110X  program  is  started  from  [5XGAP[105X  communication  occurs via an
+  iostream,  so that the [10Xpq[110X binary does not actually need to know a valid path
+  for [5XGAP[105X is this case.[133X
+  
+  [33X[0;0Y[13XNote.[113X  By  [21Xpath  of  [5XGAP[105X[121X  we mean the path of the command used to invoke [5XGAP[105X
+  (which  should  be  a  script,  e.g.  the [10Xgap.sh[110X script generated in the [10Xbin[110X
+  directory  for the version of [5XGAP[105X when [5XGAP[105X was compiled). The usual strategy
+  is   to   copy   the   [10Xgap.sh[110X   script   to   a   standard   location,  e.g.
+  [10X/usr/local/bin/gap[110X.  It  is  a  mistake to copy the [5XGAP[105X executable [10Xgap[110X (in a
+  directory  with name of form [10Xbin/[3Xcompile-platform[103X[10X[110X) to the standard location,
+  since  direct  invocation  of the executable results in [5XGAP[105X starting without
+  being able to find its own library (a fatal error).[133X
+  
+  
+  [1X7.1 [33X[0;0YTesting your ANUPQ installation[133X[101X
+  
+  [33X[0;0YNow  it is time to test the installation. After doing [10Xconfigure[110X and [10Xmake[110X you
+  will  have  a  [10XtestPq[110X  script.  The  script assumes that, if the environment
+  variable  [10XANUPQ_GAP_EXEC[110X  is set, it is a correct path for [5XGAP[105X, or otherwise
+  that  the  [10Xmake[110X  call that compiled the [10Xpq[110X program set [10XGAP[110X to a correct path
+  for  [5XGAP[105X  (see  Section [14X'[33X[0;0YRunning  the  pq  program as a standalone[133X'[114X for more
+  details). To run the tests, just type:[133X
+  
+  [4X[32X[104X
+    [4X./testPq[104X
+  [4X[32X[104X
+  
+  [33X[0;0YSome  of  the  tests  the  script  runs take a while. Please be patient. The
+  script  checks  that  you not only have a correct [5XGAP[105X (at least version 4.4)
+  installation  that  includes the [5XAutPGrp[105X package, but that the [5XANUPQ[105X package
+  and  its  [10Xpq[110X  binary  interact  correctly. You should see something like the
+  following output:[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28XMade dir: /tmp/testPq[128X[104X
+    [4X[28XTesting installation of ANUPQ Package (version 3.1)[128X[104X
+    [4X[28X [128X[104X
+    [4X[28XThe first two tests check that the pq C program compiled ok.[128X[104X
+    [4X[28XTesting the pq binary ... OK.[128X[104X
+    [4X[28XTesting the pq binary's stack size ... OK.[128X[104X
+    [4X[28XThe pq C program compiled ok! We test it's the right one below.[128X[104X
+    [4X[28X [128X[104X
+    [4X[28XThe next tests check that you have the right version of GAP[128X[104X
+    [4X[28Xfor the ANUPQ package and that GAP is finding[128X[104X
+    [4X[28Xthe right versions of the ANUPQ and AutPGrp packages.[128X[104X
+    [4X[28X [128X[104X
+    [4X[28XChecking GAP ...[128X[104X
+    [4X[28X pq binary made with GAP set to: /usr/local/bin/gap[128X[104X
+    [4X[28X Starting GAP to determine version and package availability ...[128X[104X
+    [4X[28X  GAP version (4.6.5) ... OK.[128X[104X
+    [4X[28X  GAP found ANUPQ package (version 3.1) ... good.[128X[104X
+    [4X[28X  GAP found pq binary (version 1.9) ... good.[128X[104X
+    [4X[28X  GAP found AutPGrp package (version 1.5) ... good.[128X[104X
+    [4X[28X GAP is OK.[128X[104X
+    [4X[28X [128X[104X
+    [4X[28XChecking the link between the pq binary and GAP ... OK.[128X[104X
+    [4X[28XTesting the standard presentation part of the pq binary ... OK.[128X[104X
+    [4X[28XDoing p-group generation (final GAP/ANUPQ) test ... OK.[128X[104X
+    [4X[28XTests complete.[128X[104X
+    [4X[28XRemoved dir: /tmp/testPq[128X[104X
+    [4X[28XEnjoy using your functional ANUPQ package![128X[104X
+  [4X[32X[104X
+  
+  
+  [1X7.2 [33X[0;0YRunning the pq program as a standalone[133X[101X
+  
+  [33X[0;0YWhen the [10Xpq[110X program is run as a standalone it sometimes needs to call [5XGAP[105X to
+  compute  stabilisers of subgroups; in doing so, it first checks the value of
+  the environment variable [10XANUPQ_GAP_EXEC[110X, and uses that, if set, or otherwise
+  the  value  of  [10XGAP[110X  it  was  compiled with, as the path for [5XGAP[105X. If you ran
+  [10XtestPq[110X  (see Section [14X'[33X[0;0YTesting your ANUPQ installation[133X'[114X) and you got both [5XGAP[105X
+  is  [10XOK[110X and the link between the [10Xpq[110X binary and [5XGAP[105X is [10XOK[110X, you should be fine.
+  Otherwise heed the recommendations of the error messages you get and run the
+  [10XtestPq[110X until all tests are passed.[133X
+  
+  [33X[0;0YIt  is  especially  important that the [5XGAP[105X, whose path you gave, should know
+  where to find the [5XANUPQ[105X and [5XAutPGrp[105X packages. To ensure this the path should
+  be  to  a shell script that invokes [5XGAP[105X. If you needed to install the needed
+  packages  in  your  own  directory  (because,  say,  you  are  not  a system
+  administrator)  then  you  should create your own shell script that runs [5XGAP[105X
+  with  a  correct  setting  of  the [10X-l[110X option and set the path used by the [10Xpq[110X
+  binary  to the path of that script. To create the script that runs [5XGAP[105X it is
+  easiest  to  copy  the  system  one and edit it, e.g. start by executing the
+  following  UNIX  commands  (skip  the  second step if you already have a [10Xbin[110X
+  directory; [10Xyou@unix>[110X is your UNIX prompt):[133X
+  
+  [4X[32X[104X
+    [4Xyou@unix> cd[104X
+    [4Xyou@unix> mkdir bin[104X
+    [4Xyou@unix> cd bin[104X
+    [4Xyou@unix> which gap[104X
+    [4X/usr/local/bin/gap[104X
+    [4Xyou@unix> cp /usr/local/bin/gap mygap[104X
+    [4Xyou@unix> chmod +x mygap[104X
+  [4X[32X[104X
+  
+  [33X[0;0YAt  the  second-last  step  use  the  path of [5XGAP[105X returned by [10Xwhich gap[110X. Now
+  hopefully  you  will  have  a copy of the script that runs the system [5XGAP[105X in
+  [10Xmygap[110X. Now use your favourite editor to edit the [10X-l[110X part of the last line of
+  [10Xmygap[110X which should initially look something like:[133X
+  
+  [4X[32X[104X
+    [4Xexec $GAP_DIR/bin/$GAP_PRG -m $GAP_MEM -o 970m -l $GAP_DIR $*[104X
+  [4X[32X[104X
+  
+  [33X[0;0Yso  that  it  becomes  (the  tilde  is  a  UNIX  abbreviation  for your home
+  directory):[133X
+  
+  [4X[32X[104X
+    [4Xexec $GAP_DIR/bin/$GAP_PRG -m $GAP_MEM -o 970m -l "$GAP_DIR;~/gapstuff" $*[104X
+  [4X[32X[104X
+  
+  [33X[0;0Yassuming  that your personal [5XGAP[105X [10Xpkg[110X directory is a subdirectory of [10Xgapstuff[110X
+  in your home directory. Finally, to let the [10Xpq[110X program know where [5XGAP[105X is and
+  also  know  where  your  [10Xpkg[110X  directory  is  that  contains  [5XANUPQ[105X,  set the
+  environment  variable [10XANUPQ_GAP_EXEC[110X to the complete (i.e. absolute) path of
+  your [10Xmygap[110X script (do not use the tilde abbreviation).[133X
+  

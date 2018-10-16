@@ -1,0 +1,695 @@
+  
+  [1X4 [33X[0;0YNon-interactive ANUPQ functions[133X[101X
+  
+  [33X[0;0YHere  we  describe  all  the non-interactive functions of the [5XANUPQ[105X package;
+  i.e. [21Xone-shot[121X  functions  that invoke the [10Xpq[110X program in such a way that once
+  [5XGAP[105X has got what it needs, the [10Xpq[110X program is allowed to exit. It is expected
+  that  most  of  the time users will only need these functions. The functions
+  interface  with  three  of  the four algorithms (see Chapter [14X'[33X[0;0YIntroduction[133X'[114X)
+  provided  by  the  ANU [10Xpq[110X C program, and are mainly grouped according to the
+  algorithm of the [10Xpq[110X program they relate to.[133X
+  
+  [33X[0;0YIn  Section [14X'[33X[0;0YComputing  p-Quotients[133X'[114X,  we  describe  the functions that give
+  access to the [22Xp[122X-quotient algorithm.[133X
+  
+  [33X[0;0YSection [14X'[33X[0;0YComputing  Standard  Presentations[133X'[114X  describe  functions  that give
+  access to the standard presentation algorithm.[133X
+  
+  [33X[0;0YSection [14X'[33X[0;0YTesting p-Groups for Isomorphism[133X'[114X describe functions that implement
+  an isomorphism test for [22Xp[122X-groups using the standard presentation algorithm.[133X
+  
+  [33X[0;0YIn  Section [14X'[33X[0;0YComputing Descendants of a p-Group[133X'[114X, we describe functions that
+  give access to the [22Xp[122X-group generation algorithm.[133X
+  
+  [33X[0;0YTo use any of the functions one must have at some stage previously typed:[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XLoadPackage("anupq");[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0Y(the response of which we have omitted; see [14X'[33X[0;0YLoading the ANUPQ Package[133X'[114X).[133X
+  
+  [33X[0;0YIt  is strongly recommended that the user try the examples provided. To save
+  typing  there  is  a  [10XPqExample[110X  equivalent for each manual example. We also
+  suggest that to start with you may find the examples more instructive if you
+  set the [10XInfoANUPQ[110X level to 2 (see [2XInfoANUPQ[102X ([14X3.3-1[114X)).[133X
+  
+  
+  [1X4.1 [33X[0;0YComputing p-Quotients[133X[101X
+  
+  [1X4.1-1 Pq[101X
+  
+  [33X[1;0Y[29X[2XPq[102X( [3XF:[103X [3Xoptions[103X ) [32X function[133X
+  
+  [33X[0;0Yreturns  for the fp or pc group [3XF[103X, the [22Xp[122X-quotient of [3XF[103X specified by [3Xoptions[103X,
+  as  a  pc  group. Following the colon, [3Xoptions[103X is a selection of the options
+  from  the  following  list,  separated by commas like record components (see
+  Section [14XReference:  Function Call With Options[114X in the [5XGAP[105X Reference Manual).
+  As  a  minimum  the  user [13Xmust[113X supply a value for the [10XPrime[110X option. Below we
+  list  the options recognised by [10XPq[110X (see Chapter [14X'[33X[0;0YANUPQ Options[133X'[114X for detailed
+  descriptions).[133X
+  
+  [30X    [33X[0;6Y[10XPrime := [3Xp[103X[10X[110X[133X
+  
+  [30X    [33X[0;6Y[10XClassBound := [3Xn[103X[10X[110X[133X
+  
+  [30X    [33X[0;6Y[10XExponent := [3Xn[103X[10X[110X[133X
+  
+  [30X    [33X[0;6Y[10XRelators := [3Xrels[103X[10X[110X[133X
+  
+  [30X    [33X[0;6Y[10XMetabelian[110X[133X
+  
+  [30X    [33X[0;6Y[10XIdentities := [3Xfuncs[103X[10X[110X[133X
+  
+  [30X    [33X[0;6Y[10XGroupName := [3Xname[103X[10X[110X[133X
+  
+  [30X    [33X[0;6Y[10XOutputLevel := [3Xn[103X[10X[110X[133X
+  
+  [30X    [33X[0;6Y[10XSetupFile := [3Xfilename[103X[10X[110X[133X
+  
+  [30X    [33X[0;6Y[10XPqWorkspace := [3Xworkspace[103X[10X[110X[133X
+  
+  [33X[0;0Y[13XNotes:[113X  [10XPq[110X  may also be called with no arguments or one integer argument, in
+  which case it is being used interactively (see [2XPq[102X ([14X5.3-1[114X)); the same options
+  may  be  used,  except  that  [10XSetupFile[110X  and  [10XPqWorkspace[110X are ignored by the
+  interactive [10XPq[110X function.[133X
+  
+  [33X[0;0YSee  Section [14X'[33X[0;0YAttributes  and  a  Property  for  fp and pc p-groups[133X'[114X for the
+  attributes  and  property [10XNuclearRank[110X, [10XMultiplicatorRank[110X and [10XIsCapable[110X which
+  may be applied to the group returned by [10XPq[110X.[133X
+  
+  [33X[0;0YSee also [10XPqEpimorphism[110X ([2XPqEpimorphism[102X ([14X4.1-2[114X)).[133X
+  
+  [33X[0;0YWe  now  give  a few examples of the use of [10XPq[110X. Except for the addition of a
+  few  comments  and  the  non-suppression  of output (by not using duplicated
+  semicolons)  the  next  3  examples may be run by typing: [10XPqExample( "Pq" );[110X
+  (see [2XPqExample[102X ([14X3.4-4[114X)).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XLoadPackage("anupq");; # does nothing if ANUPQ is already loaded[127X[104X
+    [4X[25Xgap>[125X [27X# First we get a p-quotient of a free group of rank 2[127X[104X
+    [4X[25Xgap>[125X [27XF := FreeGroup("a", "b");; a := F.1;; b := F.2;;[127X[104X
+    [4X[25Xgap>[125X [27XPq( F : Prime := 2, ClassBound := 3 ); [127X[104X
+    [4X[28X<pc group of size 1024 with 10 generators>[128X[104X
+    [4X[25Xgap>[125X [27X# Now let us get a p-quotient of an fp group[127X[104X
+    [4X[25Xgap>[125X [27XG := F / [a^4, b^4];[127X[104X
+    [4X[28X<fp group on the generators [ a, b ]>[128X[104X
+    [4X[25Xgap>[125X [27XPq( G : Prime := 2, ClassBound := 3 ); [127X[104X
+    [4X[28X<pc group of size 256 with 8 generators>[128X[104X
+    [4X[25Xgap>[125X [27X# Now let's get a different p-quotient of the same group[127X[104X
+    [4X[25Xgap>[125X [27XPq( G : Prime := 2, ClassBound := 3, Exponent := 4 ); [127X[104X
+    [4X[28X<pc group of size 128 with 7 generators>[128X[104X
+    [4X[25Xgap>[125X [27X# Now we'll get a p-quotient of another fp group[127X[104X
+    [4X[25Xgap>[125X [27X# which we will redo using the `Relators' option[127X[104X
+    [4X[25Xgap>[125X [27XR := [ a^25, Comm(Comm(b, a), a), b^5 ];[127X[104X
+    [4X[28X[ a^25, a^-1*b^-1*a*b*a^-1*b^-1*a^-1*b*a^2, b^5 ][128X[104X
+    [4X[25Xgap>[125X [27XH := F / R;[127X[104X
+    [4X[28X<fp group on the generators [ a, b ]>[128X[104X
+    [4X[25Xgap>[125X [27XPq( H : Prime := 5, ClassBound := 5, Metabelian );[127X[104X
+    [4X[28X<pc group of size 78125 with 7 generators>[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YNow  we  redo  the last example to show how one may use the [10XRelators[110X option.
+  Observe  that  [10XComm(Comm(b, a), a)[110X is a left normed commutator which must be
+  written in square bracket notation for the [10Xpq[110X program and embedded in a pair
+  of double quotes. The function [10XPqGAPRelators[110X (see [2XPqGAPRelators[102X ([14X3.4-2[114X)) can
+  be used to translate a list of strings prepared for the [10XRelators[110X option into
+  [5XGAP[105X  format.  Below  we  use  it. Observe that the value of [10XR[110X is the same as
+  before.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XF := FreeGroup("a", "b");;[127X[104X
+    [4X[25Xgap>[125X [27X# `F' was defined for `Relators'. We use the same strings that GAP uses[127X[104X
+    [4X[25Xgap>[125X [27X# for printing the free group generators. It is *not* necessary to[127X[104X
+    [4X[25Xgap>[125X [27X# predefine: a := F.1; etc. (as it was above).[127X[104X
+    [4X[25Xgap>[125X [27Xrels := [ "a^25", "[b, a, a]", "b^5" ];[127X[104X
+    [4X[28X[ "a^25", "[b, a, a]", "b^5" ][128X[104X
+    [4X[25Xgap>[125X [27XR := PqGAPRelators(F, rels);[127X[104X
+    [4X[28X[ a^25, a^-1*b^-1*a*b*a^-1*b^-1*a^-1*b*a^2, b^5 ][128X[104X
+    [4X[25Xgap>[125X [27XH := F / R;[127X[104X
+    [4X[28X<fp group on the generators [ a, b ]>[128X[104X
+    [4X[25Xgap>[125X [27XPq( H : Prime := 5, ClassBound := 5, Metabelian, [127X[104X
+    [4X[25X>[125X [27X           Relators := rels );[127X[104X
+    [4X[28X<pc group of size 78125 with 7 generators>[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YIn  fact,  above  we could have just passed [10XF[110X (rather than [10XH[110X), i.e. we could
+  have done:[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XF := FreeGroup("a", "b");;[127X[104X
+    [4X[25Xgap>[125X [27Xrels := [ "a^25", "[b, a, a]", "b^5" ];[127X[104X
+    [4X[28X[ "a^25", "[b, a, a]", "b^5" ][128X[104X
+    [4X[25Xgap>[125X [27XPq( F : Prime := 5, ClassBound := 5, Metabelian, [127X[104X
+    [4X[25X>[125X [27X           Relators := rels );[127X[104X
+    [4X[28X<pc group of size 78125 with 7 generators>[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  non-interactive [10XPq[110X function also allows the options to be passed in two
+  other  ways;  these  alternatives have been included for those familiar with
+  the  [5XGAP[105X 3  version  of  the  [5XANUPQ[105X package; the preferred method of passing
+  options  is  the  one  already  described.  Firstly, they may be passed in a
+  record  as  a  second  argument;  note  that any boolean options must be set
+  explicitly e.g.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XPq( H, rec( Prime := 5, ClassBound := 5, Metabelian := true ) );[127X[104X
+    [4X[28X<pc group of size 78125 with 7 generators>[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YIt  is also possible to pass them as extra arguments, where each option name
+  appears  as  a  string  followed  immediately by its value (if not a boolean
+  option) e.g.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XPq( H, "Prime", 5, "ClassBound", 5, "Metabelian" );[127X[104X
+    [4X[28X<pc group of size 78125 with 7 generators>[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  preceding  two  examples  can be run from [5XGAP[105X via [10XPqExample( "Pq-ni" );[110X
+  (see [2XPqExample[102X ([14X3.4-4[114X)).[133X
+  
+  [33X[0;0YThis method of passing options permits abbreviation; the only restriction is
+  that  the  abbreviation  must  be  unique.  So [10X"Pr"[110X may be used for [10X"Prime"[110X,
+  [10X"Class"[110X or even just [10X"C"[110X for [10X"ClassBound"[110X, etc.[133X
+  
+  [33X[0;0YThe  following  example  illustrates  the  use  of the option [10XIdentities[110X. We
+  compute  the largest finite Burnside group of exponent [22X5[122X that also satisfies
+  the [22X3[122X-Engel identity. Each identity is defined by a function whose arguments
+  correspond  to  the  variables  of the identity. The return value of each of
+  those functions is the identity evaluated on the arguments of the function.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XF := FreeGroup(2);[127X[104X
+    [4X[28X<free group on the generators [ f1, f2 ]>[128X[104X
+    [4X[25Xgap>[125X [27XBurnside5 := x->x^5;[127X[104X
+    [4X[28Xfunction( x ) ... end[128X[104X
+    [4X[25Xgap>[125X [27XEngel3 := function( x,y ) return PqLeftNormComm( [x,y,y,y] ); end;[127X[104X
+    [4X[28Xfunction( x, y ) ... end[128X[104X
+    [4X[25Xgap>[125X [27XPq( F : Prime := 5, Identities := [ Burnside5, Engel3 ] );[127X[104X
+    [4X[28X#I  Class 1 with 2 generators.[128X[104X
+    [4X[28X#I  Class 2 with 3 generators.[128X[104X
+    [4X[28X#I  Class 3 with 5 generators.[128X[104X
+    [4X[28X#I  Class 3 with 5 generators.[128X[104X
+    [4X[28X<pc group of size 3125 with 5 generators>[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  above  example  can  be run from [5XGAP[105X via [10XPqExample( "B5-5-Engel3-Id" );[110X
+  (see [2XPqExample[102X ([14X3.4-4[114X)).[133X
+  
+  [1X4.1-2 PqEpimorphism[101X
+  
+  [33X[1;0Y[29X[2XPqEpimorphism[102X( [3XF:[103X [3Xoptions[103X ) [32X function[133X
+  
+  [33X[0;0Yreturns  for  the fp or pc group [3XF[103X an epimorphism from [3XF[103X onto the [22Xp[122X-quotient
+  of  [3XF[103X specified by [3Xoptions[103X; the possible options [3Xoptions[103X and [13Xrequired[113X option
+  ([10X"Prime"[110X) are as for [10XPq[110X (see [2XPq[102X ([14X4.1-1[114X)). [10XPqEpimorphism[110X only differs from [10XPq[110X
+  in  what  it  outputs;  everything about what must/may be passed as input to
+  [10XPqEpimorphism[110X is the same as for [10XPq[110X. The same alternative methods of passing
+  options   to   the   non-interactive   [10XPq[110X  function  are  available  to  the
+  non-interactive version of [10XPqEpimorphism[110X.[133X
+  
+  [33X[0;0Y[13XNotes:[113X  [10XPqEpimorphism[110X  may  also  be called with no arguments or one integer
+  argument,  in  which  case it is being used interactively (see [2XPqEpimorphism[102X
+  ([14X5.3-2[114X)),  and  the  options  [10XSetupFile[110X  and  [10XPqWorkspace[110X are ignored by the
+  interactive [10XPqEpimorphism[110X function.[133X
+  
+  [33X[0;0YSee  Section [14X'[33X[0;0YAttributes  and  a  Property  for  fp and pc p-groups[133X'[114X for the
+  attributes  and  property [10XNuclearRank[110X, [10XMultiplicatorRank[110X and [10XIsCapable[110X which
+  may   be  applied  to  the  image  group  of  the  epimorphism  returned  by
+  [10XPqEpimorphism[110X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XF := FreeGroup (2, "F");[127X[104X
+    [4X[28X<free group on the generators [ F1, F2 ]>[128X[104X
+    [4X[25Xgap>[125X [27Xphi := PqEpimorphism( F : Prime := 5, ClassBound := 2 );[127X[104X
+    [4X[28X[ F1, F2 ] -> [ f1, f2 ][128X[104X
+    [4X[25Xgap>[125X [27XImage( phi );[127X[104X
+    [4X[28X<pc group of size 3125 with 5 generators>[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YTyping:  [10XPqExample(  "PqEpimorphism"  );[110X  runs  the  above  example  in  [5XGAP[105X
+  (see [2XPqExample[102X ([14X3.4-4[114X)).[133X
+  
+  [1X4.1-3 PqPCover[101X
+  
+  [33X[1;0Y[29X[2XPqPCover[102X( [3XF:[103X [3Xoptions[103X ) [32X function[133X
+  
+  [33X[0;0Yreturns  for the fp or pc group [3XF[103X, the [22Xp[122X-covering group of the [22Xp[122X-quotient of
+  [3XF[103X  specified  by  [3Xoptions[103X,  as  a pc group, i.e. the [22Xp[122X-covering group of the
+  [22Xp[122X-quotient  [10XPq(  [3XF[103X[10X  :  [3Xoptions[103X[10X )[110X. Thus the options that [10XPqPCover[110X accepts are
+  exactly those expected for [10XPq[110X (and hence as a minimum the user [13Xmust[113X supply a
+  value  for the [10XPrime[110X option; see [2XPq[102X ([14X4.1-1[114X) for more details), except in the
+  following special case.[133X
+  
+  [33X[0;0YIf [3XF[103X is already a [22Xp[122X-group, in the sense that [10XIsPGroup([3XF[103X[10X)[110X is [9Xtrue[109X, then[133X
+  
+  [8X[10XPrime[110X[8X[108X
+        [33X[0;6Ydefaults  to  [10XPrimePGroup([3XF[103X[10X)[110X,  if not supplied and [10XHasPrimePGroup([3XF[103X[10X) =
+        true[110X; and[133X
+  
+  [8X[10XClassBound[110X[8X[108X
+        [33X[0;6Ydefaults  to  [10XPClassPGroup([3XF[103X[10X)[110X  if  [10XHasPClassPGroup([3XF[103X[10X)  =  true[110X  if not
+        supplied, or to the usual default of 63, otherwise.[133X
+  
+  [33X[0;0YThe  same  alternative  methods of passing options to the non-interactive [10XPq[110X
+  function are available to the non-interactive version of [10XPqPCover[110X.[133X
+  
+  [33X[0;0YWe now give a few examples of the use of [10XPqPCover[110X. These examples are just a
+  subset  of  the  ones  we  gave for [10XPq[110X (see [2XPq[102X ([14X4.1-1[114X)), except that in each
+  instance  the  command  [10XPq[110X  has been replaced with [10XPqPCover[110X. Essentially the
+  same  examples may be run by typing: [10XPqExample( "PqPCover" );[110X (see [2XPqExample[102X
+  ([14X3.4-4[114X)).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XF := FreeGroup("a", "b");; a := F.1;; b := F.2;;[127X[104X
+    [4X[25Xgap>[125X [27XPqPCover( F : Prime := 2, ClassBound := 3 );[127X[104X
+    [4X[28X<pc group of size 262144 with 18 generators>[128X[104X
+    [4X[25Xgap>[125X [27X[127X[104X
+    [4X[25Xgap>[125X [27X# Now let's get a p-cover of a p-quotient of an fp group[127X[104X
+    [4X[25Xgap>[125X [27XG := F / [a^4, b^4];[127X[104X
+    [4X[28X<fp group on the generators [ a, b ]>[128X[104X
+    [4X[25Xgap>[125X [27XPqPCover( G : Prime := 2, ClassBound := 3 );[127X[104X
+    [4X[28X<pc group of size 16384 with 14 generators>[128X[104X
+    [4X[25Xgap>[125X [27X[127X[104X
+    [4X[25Xgap>[125X [27X# Now let's get a p-cover of a different p-quotient of the same group[127X[104X
+    [4X[25Xgap>[125X [27XPqPCover( G : Prime := 2, ClassBound := 3, Exponent := 4 );[127X[104X
+    [4X[28X<pc group of size 8192 with 13 generators>[128X[104X
+    [4X[25Xgap>[125X [27X[127X[104X
+    [4X[25Xgap>[125X [27X# Now we'll get a p-cover of a p-quotient of another fp group[127X[104X
+    [4X[25Xgap>[125X [27X# which we will redo using the `Relators' option[127X[104X
+    [4X[25Xgap>[125X [27XR := [ a^25, Comm(Comm(b, a), a), b^5 ];[127X[104X
+    [4X[28X[ a^25, a^-1*b^-1*a*b*a^-1*b^-1*a^-1*b*a^2, b^5 ][128X[104X
+    [4X[25Xgap>[125X [27XH := F / R;[127X[104X
+    [4X[28X<fp group on the generators [ a, b ]>[128X[104X
+    [4X[25Xgap>[125X [27XPqPCover( H : Prime := 5, ClassBound := 5, Metabelian );[127X[104X
+    [4X[28X<pc group of size 48828125 with 11 generators>[128X[104X
+    [4X[25Xgap>[125X [27X[127X[104X
+    [4X[25Xgap>[125X [27X# Now we redo the previous example using the `Relators' option[127X[104X
+    [4X[25Xgap>[125X [27XF := FreeGroup("a", "b");;[127X[104X
+    [4X[25Xgap>[125X [27Xrels := [ "a^25", "[b, a, a]", "b^5" ];[127X[104X
+    [4X[28X[ "a^25", "[b, a, a]", "b^5" ][128X[104X
+    [4X[25Xgap>[125X [27XPqPCover( F : Prime := 5, ClassBound := 5, Metabelian, [127X[104X
+    [4X[25X>[125X [27X                 Relators := rels );[127X[104X
+    [4X[28X<pc group of size 48828125 with 11 generators>[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X4.2 [33X[0;0YComputing Standard Presentations[133X[101X
+  
+  [1X4.2-1 PqStandardPresentation[101X
+  
+  [33X[1;0Y[29X[2XPqStandardPresentation[102X( [3XF:[103X [3Xoptions[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XStandardPresentation[102X( [3XF:[103X [3Xoptions[103X ) [32X method[133X
+  
+  [33X[0;0Yreturn  the [3Xp[103X-quotient specified by [3Xoptions[103X of the fp or pc [22Xp[122X-group [3XF[103X, as an
+  [13Xfp  group[113X  which has a standard presentation. Here [3Xoptions[103X is a selection of
+  the  options  from  the  following  list  (see  Chapter [14X'[33X[0;0YANUPQ  Options[133X'[114X for
+  detailed  descriptions).  Section [14X'[33X[0;0YHints  and  Warnings regarding the use of
+  Options[133X'[114X gives some important hints and warnings regarding option usage, and
+  Section [14XReference:  Function  Call  With Options[114X in the [5XGAP[105X Reference Manual
+  describes their [21Xrecord[121X-like syntax.[133X
+  
+  [30X    [33X[0;6Y[10XPrime := [3Xp[103X[10X[110X[133X
+  
+  [30X    [33X[0;6Y[10XpQuotient := [3XQ[103X[10X[110X[133X
+  
+  [30X    [33X[0;6Y[10XClassBound := [3Xn[103X[10X[110X[133X
+  
+  [30X    [33X[0;6Y[10XExponent := [3Xn[103X[10X[110X[133X
+  
+  [30X    [33X[0;6Y[10XMetabelian[110X[133X
+  
+  [30X    [33X[0;6Y[10XGroupName := [3Xname[103X[10X[110X[133X
+  
+  [30X    [33X[0;6Y[10XOutputLevel := [3Xn[103X[10X[110X[133X
+  
+  [30X    [33X[0;6Y[10XStandardPresentationFile := [3Xfilename[103X[10X[110X[133X
+  
+  [30X    [33X[0;6Y[10XSetupFile := [3Xfilename[103X[10X[110X[133X
+  
+  [30X    [33X[0;6Y[10XPqWorkspace := [3Xworkspace[103X[10X[110X[133X
+  
+  [33X[0;0YUnless  [3XF[103X  is  a pc [3Xp[103X-group, the user [13Xmust[113X supply either the option [10XPrime[110X or
+  the  option [10XpQuotient[110X (if both [10XPrime[110X and [10XpQuotient[110X are supplied, the prime [3Xp[103X
+  is   determined   by   applying   [10XPrimePGroup[110X  (see [2XPrimePGroup[102X  ([14XReference:
+  PrimePGroup[114X) in the Reference Manual) to the value of [10XpQuotient[110X).[133X
+  
+  [33X[0;0YThe  options  for [10XPqStandardPresentation[110X may also be passed in the two other
+  alternative  ways  described  for  [10XPq[110X (see [2XPq[102X ([14X4.1-1[114X)). [10XStandardPresentation[110X
+  does not provide these alternative ways of passing options.[133X
+  
+  [33X[0;0Y[13XNotes:[113X  In  contrast  to the function [10XPq[110X (see [2XPq[102X ([14X4.1-1[114X)) which returns a pc
+  group,  [10XPqStandardPresentation[110X  or [10XStandardPresentation[110X returns an fp group.
+  This  is because the output is mainly used for isomorphism testing for which
+  an   fp   group  is  enough.  However,  the  presentation  is  a  polycyclic
+  presentation  and  if you need to do any further computation with this group
+  (e.g. to   find   the   order)  you  can  use  the  function  [10XPcGroupFpGroup[110X
+  (see [2XPcGroupFpGroup[102X ([14XReference: PcGroupFpGroup[114X) in the [5XGAP[105X Reference Manual)
+  to form a pc group.[133X
+  
+  [33X[0;0YIf  the user does not supply a [3Xp[103X-quotient [3XQ[103X via the [10XpQuotient[110X option and the
+  prime  [3Xp[103X  is  either  supplied  or [3XF[103X is a pc [3Xp[103X-group, then a [3Xp[103X-quotient [3XQ[103X is
+  computed.  If  the user does supply a [3Xp[103X-quotient [3XQ[103X via the [10XpQuotient[110X option,
+  the  package  [5XAutPGrp[105X  is  called to compute the automorphism group of [3XQ[103X; an
+  error  will  occur  that asks the user to install the package [5XAutPGrp[105X if the
+  automorphism group cannot be computed.[133X
+  
+  [33X[0;0YThe attributes and property [10XNuclearRank[110X, [10XMultiplicatorRank[110X and [10XIsCapable[110X are
+  set for the group returned by [10XPqStandardPresentation[110X or [10XStandardPresentation[110X
+  (see Section [14X'[33X[0;0YAttributes and a Property for fp and pc p-groups[133X'[114X).[133X
+  
+  [33X[0;0YWe illustrate the method with the following examples.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XF := FreeGroup( "a", "b" );; a := F.1;; b := F.2;;[127X[104X
+    [4X[25Xgap>[125X [27XG := F / [a^25, Comm(Comm(b, a), a), b^5];[127X[104X
+    [4X[28X<fp group on the generators [ a, b ]>[128X[104X
+    [4X[25Xgap>[125X [27XS := StandardPresentation( G : Prime := 5, ClassBound := 10 );[127X[104X
+    [4X[28X<fp group on the generators [ f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, [128X[104X
+    [4X[28X  f12, f13, f14, f15, f16, f17, f18, f19, f20, f21, f22, f23, f24, f25, f26 ]>[128X[104X
+    [4X[25Xgap>[125X [27XIsPcGroup( S );[127X[104X
+    [4X[28Xfalse[128X[104X
+    [4X[25Xgap>[125X [27X# if we need to compute with S we should convert it to a pc group[127X[104X
+    [4X[25Xgap>[125X [27XSpc := PcGroupFpGroup( S );[127X[104X
+    [4X[28X<pc group of size 1490116119384765625 with 26 generators>[128X[104X
+    [4X[25Xgap>[125X [27X[127X[104X
+    [4X[25Xgap>[125X [27XH := F / [ a^625, Comm(Comm(Comm(Comm(b, a), a), a), a)/Comm(b, a)^5,[127X[104X
+    [4X[25X>[125X [27X              Comm(Comm(b, a), b), b^625 ];;[127X[104X
+    [4X[25Xgap>[125X [27XStandardPresentation( H : Prime := 5, ClassBound := 15, Metabelian );[127X[104X
+    [4X[28X<fp group on the generators [ f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, [128X[104X
+    [4X[28X  f12, f13, f14, f15, f16, f17, f18, f19, f20 ]>[128X[104X
+    [4X[25Xgap>[125X [27X[127X[104X
+    [4X[25Xgap>[125X [27XF4 := FreeGroup( "a", "b", "c", "d" );;[127X[104X
+    [4X[25Xgap>[125X [27Xa := F4.1;; b := F4.2;; c := F4.3;; d := F4.4;;[127X[104X
+    [4X[25Xgap>[125X [27XG4 := F4 / [ b^4, b^2 / Comm(Comm (b, a), a), d^16,[127X[104X
+    [4X[25X>[125X [27X                a^16 / (c * d), b^8 / (d * c^4) ];[127X[104X
+    [4X[28X<fp group on the generators [ a, b, c, d ]>[128X[104X
+    [4X[25Xgap>[125X [27XK := Pq( G4 : Prime := 2, ClassBound := 1 );[127X[104X
+    [4X[28X<pc group of size 4 with 2 generators>[128X[104X
+    [4X[25Xgap>[125X [27XStandardPresentation( G4 : pQuotient := K, ClassBound := 14 );[127X[104X
+    [4X[28X<fp group with 53 generators>[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YTyping:  [10XPqExample(  "StandardPresentation" );[110X runs the above example in [5XGAP[105X
+  (see [2XPqExample[102X ([14X3.4-4[114X)).[133X
+  
+  [1X4.2-2 EpimorphismPqStandardPresentation[101X
+  
+  [33X[1;0Y[29X[2XEpimorphismPqStandardPresentation[102X( [3XF:[103X [3Xoptions[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XEpimorphismStandardPresentation[102X( [3XF:[103X [3Xoptions[103X ) [32X method[133X
+  
+  [33X[0;0YEach  of  the  above functions accepts the same arguments and options as the
+  function [10XStandardPresentation[110X (see [2XStandardPresentation[102X ([14X4.2-1[114X)) and returns
+  an  epimorphism  from the fp or pc group [3XF[103X onto the finitely presented group
+  given  by  a  standard  presentation, i.e. if [3XS[103X is the standard presentation
+  computed   for   the   [22Xp[122X-quotient   of   [3XF[103X   by   [10XStandardPresentation[110X  then
+  [10XEpimorphismStandardPresentation[110X  returns the epimorphism from [3XF[103X to the group
+  with presentation [3XS[103X.[133X
+  
+  [33X[0;0Y[13XNote:[113X   The  attributes  and  property  [10XNuclearRank[110X,  [10XMultiplicatorRank[110X  and
+  [10XIsCapable[110X  are  set  for  the  image  group  of  the epimorphism returned by
+  [10XEpimorphismPqStandardPresentation[110X  or  [10XEpimorphismStandardPresentation[110X  (see
+  Section [14X'[33X[0;0YAttributes and a Property for fp and pc p-groups[133X'[114X).[133X
+  
+  [33X[0;0YWe illustrate the function with the following example.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XF := FreeGroup(6, "F");[127X[104X
+    [4X[28X<free group on the generators [ F1, F2, F3, F4, F5, F6 ]>[128X[104X
+    [4X[25Xgap>[125X [27X# For printing GAP uses the symbols F1, ... for the generators of F[127X[104X
+    [4X[25Xgap>[125X [27Xx := F.1;; y := F.2;; z := F.3;; w := F.4;; a := F.5;; b := F.6;;[127X[104X
+    [4X[25Xgap>[125X [27XR := [x^3 / w, y^3 / w * a^2 * b^2, w^3 / b,[127X[104X
+    [4X[25X>[125X [27X         Comm (y, x) / z, Comm (z, x), Comm (z, y) / a, z^3 ];;[127X[104X
+    [4X[25Xgap>[125X [27XQ := F / R;[127X[104X
+    [4X[28X<fp group on the generators [ F1, F2, F3, F4, F5, F6 ]>[128X[104X
+    [4X[25Xgap>[125X [27X# For printing GAP also uses the symbols F1, ... for the generators of Q[127X[104X
+    [4X[25Xgap>[125X [27X# (the same as used for F) ... but the gen'rs of Q and F are different:[127X[104X
+    [4X[25Xgap>[125X [27XGeneratorsOfGroup(F) = GeneratorsOfGroup(Q);[127X[104X
+    [4X[28Xfalse[128X[104X
+    [4X[25Xgap>[125X [27XG := Pq( Q : Prime := 3, ClassBound := 3 );[127X[104X
+    [4X[28X<pc group of size 729 with 6 generators>[128X[104X
+    [4X[25Xgap>[125X [27Xphi := EpimorphismStandardPresentation( Q : Prime := 3,[127X[104X
+    [4X[25X>[125X [27X                                               ClassBound := 3 );[127X[104X
+    [4X[28X[ F1, F2, F3, F4, F5, F6 ] -> [ f1*f2^2*f3*f4^2*f5^2, f1*f2*f3*f5, f3^2, [128X[104X
+    [4X[28X  f4*f6^2, f5, f6 ][128X[104X
+    [4X[25Xgap>[125X [27XSource(phi); # This is the group Q (GAP uses F1, ... for gen'r symbols)[127X[104X
+    [4X[28X<fp group of size infinity on the generators [ F1, F2, F3, F4, F5, F6 ]>[128X[104X
+    [4X[25Xgap>[125X [27XRange(phi);  # This is the group G (GAP uses f1, ... for gen'r symbols)[127X[104X
+    [4X[28X<fp group on the generators [ f1, f2, f3, f4, f5, f6 ]>[128X[104X
+    [4X[25Xgap>[125X [27XAssignGeneratorVariables(G);[127X[104X
+    [4X[28X#I  Assigned the global variables [ f1, f2, f3, f4, f5, f6 ][128X[104X
+    [4X[25Xgap>[125X [27X# Just to see that the images of [F1, ..., F6] do generate G[127X[104X
+    [4X[25Xgap>[125X [27XGroup([ f1*f2^2*f3, f1*f2*f3*f4*f5^2*f6^2, f3^2, f4, f5, f6 ]) = G;[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27XSize( Image(phi) );[127X[104X
+    [4X[28X729[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YTyping:  [10XPqExample(  "EpimorphismStandardPresentation"  );[110X  runs  the  above
+  example  in  [5XGAP[105X (see [2XPqExample[102X ([14X3.4-4[114X)). Note that [10XAssignGeneratorVariables[110X
+  (see [2XAssignGeneratorVariables[102X   ([14XReference:  AssignGeneratorVariables[114X))  has
+  only been available since [5XGAP[105X 4.3.[133X
+  
+  
+  [1X4.3 [33X[0;0YTesting p-Groups for Isomorphism[133X[101X
+  
+  [1X4.3-1 IsPqIsomorphicPGroup[101X
+  
+  [33X[1;0Y[29X[2XIsPqIsomorphicPGroup[102X( [3XG[103X, [3XH[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XIsIsomorphicPGroup[102X( [3XG[103X, [3XH[103X ) [32X method[133X
+  
+  [33X[0;0Yeach  return  true  if  [3XG[103X  is isomorphic to [3XH[103X, where both [3XG[103X and [3XH[103X must be pc
+  groups  of prime power order. These functions compute and compare in [5XGAP[105X the
+  fp   groups   given   by   standard   presentations   for   [3XG[103X   and  [3XH[103X  (see
+  [2XStandardPresentation[102X ([14X4.2-1[114X)).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XG := Group( (1,2,3,4), (1,3) );[127X[104X
+    [4X[28XGroup([ (1,2,3,4), (1,3) ])[128X[104X
+    [4X[25Xgap>[125X [27XP1 := Image( IsomorphismPcGroup( G ) );[127X[104X
+    [4X[28XGroup([ f1, f2, f3 ])[128X[104X
+    [4X[25Xgap>[125X [27XP2 := SmallGroup( 8, 5 );[127X[104X
+    [4X[28X<pc group of size 8 with 3 generators>[128X[104X
+    [4X[25Xgap>[125X [27XIsIsomorphicPGroup( P1, P2 );[127X[104X
+    [4X[28Xfalse[128X[104X
+    [4X[25Xgap>[125X [27XP3 := SmallGroup( 8, 4 );[127X[104X
+    [4X[28X<pc group of size 8 with 3 generators>[128X[104X
+    [4X[25Xgap>[125X [27XIsIsomorphicPGroup( P1, P3 );[127X[104X
+    [4X[28Xfalse[128X[104X
+    [4X[25Xgap>[125X [27XP4 := SmallGroup( 8, 3 );[127X[104X
+    [4X[28X<pc group of size 8 with 3 generators>[128X[104X
+    [4X[25Xgap>[125X [27XIsIsomorphicPGroup( P1, P4 );[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YTyping:  [10XPqExample(  "IsIsomorphicPGroup"  );[110X  runs the above example in [5XGAP[105X
+  (see [2XPqExample[102X ([14X3.4-4[114X)).[133X
+  
+  
+  [1X4.4 [33X[0;0YComputing Descendants of a p-Group[133X[101X
+  
+  [1X4.4-1 PqDescendants[101X
+  
+  [33X[1;0Y[29X[2XPqDescendants[102X( [3XG:[103X [3Xoptions[103X ) [32X function[133X
+  
+  [33X[0;0Yreturns,  for  the  pc  group  [3XG[103X  which  must be of prime power order with a
+  confluent  pc  presentation  (see [2XIsConfluent[102X ([14XReference: IsConfluent for pc
+  groups[114X)  in  the [5XGAP[105X Reference Manual), a list of descendants (pc groups) of
+  [3XG[103X.  Following  the  colon  [3Xoptions[103X  a  selection of the options listed below
+  should   be   given,   separated  by  commas  like  record  components  (see
+  Section [14XReference:  Function Call With Options[114X in the [5XGAP[105X Reference Manual).
+  See Chapter [14X'[33X[0;0YANUPQ Options[133X'[114X for detailed descriptions of the options.[133X
+  
+  [33X[0;0YThe  automorphism  group of each descendant [3XD[103X is also computed via a call to
+  the [10XAutomorphismGroupPGroup[110X function of the [5XAutPGrp[105X package.[133X
+  
+  [30X    [33X[0;6Y[10XClassBound := [3Xn[103X[10X[110X[133X
+  
+  [30X    [33X[0;6Y[10XRelators := [3Xrels[103X[10X[110X[133X
+  
+  [30X    [33X[0;6Y[10XOrderBound := [3Xn[103X[10X[110X[133X
+  
+  [30X    [33X[0;6Y[10XStepSize := [3Xn[103X[10X[110X, [10XStepSize := [3Xlist[103X[10X[110X[133X
+  
+  [30X    [33X[0;6Y[10XRankInitialSegmentSubgroups := [3Xn[103X[10X[110X[133X
+  
+  [30X    [33X[0;6Y[10XSpaceEfficient[110X[133X
+  
+  [30X    [33X[0;6Y[10XCapableDescendants[110X[133X
+  
+  [30X    [33X[0;6Y[10XAllDescendants := false[110X[133X
+  
+  [30X    [33X[0;6Y[10XExponent := [3Xn[103X[10X[110X[133X
+  
+  [30X    [33X[0;6Y[10XMetabelian[110X[133X
+  
+  [30X    [33X[0;6Y[10XGroupName := [3Xname[103X[10X[110X[133X
+  
+  [30X    [33X[0;6Y[10XSubList := [3Xsub[103X[10X[110X[133X
+  
+  [30X    [33X[0;6Y[10XBasicAlgorithm[110X[133X
+  
+  [30X    [33X[0;6Y[10XCustomiseOutput := [3Xrec[103X[10X[110X[133X
+  
+  [30X    [33X[0;6Y[10XSetupFile := [3Xfilename[103X[10X[110X[133X
+  
+  [30X    [33X[0;6Y[10XPqWorkspace := [3Xworkspace[103X[10X[110X[133X
+  
+  [33X[0;0Y[13XNotes:[113X  The function [10XPqDescendants[110X uses the automorphism group of [3XG[103X which it
+  computes  via the package [5XAutPGrp[105X. If this package is not installed an error
+  may  be  raised. If the automorphism group of [3XG[103X is insoluble, the [10Xpq[110X program
+  will call [5XGAP[105X together with the [5XAutPGrp[105X package for certain orbit-stabilizer
+  calculations.  (So,  in  any  case, one should ensure the [5XAutPGrp[105X package is
+  installed.)[133X
+  
+  [33X[0;0YThe attributes and property [10XNuclearRank[110X, [10XMultiplicatorRank[110X and [10XIsCapable[110X are
+  set   for   each   group   of   the  list  returned  by  [10XPqDescendants[110X  (see
+  Section [14X'[33X[0;0YAttributes and a Property for fp and pc p-groups[133X'[114X).[133X
+  
+  [33X[0;0YThe options [3Xoptions[103X for [10XPqDescendants[110X may be passed in an alternative manner
+  to  that already described, namely you can pass [10XPqDescendants[110X a record as an
+  argument,  which  contains  as entries some (or all) of the above mentioned.
+  Those  parameters  which do not occur in the record are set to their default
+  values.[133X
+  
+  [33X[0;0YNote that you cannot set both [10XOrderBound[110X and [10XStepSize[110X.[133X
+  
+  [33X[0;0YIn  the  first  example  we  compute all descendants of the Klein four group
+  which have exponent-2 class at most 5 and order at most [22X2^6[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XF := FreeGroup( "a", "b" );; a := F.1;; b := F.2;;[127X[104X
+    [4X[25Xgap>[125X [27XG := PcGroupFpGroup( F / [ a^2, b^2, Comm(b, a) ] );[127X[104X
+    [4X[28X<pc group of size 4 with 2 generators>[128X[104X
+    [4X[25Xgap>[125X [27Xdes := PqDescendants( G : OrderBound := 6, ClassBound := 5 );;[127X[104X
+    [4X[25Xgap>[125X [27XLength(des);[127X[104X
+    [4X[28X83[128X[104X
+    [4X[25Xgap>[125X [27XList(des, Size); [127X[104X
+    [4X[28X[ 8, 8, 8, 16, 16, 16, 32, 16, 16, 16, 16, 16, 32, 32, 64, 64, 32, 32, 32, [128X[104X
+    [4X[28X  32, 32, 32, 32, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 32, 32, 32, 32, [128X[104X
+    [4X[28X  64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 32, 32, 32, 32, 32, 64, 64, 64, [128X[104X
+    [4X[28X  64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, [128X[104X
+    [4X[28X  64, 64, 64, 64, 64, 64, 64 ][128X[104X
+    [4X[25Xgap>[125X [27XList(des, d -> Length( PCentralSeries( d, 2 ) ) - 1 );[127X[104X
+    [4X[28X[ 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, [128X[104X
+    [4X[28X  3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, [128X[104X
+    [4X[28X  4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, [128X[104X
+    [4X[28X  4, 4, 4, 5, 5, 5, 5, 5 ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YBelow,  we  compute  all  capable  descendants of order 27 of the elementary
+  abelian group of order 9.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XF := FreeGroup( 2, "g" );[127X[104X
+    [4X[28X<free group on the generators [ g1, g2 ]>[128X[104X
+    [4X[25Xgap>[125X [27XG := PcGroupFpGroup( F / [ F.1^3, F.2^3, Comm(F.1, F.2) ] );[127X[104X
+    [4X[28X<pc group of size 9 with 2 generators>[128X[104X
+    [4X[25Xgap>[125X [27Xdes := PqDescendants( G : OrderBound := 3, ClassBound := 2,[127X[104X
+    [4X[25X>[125X [27X                             CapableDescendants );[127X[104X
+    [4X[28X[ <pc group of size 27 with 3 generators>, [128X[104X
+    [4X[28X  <pc group of size 27 with 3 generators> ][128X[104X
+    [4X[25Xgap>[125X [27XList(des, d -> Length( PCentralSeries( d, 3 ) ) - 1 );[127X[104X
+    [4X[28X[ 2, 2 ][128X[104X
+    [4X[25Xgap>[125X [27X# For comparison let us now compute all descendants[127X[104X
+    [4X[25Xgap>[125X [27XPqDescendants( G : OrderBound := 3, ClassBound := 2);[127X[104X
+    [4X[28X[ <pc group of size 27 with 3 generators>, [128X[104X
+    [4X[28X  <pc group of size 27 with 3 generators>, [128X[104X
+    [4X[28X  <pc group of size 27 with 3 generators> ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YIn  the  third example, we compute all capable descendants of the elementary
+  abelian  group  of order [22X5^2[122X which have exponent-[22X5[122X class at most [22X3[122X, exponent
+  [22X5[122X, and are metabelian.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XF := FreeGroup( 2, "g" );;[127X[104X
+    [4X[25Xgap>[125X [27XG := PcGroupFpGroup( F / [ F.1^5, F.2^5, Comm(F.2, F.1) ] );[127X[104X
+    [4X[28X<pc group of size 25 with 2 generators>[128X[104X
+    [4X[25Xgap>[125X [27Xdes := PqDescendants( G : Metabelian, ClassBound := 3,[127X[104X
+    [4X[25X>[125X [27X                             Exponent := 5, CapableDescendants );[127X[104X
+    [4X[28X[ <pc group of size 125 with 3 generators>, [128X[104X
+    [4X[28X  <pc group of size 625 with 4 generators>, [128X[104X
+    [4X[28X  <pc group of size 3125 with 5 generators> ][128X[104X
+    [4X[25Xgap>[125X [27XList(des, d -> Length( PCentralSeries( d, 5 ) ) - 1 );[127X[104X
+    [4X[28X[ 2, 3, 3 ][128X[104X
+    [4X[25Xgap>[125X [27XList(des, d -> Length( DerivedSeries( d ) ) );[127X[104X
+    [4X[28X[ 3, 3, 3 ][128X[104X
+    [4X[25Xgap>[125X [27XList(des, d -> Maximum( List( Elements(d), Order ) ) );[127X[104X
+    [4X[28X[ 5, 5, 5 ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  examples [10X"PqDescendants-1"[110X, [10X"PqDescendants-2"[110X and [10X"PqDescendants-3"[110X (in
+  order)  are  essentially the same as the above three examples (see [2XPqExample[102X
+  ([14X3.4-4[114X)).[133X
+  
+  [1X4.4-2 PqSupplementInnerAutomorphisms[101X
+  
+  [33X[1;0Y[29X[2XPqSupplementInnerAutomorphisms[102X( [3XD[103X ) [32X function[133X
+  
+  [33X[0;0Yreturns  a  generating set for a supplement to the inner automorphisms of [3XD[103X,
+  in  the  form  of  a  record  with  fields  [10XagAutos[110X, [10XagOrder[110X and [10XglAutos[110X, as
+  provided  by  the  [10Xpq[110X  program.  One  should  be very careful in using these
+  automorphisms for a descendant calculation.[133X
+  
+  [33X[0;0Y[13XNote:[113X  In  principle there must be a way to use those automorphisms in order
+  to  compute  descendants  but  there  does not seem to be a way to hand back
+  these automorphisms properly to the [10Xpq[110X program.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XQ := Pq( FreeGroup(2) : Prime := 3, ClassBound := 1 );[127X[104X
+    [4X[28X<pc group of size 9 with 2 generators>[128X[104X
+    [4X[25Xgap>[125X [27Xdes := PqDescendants( Q : StepSize := 1 );[127X[104X
+    [4X[28X[ <pc group of size 27 with 3 generators>, [128X[104X
+    [4X[28X  <pc group of size 27 with 3 generators>, [128X[104X
+    [4X[28X  <pc group of size 27 with 3 generators> ][128X[104X
+    [4X[25Xgap>[125X [27XS := PqSupplementInnerAutomorphisms( des[3] );[127X[104X
+    [4X[28Xrec( agAutos := [  ], agOrder := [ 3, 2, 2, 2 ], [128X[104X
+    [4X[28X  glAutos := [ Pcgs([ f1, f2, f3 ]) -> [ f1*f2^2, f2, f3 ], [128X[104X
+    [4X[28X      Pcgs([ f1, f2, f3 ]) -> [ f1^2, f2, f3^2 ], [128X[104X
+    [4X[28X      Pcgs([ f1, f2, f3 ]) -> [ f1^2, f2, f3^2 ] ] )[128X[104X
+    [4X[25Xgap>[125X [27XA := AutomorphismGroupPGroup( des[3] );[127X[104X
+    [4X[28Xrec( [128X[104X
+    [4X[28X  agAutos := [ Pcgs([ f1, f2, f3 ]) -> [ f1^2, f2, f3^2 ], [128X[104X
+    [4X[28X      Pcgs([ f1, f2, f3 ]) -> [ f1*f2^2, f2, f3 ], [128X[104X
+    [4X[28X      Pcgs([ f1, f2, f3 ]) -> [ f1*f3, f2, f3 ], [128X[104X
+    [4X[28X      Pcgs([ f1, f2, f3 ]) -> [ f1, f2*f3, f3 ] ], agOrder := [ 2, 3, 3, 3 ], [128X[104X
+    [4X[28X  glAutos := [  ], glOper := [  ], glOrder := 1, [128X[104X
+    [4X[28X  group := <pc group of size 27 with 3 generators>, [128X[104X
+    [4X[28X  one := IdentityMapping( <pc group of size 27 with 3 generators> ), [128X[104X
+    [4X[28X  size := 54 )[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YTyping:   [10XPqExample(  "PqSupplementInnerAutomorphisms"  );[110X  runs  the  above
+  example in [5XGAP[105X (see [2XPqExample[102X ([14X3.4-4[114X)).[133X
+  
+  [33X[0;0YNote  that  by  also including [10XPqStart[110X as a second argument to [10XPqExample[110X one
+  can   see  how  it  is  possible,  with  the  aid  of  [10XPqSetPQuotientToGroup[110X
+  (see [2XPqSetPQuotientToGroup[102X  ([14X5.3-7[114X)), to do the equivalent computations with
+  the  interactive  versions  of  [10XPq[110X and [10XPqDescendants[110X and a single [10Xpq[110X process
+  (recall [10Xpq[110X is the name of the external C program).[133X
+  
+  [1X4.4-3 PqList[101X
+  
+  [33X[1;0Y[29X[2XPqList[102X( [3Xfilename:[103X [[3XSubList[103X [3X:=[103X [3Xsub[103X] ) [32X function[133X
+  
+  [33X[0;0Yreads  a  file  with  name  [3Xfilename[103X (a string) and returns the list [3XL[103X of pc
+  groups  (or  with  option  [10XSubList[110X a sublist of [3XL[103X or a single pc group in [3XL[103X)
+  defined in that file. If the option [10XSubList[110X is passed and has the value [3Xsub[103X,
+  then it has the same meaning as for [10XPqDescendants[110X, i.e. if [3Xsub[103X is an integer
+  then  [10XPqList[110X  returns [10X[3XL[103X[10X[[3Xsub[103X[10X][110X; otherwise, if [3Xsub[103X is a list of integers [10XPqList[110X
+  returns [10XSublist([3XL[103X[10X, [3Xsub[103X[10X )[110X.[133X
+  
+  [33X[0;0YBoth  [10XPqList[110X and [10XSavePqList[110X (see [2XSavePqList[102X ([14X4.4-4[114X)) can be used to save and
+  restore a list of descendants (see [2XPqDescendants[102X ([14X4.4-1[114X)).[133X
+  
+  [1X4.4-4 SavePqList[101X
+  
+  [33X[1;0Y[29X[2XSavePqList[102X( [3Xfilename[103X, [3Xlist[103X ) [32X function[133X
+  
+  [33X[0;0Ywrites a list of descendants [3Xlist[103X to a file with name [3Xfilename[103X (a string).[133X
+  
+  [33X[0;0Y[10XSavePqList[110X  and [10XPqList[110X (see [2XPqList[102X ([14X4.4-3[114X)) can be used to save and restore,
+  respectively, the results of [10XPqDescendants[110X (see [2XPqDescendants[102X ([14X4.4-1[114X)).[133X
+  

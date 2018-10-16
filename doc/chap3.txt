@@ -1,0 +1,678 @@
+  
+  [1X3 [33X[0;0YInfrastructure[133X[101X
+  
+  [33X[0;0YMost of the details in this chapter are of a technical nature; the user need
+  only skim over this chapter on a first reading. Mostly, it is enough to know
+  that[133X
+  
+  [30X    [33X[0;6Yyou  must  do  a  [10XLoadPackage("anupq");[110X before you can expect to use a
+        command  defined by the [5XANUPQ[105X package (details are in Section [14X'[33X[0;0YLoading
+        the ANUPQ Package[133X'[114X);[133X
+  
+  [30X    [33X[0;6Ypartial  results  of  [5XANUPQ[105X commands and some other data are stored in
+        the  [10XANUPQData[110X  global variable (details are in Section [14X'[33X[0;0YThe ANUPQData
+        Record[133X'[114X);[133X
+  
+  [30X    [33X[0;6Ydoing [10XSetInfoLevel(InfoANUPQ, [3Xn[103X[10X);[110X for [3Xn[103X greater than the default value
+        1  will give progressively more information of what is going on [21Xbehind
+        the scenes[121X (details are in Section [14X'[33X[0;0YSetting the Verbosity of ANUPQ via
+        Info and InfoANUPQ[133X'[114X);[133X
+  
+  [30X    [33X[0;6Yin  Section [14X'[33X[0;0YUtility Functions[133X'[114X we describe some utility functions and
+        functions  that  run  examples from the collection of examples of this
+        package;[133X
+  
+  [30X    [33X[0;6Yin  Section [14X'[33X[0;0YAttributes  and  a  Property  for  fp and pc p-groups[133X'[114X we
+        describe  the  attributes  and property [10XNuclearRank[110X, [10XMultiplicatorRank[110X
+        and [10XIsCapable[110X; and[133X
+  
+  [30X    [33X[0;6Yin  Section [14X'[33X[0;0YHints  and  Warnings  regarding  the  use  of Options[133X'[114X we
+        describe  some  troubleshooting strategies. Also this section explains
+        the  utility of setting [10XANUPQWarnOfOtherOptions := true;[110X (particularly
+        for  novice users) for detecting misspelt options and diagnosing other
+        option usage problems.[133X
+  
+  
+  [1X3.1 [33X[0;0YLoading the ANUPQ Package[133X[101X
+  
+  [33X[0;0YTo  use  the  [5XANUPQ[105X  package,  as with any [5XGAP[105X package, it must be requested
+  explicitly. This is done by calling[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XLoadPackage( "anupq" );[127X[104X
+    [4X[28X---------------------------------------------------------------------------[128X[104X
+    [4X[28XLoading    ANUPQ (ANU p-Quotient) 3.1[128X[104X
+    [4X[28XGAP code by  Greg Gamble <Greg.Gamble@uwa.edu.au> (address for[128X[104X
+    [4X[28Xcorrespondence)[128X[104X
+    [4X[28X           Werner Nickel (http://www.mathematik.tu-darmstadt.de/~nickel/)[128X[104X
+    [4X[28X           [uses ANU pq binary (C code program) version: 1.9][128X[104X
+    [4X[28XC code by  Eamonn O'Brien (http://www.math.auckland.ac.nz/~obrien)[128X[104X
+    [4X[28XCo-maintained by Max Horn <max.horn@math.uni-giessen.de>[128X[104X
+    [4X[28X[128X[104X
+    [4X[28X            For help, type: ?ANUPQ[128X[104X
+    [4X[28X---------------------------------------------------------------------------[128X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YNote  that  since the [5XANUPQ[105X package uses the [10XAutomorphimGroupPGroup[110X function
+  of the [5XAutPGrp[105X package and, in any case, often needs other [5XAutPGrp[105X functions
+  when computing descendants, the user must ensure that the [5XAutPGrp[105X package is
+  also  installed,  at  least  version  1.5.  If  the  [5XAutPGrp[105X  package is not
+  installed, the [5XANUPQ[105X package will [9Xfail[109X to load.[133X
+  
+  [33X[0;0YAlso,  if  [5XGAP[105X cannot find a working [10Xpq[110X binary, the call to [10XLoadPackage[110X will
+  return [9Xfail[109X.[133X
+  
+  [33X[0;0YIf  you  want  to  load  the  [5XANUPQ[105X  package  by  default,  you  can put the
+  [10XLoadPackage[110X  command  into  your  [10Xgap.ini[110X  file  (see Section [14XReference: The
+  gap.ini and gaprc files[114X in the [5XGAP[105X Reference Manual). By the way, the novice
+  user of the [5XANUPQ[105X package should probably also append the line[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28XANUPQWarnOfOtherOptions := true;[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0Yto  their  [10Xgap.ini[110X file, somewhere after the [10XLoadPackage( "anupq" );[110X command
+  (see [2XANUPQWarnOfOtherOptions[102X ([14X3.6-1[114X)).[133X
+  
+  
+  [1X3.2 [33X[0;0YThe ANUPQData Record[133X[101X
+  
+  [33X[0;0YThis  section  contains  fairly technical details which may be skipped on an
+  initial reading.[133X
+  
+  [1X3.2-1 ANUPQData[101X
+  
+  [33X[1;0Y[29X[2XANUPQData[102X[32X global variable[133X
+  
+  [33X[0;0Yis  a [5XGAP[105X record in which the essential data for an [5XANUPQ[105X session within [5XGAP[105X
+  is stored; its fields are:[133X
+  
+  [8X[10Xbinary[110X[8X[108X
+        [33X[0;6Ythe path of the [10Xpq[110X binary;[133X
+  
+  [8X[10Xtmpdir[110X[8X[108X
+        [33X[0;6Ythe  path  of  the  temporary  directory used by the [10Xpq[110X binary and [5XGAP[105X
+        (i.e. the directory in which all the [10Xpq[110X's temporary files are created)
+        (also see [2XANUPQDirectoryTemporary[102X ([14X3.2-2[114X) below);[133X
+  
+  [8X[10Xoutfile[110X[8X[108X
+        [33X[0;6Ythe full path of the default [10Xpq[110X output file;[133X
+  
+  [8X[10XSPimages[110X[8X[108X
+        [33X[0;6Ythe  full  path of the file [10XGAP_library[110X to which the [10Xpq[110X program writes
+        its Standard Presentation images;[133X
+  
+  [8X[10Xversion[110X[8X[108X
+        [33X[0;6Ythe version of the current [10Xpq[110X binary;[133X
+  
+  [8X[10Xni[110X[8X[108X
+        [33X[0;6Ya  data  record  used  by  non-interactive  functions  (see  below and
+        Chapter [14X'[33X[0;0YNon-interactive ANUPQ functions[133X'[114X);[133X
+  
+  [8X[10Xio[110X[8X[108X
+        [33X[0;6Ylist  of  data  records  for  [10XPqStart[110X  (see below and [2XPqStart[102X ([14X5.1-1[114X))
+        processes;[133X
+  
+  [8X[10Xtopqlogfile[110X[8X[108X
+        [33X[0;6Yname of file logged to by [10XToPQLog[110X (see [2XToPQLog[102X ([14X3.4-7[114X)); and[133X
+  
+  [8X[10Xlogstream[110X[8X[108X
+        [33X[0;6Ystream of file logged to by [10XToPQLog[110X (see [2XToPQLog[102X ([14X3.4-7[114X)).[133X
+  
+  [33X[0;0YEach time an interactive [5XANUPQ[105X process is initiated via [10XPqStart[110X (see [2XPqStart[102X
+  ([14X5.1-1[114X)),  an  identifying  number  [3XioIndex[103X is generated for the interactive
+  process  and  a  record [10XANUPQData.io[[3XioIndex[103X[10X][110X with some or all of the fields
+  listed  below is created. Whenever a non-interactive function is called (see
+  Chapter [14X'[33X[0;0YNon-interactive  ANUPQ  functions[133X'[114X),  the  record  [10XANUPQData.ni[110X  is
+  updated  with  fields that, if bound, have exactly the same purpose as for a
+  [10XANUPQData.io[[3XioIndex[103X[10X][110X record.[133X
+  
+  [8X[10Xstream[110X[8X[108X
+        [33X[0;6Ythe   IOStream   opened  for  interactive  [5XANUPQ[105X  process  [3XioIndex[103X  or
+        non-interactive [5XANUPQ[105X function;[133X
+  
+  [8X[10Xgroup[110X[8X[108X
+        [33X[0;6Ythe  group  given  as  first  argument  to [10XPqStart[110X, [10XPq[110X, [10XPqEpimorphism[110X,
+        [10XPqDescendants[110X or [10XPqStandardPresentation[110X (or any synonymous methods);[133X
+  
+  [8X[10Xhaspcp[110X[8X[108X
+        [33X[0;6Yis  bound  and  set to [9Xtrue[109X when a pc presentation is first set inside
+        the [10Xpq[110X program (e.g. by [10XPqPcPresentation[110X or [10XPqRestorePcPresentation[110X or
+        a   higher   order   function   like   [10XPq[110X,   [10XPqEpimorphism[110X,  [10XPqPCover[110X,
+        [10XPqDescendants[110X  or  [10XPqStandardPresentation[110X that does a [10XPqPcPresentation[110X
+        operation,  but  [13Xnot[113X [10XPqStart[110X which only starts up an interactive [5XANUPQ[105X
+        process);[133X
+  
+  [8X[10Xgens[110X[8X[108X
+        [33X[0;6Ya  list  of  the generators of the group [10Xgroup[110X as strings (the same as
+        those passed to the [10Xpq[110X program);[133X
+  
+  [8X[10Xrels[110X[8X[108X
+        [33X[0;6Ya  list  of  the  relators  of the group [10Xgroup[110X as strings (the same as
+        those passed to the [10Xpq[110X program);[133X
+  
+  [8X[10Xname[110X[8X[108X
+        [33X[0;6Ythe  name  of  the group whose pc presentation is defined by a call to
+        the  [10Xpq[110X  program  (according to the [10Xpq[110X program -- unless you have used
+        the  [10XGroupName[110X  option  (see  e.g. [2XPq[102X ([14X4.1-1[114X)) or applied the function
+        [10XSetName[110X (see [2XSetName[102X ([14XReference: Name[114X)) to the group, the [21Xgeneric[121X name
+        [10X"[grp]"[110X is set as a default);[133X
+  
+  [8X[10Xgpnum[110X[8X[108X
+        [33X[0;6Yif  not  a  null string, the [21Xnumber[121X (i.e. the unique label assigned by
+        the [10Xpq[110X program) of the last descendant processed;[133X
+  
+  [8X[10Xclass[110X[8X[108X
+        [33X[0;6Ythe  largest lower exponent-[22Xp[122X central class of a quotient group of the
+        group (usually [10Xgroup[110X) found by a call to the [10Xpq[110X program;[133X
+  
+  [8X[10Xforder[110X[8X[108X
+        [33X[0;6Ythe  factored  order of the quotient group of largest lower exponent-[22Xp[122X
+        central  class found for the group (usually [10Xgroup[110X) by a call to the [10Xpq[110X
+        program  (this  factored order is given as a list [10X[p,n][110X, indicating an
+        order of [22Xp^n[122X);[133X
+  
+  [8X[10Xpcoverclass[110X[8X[108X
+        [33X[0;6Ythe  lower  exponent-[22Xp[122X  central  class  of  the  [22Xp[122X-covering group of a
+        [22Xp[122X-quotient  of  the  group  (usually  [10Xgroup[110X) found by a call to the [10Xpq[110X
+        program;[133X
+  
+  [8X[10Xworkspace[110X[8X[108X
+        [33X[0;6Ythe  workspace  set  for  the  [10Xpq[110X  process  (either  given as a second
+        argument to [10XPqStart[110X, or set by default to 10000000);[133X
+  
+  [8X[10Xmenu[110X[8X[108X
+        [33X[0;6Ythe  current  menu  of  the  [10Xpq[110X  process (the [10Xpq[110X program is managed by
+        various  menus,  the details of which the user shouldn't normally need
+        to know about -- the [10Xmenu[110X field remembers which menu the [10Xpq[110X process is
+        currently [21Xin[121X);[133X
+  
+  [8X[10Xoutfname[110X[8X[108X
+        [33X[0;6Yis  the  file  to  which  [10Xpq[110X  output  is  directed,  which  is  always
+        [10XANUPQData.outfile[110X,  except  when  option  [10XSetupFile[110X  is  used  with  a
+        non-interactive   function,   in   which   case  [10Xoutfname[110X  is  set  to
+        [10X"PQ_OUTPUT"[110X;[133X
+  
+  [8X[10XpQuotient[110X[8X[108X
+        [33X[0;6Yis  set  to the value returned by [10XPq[110X (see [2XPq[102X ([14X4.1-1[114X)) (the field [10XpQepi[110X
+        is also set at the same time);[133X
+  
+  [8X[10XpQepi[110X[8X[108X
+        [33X[0;6Yis  set  to  the  value  returned  by [10XPqEpimorphism[110X (see [2XPqEpimorphism[102X
+        ([14X4.1-2[114X)) (the field [10XpQuotient[110X is also set at the same time);[133X
+  
+  [8X[10XpCover[110X[8X[108X
+        [33X[0;6Yis set to the value returned by [10XPqPCover[110X (see [2XPqPCover[102X ([14X4.1-3[114X));[133X
+  
+  [8X[10XSP[110X[8X[108X
+        [33X[0;6Yis   set   to   the   value   returned  by  [10XPqStandardPresentation[110X  or
+        [10XStandardPresentation[110X  (see [2XPqStandardPresentation[102X ([14X5.3-4[114X)) when called
+        interactively,  for process [3Xi[103X (the field [10XSPepi[110X is also set at the same
+        time);[133X
+  
+  [8X[10XSPepi[110X[8X[108X
+        [33X[0;6Yis  set  to the value returned by [10XEpimorphismPqStandardPresentation[110X or
+        [10XEpimorphismStandardPresentation[110X (see [2XEpimorphismPqStandardPresentation[102X
+        ([14X5.3-5[114X))  when  called  interactively,  for process [3Xi[103X (the field [10XSP[110X is
+        also set at the same time);[133X
+  
+  [8X[10Xdescendants[110X[8X[108X
+        [33X[0;6Yis  set  to  the  value  returned  by [10XPqDescendants[110X (see [2XPqDescendants[102X
+        ([14X4.4-1[114X));[133X
+  
+  [8X[10Xtreepos[110X[8X[108X
+        [33X[0;6Yif     set     by     a     call     to    [10XPqDescendantsTreeCoclassOne[110X
+        (see [2XPqDescendantsTreeCoclassOne[102X  ([14XA.4-1[114X)),  it contains a record with
+        fields  [10Xclass[110X, [10Xnode[110X and [10Xndes[110X being the information that determines the
+        last descendant with a non-zero number of descendants processed;[133X
+  
+  [8X[10Xxgapsheet[110X[8X[108X
+        [33X[0;6Yif     set     by     a     call     to    [10XPqDescendantsTreeCoclassOne[110X
+        (see [2XPqDescendantsTreeCoclassOne[102X  ([14XA.4-1[114X))  during an [5XXGAP[105X session, it
+        contains  the  [5XXGAP[105X  [10XSheet[110X on which the descendants tree is displayed;
+        and[133X
+  
+  [8X[10XnextX[110X[8X[108X
+        [33X[0;6Yif     set     by     a     call     to    [10XPqDescendantsTreeCoclassOne[110X
+        (see [2XPqDescendantsTreeCoclassOne[102X  ([14XA.4-1[114X))  during an [5XXGAP[105X session, it
+        contains   a  list  of  integers,  the  [3Xi[103Xth  entry  of  which  is  the
+        [3Xx[103X-coordinate  of the next node (representing a descendant) for the [3Xi[103Xth
+        class.[133X
+  
+  [1X3.2-2 ANUPQDirectoryTemporary[101X
+  
+  [33X[1;0Y[29X[2XANUPQDirectoryTemporary[102X( [3Xdir[103X ) [32X function[133X
+  
+  [33X[0;0Ycalls  the  UNIX command [10Xmkdir[110X to create [3Xdir[103X, which must be a string, and if
+  successful  a  directory object for [3Xdir[103X is both assigned to [10XANUPQData.tmpdir[110X
+  and  returned.  The  field  [10XANUPQData.outfile[110X  is  also  set to be a file in
+  [10XANUPQData.tmpdir[110X, and on exit from [5XGAP[105X [3Xdir[103X is removed. Most users will never
+  need  this  command; by default, [5XGAP[105X typically chooses a [21Xrandom[121X subdirectory
+  of  [10X/tmp[110X for [10XANUPQData.tmpdir[110X which may occasionally have limits on what may
+  be  written  there.  [10XANUPQDirectoryTemporary[110X  permits  the  user to choose a
+  directory (object) where one is not so limited.[133X
+  
+  
+  [1X3.3 [33X[0;0YSetting the Verbosity of ANUPQ via Info and InfoANUPQ[133X[101X
+  
+  [1X3.3-1 InfoANUPQ[101X
+  
+  [33X[1;0Y[29X[2XInfoANUPQ[102X[32X info class[133X
+  
+  [33X[0;0YThe  input  to  and  the  output  from  the  [10Xpq[110X  program is, by default, not
+  displayed.  However  the  user  may  choose  to  see  some,  or all, of this
+  input/output.  This  is  done via the [10XInfo[110X mechanism (see Section [14XReference:
+  Info  Functions[114X in the [5XGAP[105X Reference Manual). For this purpose, there is the
+  [3XInfoClass[103X  [10XInfoANUPQ[110X. If the [10XInfoLevel[110X of [10XInfoANUPQ[110X is high enough each line
+  of  [10Xpq[110X  input/output is directed to a call to [10XInfo[110X and will be displayed for
+  the  user  to  see.  By  default, the [10XInfoLevel[110X of [10XInfoANUPQ[110X is 1, and it is
+  recommended  that  you  leave it at this level, or higher. Messages that the
+  user should presumably want to see and output from the [10Xpq[110X program influenced
+  by the value of the option [10XOutputLevel[110X (see the options listed in Section [2XPq[102X
+  ([14X4.1-1[114X)),  other  than  timing  and  memory  usage  are  directed to [10XInfo[110X at
+  [10XInfoANUPQ[110X level 1.[133X
+  
+  [33X[0;0YTo turn off [13Xall[113X [10XInfoANUPQ[110X messaging, set the [10XInfoANUPQ[110X level to 0.[133X
+  
+  [33X[0;0YThere are five other user-intended [10XInfoANUPQ[110X levels: 2, 3, 4, 5 and 6.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XSetInfoLevel(InfoANUPQ, 2);[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0Yenables  the  display  of  most  timing  and  memory  usage data from the [10Xpq[110X
+  program,  and  also  the  number  of  identity instances when the [10XIdentities[110X
+  option  is  used.  (Some  timing  and  memory  usage data, particularly when
+  profuse in quantity, is [10XInfo[110X-ed at [10XInfoANUPQ[110X level 3 instead.) Note that the
+  the  [5XGAP[105X functions [10Xtime[110X and [10XRuntime[110X (see [2XRuntime[102X ([14XReference: Runtime[114X) in the
+  [5XGAP[105X  Reference Manual) count the time spent by [5XGAP[105X and [13Xnot[113X the time spent by
+  the (external) [10Xpq[110X program.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XSetInfoLevel(InfoANUPQ, 3);[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0Yenables  the display of output of the nature of the first two [10XInfoANUPQ[110X that
+  was  not  directly  invoked  by  the user (e.g. some commands require [5XGAP[105X to
+  discover  something  about  the  current state known to the [10Xpq[110X program). The
+  identity  instances processed under the [10XIdentities[110X option are also displayed
+  at  this  level.  In  some  cases,  the  [10Xpq[110X program produces a lot of output
+  despite  the  fact  that  the [10XOutputLevel[110X (see [14X6.2[114X) is unset or is set to 0;
+  such output is also [10XInfo[110X-ed at [10XInfoANUPQ[110X level 3.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XSetInfoLevel(InfoANUPQ, 4);[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0Yenables the display of all the commands directed to the [10Xpq[110X program, behind a
+  [21X[10XToPQ>  [110X[121X  prompt  (so that you can distinguish it from the output from the [10Xpq[110X
+  program).  See Section [14X'[33X[0;0YHints and Warnings regarding the use of Options[133X'[114X for
+  an example of how this can be a useful troubleshooting tool.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XSetInfoLevel(InfoANUPQ, 5);[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0Yenables the display of the [10Xpq[110X program's prompts for input. Finally,[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XSetInfoLevel(InfoANUPQ, 6);[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0Yenables  the  display  of  all  other output from the [10Xpq[110X program, namely the
+  banner and menus. However, the timing data printed when the [10Xpq[110X program exits
+  can never be observed.[133X
+  
+  
+  [1X3.4 [33X[0;0YUtility Functions[133X[101X
+  
+  [1X3.4-1 PqLeftNormComm[101X
+  
+  [33X[1;0Y[29X[2XPqLeftNormComm[102X( [3Xelts[103X ) [32X function[133X
+  
+  [33X[0;0Yreturns  for  a  list  of elements of some group (e.g. [3Xelts[103X may be a list of
+  words in the generators of a free or fp group) the left normed commutator of
+  [3Xelts[103X, e.g. if [3Xw1[103X, [3Xw2[103X, [3Xw3[103X are such elements then [10XPqLeftNormComm( [[3Xw1[103X[10X, [3Xw2[103X[10X, [3Xw3[103X[10X]
+  );[110X is equivalent to [10XComm( Comm( [3Xw1[103X[10X, [3Xw2[103X[10X ), [3Xw3[103X[10X );[110X.[133X
+  
+  [33X[0;0Y[13XNote:[113X [3Xelts[103X must contain at least two elements.[133X
+  
+  [1X3.4-2 PqGAPRelators[101X
+  
+  [33X[1;0Y[29X[2XPqGAPRelators[102X( [3Xgroup[103X, [3Xrels[103X ) [32X function[133X
+  
+  [33X[0;0Yreturns  a  list of words that [5XGAP[105X understands, given a list [3Xrels[103X of strings
+  in  the  string  representations  of  the  generators  of the fp group [3Xgroup[103X
+  prepared as a list of relators for the [10Xpq[110X program.[133X
+  
+  [33X[0;0Y[13XNote:[113X The [10Xpq[110X program does not use [10X/[110X to indicate multiplication by an inverse
+  and  uses square brackets to represent (left normed) commutators. Also, even
+  though  the  [10Xpq[110X  program  accepts relations, all elements of [3Xrels[103X [13Xmust[113X be in
+  relator form, i.e. a relation of form [10X[3Xw1[103X[10X = [3Xw2[103X[10X[110X must be written as [10X[3Xw1[103X[10X*([3Xw2[103X[10X)^-1[110X.[133X
+  
+  [33X[0;0YHere is an example:[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XF := FreeGroup("a", "b");[127X[104X
+    [4X[28X<free group on the generators [ a, b ]>[128X[104X
+    [4X[25Xgap>[125X [27XPqGAPRelators(F, [ "a*b^2", "[a,b]^2*a", "([a,b,a,b,b]*a*b)^2*a" ]);[127X[104X
+    [4X[28X[ a*b^2, a^-1*b^-1*a*b*a^-1*b^-1*a*b*a, b^-1*a^-1*b^-1*a^-1*b*a*b^-1*a*b*a^[128X[104X
+    [4X[28X    -1*b*a^-1*b^-1*a*b*a*b^-1*a^-1*b^-1*a^-1*b*a*b^-1*a*b^-1*a^-1*b*a^-1*b^[128X[104X
+    [4X[28X    -1*a*b*a*b*a^-1*b*a*b^-1*a*b*a^-1*b*a^-1*b^-1*a*b*a*b^-1*a^-1*b^-1*a^[128X[104X
+    [4X[28X    -1*b*a*b^-1*a*b^-1*a^-1*b*a^-1*b^-1*a*b*a*b^2*a*b*a ][128X[104X
+  [4X[32X[104X
+  
+  [1X3.4-3 PqParseWord[101X
+  
+  [33X[1;0Y[29X[2XPqParseWord[102X( [3Xword[103X, [3Xn[103X ) [32X function[133X
+  
+  [33X[0;0Yparses  a [3Xword[103X, a string representing a word in the pc generators [10Xx1,...,x[3Xn[103X[10X[110X,
+  through  [5XGAP[105X.  This  function is provided as a rough-and-ready check of [3Xword[103X
+  for  syntax  errors. A syntax error will cause the entering of a [10Xbreak[110X-loop,
+  in  which  the  error  message  may  or  may not be meaningful (depending on
+  whether the syntax error gets caught at the [5XGAP[105X or kernel level).[133X
+  
+  [33X[0;0Y[13XNote:[113X  The  reason the generators [13Xmust[113X be [10Xx1,...,x[3Xn[103X[10X[110X is that these are the pc
+  generator names used by the [10Xpq[110X program (as distinct from the generator names
+  for the group provided by the user to a function like [10XPq[110X that invokes the [10Xpq[110X
+  program).[133X
+  
+  [1X3.4-4 PqExample[101X
+  
+  [33X[1;0Y[29X[2XPqExample[102X(  ) [32X function[133X
+  [33X[1;0Y[29X[2XPqExample[102X( [3Xexample[103X[, [3XPqStart[103X][, [3XDisplay[103X] ) [32X function[133X
+  [33X[1;0Y[29X[2XPqExample[102X( [3Xexample[103X[, [3XPqStart[103X][, [3Xfilename[103X] ) [32X function[133X
+  
+  [33X[0;0YWith no arguments, or with single argument [10X"index"[110X, or a string [3Xexample[103X that
+  is  not  the name of a file in the [10Xexamples[110X directory, an index of available
+  examples is displayed.[133X
+  
+  [33X[0;0YWith  just  the  one  argument  [3Xexample[103X  that  is  the name of a file in the
+  [10Xexamples[110X  directory,  the  example contained in that file is executed in its
+  simplest form. Some examples accept options which you may use to modify some
+  of  the  options  used  in  the  commands  of the example. To find out which
+  options  an  example  accepts,  use one of the mechanisms for displaying the
+  example described below.[133X
+  
+  [33X[0;0YSome  examples  have  both non-interactive and interactive forms; those that
+  are  non-interactive  only  have  a  name  ending  in  [10X-ni[110X;  those  that are
+  interactive  only have a name ending in [10X-i[110X; examples with names ending in [10X.g[110X
+  also  have  only  one form; all other examples have both non-interactive and
+  interactive  forms  and  for these giving [10XPqStart[110X as second argument invokes
+  [10XPqStart[110X  initially and makes the appropriate adjustments so that the example
+  is executed or displayed using interactive functions.[133X
+  
+  [33X[0;0YIf [10XPqExample[110X is called with last (second or third) argument [10XDisplay[110X then the
+  example  is  displayed  without  being  executed.  If the last argument is a
+  non-empty  string  [3Xfilename[103X then the example is also displayed without being
+  executed  but  is  also  written  to a file with that name. Passing an empty
+  string as last argument has the same effect as passing [10XDisplay[110X.[133X
+  
+  [33X[0;0Y[13XNote:[113X The variables used in [10XPqExample[110X are local to the running of [10XPqExample[110X,
+  so there's no danger of having some of your variables over-written. However,
+  they   are   not  completely  lost  either.  They  are  saved  to  a  record
+  [10XANUPQData.examples.vars[110X,  i.e. if  [10XF[110X  is a variable used in the example then
+  you   will   be   able   to  access  it  after  [10XPqExample[110X  has  finished  as
+  [10XANUPQData.examples.vars.F[110X.[133X
+  
+  [1X3.4-5 AllPqExamples[101X
+  
+  [33X[1;0Y[29X[2XAllPqExamples[102X(  ) [32X function[133X
+  
+  [33X[0;0Yreturns  a  list of all currently available examples in default UNIX-listing
+  (i.e. alphabetic) order.[133X
+  
+  [1X3.4-6 GrepPqExamples[101X
+  
+  [33X[1;0Y[29X[2XGrepPqExamples[102X( [3Xstring[103X ) [32X function[133X
+  
+  [33X[0;0Yruns  the  UNIX  command [10Xgrep [3Xstring[103X[10X[110X over the [5XANUPQ[105X examples and returns the
+  list  of examples for which there is a match. The actual matches are [10XInfo[110X-ed
+  at [10XInfoANUPQ[110X level 2.[133X
+  
+  [1X3.4-7 ToPQLog[101X
+  
+  [33X[1;0Y[29X[2XToPQLog[102X( [[3Xfilename[103X] ) [32X function[133X
+  
+  [33X[0;0YWith string argument [3Xfilename[103X, [10XToPQLog[110X opens the file with name [3Xfilename[103X for
+  logging;  all  commands  written to the [10Xpq[110X binary (that are [10XInfo[110X-ed behind a
+  [21X[10XToPQ>  [110X[121X prompt at [10XInfoANUPQ[110X level 4) are then also written to that file (but
+  without  prompts).  With no argument, [10XToPQLog[110X stops logging to whatever file
+  was  being  logged  to.  If a file was already being logged to, that file is
+  closed and the file with name [3Xfilename[103X is opened for logging.[133X
+  
+  
+  [1X3.5 [33X[0;0YAttributes and a Property for fp and pc p-groups[133X[101X
+  
+  [1X3.5-1 NuclearRank[101X
+  
+  [33X[1;0Y[29X[2XNuclearRank[102X( [3XG[103X ) [32X attribute[133X
+  [33X[1;0Y[29X[2XMultiplicatorRank[102X( [3XG[103X ) [32X attribute[133X
+  [33X[1;0Y[29X[2XIsCapable[102X( [3XG[103X ) [32X property[133X
+  
+  [33X[0;0Yreturn  the  nuclear  rank of [3XG[103X, [22Xp[122X-multiplicator rank of [3XG[103X, and whether [3XG[103X is
+  capable (i.e. [9Xtrue[109X if it is, or [9Xfalse[109X if it is not), respectively.[133X
+  
+  [33X[0;0YThese  attributes  and  property  are  set  automatically if [3XG[103X is one of the
+  following:[133X
+  
+  [30X    [33X[0;6Yan fp group returned by [10XPqStandardPresentation[110X or [10XStandardPresentation[110X
+        (see [2XPqStandardPresentation[102X ([14X4.2-1[114X));[133X
+  
+  [30X    [33X[0;6Ythe   image   (fp   group)   of   the   epimorphism   returned  by  an
+        [10XEpimorphismPqStandardPresentation[110X  or  [10XEpimorphismStandardPresentation[110X
+        call (see [2XEpimorphismPqStandardPresentation[102X ([14X4.2-2[114X)); or[133X
+  
+  [30X    [33X[0;6Yone  of  the  pc  groups  of  the  list  of  descendants  returned  by
+        [10XPqDescendants[110X (see [2XPqDescendants[102X ([14X4.4-1[114X)).[133X
+  
+  [33X[0;0YIf  [3XG[103X  is  an  fp  group  or  a  pc [22Xp[122X-group and not one of the above and the
+  attribute   or   property   has   not   otherwise   been  set  for  [3XG[103X,  then
+  [10XPqStandardPresentation[110X   is   called   to  set  all  three  of  [10XNuclearRank[110X,
+  [10XMultiplicatorRank[110X and [10XIsCapable[110X, before returning the value of the attribute
+  or  property actually called. Such a group [3XG[103X must know in advance that it is
+  a  [22Xp[122X-group; this is the case for the groups returned by the functions [10XPq[110X and
+  [10XPqPCover[110X,  and the image group of the epimorphism returned by [10XPqEpimorphism[110X.
+  Otherwise,  if  you  know the group to be a [22Xp[122X-group, then this can be set by
+  typing[133X
+  
+  [4X[32X[104X
+    [4XSetIsPGroup( G, true );[104X
+  [4X[32X[104X
+  
+  [33X[0;0Yor  by  invoking  [10XIsPGroup( [3XG[103X[10X )[110X. Note that for an fp group [3XG[103X, the latter may
+  result  in  a  coset  enumeration  which might not terminate in a reasonable
+  time.[133X
+  
+  [33X[0;0Y[13XNote:[113X  For  [3XG[103X such that [10XHasNuclearRank([3XG[103X[10X) = true[110X, [10XIsCapable([3XG[103X[10X)[110X is equivalent
+  to (the truth or falsity of) [10XNuclearRank( [3XG[103X[10X ) = 0[110X.[133X
+  
+  
+  [1X3.6 [33X[0;0YHints and Warnings regarding the use of Options[133X[101X
+  
+  [33X[0;0YOn a first reading we recommend you skip this section and come back to it if
+  and when you run into trouble.[133X
+  
+  [33X[0;0Y[13XNote:[113X  By [21Xoptions[121X we refer to [5XGAP[105X options. The [10Xpq[110X program also uses the term
+  [21Xoption[121X;  to  distinguish the two usages of [21Xoption[121X, in this manual we use the
+  term [13Xmenu item[113X to refer to what the [10Xpq[110X program refers to as an [21Xoption[121X.[133X
+  
+  [33X[0;0YOptions  are  passed  to  the [5XANUPQ[105X interface functions in either of the two
+  usual mechanisms provided by [5XGAP[105X, namely:[133X
+  
+  [30X    [33X[0;6Yoptions  may  be  set  globally  using  the  function [10XPushOptions[110X (see
+        Chapter [14XReference: Options Stack[114X in the [5XGAP[105X Reference Manual); or[133X
+  
+  [30X    [33X[0;6Yoptions  may  be  appended  to the argument list of any function call,
+        separated  by  a  colon from the argument list (see Chapter [14XReference:
+        Function  Calls[114X  in  the [5XGAP[105X Reference Manual), in which case they are
+        then  passed  on  recursively  to  any subsequent inner function call,
+        which may in turn have options of their own.[133X
+  
+  [33X[0;0YParticularly,   when   one   is   using   the   interactive   functions   of
+  Chapter [14X'[33X[0;0YInteractive  ANUPQ  functions[133X'[114X, one should, in general, avoid using
+  the  global method of passing options. In fact, it is recommended that prior
+  to  calling  [10XPqStart[110X  the  [10XOptionsStack[110X be empty. The essential problem with
+  setting  options  globally  using  the  function [10XPushOptions[110X is that options
+  pushed  onto  [10XOptionsStack[110X,  in  this way, (generally) remain there until an
+  explicit [10XPopOptions()[110X call is made.[133X
+  
+  [33X[0;0YIn  contrast,  options  passed  in  the usual way behind a colon following a
+  function's  arguments  (see [14XReference: Function Call With Options[114X in the [5XGAP[105X
+  Reference  Manual)  are  local,  and  disappear  from [10XOptionsStack[110X after the
+  function  has  executed  successfully.  If  the  function  does  [13Xnot[113X execute
+  successfully, i.e. it runs into error and the user [9Xquit[109Xs the resulting [10Xbreak[110X
+  loop  (see  Section [14XReference:  Break  Loops[114X in the Reference Manual) rather
+  than  attempting  to  repair the problem and typing [10Xreturn;[110X then, unless the
+  error  at  the  kernel  level,  the  [10XOptionsStack[110X  is  reset. If an error is
+  detected  inside the kernel (hopefully, this should occur only rarely, if at
+  all)   then   the  options  of  that  function  will  [13Xnot[113X  be  cleared  from
+  [10XOptionsStack[110X; in such cases:[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XResetOptionsStack();[127X[104X
+    [4X[28X#I  Options stack is already empty[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0Yis    usually    necessary    (see   Chapter [2XResetOptionsStack[102X   ([14XReference:
+  ResetOptionsStack[114X)  in  the  [5XGAP[105X  Reference Manual), which recursively calls
+  [10XPopOptions()[110X  until [10XOptionsStack[110X is empty, or as in the above case warns you
+  that the [10XOptionsStack[110X is already empty.[133X
+  
+  [33X[0;0YNote  that a function, that is passed options after the colon, will also see
+  any  global  options  or  any options passed down recursively from functions
+  calling  that  function,  unless  those  options  are over-ridden by options
+  passed  via  the  function.  Also, note that duplication of option names for
+  different  programs  may lead to misinterpretations, and mis-spelled options
+  will not be [21Xseen[121X.[133X
+  
+  [33X[0;0YThe  non-interactive  functions of Chapter [14X'[33X[0;0YNon-interactive ANUPQ functions[133X'[114X
+  that  have  [10XPq[110X  somewhere  in  their  name  provide an alternative method of
+  passing  options  as  additional  arguments.  This  has  the advantages that
+  options can be abbreviated and mis-spelled options will be trapped.[133X
+  
+  [1X3.6-1 ANUPQWarnOfOtherOptions[101X
+  
+  [33X[1;0Y[29X[2XANUPQWarnOfOtherOptions[102X[32X global variable[133X
+  
+  [33X[0;0Yis a global variable that is by default [9Xfalse[109X. If it is set to [9Xtrue[109X then any
+  function provided by the [5XANUPQ[105X function that recognises at least one option,
+  will  warn  you  of  [21Xother[121X  options, i.e. options that the function does not
+  recognise.  These  warnings are emitted at [10XInfoWarning[110X or [10XInfoANUPQ[110X level 1.
+  This  is  useful for detecting mis-spelled options. Here is an example using
+  the   function   [10XPq[110X   (first  described  in  Chapter [14X'[33X[0;0YNon-interactive  ANUPQ
+  functions[133X'[114X):[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XSetInfoLevel(InfoANUPQ, 1);        # Set InfoANUPQ to default level[127X[104X
+    [4X[25Xgap>[125X [27XANUPQWarnOfOtherOptions := true;;[127X[104X
+    [4X[25Xgap>[125X [27X# The following makes entry into break loops very ``quiet'' ...[127X[104X
+    [4X[25Xgap>[125X [27XOnBreak := function() Where(0); end;;[127X[104X
+    [4X[25Xgap>[125X [27XF := FreeGroup( "a", "b" );[127X[104X
+    [4X[28X<free group on the generators [ a, b ]>[128X[104X
+    [4X[25Xgap>[125X [27XPq( F : Prime := 2, Classbound := 1 );[127X[104X
+    [4X[28X#I  ANUPQ Warning: Options: [ "Classbound" ] ignored[128X[104X
+    [4X[28X#I  (invalid for generic function: `Pq').[128X[104X
+    [4X[28Xuser interrupt at[128X[104X
+    [4X[28XmoreOfline := ReadLine( iostream );[128X[104X
+    [4X[28XEntering break read-eval-print loop ...[128X[104X
+    [4X[28Xyou can 'quit;' to quit to outer loop, or[128X[104X
+    [4X[28Xyou can 'return;' to continue[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YHere  we  mistyped  [10XClassBound[110X  as  [10XClassbound[110X, and after seeing the [10XInfo[110X-ed
+  warning  that  [10XClassbound[110X was ignored, we typed a [3Xcontrol[103X-C (that's the [21X[10Xuser
+  interrupt  at[110X[121X message) which took us into a break loop. Since the [10XPq[110X command
+  was  not  able  to  finish, the options [10XPrime[110X and [10XClassbound[110X, in particular,
+  will still be on the [10XOptionsStack[110X:[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[26Xbrk>[126X [27XOptionsStack;[127X[104X
+    [4X[28X[ rec( Prime := 2, Classbound := 1 ), [128X[104X
+    [4X[28X  rec( Prime := 2, Classbound := 1, PqEpiOrPCover := "pQuotient" ) ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe option [10XPqEpiOrPCover[110X is a behind-the-scenes option that need not concern
+  the user. On [9Xquit[109Xting the [10Xbreak[110X-loop the [10XOptionsStack[110X is reset and a warning
+  telling you this is emitted:[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[26Xbrk>[126X [27Xquit; # to get back to the `gap>' prompt[127X[104X
+    [4X[28X#I  Options stack has been reset[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YAbove, we altered [10XOnBreak[110X (see [2XOnBreak[102X ([14XReference: OnBreak[114X) in the Reference
+  manual)  to  reduce  the  back-tracing  on  entry  into a break loop. We now
+  restore [10XOnBreak[110X to its usual value.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XOnBreak := Where;;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0Y[13XNotes[113X[133X
+  
+  [33X[0;0YIn  cases  where  functions  recursively call others with options (e.g. when
+  using  [10XPqExample[110X  with options), setting [10XANUPQWarnOfOtherOptions := true[110X may
+  give rise to spurious [21Xother[121X option detections.[133X
+  
+  [33X[0;0YIt  is  recommended that the novice user set [10XANUPQWarnOfOtherOptions[110X to [9Xtrue[109X
+  in their [10Xgap.ini[110X file (see Section [14X'[33X[0;0YLoading the ANUPQ Package[133X'[114X).[133X
+  
+  [33X[0;0Y[13XOther Troubleshooting Strategies[113X[133X
+  
+  [33X[0;0YThere  are  some  other strategies which may have helped us to see our error
+  above.  The function [10XPq[110X recognises the option [10XOutputLevel[110X (see [14X6.2[114X); if this
+  option  is  set  to  at least 1, the [10Xpq[110X program provides information on each
+  class quotient as it is generated:[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XANUPQWarnOfOtherOptions := false;; # Set back to normal[127X[104X
+    [4X[25Xgap>[125X [27XF := FreeGroup( "a", "b" );;[127X[104X
+    [4X[25Xgap>[125X [27XPq( F : Prime := 2, Classbound := 1, OutputLevel := 1 ); [127X[104X
+    [4X[28X#I  Lower exponent-2 central series for [grp][128X[104X
+    [4X[28X#I  Group: [grp] to lower exponent-2 central class 1 has order 2^2[128X[104X
+    [4X[28X#I  Group: [grp] to lower exponent-2 central class 2 has order 2^5[128X[104X
+    [4X[28X#I  Group: [grp] to lower exponent-2 central class 3 has order 2^10[128X[104X
+    [4X[28X#I  Group: [grp] to lower exponent-2 central class 4 has order 2^18[128X[104X
+    [4X[28X#I  Group: [grp] to lower exponent-2 central class 5 has order 2^32[128X[104X
+    [4X[28X#I  Group: [grp] to lower exponent-2 central class 6 has order 2^55[128X[104X
+    [4X[28X#I  Group: [grp] to lower exponent-2 central class 7 has order 2^96[128X[104X
+    [4X[28X#I  Group: [grp] to lower exponent-2 central class 8 has order 2^167[128X[104X
+    [4X[28X#I  Group: [grp] to lower exponent-2 central class 9 has order 2^294[128X[104X
+    [4X[28X#I  Group: [grp] to lower exponent-2 central class 10 has order 2^520[128X[104X
+    [4X[28X#I  Group: [grp] to lower exponent-2 central class 11 has order 2^932[128X[104X
+    [4X[28X#I  Group: [grp] to lower exponent-2 central class 12 has order 2^1679[128X[104X
+    [4X[28X[... output truncated ...][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YAfter  seeing  the  information for the class 2 quotient we may have got the
+  idea  that  the  [10XClassbound[110X  option was not recognised and may have realised
+  that  this  was  due  to a mis-spelling. The above will ordinarily cause the
+  available  space  to be exhausted, necessitating user-intervention by typing
+  [3Xcontrol[103X-C and [10Xquit;[110X (to escape the break loop); otherwise [10XPq[110X terminates when
+  the class reaches 63 (the default value of [10XClassBound[110X).[133X
+  
+  [33X[0;0YIf  you  have  some familiarity with [21Xkeyword[121X command input to the [10Xpq[110X binary,
+  then  setting  the  level  of  [10XInfoANUPQ[110X  to  4  would also have indicated a
+  problem:[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XResetOptionsStack(); # Necessary, if a break-loop was entered above[127X[104X
+    [4X[25Xgap>[125X [27XSetInfoLevel(InfoANUPQ, 4);[127X[104X
+    [4X[25Xgap>[125X [27XPq( F : Prime := 2, Classbound := 1 );[127X[104X
+    [4X[28X#I  ToPQ> 7  #to (Main) p-Quotient Menu[128X[104X
+    [4X[28X#I  ToPQ> 1  #define group[128X[104X
+    [4X[28X#I  ToPQ> name [grp][128X[104X
+    [4X[28X#I  ToPQ> prime 2[128X[104X
+    [4X[28X#I  ToPQ> class 63[128X[104X
+    [4X[28X#I  ToPQ> exponent 0[128X[104X
+    [4X[28X#I  ToPQ> output 0[128X[104X
+    [4X[28X#I  ToPQ> generators { a,b }[128X[104X
+    [4X[28X#I  ToPQ> relators   {  };[128X[104X
+    [4X[28X[... output truncated ...][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YHere  the  line  [21X[10X#I  ToPQ>  class  63[110X[121X  indicates that a directive to set the
+  classbound to 63 was sent to the [10Xpq[110X program.[133X
+  

@@ -1,0 +1,276 @@
+  
+  
+  [1XIndex[101X
+  
+  [2XAllANUPQoptions[102X 6.1-1 
+  allowable subgroup 2.1-4 
+  [2XAllPqExamples[102X 3.4-5 
+  ANUPQ 1.1 
+  [10XANUPQ_GAP_EXEC[110X, environment variable 7.  7.1  7.2 
+  [2XANUPQData[102X 3.2-1 
+  [2XANUPQDirectoryTemporary[102X 3.2-2 
+  [2XANUPQoptions[102X 6.1-2 
+  [2XANUPQWarnOfOtherOptions[102X 3.6-1 
+  automorphisms, of [22Xp[122X-groups 4.2  5.3-3 
+  [22XB(5,4)[122X A.3 
+  banner 3.1 
+  bug reports 1.3 
+  capable 2.1-4 
+  class 2.1-2 
+  collection 2.1-1 
+  compaction 2.3 
+  confluent 2.1-1 
+  confluent rewriting system 2.1-1 
+  consistency conditions 2.1-1 
+  consistent 2.1-1 
+  definition, of generator 2.2-1 
+  descendant 2.1-4 
+  echelonised matrix 2.3 
+  Engel identity 2.1-5 
+  [2XEpimorphismPqStandardPresentation[102X 4.2-2 
+      interactive 5.3-5 
+  [2XEpimorphismStandardPresentation[102X 4.2-2 
+      interactive 5.3-5 
+  exponent check 2.2-3 
+  exponent law 2.1-5 
+  exponent-p central series 2.1-2 
+  extended automorphism 2.1-4 
+  [2XGrepPqExamples[102X 3.4-6 
+  identical relation 2.1-5 
+  immediate descendant 2.1-4 
+  [2XInfoANUPQ[102X 3.3-1 
+  interruption 5.2-3 
+  [2XIsCapable[102X 3.5-1 
+  [2XIsIsomorphicPGroup[102X 4.3-1 
+  isomorphism testing 2.3 
+  [2XIsPqIsomorphicPGroup[102X 4.3-1 
+  [2XIsPqProcessAlive[102X 5.2-3 
+      for default process 5.2-3 
+  label of standard matrix 2.3 
+  labelled pcp 2.2-1 
+  law 2.1-5 
+  menu item, of pq program 3.6 
+  metabelian law 2.1-5 
+  multiplicator rank 2.1-3 
+  [2XMultiplicatorRank[102X 3.5-1 
+  [2XNuclearRank[102X 3.5-1 
+  nucleus 2.1-4  2.1-4 
+  option, of pq program is a menu item 3.6 
+  option AllDescendants 4.4-1  5.3-6  6.2 
+  option BasicAlgorithm 4.4-1  5.3-6  6.2 
+  option Bounds 6.2 
+  option CapableDescendants 4.4-1  5.3-6  6.2 
+  option ClassBound 4.1-1  4.2-1  4.4-1  5.3-1  5.3-4  5.3-6  5.8-2  6.2 
+  option CustomiseOutput 4.4-1  5.3-6  6.2 
+  option Exponent 4.1-1  4.2-1  4.4-1  5.3-1  5.3-4  5.3-6  6.2 
+  option Filename 6.2 
+  option GroupName 4.1-1  4.2-1  4.4-1  5.3-1  5.3-4  5.3-6  6.2 
+  option Identities 4.1-1  5.3-1  6.2 
+      example of usage 4.1-1 
+  option Metabelian 4.1-1  4.2-1  4.4-1  5.3-1  5.3-4  5.3-6  6.2 
+  option NumberOfSolubleAutomorphisms 6.2 
+  option OrderBound 4.4-1  5.3-6  6.2 
+  option OutputLevel 4.1-1  4.2-1  5.3-1  5.3-4  6.2 
+  option PcgsAutomorphisms 5.8-2  6.2 
+  option pQuotient 4.2-1  5.3-4  6.2 
+  option PqWorkspace 4.1-1  4.2-1  4.4-1  6.2 
+  option Prime 4.1-1  4.2-1  5.3-1  5.3-4  6.2 
+  option PrintAutomorphisms 6.2 
+  option PrintPermutations 6.2 
+  option QueueFactor 5.6-4  6.2 
+  option RankInitialSegmentSubgroups 4.4-1  5.3-6  6.2 
+  option RedoPcp 5.3-1  6.2 
+  option RelativeOrders 6.2 
+  option Relators 4.1-1  4.4-1  5.3-1  5.3-6  6.2 
+      example of usage 4.1-1 
+  option SetupFile 4.1-1  4.2-1  4.4-1  6.2 
+  option SpaceEfficient 4.4-1  5.3-6  6.2 
+  option StandardPresentationFile 4.2-1  5.3-4  5.8-2  6.2 
+  option StepSize 4.4-1  5.3-6  6.2 
+  option SubList 4.4-1  5.3-6  6.2 
+  option TreeDepth 6.2 
+  orbits 2.3 
+  p-class 2.1-2 
+  p-cover 2.1-3 
+  p-covering group 2.1-3 
+  p-group generation 2.3 
+  p-multiplicator 2.1-3 
+  p-multiplicator rank 2.1-3 
+  pc generators 2.1-1 
+  pc presentation 2.1-1 
+  pcp 2.1-1 
+  permutations 2.1-4 
+  power-commutator presentation 2.1-1 
+  [2XPq[102X 4.1-1 
+      interactive 5.3-1 
+      interactive, for default process 5.3-1 
+  [2XPqAddTails[102X 5.7-7 
+      for default process 5.7-7 
+  [2XPqAPGDegree[102X 5.10-1 
+      for default process 5.10-1 
+  [2XPqAPGOrbitRepresentatives[102X 5.10-4 
+      for default process 5.10-4 
+  [2XPqAPGOrbits[102X 5.10-3 
+      for default process 5.10-3 
+  [2XPqAPGPermutations[102X 5.10-2 
+      for default process 5.10-2 
+  [2XPqAPGSingleStage[102X 5.10-5 
+      for default process 5.10-5 
+  [2XPqApplyAutomorphisms[102X 5.7-22 
+      for default process 5.7-22 
+  [2XPqCollect[102X 5.7-1 
+      for default process 5.7-1 
+  [2XPqCollectDefiningRelations[102X 5.7-9 
+      for default process 5.7-9 
+  [2XPqCollectWordInDefiningGenerators[102X 5.7-10 
+      for default process 5.7-10 
+  [2XPqCommutator[102X 5.7-3 
+      for default process 5.7-3 
+  [2XPqCommutatorDefiningGenerators[102X 5.7-11 
+      for default process 5.7-11 
+  [2XPqCompact[102X 5.7-18 
+      for default process 5.7-18 
+  [2XPqComputePCover[102X 5.6-5 
+      for default process 5.6-5 
+  [2XPqComputeTails[102X 5.7-6 
+      for default process 5.7-6 
+  [2XPqCurrentGroup[102X 5.5-6 
+      for default process 5.5-6 
+  [2XPqDescendants[102X 4.4-1 
+      interactive 5.3-6 
+      interactive, for default process 5.3-6 
+  [2XPqDescendantsTreeCoclassOne[102X A.4-1 
+      for default process A.4-1 
+  [2XPqDisplayAutomorphisms[102X 5.7-24 
+      for default process 5.7-24 
+  [2XPqDisplayPcPresentation[102X 5.5-7 
+      for default process 5.5-7 
+  [2XPqDisplayStructure[102X 5.7-23 
+      for default process 5.7-23 
+  [2XPqDoConsistencyCheck[102X 5.7-17 
+      for default process 5.7-17 
+  [2XPqDoConsistencyChecks[102X 5.7-8 
+      for default process 5.7-8 
+  [2XPqDoExponentChecks[102X 5.7-12 
+      for default process 5.7-12 
+  [2XPqEchelonise[102X 5.7-19 
+      for default process 5.7-19 
+  [2XPqEliminateRedundantGenerators[102X 5.7-13 
+      for default process 5.7-13 
+  [2XPqEpimorphism[102X 4.1-2 
+      interactive 5.3-2 
+      interactive, for default process 5.3-2 
+  [2XPqEvaluateIdentities[102X 5.5-9 
+      for default process 5.5-9 
+  [2XPqExample[102X 3.4-4 
+      no arguments 3.4-4 
+      with filename 3.4-4 
+  [2XPqExtendAutomorphisms[102X 5.7-21 
+      for default process 5.7-21 
+  [2XPqFactoredOrder[102X 5.5-2 
+      for default process 5.5-2 
+  [2XPqGAPRelators[102X 3.4-2 
+  [2XPqJacobi[102X 5.7-17 
+      for default process 5.7-17 
+  [2XPqLeftNormComm[102X 3.4-1 
+  [2XPqList[102X 4.4-3 
+  [2XPqNextClass[102X 5.6-4 
+      for default process 5.6-4 
+  [2XPqNrPcGenerators[102X 5.5-1 
+      for default process 5.5-1 
+  [2XPqOrder[102X 5.5-3 
+      for default process 5.5-3 
+  [2XPqParseWord[102X 3.4-3 
+  [2XPqPClass[102X 5.5-4 
+      for default process 5.5-4 
+  [2XPqPCover[102X 4.1-3 
+      interactive 5.3-3 
+      interactive, for default process 5.3-3 
+  [2XPqPcPresentation[102X 5.6-1 
+      for default process 5.6-1 
+  [2XPqPGConstructDescendants[102X 5.9-3 
+      for default process 5.9-3 
+  [2XPqPGExtendAutomorphisms[102X 5.9-2 
+      for default process 5.9-2 
+  [2XPqPGRestoreDescendantFromFile[102X 5.9-4 
+      for default process 5.9-4 
+      with class 5.9-4 
+      with class, for default process 5.9-4 
+  [2XPqPGSetDescendantToPcp[102X 5.9-4 
+      for default process 5.9-4 
+      with class 5.9-4 
+      with class, for default process 5.9-4 
+  [2XPqPGSupplyAutomorphisms[102X 5.9-1 
+      for default process 5.9-1 
+  [2XPqProcessIndex[102X 5.2-1 
+      for default process 5.2-1 
+  [2XPqProcessIndices[102X 5.2-2 
+  [2XPqQuit[102X 5.1-2 
+      for default process 5.1-2 
+  [2XPqQuitAll[102X 5.1-3 
+  [2XPqRead[102X 5.11-1 
+      for default process 5.11-1 
+  [2XPqReadAll[102X 5.11-2 
+      for default process 5.11-2 
+  [2XPqReadUntil[102X 5.11-3 
+      for default process 5.11-3 
+      with modify map 5.11-3 
+      with modify map, for default process 5.11-3 
+  [2XPqRestorePcPresentation[102X 5.6-3 
+      for default process 5.6-3 
+  [2XPqRevertToPreviousClass[102X 5.7-14 
+      for default process 5.7-14 
+  [2XPqSavePcPresentation[102X 5.6-2 
+      for default process 5.6-2 
+  [2XPqSetMaximalOccurrences[102X 5.7-15 
+      for default process 5.7-15 
+  [2XPqSetMetabelian[102X 5.7-16 
+      for default process 5.7-16 
+  [2XPqSetOutputLevel[102X 5.5-8 
+      for default process 5.5-8 
+  [2XPqSetPQuotientToGroup[102X 5.3-7 
+      for default process 5.3-7 
+  [2XPqSetupTablesForNextClass[102X 5.7-4 
+      for default process 5.7-4 
+  [2XPqSolveEquation[102X 5.7-2 
+      for default process 5.7-2 
+  [2XPqSPCompareTwoFilePresentations[102X 5.8-4 
+      for default process 5.8-4 
+  [2XPqSPComputePcpAndPCover[102X 5.8-1 
+      for default process 5.8-1 
+  [2XPqSPIsomorphism[102X 5.8-5 
+      for default process 5.8-5 
+  [2XPqSPSavePresentation[102X 5.8-3 
+      for default process 5.8-3 
+  [2XPqSPStandardPresentation[102X 5.8-2 
+      for default process 5.8-2 
+  [2XPqStandardPresentation[102X 4.2-1 
+      interactive 5.3-4 
+  [2XPqStart[102X 5.1-1 
+      with group 5.1-1 
+      with group and workspace size 5.1-1 
+      with workspace size 5.1-1 
+  [2XPqSupplementInnerAutomorphisms[102X 4.4-2 
+  [2XPqSupplyAutomorphisms[102X 5.7-20 
+      for default process 5.7-20 
+  [2XPqTails[102X 5.7-5 
+      for default process 5.7-5 
+  [2XPqWeight[102X 5.5-5 
+      for default process 5.5-5 
+  [2XPqWrite[102X 5.11-4 
+      for default process 5.11-4 
+  [2XPqWritePcPresentation[102X 5.7-25 
+      for default process 5.7-25 
+  [2XSavePqList[102X 4.4-4 
+  standard presentation 2.3 
+  [2XStandardPresentation[102X 4.2-1 
+      interactive 5.3-4 
+  tails 2.2-1 
+  terminal 2.1-4 
+  [2XToPQLog[102X 3.4-7 
+  troubleshooting tips 3.6 
+  weight function 2.1-2 
+  weighted pcp 2.1-2 
+  
+  
+  -------------------------------------------------------
