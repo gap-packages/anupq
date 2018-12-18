@@ -41,13 +41,7 @@ int vsystem(char *string)
    else {
       f1 = signal(SIGINT, SIG_IGN);
       f2 = signal(SIGQUIT, SIG_IGN);
-#ifdef HAVE_WAITPID
       pid = waitpid(pid, &status, 0);
-#elif defined(HAVE_WAIT4)
-      pid = wait4(pid, &status, 0, 0);
-#else
-#error At least one of waitpid or wait4 must be available
-#endif
       signal(SIGQUIT, f2);
       signal(SIGINT, f1);
       if (pid != -1)
