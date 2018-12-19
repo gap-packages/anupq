@@ -149,6 +149,10 @@ AC_FUNC_FORK
 AC_HEADER_SYS_WAIT
 AC_CHECK_FUNCS([gethostname strftime])
 
+AC_SEARCH_LIBS([log10], [m], [], [
+  AC_MSG_ERROR([unable to find the log10() function])
+])
+
 
 # hack for testPq:
 GAP_EXEC=gap
