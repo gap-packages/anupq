@@ -1,6 +1,12 @@
 In this file we record the changes since the first GAP 4 release of
 the ANUPQ package.
 
+Version 3.2.1 (YYYY-MM-DD)
+  * After some back and forth, drop the limitation on 32-bit builds again;
+    it turns out that 64-bit builds can work just fine
+  * Added a patch by Laurent Bartholdi to the ANUPQ standalone binary,
+    which helps computing lower central quotients in certain cases
+
 Version 3.2 (2017-11-29)
   * Document that ANUPQ is 32-bit only and requires a 32-bit compiler.
   * Change build system to enforce 32-bit compilation by adding -m32 to CFLAGS
