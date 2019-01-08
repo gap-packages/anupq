@@ -254,19 +254,10 @@ end );
 
 #############################################################################
 ##
-#V  ANUPGAGlobalVariables
-##
-InstallValue( ANUPGAGlobalVariables,
-              [ "ANUPQgroups", 
-                "ANUPQautos", 
-                "ANUPQmagic" ] );
-
-#############################################################################
-##
 #F  PqList( <file> [: SubList := <sub>]) . . . . .  get a list of descendants
 ##
 InstallGlobalFunction( PqList, function( file )
-    local   var,  lst,  groups,  autos,  sublist,  func;
+    local globalvars, var, lst, groups, autos, sublist, func;
 
     PQ_OTHER_OPTS_CHK("PqList", false);
     # check arguments
@@ -274,14 +265,16 @@ InstallGlobalFunction( PqList, function( file )
         Error( "usage: PqList( <file> [: SubList := <sub>])\n" );
     fi;
 
-    for var in ANUPGAGlobalVariables do
+    globalvars := [ "ANUPQmagic", "ANUPQautos", "ANUPQgroups" ];
+
+    for var in globalvars do
         HideGlobalVariables( var );
     od;
 
     # try to read <file>
     if not READ( file ) or not IsBoundGlobal( "ANUPQmagic" )  then
 
-        for var in ANUPGAGlobalVariables do
+        for var in globalvars do
             UnhideGlobalVariables( var );
         od;
         return false;
@@ -308,7 +301,7 @@ InstallGlobalFunction( PqList, function( file )
         od;
     fi;
     
-    for var in ANUPGAGlobalVariables do
+    for var in globalvars do
         UnhideGlobalVariables( var );
     od;
 

@@ -145,8 +145,10 @@ InstallValue( ANUPQGlobalVariables,
 ##
 #F  ANUPQReadOutput . . . . read pq output without affecting global variables
 ##
-InstallGlobalFunction( ANUPQReadOutput, function( file, globalvars )
-    local   var,  result;
+InstallGlobalFunction( ANUPQReadOutput, function( file )
+    local globalvars, var, result;
+
+    globalvars := [ "ANUPQmagic", "ANUPQautos", "ANUPQgroups" ];
 
     for var in globalvars do
         HideGlobalVariables( var );

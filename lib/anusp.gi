@@ -103,16 +103,6 @@ end );
 
 #############################################################################
 ##
-#V  ANUSPGlobalVariables
-##
-InstallValue( ANUSPGlobalVariables, 
-              [ "ANUPQmagic",
-                "ANUPQautos",
-                "ANUPQgroups",
-                ] );
-
-#############################################################################
-##
 #F  PqFpGroupPcGroup( <G> ) . . . . . .  corresponding fp group of a pc group
 ##
 InstallGlobalFunction( PqFpGroupPcGroup, 
@@ -207,7 +197,7 @@ function( args )
     fi;
 
     # try to read output
-    result := ANUPQReadOutput( ANUPQData.SPimages, ANUSPGlobalVariables );
+    result := ANUPQReadOutput( ANUPQData.SPimages );
 
     if not IsBound(result.ANUPQmagic)  then
         Error("something wrong with `pq' binary. Please check installation\n");

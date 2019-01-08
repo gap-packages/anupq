@@ -22,14 +22,6 @@ DeclareGlobalFunction( "ANUPQSPextractArgs" );
 
 #############################################################################
 ##
-#V  ANUSPGlobalVariables
-##
-DeclareGlobalVariable( "ANUSPGlobalVariables",
-  "A list of names of ANUPQ standard presentation variables"
-  );
-
-#############################################################################
-##
 #F  PqFpGroupPcGroup( <G> ) . . . . . .  corresponding fp group of a pc group
 #O  FpGroupPcGroup( <G> )
 ##

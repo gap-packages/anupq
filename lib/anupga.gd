@@ -56,14 +56,6 @@ DeclareGlobalFunction( "ANUPQprintExps" );
 
 #############################################################################
 ##
-#V  ANUPGAGlobalVariables
-##
-DeclareGlobalVariable( "ANUPGAGlobalVariables",
-  "A list of strings representing names of p-group aut. grp global variables"
-  );
-
-#############################################################################
-##
 #F  PqList( <file> ) . . . . . . . . . . . . . . .  get a list of descendants
 ##
 DeclareGlobalFunction( "PqList" );
