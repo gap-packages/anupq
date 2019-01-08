@@ -200,16 +200,22 @@ end );
 #F  PQ_GROUP_FROM_PCP(<datarec>,<out>) . extract gp from pq pcp file into GAP
 ##
 InstallGlobalFunction( PQ_GROUP_FROM_PCP, function( datarec, out )
+    local gens;
     HideGlobalVariables( "F", "MapImages" );
     Read( datarec.outfname );
     if out = "pCover" then
       datarec.pCover := ValueGlobal( "F" );
       IsPGroup( datarec.pCover );
     else
+      if IsBound(datarec.pcgs) then
+        gens := datarec.pcgs;
+      else
+        gens := GeneratorsOfGroup( datarec.group );
+      fi;
       datarec.pQepi := GroupHomomorphismByImagesNC( 
                            datarec.group,
                            ValueGlobal( "F" ),
-                           GeneratorsOfGroup( datarec.group ),
+                           gens,
                            ValueGlobal( "MapImages" )
                            );
       SetIsSurjective( datarec.pQepi, true );

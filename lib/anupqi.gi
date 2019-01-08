@@ -278,6 +278,7 @@ local gens, rels, p, fpgrp, identities, pcgs, len, strp, i, j, Rel, line;
     rels := RelatorsOfFpGroup(fpgrp);
   else
     pcgs := PcgsPCentralSeriesPGroup(datarec.group);
+    datarec.pcgs := pcgs;
     len  := Length(pcgs);
     gens := List( [1..len], i -> Concatenation( "g", String(i) ) );
     strp := String(p);

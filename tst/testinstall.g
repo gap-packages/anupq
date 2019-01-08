@@ -5,6 +5,7 @@ tests := [
     "anupq1eg.tst",
     "anupqsmgp.tst",
     "anusp.tst",
+    "bugfix.tst",
     #"anupqeg.tst", # VERY slow
 ];
 tests := List(tests, f -> Filename(dirs,f));
