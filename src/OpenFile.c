@@ -14,10 +14,10 @@
 
 FILE *OpenFile(const char *file_name, const char *mode)
 {
-   FILE *fp;
+   FILE *fp = fopen(file_name, mode);
 
-   if ((fp = fopen(file_name, mode)) == NULL) {
-      printf("Cannot open %s\n", file_name);
+   if (fp == NULL) {
+      fprintf(stderr, "Cannot open %s\n", file_name);
       if (!isatty(0))
          exit(FAILURE);
    }
