@@ -51,10 +51,11 @@ void tails(int type,
    int lcs_class;
    int lcs_degree[end+1];
    if (end_weight < 0) {
+     int gen;
      lcs_class = -end_weight;
      end_weight = 1;
      /* compute lcs degrees of generators */
-     for (int gen = 1; gen <= end; gen++) {
+     for (gen = 1; gen <= end; gen++) {
        int pointer = y[pcp->structure+gen];
        if (pointer <= 0)
          lcs_degree[gen] = 0; /* pointer<=0 means a redundant generator. Ignore */
