@@ -6,6 +6,8 @@ Version 3.2.1 (YYYY-MM-DD)
     it turns out that 64-bit builds can work just fine
   * Added a patch by Laurent Bartholdi to the ANUPQ standalone binary,
     which helps computing lower central quotients in certain cases
+  * Fixed a bug in PqEpimorphism which could produce a wrong result if the
+    input was a p-group but not an fp-group
 
 Version 3.2 (2017-11-29)
   * Document that ANUPQ is 32-bit only and requires a 32-bit compiler.
