@@ -57,15 +57,15 @@ void tails(int type,
      for (int gen = 1; gen <= end; gen++) {
        int pointer = y[pcp->structure+gen];
        if (pointer <= 0)
-	 lcs_degree[gen] = 0; /* pointer<=0 means a redundant generator. Ignore */
+         lcs_degree[gen] = 0; /* pointer<=0 means a redundant generator. Ignore */
        else {
-	 int u = PART2(pointer), v = PART3(pointer);
-	 if (u == 0) /* generator */
-	   lcs_degree[gen] = 1;
-	 else if (v == 0) /* power relation */
-	   lcs_degree[gen] = lcs_degree[u];
-	 else /* commutator relation */
-	   lcs_degree[gen] = lcs_degree[u] + lcs_degree[v];
+         int u = PART2(pointer), v = PART3(pointer);
+         if (u == 0) /* generator */
+           lcs_degree[gen] = 1;
+         else if (v == 0) /* power relation */
+           lcs_degree[gen] = lcs_degree[u];
+         else /* commutator relation */
+           lcs_degree[gen] = lcs_degree[u] + lcs_degree[v];
        }
      }
    } else
@@ -80,9 +80,9 @@ void tails(int type,
          work_class as generators or pseudo-generators */
 
       for (f = start; f <= end; f++) {
- 	/* we're about to add a tail for (f,s) with s a generator. We
-	   only accept f less than the desired class */
-	if (lcs_class && lcs_degree[f]>=lcs_class) continue;
+        /* we're about to add a tail for (f,s) with s a generator. We
+           only accept f less than the desired class */
+        if (lcs_class && lcs_degree[f]>=lcs_class) continue;
 
          bound = MIN(f - 1, y[class_end + 1]);
          if (bound > 0) {
