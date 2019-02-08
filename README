@@ -43,11 +43,11 @@ with cygwin.
 You can download `anupq-XXX.tar.gz' (where `XXX' is the  package  version
 number) from the home page for the ANUPQ package
 
-http://gap-packages.github.io/anupq/
+https://gap-packages.github.io/anupq/
 
 or via the GAP web site
 
-http://www.gap-system.org/Packages/anupq.html
+https://www.gap-system.org/Packages/anupq.html
 
                       Installing the ANUPQ package
                       ----------------------------

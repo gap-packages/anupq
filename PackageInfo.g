@@ -47,7 +47,7 @@ Persons := [
     IsAuthor      := true,
     IsMaintainer  := false,
     Email         := "obrien@math.auckland.ac.nz",
-    WWWHome       := "http://www.math.auckland.ac.nz/~obrien",
+    WWWHome       := "https://www.math.auckland.ac.nz/~obrien",
     PostalAddress := Concatenation(
                        "Department of Mathematics\n",
                        "University of Auckland\n",
@@ -63,7 +63,7 @@ Persons := [
    IsAuthor      := false,
    IsMaintainer  := true,
    Email         := "max.horn@math.uni-giessen.de",
-   WWWHome       := "http://www.quendi.de/math",
+   WWWHome       := "https://www.quendi.de/math",
    PostalAddress := Concatenation(
                       "AG Algebra\n",
                       "Mathematisches Institut\n",
