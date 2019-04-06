@@ -20,15 +20,14 @@ This implementation was developed in C by
 
    WWW http://www.math.auckland.ac.nz/~obrien
 
-and some improvements made in 2011-2012 by
+and some minor changes made in 2011-2019 by
 
    Max Horn
-   AG Algebra
-   Mathematisches Institut
-   Justus-Liebig-Universität Gießen
-   Arndtstraße 2, D-35392 Gießen, Germany
+   Department Mathematik
+   Universität Siegen
+   Walter-Flex-Straße 3, 57072 Siegen, Germany
 
-   E-mail: max.horn@math.uni-giessen.de
+   E-mail: max.horn@uni-siegen.de
    WWW http://www.quendi.de/math
 
 ###############################################################################
@@ -252,4 +251,4 @@ J. Symbolic Comput. 9, 725-733.
 9. See the documentation for information on run-time parameters.
 
 10. Please report bugs/problems/feedback to obrien@math.auckland.ac.nz
-    and/or max.horn@math.uni-giessen.de
+    and/or max.horn@uni-siegen.de
