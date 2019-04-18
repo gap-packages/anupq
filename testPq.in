@@ -52,8 +52,8 @@ if ( ($gap = $ENV{ANUPQ_GAP_EXEC}) ne "" ) {
 }
 open( GAPIN, ">$tmpdir/gapinput");
 print GAPIN
-      "CompareVersionNumbers(VERSION, \"$GAPversion\");\n",
-      "VERSION;\n",
+      "CompareVersionNumbers(GAPInfo.Version, \"$GAPversion\");\n",
+      "GAPInfo.Version;\n",
       "SetInfoLevel(InfoWarning, 0); # switch off warning messages\n",
       "TestPackageAvailability(\"anupq\", \"$ANUPQversion\");\n",
       "if LoadPackage(\"anupq\", \"$ANUPQversion\") = true then\n",
