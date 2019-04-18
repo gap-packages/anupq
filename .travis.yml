@@ -1,9 +1,7 @@
 language: c
 env:
   global:
-    - GAPROOT=gaproot
-    - COVDIR=coverage
-    - GAP_TESTFILE="tst/testinstall.g"
+    - GAP_TESTFILE=tst/testinstall.g
 
 addons:
   apt_packages:
@@ -13,10 +11,10 @@ addons:
 
 matrix:
   include:
-    - env: GAPBRANCH="master"
-    - env: GAPBRANCH="stable-4.10"
-    - env: GAPBRANCH="stable-4.9"
-   - env: GAPBRANCH="master ABI=32
+    - env: GAPBRANCH=master
+    - env: GAPBRANCH=stable-4.10
+    - env: GAPBRANCH=stable-4.9
+    - env: GAPBRANCH=master ABI=32
       addons:
         apt_packages:
           - libgmp-dev:i386
@@ -30,7 +28,6 @@ branches:
     - master
 
 before_script:
-  - export GAPROOT="$HOME/gap"
   - git clone https://github.com/gap-system/pkg-ci-scripts.git scripts
   - scripts/build_gap.sh
 script:
