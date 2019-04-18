@@ -10,6 +10,11 @@ AC_CONFIG_MACRO_DIR([m4])
 AM_INIT_AUTOMAKE([1.11 -Wall foreign subdir-objects])
 AM_SILENT_RULES([yes])
 
+dnl Disable maintainer mode by default. This avoids troubles during packaging,
+dnl in particular when the GAP team repackages the source archive.
+dnl Users can re-enable it by passing "--enable-maintainer-mode" to configure.
+AM_MAINTAINER_MODE
+
 dnl ##
 dnl ## C is the language
 dnl ##
