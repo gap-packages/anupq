@@ -160,7 +160,7 @@ AC_SEARCH_LIBS([log10], [m], [], [
 
 
 # hack for testPq:
-GAP_EXEC=gap
+GAP_EXEC="${GAP_BIN_DIR}/bin/gap.sh"
 AC_SUBST(GAP_EXEC)
 
 
