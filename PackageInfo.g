@@ -9,8 +9,9 @@ SetPackageInfo( rec(
 
 PackageName := "ANUPQ",
 Subtitle    := "ANU p-Quotient",
-Version     := "3.2",
-Date        := "29/11/2017",
+Version     := "3.2.1",
+Date        := "18/04/2019", # dd/mm/yyyy format
+License     := "none",
 
 Persons := [ 
   rec( 
@@ -47,7 +48,7 @@ Persons := [
     IsAuthor      := true,
     IsMaintainer  := false,
     Email         := "obrien@math.auckland.ac.nz",
-    WWWHome       := "http://www.math.auckland.ac.nz/~obrien",
+    WWWHome       := "https://www.math.auckland.ac.nz/~obrien",
     PostalAddress := Concatenation(
                        "Department of Mathematics\n",
                        "University of Auckland\n",
@@ -62,17 +63,16 @@ Persons := [
    FirstNames    := "Max",
    IsAuthor      := false,
    IsMaintainer  := true,
-   Email         := "max.horn@math.uni-giessen.de",
-   WWWHome       := "http://www.quendi.de/math",
+   Email         := "max.horn@uni-siegen.de",
+   WWWHome       := "https://www.quendi.de/math",
    PostalAddress := Concatenation(
-                      "AG Algebra\n",
-                      "Mathematisches Institut\n",
-                      "Justus-Liebig-Universität Gießen\n",
-                      "Arndtstraße 2\n",
-                      "35392 Gießen\n",
+                      "Department Mathematik\n",
+                      "Universität Siegen\n",
+                      "Walter-Flex-Straße 3\n",
+                      "57072 Siegen\n",
                       "Germany" ),
-   Place         := "Gießen, Germany",
-   Institution   := "Justus-Liebig-Universität Gießen"
+   Place         := "Siegen, Germany",
+   Institution   := "Universität Siegen"
  ),
 ],  
 

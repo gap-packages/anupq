@@ -43,11 +43,11 @@ with cygwin.
 You can download `anupq-XXX.tar.gz' (where `XXX' is the  package  version
 number) from the home page for the ANUPQ package
 
-http://gap-packages.github.io/anupq/
+https://gap-packages.github.io/anupq/
 
 or via the GAP web site
 
-http://www.gap-system.org/Packages/anupq.html
+https://www.gap-system.org/Packages/anupq.html
 
                       Installing the ANUPQ package
                       ----------------------------
@@ -135,7 +135,7 @@ Some of the tests the script runs take a while. Please be  patient.
 The output you see should be something like the following:
 
   Made dir: /tmp/testPq
-  Testing installation of ANUPQ Package (version 3.1)
+  Testing installation of ANUPQ Package (version 3.2.1)
   
   The first two tests check that the pq C program compiled ok.
   Testing the pq binary ... OK.
@@ -149,8 +149,8 @@ The output you see should be something like the following:
   Checking GAP ...
    pq binary made with GAP set to: /usr/local/bin/gap
    Starting GAP to determine version and package availability ...
-    GAP version (4.6.5) ... OK.
-    GAP found ANUPQ package (version 3.1) ... good.
+    GAP version (4.10.1) ... OK.
+    GAP found ANUPQ package (version 3.2.1) ... good.
     GAP found pq binary (version 1.9) ... good.
     GAP found AutPGrp package (version 1.5) ... good.
    GAP is OK.

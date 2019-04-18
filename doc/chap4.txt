@@ -616,7 +616,7 @@
     [4X[28X[ 2, 3, 3 ][128X[104X
     [4X[25Xgap>[125X [27XList(des, d -> Length( DerivedSeries( d ) ) );[127X[104X
     [4X[28X[ 3, 3, 3 ][128X[104X
-    [4X[25Xgap>[125X [27XList(des, d -> Maximum( List( Elements(d), Order ) ) );[127X[104X
+    [4X[25Xgap>[125X [27XList(des, d -> Maximum( List( d, Order ) ) );[127X[104X
     [4X[28X[ 5, 5, 5 ][128X[104X
   [4X[32X[104X
   

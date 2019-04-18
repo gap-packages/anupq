@@ -46,8 +46,8 @@
     [4X[28Xcorrespondence)[128X[104X
     [4X[28X           Werner Nickel (http://www.mathematik.tu-darmstadt.de/~nickel/)[128X[104X
     [4X[28X           [uses ANU pq binary (C code program) version: 1.9][128X[104X
-    [4X[28XC code by  Eamonn O'Brien (http://www.math.auckland.ac.nz/~obrien)[128X[104X
-    [4X[28XCo-maintained by Max Horn <max.horn@math.uni-giessen.de>[128X[104X
+    [4X[28XC code by  Eamonn O'Brien (https://www.math.auckland.ac.nz/~obrien)[128X[104X
+    [4X[28XCo-maintained by Max Horn <max.horn@uni-siegen.de>[128X[104X
     [4X[28X[128X[104X
     [4X[28X            For help, type: ?ANUPQ[128X[104X
     [4X[28X---------------------------------------------------------------------------[128X[104X
