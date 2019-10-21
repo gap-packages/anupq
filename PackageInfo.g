@@ -11,7 +11,6 @@ PackageName := "ANUPQ",
 Subtitle    := "ANU p-Quotient",
 Version     := "3.2.1",
 Date        := "18/04/2019", # dd/mm/yyyy format
-License     := "none",
 
 Persons := [ 
   rec( 
