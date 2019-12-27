@@ -2,7 +2,11 @@ dnl ##
 dnl ## Process this file with autoconf to produce a configure script.
 dnl ##
 AC_PREREQ([2.68])
-AC_INIT([ANU p-Quotient Program], m4_esyscmd([tr -d '\n' < VERSION]), [https://github.com/gap-packages/anupq/issues], [anupq], [http://gap-packages.github.io/anupq/])
+AC_INIT([ANU p-Quotient Program],
+        m4_normalize(m4_include([VERSION])),
+        [https://github.com/gap-packages/anupq/issues],
+        [anupq],
+        [http://gap-packages.github.io/anupq/])
 AC_CONFIG_SRCDIR([src/pquotient.c])
 AC_CONFIG_HEADER(include/config.h:include/config.hin)
 AC_CONFIG_AUX_DIR(cnf)
