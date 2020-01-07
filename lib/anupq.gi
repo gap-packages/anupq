@@ -607,14 +607,10 @@ local from, pos, statement, parts, var;
                   Concatenation( "View(", parts[1], "); Print(\"\\n\");" ) ) );
         ANUPQData.example.last := parts[1];
       else
-        var := TemporaryGlobalVarName();
-        Read( InputTextString( Concatenation(var, ":=", statement) ) );
-        if ISBOUND_GLOBAL(var) then
-          View( VALUE_GLOBAL(var) );
-          Print( "\n" );
-          ANUPQData.example.last := VALUE_GLOBAL(var);
-          UNBIND_GLOBAL(var);
-        fi;
+        var := EvalString(statement);
+        View( var );
+        Print( "\n" );
+        ANUPQData.example.last := var;
       fi;
       from := pos;
     fi;
