@@ -140,8 +140,6 @@ Logical exp5_filter(int *weight_vector, struct pcp_vars *pcp)
    are commutators by doing the appropriate collections */
 
 void calculate_tails(int final_class,
-                     int start_weight,
-                     int end_weight,
                      struct pcp_vars *pcp)
 {
    register int *y = y_address;

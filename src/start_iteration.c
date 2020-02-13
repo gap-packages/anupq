@@ -25,7 +25,7 @@ void iteration_information(int *subgroup_rank,
                            struct pga_vars *pga,
                            struct pcp_vars *pcp)
 {
-   Logical All, Constant;
+   Logical All, Constant = 0;
    int nmr_iterations;
    register int i;
 

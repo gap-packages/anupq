@@ -288,7 +288,7 @@ static int **finish_pga_run(Logical *identity_map,
 {
    int **perms;
 
-   FILE *LINK_input;
+   FILE *LINK_input = 0;
    int k;
    int upper_step;
    Logical soluble_group;

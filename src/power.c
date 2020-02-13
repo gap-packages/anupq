@@ -10,8 +10,8 @@
 #include "pq_defs.h"
 #include "pcp_vars.h"
 
-static void zero_array(int ptr, int length, struct pcp_vars *pcp);
-static void copy_array(int old, int length, int new, struct pcp_vars *pcp);
+static void zero_array(int ptr, int length);
+static void copy_array(int old, int length, int new);
 
 /* power routine - written by M J Smith, May 1991.
 
@@ -79,8 +79,8 @@ void power(int exp, int cp, struct pcp_vars *pcp)
          now do rest using prime p expansion */
 
       /* move X into Z, set X to 1 */
-      copy_array(x, lastg, z, pcp);
-      zero_array(x, lastg, pcp);
+      copy_array(x, lastg, z);
+      zero_array(x, lastg);
 
       while (nn > 0) {
          r = MOD(nn, p);
@@ -106,7 +106,7 @@ void power(int exp, int cp, struct pcp_vars *pcp)
    else {
       /* move X into Z and set X to 1 */
       vector_to_string(x, z, pcp);
-      zero_array(x, lastg, pcp);
+      zero_array(x, lastg);
 
       while (nn > 0) {
 
@@ -115,7 +115,7 @@ void power(int exp, int cp, struct pcp_vars *pcp)
             end up with w^p at end of while loop */
 
          string_to_vector(z, a, pcp);
-         zero_array(z, lastg, pcp);
+         zero_array(z, lastg);
 
          q = nn / p;
          r = MOD(nn, p);
@@ -130,7 +130,7 @@ void power(int exp, int cp, struct pcp_vars *pcp)
 
             /* collect onto answer if needed (ie R = 1) */
             if (MOD(r, 2) == 1) {
-               copy_array(a, lastg, b, pcp);
+               copy_array(a, lastg, b);
                if (y[x + 1] > 0) {
                   collect(-x, b, pcp);
                }
@@ -139,7 +139,7 @@ void power(int exp, int cp, struct pcp_vars *pcp)
 
             /* collect onto Z for next power of w if next iteration reqd */
             if (MOD(pp, 2) == 1 && q > 0) {
-               copy_array(a, lastg, b, pcp);
+               copy_array(a, lastg, b);
                if (y[z + 1] > 0) {
                   collect(-z, b, pcp);
                }
@@ -166,13 +166,13 @@ void power(int exp, int cp, struct pcp_vars *pcp)
 
       /* now X is the answer as a string, so convert to exponent vector */
       string_to_vector(x, b, pcp);
-      copy_array(b, lastg, x, pcp);
+      copy_array(b, lastg, x);
    }
 }
 
 /* zero a section of the array, y */
 
-static void zero_array(int ptr, int length, struct pcp_vars *pcp)
+static void zero_array(int ptr, int length)
 {
    register int *y = y_address;
 
@@ -184,7 +184,7 @@ static void zero_array(int ptr, int length, struct pcp_vars *pcp)
 
 /* copy a section of the array, y */
 
-static void copy_array(int old, int length, int new, struct pcp_vars *pcp)
+static void copy_array(int old, int length, int new)
 {
    register int *y = y_address;
 

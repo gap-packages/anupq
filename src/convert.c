@@ -56,23 +56,6 @@ int vector_to_word(int cp, int ptr, struct pcp_vars *pcp)
    return length;
 }
 
-/* convert normal word with base address ptr and exponent 1
-   to string with base address str */
-void word_to_string(int ptr, int str, struct pcp_vars *pcp)
-{
-   register int *y = y_address;
-
-   register int i;
-   register int length = y[ptr];
-/* register int exp = y[ptr + 1]; */
-#include "access.h"
-
-   for (i = 1; i <= length; ++i)
-      y[str + 1 + i] = PACK2(1, y[ptr + 1 + i]);
-
-   y[str + 1] = length;
-}
-
 /* convert string with base address str to
    exponent vector whose base address is cp */
 

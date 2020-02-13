@@ -48,7 +48,7 @@ void extend_tail (int address, int f, int s, struct pcp_vars *pcp);
 void enforce_laws (struct pga_vars *flag, struct pga_vars *pga, struct pcp_vars *pcp);
 void orbit_option (int option, int **perms, int **a, int **b, char **c, int **orbit_length, struct pga_vars *pga);
 void stabiliser_option (int option, int ***auts, int **perms, int *a, int *b, char *c, int *orbit_length, struct pga_vars *pga, struct pcp_vars *pcp);
-void calculate_tails (int final_class, int start_weight, int end_weight, struct pcp_vars *pcp);
+void calculate_tails (int final_class, struct pcp_vars *pcp);
 void calculate_power (int exp, int ptr, int cp, struct pcp_vars *pcp);
 void write_GAP_matrix ();
 int *bitstring_to_subset (int K, struct pga_vars *pga);

@@ -21,7 +21,7 @@
 *F  print_GAP_word
 **                                     print out a word of a pcp presentation
 */
-void print_GAP_word(FILE *file, int ptr, struct pcp_vars *pcp)
+static void print_GAP_word(FILE *file, int ptr)
 {
    register int *y = y_address;
 
@@ -96,7 +96,7 @@ void GAP_presentation(FILE *file, struct pcp_vars *pcp, int aspcgroup)
          fprintf(file, " F.%d^%d", i, pcp->p);
       else {
          fprintf(file, " F.%d^%d /", i, pcp->p);
-         print_GAP_word(file, p2, pcp);
+         print_GAP_word(file, p2);
       }
    }
 
@@ -119,7 +119,7 @@ void GAP_presentation(FILE *file, struct pcp_vars *pcp, int aspcgroup)
          if (p2 != 0) {
             fprintf(file, ",\n");
             fprintf(file, " Comm( F.%d, F.%d ) /", i, j);
-            print_GAP_word(file, p2, pcp);
+            print_GAP_word(file, p2);
          }
       }
    }
@@ -134,7 +134,7 @@ void GAP_presentation(FILE *file, struct pcp_vars *pcp, int aspcgroup)
    for (i = 1; i <= ndgen; i++) {
       p2 = y[dgen + i];
       fprintf(file, "MapImages[%d] := ", i);
-      print_GAP_word(file, p2, pcp);
+      print_GAP_word(file, p2);
       fprintf(file, ";\n");
    }
 }

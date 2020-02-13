@@ -151,7 +151,7 @@ void tails(int type,
       /* calculate pth powers of class final_class generators which
          are commutators by doing the appropriate collections */
       if (final_class != 1)
-         calculate_tails(final_class, start_weight, end_weight, pcp);
+         calculate_tails(final_class, pcp);
       if (pcp->overflow)
          return;
    }
@@ -177,8 +177,6 @@ void tails(int type,
    are commutators by doing the appropriate collections */
 
 void calculate_tails(int final_class,
-                     int start_weight,
-                     int end_weight,
                      struct pcp_vars *pcp)
 {
    register int *y = y_address;
