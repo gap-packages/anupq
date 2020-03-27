@@ -23,7 +23,7 @@
 ##    "version" . . the version of the current pq binary
 ##
 InstallValue( ANUPQData,
-  rec( binary := ExternalFilename( DirectoriesPackagePrograms( "anupq" ), "pq" ),
+  rec( binary := Filename( DirectoriesPackagePrograms( "anupq" ), "pq" ),
        tmpdir := DirectoryTemporary(),
        ni := rec(), # record for non-interactive functions
        io := []     # list of records for PqStart IO Streams,
@@ -34,8 +34,9 @@ ANUPQData.outfile  := Filename( ANUPQData.tmpdir, "PQ_OUTPUT" );
 ANUPQData.SPimages := Filename( ANUPQData.tmpdir, "GAP_library" );
 
 # Fire up the pq binary to get its version
-Exec( Concatenation( ANUPQData.binary, " -v >", ANUPQData.outfile ) );
-ANUPQData.version := StringFile( ANUPQData.outfile );
+ANUPQData.version := "";
+Process( DirectoryCurrent(), ANUPQData.binary, InputTextNone(),
+         OutputTextString( ANUPQData.version, false ), [ "-v" ] );
 ANUPQData.version := 
     ANUPQData.version{[PositionSublist( ANUPQData.version, "Version" ) + 8 ..
                        Length(ANUPQData.version) - 1] };
