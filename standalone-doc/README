@@ -23,11 +23,12 @@ This implementation was developed in C by
 and some minor changes made in 2011-2019 by
 
    Max Horn
-   Department Mathematik
-   Universität Siegen
-   Walter-Flex-Straße 3, 57072 Siegen, Germany
+   Fachbereich Mathematik
+   TU Kaiserslautern
+   Gottlieb-Daimler-Straße 48
+   67663 Kaiserslautern, Germany
 
-   E-mail: max.horn@uni-siegen.de
+   E-mail: horn@mathematik.uni-kl.de
    WWW http://www.quendi.de/math
 
 ###############################################################################
@@ -251,4 +252,4 @@ J. Symbolic Comput. 9, 725-733.
 9. See the documentation for information on run-time parameters.
 
 10. Please report bugs/problems/feedback to obrien@math.auckland.ac.nz
-    and/or max.horn@uni-siegen.de
+    and/or horn@mathematik.uni-kl.de
