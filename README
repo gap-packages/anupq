@@ -59,7 +59,7 @@ it is also possible to keep an additional `pkg' directory in your private
 directories, see section "ref:Installing  GAP  Packages"  of  the  GAP  4
 reference manual for details on how to do this.)
 
-ANUPQ package requires at least GAP 4.8 and AutPGrp 1.5, although we
+ANUPQ package requires at least GAP 4.9 and AutPGrp 1.5, although we
 recommend using the most recent versions of each. ANUPQ optionally
 supports using GMP for large integer support.
 

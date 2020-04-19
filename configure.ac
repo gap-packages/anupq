@@ -42,7 +42,7 @@ AC_CHECK_HEADERS([stdlib.h string.h sys/time.h])
 dnl ##
 dnl ## Locate the GAP root dir
 dnl ##
-AC_FIND_GAP
+FIND_GAP
 
 
 dnl ##
@@ -77,12 +77,7 @@ else
 	# Try using static linked GMP in the specified location
 	if test "x$with_gmp" = "xyes" ; then
 		# Try to use GAP's GMP, if available
-		# first for GAP <= 4.8 ...
-		GMP_HOME="$GAPROOT/bin/$GAPARCH/extern/gmp"
-		# ... then for GAP >= 4.9
-		if ! test -d "$GMP_HOME" ; then
-			GMP_HOME="$GAPROOT/extern/install/gmp"
-		fi
+        GMP_HOME="$GAPROOT/extern/install/gmp"
 	else
 		GMP_HOME="$with_gmp"
 	fi;
