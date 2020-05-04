@@ -41,6 +41,16 @@ typedef struct word_traverser {
    int posn;
 } word_traverser;
 
+void word_init(word *wp);
+void word_clear(word *wp);
+void word_reset(word *wp);
+void word_put_last(word *wp, gen_type g);
+void pc_word_init(word *wp);
+void pc_word_reset(word *wp);
+void insert_gen(gen_type h, word *wp);
+void word_factor(word *wp, word *wwp, int *ep);
+
+
 extern char word_delget_first(word *wp, gen_type *gp); 
 extern char word_del_last(word *wp); 
 extern char word_next(word_traverser *wtp, gen_type *gp);
