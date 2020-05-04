@@ -58,7 +58,7 @@ invert_automorphisms(int ***auts, struct pga_vars *pga, struct pcp_vars *pcp)
             collect_image_of_string(string, cp, auts[alpha], pcp);
             for (j = 1; j <= pcp->lastg; ++j)
                Power[i][j] = y[cp + j];
-            print_matrix(Power, pcp->lastg, pcp->lastg, 1);
+            print_matrix(Power, pcp->lastg, pcp->lastg);
          }
       }
    }
