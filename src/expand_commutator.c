@@ -11,8 +11,9 @@
 
 /* routines for handling expansion of commutator relations */
 
-void add(int *x, int *y);
-void invert_symbols(int *x);
+static void add(int *x, int *y);
+static void invert_symbols(int *x);
+static int length(int *s);
 
 /* expand the commutator of s and t */
 
@@ -32,7 +33,7 @@ void expand_commutator(int *s, int t)
 
 /* find the number of non-zero entries in s */
 
-int length(int *s)
+static int length(int *s)
 {
    register int i = 0;
 
@@ -44,7 +45,7 @@ int length(int *s)
 
 /* concatenate y with x */
 
-void add(int *x, int *y)
+static void add(int *x, int *y)
 {
    register int j;
    int i = length(x);
@@ -55,7 +56,7 @@ void add(int *x, int *y)
 
 /* construct the group-theoretic inverse of the symbols in x */
 
-void invert_symbols(int *x)
+static void invert_symbols(int *x)
 {
    register int i = length(x) - 1;
    register int j;

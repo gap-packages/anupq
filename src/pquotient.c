@@ -11,6 +11,8 @@
 #include "pcp_vars.h"
 #include "constants.h"
 
+static int check_for_error(struct pcp_vars *pcp);
+
 /* coordinating routine for calculation of power-commutator presentation */
 
 int pquotient(
@@ -84,7 +86,7 @@ int pquotient(
    return SUCCESS;
 }
 
-int check_for_error(struct pcp_vars *pcp)
+static int check_for_error(struct pcp_vars *pcp)
 {
    /* insufficient space */
    if (pcp->overflow) {

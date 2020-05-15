@@ -74,7 +74,7 @@ void insoluble_compute_orbits(int **orbit,
 
 /* list the orbit of insoluble permutation group with leading term rep */
 
-void
+static void
 insoluble_list_orbit(int rep, int orbit_length, int *a, struct pga_vars *pga)
 {
    register int j;
@@ -92,7 +92,7 @@ insoluble_list_orbit(int rep, int orbit_length, int *a, struct pga_vars *pga)
 
 /* list the orbit of soluble permutation group with leading term j */
 
-void list_orbit(int j, int *b)
+static void list_orbit(int j, int *b)
 {
    while (j != 0) {
       printf("%d ", j);

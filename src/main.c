@@ -48,6 +48,8 @@ int menu = DEFAULT_MENU;
 Logical StandardPresentation = FALSE;
 Logical GAP4iostream = FALSE;
 
+static int process_parameters(int argc, char **argv);
+
 int main(int argc, char **argv)
 {
    int t;
@@ -92,7 +94,7 @@ int main(int argc, char **argv)
 
 /* process run-time parameters */
 
-int process_parameters(int argc, char **argv)
+static int process_parameters(int argc, char **argv)
 {
    int i;
    Logical error;
