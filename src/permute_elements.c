@@ -91,7 +91,8 @@ void permute_elements(void)
    int m;
    int q, x;
    int *orbit;
-   int *schreier, *backptr;
+   char *schreier;
+   int *backptr;
    int nmr_maps;
    int Degree;
 

@@ -11,7 +11,10 @@
 #include "pga_vars.h"
 #include "pcp_vars.h"
 #include "pq_functions.h"
-#define BITES_IN_INT 8 * sizeof(int)
+
+enum {
+    BITES_IN_INT = 8 * sizeof(int)
+};
 
 /* given a label, find the standard matrix, S, for the
    corresponding allowable subgroup and its definition set */

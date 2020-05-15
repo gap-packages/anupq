@@ -250,7 +250,10 @@ int ***read_stabiliser_gens(int nr_gens, int ***sol_gens, struct pga_vars *pga)
 *F  insoluble_stab_gens( <rep>, <orbit_length> )
 **          calculate the stabiliser of the supplied representative using GAP
 */
-void insoluble_stab_gens(int rep, int orbit_length)
+void insoluble_stab_gens(int rep,
+                         int orbit_length,
+                         struct pga_vars *,
+                         struct pcp_vars *)
 {
    char str[MAXWORD];
 

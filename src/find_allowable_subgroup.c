@@ -16,6 +16,19 @@
 
 #if defined(STANDARD_PCP)
 
+/* which generator of the p-covering group did u and v define? */
+
+static int find_index(int u, int v, int **definition, int q)
+{
+   register int i;
+
+   for (i = 0; i < q; ++i)
+      if (u == definition[i][0] && v == definition[i][1])
+         return i;
+
+   return -1;
+}
+
 /* given a presentation for the p-covering group of a
    class c p-quotient; find the allowable subgroup which
    determines the presentation for the class c + 1 quotient;
@@ -165,16 +178,4 @@ int **find_allowable_subgroup(int option,
    return subgroup;
 }
 
-/* which generator of the p-covering group did u and v define? */
-
-int find_index(int u, int v, int **definition, int q)
-{
-   register int i;
-
-   for (i = 0; i < q; ++i)
-      if (u == definition[i][0] && v == definition[i][1])
-         return i;
-
-   return -1;
-}
 #endif
