@@ -132,6 +132,22 @@ void trace_action(int *permutation, int j, int *a, int *b, char *c)
    }
 }
 
+/* list the orbit with leading term j and return its length */
+
+int soluble_list_orbit(int j, int *b, struct pga_vars *pga)
+{
+   register int orbit_length = 0;
+
+   while (j != 0) {
+      ++orbit_length;
+      if (pga->print_orbits)
+         printf("%d ", j);
+      j = b[j];
+   }
+
+   return orbit_length;
+}
+
 /* find the orbit representatives, number of orbits, and orbit lengths;
    also list the individual orbits */
 
@@ -158,26 +174,10 @@ int *soluble_find_orbit_reps(int *a, int *b, struct pga_vars *pga)
          pga->rep[counter] = j;
          if (pga->print_orbits)
             printf("\nOrbit %d:\n", counter);
-         orbit_length[counter] = list_orbit(j, b);
+         orbit_length[counter] = soluble_list_orbit(j, b, pga);
          if (pga->print_orbits)
             printf("\nLength is %d\n", orbit_length[counter]);
       }
-   }
-
-   return orbit_length;
-}
-
-/* list the orbit with leading term j and return its length */
-
-int soluble_list_orbit(int j, int *b, struct pga_vars *pga)
-{
-   register int orbit_length = 0;
-
-   while (j != 0) {
-      ++orbit_length;
-      if (pga->print_orbits)
-         printf("%d ", j);
-      j = b[j];
    }
 
    return orbit_length;
