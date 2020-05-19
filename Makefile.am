@@ -33,10 +33,7 @@ bin_PROGRAMS = pq
 pq_LDADD = $(GMP_LIBS)
 pq_CPPFLAGS = $(GMP_CPPFLAGS) $(PQFLAGS)
 
-# FIXME: Add prototypes for all C functions and then remove -Wno-implicit.
-# FIXME: Fix all -Wall warnings
-pq_CFLAGS = -Wno-implicit
-
+pq_CFLAGS = -Wall -Wextra -Wno-unused-parameter
 
 pq_SOURCES = \
     src/AllocateSpace.c \
