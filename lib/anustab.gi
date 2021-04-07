@@ -53,7 +53,7 @@ local m, n, H, pcgs, aut, NumberAgAutos, i, imgs, NumberGlAutos, p, d,
   NumberAgAutos := Length (ANUPQglb.agAutos); 
   aut.agAutos := [1..NumberAgAutos];
   for i in [1..Length (ANUPQglb.agAutos)] do 
-    Immutable( ANUPQglb.genQ[i] );
+    MakeImmutable( ANUPQglb.genQ[i] );
     ConvertToMatrixRep( ANUPQglb.genQ[i], ANUPQglb.F );
     imgs := List( ANUPQglb.agAutos[i], x -> PcElementByExponents( pcgs, x ) );
     aut.agAutos[i] := PGAutomorphism( H, pcgs, imgs);
@@ -65,7 +65,7 @@ local m, n, H, pcgs, aut, NumberAgAutos, i, imgs, NumberGlAutos, p, d,
   NumberGlAutos := Length( ANUPQglb.glAutos );
   aut.glAutos := [1..NumberGlAutos];
   for i in [1..NumberGlAutos] do 
-    Immutable( ANUPQglb.genQ[i] );
+    MakeImmutable( ANUPQglb.genQ[i] );
     ConvertToMatrixRep( ANUPQglb.genQ[NumberAgAutos + i], ANUPQglb.F );
     imgs := List( ANUPQglb.glAutos[i], x -> PcElementByExponents( pcgs, x ) );
     aut.glAutos[i] := PGAutomorphism( H, pcgs, imgs);
@@ -100,7 +100,7 @@ local m, n, H, pcgs, aut, NumberAgAutos, i, imgs, NumberGlAutos, p, d,
         mat := List(a!.baseimgs, 
                     x -> ExponentsOfPcElement( pcgs, x ){[1..d]});
         mat := mat * One( aut.field );
-        Immutable( mat );
+        MakeImmutable( mat );
         ConvertToMatrixRep( mat, aut.field );
         aut.glOper[i] := Permutation( mat, elm, OnRight );
     od;
