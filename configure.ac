@@ -8,7 +8,7 @@ AC_INIT([ANU p-Quotient Program],
         [anupq],
         [http://gap-packages.github.io/anupq/])
 AC_CONFIG_SRCDIR([src/pquotient.c])
-AC_CONFIG_HEADER(include/config.h:include/config.hin)
+AC_CONFIG_HEADERS(include/config.h:include/config.hin)
 AC_CONFIG_AUX_DIR(cnf)
 AC_CONFIG_MACRO_DIR([m4])
 AM_INIT_AUTOMAKE([1.11 -Wall foreign subdir-objects])
@@ -117,9 +117,8 @@ if test "x$with_gmp" != xno; then
 		# libgmp.a is in the linker command line before the test C file. On the long
 		# run, this should be re-enabled, though perhaps in a different form.
 		AC_MSG_CHECKING([whether linking against GMP works])
-		AC_TRY_LINK(
-			[#include <gmp.h>],
-			[__gmpz_init(0);],
+		AC_LINK_IFELSE(
+			[AC_LANG_PROGRAM([[#include <gmp.h>]], [[__gmpz_init(0);]])],
 			[have_gmp=yes],
 			[]
 			)
