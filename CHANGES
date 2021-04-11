@@ -1,6 +1,13 @@
 In this file we record the changes since the first GAP 4 release of
 the ANUPQ package.
 
+Version 3.2.2 (2021-04-11)
+  * Fixed compatibly issues under Windows/Cygwin
+  * Fixed many compiler warnings
+  * Removed use of TemporaryGlobalVarName
+  * Fixed building the manual on Linux
+  * Update Max Horn's contact details
+
 Version 3.2.1 (2019-04-18)
   * After some back and forth, drop the limitation on 32-bit builds again;
     it turns out that 64-bit builds can work just fine
