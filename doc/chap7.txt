@@ -5,7 +5,7 @@
   UNIX  and in environments similar to UNIX. In particular it is known to work
   on Linux and Mac OS X, and also on Windows equipped with cygwin.[133X
   
-  [33X[0;0YThe  current  version of the [5XANUPQ[105X package requires [5XGAP[105X 4.8, and version 1.2
+  [33X[0;0YThe  current  version of the [5XANUPQ[105X package requires [5XGAP[105X 4.9, and version 1.2
   of  the  [5XAutPGrp[105X  package.  However, we recommend using at least [5XGAP[105X 4.6 and
   [5XAutPGrp[105X 1.5.[133X
   

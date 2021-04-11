@@ -34,7 +34,7 @@
   
   [1X6.1-2 ANUPQoptions[101X
   
-  [33X[1;0Y[29X[2XANUPQoptions[102X[32X global variable[133X
+  [33X[1;0Y[29X[2XANUPQoptions[102X [32X global variable[133X
   
   [33X[0;0Yis  a  record  of lists of names of admissible [5XANUPQ[105X options, such that each
   field  is  either  the  name  of  a  [21Xkey[121X  [5XANUPQ[105X  function  or  [10Xother[110X  (for a

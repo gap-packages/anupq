@@ -47,7 +47,7 @@
     [4X[28X           Werner Nickel (http://www.mathematik.tu-darmstadt.de/~nickel/)[128X[104X
     [4X[28X           [uses ANU pq binary (C code program) version: 1.9][128X[104X
     [4X[28XC code by  Eamonn O'Brien (https://www.math.auckland.ac.nz/~obrien)[128X[104X
-    [4X[28XCo-maintained by Max Horn <max.horn@uni-siegen.de>[128X[104X
+    [4X[28XCo-maintained by Max Horn <horn@mathematik.uni-kl.de>[128X[104X
     [4X[28X[128X[104X
     [4X[28X            For help, type: ?ANUPQ[128X[104X
     [4X[28X---------------------------------------------------------------------------[128X[104X
@@ -83,7 +83,7 @@
   
   [1X3.2-1 ANUPQData[101X
   
-  [33X[1;0Y[29X[2XANUPQData[102X[32X global variable[133X
+  [33X[1;0Y[29X[2XANUPQData[102X [32X global variable[133X
   
   [33X[0;0Yis  a [5XGAP[105X record in which the essential data for an [5XANUPQ[105X session within [5XGAP[105X
   is stored; its fields are:[133X
@@ -258,7 +258,7 @@
   
   [1X3.3-1 InfoANUPQ[101X
   
-  [33X[1;0Y[29X[2XInfoANUPQ[102X[32X info class[133X
+  [33X[1;0Y[29X[2XInfoANUPQ[102X [32X info class[133X
   
   [33X[0;0YThe  input  to  and  the  output  from  the  [10Xpq[110X  program is, by default, not
   displayed.  However  the  user  may  choose  to  see  some,  or all, of this
@@ -554,7 +554,7 @@
   
   [1X3.6-1 ANUPQWarnOfOtherOptions[101X
   
-  [33X[1;0Y[29X[2XANUPQWarnOfOtherOptions[102X[32X global variable[133X
+  [33X[1;0Y[29X[2XANUPQWarnOfOtherOptions[102X [32X global variable[133X
   
   [33X[0;0Yis a global variable that is by default [9Xfalse[109X. If it is set to [9Xtrue[109X then any
   function provided by the [5XANUPQ[105X function that recognises at least one option,

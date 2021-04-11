@@ -1,6 +1,6 @@
 name: ANUPQ
-version: 3.2.1
-date: 2019-04-18
+version: 3.2.2
+date: 2021-04-11
 description: |
     ANU p-Quotient
 
@@ -18,7 +18,7 @@ maintainers:
     - name: Max Horn
       url: https://www.quendi.de/math
 
-GAP: ">= 4.8"
+GAP: ">= 4.9"
 
 needed-pkgs:
     - name: "autpgrp"
@@ -31,9 +31,9 @@ packageinfo: https://gap-packages.github.io/anupq/PackageInfo.g
 
 downloads:
     - name: .tar.gz
-      url: https://github.com/gap-packages/anupq/releases/download/v3.2.1/anupq-3.2.1.tar.gz
+      url: https://github.com/gap-packages/anupq/releases/download/v3.2.2/anupq-3.2.2.tar.gz
     - name: .tar.bz2
-      url: https://github.com/gap-packages/anupq/releases/download/v3.2.1/anupq-3.2.1.tar.bz2
+      url: https://github.com/gap-packages/anupq/releases/download/v3.2.2/anupq-3.2.2.tar.bz2
 
 abstract: |
     The <span class="pkgname">ANUPQ</span> package provides an interactive    interface to the p-quotient, p-group generation and standard presentation    algorithms of the ANU pq C program.
@@ -45,27 +45,27 @@ keywords: |
     p-quotient, p-group generation, descendant, standard presentation.
 citeas: |
     <p class='BibEntry'>
-    [<span class='BibKey'>GNOH19</span>]   <b class='BibAuthor'>Gamble, G., Nickel, W., O'Brien, E. and Horn, M.</b>,
+    [<span class='BibKey'>GNOH21</span>]   <b class='BibAuthor'>Gamble, G., Nickel, W., O'Brien, E. and Horn, M.</b>,
      <i class='BibTitle'>ANUPQ, ANU p-Quotient,
-             Version 3.2.1</i>
-     (<span class='BibYear'>2019</span>)<br />
+             Version 3.2.2</i>
+     (<span class='BibYear'>2021</span>)<br />
     (<span class='BibNote'>Refereed GAP package</span>),
     <span class='BibHowpublished'><a href="https://gap-packages.github.io/anupq/">https://gap-packages.github.io/anupq/</a></span>.
     </p>
     
 
 bibtex: |
-    @misc{ ANUPQ3.2.1,
+    @misc{ ANUPQ3.2.2,
       author =           {Gamble, G. and Nickel, W. and O'Brien, E. and Horn, M.},
-      title =            {{ANUPQ}, ANU p-Quotient, {V}ersion 3.2.1},
+      title =            {{ANUPQ}, ANU p-Quotient, {V}ersion 3.2.2},
       month =            {Apr},
-      year =             {2019},
+      year =             {2021},
       note =             {Refereed GAP package},
       howpublished =     {\href          {https://gap-packages.github.io/anupq/}
                           {\texttt{https://gap-packages.github.io/}\discretionary
                           {}{}{}\texttt{anupq/}}},
       keywords =         {p-quotient;  p-group  generation; descendant; standard
                           presentation},
-      printedkey =       {GNOH19}
+      printedkey =       {GNOH21}
     }
 
