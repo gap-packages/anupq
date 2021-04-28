@@ -44,8 +44,7 @@ gap> H := Pq( G : Prime := 2, ClassBound := 1 );
 gap> hom := GroupHomomorphismByImages( H, H, [H.1, H.2], [H.2, H.1 * H.2] );
 [ f1, f2 ] -> [ f2, f1*f2 ]
 gap> SetIsBijective( hom, true );
-gap> A := GroupByGenerators( [hom] );
-<group with 1 generators>
+gap> A := GroupByGenerators( [hom] );;
 gap> Order( A );
 3
 gap> SetAutomorphismGroup( H, A );
