@@ -104,7 +104,6 @@ PackageDoc := rec(
   PDFFile   := "doc/manual.pdf",
   SixFile   := "doc/manual.six",
   LongTitle := "ANU p-Quotient",
-  Autoload := false
 ),
 
 Dependencies := rec(
@@ -139,8 +138,6 @@ BannerString := Concatenation(
   "            For help, type: ?", ~.PackageDoc.BookName, "\n",
   "---------------------------------------------------------------------------",
   "\n" ),
-
-Autoload := false,
 
 TestFile := "tst/testinstall.g",
 
