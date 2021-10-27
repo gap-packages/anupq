@@ -35,7 +35,8 @@ jobs:
       - uses: gap-actions/run-pkg-tests@v2
         with:
           GAP_TESTFILE: "tst/testinstall.g"
-      - uses: gap-actions/process-coverage@v1
+      - uses: gap-actions/process-coverage@v2
+      - uses: codecov/codecov-action@v1
 
   # The documentation job
   manual:
