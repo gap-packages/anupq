@@ -11,7 +11,7 @@ AC_CONFIG_SRCDIR([src/pquotient.c])
 AC_CONFIG_HEADERS(include/config.h:include/config.hin)
 AC_CONFIG_AUX_DIR(cnf)
 AC_CONFIG_MACRO_DIR([m4])
-AM_INIT_AUTOMAKE([1.11 -Wall foreign subdir-objects])
+AM_INIT_AUTOMAKE([1.11 -Wall foreign subdir-objects no-dist])
 AM_SILENT_RULES([yes])
 
 dnl Disable maintainer mode by default. This avoids troubles during packaging,
@@ -34,16 +34,9 @@ AC_PROG_MKDIR_P
 AC_PROG_SED
 
 dnl ##
-dnl ## Checks for system header files.
-dnl ##
-AC_CHECK_HEADERS([stdlib.h string.h sys/time.h])
-
-
-dnl ##
 dnl ## Locate the GAP root dir
 dnl ##
 FIND_GAP
-
 
 dnl ##
 dnl ## Check for GMP
@@ -158,7 +151,7 @@ AC_SEARCH_LIBS([log10], [m], [], [
 
 
 # hack for testPq:
-GAP_EXEC="${GAP_BIN_DIR}/bin/gap.sh"
+GAP_EXEC="${GAP}"
 AC_SUBST(GAP_EXEC)
 
 
