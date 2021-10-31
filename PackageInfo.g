@@ -9,8 +9,8 @@ SetPackageInfo( rec(
 
 PackageName := "ANUPQ",
 Subtitle    := "ANU p-Quotient",
-Version     := "3.2.2",
-Date        := "11/04/2021", # dd/mm/yyyy format
+Version     := "3.2.3",
+Date        := "31/10/2021", # dd/mm/yyyy format
 
 Persons := [ 
   rec( 
@@ -104,7 +104,6 @@ PackageDoc := rec(
   PDFFile   := "doc/manual.pdf",
   SixFile   := "doc/manual.six",
   LongTitle := "ANU p-Quotient",
-  Autoload := false
 ),
 
 Dependencies := rec(
@@ -139,8 +138,6 @@ BannerString := Concatenation(
   "            For help, type: ?", ~.PackageDoc.BookName, "\n",
   "---------------------------------------------------------------------------",
   "\n" ),
-
-Autoload := false,
 
 TestFile := "tst/testinstall.g",
 
