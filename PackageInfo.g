@@ -9,8 +9,8 @@ SetPackageInfo( rec(
 
 PackageName := "ANUPQ",
 Subtitle    := "ANU p-Quotient",
-Version     := "3.2.2",
-Date        := "11/04/2021", # dd/mm/yyyy format
+Version     := "3.2.3",
+Date        := "31/10/2021", # dd/mm/yyyy format
 
 Persons := [ 
   rec( 

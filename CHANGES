@@ -1,6 +1,9 @@
 In this file we record the changes since the first GAP 4 release of
 the ANUPQ package.
 
+Version 3.2.3 (2021-10-31)
+  * Various janitorial changes, e.g. to the build system
+
 Version 3.2.2 (2021-04-11)
   * Fixed compatibly issues under Windows/Cygwin
   * Fixed many compiler warnings
