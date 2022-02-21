@@ -46,7 +46,17 @@ int work_space = PQSPACE;
 int format = PRETTY;
 int menu = DEFAULT_MENU;
 Logical StandardPresentation = FALSE;
+
+/* From pcp_vars.h */
+int *y_address = 0;
+
+/* From global.h */
+int Group_library = 0;
+int Compact_Description = 0;
+int Compact_Order = 0;
+char *Group_library_file = 0;
 Logical GAP4iostream = FALSE;
+
 
 static int process_parameters(int argc, char **argv);
 
