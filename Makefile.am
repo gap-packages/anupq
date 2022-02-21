@@ -166,9 +166,9 @@ pq_SOURCES = \
     src/main.c
 
 
-all-local: pq
+all-local: pq$(EXEEXT)
 	$(mkdir_p) $(top_srcdir)/$(BINARCHDIR)
-	cp pq $(abs_top_srcdir)/$(BINARCHDIR)
+	cp pq$(EXEEXT) $(abs_top_srcdir)/$(BINARCHDIR)
 	@echo "SUCCESS!"
 
 clean-local:
