@@ -78,6 +78,6 @@ struct pcp_vars {
 
 };
 
-int     *y_address;     /* definition of storage for presentation */
+extern int     *y_address;     /* definition of storage for presentation */
 
 #endif

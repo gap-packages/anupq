@@ -14,10 +14,10 @@
 
 #define GAP_LIBRARY 2
 
-int Group_library;
-int Compact_Description;
-int Compact_Order;
-char *Group_library_file;
+extern int Group_library;
+extern int Compact_Description;
+extern int Compact_Order;
+extern char *Group_library_file;
 
 extern Logical GAP4iostream;
 
