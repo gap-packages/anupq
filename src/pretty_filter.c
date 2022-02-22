@@ -32,6 +32,13 @@ extern int paired_gens;
 char gpname[MAXIDENT];
 char filename[MAXIDENT];
 
+#define SEEK_WORKS 0
+
+
+int can_seek() {
+   return !isatty(0) && SEEK_WORKS;
+}
+
 /* process "pretty" presentation input from file using key words;
    this is a modified version of code written by Sarah Rees */
 
@@ -115,7 +122,8 @@ int pretty_filter(FILE *file, int *max_class, int *output, struct pcp_vars *pcp)
             word_link_init(wlp);
             if (c == '=') {
                count = 1;
-               posn = ftell(rfile); /* mark posn */
+               if(can_seek())
+                  posn = ftell(rfile); /* mark posn */
                /* pick up the word at the end of the chain of '=''s as
                   the right hand side of the equation */
                do {
@@ -131,7 +139,7 @@ int pretty_filter(FILE *file, int *max_class, int *output, struct pcp_vars *pcp)
                word2prog_word(&w, wlp->wp);
                pc_word_reset(&w);
                if (count > 1) {
-                  if (!isatty(0))
+                  if (can_seek())
                      fseek(rfile, posn, 0);
                   /* go back to the marker if there was more than one '=' */
                   else {
@@ -346,7 +354,8 @@ void pretty_read_relations(int output, int *max_class, struct pcp_vars *pcp)
       word_link_init(wlp);
       if (c == '=') {
          count = 1;
-         posn = ftell(rfile); /* mark position */
+         if(can_seek())
+           posn = ftell(rfile); /* mark position */
          /* pick up the word at the end of the chain of '=''s as
             the right hand side of the equation */
          do {
@@ -362,7 +371,7 @@ void pretty_read_relations(int output, int *max_class, struct pcp_vars *pcp)
          word2prog_word(&w, wlp->wp);
          pc_word_reset(&w);
          if (count > 1) {
-            if (!isatty(0))
+            if (can_seek())
                fseek(rfile, posn, 0);
             /* go back to the marker if there was more than one '=' */
             else {
