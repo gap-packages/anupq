@@ -308,7 +308,6 @@ static int **finish_pga_run(Logical *identity_map,
 #if defined(TIME)
    int t;
 #endif
-   char *s;
 
    restore_pcp(cover_tmp_file, pcp);
    RESET(cover_tmp_file);
@@ -440,7 +439,7 @@ static int **finish_pga_run(Logical *identity_map,
              pcp->p);
       print_presentation(TRUE, pcp);
 #ifdef HAVE_GMP
-      s = pga->upper_bound ? "at most " : "";
+      char *s = pga->upper_bound ? "at most " : "";
       /* Originally pq checked the whole automorphism group.
        * Now it checks only coset reps. of inner automorphisms
        * i.e. those auts that are in 1-1 correspondence with outer auts. */
