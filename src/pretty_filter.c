@@ -20,8 +20,9 @@
 
 #define SIGNIFICANT 3
 
-FILE *rfile;
-FILE *wfile;
+static int rfileno;
+static FILE *rfile;
+static FILE *wfile;
 
 extern int num_gens;
 extern gen_type *inv_of;
@@ -57,6 +58,7 @@ int pretty_filter(FILE *file, int *max_class, int *output, struct pcp_vars *pcp)
    Logical metabelian_flag = FALSE;
 
    rfile = file;
+   rfileno = fileno(rfile);
 
    wfile = stdout;
    *max_class = 10;
@@ -115,7 +117,8 @@ int pretty_filter(FILE *file, int *max_class, int *output, struct pcp_vars *pcp)
             word_link_init(wlp);
             if (c == '=') {
                count = 1;
-               posn = ftell(rfile); /* mark posn */
+               if (!isatty(rfileno))
+                  posn = ftell(rfile); /* mark posn */
                /* pick up the word at the end of the chain of '=''s as
                   the right hand side of the equation */
                do {
@@ -131,7 +134,7 @@ int pretty_filter(FILE *file, int *max_class, int *output, struct pcp_vars *pcp)
                word2prog_word(&w, wlp->wp);
                pc_word_reset(&w);
                if (count > 1) {
-                  if (!isatty(0))
+                  if (!isatty(rfileno))
                      fseek(rfile, posn, 0);
                   /* go back to the marker if there was more than one '=' */
                   else {
@@ -325,6 +328,7 @@ void pretty_read_relations(int output, int *max_class, struct pcp_vars *pcp)
    gen_type g;
 
    rfile = stdin;
+   rfileno = fileno(rfile);
    wfile = stdout;
 
    printf("Input defining set of relations (in { }): ");
@@ -346,7 +350,8 @@ void pretty_read_relations(int output, int *max_class, struct pcp_vars *pcp)
       word_link_init(wlp);
       if (c == '=') {
          count = 1;
-         posn = ftell(rfile); /* mark position */
+         if (!isatty(rfileno))
+            posn = ftell(rfile); /* mark position */
          /* pick up the word at the end of the chain of '=''s as
             the right hand side of the equation */
          do {
@@ -362,7 +367,7 @@ void pretty_read_relations(int output, int *max_class, struct pcp_vars *pcp)
          word2prog_word(&w, wlp->wp);
          pc_word_reset(&w);
          if (count > 1) {
-            if (!isatty(0))
+            if (!isatty(rfileno))
                fseek(rfile, posn, 0);
             /* go back to the marker if there was more than one '=' */
             else {
