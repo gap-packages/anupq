@@ -1,6 +1,9 @@
 In this file we record the changes since the first GAP 4 release of
 the ANUPQ package.
 
+Version 3.2.5 (2022-02-22)
+  * Fixed a hang on macOS 10.15 and later
+
 Version 3.2.4 (2022-02-22)
   * Fixed more compatibly issues under Windows/Cygwin
   * Fixed an issue that prevents anupq from linking on some systems
