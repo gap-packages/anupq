@@ -306,8 +306,8 @@
         [33X[0;6YSpecifies that the number of soluble automorphisms of the automorphism
         group supplied by [10XPqPGSupplyAutomorphisms[110X (see [2XPqPGSupplyAutomorphisms[102X
         ([14X5.9-1[114X))  in  a  [22Xp[122X-group generation calculation is [3Xn[103X. By default, [3Xn[103X is
-        taken  to  be  [22X0[122X;  [3Xn[103X  must be a non-negative integer. If [22X[3Xn[103X ge 0[122X then a
-        value for the option [10XRelativeOrders[110X (see [14X6.2[114X) must also be supplied.[133X
+        taken to be [22X0[122X; [3Xn[103X must be a non-negative integer. If [22X[3Xn[103X ≥ 0[122X then a value
+        for the option [10XRelativeOrders[110X (see [14X6.2[114X) must also be supplied.[133X
   
   [8X[10XRelativeOrders := [3Xlist[103X[8X[10X[110X[8X [108X
         [33X[0;6YSpecifies  the  relative  orders  of  each soluble automorphism of the

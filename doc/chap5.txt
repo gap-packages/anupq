@@ -1138,8 +1138,8 @@
   do exponent checks for weights (inclusively) between the bounds of [10XBounds[110X or
   for  all  weights if [10XBounds[110X is not given. The value [3Xlist[103X of [10XBounds[110X (assuming
   the interactive process is numbered [3Xi[103X) should be a list of two integers [3Xlow[103X,
-  [3Xhigh[103X  satisfying  [22X1 le [3Xlow[103X le [3Xhigh[103X le[122X [10XPqPClass([3Xi[103X[10X)[110X (see [2XPqPClass[102X ([14X5.5-4[114X)). If
-  no exponent law has been specified, no exponent checks are performed.[133X
+  [3Xhigh[103X  satisfying  [22X1 ≤ [3Xlow[103X ≤ [3Xhigh[103X ≤[122X [10XPqPClass([3Xi[103X[10X)[110X (see [2XPqPClass[102X ([14X5.5-4[114X)). If no
+  exponent law has been specified, no exponent checks are performed.[133X
   
   [33X[0;0Y[13XNote:[113X  For  those  familiar with the [10Xpq[110X program, [10XPqDoExponentChecks[110X performs
   menu item 10 of the Advanced [22Xp[122X-Quotient menu.[133X
@@ -1206,7 +1206,7 @@
   
   [33X[0;0Yfor  the  [3Xi[103Xth or default interactive [5XANUPQ[105X process, direct the [10Xpq[110X program to
   do  the  consistency  check for the pc generators with indices [3Xc[103X, [3Xb[103X, [3Xa[103X which
-  should be non-increasing positive integers, i.e. [22X[3Xc[103X ge [3Xb[103X ge [3Xa[103X[122X.[133X
+  should be non-increasing positive integers, i.e. [22X[3Xc[103X ≥ [3Xb[103X ≥ [3Xa[103X[122X.[133X
   
   [33X[0;0YThere are 3 types of consistency checks:[133X
   
@@ -1329,7 +1329,7 @@
   display  the structure for the pcp generators numbered (inclusively) between
   the bounds of [10XBounds[110X or for all generators if [10XBounds[110X is not given. The value
   [3Xlist[103X  of [10XBounds[110X (assuming the interactive process is numbered [3Xi[103X) should be a
-  list   of   two   integers  [3Xlow[103X,  [3Xhigh[103X  satisfying  [22X1  le  [3Xlow[103X  le  [3Xhigh[103X  le[122X
+  list   of   two   integers   [3Xlow[103X,   [3Xhigh[103X   satisfying  [22X1  ≤  [3Xlow[103X  ≤  [3Xhigh[103X  ≤[122X
   [10XPqNrPcGenerators([3Xi[103X[10X)[110X  (see [2XPqNrPcGenerators[102X ([14X5.5-1[114X)). [10XPqDisplayStructure[110X also
   accepts the option [10XOutputLevel[110X (see [14X6.2[114X).[133X
   
@@ -1392,8 +1392,8 @@
   display   the   automorphism   actions   on   the  pcp  generators  numbered
   (inclusively)  between  the bounds of [10XBounds[110X or for all generators if [10XBounds[110X
   is  not given. The value [3Xlist[103X of [10XBounds[110X (assuming the interactive process is
-  numbered  [3Xi[103X)  should be a list of two integers [3Xlow[103X, [3Xhigh[103X satisfying [22X1 le [3Xlow[103X
-  le    [3Xhigh[103X    le[122X    [10XPqNrPcGenerators([3Xi[103X[10X)[110X    (see [2XPqNrPcGenerators[102X   ([14X5.5-1[114X)).
+  numbered  [3Xi[103X) should be a list of two integers [3Xlow[103X, [3Xhigh[103X satisfying [22X1 ≤ [3Xlow[103X ≤
+  [3Xhigh[103X      ≤[122X      [10XPqNrPcGenerators([3Xi[103X[10X)[110X     (see [2XPqNrPcGenerators[102X     ([14X5.5-1[114X)).
   [10XPqDisplayStructure[110X also accepts the option [10XOutputLevel[110X (see [14X6.2[114X).[133X
   
   [33X[0;0Y[13XNote:[113X  For  those  familiar  with  the  [10Xpq[110X  program,  [10XPqDisplayAutomorphisms[110X

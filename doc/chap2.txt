@@ -29,12 +29,12 @@
   
   [124X
   
-  [33X[0;0Ywhere [22Xv_jk[122X is a word in the elements [22Xa_k+1,dots,a_n[122X for [22X1 le j ≤ k le n[122X.[133X
+  [33X[0;0Ywhere [22Xv_jk[122X is a word in the elements [22Xa_k+1,dots,a_n[122X for [22X1 ≤ j ≤ k ≤ n[122X.[133X
   
   [33X[0;0YThis  is  called a [13Xpower-commutator[113X presentation (or [13Xpc presentation[113X or [13Xpcp[113X)
   of  [22XG[122X,  generators  from  such  a  presentation  will  be  referred to as [13Xpc
   generators[113X. In terms of such pc generators every element of [22XG[122X can be written
-  in  a  [21Xnormal form[121X [22Xa_1^e_1dots a_n^e_n[122X with [22X0 le e_i < p[122X. Moreover any given
+  in  a  [21Xnormal  form[121X [22Xa_1^e_1dots a_n^e_n[122X with [22X0 ≤ e_i < p[122X. Moreover any given
   product  of  the generators can be brought into such a normal form using the
   defining  relations  in  the  above  presentation as rewrite rules. Any such
   process  is  called  [13Xcollection[113X.  For  the  discussion of various collection
@@ -175,7 +175,7 @@
   [33X[0;0Y[22XG/P_1(G)[122X  is the largest elementary abelian [22Xp[122X-factor group of [22XG[122X and this can
   be  found  from the relation matrix of [22XG[122X using matrix diagonalisation modulo
   [22Xp[122X. So it suffices to explain how [22XG/P_i+1(G)[122X is found from [22XG[122X and [22XG/P_i(G)[122X for
-  some [22Xi ge 1[122X.[133X
+  some [22Xi ≥ 1[122X.[133X
   
   [33X[0;0YThis  is  done,  in  principle,  in  two  steps: first the [22Xp[122X-cover of [22XG_i :=
   G/P_i(G)[122X  is  determined  (which  depends  only  on  [22XG_i[122X, not on [22XG[122X) and then
