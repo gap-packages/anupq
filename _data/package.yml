@@ -1,5 +1,5 @@
 name: ANUPQ
-version: 3.2.4
+version: 3.2.5
 date: 2022-02-22
 description: |
     ANU p-Quotient
@@ -31,9 +31,9 @@ packageinfo: https://gap-packages.github.io/anupq/PackageInfo.g
 
 downloads:
     - name: .tar.gz
-      url: https://github.com/gap-packages/anupq/releases/download/v3.2.4/anupq-3.2.4.tar.gz
+      url: https://github.com/gap-packages/anupq/releases/download/v3.2.5/anupq-3.2.5.tar.gz
     - name: .tar.bz2
-      url: https://github.com/gap-packages/anupq/releases/download/v3.2.4/anupq-3.2.4.tar.bz2
+      url: https://github.com/gap-packages/anupq/releases/download/v3.2.5/anupq-3.2.5.tar.bz2
 
 abstract: |
     The <span class="pkgname">ANUPQ</span> package provides an interactive    interface to the p-quotient, p-group generation and standard presentation    algorithms of the ANU pq C program.
@@ -47,7 +47,7 @@ citeas: |
     <p class='BibEntry'>
     [<span class='BibKey'>GNOH22</span>]   <b class='BibAuthor'>Gamble, G., Nickel, W., O'Brien, E. and Horn, M.</b>,
      <i class='BibTitle'>ANUPQ, ANU p-Quotient,
-             Version 3.2.4</i>
+             Version 3.2.5</i>
      (<span class='BibYear'>2022</span>)<br />
     (<span class='BibNote'>Refereed GAP package</span>),
     <span class='BibHowpublished'><a href="https://gap-packages.github.io/anupq/">https://gap-packages.github.io/anupq/</a></span>.
@@ -55,9 +55,9 @@ citeas: |
     
 
 bibtex: |
-    @misc{ ANUPQ3.2.4,
+    @misc{ ANUPQ3.2.5,
       author =           {Gamble, G. and Nickel, W. and O'Brien, E. and Horn, M.},
-      title =            {{ANUPQ}, ANU p-Quotient, {V}ersion 3.2.4},
+      title =            {{ANUPQ}, ANU p-Quotient, {V}ersion 3.2.5},
       month =            {Feb},
       year =             {2022},
       note =             {Refereed GAP package},
