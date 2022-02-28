@@ -35,7 +35,9 @@ void pgroup_generation(Logical *group_present, struct pcp_vars *pcp)
    int option = 0;
    int subgroup_rank = 0;
 
-   char *StartName = 0;
+   // EVIL HACK: preserve StartName across invocations of this function.
+   // Fixes https://github.com/gap-packages/anupq/issues/26
+   static char *StartName = 0;
    FILE *StartFile = 0;
 
    int ***auts = 0;
