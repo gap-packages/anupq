@@ -168,6 +168,7 @@ pq_SOURCES = \
 
 all-local: pq$(EXEEXT)
 	$(mkdir_p) $(top_srcdir)/$(BINARCHDIR)
+	rm -f $(abs_top_srcdir)/$(BINARCHDIR)/pq$(EXEEXT)
 	cp pq$(EXEEXT) $(abs_top_srcdir)/$(BINARCHDIR)
 	@echo "SUCCESS!"
 
