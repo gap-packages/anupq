@@ -15,6 +15,19 @@ gap> hom := GroupHomomorphismByImages(Gpc,Gpq, gen, im);
 [ f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, f12, f13, f14, f15, f16 ] -> 
 [ f1, f2, f4, f3, f5, f6, f7, f8, f9, f10, f11, f12, f13, f14, f15, f16 ]
 
+# Fix crash in PqDescendantsTreeCoclassOne #54
+gap> G := ElementaryAbelianGroup( 16 );
+<pc group of size 16 with 4 generators>
+gap> PqDescendantsTreeCoclassOne( PqStart( G ) : TreeDepth := 5, CapableDescendants );
+#I  Number of descendants of group #1;1 to class 2: 1
+#I  Number of descendants of group #1;1 #1;1 to class 3: 1
+#I  Number of descendants of group #1;1 #1;1 #1;1 to class 4: 1
+#I  Number of descendants of group #1;1 #1;1 #1;1 #1;1 to class 5: 1
+#I  Number of descendants of group #2;1 to class 2: 1
+#I  Number of descendants of group #1;1 #1;1 to class 3: 1
+#I  Number of descendants of group #1;1 #1;1 #1;1 to class 4: 1
+#I  Number of descendants of group #1;1 #1;1 #1;1 #1;1 to class 5: 1
+
 #
 gap> PqQuitAll();
 gap> STOP_TEST( "bugfix.tst", 1 );
