@@ -28,12 +28,8 @@ local created;
   fi; 
 
   # create temporary directory
-  created := Process(DirectoryCurrent(),
-                     Filename( DirectoriesSystemPrograms(), "sh" ),
-                     InputTextUser(),
-                     OutputTextUser(),
-                     [ "-c", Concatenation("mkdir ", dir) ]);
-  if created = fail then
+  CreateDir(dir);
+  if not IsDirectoryPath(dir) then
     return fail;
   fi;
 
