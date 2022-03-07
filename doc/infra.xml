@@ -55,15 +55,16 @@ requested explicitly. This is done by calling
 <Example><![CDATA[
 gap> LoadPackage( "anupq" );
 ---------------------------------------------------------------------------
-Loading    ANUPQ (ANU p-Quotient) 3.1
-GAP code by  Greg Gamble <Greg.Gamble@uwa.edu.au> (address for
-correspondence)
-           Werner Nickel (http://www.mathematik.tu-darmstadt.de/~nickel/)
-           [uses ANU pq binary (C code program) version: 1.9]
-C code by  Eamonn O'Brien (https://www.math.auckland.ac.nz/~obrien)
-Co-maintained by Max Horn <horn@mathematik.uni-kl.de>
-
-            For help, type: ?ANUPQ
+Loading  ANUPQ 3.2.5 (ANU p-Quotient)
+by Greg Gamble (GAP code, http://school.maths.uwa.edu.au/~gregg),
+   Werner Nickel (GAP code, https://www2.mathematik.tu-darmstadt.de/~nickel/), and
+   Eamonn O'Brien (C code, https://www.math.auckland.ac.nz/~obrien).
+maintained by:
+   Greg Gamble (http://school.maths.uwa.edu.au/~gregg) and
+   Max Horn (https://www.quendi.de/math).
+uses ANU pq binary (C code program) version: 1.9
+Homepage: https://gap-packages.github.io/anupq/
+Report issues at https://github.com/gap-packages/anupq/issues
 ---------------------------------------------------------------------------
 true
 ]]></Example>
