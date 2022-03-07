@@ -30,7 +30,7 @@ Private Bag 92019, Auckland, New Zealand
 
 E-mail: obrien@math.auckland.ac.nz
 
-WWW http://www.math.auckland.ac.nz/~obrien
+WWW https://www.math.auckland.ac.nz/~obrien
 
 ###############################################################################
 #

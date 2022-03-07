@@ -39,7 +39,7 @@ Persons := [
      # old email address. To discourage users from sending bug reports
      # there, I have disabled it here.
      #Email         := "nickel@mathematik.tu-darmstadt.de",
-     WWWHome       := "http://www.mathematik.tu-darmstadt.de/~nickel/",
+     WWWHome       := "https://www2.mathematik.tu-darmstadt.de/~nickel/",
   ),
   rec( 
     LastName      := "O'Brien",

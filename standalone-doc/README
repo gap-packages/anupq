@@ -18,7 +18,7 @@ This implementation was developed in C by
 
    E-mail: obrien@math.auckland.ac.nz
 
-   WWW http://www.math.auckland.ac.nz/~obrien
+   WWW https://www.math.auckland.ac.nz/~obrien
 
 and some minor changes made in 2011-2019 by
 
@@ -29,7 +29,7 @@ and some minor changes made in 2011-2019 by
    67663 Kaiserslautern, Germany
 
    E-mail: horn@mathematik.uni-kl.de
-   WWW http://www.quendi.de/math
+   WWW https://www.quendi.de/math
 
 ###############################################################################
 #
@@ -149,7 +149,7 @@ J. Symbolic Comput. 9, 725-733.
    After doing `make restoredirs' in the anupq directory, the anupq sub-
    directories are remapped to the way they are in the distribution found at:
 
-   http://www.math.auckland.ac.nz/~obrien
+   https://www.math.auckland.ac.nz/~obrien
 
    namely the GAP4 doc directory, main directory README and a number of
    other files there are moved to the directory doc; standalone-doc

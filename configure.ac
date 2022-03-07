@@ -6,7 +6,7 @@ AC_INIT([ANU p-Quotient Program],
         [package],
         [https://github.com/gap-packages/anupq/issues],
         [anupq],
-        [http://gap-packages.github.io/anupq/])
+        [https://gap-packages.github.io/anupq/])
 AC_CONFIG_SRCDIR([src/pquotient.c])
 AC_CONFIG_HEADERS(include/config.h:include/config.hin)
 AC_CONFIG_AUX_DIR(cnf)
