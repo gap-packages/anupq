@@ -1,3 +1,6 @@
+[![Build Status](https://github.com/gap-packages/anupq/workflows/CI/badge.svg?branch=master)](https://github.com/gap-packages/anupq/actions?query=workflow%3ACI+branch%3Amaster)
+[![Code Coverage](https://codecov.io/github/gap-packages/anupq/coverage.svg?branch=master&token=)](https://codecov.io/gh/gap-packages/anupq)
+
 # The ANUPQ package
 
 The ANUPQ package is a GAP4 interface with the ANU pq C  program  written
