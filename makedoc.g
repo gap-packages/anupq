@@ -21,8 +21,4 @@ AutoDoc(rec(
     )
 ));
 
-# Update the VERSION file with the current version (it is used by
-# configure.ac).
-PrintTo("VERSION", GAPInfo.PackageInfoCurrent.Version);
-
 QUIT;
