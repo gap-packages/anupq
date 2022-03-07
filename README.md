@@ -1,222 +1,195 @@
-# GitHubPagesForGAP
+[![Build Status](https://github.com/gap-packages/anupq/workflows/CI/badge.svg?branch=master)](https://github.com/gap-packages/anupq/actions?query=workflow%3ACI+branch%3Amaster)
+[![Code Coverage](https://codecov.io/github/gap-packages/anupq/coverage.svg?branch=master&token=)](https://codecov.io/gh/gap-packages/anupq)
 
-This repository can be used to quickly set up a website hosted by
-[GitHub](https://github.com/) for GAP packages using a GitHub repository.
-Specifically, this uses [GitHub pages](https://pages.github.com/)
-by adding a `gh-pages` branch to your package repository which
-contains data generated from the `PackageInfo.g` file of your package.
+# The ANUPQ package
 
-## Initial setup
+The ANUPQ package is a GAP4 interface with the ANU pq C  program  written
+by  Eamonn  O'Brien.  The  ANU  pq   C   program   provides   access   to
+implementations of the following algorithms:
 
-The following instructions assume you do not already have a `gh-pages`
-branch in your repository. If you do have one, you should delete it before
-following these instructions.
+1. A p-quotient algorithm to compute a power-commutator presentation  for
+a group of prime power order. The algorithm implemented here is based  on
+that described in Newman and O'Brien (1996), Havas and Newman (1980), and
+papers referred to there. Another description of the algorithm appears in
+Vaughan-Lee (1990).  A  FORTRAN  implementation  of  this  algorithm  was
+programmed by Alford  and  Havas.  The  basic  data  structures  of  that
+implementation are retained.
 
-1. Go into your clone of your package repository.
+2. A p-group generation algorithm to generate descriptions of  groups  of
+prime power order.  The  algorithm  implemented  here  is  based  on  the
+algorithms described in Newman  (1977)  and  O'Brien  (1990).  A  FORTRAN
+implementation of this algorithm was  earlier  developed  by  Newman  and
+O'Brien.
 
-2. Setup a `gh-pages` branch in a `gh-pages` subdirectory.
+3. A  standard  presentation  algorithm  used  to  compute  a   canonical
+power-commutator presentation of a  p-group.  The  algorithm  implemented
+here is described in O'Brien (1994).
 
-   Users with a recent enough git version (recommended is >= 2.11)
-   can do this using a "worktree", via the following commands:
+4. An algorithm which can be used to compute the automorphism group of  a
+p-group. The algorithm implemented here is described in O'Brien (1994).
 
-   ```sh
-   # Add a new remote pointing to the GitHubPagesForGAP repository
-   git remote add gh-gap https://github.com/gap-system/GitHubPagesForGAP
-   git fetch gh-gap
-
-   # Create a fresh gh-pages branch from the new remote
-   git branch gh-pages gh-gap/gh-pages --no-track
-
-   # Create a new worktree and change into it
-   git worktree add gh-pages gh-pages
-   cd gh-pages
-   ```
-
-   Everybody else should instead do the following, with the URL
-   in the initial clone command suitably adjusted:
-
-   ```sh
-   # Create a fresh clone of your repository, and change into it
-   git clone https://github.com/USERNAME/REPOSITORY gh-pages
-   cd gh-pages
-
-   # Add a new remote pointing to the GitHubPagesForGAP repository
-   git remote add gh-gap https://github.com/gap-system/GitHubPagesForGAP
-   git fetch gh-gap
-
-   # Create a fresh gh-pages branch from the new remote
-   git checkout -b gh-pages gh-gap/gh-pages --no-track
-   ```
-
-5. Add in copies of your `PackageInfo.g`, `README` (or `README.md`) and manual:
-
-   ```
-   cp -f ../PackageInfo.g ../README* .
-   cp -f ../doc/*.{css,html,js,txt} doc/
-   ```
-
-6. Now run the `update.g` GAP script. This extracts data from your
-   `PackageInfo.g` file and puts that data into `_data/package.yml`.
-   From this, the website template can populate the web pages with
-   some sensible default values.
-
-   ```
-   gap update.g
-   ```
-
-7. Commit and push everything.
-
-   ```
-   git add PackageInfo.g README* doc/ _data/package.yml
-   git commit -m "Setup gh-pages based on GitHubPagesForGAP"
-   git push --set-upstream origin gh-pages
-   ```
-
-That's it. You can now see your new package website under
-https://USERNAME.github.io/REPOSITORY/ (of course after
-adjusting USERNAME and REPOSITORY suitably).
+The following section describes the installation of the ANUPQ package.  A
+description of the functions available in the ANUPQ package is  given  in
+the  package  manual  in  the  doc  directory.  For  details  about   the
+implementation and the standalone version see the README and guide.dvi in
+the standalone-doc directory.
 
 
-## Adjusting the content and layout
+## Obtaining the ANUPQ package
 
-GitHubPagesForGAP tries to automatically provide good defaults for
-most packages. However, you can tweak everything about it:
+Note  that, owing  to its  C  code component,  the ANUPQ  package can  be
+installed  under UNIX or  in environments  similar to  UNIX. In particular
+it is known to work on Linux and Mac OS X, and also on Windows equipped
+with cygwin.
 
-* To adjust the page layout, edit the files `stylesheets/styles.css`
-and `_layouts/default.html`.
+You can download `anupq-XXX.tar.gz` (where `XXX` is the  package  version
+number) from the home page for the ANUPQ package
 
-* To adjust the content of the front page, edit `index.md` (resp.
-  for the content of the sidebar, edit `_layouts/default.html`
+  <https://gap-packages.github.io/anupq/>
 
-* You can also add additional pages, in various formats (HTML,
-Markdown, Textile, ...).
+or via the GAP web site
 
-For details, please consult the [Jekyll](http://jekyllrb.com/)
-manual.
-
-
-## Testing the site locally
-
-If you would like to test your site on your own machine, without
-uploading it to GitHub (where it is visible to the public), you can do
-so by installing [Jekyll](http://jekyllrb.com/), the static web site
-generator used by GitHub to power GitHub Pages.
-
-Once you have installed Jekyll as described on its homepage, you can
-test the website locally as follows:
-
-1. Go to the `gh-pages` directory we created above.
-
-2. Run jekyll (this launches a tiny web server on your machine):
-
-   ```
-   jekyll serve -w
-   ```
-
-3. Visit the URL http://localhost:4000 in a web browser.
+  <https://www.gap-system.org/Packages/anupq.html>
 
 
-## Updating after you made a release
+## Installing the ANUPQ package
 
-Whenever you make a release of your package (and perhaps more often than
-that), you will want to update your website. The easiest way is to use
-the `release` script from the [ReleaseTools][]. However, you can also do
-it manually. The steps for doing it are quite similar to the above:
+To install the ANUPQ package, move the file `anupq-<XXX>.tar.gz` into the
+`pkg` directory in which you plan to install ANUPQ. Usually, this will be
+the directory `pkg` in the hierarchy of your version of GAP 4.  (However,
+it is also possible to keep an additional `pkg` directory in your private
+directories, see section "ref:Installing  GAP  Packages"  of  the  GAP  4
+reference manual for details on how to do this.)
 
-1. Go to the `gh-pages` directory we created above.
+ANUPQ package requires at least GAP 4.9 and AutPGrp 1.5, although we
+recommend using the most recent versions of each. ANUPQ optionally
+supports using GMP for large integer support.
 
-2. Add in copies of your `PackageInfo.g`, `README` (or `README.md`) and manual:
+Unpack the archive `anupq-<XXX>.tar.gz` in the `pkg` directory.
 
-   ```
-   cp -f ../PackageInfo.g ../README* .
-   cp -f ../doc/*.{css,html,js,txt} doc/
-   ```
+Change directory to the newly created `anupq` directory. Now you need to
+call `configure`. If you installed ANUPQ into the main `pkg` directory,
+simply do this:
 
-3. Now run the `update.g` GAP script.
+    ./configure
 
-4. Commit and push the work we have just done.
+If you installed ANUPQ in another directory than the usual `pkg`
+subdirectory, do
 
-   ```
-   git add PackageInfo.g README* doc/ _data/package.yml
-   git commit -m "Update web pages"
-   git push
-   ```
+    ./configure --with-gaproot=path
 
-A few seconds after you have done this, your changes will be online
-under https://USERNAME.github.io/REPOSITORY/ .
+where `path` is a path to the GAP home directory. See
 
+    ./configure --help
 
-## Updating to a newer version of GitHubPagesForGAP
+for further options.
 
-Normally you should not have to ever do this. However, if you really want to,
-you can attempt to update to the most recent version of GitHubPagesForGAP via
-the following instructions. The difficulty of such an update depends on how
-much you tweaked the site after initially cloning GitHubPagesForGAP.
+Afterwards, you can simply call
 
-1. Go to the `gh-pages` directory we created above.
-   Make sure that there are no uncommitted changes, as they will be lost
-   when following these instructions.
+    make
 
-2. Make sure the `gh-gap` remote exists and has the correct URL. If in doubt,
-   just re-add it:
-   ```
-   git remote remove gh-gap
-   git remote add gh-gap https://github.com/gap-system/GitHubPagesForGAP
-   ```
+to compile the binary and to install it in the appropriate place.
 
-3. Attempt to merge the latest GitHubPagesForGAP.
-   ```
-   git pull gh-gap gh-pages
-   ```
+The path of GAP (see *Note* below) used by the  `pq`  binary  (the  value
+`GAP` is set to in the `make` command) may be over-ridden by setting  the
+environment variable `ANUPQ_GAP_EXEC`. These values are only of  interest
+when the `pq` program is run  as  a  standalone;  however,  the  `testPq`
+script assumes you have set one of these correctly (see Section  "Testing
+your ANUPQ installation"). When the `pq`  program  is  started  from  GAP
+communication occurs via an iostream, so that the `pq`  binary  does  not
+actually need to know a valid path for GAP is this case.
 
-4. If this produced no errors and just worked, skip to the next step.
-   But it is quite likely that you will have conflicts in the file
-   `_data/package.yml`, or in your `README` or `PackageInfo.g` files.
-   These can usually be resolved by entering this:
-   ```
-   cp ../PackageInfo.g ../README* .
-   gap update.g
-   git add PackageInfo.g README* _data/package.yml
-   ```
-   If you are lucky, these were the only conflicts (check with `git status`).
-   If no merge conflicts remain, finish with this command:
-   ```
-   git commit -m "Merge gh-gap/gh-pages"
-   ```
-   If you still have merge conflicts, and don't know how to resolve them, or
-   get stuck some other way, you can abort the merge process and revert to the
-   original state by issuing this command:
-   ```
-   git merge --abort
-   ```
-
-5. You should be done now. Don't forget to push your changes if you want them
-   to become public.
+*Note.* By "path of GAP" we mean the path of the command used to invoke
+GAP (which should be a script, e.g. the `gap.sh` script generated in  the
+`bin` directory for the version of GAP when GAP was compiled). The  usual
+strategy is to copy the `gap.sh` script  to  a  standard  location,  e.g.
+`/usr/local/bin/gap`. It is a mistake to copy the  GAP  executable  `gap`
+(in a directory  with  name  of  form  `bin/<compile-platform>`)  to  the
+standard location, since direct invocation of the executable  results  in
+GAP starting without being able to find its own library (a fatal error).
 
 
-## Packages using GitHubPagesForGAP
-Packages using GitHubPagesForGAP include the following:
+## The ANUPQ package documentation
 
-* <https://gap-packages.github.io/anupq>
-* <https://gap-packages.github.io/cvec>
-* <https://gap-packages.github.io/genss>
-* <https://gap-packages.github.io/io>
-* <https://gap-packages.github.io/NormalizInterface>
-* <https://gap-packages.github.io/nq>
-* <https://gap-packages.github.io/orb>
-* <https://gap-packages.github.io/polenta>
-* <https://gap-packages.github.io/recog>
-* <https://gap-packages.github.io/recogbase>
-* <https://gap-packages.github.io/SingularInterface>
+The ANUPQ package documentation source files, now XML  (for GAPDoc),  are
+found in the `doc` directory. There you should also find `manual.pdf`,  a
+PDF version of the manual,  and  various  HTML files constituting the HTML
+version of the manual (actually there are two HTML versions of the manual,
+the  one with `_mj` files have MathJax  enabled).  The  initial  page  for
+the HTML version of the manual is `chap0.html`  (or  `chap0_mj.html`  with
+MathJax enabled), but you can toggle between the versions,  once you  have
+opened either, with your favourite browser.
 
 
-## Contact
+## Testing the ANUPQ package installation
 
-Please submit bug reports, suggestions for improvements and patches via
-the [issue tracker](https://github.com/gap-system/GitHubPagesForGAP/issues).
+Now it is time to test the  installation.  After  doing  `configure`  and
+`make` you will have a `testPq` script. The script assumes that,  if  the
+environment variable `ANUPQ_GAP_EXEC` is set, it is a  correct  path  for
+GAP, or otherwise that the `make` call that compiled the `pq` program set
+`GAP` to a correct path for GAP (see Section "Running the pq program as a
+standalone" in the ANUPQ package manual for more  details).  To  run  the
+tests, just type:
 
-You can also contact me directly via [email](max@quendi.de).
+  ./testPq
 
-Copyright (c) 2013-2018 Max Horn
+Some of the tests the script runs take a while. Please be  patient.
+The output you see should be something like the following:
 
-[ReleaseTools]: https://github.com/gap-system/ReleaseTools
+    Made dir: /tmp/testPq
+    Testing installation of ANUPQ Package (version 3.2.5)
+  
+    The first two tests check that the pq C program compiled ok.
+    Testing the pq binary ... OK.
+    Testing the pq binary's stack size ... OK.
+    The pq C program compiled ok! We test it's the right one below.
+
+    The next tests check that you have the right version of GAP
+    for version 3.1 of the ANUPQ package and that GAP is finding
+    the right versions of the ANUPQ and AutPGrp packages.
+  
+    Checking GAP ...
+     pq binary made with GAP set to: /usr/local/bin/gap
+     Starting GAP to determine version and package availability ...
+      GAP version (4.10.1) ... OK.
+      GAP found ANUPQ package (version 3.2.5) ... good.
+      GAP found pq binary (version 1.9) ... good.
+      GAP found AutPGrp package (version 1.5) ... good.
+     GAP is OK.
+
+    Checking the link between the pq binary and GAP ... OK.
+    Testing the standard presentation part of the pq binary ... OK.
+    Doing p-group generation (final GAP/ANUPQ) test ... OK.
+    Tests complete.
+    Removed dir: /tmp/testPq
+    Enjoy using your functional ANUPQ package!
+
+
+## Bug reports
+
+For bug reports, feature requests and suggestions, please refer to
+
+   <https://github.com/gap-packages/anupq/issues>
+
+When sending a bug report, remember we will need to be able to  reproduce
+the problem; so please include:
+
+ * The version of GAP you are using; either look at  the  header  when
+   you start up GAP, or at the gap> prompt type: GAPInfo.Version;
+ * The operating system you are using e.g. Linux, Mac OS X, Windows,
+   FreeBSD, Solaris...
+ * The compiler you used to compile `pq` and  the  options  you  used.
+   Type: gcc -v or: cc -version, and  look  in  Makefile  for  the
+   value of CC to find out.
+ * A script, either in GAP or standalone `pq`, that  demonstrates  the
+   bug, along with a description of why it's a  bug  (e.g.  by  adding
+   comments  to  the  script  -  recall,  comments,  both  in  GAP  or
+   standalone `pq`, begin with a #).
+
+
+## License
+
+The ANUPQ package is licensed under the Artistic License 2.0.
+For the exact terms of this license, please refer to the `LICENSE`
+file provided to you as part of the ANUPQ package, or refer to
+<https://opensource.org/licenses/artistic-license-2.0>.

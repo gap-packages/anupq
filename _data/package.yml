@@ -1,6 +1,6 @@
 name: ANUPQ
-version: 3.2.5
-date: 2022-02-22
+version: 3.2.6
+date: 2022-03-07
 description: |
     ANU p-Quotient
 
@@ -8,7 +8,7 @@ authors:
     - name: Greg Gamble
       url: http://school.maths.uwa.edu.au/~gregg
     - name: Werner Nickel
-      url: http://www.mathematik.tu-darmstadt.de/~nickel/
+      url: https://www2.mathematik.tu-darmstadt.de/~nickel/
     - name: Eamonn O'Brien
       url: https://www.math.auckland.ac.nz/~obrien
 
@@ -26,14 +26,14 @@ needed-pkgs:
       url: "https://gap-packages.github.io/autpgrp/"
 
 www: https://gap-packages.github.io/anupq/
-readme: README
+readme: README.md
 packageinfo: https://gap-packages.github.io/anupq/PackageInfo.g
 
 downloads:
     - name: .tar.gz
-      url: https://github.com/gap-packages/anupq/releases/download/v3.2.5/anupq-3.2.5.tar.gz
+      url: https://github.com/gap-packages/anupq/releases/download/v3.2.6/anupq-3.2.6.tar.gz
     - name: .tar.bz2
-      url: https://github.com/gap-packages/anupq/releases/download/v3.2.5/anupq-3.2.5.tar.bz2
+      url: https://github.com/gap-packages/anupq/releases/download/v3.2.6/anupq-3.2.6.tar.bz2
 
 abstract: |
     The <span class="pkgname">ANUPQ</span> package provides an interactive    interface to the p-quotient, p-group generation and standard presentation    algorithms of the ANU pq C program.
@@ -47,7 +47,7 @@ citeas: |
     <p class='BibEntry'>
     [<span class='BibKey'>GNOH22</span>]   <b class='BibAuthor'>Gamble, G., Nickel, W., O'Brien, E. and Horn, M.</b>,
      <i class='BibTitle'>ANUPQ, ANU p-Quotient,
-             Version 3.2.5</i>
+             Version 3.2.6</i>
      (<span class='BibYear'>2022</span>)<br />
     (<span class='BibNote'>Refereed GAP package</span>),
     <span class='BibHowpublished'><a href="https://gap-packages.github.io/anupq/">https://gap-packages.github.io/anupq/</a></span>.
@@ -55,10 +55,10 @@ citeas: |
     
 
 bibtex: |
-    @misc{ ANUPQ3.2.5,
+    @misc{ ANUPQ3.2.6,
       author =           {Gamble, G. and Nickel, W. and O'Brien, E. and Horn, M.},
-      title =            {{ANUPQ}, ANU p-Quotient, {V}ersion 3.2.5},
-      month =            {Feb},
+      title =            {{ANUPQ}, ANU p-Quotient, {V}ersion 3.2.6},
+      month =            {Mar},
       year =             {2022},
       note =             {Refereed GAP package},
       howpublished =     {\href          {https://gap-packages.github.io/anupq/}

@@ -9,8 +9,9 @@ SetPackageInfo( rec(
 
 PackageName := "ANUPQ",
 Subtitle    := "ANU p-Quotient",
-Version     := "3.2.5",
-Date        := "22/02/2022", # dd/mm/yyyy format
+Version     := "3.2.6",
+Date        := "07/03/2022", # dd/mm/yyyy format
+License     := "Artistic-2.0",
 
 Persons := [ 
   rec( 
@@ -21,7 +22,6 @@ Persons := [
     Email         := "Greg.Gamble@uwa.edu.au",
     WWWHome       := "http://school.maths.uwa.edu.au/~gregg",
     PostalAddress := Concatenation(
-                       "Greg Gamble\n",
                        "Department of Mathematics and Statistics\n",
                        "Curtin University\n",
                        "GPO Box U 1987\n",
@@ -39,7 +39,7 @@ Persons := [
      # old email address. To discourage users from sending bug reports
      # there, I have disabled it here.
      #Email         := "nickel@mathematik.tu-darmstadt.de",
-     WWWHome       := "http://www.mathematik.tu-darmstadt.de/~nickel/",
+     WWWHome       := "https://www2.mathematik.tu-darmstadt.de/~nickel/",
   ),
   rec( 
     LastName      := "O'Brien",
@@ -85,7 +85,7 @@ SourceRepository := rec(
 ),
 IssueTrackerURL:= Concatenation( ~.SourceRepository.URL, "/issues" ),
 PackageWWWHome := "https://gap-packages.github.io/anupq/",
-README_URL     := Concatenation(~.PackageWWWHome, "README"),
+README_URL     := Concatenation(~.PackageWWWHome, "README.md"),
 PackageInfoURL := Concatenation(~.PackageWWWHome, "PackageInfo.g"),
 ArchiveURL     := Concatenation(~.SourceRepository.URL,
                                 "/releases/download/v", ~.Version,
@@ -122,22 +122,17 @@ AvailabilityTest :=
     return true;
   end,
 
-BannerString := Concatenation( 
-  "---------------------------------------------------------------------------",
-  "\n",
-  "Loading    ", ~.PackageName, " (", ~.Subtitle, ") ", ~.Version, "\n",
-  "GAP code by  ", ~.Persons[1].FirstNames, " ", ~.Persons[1].LastName,
-        " <", ~.Persons[1].Email, "> (address for correspondence)\n",
-  "           ", ~.Persons[2].FirstNames, " ", ~.Persons[2].LastName,
-        " (", ~.Persons[2].WWWHome, ")\n",
-  "           [uses ANU pq binary (C code program) version: 1.9]\n",
-  "C code by  ", ~.Persons[3].FirstNames, " ", ~.Persons[3].LastName,
-        " (", ~.Persons[3].WWWHome, ")\n",
-  "Co-maintained by ", ~.Persons[4].FirstNames, " ", ~.Persons[4].LastName,
-                " <", ~.Persons[4].Email, ">\n\n",
-  "            For help, type: ?", ~.PackageDoc.BookName, "\n",
-  "---------------------------------------------------------------------------",
-  "\n" ),
+# Show some extra info in the Banner
+BannerFunction := function( info )
+  local str, version;
+
+  str := DefaultPackageBannerString( info );
+  str := ReplacedString( str, "by Greg Gamble (", "by Greg Gamble (GAP code, " );
+  str := ReplacedString( str, "Nickel (", "Nickel (GAP code, " );
+  str := ReplacedString( str, "O'Brien (", "O'Brien (C code, " );
+  str := ReplacedString( str, "\nHomepage", "\nuses ANU pq binary (C code program) version: 1.9\nHomepage" );
+  return str;
+end,
 
 TestFile := "tst/testinstall.g",
 
@@ -146,5 +141,18 @@ Keywords := [
   "p-group generation",
   "descendant",
   "standard presentation",
-  ]
+  ],
+
+
+AutoDoc := rec(
+    TitlePage := rec(
+    Copyright := """
+      &copyright; 2001-2016 by Greg Gamble<P/>
+      &copyright; 2001-2005 by Werner Nickel<P/>
+      &copyright; 1995-2001 by Eamon O'Brien<P/>
+
+      The &GAP; package &ANUPQ; is licensed under the <URL Text="Artistic License 2.0">https://opensource.org/licenses/artistic-license-2.0</URL>.
+      """,
+    ),
+),
 ));

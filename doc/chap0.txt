@@ -6,10 +6,10 @@
                                 [1X ANU p-Quotient [101X
   
   
-                                     3.2.5
+                                     3.2.6
   
   
-                                22 February 2022
+                                  7 March 2022
   
   
                                   Greg Gamble
@@ -23,8 +23,7 @@
   Greg Gamble
       Email:    [7Xmailto:Greg.Gamble@uwa.edu.au[107X
       Homepage: [7Xhttp://school.maths.uwa.edu.au/~gregg[107X
-      Address:  [33X[0;14YGreg Gamble[133X
-                [33X[0;14YDepartment of Mathematics and Statistics[133X
+      Address:  [33X[0;14YDepartment of Mathematics and Statistics[133X
                 [33X[0;14YCurtin University[133X
                 [33X[0;14YGPO Box U 1987[133X
                 [33X[0;14YPerth WA 6845[133X
@@ -32,7 +31,7 @@
   
   
   Werner Nickel
-      Homepage: [7Xhttp://www.mathematik.tu-darmstadt.de/~nickel/[107X
+      Homepage: [7Xhttps://www2.mathematik.tu-darmstadt.de/~nickel/[107X
   Eamonn O'Brien
       Email:    [7Xmailto:obrien@math.auckland.ac.nz[107X
       Homepage: [7Xhttps://www.math.auckland.ac.nz/~obrien[107X
@@ -42,6 +41,18 @@
                 [33X[0;14YAuckland[133X
                 [33X[0;14YNew Zealand[133X
   
+  
+  
+  -------------------------------------------------------
+  [1XCopyright[101X
+  [33X[0;0Y© 2001-2016 by Greg Gamble[133X
+  
+  [33X[0;0Y© 2001-2005 by Werner Nickel[133X
+  
+  [33X[0;0Y© 1995-2001 by Eamon O'Brien[133X
+  
+  [33X[0;0YThe   [5XGAP[105X   package  [5XANUPQ[105X  is  licensed  under  the  Artistic  License  2.0
+  ([7Xhttps://opensource.org/licenses/artistic-license-2.0[107X).[133X
   
   
   -------------------------------------------------------
