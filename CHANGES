@@ -1,6 +1,11 @@
 In this file we record the changes since the first GAP 4 release of
 the ANUPQ package.
 
+Version 3.2.6 (2022-03-07)
+  * Declared the ANUPQ package to be under the Artistic License 2.0.
+  * Fix crash in PqDescendantsTreeCoclassOne
+  * Various janitorial changes
+
 Version 3.2.5 (2022-02-22)
   * Fixed a hang on macOS 10.15 and later
 
