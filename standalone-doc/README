@@ -20,7 +20,7 @@ This implementation was developed in C by
 
    WWW https://www.math.auckland.ac.nz/~obrien
 
-and some minor changes made in 2011-2019 by
+and some minor changes made in 2011-2022 by
 
    Max Horn
    Fachbereich Mathematik
@@ -78,7 +78,7 @@ a p-group. The algorithm implemented here is described in O'Brien (1995).
 
 ###############################################################################
 #
-#Access via other programs
+# Access via other programs
 #
 ###############################################################################
 
@@ -91,7 +91,7 @@ archive for GAP4.
 
 ###############################################################################
 #
-#References
+# References
 #
 ###############################################################################
 
@@ -253,3 +253,13 @@ J. Symbolic Comput. 9, 725-733.
 
 10. Please report bugs/problems/feedback to obrien@math.auckland.ac.nz
     and/or horn@mathematik.uni-kl.de
+
+###############################################################################
+#
+# License
+#
+###############################################################################
+
+The anupq C source code is free software distributed under the Artistic License 2.0,
+see the file `LICENSE` or <https://opensource.org/licenses/Artistic-2.0> for the
+exact terms of the license.

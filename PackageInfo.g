@@ -11,6 +11,7 @@ PackageName := "ANUPQ",
 Subtitle    := "ANU p-Quotient",
 Version     := "3.2.5",
 Date        := "22/02/2022", # dd/mm/yyyy format
+License     := "Artistic-2.0",
 
 Persons := [ 
   rec( 
@@ -21,7 +22,6 @@ Persons := [
     Email         := "Greg.Gamble@uwa.edu.au",
     WWWHome       := "http://school.maths.uwa.edu.au/~gregg",
     PostalAddress := Concatenation(
-                       "Greg Gamble\n",
                        "Department of Mathematics and Statistics\n",
                        "Curtin University\n",
                        "GPO Box U 1987\n",
@@ -141,5 +141,18 @@ Keywords := [
   "p-group generation",
   "descendant",
   "standard presentation",
-  ]
+  ],
+
+
+AutoDoc := rec(
+    TitlePage := rec(
+    Copyright := """
+      &copyright; 2001-2016 by Greg Gamble<P/>
+      &copyright; 2001-2005 by Werner Nickel<P/>
+      &copyright; 1995-2001 by Eamon O'Brien<P/>
+
+      The &GAP; package &ANUPQ; is licensed under the <URL Text="Artistic License 2.0">https://opensource.org/licenses/artistic-license-2.0</URL>.
+      """,
+    ),
+),
 ));

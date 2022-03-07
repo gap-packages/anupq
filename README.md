@@ -185,3 +185,11 @@ the problem; so please include:
    bug, along with a description of why it's a  bug  (e.g.  by  adding
    comments  to  the  script  -  recall,  comments,  both  in  GAP  or
    standalone `pq`, begin with a #).
+
+
+## License
+
+The ANUPQ package is licensed under the Artistic License 2.0.
+For the exact terms of this license, please refer to the `LICENSE`
+file provided to you as part of the ANUPQ package, or refer to
+<https://opensource.org/licenses/artistic-license-2.0>.
