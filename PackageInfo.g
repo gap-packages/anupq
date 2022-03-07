@@ -122,22 +122,17 @@ AvailabilityTest :=
     return true;
   end,
 
-BannerString := Concatenation( 
-  "---------------------------------------------------------------------------",
-  "\n",
-  "Loading    ", ~.PackageName, " (", ~.Subtitle, ") ", ~.Version, "\n",
-  "GAP code by  ", ~.Persons[1].FirstNames, " ", ~.Persons[1].LastName,
-        " <", ~.Persons[1].Email, "> (address for correspondence)\n",
-  "           ", ~.Persons[2].FirstNames, " ", ~.Persons[2].LastName,
-        " (", ~.Persons[2].WWWHome, ")\n",
-  "           [uses ANU pq binary (C code program) version: 1.9]\n",
-  "C code by  ", ~.Persons[3].FirstNames, " ", ~.Persons[3].LastName,
-        " (", ~.Persons[3].WWWHome, ")\n",
-  "Co-maintained by ", ~.Persons[4].FirstNames, " ", ~.Persons[4].LastName,
-                " <", ~.Persons[4].Email, ">\n\n",
-  "            For help, type: ?", ~.PackageDoc.BookName, "\n",
-  "---------------------------------------------------------------------------",
-  "\n" ),
+# Show some extra info in the Banner
+BannerFunction := function( info )
+  local str, version;
+
+  str := DefaultPackageBannerString( info );
+  str := ReplacedString( str, "by Greg Gamble (", "by Greg Gamble (GAP code, " );
+  str := ReplacedString( str, "Nickel (", "Nickel (GAP code, " );
+  str := ReplacedString( str, "O'Brien (", "O'Brien (C code, " );
+  str := ReplacedString( str, "\nHomepage", "\nuses ANU pq binary (C code program) version: 1.9\nHomepage" );
+  return str;
+end,
 
 TestFile := "tst/testinstall.g",
 
