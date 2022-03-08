@@ -313,7 +313,7 @@ insoluble, an error message occurs.
 <Mark><C>OrderBound := <A>n</A></C>
 <Label Name="option OrderBound"/><Index>option OrderBound</Index></Mark>
 <Item>
-Specifies that only descendants of size at most <M>p^<A>n</A></M>, where <A>n</A> is a
+Specifies that only descendants of size at most <M>p^{<A>n</A>}</M>, where <A>n</A> is a
 non-negative integer, be generated. Note that you cannot set both
 <C>OrderBound</C> and <C>StepSize</C>.
 </Item>
@@ -327,7 +327,7 @@ non-negative integer, be generated. Note that you cannot set both
 </Mark>
 <Item>
 For a positive integer <A>n</A>, <C>StepSize</C> specifies that only those
-immediate descendants which are a factor <M>p^<A>n</A></M> bigger than their parent
+immediate descendants which are a factor <M>p^{<A>n</A>}</M> bigger than their parent
 group be generated.
 <P/>
 
