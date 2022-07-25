@@ -130,15 +130,6 @@ end );
 
 #############################################################################
 ##
-#V  ANUPQGlobalVariables
-##
-InstallValue( ANUPQGlobalVariables, 
-              [ "F",          #  a free group
-                "MapImages"   #  images of the generators in G
-                ] );
-
-#############################################################################
-##
 #F  ANUPQReadOutput . . . . read pq output without affecting global variables
 ##
 InstallGlobalFunction( ANUPQReadOutput, function( file )

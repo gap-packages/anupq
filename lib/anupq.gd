@@ -30,13 +30,6 @@ DeclareGlobalFunction( "ANUPQextractPqArgs" );
 
 #############################################################################
 ##
-#V  ANUPQGlobalVariables
-##
-DeclareGlobalVariable( "ANUPQGlobalVariables", 
-                       "A list of names of ANUPQ global variables" );
-
-#############################################################################
-##
 #F  ANUPQReadOutput . . . . read pq output without affecting global variables
 ##
 DeclareGlobalFunction( "ANUPQReadOutput" );
