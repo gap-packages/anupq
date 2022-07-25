@@ -130,6 +130,42 @@ end );
 
 #############################################################################
 ##
+#F  PQ_READ_AS_FUNC_WITH_VARS
+##
+BindGlobal("PQ_READ_AS_FUNC_WITH_VARS", function(files, vars)
+    local f, s, stream, v;
+    # FIXME: this function is not great if `file` is huge, because we read all
+    # of it into memory first. A better way would be a dedicated
+    # stream implementation that allows concatenating streams. Or else
+    # a kernel variant of this function
+    if Length(vars) > 50 then
+        # TODO: Warn about this? it will be slow
+    fi;
+    s := Concatenation("local __TMP_RESULT__,", JoinStringsWithSeparator(vars), ";\n");
+    for v in vars do
+        Append(s, v); Append(s, " := fail;\n");
+    od;
+    if IsString(files) then
+        Append(s, StringFile(files));
+    else
+        for f in files do
+            Append(s, StringFile(f));
+        od;
+    fi;
+    Append(s, "__TMP_RESULT__ := rec();\n");
+    for v in vars do
+        Append(s, Concatenation("if IsBound(",v,") then __TMP_RESULT__.",v,":=",v,"; fi;\n"));
+    od;
+    Append(s, "return __TMP_RESULT__;");
+    stream := InputTextString(s);
+    f := ReadAsFunction(stream);
+    CloseStream(stream);
+    return f();
+end);
+
+
+#############################################################################
+##
 #F  ANUPQReadOutput . . . . read pq output without affecting global variables
 ##
 InstallGlobalFunction( ANUPQReadOutput, function( file )
@@ -137,26 +173,14 @@ InstallGlobalFunction( ANUPQReadOutput, function( file )
 
     globalvars := [ "ANUPQmagic", "ANUPQautos", "ANUPQgroups" ];
 
-    for var in globalvars do
-        HideGlobalVariables( var );
-    od;
-
-    Read( file );
-
-    result := rec();
+    result := PQ_READ_AS_FUNC_WITH_VARS(file, globalvars);
 
     for var in globalvars do
-        if IsBoundGlobal( var ) then
-            result.(var) := ValueGlobal( var );
-        else
+        if not IsBound( result.(var) ) then
             result.(var) := fail;
         fi;
     od;
 
-    for var in globalvars do
-        UnhideGlobalVariables( var );
-    od;
-    
     return result;
 end );
 
@@ -189,11 +213,10 @@ end );
 #F  PQ_GROUP_FROM_PCP(<datarec>,<out>) . extract gp from pq pcp file into GAP
 ##
 InstallGlobalFunction( PQ_GROUP_FROM_PCP, function( datarec, out )
-    local gens;
-    HideGlobalVariables( "F", "MapImages" );
-    Read( datarec.outfname );
+    local result, gens;
+    result := PQ_READ_AS_FUNC_WITH_VARS(datarec.outfname, [ "F", "MapImages" ]);
     if out = "pCover" then
-      datarec.pCover := ValueGlobal( "F" );
+      datarec.pCover := result.F;
       IsPGroup( datarec.pCover );
     else
       if IsBound(datarec.pcgs) then
@@ -203,15 +226,14 @@ InstallGlobalFunction( PQ_GROUP_FROM_PCP, function( datarec, out )
       fi;
       datarec.pQepi := GroupHomomorphismByImagesNC( 
                            datarec.group,
-                           ValueGlobal( "F" ),
+                           result.F,
                            gens,
-                           ValueGlobal( "MapImages" )
+                           result.MapImages
                            );
       SetIsSurjective( datarec.pQepi, true );
       datarec.pQuotient := Image( datarec.pQepi );
       IsPGroup( datarec.pQuotient );
     fi;
-    UnhideGlobalVariables( "F", "MapImages" );
 end );
 
 #############################################################################
@@ -460,7 +482,7 @@ end );
 ##  \endexample
 ##
 InstallGlobalFunction( PqGAPRelators, function( group, rels )
-local gens, relgens, diff, g;
+local gens, relgens, diff, f;
   if not( IsFpGroup(group) ) then
     Error("<group> must be an fp group\n");
   fi;
@@ -477,17 +499,26 @@ local gens, relgens, diff, g;
     Error( "generators: ", diff, 
            "\nare not among the generators of the group supplied\n" );
   fi;
-  CallFuncList(HideGlobalVariables, gens);
-  for g in FreeGeneratorsOfFpGroup(group) do
-    ASS_GVAR(String(g), g);
-  od;
-  rels := List( rels, rel -> EvalString(
-                                 ReplacedString(
-                                     ReplacedString(rel, "]", "])"),
-                                     "[", "PqLeftNormComm(["
-                                     ) ) );
-  CallFuncList(UnhideGlobalVariables, gens);
-  return rels;
+
+  # The following is a HACK to cheaply evaluator the given relator expressions:
+  # we first substitute commutator expressions in the given relator strings by
+  # corresponding calls to the GAP function `PqLeftNormComm` ....
+  rels := List( rels, rel -> ReplacedString(
+                               ReplacedString(rel, "]", "])"),
+                               "[", "PqLeftNormComm(["
+                               ) );
+  # and then use `ReadAsFunction` to create a function without arguments,
+  # which when called returns a function taking the generators of `group` as
+  # arguments, and evaluates the given relators on these.
+  #
+  # We have to create these two functions because `ReadAsFunction` does not
+  # allow us to specify arguments for the function it creates (it would be
+  # nice if it did).
+  f := ReadAsFunction(InputTextString(Concatenation(
+      "return {", JoinStringsWithSeparator(gens), "} -> [", JoinStringsWithSeparator(rels), "];"
+      )))();
+
+  return CallFuncList(f, FreeGeneratorsOfFpGroup(group));
 end );
 
 #############################################################################
