@@ -625,17 +625,17 @@ end);
 ##  last line flushed is saved in `<datarec>.line'.
 ##
 InstallGlobalFunction(ToPQ, function(datarec, cmd, comment)
+  local files, globals;
   ToPQk(datarec, cmd, comment);
   if not IsBound( datarec.setupfile ) then
     FILTER_PQ_STREAM_UNTIL_PROMPT(datarec);
   
+    globals := ["ANUPQglb", "F", "gens", "relativeOrders",
+                "ANUPQsize", "ANUPQagsize", "MapImages"];
     while ANUPQData.linetype = "request" do
-      HideGlobalVariables( "ANUPQglb", "F", "gens", "relativeOrders",
-                           "ANUPQsize", "ANUPQagsize" );
-      Read( Filename( ANUPQData.tmpdir, "GAP_input" ) );
-      Read( Filename( ANUPQData.tmpdir, "GAP_rep" ) );
-      UnhideGlobalVariables( "ANUPQglb", "F", "gens", "relativeOrders",
-                             "ANUPQsize", "ANUPQagsize" );
+      files := [ Filename( ANUPQData.tmpdir, "GAP_input" ),
+                 Filename( ANUPQData.tmpdir, "GAP_rep" ) ];
+      PQ_READ_AS_FUNC_WITH_VARS( files, globals );
       ToPQk( datarec, [ "pq, stabiliser is ready!" ], [] );
       FILTER_PQ_STREAM_UNTIL_PROMPT(datarec);
     od;

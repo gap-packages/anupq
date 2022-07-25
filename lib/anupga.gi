@@ -257,7 +257,7 @@ end );
 #F  PqList( <file> [: SubList := <sub>]) . . . . .  get a list of descendants
 ##
 InstallGlobalFunction( PqList, function( file )
-    local globalvars, var, lst, groups, autos, sublist, func;
+    local result, lst, groups, autos, sublist, func;
 
     PQ_OTHER_OPTS_CHK("PqList", false);
     # check arguments
@@ -265,27 +265,19 @@ InstallGlobalFunction( PqList, function( file )
         Error( "usage: PqList( <file> [: SubList := <sub>])\n" );
     fi;
 
-    globalvars := [ "ANUPQmagic", "ANUPQautos", "ANUPQgroups" ];
-
-    for var in globalvars do
-        HideGlobalVariables( var );
-    od;
+    result := PQ_READ_AS_FUNC_WITH_VARS(file, ["ANUPQmagic", "ANUPQautos", "ANUPQgroups"]);
 
     # try to read <file>
-    if not READ( file ) or not IsBoundGlobal( "ANUPQmagic" )  then
-
-        for var in globalvars do
-            UnhideGlobalVariables( var );
-        od;
+    if result = fail or not IsBound( result.ANUPQmagic ) then
         return false;
     fi;
 
     # <lst> will hold the groups
     lst := [];
-    if IsBoundGlobal( "ANUPQgroups" ) then
-        groups := ValueGlobal( "ANUPQgroups" );
-        if IsBoundGlobal( "ANUPQautos" ) then
-            autos := ValueGlobal( "ANUPQautos" );
+    if IsBound( result.ANUPQgroups ) then
+        groups := result.ANUPQgroups;
+        if IsBound( result.ANUPQautos ) then
+            autos := result.ANUPQautos;
         fi;
 
         sublist := VALUE_PQ_OPTION("SubList", [ 1 .. Length( groups ) ]);
@@ -301,10 +293,6 @@ InstallGlobalFunction( PqList, function( file )
         od;
     fi;
     
-    for var in globalvars do
-        UnhideGlobalVariables( var );
-    od;
-
     # return the groups
     return lst;
 
