@@ -161,7 +161,6 @@ pq_SOURCES = \
     src/update.c \
     src/update_generators.c \
     src/update_name.c \
-    src/vsystem.c \
     src/write.c \
     src/main.c
 

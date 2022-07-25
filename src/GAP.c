@@ -113,11 +113,7 @@ void start_GAP_file(int ***auts, struct pga_vars *pga)
 
    pipe(p1);
    pipe(p2);
-#ifdef HAVE_WORKING_VFORK
-   if ((pid = vfork()) == 0)
-#else
    if ((pid = fork()) == 0)
-#endif
    {
       dup2(p1[1], 1);
       dup2(p2[0], 0);
