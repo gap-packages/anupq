@@ -36,12 +36,6 @@ void start_GAP_file(FILE **GAP_input,
    /* open "GAP_input" file                                               */
    *GAP_input = OpenSystemFile("GAP_input", "w+");
 
-   if (!GAP4iostream) { /* this is necessary for GAP 4.2 compatibility    */
-      fprintf(*GAP_input, "if not IsBound( PcGroupFpGroupNC ) then\n");
-      fprintf(*GAP_input, "    PcGroupFpGroupNC := PcGroupFpGroup;\n");
-      fprintf(*GAP_input, "fi;\n");
-   }
-
    GAP_presentation(*GAP_input, pcp, 1);
 #ifdef HAVE_GMP
    /* report the group and automorphism group order */
