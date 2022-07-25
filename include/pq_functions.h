@@ -63,7 +63,6 @@ int string_to_int(char *s, Logical *error);
 int subgroup_to_label(int **S, int K, int *subset, struct pga_vars *pga);
 int valid(int option, int maxoption);
 int vector_to_word(int cp, int ptr, struct pcp_vars *pcp);
-int vsystem(char *string);
 int* find_orbit_reps(int *a, int *b, struct pga_vars *pga);
 int** label_to_subgroup(int *Index, int **subset, int label, struct pga_vars *pga);
 int** multiply_matrix(int **a, int n, int m, int **b, int q, int p);

@@ -141,9 +141,6 @@ AC_SUBST(GMP_LIBS)
 dnl ##
 dnl ## Checks for library functions.
 dnl ##
-AC_FUNC_MALLOC
-AC_FUNC_REALLOC
-AC_FUNC_FORK
 AC_HEADER_SYS_WAIT
 AC_CHECK_FUNCS([gethostname strftime])
 

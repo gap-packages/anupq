@@ -198,11 +198,7 @@ void insoluble_stab_gens(int rep,
       unlink("LINK_output");
 
 /* compute the stabiliser of the orbit representative                */
-#ifdef HAVE_WORKING_VFORK
-      if (vsystem(command) != 0)
-#else
       if (system(command) != 0)
-#endif
       {
          printf("Error in system call to GAP\n");
          exit(FAILURE);
