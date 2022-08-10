@@ -942,8 +942,8 @@ local name, file, instream, line, input, doPqStart, vars, var, printonly,
       fi;
     else
       ANUPQData.example.vars := rec();
-      for var in Filtered(vars, ISBOUND_GLOBAL) do 
-        ANUPQData.example.vars.(var) := VALUE_GLOBAL(var);
+      for var in Filtered(vars, IsBoundGlobal) do
+        ANUPQData.example.vars.(var) := ValueGlobal(var);
       od;
       Info(InfoANUPQ, 1, "Variables used in `PqExample' are saved ",
                          "in `ANUPQData.example.vars'.");
