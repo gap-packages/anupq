@@ -183,7 +183,7 @@ distclean-local:
 	rm -rf standalone/bin
 
 doc:
-	echo 'Read("makedoc.g");\n' | gap -A -q
+	$(GAP_EXEC) -A --quitonbreak -b -q < makedoc.g
 
 .PHONY: doc
 
