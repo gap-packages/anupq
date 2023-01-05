@@ -55,7 +55,7 @@ requested explicitly. This is done by calling
 <Example><![CDATA[
 gap> LoadPackage( "anupq" );
 ---------------------------------------------------------------------------
-Loading  ANUPQ 3.2.5 (ANU p-Quotient)
+Loading  ANUPQ 3.3.0 (ANU p-Quotient)
 by Greg Gamble (GAP code, http://school.maths.uwa.edu.au/~gregg),
    Werner Nickel (GAP code, https://www2.mathematik.tu-darmstadt.de/~nickel/), and
    Eamonn O'Brien (C code, https://www.math.auckland.ac.nz/~obrien).

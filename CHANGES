@@ -1,6 +1,14 @@
 In this file we record the changes since the first GAP 4 release of
 the ANUPQ package.
 
+Version 3.3.0 (2023-01-05)
+  * Fix some issues in the documentation
+  * Remove `ANUPQGlobalVariables`
+  * Remove most uses of `HideGlobalVariables`
+  * Avoid using internal undocumented GAP functions
+  * Update build system
+  * Remove GAP 4.2 compatibility code
+
 Version 3.2.6 (2022-03-07)
   * Declared the ANUPQ package to be under the Artistic License 2.0.
   * Fix crash in PqDescendantsTreeCoclassOne
