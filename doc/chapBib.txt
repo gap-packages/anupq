@@ -9,7 +9,7 @@
   
   [[20XLGS90[120X]  [16XLeedham-Green,  C.  R. and Soicher, L. H.[116X, [17XCollection from the left
   and  other  strategies[117X,  [18XJ.  Symbolic  Comput.[118X,  [19X9[119X,  5-6  (1990),  665--675,
-  ((Computational group theory, Part 1)).
+  (Computational group theory, Part 1).
   
   [[20XNew77[120X]  [16XNewman,  M.  F.[116X,  [17XDetermination  of groups of prime-power order[117X, in
   Group  theory  (Proc.  Miniconf.,  Australian  Nat.  Univ., Canberra, 1975),
@@ -23,7 +23,7 @@
   (1996), 593--605.
   
   [[20XO'B90[120X]  [16XO'Brien,  E.  A.[116X,  [17XThe  p-group  generation  algorithm[117X, [18XJ. Symbolic
-  Comput.[118X, [19X9[119X, 5-6 (1990), 677--698, ((Computational group theory, Part 1)).
+  Comput.[118X, [19X9[119X, 5-6 (1990), 677--698, (Computational group theory, Part 1).
   
   [[20XO'B94[120X]  [16XO'Brien,  E.  A.[116X,  [17XIsomorphism  testing  for  p-groups[117X, [18XJ. Symbolic
   Comput.[118X, [19X17[119X, 2 (1994), 131, 133--147.
@@ -42,10 +42,10 @@
   
   [[20XVL90a[120X]  [16XVaughan-Lee,  M.[116X,  [17XThe  restricted  Burnside problem[117X, The Clarendon
   Press  Oxford  University Press, London Mathematical Society Monographs. New
-  Series, [19X5[119X, New York (1990), xiv+209 pages, ((Oxford Science Publications)).
+  Series, [19X5[119X, New York (1990), xiv+209 pages, (Oxford Science Publications).
   
   [[20XVL90b[120X]  [16XVaughan-Lee,  M. R.[116X, [17XCollection from the left[117X, [18XJ. Symbolic Comput.[118X,
-  [19X9[119X, 5-6 (1990), 725--733, ((Computational group theory, Part 1)).
+  [19X9[119X, 5-6 (1990), 725--733, (Computational group theory, Part 1).
   
   
   

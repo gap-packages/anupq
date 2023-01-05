@@ -137,7 +137,7 @@ Some of the tests the script runs take a while. Please be  patient.
 The output you see should be something like the following:
 
     Made dir: /tmp/testPq
-    Testing installation of ANUPQ Package (version 3.2.5)
+    Testing installation of ANUPQ Package (version 3.3.0)
   
     The first two tests check that the pq C program compiled ok.
     Testing the pq binary ... OK.
@@ -152,7 +152,7 @@ The output you see should be something like the following:
      pq binary made with GAP set to: /usr/local/bin/gap
      Starting GAP to determine version and package availability ...
       GAP version (4.10.1) ... OK.
-      GAP found ANUPQ package (version 3.2.5) ... good.
+      GAP found ANUPQ package (version 3.3.0) ... good.
       GAP found pq binary (version 1.9) ... good.
       GAP found AutPGrp package (version 1.5) ... good.
      GAP is OK.

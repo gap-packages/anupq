@@ -4,11 +4,11 @@
   
   [1X1.1 [33X[0;0YOverview[133X[101X
   
-  [33X[0;0YThe [5XGAP[105X 4 package [5XANUPQ[105X provides an interface to the ANU [10Xpq[110X C progam written
-  by  Eamonn  O'Brien,  making the functionality of the C program available to
-  [5XGAP[105X.  Henceforth,  we shall refer to the [5XANUPQ[105X package when referring to the
-  [5XGAP[105X interface, and to the ANU [10Xpq[110X program or just [10Xpq[110X when referring to that C
-  program.[133X
+  [33X[0;0YThe  [5XGAP[105X 4  package  [5XANUPQ[105X  provides  an  interface  to the ANU [10Xpq[110X C program
+  written  by  Eamonn  O'Brien,  making  the  functionality  of  the C program
+  available  to  [5XGAP[105X.  Henceforth,  we  shall  refer to the [5XANUPQ[105X package when
+  referring  to  the  [5XGAP[105X interface, and to the ANU [10Xpq[110X program or just [10Xpq[110X when
+  referring to that C program.[133X
   
   [33X[0;0YThe [10Xpq[110X program consists of implementations of the following algorithms:[133X
   
