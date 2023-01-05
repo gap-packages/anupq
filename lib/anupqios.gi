@@ -64,7 +64,7 @@ end );
 ##  starts up a `pq' binary process and opens a {\GAP} iostream  to  ``talk''
 ##  to that process) and returns an integer <i> that can be used to  identify
 ##  that process. The argument <G>, if given, should be an *fp group* or  *pc
-##  group* that the user  intends  to  manipute  using  interactive  {\ANUPQ}
+##  group* that the user  intends to  manipulate using  interactive  {\ANUPQ}
 ##  functions. If `PqStart' is given an integer argument <workspace> then the
 ##  `pq' binary is started up with a workspace (an  integer  array)  of  size
 ##  <workspace> (i.e. $4 \times <workspace>$ bytes in a 32-bit  environment);

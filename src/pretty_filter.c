@@ -171,7 +171,7 @@ int pretty_filter(FILE *file, int *max_class, int *output, struct pcp_vars *pcp)
 
    initialise_pcp(*output, pcp);
 
-   /* set the metabelian flag appropriatedly */
+   /* set the metabelian flag appropriately */
    pcp->metabelian = metabelian_flag;
 
    setup(pcp);

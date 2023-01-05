@@ -127,7 +127,7 @@ int *compact_description(Logical write_to_file, struct pcp_vars *pcp)
    return sequence;
 }
 
-/* find all occurences of generator in relation with address ptr */
+/* find all occurrences of generator in relation with address ptr */
 
 void trace_relation(
     int *sequence, int *index, int ptr, int generator, struct pcp_vars *pcp)

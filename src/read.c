@@ -18,7 +18,7 @@
 void verify_read(int nmr_items, int required)
 {
    if (nmr_items != required) {
-      printf("Insufficent data read in from or written to file\n");
+      printf("Insufficient data read in from or written to file\n");
       exit(FAILURE);
    }
 }

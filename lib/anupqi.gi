@@ -182,7 +182,7 @@ end );
 #F  PQ_AUT_ARG_CHK(<minnargs>, <args>) . checks args for a func defining auts
 ##
 ##  checks that  the  arguments  make  sense  for  a  function  that  defines
-##  automorphisms, and if one fo the arguments is a list checks as much as is
+##  automorphisms, and if one of the arguments is a list checks as much as is
 ##  possible that it is a list of  matrices  that  will  be  valid  input  as
 ##  automorphisms for the `pq' binary.  If  the  arguments  look  ok  a  list
 ##  containing the `ANUPQData.io' index of the data record and, if  relevant,

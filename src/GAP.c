@@ -135,7 +135,7 @@ void start_GAP_file(int ***auts, struct pga_vars *pga)
       /* write GAP information to file                                   */
       WriteGapInfo(auts, pga);
 
-      /* try to syncronise with gap process                              */
+      /* try to synchronise with gap process                             */
       WriteGap("165287638495312637;\n");
       for (i = 0; i < 100; i++) {
          ReadGap(tmp);

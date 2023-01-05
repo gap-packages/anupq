@@ -7,7 +7,7 @@
 
 <Index>ANUPQ</Index>
 The &GAP;&nbsp;4 package &ANUPQ; provides an interface to the ANU <C>pq</C> C
-progam written by Eamonn O'Brien, making the functionality of the C
+program written by Eamonn O'Brien, making the functionality of the C
 program available to &GAP;. Henceforth, we shall refer to the &ANUPQ;
 package when referring to the &GAP; interface, and to the ANU <C>pq</C>
 program or just <C>pq</C> when referring to that C program.

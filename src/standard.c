@@ -69,7 +69,7 @@ static void list_subgroup(int rep, struct pga_vars *pga, struct pcp_vars *pcp);
 /* compute a standard presentation for a group;
 
    this procedure assumes that
-   -- an arbitary finite presentation has been
+   -- an arbitrary finite presentation has been
       supplied;
    -- a standard presentation has been computed
       for the class c p-quotient;

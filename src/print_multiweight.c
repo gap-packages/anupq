@@ -178,7 +178,7 @@ void print_multiweight(int first, int last, struct pcp_vars *pcp)
                   if (pattern[address] == 1)
                      printf("1 occurrence of pattern (");
                   else
-                     printf("%d occurences of pattern (", pattern[address]);
+                     printf("%d occurrences of pattern (", pattern[address]);
                   for (i = 1; i < pcp->ndgen; ++i)
                      printf("%d ", gens[i]);
                   printf("%d)\n", gens[pcp->ndgen]);
@@ -190,7 +190,7 @@ void print_multiweight(int first, int last, struct pcp_vars *pcp)
             if (counter == 1)
                printf("1 occurrence of pattern (");
             else
-               printf("%d occurences of pattern (", counter);
+               printf("%d occurrences of pattern (", counter);
             for (i = 1; i < pcp->ndgen; ++i)
                printf("%d ", pattern[i]);
             printf("%d)\n", pattern[pcp->ndgen]);

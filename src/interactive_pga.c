@@ -382,7 +382,7 @@ void orbit_option(int option,
    }
 
    /* if in soluble portion of combination, we do not need to
-      set up representives */
+      set up representatives */
    if (option == COMBINATION && pga->soluble)
       return;
 

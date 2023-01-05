@@ -205,7 +205,7 @@ end );
 ##
 
 ##!!  Muss angepasst werden auf die jetzt besser verstandenen Anforderungen
-##!!  an Automorphismen, nämlich der Unterscheideung zwischen solchen, die
+##!!  an Automorphismen, naemlich der Unterscheideung zwischen solchen, die
 ##!!  auf der Frattinigruppe treu operieren und solche, die dies nicht tuen.
 
 InstallGlobalFunction( "PqSupplementInnerAutomorphisms",
