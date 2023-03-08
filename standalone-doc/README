@@ -24,11 +24,11 @@ and some minor changes made in 2011-2022 by
 
    Max Horn
    Fachbereich Mathematik
-   TU Kaiserslautern
+   RPTU Kaiserslautern-Landau
    Gottlieb-Daimler-Straße 48
    67663 Kaiserslautern, Germany
 
-   E-mail: horn@mathematik.uni-kl.de
+   E-mail: mhorn@rptu.de
    WWW https://www.quendi.de/math
 
 ###############################################################################
@@ -252,7 +252,7 @@ J. Symbolic Comput. 9, 725-733.
 9. See the documentation for information on run-time parameters.
 
 10. Please report bugs/problems/feedback to obrien@math.auckland.ac.nz
-    and/or horn@mathematik.uni-kl.de
+    and/or mhorn@rptu.de
 
 ###############################################################################
 #
