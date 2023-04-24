@@ -20,7 +20,7 @@ Persons := [
     IsAuthor      := true,
     IsMaintainer  := false,
     Email         := "Greg.Gamble@uwa.edu.au",
-    WWWHome       := "http://school.maths.uwa.edu.au/~gregg",
+    #WWWHome       := "http://school.maths.uwa.edu.au/~gregg", # FIXME: broken URL?
     PostalAddress := Concatenation(
                        "Department of Mathematics and Statistics\n",
                        "Curtin University\n",
@@ -35,11 +35,11 @@ Persons := [
     FirstNames    := "Werner",
     IsAuthor      := true,
     IsMaintainer  := false,
-     # MH: Werner rarely (if at all) replies to emails sent to this
-     # old email address. To discourage users from sending bug reports
-     # there, I have disabled it here.
-     #Email         := "nickel@mathematik.tu-darmstadt.de",
-     WWWHome       := "https://www2.mathematik.tu-darmstadt.de/~nickel/",
+    # MH: Werner rarely (if at all) replies to emails sent to this
+    # old email address. To discourage users from sending bug reports
+    # there, I have disabled it here.
+    #Email         := "nickel@mathematik.tu-darmstadt.de",
+    #WWWHome       := "https://www2.mathematik.tu-darmstadt.de/~nickel/",
   ),
   rec( 
     LastName      := "O'Brien",
@@ -128,7 +128,7 @@ BannerFunction := function( info )
 
   str := DefaultPackageBannerString( info );
   str := ReplacedString( str, "by Greg Gamble (", "by Greg Gamble (GAP code, " );
-  str := ReplacedString( str, "Nickel (", "Nickel (GAP code, " );
+  str := ReplacedString( str, "Nickel", "Nickel (GAP code)" );
   str := ReplacedString( str, "O'Brien (", "O'Brien (C code, " );
   str := ReplacedString( str, "\nHomepage", "\nuses ANU pq binary (C code program) version: 1.9\nHomepage" );
   return str;
