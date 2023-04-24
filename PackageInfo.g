@@ -146,7 +146,12 @@ Keywords := [
 
 AutoDoc := rec(
     TitlePage := rec(
+    TitleComment := """
+            &ANUPQ; is maintained by <URL Text="Max Horn">mailto:mhorn@rptu.de</URL>.
+            For support requests, please use <URL Text="our issue tracker">https</URL>.
+            """,
     Copyright := """
+      <P/>
       &copyright; 2001-2016 by Greg Gamble<P/>
       &copyright; 2001-2005 by Werner Nickel<P/>
       &copyright; 1995-2001 by Eamon O'Brien<P/>
