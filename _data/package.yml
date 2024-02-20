@@ -1,5 +1,6 @@
 name: ANUPQ
-version: 3.3.0
+version: "3.3.0"
+license: "Artistic-2.0"
 date: 2023-01-05
 description: |
     ANU p-Quotient
