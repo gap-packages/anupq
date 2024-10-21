@@ -352,6 +352,9 @@ InstallGlobalFunction( PQ_DESCENDANTS, function( args )
     if HasIsCapable(datarec.group) and not IsCapable(datarec.group) and 
        VALUE_PQ_OPTION("SetupFile") = fail then
         datarec.descendants := [];
+        if datarec.calltype = "non-interactive" then
+          PQ_COMPLETE_NONINTERACTIVE_FUNC_CALL(datarec);
+        fi;
         return datarec.descendants;
     fi;
 

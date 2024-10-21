@@ -28,6 +28,12 @@ gap> PqDescendantsTreeCoclassOne( PqStart( G ) : TreeDepth := 5, CapableDescenda
 #I  Number of descendants of group #1;1 #1;1 #1;1 to class 4: 1
 #I  Number of descendants of group #1;1 #1;1 #1;1 #1;1 to class 5: 1
 
+# Check that the stream gets closed also in early exit cases.
+gap> G:= ExtraspecialGroup( 3^3, "-" );;
+gap> IsCapable( G );
+false
+gap> for i in [ 1 .. 100 ] do PqDescendants( G ); od;
+
 #
 gap> PqQuitAll();
 gap> STOP_TEST( "bugfix.tst", 1 );
