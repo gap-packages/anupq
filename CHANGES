@@ -1,6 +1,15 @@
 In this file we record the changes since the first GAP 4 release of
 the ANUPQ package.
 
+Version 3.3.1 (2024-10-21)
+  * Fix a bug where calling `PqDescendants` too many times will result in a
+    `"failed to launch child process"` error in `PQ_START`
+  * Require GMP library for multiprecesion integer arithmetic, which is
+    already required by GAP itself, and without which some computations may
+    produce strange errors or even wrong results
+  * Improve build system to find GMP more reliably
+  * Update maintainers and contact details
+
 Version 3.3.0 (2023-01-05)
   * Fix some issues in the documentation
   * Remove `ANUPQGlobalVariables`
