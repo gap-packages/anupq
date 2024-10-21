@@ -41,12 +41,11 @@
   [4X[32X  Example  [32X[104X
     [4X[25Xgap>[125X [27XLoadPackage( "anupq" );[127X[104X
     [4X[28X---------------------------------------------------------------------------[128X[104X
-    [4X[28XLoading  ANUPQ 3.3.0 (ANU p-Quotient)[128X[104X
-    [4X[28Xby Greg Gamble (GAP code, http://school.maths.uwa.edu.au/~gregg),[128X[104X
-    [4X[28X   Werner Nickel (GAP code, https://www2.mathematik.tu-darmstadt.de/~nickel/), and[128X[104X
+    [4X[28XLoading ANUPQ 3.3.1 (ANU p-Quotient)[128X[104X
+    [4X[28Xby Greg Gamble (GAP code, Greg.Gamble@uwa.edu.au),[128X[104X
+    [4X[28X   Werner Nickel (GAP code), and[128X[104X
     [4X[28X   Eamonn O'Brien (C code, https://www.math.auckland.ac.nz/~obrien).[128X[104X
     [4X[28Xmaintained by:[128X[104X
-    [4X[28X   Greg Gamble (http://school.maths.uwa.edu.au/~gregg) and[128X[104X
     [4X[28X   Max Horn (https://www.quendi.de/math).[128X[104X
     [4X[28Xuses ANU pq binary (C code program) version: 1.9[128X[104X
     [4X[28XHomepage: https://gap-packages.github.io/anupq/[128X[104X

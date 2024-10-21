@@ -38,7 +38,7 @@
   product  of  the generators can be brought into such a normal form using the
   defining  relations  in  the  above  presentation as rewrite rules. Any such
   process  is  called  [13Xcollection[113X.  For  the  discussion of various collection
-  methods see [LGS90] and [VL90b].[133X
+  methods see [LS90] and [Vau90b].[133X
   
   [33X[0;0YEvery  [22Xp[122X-group  of  order  [22Xp^n[122X has such a pcp on [22Xn[122X generators and conversely
   every  such  presentation  defines a [22Xp[122X-group. However a [22Xp[122X-group defined by a
@@ -66,7 +66,7 @@
   
   [124X
   
-  [33X[0;0YSee  [VL84]  for a description of a sufficient set of consistency conditions
+  [33X[0;0YSee  [Vau84] for a description of a sufficient set of consistency conditions
   in the context of the [22Xp[122X-quotient algorithm.[133X
   
   
@@ -162,7 +162,7 @@
   
   [1X2.2 [33X[0;0YThe p-quotient Algorithm[133X[101X
   
-  [33X[0;0YFor  details,  see  [HN80],  [NO96]  and  [VL84].  Other descriptions of the
+  [33X[0;0YFor  details,  see  [HN80],  [NO96]  and  [Vau84]. Other descriptions of the
   algorithm are given in [Sim94].[133X
   
   [33X[0;0YThe  [10Xpq[110X algorithm successively determines the factor groups of the groups of
@@ -245,7 +245,7 @@
   [33X[0;0YIn  this form, starting with a free group and imposing an exponent law (also
   referred  to  as  an  [13Xexponent check[113X) the [10Xpq[110X program has, in fact, found its
   most  noted application in the determination of (restricted) Burnside groups
-  (as reported in e.g. [HN80], [NO96] and [VL90a]).[133X
+  (as reported in e.g. [HN80], [NO96] and [Vau90a]).[133X
   
   [33X[0;0YVia  a  [5XGAP[105X  program using the [21Xlocal[121X interactive functions of the [10Xpq[110X program
   made available through this interface also arbitrary laws can be imposed via

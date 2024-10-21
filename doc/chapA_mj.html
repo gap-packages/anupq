@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 <script type="text/javascript"
-  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 <title>GAP (ANUPQ) - Appendix A: Examples</title>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
@@ -43,7 +43,7 @@
 
 <h3>A <span class="Heading">Examples</span></h3>
 
-<p>There are a large number of examples provided with the <strong class="pkg">ANUPQ</strong> package. These may be executed or displayed via the function <code class="code">PqExample</code> (see <code class="func">PqExample</code> (<a href="chap3_mj.html#X7BB0EB607F337265"><span class="RefLink">3.4-4</span></a>)). Each example resides in a file of the same name in the directory <code class="code">examples</code>. Most of the examples are translations to <strong class="pkg">GAP</strong> of examples provided for the <code class="code">pq</code> standalone by Eamonn O'Brien; the standalone examples are found in directories <code class="code">standalone/examples</code> (<span class="SimpleMath">\(p\)</span>-quotient and <span class="SimpleMath">\(p\)</span>-group generation examples) and <code class="code">standalone/isom</code> (standard presentation examples). The first line of each example indicates its origin. All the examples seen in earlier chapters of this manual are also available as examples, in a slightly modified form (the example which one can run in order to see something very close to the text example "live" is always indicated near -- usually immediately after -- the text example). The format of the (<code class="code">PqExample</code>) examples is such that they can be read by the standard <code class="code">Read</code> function of <strong class="pkg">GAP</strong>, but certain features and comments are interpreted by the function <code class="code">PqExample</code> to do somewhat more than <code class="code">Read</code> does. In particular, any function without a <code class="code">-i</code>, <code class="code">-ni</code> or <code class="code">.g</code> suffix has both a non-interactive and interactive form; in these cases, the default form is the non-interactive form, and giving <code class="code">PqStart</code> as second argument generates the interactive form.</p>
+<p>There are a large number of examples provided with the <strong class="pkg">ANUPQ</strong> package. These may be executed or displayed via the function <code class="code">PqExample</code> (see <code class="func">PqExample</code> (<a href="chap3_mj.html#X7BB0EB607F337265"><span class="RefLink">3.4-4</span></a>)). Each example resides in a file of the same name in the directory <code class="code">examples</code>. Most of the examples are translations to <strong class="pkg">GAP</strong> of examples provided for the <code class="code">pq</code> standalone by Eamonn O'Brien; the standalone examples are found in directories <code class="code">standalone/examples</code> (<span class="SimpleMath">\(p\)</span>-quotient and <span class="SimpleMath">\(p\)</span>-group generation examples) and <code class="code">standalone/isom</code> (standard presentation examples). The first line of each example indicates its origin. All the examples seen in earlier chapters of this manual are also available as examples, in a slightly modified form (the example which one can run in order to see something very close to the text example <q>live</q> is always indicated near -- usually immediately after -- the text example). The format of the (<code class="code">PqExample</code>) examples is such that they can be read by the standard <code class="code">Read</code> function of <strong class="pkg">GAP</strong>, but certain features and comments are interpreted by the function <code class="code">PqExample</code> to do somewhat more than <code class="code">Read</code> does. In particular, any function without a <code class="code">-i</code>, <code class="code">-ni</code> or <code class="code">.g</code> suffix has both a non-interactive and interactive form; in these cases, the default form is the non-interactive form, and giving <code class="code">PqStart</code> as second argument generates the interactive form.</p>
 
 <p>Running <code class="code">PqExample</code> without an argument or with a non-existent example <code class="code">Info</code>s the available examples and some hints on usage:</p>
 
@@ -192,7 +192,7 @@ c
 #I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
 </pre></div>
 
-<p>Now we do the same calculation using the <code class="code">Relators</code> option. In this way, the commutators are passed directly as strings to the <code class="code">pq</code> program, so that <strong class="pkg">GAP</strong> does not "see" them and pre-expand them.</p>
+<p>Now we do the same calculation using the <code class="code">Relators</code> option. In this way, the commutators are passed directly as strings to the <code class="code">pq</code> program, so that <strong class="pkg">GAP</strong> does not <q>see</q> them and pre-expand them.</p>
 
 
 <div class="example"><pre>
@@ -257,7 +257,7 @@ function( w ) ... end
 
 <p>Note that the <code class="code">time</code> statement gives the time in milliseconds spent by <strong class="pkg">GAP</strong> in executing the <code class="code">PqExample("B2-4-Id");</code> command (i.e. everything up to the <code class="code">Info</code>-ing of the variables used), but over 90% of that time is spent in the final <code class="code">Pq</code> statement. The time spent by the <code class="code">pq</code> program, which is negligible anyway (you can check this by running the example while the <code class="code">InfoANUPQ</code> level is set to 2), is not counted by <code class="code">time</code>.</p>
 
-<p>Since the identity used in the above construction of <span class="SimpleMath">\(B(2, 4)\)</span> is just an exponent law, the "right" way to compute it is via the <code class="code">Exponent</code> option (see <a href="chap6_mj.html#X87EE6DD67C9996A3"><span class="RefLink">6.2</span></a>), which is implemented at the C level and <em>is</em> highly optimised. Consequently, the <code class="code">Exponent</code> option is significantly faster, generally by several orders of magnitude:</p>
+<p>Since the identity used in the above construction of <span class="SimpleMath">\(B(2, 4)\)</span> is just an exponent law, the <q>right</q> way to compute it is via the <code class="code">Exponent</code> option (see <a href="chap6_mj.html#X87EE6DD67C9996A3"><span class="RefLink">6.2</span></a>), which is implemented at the C level and <em>is</em> highly optimised. Consequently, the <code class="code">Exponent</code> option is significantly faster, generally by several orders of magnitude:</p>
 
 
 <div class="example"><pre>
@@ -312,7 +312,7 @@ function( u, v ) ... end
 #I  Variables used in `PqExample' are saved in `ANUPQData.example.vars'.
 </pre></div>
 
-<p>The (interactive) call to <code class="code">Pq</code> above is essentially equivalent to a call to <code class="code">PqPcPresentation</code> with the same arguments and options followed by a call to <code class="code">PqCurrentGroup</code>. Moreover, the call to <code class="code">PqPcPresentation</code> (as described in <code class="func">PqPcPresentation</code> (<a href="chap5_mj.html#X7BF135DD84A781EB"><span class="RefLink">5.6-1</span></a>)) is equivalent to a "class 1" call to <code class="code">PqPcPresentation</code> followed by the requisite number of calls to <code class="code">PqNextClass</code>, and with the <code class="code">Identities</code> option set, both <code class="code">PqPcPresentation</code> and <code class="code">PqNextClass</code> "quietly" perform the equivalent of a <code class="code">PqEvaluateIdentities</code> call. In the following example we break down the <code class="code">Pq</code> call into its low-level equivalents, and set and unset the <code class="code">Identities</code> option to show where <code class="code">PqEvaluateIdentities</code> fits into this scheme.</p>
+<p>The (interactive) call to <code class="code">Pq</code> above is essentially equivalent to a call to <code class="code">PqPcPresentation</code> with the same arguments and options followed by a call to <code class="code">PqCurrentGroup</code>. Moreover, the call to <code class="code">PqPcPresentation</code> (as described in <code class="func">PqPcPresentation</code> (<a href="chap5_mj.html#X7BF135DD84A781EB"><span class="RefLink">5.6-1</span></a>)) is equivalent to a <q>class 1</q> call to <code class="code">PqPcPresentation</code> followed by the requisite number of calls to <code class="code">PqNextClass</code>, and with the <code class="code">Identities</code> option set, both <code class="code">PqPcPresentation</code> and <code class="code">PqNextClass</code> <q>quietly</q> perform the equivalent of a <code class="code">PqEvaluateIdentities</code> call. In the following example we break down the <code class="code">Pq</code> call into its low-level equivalents, and set and unset the <code class="code">Identities</code> option to show where <code class="code">PqEvaluateIdentities</code> fits into this scheme.</p>
 
 
 <div class="example"><pre>
@@ -605,7 +605,7 @@ od;
 <li><p>As each descendant is processed its unique label defined by the <code class="code">pq</code> program and number of descendants is <code class="code">Info</code>-ed at <code class="code">InfoANUPQ</code> level 1.</p>
 
 </li>
-<li><p><code class="code">PqDescendantsTreeCoclassOne</code> is an "experimental" function that is included to demonstrate the sort of things that are possible with the <span class="SimpleMath">\(p\)</span>-group generation machinery.</p>
+<li><p><code class="code">PqDescendantsTreeCoclassOne</code> is an <q>experimental</q> function that is included to demonstrate the sort of things that are possible with the <span class="SimpleMath">\(p\)</span>-group generation machinery.</p>
 
 </li>
 </ol>
@@ -668,6 +668,6 @@ end;
 <div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chap3_mj.html">3</a>  <a href="chap4_mj.html">4</a>  <a href="chap5_mj.html">5</a>  <a href="chap6_mj.html">6</a>  <a href="chap7_mj.html">7</a>  <a href="chapA_mj.html">A</a>  <a href="chapBib_mj.html">Bib</a>  <a href="chapInd_mj.html">Ind</a>  </div>
 
 <hr />
-<p class="foot">generated by <a href="http://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc">GAPDoc2HTML</a></p>
+<p class="foot">generated by <a href="https://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc">GAPDoc2HTML</a></p>
 </body>
 </html>

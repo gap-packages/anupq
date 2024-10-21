@@ -6,7 +6,7 @@
   allowable subgroup 2.1-4 
   [2XAllPqExamples[102X 3.4-5 
   ANUPQ 1.1 
-  [10XANUPQ_GAP_EXEC[110X, environment variable 7.  7.1  7.2 
+  [10XANUPQ_GAP_EXEC[110X, environment variable 7.0  7.1  7.2 
   [2XANUPQData[102X 3.2-1 
   [2XANUPQDirectoryTemporary[102X 3.2-2 
   [2XANUPQoptions[102X 6.1-2 

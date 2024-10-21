@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 <script type="text/javascript"
-  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 <title>GAP (ANUPQ) - Chapter 7: Installing the ANUPQ Package</title>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
@@ -39,7 +39,7 @@
 
 <p>The current version of the <strong class="pkg">ANUPQ</strong> package requires <strong class="pkg">GAP</strong> 4.9, and version 1.2 of the <strong class="pkg">AutPGrp</strong> package. However, we recommend using at least <strong class="pkg">GAP</strong> 4.6 and <strong class="pkg">AutPGrp</strong> 1.5.</p>
 
-<p>To install the <strong class="pkg">ANUPQ</strong> package, move the file <code class="code">anupq-<var class="Arg">XXX</var>.tar.gz</code> for some version number <var class="Arg">XXX</var> into the <code class="code">pkg</code> directory in which you plan to install <strong class="pkg">ANUPQ</strong>. Usually, this will be the directory <code class="code">pkg</code> in the hierarchy of your version of <strong class="pkg">GAP</strong>; it is however also possible to keep an additional <code class="code">pkg</code> directory in your private directories. The only essential difference with installing <strong class="pkg">ANUPQ</strong> in a <code class="code">pkg</code> directory different to the <strong class="pkg">GAP</strong> home directory is that one must start <strong class="pkg">GAP</strong> with the <code class="code">-l</code> switch (see Section <a href="https://www.gap-system.org/Manuals/doc/ref/chap3_mj.html#X782751D5858A6EAF"><span class="RefLink">Reference: Command Line Options</span></a>), e.g. if your private <code class="code">pkg</code> directory is a subdirectory of <code class="code">mygap</code> in your home directory you might type:</p>
+<p>To install the <strong class="pkg">ANUPQ</strong> package, move the file <code class="code">anupq-<var class="Arg">XXX</var>.tar.gz</code> for some version number <var class="Arg">XXX</var> into the <code class="code">pkg</code> directory in which you plan to install <strong class="pkg">ANUPQ</strong>. Usually, this will be the directory <code class="code">pkg</code> in the hierarchy of your version of <strong class="pkg">GAP</strong>; it is however also possible to keep an additional <code class="code">pkg</code> directory in your private directories. The only essential difference with installing <strong class="pkg">ANUPQ</strong> in a <code class="code">pkg</code> directory different to the <strong class="pkg">GAP</strong> home directory is that one must start <strong class="pkg">GAP</strong> with the <code class="code">-l</code> switch (see Section <a href="https://docs.gap-system.org/doc/ref/chap3_mj.html#X782751D5858A6EAF"><span class="RefLink">Reference: Command Line Options</span></a>), e.g. if your private <code class="code">pkg</code> directory is a subdirectory of <code class="code">mygap</code> in your home directory you might type:</p>
 
 
 <div class="example"><pre>
@@ -101,7 +101,7 @@ make
 
 <p>The path of <strong class="pkg">GAP</strong> (see <em>Note</em> below) used by the <code class="code">pq</code> binary (the value <code class="code">GAP</code> is set to in the <code class="code">make</code> command) may be over-ridden by setting the environment variable <code class="code">ANUPQ_GAP_EXEC</code>. These values are only of interest when the <code class="code">pq</code> program is run as a standalone; however, the <code class="code">testPq</code> script assumes you have set one of these correctly (see Section <a href="chap7_mj.html#X854577C8800DC7C2"><span class="RefLink"><span class="Heading">Testing your ANUPQ installation</span></span></a>). When the <code class="code">pq</code> program is started from <strong class="pkg">GAP</strong> communication occurs via an iostream, so that the <code class="code">pq</code> binary does not actually need to know a valid path for <strong class="pkg">GAP</strong> is this case.</p>
 
-<p><em>Note.</em> By "path of <strong class="pkg">GAP</strong>" we mean the path of the command used to invoke <strong class="pkg">GAP</strong> (which should be a script, e.g. the <code class="code">gap.sh</code> script generated in the <code class="code">bin</code> directory for the version of <strong class="pkg">GAP</strong> when <strong class="pkg">GAP</strong> was compiled). The usual strategy is to copy the <code class="code">gap.sh</code> script to a standard location, e.g. <code class="code">/usr/local/bin/gap</code>. It is a mistake to copy the <strong class="pkg">GAP</strong> executable <code class="code">gap</code> (in a directory with name of form <code class="code">bin/<var class="Arg">compile-platform</var></code>) to the standard location, since direct invocation of the executable results in <strong class="pkg">GAP</strong> starting without being able to find its own library (a fatal error).</p>
+<p><em>Note.</em> By <q>path of <strong class="pkg">GAP</strong></q> we mean the path of the command used to invoke <strong class="pkg">GAP</strong> (which should be a script, e.g. the <code class="code">gap.sh</code> script generated in the <code class="code">bin</code> directory for the version of <strong class="pkg">GAP</strong> when <strong class="pkg">GAP</strong> was compiled). The usual strategy is to copy the <code class="code">gap.sh</code> script to a standard location, e.g. <code class="code">/usr/local/bin/gap</code>. It is a mistake to copy the <strong class="pkg">GAP</strong> executable <code class="code">gap</code> (in a directory with name of form <code class="code">bin/<var class="Arg">compile-platform</var></code>) to the standard location, since direct invocation of the executable results in <strong class="pkg">GAP</strong> starting without being able to find its own library (a fatal error).</p>
 
 <p><a id="X854577C8800DC7C2" name="X854577C8800DC7C2"></a></p>
 
@@ -189,6 +189,6 @@ exec $GAP_DIR/bin/$GAP_PRG -m $GAP_MEM -o 970m -l "$GAP_DIR;~/gapstuff" $*
 <div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chap3_mj.html">3</a>  <a href="chap4_mj.html">4</a>  <a href="chap5_mj.html">5</a>  <a href="chap6_mj.html">6</a>  <a href="chap7_mj.html">7</a>  <a href="chapA_mj.html">A</a>  <a href="chapBib_mj.html">Bib</a>  <a href="chapInd_mj.html">Ind</a>  </div>
 
 <hr />
-<p class="foot">generated by <a href="http://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc">GAPDoc2HTML</a></p>
+<p class="foot">generated by <a href="https://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc">GAPDoc2HTML</a></p>
 </body>
 </html>

@@ -6,10 +6,10 @@
                                 [1X ANU p-Quotient [101X
   
   
-                                     3.3.0
+                                     3.3.1
   
   
-                                 5 January 2023
+                                21 October 2024
   
   
                                   Greg Gamble
@@ -20,9 +20,14 @@
   
   
   
+            [33X[0;10Y[5XANUPQ[105X  is maintained by Max Horn ([7Xmailto:mhorn@rptu.de[107X).
+            For  support  requests,  please  use  our  issue tracker
+            ([7Xhttps[107X).[133X
+  
+  
+  
   Greg Gamble
       Email:    [7Xmailto:Greg.Gamble@uwa.edu.au[107X
-      Homepage: [7Xhttp://school.maths.uwa.edu.au/~gregg[107X
       Address:  [33X[0;14YDepartment of Mathematics and Statistics[133X
                 [33X[0;14YCurtin University[133X
                 [33X[0;14YGPO Box U 1987[133X
@@ -30,8 +35,6 @@
                 [33X[0;14YAustralia[133X
   
   
-  Werner Nickel
-      Homepage: [7Xhttps://www2.mathematik.tu-darmstadt.de/~nickel/[107X
   Eamonn O'Brien
       Email:    [7Xmailto:obrien@math.auckland.ac.nz[107X
       Homepage: [7Xhttps://www.math.auckland.ac.nz/~obrien[107X

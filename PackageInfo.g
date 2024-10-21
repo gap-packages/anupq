@@ -9,8 +9,8 @@ SetPackageInfo( rec(
 
 PackageName := "ANUPQ",
 Subtitle    := "ANU p-Quotient",
-Version     := "3.3.0",
-Date        := "05/01/2023", # dd/mm/yyyy format
+Version     := "3.3.1",
+Date        := "21/10/2024", # dd/mm/yyyy format
 License     := "Artistic-2.0",
 
 Persons := [ 
@@ -18,9 +18,9 @@ Persons := [
     LastName      := "Gamble",
     FirstNames    := "Greg",
     IsAuthor      := true,
-    IsMaintainer  := true,
+    IsMaintainer  := false,
     Email         := "Greg.Gamble@uwa.edu.au",
-    WWWHome       := "http://school.maths.uwa.edu.au/~gregg",
+    #WWWHome       := "http://school.maths.uwa.edu.au/~gregg", # FIXME: broken URL?
     PostalAddress := Concatenation(
                        "Department of Mathematics and Statistics\n",
                        "Curtin University\n",
@@ -35,11 +35,11 @@ Persons := [
     FirstNames    := "Werner",
     IsAuthor      := true,
     IsMaintainer  := false,
-     # MH: Werner rarely (if at all) replies to emails sent to this
-     # old email address. To discourage users from sending bug reports
-     # there, I have disabled it here.
-     #Email         := "nickel@mathematik.tu-darmstadt.de",
-     WWWHome       := "https://www2.mathematik.tu-darmstadt.de/~nickel/",
+    # MH: Werner rarely (if at all) replies to emails sent to this
+    # old email address. To discourage users from sending bug reports
+    # there, I have disabled it here.
+    #Email         := "nickel@mathematik.tu-darmstadt.de",
+    #WWWHome       := "https://www2.mathematik.tu-darmstadt.de/~nickel/",
   ),
   rec( 
     LastName      := "O'Brien",
@@ -62,16 +62,16 @@ Persons := [
    FirstNames    := "Max",
    IsAuthor      := false,
    IsMaintainer  := true,
-   Email         := "horn@mathematik.uni-kl.de",
+   Email         := "mhorn@rptu.de",
    WWWHome       := "https://www.quendi.de/math",
    PostalAddress := Concatenation(
                       "Fachbereich Mathematik\n",
-                      "TU Kaiserslautern\n",
+                      "RPTU Kaiserslautern-Landau\n",
                       "Gottlieb-Daimler-Straße 48\n",
                       "67663 Kaiserslautern\n",
                       "Germany" ),
    Place         := "Kaiserslautern, Germany",
-   Institution   := "TU Kaiserslautern"
+   Institution   := "RPTU Kaiserslautern-Landau"
  ),
 ],  
 
@@ -128,7 +128,7 @@ BannerFunction := function( info )
 
   str := DefaultPackageBannerString( info );
   str := ReplacedString( str, "by Greg Gamble (", "by Greg Gamble (GAP code, " );
-  str := ReplacedString( str, "Nickel (", "Nickel (GAP code, " );
+  str := ReplacedString( str, "Nickel", "Nickel (GAP code)" );
   str := ReplacedString( str, "O'Brien (", "O'Brien (C code, " );
   str := ReplacedString( str, "\nHomepage", "\nuses ANU pq binary (C code program) version: 1.9\nHomepage" );
   return str;
@@ -146,7 +146,12 @@ Keywords := [
 
 AutoDoc := rec(
     TitlePage := rec(
+    TitleComment := """
+            &ANUPQ; is maintained by <URL Text="Max Horn">mailto:mhorn@rptu.de</URL>.
+            For support requests, please use <URL Text="our issue tracker">https</URL>.
+            """,
     Copyright := """
+      <P/>
       &copyright; 2001-2016 by Greg Gamble<P/>
       &copyright; 2001-2005 by Werner Nickel<P/>
       &copyright; 1995-2001 by Eamon O'Brien<P/>
