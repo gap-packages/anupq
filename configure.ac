@@ -39,103 +39,82 @@ dnl ##
 dnl ## Locate the GAP root dir
 dnl ##
 FIND_GAP
+GAP="${GAP:-${GAPROOT}/bin/gap.sh}"
+AC_SUBST(GAP)
+
+# newer GAP versions may set GMP_PREFIX in sysinfo.gap, try to use that
+GMP_PREFIX=${GMP_PREFIX:-yes}
 
 dnl ##
 dnl ## Check for GMP
-dnl ## If the user specified a specific GMP, try to use that.
-dnl ## Otherwise, first try to use the GMP provided by GAP, or
-dnl ## any GMP version installed globally by the user.
 dnl ##
 
-GMP_CPPFLAGS=
-GMP_LIBS=
-
 AC_ARG_WITH([gmp],
-	[AS_HELP_STRING([--with-gmp=PATH],
-	  [ Use GMP library.
-        If the argument you supply is "yes" or <empty>, then the version of GMP bundled with GAP will be used (default).
-        If the argument is "system" that means the library is reachable with the standard
-        search path "/usr" or "/usr/local".
-        Otherwise you give the <path> to the directory which contains the library.
-        [[default=yes]]
-    ])],
-  [], [ with_gmp=yes ]
-)
+  [AS_HELP_STRING([--with-gmp@<:@=PREFIX@:>@],
+    [prefix of GMP installation. e.g. /usr/local])],
+    [],[with_gmp=${GMP_PREFIX}])
+
+GMP_CPPFLAGS=""
+GMP_LDFLAGS=""
+GMP_LIBS="-lgmp"
 
 if test "x$with_gmp" = "xno" ; then
-	AC_MSG_NOTICE([Building without GMP support])
-elif test "x$with_gmp" = "xsystem" ; then
-	# Try using system GMP
-	GMP_CPPFLAGS=""
-	GMP_LIBS="-lgmp"
+	AC_MSG_ERROR([GMP is required and cannot be disabled])
+elif test "x$with_gmp" = "xyes" ; then
+    # If a gaproot was specified, try to find GMP in there; otherwise, fall
+    # back to whatever GMP may be found via user specified C/CPP/LDFLAGS
+    if test "${with_gaproot+set}" = set; then
+        echo "with_gaproot = $with_gaproot"
+        if test -f ${with_gaproot}/extern/install/gmp/include/gmp.h && test -d ${with_gaproot}/extern/install/gmp/lib ; then
+            echo "adjusting stuff based on gaproot"
+            GMP_CPPFLAGS="-I${with_gaproot}/extern/install/gmp/include"
+            GMP_LDFLAGS="-L${with_gaproot}/extern/install/gmp/lib"
+        fi
+    fi
 else
-	# Try using static linked GMP in the specified location
-	if test "x$with_gmp" = "xyes" ; then
-		# Try to use GAP's GMP, if available
-        GMP_HOME="$GAPROOT/extern/install/gmp"
+	if test -d ${with_gmp}/include && test -d ${with_gmp}/lib ; then
+		GMP_CPPFLAGS="-I${with_gmp}/include"
+        GMP_LDFLAGS="-L${with_gmp}/lib"
 	else
-		GMP_HOME="$with_gmp"
-	fi;
-	if test -d ${GMP_HOME}/include && test -d ${GMP_HOME}/lib ; then
-		GMP_CPPFLAGS="-I${GMP_HOME}/include"
-		# gross hack follows
-		if test -r "${GMP_HOME}/lib/libgmp.a" ; then
-			GMP_LIBS="${GMP_HOME}/lib/libgmp.a"
-		elif test -r "${GMP_HOME}/lib/libgmp.dylib" ; then
-			GMP_LIBS="${GMP_HOME}/lib/libgmp.dylib"
-		elif test -r "${GMP_HOME}/lib/libgmp.so" ; then
-			GMP_LIBS="${GMP_HOME}/lib/libgmp.so"
-		else
-			# generic fallback -- unfortunately, this does not ensure that we
-			# link against exactly that version of libgmp
-			GMP_LIBS="-L${GMP_HOME}/lib -lgmp"
-		fi
-	elif test "x$with_gmp" = "xyes" ; then
-		# fallback to trying system wide GMP
-		GMP_CPPFLAGS=""
-		GMP_LIBS="-lgmp"
-	else
-		AC_MSG_ERROR([Could not locate libgmp.a in the specified location])
+		AC_MSG_ERROR([Could not locate libgmp in the specified location])
 	fi
 fi;
 
-have_gmp=no
-if test "x$with_gmp" != xno; then
-	pq_save_CPPFLAGS="$CPPFLAGS"
-	CPPFLAGS="$CPPFLAGS $GMP_CPPFLAGS"
-	pq_save_LIBS="$LIBS"
-	LIBS="$LIBS $GMP_LIBS"
+save_CPPFLAGS="$CPPFLAGS"
+save_LDFLAGS="$LDFLAGS"
+save_LIBS="$LIBS"
 
-	AC_CHECK_HEADER( [gmp.h],
-		[
-		# TODO: Disable linker check for now: It causes problems on Linux, because
-		# libgmp.a is in the linker command line before the test C file. On the long
-		# run, this should be re-enabled, though perhaps in a different form.
-		AC_MSG_CHECKING([whether linking against GMP works])
-		AC_LINK_IFELSE(
-			[AC_LANG_PROGRAM([[#include <gmp.h>]], [[__gmpz_init(0);]])],
-			[have_gmp=yes],
-			[]
-			)
-		AC_MSG_RESULT([$have_gmp])
-		],
-		[]
-		)
+CPPFLAGS="$CPPFLAGS $GMP_CPPFLAGS"
+LDFLAGS="$LDFLAGS $GMP_LDFLAGS"
+LIBS="$LIBS $GMP_LIBS"
 
-	# restore FLAGS
-	CPPFLAGS="$pq_save_CPPFLAGS"
-	LIBS="$pq_save_LIBS"
+AC_CHECK_HEADER( [gmp.h],
+    [
+    # TODO: Disable linker check for now: It causes problems on Linux, because
+    # libgmp.a is in the linker command line before the test C file. On the long
+    # run, this should be re-enabled, though perhaps in a different form.
+    AC_MSG_CHECKING([whether linking against GMP works])
+    AC_LINK_IFELSE(
+        [AC_LANG_PROGRAM([[#include <gmp.h>]], [[__gmpz_init(0);]])],
+        [have_gmp=yes],
+        []
+        )
+    AC_MSG_RESULT([$have_gmp])
+    ],
+    []
+    )
 
-fi;
+# restore FLAGS
+CPPFLAGS="$save_CPPFLAGS"
+LDFLAGS="$save_LDFLAGS"
+LIBS="$save_LIBS"
 
-if test "x$have_gmp" = xyes; then
-	AC_DEFINE(HAVE_GMP, 1, [Define if GMP is installed and usable])
-else
-GMP_CPPFLAGS=""
-GMP_LIBS=""
+if test "x$have_gmp" != xyes; then
+    AC_MSG_ERROR([Could not locate GMP, the GNU multiprecision library])
 fi
 
 AC_SUBST(GMP_CPPFLAGS)
+AC_SUBST(GMP_LDFLAGS)
 AC_SUBST(GMP_LIBS)
 
 dnl ##
