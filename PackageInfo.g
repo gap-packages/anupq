@@ -117,7 +117,8 @@ AvailabilityTest :=
   function()
     # test for existence of the compiled binary
     if Filename( DirectoriesPackagePrograms( "anupq" ), "pq" ) = fail then
-        return fail;
+        LogPackageLoadingMessage(PACKAGE_WARNING, ["could not locate pq binary"]);
+        return false;
     fi;
     return true;
   end,
