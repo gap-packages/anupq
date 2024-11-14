@@ -64,9 +64,7 @@ elif test "x$with_gmp" = "xyes" ; then
     # If a gaproot was specified, try to find GMP in there; otherwise, fall
     # back to whatever GMP may be found via user specified C/CPP/LDFLAGS
     if test "${with_gaproot+set}" = set; then
-        echo "with_gaproot = $with_gaproot"
         if test -f ${with_gaproot}/extern/install/gmp/include/gmp.h && test -d ${with_gaproot}/extern/install/gmp/lib ; then
-            echo "adjusting stuff based on gaproot"
             GMP_CPPFLAGS="-I${with_gaproot}/extern/install/gmp/include"
             GMP_LDFLAGS="-L${with_gaproot}/extern/install/gmp/lib"
         fi
