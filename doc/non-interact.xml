@@ -547,7 +547,7 @@ gap> G := Group( (1,2,3,4), (1,3) );
 Group([ (1,2,3,4), (1,3) ])
 gap> P1 := Image( IsomorphismPcGroup( G ) );
 Group([ f1, f2, f3 ])
-gap> P2 := ElementaryAbelianGroup(8);;
+gap> P2 := ElementaryAbelianGroup( 8 );;
 <pc group of size 8 with 3 generators>
 gap> IsIsomorphicPGroup( P1, P2 );
 false

@@ -2,7 +2,7 @@
 ##
 #A  anupqsmgp.tst             ANUPQ package                       Greg Gamble
 ##
-##  Tests the ANUPQ with some groups small groups.
+##  Tests the ANUPQ with some small groups.
 ##  Execute this file with `Test( "anupqsmgp.tst" );'.
 ##  The number of GAPstones returned at the end do not mean much as  they  do
 ##  not measure the time spent by the `pq' binary.
