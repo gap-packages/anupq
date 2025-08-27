@@ -22,7 +22,7 @@ gap> MultiplicatorRank(H);
 3
 gap> NuclearRank(H);
 1
-gap> G := DirectProduct( CyclicGroup( 2 ), CyclicGroup( 2 ) );
+gap> G := AbelianGroup([2,2]);;
 <pc group of size 4 with 2 generators>
 gap> PqDescendants( G );
 [ <pc group of size 8 with 3 generators>, 
@@ -107,7 +107,7 @@ gap> MultiplicatorRank(G);
 4
 gap> NuclearRank(G);
 2
-gap> G := DirectProduct(CyclicGroup(2), CyclicGroup(2));
+gap> G := AbelianGroup([2,2]);;
 <pc group of size 4 with 2 generators>
 gap> d := PqDescendants( G ){[1..3]};
 [ <pc group of size 8 with 3 generators>, 
