@@ -9,8 +9,8 @@ SetPackageInfo( rec(
 
 PackageName := "ANUPQ",
 Subtitle    := "ANU p-Quotient",
-Version     := "3.3.1",
-Date        := "21/10/2024", # dd/mm/yyyy format
+Version     := "3.3.2",
+Date        := "28/08/2025", # dd/mm/yyyy format
 License     := "Artistic-2.0",
 
 Persons := [ 
@@ -64,6 +64,7 @@ Persons := [
    IsMaintainer  := true,
    Email         := "mhorn@rptu.de",
    WWWHome       := "https://www.quendi.de/math",
+   GitHubUsername := "fingolfin",
    PostalAddress := Concatenation(
                       "Fachbereich Mathematik\n",
                       "RPTU Kaiserslautern-Landau\n",
@@ -117,7 +118,8 @@ AvailabilityTest :=
   function()
     # test for existence of the compiled binary
     if Filename( DirectoriesPackagePrograms( "anupq" ), "pq" ) = fail then
-        return fail;
+        LogPackageLoadingMessage(PACKAGE_WARNING, ["could not locate pq binary"]);
+        return false;
     fi;
     return true;
   end,

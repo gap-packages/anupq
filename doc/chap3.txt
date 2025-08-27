@@ -41,7 +41,7 @@
   [4X[32X  Example  [32X[104X
     [4X[25Xgap>[125X [27XLoadPackage( "anupq" );[127X[104X
     [4X[28X---------------------------------------------------------------------------[128X[104X
-    [4X[28XLoading ANUPQ 3.3.1 (ANU p-Quotient)[128X[104X
+    [4X[28XLoading ANUPQ 3.3.2 (ANU p-Quotient)[128X[104X
     [4X[28Xby Greg Gamble (GAP code, Greg.Gamble@uwa.edu.au),[128X[104X
     [4X[28X   Werner Nickel (GAP code), and[128X[104X
     [4X[28X   Eamonn O'Brien (C code, https://www.math.auckland.ac.nz/~obrien).[128X[104X
