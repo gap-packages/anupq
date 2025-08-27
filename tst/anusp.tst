@@ -11,9 +11,9 @@
 ##
 gap> START_TEST( "Testing ANUPQ `StandardPresentation'" );
 gap> SetInfoLevel(InfoANUPQ, 1);
-gap> D8 := SmallGroup(8, 3);
+gap> D8 := DihedralGroup( 8 );
 <pc group of size 8 with 3 generators>
-gap> Q8 := SmallGroup(8, 4);
+gap> Q8 := QuaternionGroup( 8 );
 <pc group of size 8 with 3 generators>
 gap> S := StandardPresentation( Q8 );
 <fp group on the generators [ f1, f2, f3 ]>
