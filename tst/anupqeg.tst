@@ -47113,15 +47113,15 @@ gap> G := Group( (1,2,3,4), (1,3) );
 Group([ (1,2,3,4), (1,3) ])
 gap> P1 := Image( IsomorphismPcGroup( G ) );
 Group([ f1, f2, f3 ])
-gap> P2 := SmallGroup( 8, 5 );
+gap> P2 := DirectProduct( CyclicGroup( 2 ), CyclicGroup( 2 ), CyclicGroup( 2 ) );
 <pc group of size 8 with 3 generators>
 gap> IsIsomorphicPGroup( P1, P2 );
 false
-gap> P3 := SmallGroup( 8, 4 );
+gap> P3 := QuaternionGroup( 8 );
 <pc group of size 8 with 3 generators>
 gap> IsIsomorphicPGroup( P1, P3 );
 false
-gap> P4 := SmallGroup( 8, 3 );
+gap> P4 := DihedralGroup( 8 );
 <pc group of size 8 with 3 generators>
 gap> IsIsomorphicPGroup( P1, P4 );
 true
