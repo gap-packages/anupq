@@ -37,18 +37,15 @@ jobs:
             ABI: 32
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: gap-actions/setup-gap@v2
         with:
           GAPBRANCH: ${{ matrix.gap-branch }}
           ABI: ${{ matrix.ABI }}
       - uses: gap-actions/build-pkg@v1
-      - uses: gap-actions/run-pkg-tests@v2
+      - uses: gap-actions/run-pkg-tests@v3
+      - uses: gap-actions/run-pkg-tests@v3
         with:
-          GAP_TESTFILE: "tst/testinstall.g"
-      - uses: gap-actions/run-pkg-tests@v2
-        with:
-          GAP_TESTFILE: "tst/testinstall.g"
           only-needed: true
       - uses: gap-actions/process-coverage@v2
       - uses: codecov/codecov-action@v5
@@ -61,7 +58,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: gap-actions/setup-gap@v2
       - uses: gap-actions/build-pkg-docs@v1
         with:
