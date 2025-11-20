@@ -1,5 +1,5 @@
-if fail = LoadPackage("AutoDoc", ">= 2016.01.21") then
-    Error("AutoDoc 2016.01.21 or newer is required");
+if fail = LoadPackage("AutoDoc", ">= 2022.07.10") then
+    Error("AutoDoc 2022.07.10 or newer is required");
 fi;
 
 # Use AutoDoc to regenerate the manual title page with data from
@@ -7,6 +7,7 @@ fi;
 # up-to-date).
 AutoDoc(rec(
     scaffold := rec(
+        TitlePage := false,
         includes := [
             "intro.xml",
             "basics.xml",
@@ -17,7 +18,6 @@ AutoDoc(rec(
             "install.xml",
             ],
         appendix := [ "examples.xml" ],
-        entities := [ "ANUPQ", "AutPGrp" ],
     )
 ));
 

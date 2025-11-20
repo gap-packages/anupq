@@ -147,19 +147,19 @@ Keywords := [
 
 
 AutoDoc := rec(
-    TitlePage := rec(
-    TitleComment := """
-            &ANUPQ; is maintained by <URL Text="Max Horn">mailto:mhorn@rptu.de</URL>.
-            For support requests, please use <URL Text="our issue tracker">https</URL>.
-            """,
-    Copyright := """
-      <P/>
-      &copyright; 2001-2016 by Greg Gamble<P/>
-      &copyright; 2001-2005 by Werner Nickel<P/>
-      &copyright; 1995-2001 by Eamon O'Brien<P/>
-
-      The &GAP; package &ANUPQ; is licensed under the <URL Text="Artistic License 2.0">https://opensource.org/licenses/artistic-license-2.0</URL>.
-      """,
+    entities := rec(
+        VERSION := ~.Version,
+        RELEASEYEAR := ~.Date{[7..10]},
+        RELEASEDATE := function(date)
+          local day, month, year, allMonths;
+          day := Int(date{[1,2]});
+          month := Int(date{[4,5]});
+          year := Int(date{[7..10]});
+          allMonths := [ "January", "February", "March", "April", "May", "June", "July",
+                         "August", "September", "October", "November", "December"];
+          return Concatenation(String(day)," ", allMonths[month], " ", String(year));
+        end(~.Date),
+        AutPGrp := "<Package>AutPGrp</Package>",
     ),
 ),
 ));
