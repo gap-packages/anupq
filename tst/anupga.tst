@@ -5,8 +5,6 @@
 ##  A test file for the GAP 4  interface  to  the  ANUPQ  p-group  generation
 ##  algorithm.
 ##  Execute this file with `Test( "anupga.tst" );'.
-##  The number of GAPstones returned at the end do not mean much as  they  do
-##  not measure the time spent by the `pq' binary.
 ##  *Note:* `PqDescendants' now computes *all* descendants  by  default,  not
 ##  just the capable ones.
 ##
