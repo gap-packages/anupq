@@ -5,8 +5,6 @@
 ##  Tests one of the ANUPQ examples. This is  done  on  its  own  because  it
 ##  outputs timing data which varies from machine to machine.
 ##  Execute this file with `Test( "anupq1eg.tst" );'.
-##  The number of GAPstones returned at the end do not mean much as  they  do
-##  not measure the time spent by the `pq' binary.
 ##
 gap> START_TEST( "Testing one ANUPQ example" );
 gap> SetInfoLevel(InfoANUPQ, 1);

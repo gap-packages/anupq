@@ -6,8 +6,6 @@
 ##  Tests `StandardPresentation'.
 ##  This has been derived by conversion of the GAP 3 file of the same name to
 ##  GAP 4.
-##  The number of GAPstones returned at the end do not mean much as  they  do
-##  not measure the time spent by the `pq' binary.
 ##
 gap> START_TEST( "Testing ANUPQ `StandardPresentation'" );
 gap> SetInfoLevel(InfoANUPQ, 1);

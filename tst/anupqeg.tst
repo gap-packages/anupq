@@ -5,8 +5,6 @@
 ##  Tests all but one of the ANUPQ examples.
 ##  Execute this file with `Test( "anupqeg.tst" );'.
 ##  This is a *big* test, taking some 40 minutes on a *fast* (1GHz) machine.
-##  The number of GAPstones returned at the end do not mean much as  they  do
-##  not measure the time spent by the `pq' binary.
 ##
 
 gap> START_TEST( "Testing ANUPQ examples" );
