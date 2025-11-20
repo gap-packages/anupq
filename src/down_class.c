@@ -33,7 +33,7 @@ void down_class(int ptr, struct pcp_vars *pcp)
    p2 = -y[p1];
    count = y[p2 + 1];
    count1 = count;
-   while (FIELD2(y[p2 + count1 + 1]) > lastg) {
+   while ((int)FIELD2(y[p2 + count1 + 1]) > lastg) {
       if (--count1 <= 0) {
          y[p2] = y[p1] = 0;
          return;
