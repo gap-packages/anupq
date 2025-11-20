@@ -173,8 +173,7 @@ b
 c
 gap> R := [PqLeftNormComm([b, a, a, b, c])^11, 
 >          PqLeftNormComm([a, b, b, a, b, c])^11, (a * b)^11];;
-gap> procId := PqStart(F/R : Prime := 11);
-1
+gap> procId := PqStart(F/R : Prime := 11);;
 gap> PqPcPresentation(procId : ClassBound := 7, 
 >                              OutputLevel := 1);
 #I  Lower exponent-11 central series for [grp]
@@ -203,8 +202,7 @@ gap> F := FreeGroup("a", "b", "c");
 <free group on the generators [ a, b, c ]>
 gap> rels := ["[b, a, a, b, c]^11", "[a, b, b, a, b, c]^11", "(a * b)^11"];
 [ "[b, a, a, b, c]^11", "[a, b, b, a, b, c]^11", "(a * b)^11" ]
-gap> procId := PqStart(F : Prime := 11, Relators := rels);
-2
+gap> procId := PqStart(F : Prime := 11, Relators := rels);;
 gap> PqPcPresentation(procId : ClassBound := 7, 
 >                              OutputLevel := 1);
 #I  Relators parsed ok.
@@ -311,8 +309,7 @@ gap> # All word pairs u, v in the pc generators of the 11-quotient Q of G
 gap> # must satisfy the Engel identity: [u, v, v, v] = 1.
 gap> f := function(u, v) return PqLeftNormComm( [u, v, v, v] ); end;
 function( u, v ) ... end
-gap> procId := PqStart( G );
-3
+gap> procId := PqStart( G );;
 gap> Q := Pq( procId : Prime := 11, Identities := [ f ] );
 #I  Class 1 with 2 generators.
 #I  Class 2 with 3 generators.
@@ -356,8 +353,7 @@ gap> # All word pairs u, v in the pc generators of the 11-quotient Q of G
 gap> # must satisfy the Engel identity: [u, v, v, v] = 1.
 gap> f := function(u, v) return PqLeftNormComm( [u, v, v, v] ); end;
 function( u, v ) ... end
-gap> procId := PqStart( G : Prime := 11 );
-4
+gap> procId := PqStart( G : Prime := 11 );;
 gap> PqPcPresentation( procId : ClassBound := 1);
 gap> PqEvaluateIdentities( procId : Identities := [f] );
 #I  Class 1 with 2 generators.
@@ -509,8 +505,7 @@ generation machinery of the package. We start with the elementary abelian
 <Example><![CDATA[
 gap> G := ElementaryAbelianGroup( 9 );
 <pc group of size 9 with 2 generators>
-gap> procId := PqStart( G );
-5
+gap> procId := PqStart( G );;
 gap> #
 gap> #  Below, we use the option StepSize in order to construct descendants
 gap> #  of coclass 1. This is equivalent to setting the StepSize to 1 in

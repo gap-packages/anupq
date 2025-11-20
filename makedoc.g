@@ -6,6 +6,7 @@ fi;
 # PackageInfo.g (i.e. make sure the author and version information is
 # up-to-date).
 AutoDoc(rec(
+    extract_examples := true,
     scaffold := rec(
         TitlePage := false,
         includes := [
