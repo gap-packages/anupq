@@ -52,7 +52,7 @@ problems.
 To use the &ANUPQ; package, as with any &GAP; package, it must be
 requested explicitly. This is done by calling
 
-<Example><![CDATA[
+<Log><![CDATA[
 gap> LoadPackage( "anupq" );
 ---------------------------------------------------------------------------
 Loading ANUPQ 3.3.2 (ANU p-Quotient)
@@ -66,7 +66,7 @@ Homepage: https://gap-packages.github.io/anupq/
 Report issues at https://github.com/gap-packages/anupq/issues
 ---------------------------------------------------------------------------
 true
-]]></Example>
+]]></Log>
 
 Note that since the &ANUPQ; package uses the <C>AutomorphimGroupPGroup</C>
 function of the &AutPGrp; package and, in any case, often needs other
@@ -351,9 +351,9 @@ To turn off <E>all</E> <C>InfoANUPQ</C> messaging, set the <C>InfoANUPQ</C> leve
 
 There are five other user-intended <C>InfoANUPQ</C> levels: 2, 3, 4, 5 and 6.
 
-<Example><![CDATA[
+<Log><![CDATA[
 gap> SetInfoLevel(InfoANUPQ, 2);
-]]></Example>
+]]></Log>
 
 enables the display of most timing and memory usage data from the <C>pq</C>
 program, and also the number of identity instances when the <C>Identities</C>
@@ -364,9 +364,9 @@ that the the &GAP; functions <C>time</C> and <C>Runtime</C>
 the &GAP; Reference Manual) count the time spent by &GAP; and <E>not</E> the
 time spent by the (external) <C>pq</C> program.
 
-<Example><![CDATA[
+<Log><![CDATA[
 gap> SetInfoLevel(InfoANUPQ, 3);
-]]></Example>
+]]></Log>
 
 enables the display of output of the nature of the first two <C>InfoANUPQ</C>
 that was not directly invoked by the user (e.g.&nbsp;some commands require
@@ -377,24 +377,24 @@ produces a lot of output despite the fact that the <C>OutputLevel</C>
 (see&nbsp;<Ref Label="option OutputLevel" Style="Text"/>) is unset or is set to 0; such output is also
 <C>Info</C>-ed at <C>InfoANUPQ</C> level 3.
 
-<Example><![CDATA[
+<Log><![CDATA[
 gap> SetInfoLevel(InfoANUPQ, 4);
-]]></Example>
+]]></Log>
 
 enables the display of all the commands directed to the <C>pq</C> program,
 behind a <Q><C>ToPQ> </C></Q> prompt (so that you can distinguish it from the
 output from the <C>pq</C> program). See Section&nbsp;<Ref Sect="Hints and Warnings regarding the use of Options" Style="Text"/> for an example of how this can be a useful
 troubleshooting tool.
 
-<Example><![CDATA[
+<Log><![CDATA[
 gap> SetInfoLevel(InfoANUPQ, 5);
-]]></Example>
+]]></Log>
 
 enables the display of the <C>pq</C> program's prompts for input. Finally,
 
-<Example><![CDATA[
+<Log><![CDATA[
 gap> SetInfoLevel(InfoANUPQ, 6);
-]]></Example>
+]]></Log>
 
 enables the display of all other output from the <C>pq</C> program, namely the
 banner and menus. However, the timing data printed when the <C>pq</C> program
@@ -444,11 +444,9 @@ Here is an example:
 <Example><![CDATA[
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
-gap> PqGAPRelators(F, [ "a*b^2", "[a,b]^2*a", "([a,b,a,b,b]*a*b)^2*a" ]);
-[ a*b^2, a^-1*b^-1*a*b*a^-1*b^-1*a*b*a, b^-1*a^-1*b^-1*a^-1*b*a*b^-1*a*b*a^
-    -1*b*a^-1*b^-1*a*b*a*b^-1*a^-1*b^-1*a^-1*b*a*b^-1*a*b^-1*a^-1*b*a^-1*b^
-    -1*a*b*a*b*a^-1*b*a*b^-1*a*b*a^-1*b*a^-1*b^-1*a*b*a*b^-1*a^-1*b^-1*a^
-    -1*b*a*b^-1*a*b^-1*a^-1*b*a^-1*b^-1*a*b*a*b^2*a*b*a ]
+gap> PqGAPRelators(F, [ "a*b^2", "[a,b]^2*a", "[a,b,a,b]^a" ]);
+[ a*b^2, (a^-1*b^-1*a*b)^2*a, 
+  a^-2*b^-1*a^-1*b*(a*b^-1)^2*a^-1*b*a^-1*b^-1*(a*b)^2*a ]
 ]]></Example>
 </Description>
 </ManSection>
@@ -660,10 +658,10 @@ unless the error at the kernel level, the
 <C>OptionsStack</C> is reset. If an error is detected inside the kernel
 (hopefully, this should occur only rarely, if at all) then the options of
 that function will <E>not</E> be cleared from <C>OptionsStack</C>; in such cases:
-<Example><![CDATA[
+<Log><![CDATA[
 gap> ResetOptionsStack();
 #I  Options stack is already empty
-]]></Example>
+]]></Log>
 
 is usually necessary (see Chapter&nbsp;<Ref BookName="ref" Func="ResetOptionsStack" Style="Text"/> in the &GAP;
 Reference Manual), which recursively calls <C>PopOptions()</C> until
@@ -734,9 +732,9 @@ brk> quit; # to get back to the `gap>' prompt
 Above, we altered <C>OnBreak</C> (see&nbsp;<Ref BookName="ref" Func="OnBreak" Style="Text"/> in the Reference manual)
 to reduce the back-tracing on entry into a break loop. We now restore
 <C>OnBreak</C> to its usual value.
-<Example><![CDATA[
+<Log><![CDATA[
 gap> OnBreak := Where;;
-]]></Example>
+]]></Log>
 
 <E>Notes</E>
 <P/>
