@@ -16,6 +16,8 @@ done in these functions and naive use may result in incorrect results.
 <Section Label="Basic-notions">
 <Heading>Basic notions</Heading>
 
+Throughout this manual, by <M>p</M>-group we always mean <E>finite</E> <M>p</M>-group.
+
 <Subsection><Heading>pc Presentations and Consistency</Heading>
 For details, see e.g.&nbsp;<Cite Key="NNN98"/>.
 <P/>
@@ -141,8 +143,10 @@ For details, see <Cite Key="New77"/> and <Cite Key="OBr90"/>.
 Let again <M>G</M> be a <M>p</M>-group of <M>p</M>-class <M>c</M> and <M>d</M> the minimal
 number of generators of <M>G</M>. A <M>p</M>-group <M>H</M> is a <E>descendant</E> of <M>G</M>
 if the minimal number of generators of <M>H</M> is <M>d</M> and <M>H/P_c(H)</M> is
-isomorphic to <M>G</M>. A descendant <M>H</M> of <M>G</M> is an <E>immediate
-descendant</E> if it has <M>p</M>-class <M>c+1</M>. <M>G</M> is called <E>capable</E> if it
+isomorphic to <M>G</M>.
+A descendant <M>H</M> of <M>G</M> is a <E>proper descendant</E> if it has <M>p</M>-class at least <M>c+1</M>.
+A descendant <M>H</M> of <M>G</M> is an <E>immediate descendant</E> if it has <M>p</M>-class <M>c+1</M>.
+<M>G</M> is called <E>capable</E> if it
 has immediate descendants; otherwise it is <E>terminal</E>.
 <P/>
 

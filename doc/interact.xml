@@ -569,7 +569,7 @@ an epimorphism onto an fp group</Q> etc.
 return for the pc group <A>G</A> of the <A>i</A>th or default interactive &ANUPQ;
 process, which must be of prime power order with a confluent pc
 presentation (see&nbsp;<Ref BookName="ref" Func="IsConfluent" Label="for pc groups" Style="Text"/> in the &GAP; Reference
-Manual), a list of descendants (pc groups) of <A>G</A>. The group <A>G</A> is
+Manual), a list of proper descendants (pc groups) of <A>G</A>. The group <A>G</A> is
 usually given as first argument to <C>PqStart</C> when starting the
 interactive &ANUPQ; process (see&nbsp;<Ref Func="PqStart" Style="Text"/>). Alternatively, one may
 initiate the process with an fp group, use <C>Pq</C> interactively
@@ -690,7 +690,7 @@ gap> des := PqDescendants( 5 : OrderBound := 3, ClassBound := 2,
   <pc group of size 27 with 3 generators> ]
 gap> List(des, d -> Length( PCentralSeries( d, 3 ) ) - 1 );
 [ 2, 2 ]
-gap> # For comparison let us now compute all descendants
+gap> # For comparison let us now compute all proper descendants
 gap> # (using the non-interactive Pq function)
 gap> PqDescendants( G : OrderBound := 3, ClassBound := 2);
 [ <pc group of size 27 with 3 generators>, 
@@ -698,7 +698,7 @@ gap> PqDescendants( G : OrderBound := 3, ClassBound := 2);
   <pc group of size 27 with 3 generators> ]
 ]]></Example>
 
-In the third example, we compute all capable descendants of the
+In the third example, we compute all proper capable descendants of the
 elementary abelian group of order <M>5^2</M> which have exponent-<M>5</M> class at
 most <M>3</M>, exponent <M>5</M>, and are metabelian.
 

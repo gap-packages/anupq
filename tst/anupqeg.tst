@@ -47767,7 +47767,7 @@ gap> des := PqDescendants( G : OrderBound := 3, ClassBound := 2,
   <pc group of size 27 with 3 generators> ]
 gap> List(des, d -> Length( PCentralSeries( d, 3 ) ) - 1 );
 [ 2, 2 ]
-gap> # For comparison let us now compute all descendants
+gap> # For comparison let us now compute all proper descendants
 gap> PqDescendants( G : OrderBound := 3, ClassBound := 2);
 [ <pc group of size 27 with 3 generators>, 
   <pc group of size 27 with 3 generators>, 
@@ -47789,7 +47789,7 @@ gap> des := PqDescendants( procId : OrderBound := 3, ClassBound := 2,
   <pc group of size 27 with 3 generators> ]
 gap> List(des, d -> Length( PCentralSeries( d, 3 ) ) - 1 );
 [ 2, 2 ]
-gap> # For comparison let us now compute all descendants
+gap> # For comparison let us now compute all proper descendants
 gap> PqDescendants( G : OrderBound := 3, ClassBound := 2);
 [ <pc group of size 27 with 3 generators>, 
   <pc group of size 27 with 3 generators>, 
