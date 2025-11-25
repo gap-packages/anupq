@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<TitlePage>
+  <Title>
+    &ANUPQ;
+  </Title>
+  <Subtitle>
+    ANU p-Quotient
+  </Subtitle>
+  <Version>
+    &VERSION;
+  </Version>
+  <TitleComment>
+    &ANUPQ; is maintained by <URL Text="Max Horn">mailto:mhorn@rptu.de</URL>.
+    For support requests, please use <URL Text="our issue tracker">https://github.com/gap-packages/anupq/issues</URL>.
+  </TitleComment>
+
+  <Author>
+    Greg Gamble<Alt Only="LaTeX"><Br/></Alt>
+    <Email>Greg.Gamble@uwa.edu.au</Email>
+  </Author>
+  <Author>
+    Werner Nickel<Alt Only="LaTeX"><Br/></Alt>
+  </Author>
+  <Author>
+    Eamonn O'Brien<Alt Only="LaTeX"><Br/></Alt>
+    <Email>obrien@math.auckland.ac.nz</Email>
+    <Homepage>https://www.math.auckland.ac.nz/~obrien</Homepage>
+  </Author>
+
+  <Date>
+    &RELEASEDATE;
+  </Date>
+  <Copyright>
+      &copyright; 2001-2016 by Greg Gamble<P/>
+      &copyright; 2001-2005 by Werner Nickel<P/>
+      &copyright; 1995-2001 by Eamon O'Brien<P/>
+
+      The &GAP; package &ANUPQ; is licensed under the <URL Text="Artistic License 2.0">https://opensource.org/licenses/artistic-license-2.0</URL>.
+  </Copyright>
+</TitlePage>

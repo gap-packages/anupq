@@ -31,7 +31,6 @@
 /doc/manual.six
 /doc/manual.pdf
 /doc/ANUPQ.xml
-/doc/title.xml
 /doc/_*.xml
 
 /include/config.h
