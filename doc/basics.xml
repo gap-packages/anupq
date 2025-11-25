@@ -16,6 +16,8 @@ done in these functions and naive use may result in incorrect results.
 <Section Label="Basic-notions">
 <Heading>Basic notions</Heading>
 
+Throughout this manual, by <M>p</M>-group we always mean <E>finite</E> <M>p</M>-group.
+
 <Subsection><Heading>pc Presentations and Consistency</Heading>
 For details, see e.g.&nbsp;<Cite Key="NNN98"/>.
 <P/>
