@@ -5,7 +5,7 @@
 F := FreeGroup("a", "b", "c");
 rels := ["a^11", "b^11", "c^11", "[b, a, a, a, b, a]", 
          "[c, a]", "[c, b]", "[b, a, b]"];
-procId := PqStart(F : Prime := 11, Relators := rels);
+procId := PqStart(F : Prime := 11, Relators := rels);;
 #comment: set a different print level by supplying <OutputLevel>
 #sub <OutputLevel> for <0> if set and ok
 PqSetOutputLevel(procId, 0);;

@@ -4,7 +4,7 @@
 F := FreeGroup("a", "b");
 rels := ["(b * [b, a] * [b, a, b])^3", "([b, a] * [b, a, b]^2)^3",
          "[b, a, a]"];
-procId := PqStart(F : Prime := 3, Relators := rels);
+procId := PqStart(F : Prime := 3, Relators := rels);;
 #comment: set a different print level by supplying <OutputLevel>
 #add <OutputLevel> for <value> if set and ok
 #PqSetOutputLevel(procId, value);;

@@ -4,7 +4,7 @@
 #options: OutputLevel, OutputFile
 F := FreeGroup("a", "b");
 rels := ["a^625", "b^625", "[b, a, b]", "[b, a, a, a, a] * [b, a]^-5"];
-procId := PqStart(F : Prime := 5, Relators := rels);
+procId := PqStart(F : Prime := 5, Relators := rels);;
 #comment: set a different print level by supplying <OutputLevel>
 PqPcPresentation(procId : ClassBound := 1, 
 #sub <OutputLevel> for <1> if set and ok

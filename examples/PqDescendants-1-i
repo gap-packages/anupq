@@ -3,7 +3,7 @@
 #vars: F, procId, G, des;
 #options: 
 F := FreeGroup( "a", "b" );
-procId := PqStart( F : Prime := 2 );
+procId := PqStart( F : Prime := 2 );;
 Pq( procId : ClassBound := 1 );
 PqSetPQuotientToGroup( procId );;
 des := PqDescendants( procId : OrderBound := 6, ClassBound := 5 );

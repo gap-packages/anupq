@@ -4,7 +4,7 @@
 #options: OutputLevel, ClassBound, OutputFile
 F := FreeGroup("a", "b");
 rels := ["a^3", "b^3"];
-procId := PqStart(F : Prime := 3, Exponent := 9, Relators := rels);
+procId := PqStart(F : Prime := 3, Exponent := 9, Relators := rels);;
 #comment: set a different `ClassBound' by supplying <ClassBound>
 #comment: also set a different print level by supplying <OutputLevel>
 #sub <ClassBound> for <12> if set and ok

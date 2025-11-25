@@ -8,7 +8,7 @@ G := F/[ a^11, b^11 ];
 ## All word pairs u, v in the pc generators of the 11-quotient Q of G 
 ## must satisfy the Engel identity: [u, v, v, v] = 1.
 f := function(u, v) return PqLeftNormComm( [u, v, v, v] ); end;
-procId := PqStart( G : Prime := 11 );
+procId := PqStart( G : Prime := 11 );;
 PqPcPresentation( procId : ClassBound := 1);;
 PqEvaluateIdentities( procId : Identities := [f] );;
 for c in [2 .. 4] do
