@@ -75,8 +75,7 @@ gap> # All word pairs u, v in the pc generators of the 11-quotient Q of G
 gap> # must satisfy the Engel identity: [u, v, v, v] = 1.
 gap> f := function(u, v) return PqLeftNormComm( [u, v, v, v] ); end;
 function( u, v ) ... end
-gap> procId := PqStart( G );
-1
+gap> procId := PqStart( G );;
 gap> Q := Pq( procId : Prime := 11, Identities := [ f ] );
 #I  Class 1 with 2 generators.
 #I  Class 2 with 3 generators.
@@ -102,8 +101,7 @@ gap> # All word pairs u, v in the pc generators of the 11-quotient Q of G
 gap> # must satisfy the Engel identity: [u, v, v, v] = 1.
 gap> f := function(u, v) return PqLeftNormComm( [u, v, v, v] ); end;
 function( u, v ) ... end
-gap> procId := PqStart( G : Prime := 11 );
-2
+gap> procId := PqStart( G : Prime := 11 );;
 gap> PqPcPresentation( procId : ClassBound := 1);
 gap> PqEvaluateIdentities( procId : Identities := [f] );
 #I  Class 1 with 2 generators.
@@ -126,8 +124,7 @@ gap> ##Example: "11gp-PG-i" . . . based on: examples/pga_11gp
 gap> ##Descendants of C11 x C11 x C11
 gap> F := FreeGroup("a", "b", "c");
 <free group on the generators [ a, b, c ]>
-gap> procId := PqStart(F : Prime := 11);
-3
+gap> procId := PqStart(F : Prime := 11);;
 gap> PqPcPresentation(procId : ClassBound := 1, 
 >                           OutputLevel := 1);
 #I  Lower exponent-11 central series for [grp]
@@ -161,8 +158,7 @@ gap> F := FreeGroup("a", "b", "c");
 <free group on the generators [ a, b, c ]>
 gap> rels := ["[b, a, a, b, c]^11", "[a, b, b, a, b, c]^11", "(a * b)^11"];
 [ "[b, a, a, b, c]^11", "[a, b, b, a, b, c]^11", "(a * b)^11" ]
-gap> procId := PqStart(F : Prime := 11, Relators := rels);
-1
+gap> procId := PqStart(F : Prime := 11, Relators := rels);;
 gap> PqPcPresentation(procId : ClassBound := 7, 
 >                           OutputLevel := 1);
 #I  Lower exponent-11 central series for [grp]
@@ -181,8 +177,7 @@ gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> rels := ["a^11", "b^11*[b, a, a]^-2", "[b, a, b, b, b, b]"];
 [ "a^11", "b^11*[b, a, a]^-2", "[b, a, b, b, b, b]" ]
-gap> procId := PqStart(F : Prime := 11, Relators := rels);
-2
+gap> procId := PqStart(F : Prime := 11, Relators := rels);;
 gap> PqSetOutputLevel(procId, 0);
 gap> PqSPComputePcpAndPCover(procId : ClassBound := 1);
 gap> PqSPStandardPresentation(procId, [ [[1,0],
@@ -215,8 +210,7 @@ gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> rels := ["a^11", "b^11*[b, a, a]^-2", "[b, a, b, b, b, b]"];
 [ "a^11", "b^11*[b, a, a]^-2", "[b, a, b, b, b, b]" ]
-gap> procId := PqStart(F : Prime := 11, Relators := rels);
-3
+gap> procId := PqStart(F : Prime := 11, Relators := rels);;
 gap> PqSetOutputLevel(procId, 0);
 gap> PqSPComputePcpAndPCover(procId : ClassBound := 3);
 gap> PqSPStandardPresentation(procId, [ [[1,0,0,0,1],
@@ -251,8 +245,7 @@ a
 b
 gap> R := [a^11, b^11/PqLeftNormComm([b, a, a])^2, 
 >       PqLeftNormComm([b, a, b, b, b, b])];;
-gap> procId := PqStart(F/R : Prime := 11);
-1
+gap> procId := PqStart(F/R : Prime := 11);;
 gap> PqSetOutputLevel(procId, 0);
 gap> PqSPComputePcpAndPCover(procId : ClassBound := 3);
 gap> PqSPStandardPresentation(procId, [ [[1,0,0,0,1],
@@ -287,8 +280,7 @@ gap> rels := ["a^11", "b^11", "c^11", "[b, a, a, a, b, a]",
 >          "[c, a]", "[c, b]", "[b, a, b]"];
 [ "a^11", "b^11", "c^11", "[b, a, a, a, b, a]", "[c, a]", "[c, b]", 
   "[b, a, b]" ]
-gap> procId := PqStart(F : Prime := 11, Relators := rels);
-2
+gap> procId := PqStart(F : Prime := 11, Relators := rels);;
 gap> PqSetOutputLevel(procId, 0);
 gap> PqSPComputePcpAndPCover(procId : ClassBound := 3);
 gap> PqSPStandardPresentation(procId, [ [[1,0,0,0,0],
@@ -346,8 +338,7 @@ b
 c
 gap> R := [a^11, b^11, c^11, PqLeftNormComm([b, a, a, a, b, a]),
 >       Comm(c, a), Comm(c, b), PqLeftNormComm([b, a, b])];;
-gap> procId := PqStart(F/R : Prime := 11);
-3
+gap> procId := PqStart(F/R : Prime := 11);;
 gap> PqSetOutputLevel(procId, 0);
 gap> PqSPComputePcpAndPCover(procId : ClassBound := 3);
 gap> PqSPStandardPresentation(procId, [ [[1,0,0,0,0],
@@ -404,8 +395,7 @@ gap> F := FreeGroup("a", "b", "c");
 gap> rels := ["a^11", "b^11", "c^11", "[b, a, a, a, b]", 
 >          "[c, a]", "[c, b]", "[b, a, b]"];
 [ "a^11", "b^11", "c^11", "[b, a, a, a, b]", "[c, a]", "[c, b]", "[b, a, b]" ]
-gap> procId := PqStart(F : Prime := 11, Relators := rels);
-1
+gap> procId := PqStart(F : Prime := 11, Relators := rels);;
 gap> PqSPComputePcpAndPCover(procId : ClassBound := 3);
 gap> PqSPStandardPresentation(procId, [ [[1,0,0,0,0],
 >                                     [0,1,0,0,1],
@@ -459,8 +449,7 @@ gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> rels := ["[b, a, a, b, b]^11", "[a, b, b, a, b, b]^11", "(a * b)^11"];
 [ "[b, a, a, b, b]^11", "[a, b, b, a, b, b]^11", "(a * b)^11" ]
-gap> procId := PqStart(F : Prime := 11, Relators := rels);
-2
+gap> procId := PqStart(F : Prime := 11, Relators := rels);;
 gap> PqPcPresentation(procId : ClassBound := 8, 
 >                           OutputLevel := 1);
 #I  Lower exponent-11 central series for [grp]
@@ -481,8 +470,7 @@ b
 c
 gap> R := [PqLeftNormComm([b, a, a, b, c])^11, 
 >       PqLeftNormComm([a, b, b, a, b, c])^11, (a * b)^11];;
-gap> procId := PqStart(F/R : Prime := 11);
-3
+gap> procId := PqStart(F/R : Prime := 11);;
 gap> PqPcPresentation(procId : ClassBound := 7, 
 >                           OutputLevel := 1);
 #I  Lower exponent-11 central series for [grp]
@@ -499,8 +487,7 @@ gap> ##Example: "2gp-PG-2-i" . . . based on: examples/pga_example
 gap> ##All class 3 descendants of C2 x C2 with extensive output
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
-gap> procId := PqStart(F : Prime := 2);
-1
+gap> procId := PqStart(F : Prime := 2);;
 gap> PqPcPresentation(procId : ClassBound := 1, 
 >                           OutputLevel := 1);
 #I  Lower exponent-2 central series for [grp]
@@ -6033,8 +6020,7 @@ gap> ##Example: "2gp-PG-3-i" . . . based on: examples/pga_3-2.com
 gap> ##All descendants of C2 x C2 x C2
 gap> F := FreeGroup("a", "b", "c");
 <free group on the generators [ a, b, c ]>
-gap> procId := PqStart(F : Prime := 2);
-2
+gap> procId := PqStart(F : Prime := 2);;
 gap> PqPcPresentation(procId : ClassBound := 1, 
 >                           OutputLevel := 1);
 #I  Lower exponent-2 central series for [grp]
@@ -8330,8 +8316,7 @@ gap> ##Example: "2gp-PG-4-i" . . . based on: examples/pga_4-2.com
 gap> ##All descendants of C2 x C2 x C2 x C2
 gap> F := FreeGroup("a", "b", "c", "d");
 <free group on the generators [ a, b, c, d ]>
-gap> procId := PqStart(F : Prime := 2);
-3
+gap> procId := PqStart(F : Prime := 2);;
 gap> PqPcPresentation(procId : ClassBound := 1, 
 >                           OutputLevel := 1);
 #I  Lower exponent-2 central series for [grp]
@@ -41439,8 +41424,7 @@ gap> ##Example: "2gp-PG-e4-i" . . . based on: examples/pga_exp4
 gap> ##All 2-generator exponent 4 2-groups
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
-gap> procId := PqStart(F : Prime := 2);
-1
+gap> procId := PqStart(F : Prime := 2);;
 gap> PqPcPresentation(procId : ClassBound := 1, 
 >                           OutputLevel := 1);
 #I  Lower exponent-2 central series for [grp]
@@ -41640,8 +41624,7 @@ gap> ##Example: "2gp-PG-i" . . . based on: examples/pga_2gp
 gap> ##All descendants of C2 x C2 up to order 2^8
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
-gap> procId := PqStart(F : Prime := 2);
-2
+gap> procId := PqStart(F : Prime := 2);;
 gap> PqPcPresentation(procId : ClassBound := 1, 
 >                           OutputLevel := 1);
 #I  Lower exponent-2 central series for [grp]
@@ -43954,8 +43937,7 @@ gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> rels := [ "[b, a, a]", "(a * b * a)^4"];
 [ "[b, a, a]", "(a * b * a)^4" ]
-gap> procId := PqStart( F );
-3
+gap> procId := PqStart( F );;
 gap> Pq( procId : Prime := 2, ClassBound := 6, Relators := rels, 
 >         OutputLevel := 1 );
 #I  Lower exponent-2 central series for [grp]
@@ -43972,8 +43954,7 @@ gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> rels := ["[b, a, a]", "(a * b * a)^4"];
 [ "[b, a, a]", "(a * b * a)^4" ]
-gap> procId := PqStart(F : Prime := 2, Relators := rels);
-1
+gap> procId := PqStart(F : Prime := 2, Relators := rels);;
 gap> PqPcPresentation(procId : ClassBound := 6, 
 >                           OutputLevel := 1);
 #I  Lower exponent-2 central series for [grp]
@@ -43989,8 +43970,7 @@ gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> rels := ["a^4", "b^2*[b, a, b]^-1", "b*(a^2 * b^-1 * a^2)^-1" ];
 [ "a^4", "b^2*[b, a, b]^-1", "b*(a^2 * b^-1 * a^2)^-1" ]
-gap> procId := PqStart(F : Prime := 2, Relators := rels);
-2
+gap> procId := PqStart(F : Prime := 2, Relators := rels);;
 gap> PqSPComputePcpAndPCover(procId : ClassBound := 1);
 gap> PqSPStandardPresentation(procId, [ [[1,0],
 >                                     [1,1]],
@@ -44006,8 +43986,7 @@ gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> rels := ["a^4", "b^2*[b, a, b]^-1" ];
 [ "a^4", "b^2*[b, a, b]^-1" ]
-gap> procId := PqStart(F : Prime := 2, Relators := rels);
-3
+gap> procId := PqStart(F : Prime := 2, Relators := rels);;
 gap> PqSPComputePcpAndPCover(procId : ClassBound := 2);
 gap> PqSPStandardPresentation(procId, [ [[1,0,0,1],
 >                                     [0,1,0,0]],
@@ -44028,8 +44007,7 @@ gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> rels := ["a^4", "b^2*[b, a, b]^-1", "b * (a^2 * b^-1 * a^2)^-1" ];
 [ "a^4", "b^2*[b, a, b]^-1", "b * (a^2 * b^-1 * a^2)^-1" ]
-gap> procId := PqStart(F : Prime := 2, Relators := rels);
-1
+gap> procId := PqStart(F : Prime := 2, Relators := rels);;
 gap> PqSPComputePcpAndPCover(procId : ClassBound := 2);
 gap> PqSPStandardPresentation(procId, [ [[1,0,0,1],
 >                                     [0,1,0,0]],
@@ -44048,8 +44026,7 @@ gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> rels := ["a^4", "b^2*[b, a, a]^-1", "b * (a^2 * b^-1 * a^2)^-1" ];
 [ "a^4", "b^2*[b, a, a]^-1", "b * (a^2 * b^-1 * a^2)^-1" ]
-gap> procId := PqStart(F : Prime := 2, Relators := rels);
-2
+gap> procId := PqStart(F : Prime := 2, Relators := rels);;
 gap> PqSPComputePcpAndPCover(procId : ClassBound := 2);
 gap> PqSPStandardPresentation(procId, [ [[1,0,0,1],
 >                                     [0,1,0,0]],
@@ -44068,8 +44045,7 @@ gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> rels := ["a^4", "b^4", "[b, a, a]" ];
 [ "a^4", "b^4", "[b, a, a]" ]
-gap> procId := PqStart(F : Prime := 2, Relators := rels);
-3
+gap> procId := PqStart(F : Prime := 2, Relators := rels);;
 gap> PqSPComputePcpAndPCover(procId : ClassBound := 1, OutputLevel := 3);
 #I  Lower exponent-2 central series for [grp]
 #I  Defining relation was 1
@@ -44806,8 +44782,7 @@ gap> rels := ["b^4", "b^2 * [b, a, a]^-1", "d^16", "a^16 * (c * d)^-1",
 >          "b^8 * (d * c^4)^-1", "b * (a^2 * b^-1 * a^2)^-1"];
 [ "b^4", "b^2 * [b, a, a]^-1", "d^16", "a^16 * (c * d)^-1", 
   "b^8 * (d * c^4)^-1", "b * (a^2 * b^-1 * a^2)^-1" ]
-gap> procId := PqStart(F : Prime := 2, Relators := rels);
-1
+gap> procId := PqStart(F : Prime := 2, Relators := rels);;
 gap> PqSPComputePcpAndPCover(procId : ClassBound := 1);
 gap> PqSPStandardPresentation(procId, [ [[0,1],
 >                                     [1,1]],
@@ -44824,8 +44799,7 @@ gap> F := FreeGroup(3, "x");
 gap> rels := ["x1^x2 * x3", "[x2, x1, x1]", 
 >          "[x2 * [x2, x1] * x1^2, x1 * x2 ]"];
 [ "x1^x2 * x3", "[x2, x1, x1]", "[x2 * [x2, x1] * x1^2, x1 * x2 ]" ]
-gap> procId := PqStart(F : Prime := 2, Relators := rels);
-2
+gap> procId := PqStart(F : Prime := 2, Relators := rels);;
 gap> PqPcPresentation(procId : ClassBound := 3, 
 >                           OutputLevel := 1);
 #I  Lower exponent-2 central series for [grp]
@@ -44836,8 +44810,7 @@ gap> ##Example: "3gp-PG-4-i" . . . based on: examples/pga_4-3.com
 gap> ##All descendants of C3 x C3 x C3 x C3
 gap> F := FreeGroup("a", "b", "c", "d");
 <free group on the generators [ a, b, c, d ]>
-gap> procId := PqStart(F : Prime := 3);
-3
+gap> procId := PqStart(F : Prime := 3);;
 gap> PqPcPresentation(procId : ClassBound := 1, 
 >                           OutputLevel := 1);
 #I  Lower exponent-3 central series for [grp]
@@ -44869,8 +44842,7 @@ gap> ##Example: "3gp-PG-i" . . . based on: examples/pga_3gp
 gap> ##All groups with lower exponent-3 series of shape 2-2-3-1
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
-gap> procId := PqStart(F : Prime := 3);
-1
+gap> procId := PqStart(F : Prime := 3);;
 gap> PqPcPresentation(procId : ClassBound := 1, 
 >                           OutputLevel := 1);
 #I  Lower exponent-3 central series for [grp]
@@ -44958,8 +44930,7 @@ gap> ##Example: "3gp-PG-x-i" . . . based on example from Werner
 gap> ##A `by hand' descendants example
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
-gap> procId := PqStart(F : Prime := 3);
-2
+gap> procId := PqStart(F : Prime := 3);;
 gap> Pq(procId : ClassBound := 1, 
 >                           OutputLevel := 1);
 #I  Lower exponent-3 central series for [grp]
@@ -45066,8 +45037,7 @@ gap> ##Example: "3gp-PG-x-i" . . . based on example from Werner
 gap> ##Iterated descendants example
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
-gap> procId := PqStart(F : Prime := 3);
-3
+gap> procId := PqStart(F : Prime := 3);;
 gap> PqPcPresentation(procId : ClassBound := 1, 
 >                           OutputLevel := 1);
 #I  Lower exponent-3 central series for [grp]
@@ -45579,8 +45549,7 @@ gap> F := FreeGroup("a", "b", "c", "d");
 gap> rels := ["(b * c^-1 * d)^-3", "(c * d^-1)^3", 
 >          "[b, a] * c", "[c, a]", "[c, b] * d"];
 [ "(b * c^-1 * d)^-3", "(c * d^-1)^3", "[b, a] * c", "[c, a]", "[c, b] * d" ]
-gap> procId := PqStart(F : Prime := 3, Relators := rels);
-1
+gap> procId := PqStart(F : Prime := 3, Relators := rels);;
 gap> PqPcPresentation(procId : ClassBound := 19, 
 >                           OutputLevel := 1);
 #I  Lower exponent-3 central series for [grp]
@@ -45609,8 +45578,7 @@ gap> F := FreeGroup("x", "y");
 <free group on the generators [ x, y ]>
 gap> rels := ["(x * y * x)^3", "[x, y, y]"];
 [ "(x * y * x)^3", "[x, y, y]" ]
-gap> procId := PqStart(F : Prime := 3, Relators := rels);
-2
+gap> procId := PqStart(F : Prime := 3, Relators := rels);;
 gap> PqSPComputePcpAndPCover(procId : ClassBound := 1);
 gap> PqSPStandardPresentation(procId, [ [[2,0],
 >                                     [0,2]],
@@ -45635,8 +45603,7 @@ gap> F := FreeGroup("x", "y");
 <free group on the generators [ x, y ]>
 gap> rels := ["(x * y * x)^3", "[y, x, x]"];
 [ "(x * y * x)^3", "[y, x, x]" ]
-gap> procId := PqStart(F : Prime := 3, Relators := rels);
-3
+gap> procId := PqStart(F : Prime := 3, Relators := rels);;
 gap> PqSPComputePcpAndPCover(procId : ClassBound := 1);
 gap> PqSPStandardPresentation(procId, [ [[2,0],
 >                                     [0,2]],
@@ -45662,8 +45629,7 @@ gap> F := FreeGroup("x", "y");
 <free group on the generators [ x, y ]>
 gap> rels := ["(x * y * x)^3", "[x, y, x]"];
 [ "(x * y * x)^3", "[x, y, x]" ]
-gap> procId := PqStart(F : Prime := 3, Relators := rels);
-1
+gap> procId := PqStart(F : Prime := 3, Relators := rels);;
 gap> PqSPComputePcpAndPCover(procId : ClassBound := 1);
 gap> PqSPStandardPresentation(procId, [ [[2,0],
 >                                     [0,2]],
@@ -45689,8 +45655,7 @@ gap> F := FreeGroup("a", "b");
 gap> rels := ["(b * [b, a] * [b, a, b])^3", "([b, a] * [b, a, b]^2)^3",
 >          "[b, a, a]"];
 [ "(b * [b, a] * [b, a, b])^3", "([b, a] * [b, a, b]^2)^3", "[b, a, a]" ]
-gap> procId := PqStart(F : Prime := 3, Relators := rels);
-2
+gap> procId := PqStart(F : Prime := 3, Relators := rels);;
 gap> PqSPComputePcpAndPCover(procId : ClassBound := 1);
 gap> PqSPStandardPresentation(procId, [ [[2,0],
 >                                     [0,2]],
@@ -45715,8 +45680,7 @@ gap> F := FreeGroup("x", "y");
 <free group on the generators [ x, y ]>
 gap> rels := ["[x, y, y, y]", "[x, y, x]"];
 [ "[x, y, y, y]", "[x, y, x]" ]
-gap> procId := PqStart(F : Prime := 3, Relators := rels);
-3
+gap> procId := PqStart(F : Prime := 3, Relators := rels);;
 gap> PqSPComputePcpAndPCover(procId : ClassBound := 1);
 gap> PqSPStandardPresentation(procId, [ [[2,0],
 >                                     [0,2]],
@@ -45760,8 +45724,7 @@ gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> rels := ["a^3", "b^3"];
 [ "a^3", "b^3" ]
-gap> procId := PqStart( F );
-1
+gap> procId := PqStart( F );;
 gap> Pq( procId : Prime := 3, Exponent := 9, Relators := rels, ClassBound := 6,
 >         OutputLevel := 1 );
 #I  Lower exponent-3 central series for [grp]
@@ -45778,8 +45741,7 @@ gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> rels := ["a^3", "b^3"];
 [ "a^3", "b^3" ]
-gap> procId := PqStart(F : Prime := 3, Exponent := 9, Relators := rels);
-2
+gap> procId := PqStart(F : Prime := 3, Exponent := 9, Relators := rels);;
 gap> PqPcPresentation(procId : ClassBound := 12, 
 >                           OutputLevel := 1);
 #I  Lower exponent-3 central series for [grp]
@@ -45802,8 +45764,7 @@ gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> rels := ["a^3", "b^3"];
 [ "a^3", "b^3" ]
-gap> procId := PqStart(F : Prime := 3, Exponent := 9, Relators := rels);
-3
+gap> procId := PqStart(F : Prime := 3, Exponent := 9, Relators := rels);;
 gap> PqPcPresentation(procId : ClassBound := 4, 
 >                           OutputLevel := 1);
 #I  Lower exponent-3 central series for [grp]
@@ -45902,8 +45863,7 @@ gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> rels := ["a^3", "b^3"];
 [ "a^3", "b^3" ]
-gap> procId := PqStart(F : Prime := 3, Relators := rels);
-1
+gap> procId := PqStart(F : Prime := 3, Relators := rels);;
 gap> PqPcPresentation(procId : ClassBound := 1, 
 >                           OutputLevel := 1);
 #I  Lower exponent-3 central series for [grp]
@@ -45925,8 +45885,7 @@ gap> ##Example: "5gp-PG-i" . . . based on: examples/pga_5gp
 gap> ##Descendants of C5 x C5
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
-gap> procId := PqStart(F : Prime := 5);
-2
+gap> procId := PqStart(F : Prime := 5);;
 gap> PqPcPresentation(procId : ClassBound := 1, 
 >                           OutputLevel := 1);
 #I  Lower exponent-5 central series for [grp]
@@ -45955,8 +45914,7 @@ gap> F := FreeGroup("a", "b", "c");
 <free group on the generators [ a, b, c ]>
 gap> rels := ["a^25 * c", "[a,  b] * c^-4", "[a, c]^25"];
 [ "a^25 * c", "[a,  b] * c^-4", "[a, c]^25" ]
-gap> procId := PqStart(F : Prime := 5, Relators := rels);
-3
+gap> procId := PqStart(F : Prime := 5, Relators := rels);;
 gap> PqPcPresentation(procId : ClassBound := 27, 
 >                           OutputLevel := 1);
 #I  Lower exponent-5 central series for [grp]
@@ -45994,8 +45952,7 @@ gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> rels := ["a^25", "[b, a, a, a]", "b^5*[b, a, a]^-1"];
 [ "a^25", "[b, a, a, a]", "b^5*[b, a, a]^-1" ]
-gap> procId := PqStart(F : Prime := 5, Relators := rels);
-1
+gap> procId := PqStart(F : Prime := 5, Relators := rels);;
 gap> PqSPComputePcpAndPCover(procId : ClassBound := 2);
 gap> PqSPStandardPresentation(procId, [ [[1,0,0,1],
 >                                     [0,1,0,0]],
@@ -46026,8 +45983,7 @@ gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> rels := ["a^25", "[b, a, a]", "[b, a, b, b, b, b]", "b^5"];
 [ "a^25", "[b, a, a]", "[b, a, b, b, b, b]", "b^5" ]
-gap> procId := PqStart(F : Prime := 5, Relators := rels);
-2
+gap> procId := PqStart(F : Prime := 5, Relators := rels);;
 gap> PqSPComputePcpAndPCover(procId : ClassBound := 2);
 gap> PqSPStandardPresentation(procId, [ [[1,0,0,1],
 >                                     [0,1,0,0]],
@@ -46060,8 +46016,7 @@ gap> rels := ["a^25", "[b, a, a]", "[b, a, a, a, a, a, b]",
 >          "[b, a, b, b, b, b]", "b^5 * [b, a, a]^-1"];
 [ "a^25", "[b, a, a]", "[b, a, a, a, a, a, b]", "[b, a, b, b, b, b]", 
   "b^5 * [b, a, a]^-1" ]
-gap> procId := PqStart(F : Prime := 5, Relators := rels);
-3
+gap> procId := PqStart(F : Prime := 5, Relators := rels);;
 gap> PqSPComputePcpAndPCover(procId : ClassBound := 2);
 gap> PqSPStandardPresentation(procId, [ [[1,0,0,1],
 >                                     [0,1,0,0]],
@@ -46093,8 +46048,7 @@ gap> F := FreeGroup("a", "b", "c", "d");
 <free group on the generators [ a, b, c, d ]>
 gap> rels := ["a * b^d", "c * d^a", "[c, a, a]", "[c, b, b, a]"];
 [ "a * b^d", "c * d^a", "[c, a, a]", "[c, b, b, a]" ]
-gap> procId := PqStart(F : Prime := 5, Relators := rels);
-1
+gap> procId := PqStart(F : Prime := 5, Relators := rels);;
 gap> PqSPComputePcpAndPCover(procId : ClassBound := 1);
 gap> PqSPStandardPresentation(procId, [ [[4,1],
 >                                     [4,0]],
@@ -46111,8 +46065,7 @@ gap> rels := ["a^25", "[b, a, a, a, b]", "[b, a, b, b, b]",
 >          "[b, a, b, a]", "b^5 * [a, b, a]^-1"];
 [ "a^25", "[b, a, a, a, b]", "[b, a, b, b, b]", "[b, a, b, a]", 
   "b^5 * [a, b, a]^-1" ]
-gap> procId := PqStart(F : Prime := 5, Relators := rels);
-2
+gap> procId := PqStart(F : Prime := 5, Relators := rels);;
 gap> PqSPComputePcpAndPCover(procId : ClassBound := 2);
 gap> PqSPStandardPresentation(procId, [ [[1,0,0,1],
 >                                     [0,1,0,0]],
@@ -46151,8 +46104,7 @@ gap> rels := ["a^5", "b^5", "(a * b)^5", "(a * b^2)^5", "(a * b^-2)^5",
   "(a^2 * b)^5", "(a^2 * b^2)^5", "(a^2 * b^-2)^5", "(a^2 * b^-1)^5", 
   "(a * b * a^-1 * b^2)^5", "(a * b * a^2 * b^-1)^5", "(a * b * a^2 * b^2)^5",
   "(a * b * a * b^-1)^5", "(a * b * a^-1 * b)^5", "(a * b * a^-1 * b^-1)^5" ]
-gap> procId := PqStart(F : Prime := 5, Relators := rels);
-3
+gap> procId := PqStart(F : Prime := 5, Relators := rels);;
 gap> PqPcPresentation(procId : ClassBound := 5, 
 >                           OutputLevel := 1);
 #I  Lower exponent-5 central series for [grp]
@@ -46178,8 +46130,7 @@ gap> F := FreeGroup("x", "y", "z", "w");
 <free group on the generators [ x, y, z, w ]>
 gap> rels := ["x^25 * (x^z)^-1", "[x, y] * z^-1", "[x, z]"];
 [ "x^25 * (x^z)^-1", "[x, y] * z^-1", "[x, z]" ]
-gap> procId := PqStart(F : Prime := 5, Relators := rels);
-1
+gap> procId := PqStart(F : Prime := 5, Relators := rels);;
 gap> PqPcPresentation(procId : ClassBound := 5, 
 >                           OutputLevel := 1);
 #I  Lower exponent-5 central series for [grp]
@@ -46194,8 +46145,7 @@ gap> F := FreeGroup("a", "b", "c", "d");
 gap> rels := ["[a, b, b, c]", "(a * b * c^d * a)^25", 
 >          "(a * b)^25 * [a, c, c, d]^-2"];
 [ "[a, b, b, c]", "(a * b * c^d * a)^25", "(a * b)^25 * [a, c, c, d]^-2" ]
-gap> procId := PqStart(F : Prime := 5, Relators := rels);
-2
+gap> procId := PqStart(F : Prime := 5, Relators := rels);;
 gap> PqPcPresentation(procId : ClassBound := 2, 
 >                           OutputLevel := 1);
 #I  Lower exponent-5 central series for [grp]
@@ -46207,8 +46157,7 @@ gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> rels := ["a^5", "b^5"];
 [ "a^5", "b^5" ]
-gap> procId := PqStart(F : Prime := 5, Relators := rels);
-3
+gap> procId := PqStart(F : Prime := 5, Relators := rels);;
 gap> PqPcPresentation(procId : ClassBound := 1, 
 >                           OutputLevel := 1);
 #I  Lower exponent-5 central series for [grp]
@@ -46260,8 +46209,7 @@ gap> F := FreeGroup("a", "b");
 gap> rels := [ "a^625", "b^625", "[b, a, b]", 
 >           "[b, a, a, a, a] * [b, a]^-5" ];
 [ "a^625", "b^625", "[b, a, b]", "[b, a, a, a, a] * [b, a]^-5" ]
-gap> procId := PqStart( F );
-1
+gap> procId := PqStart( F );;
 gap> Pq( procId : Prime := 5, ClassBound := 20, Metabelian, Relators := rels, 
 >         OutputLevel := 1 );
 #I  Lower exponent-5 central series for [grp]
@@ -46286,8 +46234,7 @@ gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> rels := ["a^625", "b^625", "[b, a, b]", "[b, a, a, a, a] * [b, a]^-5"];
 [ "a^625", "b^625", "[b, a, b]", "[b, a, a, a, a] * [b, a]^-5" ]
-gap> procId := PqStart(F : Prime := 5, Relators := rels);
-2
+gap> procId := PqStart(F : Prime := 5, Relators := rels);;
 gap> PqPcPresentation(procId : ClassBound := 1, 
 >                           OutputLevel := 1);
 #I  Lower exponent-5 central series for [grp]
@@ -46315,8 +46262,7 @@ gap> ##Example: "7gp-PG-i" . . . based on: examples/pga_7gp
 gap> ##Descendants of C7 x C7
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
-gap> procId := PqStart(F : Prime := 7);
-3
+gap> procId := PqStart(F : Prime := 7);;
 gap> PqPcPresentation(procId : ClassBound := 1, 
 >                           OutputLevel := 1);
 #I  Lower exponent-7 central series for [grp]
@@ -46346,8 +46292,7 @@ gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> rels := ["[b, a, a, b, b]^49", "(a * b * b * a * b * a)^49", "b^7"];
 [ "[b, a, a, b, b]^49", "(a * b * b * a * b * a)^49", "b^7" ]
-gap> procId := PqStart(F : Prime := 7, Relators := rels);
-1
+gap> procId := PqStart(F : Prime := 7, Relators := rels);;
 gap> PqPcPresentation(procId : ClassBound := 10, 
 >                           OutputLevel := 1);
 #I  Lower exponent-7 central series for [grp]
@@ -46367,8 +46312,7 @@ gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> rels := ["a^7", "b^7 * [b, a, a]^-1", "[b, a, b, b, b, b, b]"];
 [ "a^7", "b^7 * [b, a, a]^-1", "[b, a, b, b, b, b, b]" ]
-gap> procId := PqStart(F : Prime := 7, Relators := rels);
-2
+gap> procId := PqStart(F : Prime := 7, Relators := rels);;
 gap> PqSPComputePcpAndPCover(procId : ClassBound := 3);
 gap> PqSPStandardPresentation(procId, [ [[1,0,0,0,1],
 >                                     [0,1,0,0,0]],
@@ -46401,8 +46345,7 @@ gap> rels := ["b^7", "a^7 * [b, a, b]^-1", "(a * b * [b, a, b] )^7",
 >          "[b, a, a, a, a, b, a]"];
 [ "b^7", "a^7 * [b, a, b]^-1", "(a * b * [b, a, b] )^7", 
   "[b, a, a, a, a, b, a]" ]
-gap> procId := PqStart(F : Prime := 7, Relators := rels);
-3
+gap> procId := PqStart(F : Prime := 7, Relators := rels);;
 gap> PqSPComputePcpAndPCover(procId : ClassBound := 3);
 gap> PqSPStandardPresentation(procId, [ [[1,0,0,0],
 >                                     [0,1,0,1]],
@@ -46431,8 +46374,7 @@ gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> rels := ["b^7 * [b, a, a]^-1", "[b, a, b]"];
 [ "b^7 * [b, a, a]^-1", "[b, a, b]" ]
-gap> procId := PqStart(F : Prime := 7, Relators := rels);
-1
+gap> procId := PqStart(F : Prime := 7, Relators := rels);;
 gap> PqSPComputePcpAndPCover(procId : ClassBound := 2);
 gap> PqSPStandardPresentation(procId, [ [[1,0,0,1],
 >                                     [0,1,0,0]],
@@ -46469,8 +46411,7 @@ gap> ##Example: "B2-4" . . . the ``right'' way to generate B(2, 4)
 gap> ##Generates B(2, 4) by using the `Exponent' option
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
-gap> procId := PqStart( F );
-2
+gap> procId := PqStart( F );;
 gap> Pq( procId : Prime := 2, Exponent := 4 );
 <pc group of size 4096 with 12 generators>
 gap> ##Example: "B2-4-Id" . . . alternative way to generate B(2, 4)
@@ -46500,8 +46441,7 @@ gap> F := FreeGroup("a", "b");
 gap> # All words w in the pc generators of B(2, 4) satisfy f(w) = 1 
 gap> f := w -> w^4;
 function( w ) ... end
-gap> procId := PqStart( F );
-3
+gap> procId := PqStart( F );;
 gap> Pq( procId : Prime := 2, Identities := [ f ] );
 #I  Class 1 with 2 generators.
 #I  Class 2 with 5 generators.
@@ -46517,8 +46457,7 @@ gap> F := FreeGroup("a", "b"); a := F.1; b := F.2;
 <free group on the generators [ a, b ]>
 a
 b
-gap> procId := PqStart(F : Prime := 2, Exponent := 4);
-1
+gap> procId := PqStart(F : Prime := 2, Exponent := 4);;
 gap> PqSPComputePcpAndPCover(procId : ClassBound := 1);
 gap> PqSPStandardPresentation(procId, [ [[0,1],
 >                                     [1,1]],
@@ -46557,8 +46496,7 @@ gap> ##Construction of B(2,5)
 gap> ##i.e. largest finite 2-generator group of exponent 5
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
-gap> procId := PqStart( F );
-2
+gap> procId := PqStart( F );;
 gap> Pq( procId : Prime := 5, ClassBound := 14, Exponent := 5,
 >         OutputLevel := 1 );
 #I  Lower exponent-5 central series for [grp]
@@ -46580,8 +46518,7 @@ gap> ##Example: "B2-5-i" . . . based on: examples/B2-5
 gap> ##Construction of B(2,5)
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
-gap> procId := PqStart(F : Prime := 5, Exponent := 5);
-3
+gap> procId := PqStart(F : Prime := 5, Exponent := 5);;
 gap> PqPcPresentation(procId : ClassBound := 15, 
 >                           OutputLevel := 1);
 #I  Lower exponent-5 central series for [grp]
@@ -46604,8 +46541,7 @@ gap> ##Example: "B2-8-i" . . . based on: examples/B2-8
 gap> ##Construction of B(2,8)
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
-gap> procId := PqStart(F : Prime := 2, Exponent := 8);
-1
+gap> procId := PqStart(F : Prime := 2, Exponent := 8);;
 gap> PqPcPresentation(procId : ClassBound := 10, 
 >                           OutputLevel := 1);
 #I  Lower exponent-2 central series for [grp]
@@ -46624,8 +46560,7 @@ gap> ##Example: "B4-4-a-i" . . . based on: examples/B4-4A
 gap> ##Construction of B(4,4)
 gap> F := FreeGroup("a", "b", "c", "d");
 <free group on the generators [ a, b, c, d ]>
-gap> procId := PqStart(F : Prime := 2, Exponent := 4);
-2
+gap> procId := PqStart(F : Prime := 2, Exponent := 4);;
 gap> PqPcPresentation(procId : ClassBound := 6, 
 >                           OutputLevel := 1);
 #I  Lower exponent-2 central series for [grp]
@@ -46658,8 +46593,7 @@ gap> ##Example: "B4-4-i" . . . based on: examples/B4-4
 gap> ##Construction of B(4,4)
 gap> F := FreeGroup("a", "b", "c", "d");
 <free group on the generators [ a, b, c, d ]>
-gap> procId := PqStart(F : Prime := 2, Exponent := 4);
-3
+gap> procId := PqStart(F : Prime := 2, Exponent := 4);;
 gap> PqPcPresentation(procId : ClassBound := 6, 
 >                           OutputLevel := 1);
 #I  Lower exponent-2 central series for [grp]
@@ -46682,8 +46616,7 @@ gap> LoadPackage( "anupq" );
 true
 gap> #You might like to try setting: `SetInfoLevel( InfoANUPQ, 3 );'
 gap> 
-gap> procId := PqStart( FreeGroup(5) : Exponent := 4, Prime := 2 );
-1
+gap> procId := PqStart( FreeGroup(5) : Exponent := 4, Prime := 2 );;
 gap> Pq( procId : ClassBound := 2 );
 <pc group of size 1048576 with 20 generators>
 gap> PqSupplyAutomorphisms( procId,
@@ -46880,8 +46813,7 @@ gap> Burnside5 := x->x^5;
 function( x ) ... end
 gap> Engel3 := function( x,y ) return PqLeftNormComm( [x,y,y,y] ); end;
 function( x, y ) ... end
-gap> procId := PqStart( F );
-1
+gap> procId := PqStart( F );;
 gap> Pq( procId : Prime := 5, Identities := [ Burnside5, Engel3 ] );
 #I  Class 1 with 2 generators.
 #I  Class 2 with 3 generators.
@@ -46950,8 +46882,7 @@ gap> # For printing GAP also uses the symbols F1, ... for the generators of Q
 gap> # (the same as used for F) ... but the gen'rs of Q and F are different:
 gap> GeneratorsOfGroup(F) = GeneratorsOfGroup(Q);
 false
-gap> procId := PqStart( Q );
-2
+gap> procId := PqStart( Q );;
 gap> G := Pq( procId : Prime := 3, ClassBound := 3 );
 <pc group of size 729 with 6 generators>
 gap> phi := EpimorphismStandardPresentation( procId : Prime := 3,
@@ -46980,8 +46911,7 @@ gap> ##Example: "F2-5-i" . . . based on: examples/F2-5
 gap> ##Construction of 5-quotient of a 2-generator free group
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
-gap> procId := PqStart(F : Prime := 5);
-1
+gap> procId := PqStart(F : Prime := 5);;
 gap> PqPcPresentation(procId : ClassBound := 6, 
 >                           OutputLevel := 1);
 #I  Lower exponent-5 central series for [grp]
@@ -47002,8 +46932,7 @@ gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> rels := ["b^4", "b^2 * [b, a, a]^-1", "b * (a^2 * b^-1 * a^2)^-1" ];
 [ "b^4", "b^2 * [b, a, a]^-1", "b * (a^2 * b^-1 * a^2)^-1" ]
-gap> procId := PqStart(F : Prime := 2, Relators := rels);
-2
+gap> procId := PqStart(F : Prime := 2, Relators := rels);;
 gap> PqSPComputePcpAndPCover(procId : ClassBound := 1);
 gap> PqSPStandardPresentation(procId, [ [[0,1],
 >                                     [1,1]],
@@ -47019,8 +46948,7 @@ gap> F := FreeGroup("x", "y");
 <free group on the generators [ x, y ]>
 gap> rels := ["(x * y * x)^3"];
 [ "(x * y * x)^3" ]
-gap> procId := PqStart(F : Prime := 3, Relators := rels);
-3
+gap> procId := PqStart(F : Prime := 3, Relators := rels);;
 gap> PqSPComputePcpAndPCover(procId : ClassBound := 1);
 gap> PqSPStandardPresentation(procId, [ [[2,0],
 >                                     [0,2]],
@@ -47046,8 +46974,7 @@ gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> rels := ["[a, b, b, b]", "[b, a, b, b, b]", "[a, b, a]", "b^5"];
 [ "[a, b, b, b]", "[b, a, b, b, b]", "[a, b, a]", "b^5" ]
-gap> procId := PqStart(F : Prime := 5, Relators := rels);
-1
+gap> procId := PqStart(F : Prime := 5, Relators := rels);;
 gap> PqSPComputePcpAndPCover(procId : ClassBound := 2);
 gap> PqSPStandardPresentation(procId, [ [[1,0,0,1],
 >                                     [0,1,0,0]],
@@ -47078,8 +47005,7 @@ gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> rels := ["[a, b, b, a]", "[a, b, a]", "b^5"];
 [ "[a, b, b, a]", "[a, b, a]", "b^5" ]
-gap> procId := PqStart(F : Prime := 5, Relators := rels);
-2
+gap> procId := PqStart(F : Prime := 5, Relators := rels);;
 gap> PqSPComputePcpAndPCover(procId : ClassBound := 2);
 gap> PqSPStandardPresentation(procId, [ [[1,0,0,1],
 >                                     [0,1,0,0]],
@@ -47131,8 +47057,7 @@ gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> rels := ["a^5", "b^5", "[b, a, b]"];
 [ "a^5", "b^5", "[b, a, b]" ]
-gap> procId := PqStart(F : Prime := 5, Relators := rels);
-1
+gap> procId := PqStart(F : Prime := 5, Relators := rels);;
 gap> PqPcPresentation(procId : ClassBound := 3, 
 >                           OutputLevel := 1);
 #I  Lower exponent-5 central series for [grp]
@@ -47228,8 +47153,7 @@ gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> rels := ["a^5", "b^5", "[b, a, b]"];
 [ "a^5", "b^5", "[b, a, b]" ]
-gap> procId := PqStart(F : Prime := 5, Relators := rels);
-2
+gap> procId := PqStart(F : Prime := 5, Relators := rels);;
 gap> PqPcPresentation(procId : ClassBound := 3, 
 >                           OutputLevel := 1);
 #I  Lower exponent-5 central series for [grp]
@@ -47275,8 +47199,7 @@ gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
 gap> rels := ["a^5", "b^5", "[b, a, b]"];
 [ "a^5", "b^5", "[b, a, b]" ]
-gap> procId := PqStart(F : Prime := 5, Relators := rels);
-3
+gap> procId := PqStart(F : Prime := 5, Relators := rels);;
 gap> PqSPComputePcpAndPCover(procId : ClassBound := 3);
 gap> PqSPStandardPresentation(procId, [ [[1,0,0,0],
 >                                     [0,1,0,1]],
@@ -47547,8 +47470,7 @@ a
 b
 gap> G := PcGroupFpGroup( F / [ a^2, b^2, Comm(b, a) ] );
 <pc group of size 4 with 2 generators>
-gap> procId := PqStart( G );
-5
+gap> procId := PqStart( G );;
 gap> des := PqDescendants( procId : OrderBound := 6, ClassBound := 5 );
 [ <pc group of size 8 with 3 generators>, 
   <pc group of size 8 with 3 generators>, 
@@ -47651,8 +47573,7 @@ gap> ##Example: "PqDescendants-1-i" . . . based on manual example
 gap> ##(demonstrates `PqSetPQuotientToGroup' usage)
 gap> F := FreeGroup( "a", "b" );
 <free group on the generators [ a, b ]>
-gap> procId := PqStart( F : Prime := 2 );
-1
+gap> procId := PqStart( F : Prime := 2 );;
 gap> Pq( procId : ClassBound := 1 );
 <pc group of size 4 with 2 generators>
 gap> PqSetPQuotientToGroup( procId );
@@ -47781,8 +47702,7 @@ gap> F := FreeGroup( 2, "g" );
 <free group on the generators [ g1, g2 ]>
 gap> G := PcGroupFpGroup( F / [ F.1^3, F.2^3, Comm(F.1, F.2) ] );
 <pc group of size 9 with 2 generators>
-gap> procId := PqStart( G );
-2
+gap> procId := PqStart( G );;
 gap> des := PqDescendants( procId : OrderBound := 3, ClassBound := 2,
 >                           CapableDescendants );
 [ <pc group of size 27 with 3 generators>, 
@@ -47822,8 +47742,7 @@ gap> F := FreeGroup( 2, "g" );
 <free group on the generators [ g1, g2 ]>
 gap> G := PcGroupFpGroup( F / [ F.1^5, F.2^5, Comm(F.2, F.1) ] );
 <pc group of size 25 with 2 generators>
-gap> procId := PqStart( G );
-3
+gap> procId := PqStart( G );;
 gap> des := PqDescendants( procId : Metabelian, ClassBound := 3,
 >                           Exponent := 5, CapableDescendants );
 [ <pc group of size 125 with 3 generators>, 
@@ -47842,8 +47761,7 @@ gap> ## traverse a descendants tree, by exploring the 3-groups of rank 2
 gap> ## and 3-coclass 1 up to 3-class 5.)
 gap> G := ElementaryAbelianGroup( 9 );
 <pc group of size 9 with 2 generators>
-gap> procId := PqStart( G );
-1
+gap> procId := PqStart( G );;
 gap> #
 gap> #  Below, we use the option StepSize in order to construct descendants
 gap> #  of coclass 1. This is equivalent to setting the StepSize to 1 in
@@ -47970,8 +47888,7 @@ gap> ## all descendants of the elementary abelian group of order 16 of
 gap> ## 2-coclass 1 up to 2-class 15. Most effective in XGAP.)
 gap> G := ElementaryAbelianGroup( 16 );
 <pc group of size 16 with 4 generators>
-gap> procId := PqStart( G );
-2
+gap> procId := PqStart( G );;
 gap> PqDescendantsTreeCoclassOne( procId : TreeDepth := 15, 
 >                                       CapableDescendants );
 #I  Number of descendants of group #1;1 to class 2: 1
@@ -48008,8 +47925,7 @@ gap> ## all descendants of the elementary abelian group of order 25 of
 gap> ## 5-coclass 1 up to 5-class 15. Most effective in XGAP.)
 gap> G := ElementaryAbelianGroup( 25 );
 <pc group of size 25 with 2 generators>
-gap> procId := PqStart( G );
-3
+gap> procId := PqStart( G );;
 gap> PqDescendantsTreeCoclassOne( procId : TreeDepth := 15 );
 #I  Number of descendants of group #1;1 to class 2: 2
 #I  Number of descendants of group #1;1 #1;1 to class 3: 2
@@ -54666,8 +54582,7 @@ gap> ## develop a descendants tree, by generating the 3-groups of rank 2
 gap> ## and 3-coclass 1 up to 3-class 5. Most effective in XGAP.)
 gap> G := ElementaryAbelianGroup( 9 );
 <pc group of size 9 with 2 generators>
-gap> procId := PqStart( G );
-1
+gap> procId := PqStart( G );;
 gap> PqDescendantsTreeCoclassOne( procId : TreeDepth := 5 );
 #I  Number of descendants of group #1;1 to class 2: 2
 #I  Number of descendants of group #1;1 #1;1 to class 3: 2
@@ -54724,8 +54639,7 @@ gap> # Executing interactive variant of example: "PqEpimorphism"
 gap> ##Example: "PqEpimorphism" . . . based on `PqEpimorphism' manual example
 gap> F := FreeGroup (2, "F");
 <free group on the generators [ F1, F2 ]>
-gap> procId := PqStart( F );
-2
+gap> procId := PqStart( F );;
 gap> phi := PqEpimorphism( procId : Prime := 5, ClassBound := 2 );
 [ F1, F2 ] -> [ f1, f2 ]
 gap> Image( phi );
@@ -54839,8 +54753,7 @@ rec(
 gap> # Executing interactive variant of example: "PqSupplementInnerAutomorphisms"
 gap> ##Example: "PqSupplementInnerAutomorphisms" . . . based on manual example
 gap> ##Illustrates `PqSupplementInnerAutomorphisms' usage
-gap> procId := PqStart( FreeGroup(2) );
-1
+gap> procId := PqStart( FreeGroup(2) );;
 gap> Q := Pq( procId : Prime := 3, ClassBound := 1 );
 <pc group of size 9 with 2 generators>
 gap> PqSetPQuotientToGroup( procId );
@@ -54867,8 +54780,7 @@ gap> ##Example: "R2-5-i" . . . based on: examples/R2-5
 gap> ##Construction of R(2,5)
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
-gap> procId := PqStart(F : Prime := 5, Exponent := 5);
-2
+gap> procId := PqStart(F : Prime := 5, Exponent := 5);;
 gap> PqPcPresentation(procId : ClassBound := 1, 
 >                           OutputLevel := 1);
 #I  Lower exponent-5 central series for [grp]
@@ -54901,8 +54813,7 @@ gap> ##words starting with the first pc generator squared
 gap> ##need to be considered when doing the exponent law checks
 gap> F := FreeGroup("a", "b");
 <free group on the generators [ a, b ]>
-gap> procId := PqStart(F : Prime := 5, Exponent := 5);
-3
+gap> procId := PqStart(F : Prime := 5, Exponent := 5);;
 gap> PqPcPresentation(procId : ClassBound := 6, 
 >                           OutputLevel := 1);
 #I  Lower exponent-5 central series for [grp]
@@ -55055,8 +54966,7 @@ d
 gap> G4 := F4 / [ b^4, b^2 / Comm(Comm (b, a), a), d^16,
 >              a^16 / (c * d), b^8 / (d * c^4) ];
 <fp group on the generators [ a, b, c, d ]>
-gap> procId := PqStart( G4 );
-4
+gap> procId := PqStart( G4 );;
 gap> Pq( procId : Prime := 2, ClassBound := 1 );
 <pc group of size 4 with 2 generators>
 gap> # the computed p-quotient is ``remembered'' and supplies the
@@ -55083,8 +54993,7 @@ gap> rels := ["a^4 * [b, a, a, a, a, a]^-1",
 [ "a^4 * [b, a, a, a, a, a]^-1", 
   "b * a^2 * b^-1 * a^-2 * [b, a, a, a, a, a]^-1", 
   "b^2 * [b, a, a, a, a, a]^-1" ]
-gap> procId := PqStart(F : Prime := 2, Relators := rels);
-5
+gap> procId := PqStart(F : Prime := 2, Relators := rels);;
 gap> PqSPComputePcpAndPCover(procId : ClassBound := 1);
 gap> PqSPStandardPresentation(procId, [ [[0,1],
 >                                     [1,1]],

@@ -4,7 +4,7 @@
 F := FreeGroup("a", "b");
 rels := ["a^25", "[b, a, a, a, b]", "[b, a, b, b, b]",
          "[b, a, b, a]", "b^5 * [a, b, a]^-1"];
-procId := PqStart(F : Prime := 5, Relators := rels);
+procId := PqStart(F : Prime := 5, Relators := rels);;
 #comment: set a different print level by supplying <OutputLevel>
 #add <OutputLevel> for <value> if set and ok
 #PqSetOutputLevel(procId, value);;

@@ -3,7 +3,7 @@
 #vars: F, a, b, procId;
 #options: OutputLevel, ClassBound, StandardPresentationFile
 F := FreeGroup("a", "b"); a := F.1; b := F.2;
-procId := PqStart(F : Prime := 2, Exponent := 4);
+procId := PqStart(F : Prime := 2, Exponent := 4);;
 #comment: set a different print level by supplying <OutputLevel>
 #add <OutputLevel> for <value> if set and ok
 #PqSetOutputLevel(procId, value);;

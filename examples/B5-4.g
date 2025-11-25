@@ -62,7 +62,7 @@
 LoadPackage( "anupq" );
 ##You might like to try setting: `SetInfoLevel( InfoANUPQ, 3 );'
 
-procId := PqStart( FreeGroup(5) : Exponent := 4, Prime := 2 );
+procId := PqStart( FreeGroup(5) : Exponent := 4, Prime := 2 );;
 Pq( procId : ClassBound := 2 );
 PqSupplyAutomorphisms( procId,
       [

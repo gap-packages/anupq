@@ -5,5 +5,5 @@
 #vars: G, procId;
 #options:
 G := ElementaryAbelianGroup( 25 );
-procId := PqStart( G );
+procId := PqStart( G );;
 PqDescendantsTreeCoclassOne( procId : TreeDepth := 15 );;

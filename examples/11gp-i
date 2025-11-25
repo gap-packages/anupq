@@ -4,7 +4,7 @@
 F := FreeGroup("a", "b", "c"); a := F.1; b := F.2; c := F.3;
 R := [PqLeftNormComm([b, a, a, b, c])^11, 
       PqLeftNormComm([a, b, b, a, b, c])^11, (a * b)^11];;
-procId := PqStart(F/R : Prime := 11);
+procId := PqStart(F/R : Prime := 11);;
 #comment: set a different `ClassBound' by supplying <ClassBound>
 #comment: also set a different print level by supplying <OutputLevel>
 #sub <ClassBound> for <7> if set and ok

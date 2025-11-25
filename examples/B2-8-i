@@ -3,7 +3,7 @@
 #vars: F, procId;
 #options: OutputLevel, ClassBound, OutputFile
 F := FreeGroup("a", "b");
-procId := PqStart(F : Prime := 2, Exponent := 8);
+procId := PqStart(F : Prime := 2, Exponent := 8);;
 #comment: set a different `ClassBound' by supplying <ClassBound>
 #comment: also set a different print level by supplying <OutputLevel>
 #sub <ClassBound> for <10> if set and ok

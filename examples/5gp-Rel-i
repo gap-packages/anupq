@@ -3,7 +3,7 @@
 #options: OutputLevel, ClassBound, OutputFile
 F := FreeGroup("a", "b", "c");
 rels := ["a^25 * c", "[a,  b] * c^-4", "[a, c]^25"];
-procId := PqStart(F : Prime := 5, Relators := rels);
+procId := PqStart(F : Prime := 5, Relators := rels);;
 #comment: set a different `ClassBound' by supplying <ClassBound>
 #comment: also set a different print level by supplying <OutputLevel>
 #sub <ClassBound> for <27> if set and ok

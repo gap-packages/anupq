@@ -3,7 +3,7 @@
 #options: OutputLevel, ClassBound, StandardPresentationFile
 F := FreeGroup("a", "b", "c", "d");
 rels := ["a * b^d", "c * d^a", "[c, a, a]", "[c, b, b, a]"];
-procId := PqStart(F : Prime := 5, Relators := rels);
+procId := PqStart(F : Prime := 5, Relators := rels);;
 #comment: set a different print level by supplying <OutputLevel>
 #add <OutputLevel> for <value> if set and ok
 #PqSetOutputLevel(procId, value);;

@@ -4,7 +4,7 @@
 F := FreeGroup("a", "b");
 rels := ["b^7", "a^7 * [b, a, b]^-1", "(a * b * [b, a, b] )^7",
          "[b, a, a, a, a, b, a]"];
-procId := PqStart(F : Prime := 7, Relators := rels);
+procId := PqStart(F : Prime := 7, Relators := rels);;
 #comment: set a different print level by supplying <OutputLevel>
 #add <OutputLevel> for <value> if set and ok
 #PqSetOutputLevel(procId, value);;

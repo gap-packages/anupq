@@ -3,7 +3,7 @@
 #options: OutputLevel, ClassBound, StandardPresentationFile
 F := FreeGroup("a", "b");
 rels := ["a^4", "b^2*[b, a, b]^-1", "b * (a^2 * b^-1 * a^2)^-1" ];
-procId := PqStart(F : Prime := 2, Relators := rels);
+procId := PqStart(F : Prime := 2, Relators := rels);;
 #comment: set a different print level by supplying <OutputLevel>
 #add <OutputLevel> for <value> if set and ok
 #PqSetOutputLevel(procId, value);;

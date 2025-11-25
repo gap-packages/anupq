@@ -5,7 +5,7 @@
 #vars: G, procId;
 #options:
 G := ElementaryAbelianGroup( 9 );
-procId := PqStart( G );
+procId := PqStart( G );;
 ##
 ##  Below, we use the option StepSize in order to construct descendants
 ##  of coclass 1. This is equivalent to setting the StepSize to 1 in
