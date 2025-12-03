@@ -337,11 +337,10 @@
     [4X[25X>[125X [27X                a^16 / (c * d), b^8 / (d * c^4) ];[127X[104X
     [4X[28X<fp group on the generators [ a, b, c, d ]>[128X[104X
     [4X[25Xgap>[125X [27XSetInfoLevel(InfoANUPQ, 1); #Only essential Info please[127X[104X
-    [4X[25Xgap>[125X [27XPqStart(G4); #Start a new interactive process for a new group[127X[104X
-    [4X[28X2[128X[104X
-    [4X[25Xgap>[125X [27XK := Pq( 2 : Prime := 2, ClassBound := 1 ); #`pq' process no. is 2[127X[104X
+    [4X[25Xgap>[125X [27XprocId := PqStart(G4);; #Start a new interactive process for a new group[127X[104X
+    [4X[25Xgap>[125X [27XK := Pq( procId : Prime := 2, ClassBound := 1 );[127X[104X
     [4X[28X<pc group of size 4 with 2 generators>[128X[104X
-    [4X[25Xgap>[125X [27XStandardPresentation( 2 : pQuotient := K, ClassBound := 14 );[127X[104X
+    [4X[25Xgap>[125X [27XStandardPresentation( procId : pQuotient := K, ClassBound := 14 );[127X[104X
     [4X[28X<fp group with 53 generators>[128X[104X
   [4X[32X[104X
   
@@ -414,9 +413,8 @@
     [4X[28X  F3^-1*F1^-1*F3*F1, F3^-1*F2^-1*F3*F2*F5^-1, F3^3 ][128X[104X
     [4X[25Xgap>[125X [27XQ := F / R;[127X[104X
     [4X[28X<fp group on the generators [ F1, F2, F3, F4, F5, F6 ]>[128X[104X
-    [4X[25Xgap>[125X [27XPqStart( Q );[127X[104X
-    [4X[28X3[128X[104X
-    [4X[25Xgap>[125X [27XG := Pq( 3 : Prime := 3, ClassBound := 3 );[127X[104X
+    [4X[25Xgap>[125X [27XprocId := PqStart( Q );;[127X[104X
+    [4X[25Xgap>[125X [27XG := Pq( procId : Prime := 3, ClassBound := 3 );[127X[104X
     [4X[28X<pc group of size 729 with 6 generators>[128X[104X
     [4X[25Xgap>[125X [27Xlev := InfoLevel(InfoANUPQ);; # Save current InfoANUPQ level[127X[104X
     [4X[25Xgap>[125X [27XSetInfoLevel(InfoANUPQ, 2); # To see computation times[127X[104X
@@ -464,16 +462,16 @@
   [33X[0;0Yreturn  for  the pc group [3XG[103X of the [3Xi[103Xth or default interactive [5XANUPQ[105X process,
   which  must  be  of  prime  power  order  with  a  confluent pc presentation
   (see [2XIsConfluent[102X ([14XReference: IsConfluent for pc groups[114X) in the [5XGAP[105X Reference
-  Manual),  a  list  of  descendants  (pc groups) of [3XG[103X. The group [3XG[103X is usually
-  given  as  first  argument  to  [10XPqStart[110X  when starting the interactive [5XANUPQ[105X
-  process  (see [2XPqStart[102X  ([14X5.1-1[114X)). Alternatively, one may initiate the process
-  with an fp group, use [10XPq[110X interactively (see [2XPq[102X ([14X5.3-1[114X)) to create a pc group
-  and  use  [10XPqSetPQuotientToGroup[110X  (see [2XPqSetPQuotientToGroup[102X  ([14X5.3-7[114X)), which
-  involves  [13Xno[113X computation, to set the pc group returned by [10XPq[110X as the group of
-  the  process.  Note  that  repeating  a  call  to [10XPqDescendants[110X for the same
-  interactive  [5XANUPQ[105X process simply returns the list of descendants originally
-  calculated;  a warning is emitted at [10XInfoANUPQ[110X level 1 reminding you of this
-  should you do this.[133X
+  Manual),  a  list  of  proper  descendants  (pc groups) of [3XG[103X. The group [3XG[103X is
+  usually  given  as  first  argument to [10XPqStart[110X when starting the interactive
+  [5XANUPQ[105X  process  (see [2XPqStart[102X  ([14X5.1-1[114X)).  Alternatively, one may initiate the
+  process  with an fp group, use [10XPq[110X interactively (see [2XPq[102X ([14X5.3-1[114X)) to create a
+  pc  group and use [10XPqSetPQuotientToGroup[110X (see [2XPqSetPQuotientToGroup[102X ([14X5.3-7[114X)),
+  which  involves  [13Xno[113X  computation,  to set the pc group returned by [10XPq[110X as the
+  group  of  the  process. Note that repeating a call to [10XPqDescendants[110X for the
+  same  interactive  [5XANUPQ[105X  process  simply  returns  the  list of descendants
+  originally  calculated;  a warning is emitted at [10XInfoANUPQ[110X level 1 reminding
+  you of this should you do this.[133X
   
   [33X[0;0YAfter  the  colon,  [3Xoptions[103X  a  selection  of  the  options  listed  for the
   non-interactive  [10XPqDescendants[110X  function (see [2XPqDescendants[102X ([14X4.4-1[114X)), should
@@ -528,9 +526,8 @@
     [4X[25Xgap>[125X [27XF := FreeGroup( "a", "b" );; a := F.1;; b := F.2;;[127X[104X
     [4X[25Xgap>[125X [27XG := PcGroupFpGroup( F / [ a^2, b^2, Comm(b, a) ] );[127X[104X
     [4X[28X<pc group of size 4 with 2 generators>[128X[104X
-    [4X[25Xgap>[125X [27XPqStart(G); #This will now be the 4th interactive process running[127X[104X
-    [4X[28X4[128X[104X
-    [4X[25Xgap>[125X [27Xdes := PqDescendants( 4 : OrderBound := 6, ClassBound := 5 );;[127X[104X
+    [4X[25Xgap>[125X [27XprocId := PqStart(G);;[127X[104X
+    [4X[25Xgap>[125X [27Xdes := PqDescendants( procId : OrderBound := 6, ClassBound := 5 );;[127X[104X
     [4X[25Xgap>[125X [27XLength(des);[127X[104X
     [4X[28X83[128X[104X
     [4X[25Xgap>[125X [27XList(des, Size);[127X[104X
@@ -553,15 +550,14 @@
     [4X[25Xgap>[125X [27XF := FreeGroup( 2, "g" );;[127X[104X
     [4X[25Xgap>[125X [27XG := PcGroupFpGroup( F / [ F.1^3, F.2^3, Comm(F.1, F.2) ] );[127X[104X
     [4X[28X<pc group of size 9 with 2 generators>[128X[104X
-    [4X[25Xgap>[125X [27XPqStart(G); #This will now be the 5th interactive process running[127X[104X
-    [4X[28X5[128X[104X
-    [4X[25Xgap>[125X [27Xdes := PqDescendants( 5 : OrderBound := 3, ClassBound := 2,[127X[104X
+    [4X[25Xgap>[125X [27XprocId := PqStart(G);;[127X[104X
+    [4X[25Xgap>[125X [27Xdes := PqDescendants( procId : OrderBound := 3, ClassBound := 2,[127X[104X
     [4X[25X>[125X [27X                             CapableDescendants );[127X[104X
     [4X[28X[ <pc group of size 27 with 3 generators>, [128X[104X
     [4X[28X  <pc group of size 27 with 3 generators> ][128X[104X
     [4X[25Xgap>[125X [27XList(des, d -> Length( PCentralSeries( d, 3 ) ) - 1 );[127X[104X
     [4X[28X[ 2, 2 ][128X[104X
-    [4X[25Xgap>[125X [27X# For comparison let us now compute all descendants[127X[104X
+    [4X[25Xgap>[125X [27X# For comparison let us now compute all proper descendants[127X[104X
     [4X[25Xgap>[125X [27X# (using the non-interactive Pq function)[127X[104X
     [4X[25Xgap>[125X [27XPqDescendants( G : OrderBound := 3, ClassBound := 2);[127X[104X
     [4X[28X[ <pc group of size 27 with 3 generators>, [128X[104X
@@ -569,17 +565,16 @@
     [4X[28X  <pc group of size 27 with 3 generators> ][128X[104X
   [4X[32X[104X
   
-  [33X[0;0YIn  the  third example, we compute all capable descendants of the elementary
-  abelian  group  of order [22X5^2[122X which have exponent-[22X5[122X class at most [22X3[122X, exponent
-  [22X5[122X, and are metabelian.[133X
+  [33X[0;0YIn  the  third  example,  we  compute  all proper capable descendants of the
+  elementary abelian group of order [22X5^2[122X which have exponent-[22X5[122X class at most [22X3[122X,
+  exponent [22X5[122X, and are metabelian.[133X
   
   [4X[32X  Example  [32X[104X
     [4X[25Xgap>[125X [27XF := FreeGroup( 2, "g" );;[127X[104X
     [4X[25Xgap>[125X [27XG := PcGroupFpGroup( F / [ F.1^5, F.2^5, Comm(F.2, F.1) ] );[127X[104X
     [4X[28X<pc group of size 25 with 2 generators>[128X[104X
-    [4X[25Xgap>[125X [27XPqStart(G); #This will now be the 6th interactive process running[127X[104X
-    [4X[28X6[128X[104X
-    [4X[25Xgap>[125X [27Xdes := PqDescendants( 6 : Metabelian, ClassBound := 3,[127X[104X
+    [4X[25Xgap>[125X [27XprocId := PqStart(G);;[127X[104X
+    [4X[25Xgap>[125X [27Xdes := PqDescendants( procId : Metabelian, ClassBound := 3,[127X[104X
     [4X[25X>[125X [27X                             Exponent := 5, CapableDescendants );[127X[104X
     [4X[28X[ <pc group of size 125 with 3 generators>, [128X[104X
     [4X[28X  <pc group of size 625 with 4 generators>, [128X[104X
@@ -617,8 +612,7 @@
   [4X[32X  Example  [32X[104X
     [4X[25Xgap>[125X [27XF := FreeGroup( "a", "b" );[127X[104X
     [4X[28X<free group on the generators [ a, b ]>[128X[104X
-    [4X[25Xgap>[125X [27XprocId := PqStart( F : Prime := 2 );[127X[104X
-    [4X[28X7[128X[104X
+    [4X[25Xgap>[125X [27XprocId := PqStart( F : Prime := 2 );;[127X[104X
     [4X[25Xgap>[125X [27XPq( procId : ClassBound := 1 );[127X[104X
     [4X[28X<pc group of size 4 with 2 generators>[128X[104X
     [4X[25Xgap>[125X [27XPqSetPQuotientToGroup( procId );[127X[104X

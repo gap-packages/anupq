@@ -175,8 +175,7 @@ b
 c
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">R := [PqLeftNormComm([b, a, a, b, c])^11, </span>
 <span class="GAPprompt">&gt;</span> <span class="GAPinput">         PqLeftNormComm([a, b, b, a, b, c])^11, (a * b)^11];;</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">procId := PqStart(F/R : Prime := 11);</span>
-1
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">procId := PqStart(F/R : Prime := 11);;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">PqPcPresentation(procId : ClassBound := 7, </span>
 <span class="GAPprompt">&gt;</span> <span class="GAPinput">                             OutputLevel := 1);</span>
 #I  Lower exponent-11 central series for [grp]
@@ -204,8 +203,7 @@ c
 &lt;free group on the generators [ a, b, c ]&gt;
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">rels := ["[b, a, a, b, c]^11", "[a, b, b, a, b, c]^11", "(a * b)^11"];</span>
 [ "[b, a, a, b, c]^11", "[a, b, b, a, b, c]^11", "(a * b)^11" ]
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">procId := PqStart(F : Prime := 11, Relators := rels);</span>
-2
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">procId := PqStart(F : Prime := 11, Relators := rels);;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">PqPcPresentation(procId : ClassBound := 7, </span>
 <span class="GAPprompt">&gt;</span> <span class="GAPinput">                             OutputLevel := 1);</span>
 #I  Relators parsed ok.
@@ -295,8 +293,7 @@ b
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput"># must satisfy the Engel identity: [u, v, v, v] = 1.</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">f := function(u, v) return PqLeftNormComm( [u, v, v, v] ); end;</span>
 function( u, v ) ... end
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">procId := PqStart( G );</span>
-3
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">procId := PqStart( G );;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Q := Pq( procId : Prime := 11, Identities := [ f ] );</span>
 #I  Class 1 with 2 generators.
 #I  Class 2 with 3 generators.
@@ -331,8 +328,7 @@ b
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput"># must satisfy the Engel identity: [u, v, v, v] = 1.</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">f := function(u, v) return PqLeftNormComm( [u, v, v, v] ); end;</span>
 function( u, v ) ... end
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">procId := PqStart( G : Prime := 11 );</span>
-4
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">procId := PqStart( G : Prime := 11 );;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">PqPcPresentation( procId : ClassBound := 1);</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">PqEvaluateIdentities( procId : Identities := [f] );</span>
 #I  Class 1 with 2 generators.
@@ -462,8 +458,7 @@ od;
 <div class="example"><pre>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">G := ElementaryAbelianGroup( 9 );</span>
 &lt;pc group of size 9 with 2 generators&gt;
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">procId := PqStart( G );</span>
-5
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">procId := PqStart( G );;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">#</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">#  Below, we use the option StepSize in order to construct descendants</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">#  of coclass 1. This is equivalent to setting the StepSize to 1 in</span>

@@ -16,6 +16,8 @@
   
   [1X2.1 [33X[0;0YBasic notions[133X[101X
   
+  [33X[0;0YThroughout this manual, by [22Xp[122X-group we always mean [13Xfinite[113X [22Xp[122X-group.[133X
+  
   
   [1X2.1-1 [33X[0;0Ypc Presentations and Consistency[133X[101X
   
@@ -122,7 +124,8 @@
   
   [33X[0;0YLet again [22XG[122X be a [22Xp[122X-group of [22Xp[122X-class [22Xc[122X and [22Xd[122X the minimal number of generators
   of  [22XG[122X.  A [22Xp[122X-group [22XH[122X is a [13Xdescendant[113X of [22XG[122X if the minimal number of generators
-  of  [22XH[122X  is  [22Xd[122X  and  [22XH/P_c(H)[122X  is  isomorphic  to [22XG[122X. A descendant [22XH[122X of [22XG[122X is an
+  of  [22XH[122X  is [22Xd[122X and [22XH/P_c(H)[122X is isomorphic to [22XG[122X. A descendant [22XH[122X of [22XG[122X is a [13Xproper
+  descendant[113X  if  it  has  [22Xp[122X-class  at  least  [22Xc+1[122X.  A descendant [22XH[122X of [22XG[122X is an
   [13Ximmediate  descendant[113X  if  it has [22Xp[122X-class [22Xc+1[122X. [22XG[122X is called [13Xcapable[113X if it has
   immediate descendants; otherwise it is [13Xterminal[113X.[133X
   

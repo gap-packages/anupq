@@ -97,7 +97,7 @@
 <div class="example"><pre>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">LoadPackage( "anupq" );</span>
 ---------------------------------------------------------------------------
-Loading ANUPQ 3.3.2 (ANU p-Quotient)
+Loading ANUPQ 3.3.3 (ANU p-Quotient)
 by Greg Gamble (GAP code, Greg.Gamble@uwa.edu.au),
    Werner Nickel (GAP code), and
    Eamonn O'Brien (C code, https://www.math.auckland.ac.nz/~obrien).
@@ -114,7 +114,7 @@ true
 
 <p>Also, if <strong class="pkg">GAP</strong> cannot find a working <code class="code">pq</code> binary, the call to <code class="code">LoadPackage</code> will return <code class="keyw">fail</code>.</p>
 
-<p>If you want to load the <strong class="pkg">ANUPQ</strong> package by default, you can put the <code class="code">LoadPackage</code> command into your <code class="code">gap.ini</code> file (see Section <a href="https://docs.gap-system.org/doc/ref/chap3_mj.html#X7FD66F977A3B02DF"><span class="RefLink">Reference: The gap.ini and gaprc files</span></a> in the <strong class="pkg">GAP</strong> Reference Manual). By the way, the novice user of the <strong class="pkg">ANUPQ</strong> package should probably also append the line</p>
+<p>If you want to load the <strong class="pkg">ANUPQ</strong> package by default, you can put the <code class="code">LoadPackage</code> command into your <code class="code">gap.ini</code> file (see Section <a href="../../../doc/ref/chap3_mj.html#X7FD66F977A3B02DF"><span class="RefLink">Reference: The gap.ini and gaprc files</span></a> in the <strong class="pkg">GAP</strong> Reference Manual). By the way, the novice user of the <strong class="pkg">ANUPQ</strong> package should probably also append the line</p>
 
 
 <div class="example"><pre>
@@ -200,7 +200,7 @@ ANUPQWarnOfOtherOptions := true;
 
 </dd>
 <dt><strong class="Mark"><code class="code">name</code></strong></dt>
-<dd><p>the name of the group whose pc presentation is defined by a call to the <code class="code">pq</code> program (according to the <code class="code">pq</code> program -- unless you have used the <code class="code">GroupName</code> option (see e.g. <code class="func">Pq</code> (<a href="chap4_mj.html#X86DD32D5803CF2C8"><span class="RefLink">4.1-1</span></a>)) or applied the function <code class="code">SetName</code> (see <code class="func">SetName</code> (<a href="https://docs.gap-system.org/doc/ref/chap12_mj.html#X7F14EF9D81432113"><span class="RefLink">Reference: Name</span></a>)) to the group, the <q>generic</q> name <code class="code">"[grp]"</code> is set as a default);</p>
+<dd><p>the name of the group whose pc presentation is defined by a call to the <code class="code">pq</code> program (according to the <code class="code">pq</code> program -- unless you have used the <code class="code">GroupName</code> option (see e.g. <code class="func">Pq</code> (<a href="chap4_mj.html#X86DD32D5803CF2C8"><span class="RefLink">4.1-1</span></a>)) or applied the function <code class="code">SetName</code> (see <code class="func">SetName</code> (<a href="../../../doc/ref/chap12_mj.html#X7F14EF9D81432113"><span class="RefLink">Reference: Name</span></a>)) to the group, the <q>generic</q> name <code class="code">"[grp]"</code> is set as a default);</p>
 
 </dd>
 <dt><strong class="Mark"><code class="code">gpnum</code></strong></dt>
@@ -284,7 +284,7 @@ ANUPQWarnOfOtherOptions := true;
 <h5>3.3-1 InfoANUPQ</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; InfoANUPQ</code></td><td class="tdright">(&nbsp;info class&nbsp;)</td></tr></table></div>
-<p>The input to and the output from the <code class="code">pq</code> program is, by default, not displayed. However the user may choose to see some, or all, of this input/output. This is done via the <code class="code">Info</code> mechanism (see Section <a href="https://docs.gap-system.org/doc/ref/chap7_mj.html#X7A9C902479CB6F7C"><span class="RefLink">Reference: Info Functions</span></a> in the <strong class="pkg">GAP</strong> Reference Manual). For this purpose, there is the <var class="Arg">InfoClass</var> <code class="code">InfoANUPQ</code>. If the <code class="code">InfoLevel</code> of <code class="code">InfoANUPQ</code> is high enough each line of <code class="code">pq</code> input/output is directed to a call to <code class="code">Info</code> and will be displayed for the user to see. By default, the <code class="code">InfoLevel</code> of <code class="code">InfoANUPQ</code> is 1, and it is recommended that you leave it at this level, or higher. Messages that the user should presumably want to see and output from the <code class="code">pq</code> program influenced by the value of the option <code class="code">OutputLevel</code> (see the options listed in Section <code class="func">Pq</code> (<a href="chap4_mj.html#X86DD32D5803CF2C8"><span class="RefLink">4.1-1</span></a>)), other than timing and memory usage are directed to <code class="code">Info</code> at <code class="code">InfoANUPQ</code> level 1.</p>
+<p>The input to and the output from the <code class="code">pq</code> program is, by default, not displayed. However the user may choose to see some, or all, of this input/output. This is done via the <code class="code">Info</code> mechanism (see Section <a href="../../../doc/ref/chap7_mj.html#X7A9C902479CB6F7C"><span class="RefLink">Reference: Info Functions</span></a> in the <strong class="pkg">GAP</strong> Reference Manual). For this purpose, there is the <var class="Arg">InfoClass</var> <code class="code">InfoANUPQ</code>. If the <code class="code">InfoLevel</code> of <code class="code">InfoANUPQ</code> is high enough each line of <code class="code">pq</code> input/output is directed to a call to <code class="code">Info</code> and will be displayed for the user to see. By default, the <code class="code">InfoLevel</code> of <code class="code">InfoANUPQ</code> is 1, and it is recommended that you leave it at this level, or higher. Messages that the user should presumably want to see and output from the <code class="code">pq</code> program influenced by the value of the option <code class="code">OutputLevel</code> (see the options listed in Section <code class="func">Pq</code> (<a href="chap4_mj.html#X86DD32D5803CF2C8"><span class="RefLink">4.1-1</span></a>)), other than timing and memory usage are directed to <code class="code">Info</code> at <code class="code">InfoANUPQ</code> level 1.</p>
 
 <p>To turn off <em>all</em> <code class="code">InfoANUPQ</code> messaging, set the <code class="code">InfoANUPQ</code> level to 0.</p>
 
@@ -295,7 +295,7 @@ ANUPQWarnOfOtherOptions := true;
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">SetInfoLevel(InfoANUPQ, 2);</span>
 </pre></div>
 
-<p>enables the display of most timing and memory usage data from the <code class="code">pq</code> program, and also the number of identity instances when the <code class="code">Identities</code> option is used. (Some timing and memory usage data, particularly when profuse in quantity, is <code class="code">Info</code>-ed at <code class="code">InfoANUPQ</code> level 3 instead.) Note that the the <strong class="pkg">GAP</strong> functions <code class="code">time</code> and <code class="code">Runtime</code> (see <code class="func">Runtime</code> (<a href="https://docs.gap-system.org/doc/ref/chap7_mj.html#X7E32B27F81870D24"><span class="RefLink">Reference: Runtime</span></a>) in the <strong class="pkg">GAP</strong> Reference Manual) count the time spent by <strong class="pkg">GAP</strong> and <em>not</em> the time spent by the (external) <code class="code">pq</code> program.</p>
+<p>enables the display of most timing and memory usage data from the <code class="code">pq</code> program, and also the number of identity instances when the <code class="code">Identities</code> option is used. (Some timing and memory usage data, particularly when profuse in quantity, is <code class="code">Info</code>-ed at <code class="code">InfoANUPQ</code> level 3 instead.) Note that the the <strong class="pkg">GAP</strong> functions <code class="code">time</code> and <code class="code">Runtime</code> (see <code class="func">Runtime</code> (<a href="../../../doc/ref/chap7_mj.html#X7E32B27F81870D24"><span class="RefLink">Reference: Runtime</span></a>) in the <strong class="pkg">GAP</strong> Reference Manual) count the time spent by <strong class="pkg">GAP</strong> and <em>not</em> the time spent by the (external) <code class="code">pq</code> program.</p>
 
 
 <div class="example"><pre>
@@ -353,11 +353,9 @@ ANUPQWarnOfOtherOptions := true;
 <div class="example"><pre>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">F := FreeGroup("a", "b");</span>
 &lt;free group on the generators [ a, b ]&gt;
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">PqGAPRelators(F, [ "a*b^2", "[a,b]^2*a", "([a,b,a,b,b]*a*b)^2*a" ]);</span>
-[ a*b^2, a^-1*b^-1*a*b*a^-1*b^-1*a*b*a, b^-1*a^-1*b^-1*a^-1*b*a*b^-1*a*b*a^
-    -1*b*a^-1*b^-1*a*b*a*b^-1*a^-1*b^-1*a^-1*b*a*b^-1*a*b^-1*a^-1*b*a^-1*b^
-    -1*a*b*a*b*a^-1*b*a*b^-1*a*b*a^-1*b*a^-1*b^-1*a*b*a*b^-1*a^-1*b^-1*a^
-    -1*b*a*b^-1*a*b^-1*a^-1*b*a^-1*b^-1*a*b*a*b^2*a*b*a ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">PqGAPRelators(F, [ "a*b^2", "[a,b]^2*a", "[a,b,a,b]^a" ]);</span>
+[ a*b^2, (a^-1*b^-1*a*b)^2*a, 
+  a^-2*b^-1*a^-1*b*(a*b^-1)^2*a^-1*b*a^-1*b^-1*(a*b)^2*a ]
 </pre></div>
 
 <p><a id="X7F3C5D1C7EC36EAE" name="X7F3C5D1C7EC36EAE"></a></p>
@@ -457,16 +455,16 @@ SetIsPGroup( G, true );
 
 
 <ul>
-<li><p>options may be set globally using the function <code class="code">PushOptions</code> (see Chapter <a href="https://docs.gap-system.org/doc/ref/chap8_mj.html#X7FD84061873F72A2"><span class="RefLink">Reference: Options Stack</span></a> in the <strong class="pkg">GAP</strong> Reference Manual); or</p>
+<li><p>options may be set globally using the function <code class="code">PushOptions</code> (see Chapter <a href="../../../doc/ref/chap8_mj.html#X7FD84061873F72A2"><span class="RefLink">Reference: Options Stack</span></a> in the <strong class="pkg">GAP</strong> Reference Manual); or</p>
 
 </li>
-<li><p>options may be appended to the argument list of any function call, separated by a colon from the argument list (see Chapter <a href="https://docs.gap-system.org/doc/ref/chap4_mj.html#X78C70489791FDF43"><span class="RefLink">Reference: Function Calls</span></a> in the <strong class="pkg">GAP</strong> Reference Manual), in which case they are then passed on recursively to any subsequent inner function call, which may in turn have options of their own.</p>
+<li><p>options may be appended to the argument list of any function call, separated by a colon from the argument list (see Chapter <a href="../../../doc/ref/chap4_mj.html#X78C70489791FDF43"><span class="RefLink">Reference: Function Calls</span></a> in the <strong class="pkg">GAP</strong> Reference Manual), in which case they are then passed on recursively to any subsequent inner function call, which may in turn have options of their own.</p>
 
 </li>
 </ul>
 <p>Particularly, when one is using the interactive functions of Chapter <a href="chap5_mj.html#X842C13C27B941744"><span class="RefLink"><span class="Heading">Interactive ANUPQ functions</span></span></a>, one should, in general, avoid using the global method of passing options. In fact, it is recommended that prior to calling <code class="code">PqStart</code> the <code class="code">OptionsStack</code> be empty. The essential problem with setting options globally using the function <code class="code">PushOptions</code> is that options pushed onto <code class="code">OptionsStack</code>, in this way, (generally) remain there until an explicit <code class="code">PopOptions()</code> call is made.</p>
 
-<p>In contrast, options passed in the usual way behind a colon following a function's arguments (see <a href="https://docs.gap-system.org/doc/ref/chap4_mj.html#X867D54987EF86D1D"><span class="RefLink">Reference: Function Call With Options</span></a> in the <strong class="pkg">GAP</strong> Reference Manual) are local, and disappear from <code class="code">OptionsStack</code> after the function has executed successfully. If the function does <em>not</em> execute successfully, i.e. it runs into error and the user <code class="keyw">quit</code>s the resulting <code class="code">break</code> loop (see Section <a href="https://docs.gap-system.org/doc/ref/chap6_mj.html#X8593B49F8705B486"><span class="RefLink">Reference: Break Loops</span></a> in the Reference Manual) rather than attempting to repair the problem and typing <code class="code">return;</code> then, unless the error at the kernel level, the <code class="code">OptionsStack</code> is reset. If an error is detected inside the kernel (hopefully, this should occur only rarely, if at all) then the options of that function will <em>not</em> be cleared from <code class="code">OptionsStack</code>; in such cases:</p>
+<p>In contrast, options passed in the usual way behind a colon following a function's arguments (see <a href="../../../doc/ref/chap4_mj.html#X867D54987EF86D1D"><span class="RefLink">Reference: Function Call With Options</span></a> in the <strong class="pkg">GAP</strong> Reference Manual) are local, and disappear from <code class="code">OptionsStack</code> after the function has executed successfully. If the function does <em>not</em> execute successfully, i.e. it runs into error and the user <code class="keyw">quit</code>s the resulting <code class="code">break</code> loop (see Section <a href="../../../doc/ref/chap6_mj.html#X8593B49F8705B486"><span class="RefLink">Reference: Break Loops</span></a> in the Reference Manual) rather than attempting to repair the problem and typing <code class="code">return;</code> then, unless the error at the kernel level, the <code class="code">OptionsStack</code> is reset. If an error is detected inside the kernel (hopefully, this should occur only rarely, if at all) then the options of that function will <em>not</em> be cleared from <code class="code">OptionsStack</code>; in such cases:</p>
 
 
 <div class="example"><pre>
@@ -474,7 +472,7 @@ SetIsPGroup( G, true );
 #I  Options stack is already empty
 </pre></div>
 
-<p>is usually necessary (see Chapter <code class="func">ResetOptionsStack</code> (<a href="https://docs.gap-system.org/doc/ref/chap8_mj.html#X83D1190984DA3B85"><span class="RefLink">Reference: ResetOptionsStack</span></a>) in the <strong class="pkg">GAP</strong> Reference Manual), which recursively calls <code class="code">PopOptions()</code> until <code class="code">OptionsStack</code> is empty, or as in the above case warns you that the <code class="code">OptionsStack</code> is already empty.</p>
+<p>is usually necessary (see Chapter <code class="func">ResetOptionsStack</code> (<a href="../../../doc/ref/chap8_mj.html#X83D1190984DA3B85"><span class="RefLink">Reference: ResetOptionsStack</span></a>) in the <strong class="pkg">GAP</strong> Reference Manual), which recursively calls <code class="code">PopOptions()</code> until <code class="code">OptionsStack</code> is empty, or as in the above case warns you that the <code class="code">OptionsStack</code> is already empty.</p>
 
 <p>Note that a function, that is passed options after the colon, will also see any global options or any options passed down recursively from functions calling that function, unless those options are over-ridden by options passed via the function. Also, note that duplication of option names for different programs may lead to misinterpretations, and mis-spelled options will not be <q>seen</q>.</p>
 
@@ -522,7 +520,7 @@ you can 'return;' to continue
 #I  Options stack has been reset
 </pre></div>
 
-<p>Above, we altered <code class="code">OnBreak</code> (see <code class="func">OnBreak</code> (<a href="https://docs.gap-system.org/doc/ref/chap6_mj.html#X82EBF01181C3C859"><span class="RefLink">Reference: OnBreak</span></a>) in the Reference manual) to reduce the back-tracing on entry into a break loop. We now restore <code class="code">OnBreak</code> to its usual value.</p>
+<p>Above, we altered <code class="code">OnBreak</code> (see <code class="func">OnBreak</code> (<a href="../../../doc/ref/chap6_mj.html#X82EBF01181C3C859"><span class="RefLink">Reference: OnBreak</span></a>) in the Reference manual) to reduce the back-tracing on entry into a break loop. We now restore <code class="code">OnBreak</code> to its usual value.</p>
 
 
 <div class="example"><pre>

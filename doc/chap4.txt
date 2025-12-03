@@ -469,7 +469,7 @@
     [4X[28XGroup([ (1,2,3,4), (1,3) ])[128X[104X
     [4X[25Xgap>[125X [27XP1 := Image( IsomorphismPcGroup( G ) );[127X[104X
     [4X[28XGroup([ f1, f2, f3 ])[128X[104X
-    [4X[25Xgap>[125X [27XP2 := ElementaryAbelianGroup( 8 );;[127X[104X
+    [4X[25Xgap>[125X [27XP2 := ElementaryAbelianGroup( 8 );[127X[104X
     [4X[28X<pc group of size 8 with 3 generators>[128X[104X
     [4X[25Xgap>[125X [27XIsIsomorphicPGroup( P1, P2 );[127X[104X
     [4X[28Xfalse[128X[104X
@@ -495,9 +495,9 @@
   
   [33X[0;0Yreturns,  for  the  pc  group  [3XG[103X  which  must be of prime power order with a
   confluent  pc  presentation  (see [2XIsConfluent[102X ([14XReference: IsConfluent for pc
-  groups[114X)  in  the [5XGAP[105X Reference Manual), a list of descendants (pc groups) of
-  [3XG[103X.  Following  the  colon  [3Xoptions[103X  a  selection of the options listed below
-  should   be   given,   separated  by  commas  like  record  components  (see
+  groups[114X)  in  the  [5XGAP[105X  Reference  Manual),  a list of proper descendants (pc
+  groups)  of [3XG[103X. Following the colon [3Xoptions[103X a selection of the options listed
+  below  should  be  given,  separated  by  commas like record components (see
   Section [14XReference:  Function Call With Options[114X in the [5XGAP[105X Reference Manual).
   See Chapter [14X'[33X[0;0YANUPQ Options[133X'[114X for detailed descriptions of the options.[133X
   
@@ -555,8 +555,8 @@
   
   [33X[0;0YNote that you cannot set both [10XOrderBound[110X and [10XStepSize[110X.[133X
   
-  [33X[0;0YIn  the  first  example  we  compute all descendants of the Klein four group
-  which have exponent-2 class at most 5 and order at most [22X2^6[122X.[133X
+  [33X[0;0YIn  the  first  example  we compute all proper descendants of the Klein four
+  group which have exponent-2 class at most 5 and order at most [22X2^6[122X.[133X
   
   [4X[32X  Example  [32X[104X
     [4X[25Xgap>[125X [27XF := FreeGroup( "a", "b" );; a := F.1;; b := F.2;;[127X[104X
@@ -592,16 +592,16 @@
     [4X[28X  <pc group of size 27 with 3 generators> ][128X[104X
     [4X[25Xgap>[125X [27XList(des, d -> Length( PCentralSeries( d, 3 ) ) - 1 );[127X[104X
     [4X[28X[ 2, 2 ][128X[104X
-    [4X[25Xgap>[125X [27X# For comparison let us now compute all descendants[127X[104X
+    [4X[25Xgap>[125X [27X# For comparison let us now compute all proper descendants[127X[104X
     [4X[25Xgap>[125X [27XPqDescendants( G : OrderBound := 3, ClassBound := 2);[127X[104X
     [4X[28X[ <pc group of size 27 with 3 generators>, [128X[104X
     [4X[28X  <pc group of size 27 with 3 generators>, [128X[104X
     [4X[28X  <pc group of size 27 with 3 generators> ][128X[104X
   [4X[32X[104X
   
-  [33X[0;0YIn  the  third example, we compute all capable descendants of the elementary
-  abelian  group  of order [22X5^2[122X which have exponent-[22X5[122X class at most [22X3[122X, exponent
-  [22X5[122X, and are metabelian.[133X
+  [33X[0;0YIn  the  third  example,  we  compute  all proper capable descendants of the
+  elementary abelian group of order [22X5^2[122X which have exponent-[22X5[122X class at most [22X3[122X,
+  exponent [22X5[122X, and are metabelian.[133X
   
   [4X[32X  Example  [32X[104X
     [4X[25Xgap>[125X [27XF := FreeGroup( 2, "g" );;[127X[104X

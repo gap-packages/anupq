@@ -1,4 +1,4 @@
-[![Build Status](https://github.com/gap-packages/anupq/workflows/CI/badge.svg?branch=master)](https://github.com/gap-packages/anupq/actions?query=workflow%3ACI+branch%3Amaster)
+[![CI](https://github.com/gap-packages/anupq/actions/workflows/CI.yml/badge.svg)](https://github.com/gap-packages/anupq/actions/workflows/CI.yml)
 [![Code Coverage](https://codecov.io/github/gap-packages/anupq/coverage.svg?branch=master&token=)](https://codecov.io/gh/gap-packages/anupq)
 
 # The ANUPQ package

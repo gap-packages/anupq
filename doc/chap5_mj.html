@@ -229,7 +229,7 @@ pq program</span></a>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Pq</code>( <var class="Arg">i:</var> <var class="Arg">options</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Pq</code>( <var class="Arg">:</var> <var class="Arg">options</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
-<p>return, for the fp or pc group (let us call it <var class="Arg">F</var>), of the <var class="Arg">i</var>th or default interactive <strong class="pkg">ANUPQ</strong> process, the <span class="SimpleMath">\(p\)</span>-quotient of <var class="Arg">F</var> specified by <var class="Arg">options</var>, as a pc group; <var class="Arg">F</var> must previously have been given (as first argument) to <code class="code">PqStart</code> to start the interactive <strong class="pkg">ANUPQ</strong> process (see <code class="func">PqStart</code> (<a href="chap5_mj.html#X83B2EC237F37623C"><span class="RefLink">5.1-1</span></a>)) or restored from file using the function <code class="code">PqRestorePcPresentation</code> (see <code class="func">PqRestorePcPresentation</code> (<a href="chap5_mj.html#X7FD001C0798EF219"><span class="RefLink">5.6-3</span></a>)). Following the colon <var class="Arg">options</var> is a selection of the options listed for the non-interactive <code class="code">Pq</code> function (see <code class="func">Pq</code> (<a href="chap4_mj.html#X86DD32D5803CF2C8"><span class="RefLink">4.1-1</span></a>)), separated by commas like record components (see Section <a href="https://docs.gap-system.org/doc/ref/chap4_mj.html#X867D54987EF86D1D"><span class="RefLink">Reference: Function Call With Options</span></a> in the <strong class="pkg">GAP</strong> Reference Manual), except that the options <code class="code">SetupFile</code> or <code class="code">PqWorkspace</code> are ignored by the interactive <code class="code">Pq</code>, and <code class="code">RedoPcp</code> is an option only recognised by the interactive <code class="code">Pq</code> i.e. the following options are recognised by the interactive <code class="code">Pq</code> function:</p>
+<p>return, for the fp or pc group (let us call it <var class="Arg">F</var>), of the <var class="Arg">i</var>th or default interactive <strong class="pkg">ANUPQ</strong> process, the <span class="SimpleMath">\(p\)</span>-quotient of <var class="Arg">F</var> specified by <var class="Arg">options</var>, as a pc group; <var class="Arg">F</var> must previously have been given (as first argument) to <code class="code">PqStart</code> to start the interactive <strong class="pkg">ANUPQ</strong> process (see <code class="func">PqStart</code> (<a href="chap5_mj.html#X83B2EC237F37623C"><span class="RefLink">5.1-1</span></a>)) or restored from file using the function <code class="code">PqRestorePcPresentation</code> (see <code class="func">PqRestorePcPresentation</code> (<a href="chap5_mj.html#X7FD001C0798EF219"><span class="RefLink">5.6-3</span></a>)). Following the colon <var class="Arg">options</var> is a selection of the options listed for the non-interactive <code class="code">Pq</code> function (see <code class="func">Pq</code> (<a href="chap4_mj.html#X86DD32D5803CF2C8"><span class="RefLink">4.1-1</span></a>)), separated by commas like record components (see Section <a href="../../../doc/ref/chap4_mj.html#X867D54987EF86D1D"><span class="RefLink">Reference: Function Call With Options</span></a> in the <strong class="pkg">GAP</strong> Reference Manual), except that the options <code class="code">SetupFile</code> or <code class="code">PqWorkspace</code> are ignored by the interactive <code class="code">Pq</code>, and <code class="code">RedoPcp</code> is an option only recognised by the interactive <code class="code">Pq</code> i.e. the following options are recognised by the interactive <code class="code">Pq</code> function:</p>
 
 
 <ul>
@@ -383,7 +383,7 @@ PqPCover(i);
 
 </li>
 </ul>
-<p>Unless <var class="Arg">F</var> is a pc <var class="Arg">p</var>-group, or the option <code class="code">Prime</code> has been passed to a previous interactive function for the process to compute a <var class="Arg">p</var>-quotient for <var class="Arg">F</var>, the user <em>must</em> supply either the option <code class="code">Prime</code> or the option <code class="code">pQuotient</code> (if both <code class="code">Prime</code> and <code class="code">pQuotient</code> are supplied, the prime <var class="Arg">p</var> is determined by applying <code class="code">PrimePGroup</code> (see <code class="func">PrimePGroup</code> (<a href="https://docs.gap-system.org/doc/ref/chap39_mj.html#X87356BAA7E9E2142"><span class="RefLink">Reference: PrimePGroup</span></a>) in the Reference Manual) to the value of <code class="code">pQuotient</code>).</p>
+<p>Unless <var class="Arg">F</var> is a pc <var class="Arg">p</var>-group, or the option <code class="code">Prime</code> has been passed to a previous interactive function for the process to compute a <var class="Arg">p</var>-quotient for <var class="Arg">F</var>, the user <em>must</em> supply either the option <code class="code">Prime</code> or the option <code class="code">pQuotient</code> (if both <code class="code">Prime</code> and <code class="code">pQuotient</code> are supplied, the prime <var class="Arg">p</var> is determined by applying <code class="code">PrimePGroup</code> (see <code class="func">PrimePGroup</code> (<a href="../../../doc/ref/chap39_mj.html#X87356BAA7E9E2142"><span class="RefLink">Reference: PrimePGroup</span></a>) in the Reference Manual) to the value of <code class="code">pQuotient</code>).</p>
 
 <p>Taking one of the examples for the non-interactive version of <code class="code">StandardPresentation</code> (see <code class="func">StandardPresentation</code> (<a href="chap4_mj.html#X86C9575D7CB65FBB"><span class="RefLink">4.2-1</span></a>)) that required two separate calls to the <code class="code">pq</code> program, we now show how it can be done by setting up a dialogue with just the one <code class="code">pq</code> process, using the interactive version of <code class="code">StandardPresentation</code>:</p>
 
@@ -395,17 +395,16 @@ PqPCover(i);
 <span class="GAPprompt">&gt;</span> <span class="GAPinput">                a^16 / (c * d), b^8 / (d * c^4) ];</span>
 &lt;fp group on the generators [ a, b, c, d ]&gt;
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">SetInfoLevel(InfoANUPQ, 1); #Only essential Info please</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">PqStart(G4); #Start a new interactive process for a new group</span>
-2
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">K := Pq( 2 : Prime := 2, ClassBound := 1 ); #`pq' process no. is 2</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">procId := PqStart(G4);; #Start a new interactive process for a new group</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">K := Pq( procId : Prime := 2, ClassBound := 1 );</span>
 &lt;pc group of size 4 with 2 generators&gt;
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">StandardPresentation( 2 : pQuotient := K, ClassBound := 14 );</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">StandardPresentation( procId : pQuotient := K, ClassBound := 14 );</span>
 &lt;fp group with 53 generators&gt;
 </pre></div>
 
 <p><em>Notes</em></p>
 
-<p>In contrast to the function <code class="code">Pq</code> (see <code class="func">Pq</code> (<a href="chap4_mj.html#X86DD32D5803CF2C8"><span class="RefLink">4.1-1</span></a>)) which returns a pc group, <code class="code">PqStandardPresentation</code> or <code class="code">StandardPresentation</code> returns an fp group. This is because the output is mainly used for isomorphism testing for which an fp group is enough. However, the presentation is a polycyclic presentation and if you need to do any further computation with this group (e.g. to find the order) you can use the function <code class="code">PcGroupFpGroup</code> (see <code class="func">PcGroupFpGroup</code> (<a href="https://docs.gap-system.org/doc/ref/chap46_mj.html#X84C10D1F7CB5274F"><span class="RefLink">Reference: PcGroupFpGroup</span></a>) in the <strong class="pkg">GAP</strong> Reference Manual) to form a pc group.</p>
+<p>In contrast to the function <code class="code">Pq</code> (see <code class="func">Pq</code> (<a href="chap4_mj.html#X86DD32D5803CF2C8"><span class="RefLink">4.1-1</span></a>)) which returns a pc group, <code class="code">PqStandardPresentation</code> or <code class="code">StandardPresentation</code> returns an fp group. This is because the output is mainly used for isomorphism testing for which an fp group is enough. However, the presentation is a polycyclic presentation and if you need to do any further computation with this group (e.g. to find the order) you can use the function <code class="code">PcGroupFpGroup</code> (see <code class="func">PcGroupFpGroup</code> (<a href="../../../doc/ref/chap46_mj.html#X84C10D1F7CB5274F"><span class="RefLink">Reference: PcGroupFpGroup</span></a>) in the <strong class="pkg">GAP</strong> Reference Manual) to form a pc group.</p>
 
 <p>If the user does not supply a <var class="Arg">p</var>-quotient <var class="Arg">Q</var> via the <code class="code">pQuotient</code> option, and the prime <var class="Arg">p</var> is either supplied, stored, or <var class="Arg">F</var> is a pc <var class="Arg">p</var>-group, then a <var class="Arg">p</var>-quotient <var class="Arg">Q</var> is computed. (The value of the prime <var class="Arg">p</var> is stored if passed initially to <code class="code">PqStart</code> or to a subsequent interactive process.) Note that a stored value for <code class="code">pQuotient</code> (from a prior call to <code class="code">Pq</code>) does <em>not</em> have precedence over a value for the prime <var class="Arg">p</var>. If the user does supply a <var class="Arg">p</var>-quotient <var class="Arg">Q</var> via the <code class="code">pQuotient</code> option, the package <strong class="pkg">AutPGrp</strong> is called to compute the automorphism group of <var class="Arg">Q</var>; an error will occur that asks the user to install the package <strong class="pkg">AutPGrp</strong> if the automorphism group cannot be computed.</p>
 
@@ -433,9 +432,8 @@ PqPCover(i);
   F3^-1*F1^-1*F3*F1, F3^-1*F2^-1*F3*F2*F5^-1, F3^3 ]
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Q := F / R;</span>
 &lt;fp group on the generators [ F1, F2, F3, F4, F5, F6 ]&gt;
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">PqStart( Q );</span>
-3
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">G := Pq( 3 : Prime := 3, ClassBound := 3 );</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">procId := PqStart( Q );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">G := Pq( procId : Prime := 3, ClassBound := 3 );</span>
 &lt;pc group of size 729 with 6 generators&gt;
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">lev := InfoLevel(InfoANUPQ);; # Save current InfoANUPQ level</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">SetInfoLevel(InfoANUPQ, 2); # To see computation times</span>
@@ -475,9 +473,9 @@ PqPCover(i);
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; PqDescendants</code>( <var class="Arg">i:</var> <var class="Arg">options</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; PqDescendants</code>( <var class="Arg">:</var> <var class="Arg">options</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
-<p>return for the pc group <var class="Arg">G</var> of the <var class="Arg">i</var>th or default interactive <strong class="pkg">ANUPQ</strong> process, which must be of prime power order with a confluent pc presentation (see <code class="func">IsConfluent</code> (<a href="https://docs.gap-system.org/doc/ref/chap46_mj.html#X7DF4835F79667099"><span class="RefLink">Reference: IsConfluent for pc groups</span></a>) in the <strong class="pkg">GAP</strong> Reference Manual), a list of descendants (pc groups) of <var class="Arg">G</var>. The group <var class="Arg">G</var> is usually given as first argument to <code class="code">PqStart</code> when starting the interactive <strong class="pkg">ANUPQ</strong> process (see <code class="func">PqStart</code> (<a href="chap5_mj.html#X83B2EC237F37623C"><span class="RefLink">5.1-1</span></a>)). Alternatively, one may initiate the process with an fp group, use <code class="code">Pq</code> interactively (see <code class="func">Pq</code> (<a href="chap5_mj.html#X85408C4C790439E7"><span class="RefLink">5.3-1</span></a>)) to create a pc group and use <code class="code">PqSetPQuotientToGroup</code> (see <code class="func">PqSetPQuotientToGroup</code> (<a href="chap5_mj.html#X80CCF6D379E5A3B4"><span class="RefLink">5.3-7</span></a>)), which involves <em>no</em> computation, to set the pc group returned by <code class="code">Pq</code> as the group of the process. Note that repeating a call to <code class="code">PqDescendants</code> for the same interactive <strong class="pkg">ANUPQ</strong> process simply returns the list of descendants originally calculated; a warning is emitted at <code class="code">InfoANUPQ</code> level 1 reminding you of this should you do this.</p>
+<p>return for the pc group <var class="Arg">G</var> of the <var class="Arg">i</var>th or default interactive <strong class="pkg">ANUPQ</strong> process, which must be of prime power order with a confluent pc presentation (see <code class="func">IsConfluent</code> (<a href="../../../doc/ref/chap46_mj.html#X7DF4835F79667099"><span class="RefLink">Reference: IsConfluent for pc groups</span></a>) in the <strong class="pkg">GAP</strong> Reference Manual), a list of proper descendants (pc groups) of <var class="Arg">G</var>. The group <var class="Arg">G</var> is usually given as first argument to <code class="code">PqStart</code> when starting the interactive <strong class="pkg">ANUPQ</strong> process (see <code class="func">PqStart</code> (<a href="chap5_mj.html#X83B2EC237F37623C"><span class="RefLink">5.1-1</span></a>)). Alternatively, one may initiate the process with an fp group, use <code class="code">Pq</code> interactively (see <code class="func">Pq</code> (<a href="chap5_mj.html#X85408C4C790439E7"><span class="RefLink">5.3-1</span></a>)) to create a pc group and use <code class="code">PqSetPQuotientToGroup</code> (see <code class="func">PqSetPQuotientToGroup</code> (<a href="chap5_mj.html#X80CCF6D379E5A3B4"><span class="RefLink">5.3-7</span></a>)), which involves <em>no</em> computation, to set the pc group returned by <code class="code">Pq</code> as the group of the process. Note that repeating a call to <code class="code">PqDescendants</code> for the same interactive <strong class="pkg">ANUPQ</strong> process simply returns the list of descendants originally calculated; a warning is emitted at <code class="code">InfoANUPQ</code> level 1 reminding you of this should you do this.</p>
 
-<p>After the colon, <var class="Arg">options</var> a selection of the options listed for the non-interactive <code class="code">PqDescendants</code> function (see <code class="func">PqDescendants</code> (<a href="chap4_mj.html#X80985CC479CD9FA3"><span class="RefLink">4.4-1</span></a>)), should be given, separated by commas like record components (see Section <a href="https://docs.gap-system.org/doc/ref/chap4_mj.html#X867D54987EF86D1D"><span class="RefLink">Reference: Function Call With Options</span></a> in the <strong class="pkg">GAP</strong> Reference Manual), except that the options <code class="code">SetupFile</code> or <code class="code">PqWorkspace</code> are ignored by the interactive <code class="code">PqDescendants</code>, i.e. the following options are recognised by the interactive <code class="code">PqDescendants</code> function:</p>
+<p>After the colon, <var class="Arg">options</var> a selection of the options listed for the non-interactive <code class="code">PqDescendants</code> function (see <code class="func">PqDescendants</code> (<a href="chap4_mj.html#X80985CC479CD9FA3"><span class="RefLink">4.4-1</span></a>)), should be given, separated by commas like record components (see Section <a href="../../../doc/ref/chap4_mj.html#X867D54987EF86D1D"><span class="RefLink">Reference: Function Call With Options</span></a> in the <strong class="pkg">GAP</strong> Reference Manual), except that the options <code class="code">SetupFile</code> or <code class="code">PqWorkspace</code> are ignored by the interactive <code class="code">PqDescendants</code>, i.e. the following options are recognised by the interactive <code class="code">PqDescendants</code> function:</p>
 
 
 <ul>
@@ -535,9 +533,8 @@ PqPCover(i);
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">F := FreeGroup( "a", "b" );; a := F.1;; b := F.2;;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">G := PcGroupFpGroup( F / [ a^2, b^2, Comm(b, a) ] );</span>
 &lt;pc group of size 4 with 2 generators&gt;
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">PqStart(G); #This will now be the 4th interactive process running</span>
-4
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">des := PqDescendants( 4 : OrderBound := 6, ClassBound := 5 );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">procId := PqStart(G);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">des := PqDescendants( procId : OrderBound := 6, ClassBound := 5 );;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Length(des);</span>
 83
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">List(des, Size);</span>
@@ -560,15 +557,14 @@ PqPCover(i);
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">F := FreeGroup( 2, "g" );;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">G := PcGroupFpGroup( F / [ F.1^3, F.2^3, Comm(F.1, F.2) ] );</span>
 &lt;pc group of size 9 with 2 generators&gt;
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">PqStart(G); #This will now be the 5th interactive process running</span>
-5
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">des := PqDescendants( 5 : OrderBound := 3, ClassBound := 2,</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">procId := PqStart(G);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">des := PqDescendants( procId : OrderBound := 3, ClassBound := 2,</span>
 <span class="GAPprompt">&gt;</span> <span class="GAPinput">                             CapableDescendants );</span>
 [ &lt;pc group of size 27 with 3 generators&gt;, 
   &lt;pc group of size 27 with 3 generators&gt; ]
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">List(des, d -&gt; Length( PCentralSeries( d, 3 ) ) - 1 );</span>
 [ 2, 2 ]
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput"># For comparison let us now compute all descendants</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput"># For comparison let us now compute all proper descendants</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput"># (using the non-interactive Pq function)</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">PqDescendants( G : OrderBound := 3, ClassBound := 2);</span>
 [ &lt;pc group of size 27 with 3 generators&gt;, 
@@ -576,16 +572,15 @@ PqPCover(i);
   &lt;pc group of size 27 with 3 generators&gt; ]
 </pre></div>
 
-<p>In the third example, we compute all capable descendants of the elementary abelian group of order <span class="SimpleMath">\(5^2\)</span> which have exponent-<span class="SimpleMath">\(5\)</span> class at most <span class="SimpleMath">\(3\)</span>, exponent <span class="SimpleMath">\(5\)</span>, and are metabelian.</p>
+<p>In the third example, we compute all proper capable descendants of the elementary abelian group of order <span class="SimpleMath">\(5^2\)</span> which have exponent-<span class="SimpleMath">\(5\)</span> class at most <span class="SimpleMath">\(3\)</span>, exponent <span class="SimpleMath">\(5\)</span>, and are metabelian.</p>
 
 
 <div class="example"><pre>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">F := FreeGroup( 2, "g" );;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">G := PcGroupFpGroup( F / [ F.1^5, F.2^5, Comm(F.2, F.1) ] );</span>
 &lt;pc group of size 25 with 2 generators&gt;
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">PqStart(G); #This will now be the 6th interactive process running</span>
-6
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">des := PqDescendants( 6 : Metabelian, ClassBound := 3,</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">procId := PqStart(G);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">des := PqDescendants( procId : Metabelian, ClassBound := 3,</span>
 <span class="GAPprompt">&gt;</span> <span class="GAPinput">                             Exponent := 5, CapableDescendants );</span>
 [ &lt;pc group of size 125 with 3 generators&gt;, 
   &lt;pc group of size 625 with 4 generators&gt;, 
@@ -614,8 +609,7 @@ PqPCover(i);
 <div class="example"><pre>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">F := FreeGroup( "a", "b" );</span>
 &lt;free group on the generators [ a, b ]&gt;
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">procId := PqStart( F : Prime := 2 );</span>
-7
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">procId := PqStart( F : Prime := 2 );;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Pq( procId : ClassBound := 1 );</span>
 &lt;pc group of size 4 with 2 generators&gt;
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">PqSetPQuotientToGroup( procId );</span>

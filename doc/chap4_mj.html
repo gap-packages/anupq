@@ -85,7 +85,7 @@
 <h5>4.1-1 Pq</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Pq</code>( <var class="Arg">F:</var> <var class="Arg">options</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
-<p>returns for the fp or pc group <var class="Arg">F</var>, the <span class="SimpleMath">\(p\)</span>-quotient of <var class="Arg">F</var> specified by <var class="Arg">options</var>, as a pc group. Following the colon, <var class="Arg">options</var> is a selection of the options from the following list, separated by commas like record components (see Section <a href="https://docs.gap-system.org/doc/ref/chap4_mj.html#X867D54987EF86D1D"><span class="RefLink">Reference: Function Call With Options</span></a> in the <strong class="pkg">GAP</strong> Reference Manual). As a minimum the user <em>must</em> supply a value for the <code class="code">Prime</code> option. Below we list the options recognised by <code class="code">Pq</code> (see Chapter <a href="chap6_mj.html#X7B0946E97E7EB359"><span class="RefLink"><span class="Heading">ANUPQ Options</span></span></a> for detailed descriptions).</p>
+<p>returns for the fp or pc group <var class="Arg">F</var>, the <span class="SimpleMath">\(p\)</span>-quotient of <var class="Arg">F</var> specified by <var class="Arg">options</var>, as a pc group. Following the colon, <var class="Arg">options</var> is a selection of the options from the following list, separated by commas like record components (see Section <a href="../../../doc/ref/chap4_mj.html#X867D54987EF86D1D"><span class="RefLink">Reference: Function Call With Options</span></a> in the <strong class="pkg">GAP</strong> Reference Manual). As a minimum the user <em>must</em> supply a value for the <code class="code">Prime</code> option. Below we list the options recognised by <code class="code">Pq</code> (see Chapter <a href="chap6_mj.html#X7B0946E97E7EB359"><span class="RefLink"><span class="Heading">ANUPQ Options</span></span></a> for detailed descriptions).</p>
 
 
 <ul>
@@ -315,7 +315,7 @@ function( x, y ) ... end
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; PqStandardPresentation</code>( <var class="Arg">F:</var> <var class="Arg">options</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; StandardPresentation</code>( <var class="Arg">F:</var> <var class="Arg">options</var> )</td><td class="tdright">(&nbsp;method&nbsp;)</td></tr></table></div>
-<p>return the <var class="Arg">p</var>-quotient specified by <var class="Arg">options</var> of the fp or pc <span class="SimpleMath">\(p\)</span>-group <var class="Arg">F</var>, as an <em>fp group</em> which has a standard presentation. Here <var class="Arg">options</var> is a selection of the options from the following list (see Chapter <a href="chap6_mj.html#X7B0946E97E7EB359"><span class="RefLink"><span class="Heading">ANUPQ Options</span></span></a> for detailed descriptions). Section <a href="chap3_mj.html#X7BA20FA07B166B37"><span class="RefLink"><span class="Heading">Hints and Warnings regarding the use of Options</span></span></a> gives some important hints and warnings regarding option usage, and Section <a href="https://docs.gap-system.org/doc/ref/chap4_mj.html#X867D54987EF86D1D"><span class="RefLink">Reference: Function Call With Options</span></a> in the <strong class="pkg">GAP</strong> Reference Manual describes their <q>record</q>-like syntax.</p>
+<p>return the <var class="Arg">p</var>-quotient specified by <var class="Arg">options</var> of the fp or pc <span class="SimpleMath">\(p\)</span>-group <var class="Arg">F</var>, as an <em>fp group</em> which has a standard presentation. Here <var class="Arg">options</var> is a selection of the options from the following list (see Chapter <a href="chap6_mj.html#X7B0946E97E7EB359"><span class="RefLink"><span class="Heading">ANUPQ Options</span></span></a> for detailed descriptions). Section <a href="chap3_mj.html#X7BA20FA07B166B37"><span class="RefLink"><span class="Heading">Hints and Warnings regarding the use of Options</span></span></a> gives some important hints and warnings regarding option usage, and Section <a href="../../../doc/ref/chap4_mj.html#X867D54987EF86D1D"><span class="RefLink">Reference: Function Call With Options</span></a> in the <strong class="pkg">GAP</strong> Reference Manual describes their <q>record</q>-like syntax.</p>
 
 
 <ul>
@@ -350,11 +350,11 @@ function( x, y ) ... end
 
 </li>
 </ul>
-<p>Unless <var class="Arg">F</var> is a pc <var class="Arg">p</var>-group, the user <em>must</em> supply either the option <code class="code">Prime</code> or the option <code class="code">pQuotient</code> (if both <code class="code">Prime</code> and <code class="code">pQuotient</code> are supplied, the prime <var class="Arg">p</var> is determined by applying <code class="code">PrimePGroup</code> (see <code class="func">PrimePGroup</code> (<a href="https://docs.gap-system.org/doc/ref/chap39_mj.html#X87356BAA7E9E2142"><span class="RefLink">Reference: PrimePGroup</span></a>) in the Reference Manual) to the value of <code class="code">pQuotient</code>).</p>
+<p>Unless <var class="Arg">F</var> is a pc <var class="Arg">p</var>-group, the user <em>must</em> supply either the option <code class="code">Prime</code> or the option <code class="code">pQuotient</code> (if both <code class="code">Prime</code> and <code class="code">pQuotient</code> are supplied, the prime <var class="Arg">p</var> is determined by applying <code class="code">PrimePGroup</code> (see <code class="func">PrimePGroup</code> (<a href="../../../doc/ref/chap39_mj.html#X87356BAA7E9E2142"><span class="RefLink">Reference: PrimePGroup</span></a>) in the Reference Manual) to the value of <code class="code">pQuotient</code>).</p>
 
 <p>The options for <code class="code">PqStandardPresentation</code> may also be passed in the two other alternative ways described for <code class="code">Pq</code> (see <code class="func">Pq</code> (<a href="chap4_mj.html#X86DD32D5803CF2C8"><span class="RefLink">4.1-1</span></a>)). <code class="code">StandardPresentation</code> does not provide these alternative ways of passing options.</p>
 
-<p><em>Notes:</em> In contrast to the function <code class="code">Pq</code> (see <code class="func">Pq</code> (<a href="chap4_mj.html#X86DD32D5803CF2C8"><span class="RefLink">4.1-1</span></a>)) which returns a pc group, <code class="code">PqStandardPresentation</code> or <code class="code">StandardPresentation</code> returns an fp group. This is because the output is mainly used for isomorphism testing for which an fp group is enough. However, the presentation is a polycyclic presentation and if you need to do any further computation with this group (e.g. to find the order) you can use the function <code class="code">PcGroupFpGroup</code> (see <code class="func">PcGroupFpGroup</code> (<a href="https://docs.gap-system.org/doc/ref/chap46_mj.html#X84C10D1F7CB5274F"><span class="RefLink">Reference: PcGroupFpGroup</span></a>) in the <strong class="pkg">GAP</strong> Reference Manual) to form a pc group.</p>
+<p><em>Notes:</em> In contrast to the function <code class="code">Pq</code> (see <code class="func">Pq</code> (<a href="chap4_mj.html#X86DD32D5803CF2C8"><span class="RefLink">4.1-1</span></a>)) which returns a pc group, <code class="code">PqStandardPresentation</code> or <code class="code">StandardPresentation</code> returns an fp group. This is because the output is mainly used for isomorphism testing for which an fp group is enough. However, the presentation is a polycyclic presentation and if you need to do any further computation with this group (e.g. to find the order) you can use the function <code class="code">PcGroupFpGroup</code> (see <code class="func">PcGroupFpGroup</code> (<a href="../../../doc/ref/chap46_mj.html#X84C10D1F7CB5274F"><span class="RefLink">Reference: PcGroupFpGroup</span></a>) in the <strong class="pkg">GAP</strong> Reference Manual) to form a pc group.</p>
 
 <p>If the user does not supply a <var class="Arg">p</var>-quotient <var class="Arg">Q</var> via the <code class="code">pQuotient</code> option and the prime <var class="Arg">p</var> is either supplied or <var class="Arg">F</var> is a pc <var class="Arg">p</var>-group, then a <var class="Arg">p</var>-quotient <var class="Arg">Q</var> is computed. If the user does supply a <var class="Arg">p</var>-quotient <var class="Arg">Q</var> via the <code class="code">pQuotient</code> option, the package <strong class="pkg">AutPGrp</strong> is called to compute the automorphism group of <var class="Arg">Q</var>; an error will occur that asks the user to install the package <strong class="pkg">AutPGrp</strong> if the automorphism group cannot be computed.</p>
 
@@ -440,7 +440,7 @@ true
 729
 </pre></div>
 
-<p>Typing: <code class="code">PqExample( "EpimorphismStandardPresentation" );</code> runs the above example in <strong class="pkg">GAP</strong> (see <code class="func">PqExample</code> (<a href="chap3_mj.html#X7BB0EB607F337265"><span class="RefLink">3.4-4</span></a>)). Note that <code class="code">AssignGeneratorVariables</code> (see <code class="func">AssignGeneratorVariables</code> (<a href="https://docs.gap-system.org/doc/ref/chap37_mj.html#X814203E281F3272E"><span class="RefLink">Reference: AssignGeneratorVariables</span></a>)) has only been available since <strong class="pkg">GAP</strong> 4.3.</p>
+<p>Typing: <code class="code">PqExample( "EpimorphismStandardPresentation" );</code> runs the above example in <strong class="pkg">GAP</strong> (see <code class="func">PqExample</code> (<a href="chap3_mj.html#X7BB0EB607F337265"><span class="RefLink">3.4-4</span></a>)). Note that <code class="code">AssignGeneratorVariables</code> (see <code class="func">AssignGeneratorVariables</code> (<a href="../../../doc/ref/chap37_mj.html#X814203E281F3272E"><span class="RefLink">Reference: AssignGeneratorVariables</span></a>)) has only been available since <strong class="pkg">GAP</strong> 4.3.</p>
 
 <p><a id="X8030FAE586423615" name="X8030FAE586423615"></a></p>
 
@@ -460,7 +460,7 @@ true
 Group([ (1,2,3,4), (1,3) ])
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">P1 := Image( IsomorphismPcGroup( G ) );</span>
 Group([ f1, f2, f3 ])
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">P2 := ElementaryAbelianGroup( 8 );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">P2 := ElementaryAbelianGroup( 8 );</span>
 &lt;pc group of size 8 with 3 generators&gt;
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsIsomorphicPGroup( P1, P2 );</span>
 false
@@ -485,7 +485,7 @@ true
 <h5>4.4-1 PqDescendants</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; PqDescendants</code>( <var class="Arg">G:</var> <var class="Arg">options</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
-<p>returns, for the pc group <var class="Arg">G</var> which must be of prime power order with a confluent pc presentation (see <code class="func">IsConfluent</code> (<a href="https://docs.gap-system.org/doc/ref/chap46_mj.html#X7DF4835F79667099"><span class="RefLink">Reference: IsConfluent for pc groups</span></a>) in the <strong class="pkg">GAP</strong> Reference Manual), a list of descendants (pc groups) of <var class="Arg">G</var>. Following the colon <var class="Arg">options</var> a selection of the options listed below should be given, separated by commas like record components (see Section <a href="https://docs.gap-system.org/doc/ref/chap4_mj.html#X867D54987EF86D1D"><span class="RefLink">Reference: Function Call With Options</span></a> in the <strong class="pkg">GAP</strong> Reference Manual). See Chapter <a href="chap6_mj.html#X7B0946E97E7EB359"><span class="RefLink"><span class="Heading">ANUPQ Options</span></span></a> for detailed descriptions of the options.</p>
+<p>returns, for the pc group <var class="Arg">G</var> which must be of prime power order with a confluent pc presentation (see <code class="func">IsConfluent</code> (<a href="../../../doc/ref/chap46_mj.html#X7DF4835F79667099"><span class="RefLink">Reference: IsConfluent for pc groups</span></a>) in the <strong class="pkg">GAP</strong> Reference Manual), a list of proper descendants (pc groups) of <var class="Arg">G</var>. Following the colon <var class="Arg">options</var> a selection of the options listed below should be given, separated by commas like record components (see Section <a href="../../../doc/ref/chap4_mj.html#X867D54987EF86D1D"><span class="RefLink">Reference: Function Call With Options</span></a> in the <strong class="pkg">GAP</strong> Reference Manual). See Chapter <a href="chap6_mj.html#X7B0946E97E7EB359"><span class="RefLink"><span class="Heading">ANUPQ Options</span></span></a> for detailed descriptions of the options.</p>
 
 <p>The automorphism group of each descendant <var class="Arg">D</var> is also computed via a call to the <code class="code">AutomorphismGroupPGroup</code> function of the <strong class="pkg">AutPGrp</strong> package.</p>
 
@@ -548,7 +548,7 @@ true
 
 <p>Note that you cannot set both <code class="code">OrderBound</code> and <code class="code">StepSize</code>.</p>
 
-<p>In the first example we compute all descendants of the Klein four group which have exponent-2 class at most 5 and order at most <span class="SimpleMath">\(2^6\)</span>.</p>
+<p>In the first example we compute all proper descendants of the Klein four group which have exponent-2 class at most 5 and order at most <span class="SimpleMath">\(2^6\)</span>.</p>
 
 
 <div class="example"><pre>
@@ -585,14 +585,14 @@ true
   &lt;pc group of size 27 with 3 generators&gt; ]
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">List(des, d -&gt; Length( PCentralSeries( d, 3 ) ) - 1 );</span>
 [ 2, 2 ]
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput"># For comparison let us now compute all descendants</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput"># For comparison let us now compute all proper descendants</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">PqDescendants( G : OrderBound := 3, ClassBound := 2);</span>
 [ &lt;pc group of size 27 with 3 generators&gt;, 
   &lt;pc group of size 27 with 3 generators&gt;, 
   &lt;pc group of size 27 with 3 generators&gt; ]
 </pre></div>
 
-<p>In the third example, we compute all capable descendants of the elementary abelian group of order <span class="SimpleMath">\(5^2\)</span> which have exponent-<span class="SimpleMath">\(5\)</span> class at most <span class="SimpleMath">\(3\)</span>, exponent <span class="SimpleMath">\(5\)</span>, and are metabelian.</p>
+<p>In the third example, we compute all proper capable descendants of the elementary abelian group of order <span class="SimpleMath">\(5^2\)</span> which have exponent-<span class="SimpleMath">\(5\)</span> class at most <span class="SimpleMath">\(3\)</span>, exponent <span class="SimpleMath">\(5\)</span>, and are metabelian.</p>
 
 
 <div class="example"><pre>

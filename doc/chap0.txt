@@ -1,15 +1,15 @@
   
   
-                                    [1X ANUPQ [101X
+                                    [1X [5XANUPQ[105X [101X
   
   
                                 [1X ANU p-Quotient [101X
   
   
-                                     3.3.2
+                                     3.3.3
   
   
-                                 28 August 2025
+                                25 November 2025
   
   
                                   Greg Gamble
@@ -22,29 +22,15 @@
   
             [33X[0;10Y[5XANUPQ[105X  is maintained by Max Horn ([7Xmailto:mhorn@rptu.de[107X).
             For  support  requests,  please  use  our  issue tracker
-            ([7Xhttps[107X).[133X
+            ([7Xhttps://github.com/gap-packages/anupq/issues[107X).[133X
   
   
   
   Greg Gamble
       Email:    [7Xmailto:Greg.Gamble@uwa.edu.au[107X
-      Address:  [33X[0;14YDepartment of Mathematics and Statistics[133X
-                [33X[0;14YCurtin University[133X
-                [33X[0;14YGPO Box U 1987[133X
-                [33X[0;14YPerth WA 6845[133X
-                [33X[0;14YAustralia[133X
-  
-  
   Eamonn O'Brien
       Email:    [7Xmailto:obrien@math.auckland.ac.nz[107X
       Homepage: [7Xhttps://www.math.auckland.ac.nz/~obrien[107X
-      Address:  [33X[0;14YDepartment of Mathematics[133X
-                [33X[0;14YUniversity of Auckland[133X
-                [33X[0;14YPrivate Bag 92019[133X
-                [33X[0;14YAuckland[133X
-                [33X[0;14YNew Zealand[133X
-  
-  
   
   -------------------------------------------------------
   [1XCopyright[101X

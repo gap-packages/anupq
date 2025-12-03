@@ -163,8 +163,7 @@
     [4X[28Xc[128X[104X
     [4X[25Xgap>[125X [27XR := [PqLeftNormComm([b, a, a, b, c])^11, [127X[104X
     [4X[25X>[125X [27X         PqLeftNormComm([a, b, b, a, b, c])^11, (a * b)^11];;[127X[104X
-    [4X[25Xgap>[125X [27XprocId := PqStart(F/R : Prime := 11);[127X[104X
-    [4X[28X1[128X[104X
+    [4X[25Xgap>[125X [27XprocId := PqStart(F/R : Prime := 11);;[127X[104X
     [4X[25Xgap>[125X [27XPqPcPresentation(procId : ClassBound := 7, [127X[104X
     [4X[25X>[125X [27X                             OutputLevel := 1);[127X[104X
     [4X[28X#I  Lower exponent-11 central series for [grp][128X[104X
@@ -193,8 +192,7 @@
     [4X[28X<free group on the generators [ a, b, c ]>[128X[104X
     [4X[25Xgap>[125X [27Xrels := ["[b, a, a, b, c]^11", "[a, b, b, a, b, c]^11", "(a * b)^11"];[127X[104X
     [4X[28X[ "[b, a, a, b, c]^11", "[a, b, b, a, b, c]^11", "(a * b)^11" ][128X[104X
-    [4X[25Xgap>[125X [27XprocId := PqStart(F : Prime := 11, Relators := rels);[127X[104X
-    [4X[28X2[128X[104X
+    [4X[25Xgap>[125X [27XprocId := PqStart(F : Prime := 11, Relators := rels);;[127X[104X
     [4X[25Xgap>[125X [27XPqPcPresentation(procId : ClassBound := 7, [127X[104X
     [4X[25X>[125X [27X                             OutputLevel := 1);[127X[104X
     [4X[28X#I  Relators parsed ok.[128X[104X
@@ -296,8 +294,7 @@
     [4X[25Xgap>[125X [27X# must satisfy the Engel identity: [u, v, v, v] = 1.[127X[104X
     [4X[25Xgap>[125X [27Xf := function(u, v) return PqLeftNormComm( [u, v, v, v] ); end;[127X[104X
     [4X[28Xfunction( u, v ) ... end[128X[104X
-    [4X[25Xgap>[125X [27XprocId := PqStart( G );[127X[104X
-    [4X[28X3[128X[104X
+    [4X[25Xgap>[125X [27XprocId := PqStart( G );;[127X[104X
     [4X[25Xgap>[125X [27XQ := Pq( procId : Prime := 11, Identities := [ f ] );[127X[104X
     [4X[28X#I  Class 1 with 2 generators.[128X[104X
     [4X[28X#I  Class 2 with 3 generators.[128X[104X
@@ -340,8 +337,7 @@
     [4X[25Xgap>[125X [27X# must satisfy the Engel identity: [u, v, v, v] = 1.[127X[104X
     [4X[25Xgap>[125X [27Xf := function(u, v) return PqLeftNormComm( [u, v, v, v] ); end;[127X[104X
     [4X[28Xfunction( u, v ) ... end[128X[104X
-    [4X[25Xgap>[125X [27XprocId := PqStart( G : Prime := 11 );[127X[104X
-    [4X[28X4[128X[104X
+    [4X[25Xgap>[125X [27XprocId := PqStart( G : Prime := 11 );;[127X[104X
     [4X[25Xgap>[125X [27XPqPcPresentation( procId : ClassBound := 1);[127X[104X
     [4X[25Xgap>[125X [27XPqEvaluateIdentities( procId : Identities := [f] );[127X[104X
     [4X[28X#I  Class 1 with 2 generators.[128X[104X
@@ -482,8 +478,7 @@
   [4X[32X  Example  [32X[104X
     [4X[25Xgap>[125X [27XG := ElementaryAbelianGroup( 9 );[127X[104X
     [4X[28X<pc group of size 9 with 2 generators>[128X[104X
-    [4X[25Xgap>[125X [27XprocId := PqStart( G );[127X[104X
-    [4X[28X5[128X[104X
+    [4X[25Xgap>[125X [27XprocId := PqStart( G );;[127X[104X
     [4X[25Xgap>[125X [27X#[127X[104X
     [4X[25Xgap>[125X [27X#  Below, we use the option StepSize in order to construct descendants[127X[104X
     [4X[25Xgap>[125X [27X#  of coclass 1. This is equivalent to setting the StepSize to 1 in[127X[104X
