@@ -65,7 +65,7 @@ local m, n, H, pcgs, aut, NumberAgAutos, i, imgs, NumberGlAutos, p, d,
   NumberGlAutos := Length( ANUPQglb.glAutos );
   aut.glAutos := [1..NumberGlAutos];
   for i in [1..NumberGlAutos] do 
-    MakeImmutable( ANUPQglb.genQ[i] );
+    MakeImmutable( ANUPQglb.genQ[NumberAgAutos + i] );
     ConvertToMatrixRep( ANUPQglb.genQ[NumberAgAutos + i], ANUPQglb.F );
     imgs := List( ANUPQglb.glAutos[i], x -> PcElementByExponents( pcgs, x ) );
     aut.glAutos[i] := PGAutomorphism( H, pcgs, imgs);
