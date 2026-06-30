@@ -50,11 +50,11 @@ local m, n, H, pcgs, aut, NumberAgAutos, i, imgs, NumberGlAutos, p, d,
   # set up automorphism rec
   aut := rec();
 
-  NumberAgAutos := Length (ANUPQglb.agAutos); 
+  NumberAgAutos := Length( ANUPQglb.agAutos );
   aut.agAutos := [1..NumberAgAutos];
-  for i in [1..Length (ANUPQglb.agAutos)] do 
-    MakeImmutable( ANUPQglb.genQ[i] );
+  for i in [1..NumberAgAutos] do
     ConvertToMatrixRep( ANUPQglb.genQ[i], ANUPQglb.F );
+    MakeImmutable( ANUPQglb.genQ[i] );
     imgs := List( ANUPQglb.agAutos[i], x -> PcElementByExponents( pcgs, x ) );
     aut.agAutos[i] := PGAutomorphism( H, pcgs, imgs);
     aut.agAutos[i]!.mat := ANUPQglb.genQ[i];
@@ -64,9 +64,9 @@ local m, n, H, pcgs, aut, NumberAgAutos, i, imgs, NumberGlAutos, p, d,
 
   NumberGlAutos := Length( ANUPQglb.glAutos );
   aut.glAutos := [1..NumberGlAutos];
-  for i in [1..NumberGlAutos] do 
-    MakeImmutable( ANUPQglb.genQ[i] );
+  for i in [1..NumberGlAutos] do
     ConvertToMatrixRep( ANUPQglb.genQ[NumberAgAutos + i], ANUPQglb.F );
+    MakeImmutable( ANUPQglb.genQ[NumberAgAutos + i] );
     imgs := List( ANUPQglb.glAutos[i], x -> PcElementByExponents( pcgs, x ) );
     aut.glAutos[i] := PGAutomorphism( H, pcgs, imgs);
     aut.glAutos[i]!.mat := ANUPQglb.genQ[NumberAgAutos+ i];
