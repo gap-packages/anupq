@@ -52,9 +52,7 @@ local m, n, H, pcgs, aut, NumberAgAutos, i, imgs, NumberGlAutos, p, d,
 
   NumberAgAutos := Length (ANUPQglb.agAutos); 
   aut.agAutos := [1..NumberAgAutos];
-NumberAgAutos := Length (ANUPQglb.agAutos); 
-aut.agAutos := [1..NumberAgAutos];
-for i in [1..NumberAgAutos] do 
+  for i in [1..NumberAgAutos] do 
     MakeImmutable( ANUPQglb.genQ[i] );
     ConvertToMatrixRep( ANUPQglb.genQ[i], ANUPQglb.F );
     imgs := List( ANUPQglb.agAutos[i], x -> PcElementByExponents( pcgs, x ) );
