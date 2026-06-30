@@ -9,7 +9,7 @@ SetPackageInfo( rec(
 
 PackageName := "ANUPQ",
 Subtitle    := "ANU p-Quotient",
-Version     := "3.3.3",
+Version     := "3.3.3dev",
 Date        := "25/11/2025", # dd/mm/yyyy format
 License     := "Artistic-2.0",
 
