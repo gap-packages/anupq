@@ -197,7 +197,7 @@ void print_multiweight(int first, int last, struct pcp_vars *pcp)
          }
       }
 
-      free(++gens);
-      free(++pattern);
+      free(gens);
+      free(pattern);
    }
 }

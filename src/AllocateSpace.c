@@ -46,18 +46,13 @@ int *allocate_vector(int n, int start, Logical zero)
       n = 4;
 
    if (zero) {
-      if ((a = (int *)calloc(n, sizeof(int))) == (int *)0) {
+      if ((a = (int *)calloc(n + start, sizeof(int))) == (int *)0) {
          perror("Call to allocate_vector");
          exit(FAILURE);
       }
-   } else if ((a = (int *)malloc(n * sizeof(int))) == (int *)0) {
+   } else if ((a = (int *)malloc((n + start) * sizeof(int))) == (int *)0) {
       perror("Call to allocate_vector");
       exit(FAILURE);
-   }
-
-   while (start) {
-      --a;
-      --start;
    }
 
    return a;
@@ -80,25 +75,20 @@ int **allocate_matrix(int n, int m, int start, Logical zero)
    if (m < 4)
       m = 4;
 
-   if ((a = (int **)malloc(n * sizeof(int *))) == (int **)0) {
+   if ((a = (int **)malloc((n + start) * sizeof(int *))) == (int **)0) {
       perror("Call to allocate_matrix");
       exit(FAILURE);
    }
-   if (start != 0)
-      --a;
-
    for (i = start; i < start + n; ++i) {
       if (zero) {
-         if ((a[i] = (int *)calloc(m, sizeof(int))) == (int *)0) {
+         if ((a[i] = (int *)calloc(m + start, sizeof(int))) == (int *)0) {
             perror("Call to allocate_matrix");
             exit(FAILURE);
          }
-      } else if ((a[i] = (int *)malloc(m * sizeof(int))) == (int *)0) {
+      } else if ((a[i] = (int *)malloc((m + start) * sizeof(int))) == (int *)0) {
          perror("Call to allocate_matrix");
          exit(FAILURE);
       }
-      if (start != 0)
-         --a[i];
    }
 
    return a;
@@ -123,29 +113,26 @@ int ***allocate_array(int n, int m, int r, Logical zero)
    if (r < 4)
       r = 4;
 
-   if ((a = (int ***)malloc(n * sizeof(int **))) == (int ***)0) {
+   if ((a = (int ***)malloc((n + 1) * sizeof(int **))) == (int ***)0) {
       perror("Call to allocate_array");
       exit(FAILURE);
    }
-   --a;
-
    for (i = 1; i <= n; ++i) {
-      if ((a[i] = (int **)malloc(m * sizeof(int *))) == (int **)0) {
+      if ((a[i] = (int **)malloc((m + 1) * sizeof(int *))) == (int **)0) {
          perror("Call to allocate_array");
          exit(FAILURE);
       }
-      --a[i];
       for (j = 1; j <= m; ++j) {
          if (zero) {
-            if ((a[i][j] = (int *)calloc(r, sizeof(int))) == (int *)0) {
+            if ((a[i][j] = (int *)calloc(r + 1, sizeof(int))) == (int *)0) {
                perror("Call to allocate_array");
                exit(FAILURE);
             }
-         } else if ((a[i][j] = (int *)malloc(r * sizeof(int))) == (int *)0) {
+         } else if ((a[i][j] = (int *)malloc((r + 1) * sizeof(int))) ==
+                    (int *)0) {
             perror("Call to allocate_array");
             exit(FAILURE);
          }
-         --a[i][j];
       }
    }
 
@@ -166,15 +153,12 @@ int *reallocate_vector(int *a, int original, int new, int start, Logical zero)
    if (original < 4)
       original = 4;
 
-   if (start && original != 0)
-      ++a;
-
 #ifdef DEBUG
    printf("In reallocate: original = %d; new = %d\n", original, new);
-   printf("before reallocate: a = %d\n", a);
+   printf("before reallocate: a = %p\n", (void *)a);
 #endif
 
-   if ((a = (int *)realloc(a, new * sizeof(int))) == (int *)0) {
+   if ((a = (int *)realloc(a, (new + start) * sizeof(int))) == (int *)0) {
 #ifdef DEBUG
       printf("Original size is %d; new size is %d\n", original, new);
 #endif
@@ -182,15 +166,12 @@ int *reallocate_vector(int *a, int original, int new, int start, Logical zero)
       exit(FAILURE);
    }
 
-   if (start)
-      --a;
-
    if (zero)
       for (j = start + original; j < start + new; ++j)
          a[j] = 0;
 
 #ifdef DEBUG
-   printf("after reallocate: a = %d\n", a);
+   printf("after reallocate: a = %p\n", (void *)a);
 #endif
    return a;
 }
@@ -212,25 +193,22 @@ reallocate_matrix(int **a, int orig_n, int orig_m, int n, int m, Logical zero)
    if (orig_m < 4)
       orig_m = 4;
 
-   if ((a = (int **)realloc(++a, n * sizeof(int *))) == (int **)0) {
+   if ((a = (int **)realloc(a, (n + 1) * sizeof(int *))) == (int **)0) {
       perror("Call to reallocate_matrix");
       exit(FAILURE);
    }
-   --a;
-
    for (i = 1; i <= n; ++i) {
       if (i > orig_n) {
-         if ((a[i] = (int *)malloc(m * sizeof(int))) == (int *)0) {
+         if ((a[i] = (int *)malloc((m + 1) * sizeof(int))) == (int *)0) {
             perror("Call to reallocate_matrix");
             exit(FAILURE);
          }
       } else {
-         if ((a[i] = (int *)realloc(++a[i], m * sizeof(int))) == (int *)0) {
+         if ((a[i] = (int *)realloc(a[i], (m + 1) * sizeof(int))) == (int *)0) {
             perror("Call to reallocate_matrix");
             exit(FAILURE);
          }
       }
-      --a[i];
    }
 
    if (zero) {
@@ -269,40 +247,36 @@ int ***reallocate_array(int ***a,
    if (orig_r < 4)
       orig_r = 4;
 
-   if ((a = (int ***)realloc(++a, n * sizeof(int **))) == (int ***)0) {
+   if ((a = (int ***)realloc(a, (n + 1) * sizeof(int **))) == (int ***)0) {
       perror("Call to reallocate_array");
       exit(FAILURE);
    }
-   --a;
-
    for (i = 1; i <= n; ++i) {
       if (i > orig_n) {
-         if ((a[i] = (int **)malloc(m * sizeof(int *))) == (int **)0) {
+         if ((a[i] = (int **)malloc((m + 1) * sizeof(int *))) == (int **)0) {
             perror("Call to reallocate_array");
             exit(FAILURE);
          }
       } else {
-         if ((a[i] = (int **)realloc(++a[i], m * sizeof(int *))) == (int **)0) {
+         if ((a[i] = (int **)realloc(a[i], (m + 1) * sizeof(int *))) ==
+             (int **)0) {
             perror("Call to reallocate_array");
             exit(FAILURE);
          }
       }
-      --a[i];
-
       for (j = 1; j <= m; ++j) {
          if (j > orig_m || i > orig_n) {
-            if ((a[i][j] = (int *)malloc(r * sizeof(int))) == (int *)0) {
+            if ((a[i][j] = (int *)malloc((r + 1) * sizeof(int))) == (int *)0) {
                perror("Call to allocate_array");
                exit(FAILURE);
             }
          } else {
-            if ((a[i][j] = (int *)realloc(++a[i][j], r * sizeof(int))) ==
+            if ((a[i][j] = (int *)realloc(a[i][j], (r + 1) * sizeof(int))) ==
                 (int *)0) {
                perror("Call to allocate_array");
                exit(FAILURE);
             }
          }
-         --a[i][j];
       }
    }
 
@@ -332,18 +306,13 @@ char *allocate_char_vector(int n, int start, Logical zero)
       n = 4;
 
    if (zero) {
-      if ((a = (char *)calloc(n, sizeof(char))) == (char *)0) {
+      if ((a = (char *)calloc(n + start, sizeof(char))) == (char *)0) {
          perror("Call to allocate_char_vector");
          exit(FAILURE);
       }
-   } else if ((a = (char *)malloc(n * sizeof(char))) == (char *)0) {
+   } else if ((a = (char *)malloc((n + start) * sizeof(char))) == (char *)0) {
       perror("Call to allocate_char_vector");
       exit(FAILURE);
-   }
-
-   while (start) {
-      --a;
-      --start;
    }
 
    return a;
@@ -366,25 +335,21 @@ char **allocate_char_matrix(int n, int m, int start, Logical zero)
    if (m < 4)
       m = 4;
 
-   if ((a = (char **)malloc(n * sizeof(char *))) == (char **)0) {
+   if ((a = (char **)malloc((n + start) * sizeof(char *))) == (char **)0) {
       perror("Call to allocate_matrix");
       exit(FAILURE);
    }
-   if (start != 0)
-      --a;
-
    for (i = start; i < start + n; ++i) {
       if (zero) {
-         if ((a[i] = (char *)calloc(m, sizeof(char))) == (char *)0) {
+         if ((a[i] = (char *)calloc(m + start, sizeof(char))) == (char *)0) {
             perror("Call to allocate_matrix");
             exit(FAILURE);
          }
-      } else if ((a[i] = (char *)malloc(m * sizeof(char))) == (char *)0) {
+      } else if ((a[i] = (char *)malloc((m + start) * sizeof(char))) ==
+                 (char *)0) {
          perror("Call to allocate_matrix");
          exit(FAILURE);
       }
-      if (start != 0)
-         --a[i];
    }
 
    return a;
@@ -409,31 +374,28 @@ char ***allocate_char_array(int n, int m, int r, Logical zero)
    if (r < 4)
       r = 4;
 
-   if ((a = (char ***)malloc(n * sizeof(char **))) == (char ***)0) {
+   if ((a = (char ***)malloc((n + 1) * sizeof(char **))) == (char ***)0) {
       perror("Call to allocate_char_array");
       exit(FAILURE);
    }
-   --a;
-
    for (i = 1; i <= n; ++i) {
-      if ((a[i] = (char **)malloc(m * sizeof(char *))) == (char **)0) {
+      if ((a[i] = (char **)malloc((m + 1) * sizeof(char *))) == (char **)0) {
          perror("Call to allocate_char_array");
          exit(FAILURE);
       }
-      --a[i];
       for (j = 1; j <= m; ++j) {
          if (zero) {
-            if ((a[i][j] = (char *)calloc(r, sizeof(char))) == (char *)0) {
+            if ((a[i][j] = (char *)calloc(r + 1, sizeof(char))) == (char *)0) {
                perror("Call to allocate_char_array");
                exit(FAILURE);
             }
          } else {
-            if ((a[i][j] = (char *)malloc(r * sizeof(char))) == (char *)0) {
+            if ((a[i][j] = (char *)malloc((r + 1) * sizeof(char))) ==
+                (char *)0) {
                perror("Call to allocate_char_array");
                exit(FAILURE);
             }
          }
-         --a[i][j];
       }
    }
 

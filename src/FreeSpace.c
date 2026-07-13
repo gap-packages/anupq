@@ -20,8 +20,6 @@ void free_vector(int *a, int start)
    printf("Free vector\n");
 #endif
 
-   if (start)
-      ++a;
    free(a);
 }
 
@@ -38,13 +36,9 @@ void free_matrix(int **a, int n, int start)
       n = 1;
 
    for (i = start; i < start + n; ++i) {
-      if (start)
-         ++a[i];
       free(a[i]);
    }
 
-   if (start)
-      ++a;
    free(a);
 }
 
@@ -64,17 +58,11 @@ void free_array(int ***a, int n, int m, int start)
 
    for (i = start; i < start + n; ++i) {
       for (j = start; j < start + m; ++j) {
-         if (start)
-            ++a[i][j];
          free(a[i][j]);
       }
-      if (start)
-         ++a[i];
       free(a[i]);
    }
 
-   if (start)
-      ++a;
    free(a);
 }
 
@@ -87,8 +75,6 @@ void free_char_vector(char *a, int start)
    printf("Free char vector\n");
 #endif
 
-   if (start)
-      ++a;
    free(a);
 }
 
