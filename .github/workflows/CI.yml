@@ -42,4 +42,5 @@ jobs:
       - uses: gap-actions/process-coverage@v3
       - uses: codecov/codecov-action@v6
         with:
+          plugins: gcov
           token: ${{ secrets.CODECOV_TOKEN }}
