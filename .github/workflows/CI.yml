@@ -41,9 +41,9 @@ jobs:
           mode: onlyneeded
       - name: Run pq for C coverage
         run: |
-          bin/$GAPARCH/pq < tst/test1.pga > /dev/null
-          bin/$GAPARCH/pq < tst/test2.pga > /dev/null
-          bin/$GAPARCH/pq -i -k < tst/test4.sp > /dev/null
+          ./pq < tst/test1.pga > /dev/null
+          ./pq < tst/test2.pga > /dev/null
+          ./pq -i -k < tst/test4.sp > /dev/null
       - uses: gap-actions/process-coverage@v3
       - uses: codecov/codecov-action@v6
         with:
