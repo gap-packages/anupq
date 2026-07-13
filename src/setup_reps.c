@@ -115,7 +115,7 @@ void setup_reps(int *reps,
    }
 
    if (soluble_group)
-      free(++d);
+      free(d);
 
 #ifdef HAVE_GMP
    mpz_clear(&original_aut);
