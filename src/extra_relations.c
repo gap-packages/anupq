@@ -420,7 +420,8 @@ void extra_relations(struct exp_vars *exp_flag, struct pcp_vars *pcp)
             gen_i = gen[i];
             for (j = i + 1; j <= length && !exit; ++j) {
                entry = y[structure + gen[j]];
-               exit = (gen_i == PART2(entry) || gen_i == PART3(entry));
+               exit = ((unsigned int)gen_i == PART2(entry) ||
+                       (unsigned int)gen_i == PART3(entry));
             }
             if (exit) {
                if (exp_flag->filter == TRUE)
