@@ -39,8 +39,9 @@ jobs:
       - uses: gap-actions/run-pkg-tests@v4
         with:
           mode: onlyneeded
+      - name: Run pq tests
+        run: ./testPq
       - uses: gap-actions/process-coverage@v3
       - uses: codecov/codecov-action@v6
         with:
-          plugins: gcov
           token: ${{ secrets.CODECOV_TOKEN }}
