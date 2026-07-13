@@ -45,7 +45,8 @@ int pretty_filter(FILE *file, int *max_class, int *output, struct pcp_vars *pcp)
    int nrels = 0;
    int end = MAXIDENT - 1;
 
-   int count, posn;
+   int count;
+   long posn = 0;
    int ptr, relp, length;
    int i = 1;
    char c;
@@ -320,7 +321,8 @@ void pretty_read_relations(int output, int *max_class, struct pcp_vars *pcp)
    int i = 1;
    char c;
    int nrels = 0;
-   int count, posn;
+   int count;
+   long posn = 0;
    word w;
    word_link *root = word_link_create();
    word_link *wlp = 0;

@@ -39,7 +39,7 @@ int echelon(struct pcp_vars *pcp)
    register int value;
    register int free;
 
-   register Logical trivial;
+   register Logical trivial = FALSE;
    register Logical first;
 
    register int p = pcp->p;
