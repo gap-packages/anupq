@@ -10,15 +10,29 @@
 #include "pq_defs.h"
 #include "constants.h"
 
+/* pq exchanges its files with GAP and with itself, and some hold raw
+   fread/fwrite data: never let the Windows C runtime translate line
+   endings in them, or take a 0x1A byte for end of file */
+
+static FILE *fopen_untranslated(const char *file_name, const char *mode)
+{
+#ifdef _WIN32
+   char bmode[8];
+   snprintf(bmode, sizeof(bmode), "%sb", mode);
+   mode = bmode;
+#endif
+   return fopen(file_name, mode);
+}
+
 /* fopen file */
 
 FILE *OpenFile(const char *file_name, const char *mode)
 {
-   FILE *fp = fopen(file_name, mode);
+   FILE *fp = fopen_untranslated(file_name, mode);
 
    if (fp == NULL) {
       fprintf(stderr, "Cannot open %s\n", file_name);
-      if (!isatty(0))
+      if (!interactive_input())
          exit(FAILURE);
    }
 
@@ -41,7 +55,7 @@ FILE *OpenSystemFile(const char *file_name, const char *mode)
 {
    FILE *fp;
 
-   if ((fp = fopen(file_name, mode)) == NULL) {
+   if ((fp = fopen_untranslated(file_name, mode)) == NULL) {
       perror(NULL);
       printf("Cannot open %s\n", file_name);
       exit(FAILURE);
