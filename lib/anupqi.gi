@@ -403,41 +403,24 @@ end );
 
 #############################################################################
 ##
-#F  PQ_PATH_CURRENT_DIRECTORY() . . . . . . . . . .  essentially the UNIX pwd
-##
-##  returns a string that is the path of the current directory.
-##
-InstallGlobalFunction( PQ_PATH_CURRENT_DIRECTORY, function()
-local path, stream;
-  path := "";
-  stream := OutputTextString(path, true);
-  if 0 = Process( DirectoryCurrent(), 
-                  Filename(DirectoriesSystemPrograms(), "pwd"),
-                  InputTextNone(), 
-                  stream,
-                  [] ) then
-    CloseStream(stream);
-    return Chomp(path);
-  fi;
-  Error("could not determine the path of the current directory!?!\n");
-end );
-
-#############################################################################
-##
 #F  PQ_CHK_PATH(<filename>, <rw>, <datarec>) . . . . . . .  check/add to path
 ##
-##  checks <filename> is a non-empty string, if it doesn't begin with  a  `/'
+##  checks <filename> is a non-empty string, if it is not an absolute  path
 ##  prepends a path for the current directory, and checks the result  is  the
 ##  name of a readable (resp. writable) if <rw> is `"r"' (resp.  if  <rw>  is
 ##  `"w"') and if there is no error returns the result.
 ##
 InstallGlobalFunction( PQ_CHK_PATH, function( filename, rw, datarec )
+local absolute;
   if not IsString(filename) or filename = "" then
     Error( "argument <filename> must be a non-empty string\n" );
   fi;
-  if filename[1] <> '/' then
+  # on Windows, `C:/...' is absolute as well
+  absolute := filename[1] = '/' or
+              (ARCH_IS_WINDOWS() and Length(filename) > 1 and filename[2] = ':');
+  if not absolute then
     # we need to do this as pq executes in ANUPQData.tmpdir
-    filename := Concatenation(PQ_PATH_CURRENT_DIRECTORY(), "/", filename);
+    filename := Filename(DirectoryCurrent(), filename);
   fi;
   if rw = "r" then
     if IsReadableFile(filename) <> true then

@@ -60,12 +60,6 @@ DeclareGlobalFunction( "PQ_SAVE_PC_PRESENTATION" );
 
 #############################################################################
 ##
-#F  PQ_PATH_CURRENT_DIRECTORY() . . . . . . . . . .  essentially the UNIX pwd
-##
-DeclareGlobalFunction( "PQ_PATH_CURRENT_DIRECTORY" );
-
-#############################################################################
-##
 #F  PQ_CHK_PATH(<filename>, <rw>, <datarec>) . . . . . . .  check/add to path
 ##
 DeclareGlobalFunction( "PQ_CHK_PATH" );
