@@ -137,7 +137,7 @@ void pgroup_generation(Logical *group_present, struct pcp_vars *pcp)
             --pcp->cc;
             print_group_details(&pga, pcp);
             invalid_group(pcp);
-            if (!isatty(0))
+            if (!interactive_input())
                exit(FAILURE);
          } else {
             if (new_group)

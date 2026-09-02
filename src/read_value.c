@@ -41,9 +41,9 @@ void read_value(Logical newline, char *string, int *value, int lower_bound)
          nmr_items = scanf("%s", response);
          verify_read(nmr_items, 1);
       }
-      if (!isatty(0))
+      if (!interactive_input())
          printf("%s ", response);
-      if (!isatty(0) && newline)
+      if (!interactive_input() && newline)
          printf("\n");
       *value = string_to_int(response, &error);
       if (error)
@@ -94,7 +94,7 @@ char *GetString(char *string)
       nmr_items = scanf("%s", s);
       verify_read(nmr_items, 1);
    }
-   if (!isatty(0))
+   if (!interactive_input())
       printf("%s\n", s);
 
    return s;

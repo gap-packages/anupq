@@ -35,7 +35,7 @@ void options(int call, int format, struct pcp_vars *pcp)
 
    int *list, *head;
 
-   if (isatty(0))
+   if (interactive_input())
       list_pqa_menu();
 
    if (call != DEFAULT_MENU)
