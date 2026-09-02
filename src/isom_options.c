@@ -37,12 +37,12 @@ static void copy_file(const char *from, const char *to)
    FILE *out;
    int n;
 
-   in = fopen(from, "r");
+   in = fopen(from, "rb");
    if (in == NULL) {
       perror(from);
       exit(FAILURE);
    }
-   out = fopen(to, "w");
+   out = fopen(to, "wb");
    if (out == NULL) {
       perror(to);
       exit(FAILURE);
@@ -70,12 +70,12 @@ static void append_file(const char *from, const char *to)
    FILE *out;
    int n;
 
-   in = fopen(from, "r");
+   in = fopen(from, "rb");
    if (in == NULL) {
       perror(from);
       exit(FAILURE);
    }
-   out = fopen(to, "a");
+   out = fopen(to, "ab");
    if (out == NULL) {
       perror(to);
       exit(FAILURE);
@@ -332,7 +332,11 @@ void isom_options(int format, struct pcp_vars *pcp)
          if (iteration == 0)
             break;
 
-         /* rename file ISOM_PP containing iteration info to nominated file */
+         /* rename file ISOM_PP containing iteration info to nominated file;
+            unlike POSIX, Windows refuses to replace an existing target */
+#ifdef _WIN32
+         remove(name);
+#endif
          rename("ISOM_PP", name);
 
          break;
@@ -631,7 +635,7 @@ int get_description(char *string, int *len, int **seq, struct pcp_vars *pcp)
    name = GetString(string);
    file = OpenFile(name, "r");
    if (file == NULL) {
-      if (isatty(0))
+      if (interactive_input())
          return FALSE;
       else
          exit(FAILURE);
