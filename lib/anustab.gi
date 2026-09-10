@@ -30,7 +30,7 @@ InstallGlobalFunction( PqStabiliserOfAllowableSubgroup,
 function( ANUPQglb, F, gens, relativeOrders, ANUPQsize, ANUPQagsize )
 local m, n, H, pcgs, aut, NumberAgAutos, i, imgs, NumberGlAutos, p, d,
       ANUPQMaxDegree, V, elm, baseU, id, baseN, infoLevelAutGrp, LINK_output,
-      soluble, a, mat;
+      soluble, a, mat, permOfAuto, glOper, agOper, P, S, hom;
 
   # number of generators 
   if Length( ANUPQglb.glAutos ) > 0 then
@@ -94,18 +94,29 @@ local m, n, H, pcgs, aut, NumberAgAutos, i, imgs, NumberGlAutos, p, d,
              "... this may take a while, if it succeeds at all!");
     fi;
     elm := AsSet( V );
-    aut.glOper := [];
-    for i in [1..NumberGlAutos] do
-        a := aut.glAutos[i]; 
-        mat := List(a!.baseimgs, 
-                    x -> ExponentsOfPcElement( pcgs, x ){[1..d]});
+    permOfAuto := function( a )
+        local mat;
+        mat := List( a!.baseimgs,
+                     x -> ExponentsOfPcElement( pcgs, x ){[1..d]} );
         mat := mat * One( aut.field );
         MakeImmutable( mat );
         ConvertToMatrixRep( mat, aut.field );
-        aut.glOper[i] := Permutation( mat, elm, OnRight );
-    od;
-    #PrintTo("perms", "aut.glOper := ", aut.glOper,"; \n" );
-    aut.glOrder := Size( Group( aut.glOper, () ) );
+        return Permutation( mat, elm, OnRight );
+    end;
+    # AutPGrp requires glOper to be a faithful representation of A/S,
+    # S = <agAutos> the soluble part, and glOrder = |A/S|.  The soluble
+    # automorphisms act on V too, so take the action of A on V and
+    # factor out the image of S.
+    glOper := List( aut.glAutos, permOfAuto );
+    agOper := List( aut.agAutos, permOfAuto );
+    P := Group( Concatenation( glOper, agOper ), () );
+    S := Subgroup( P, agOper );
+    if not IsNormal( P, S ) then
+        Error( "the soluble automorphisms do not generate a normal subgroup" );
+    fi;
+    hom := NaturalHomomorphismByNormalSubgroupNC( P, S );
+    aut.glOper := List( glOper, x -> ImagesRepresentative( hom, x ) );
+    aut.glOrder := Index( P, S );
   else
     aut.glOrder := ANUPQsize / Size(ANUPQglb.F)^(ANUPQagsize);
   fi;

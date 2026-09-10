@@ -1,6 +1,13 @@
 In this file we record the changes since the first GAP 4 release of
 the ANUPQ package.
 
+Version 3.4.0 (unreleased)
+  * Fix `PqStandardPresentation` hanging or the stabiliser of an allowable
+    subgroup being wrong when the soluble automorphisms act on the Frattini
+    quotient: the permutation representation handed to AutPGrp is now one
+    of the automorphism group modulo its soluble part, as AutPGrp requires
+    (issue #67)
+
 Version 3.3.3 (2025-11-25)
   * Define the term "proper descendant" and clarify in various places
     that all computed descendants are "proper" (i.e. not isomorphic to
