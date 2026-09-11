@@ -53,7 +53,7 @@ void compute_degree(struct pga_vars *pga)
                               INT_MAX - pga->Degree);
       if (tmp < 0) {
          text(19, 0, 0, 0, 0);
-         if (!isatty(0))
+         if (!interactive_input())
             exit(FAILURE);
          else
             return;

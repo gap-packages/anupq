@@ -31,20 +31,20 @@ int pquotient(
    if (format == BASIC || format == PRETTY) {
       read_parameters(format, &max_class, &output, pcp);
       if (!pcp->valid) {
-         if (isatty(0))
+         if (interactive_input())
             return FAILURE;
          else
             exit(INPUT_ERROR);
       }
    } else if (format == FILE_INPUT) {
       if (pretty_filter(file, &max_class, &output, pcp) == INPUT_ERROR) {
-         if (isatty(0))
+         if (interactive_input())
             return FAILURE;
          else
             exit(INPUT_ERROR);
       }
       if (!pcp->valid) {
-         if (isatty(0))
+         if (interactive_input())
             return FAILURE;
          else
             exit(INPUT_ERROR);
@@ -93,7 +93,7 @@ static int check_for_error(struct pcp_vars *pcp)
       /*
         text (11, pcp->newgen, 0, 0, 0);
         */
-      if (!isatty(0))
+      if (!interactive_input())
          exit(FAILURE);
       else
          return 1;
@@ -102,7 +102,7 @@ static int check_for_error(struct pcp_vars *pcp)
    /* validity error */
    if (!pcp->valid) {
       text(16, 0, 0, 0, 0);
-      if (!isatty(0))
+      if (!interactive_input())
          exit(INPUT_ERROR);
       else
          return 1;

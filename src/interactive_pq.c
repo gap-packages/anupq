@@ -69,7 +69,7 @@ void interactive_pq(Logical group_present,
 
    int file_format;
 
-   if (isatty(0))
+   if (interactive_input())
       list_interactive_pq_menu();
 
    if (format != BASIC && group_present == TRUE) {
@@ -172,7 +172,7 @@ void interactive_pq(Logical group_present,
                for (class = pcp->cc; class > 1; --class)
                   tails(tail_type, class, pcp->cc, i, pcp);
             }
-            if (pcp->overflow && !isatty(0))
+            if (pcp->overflow && !interactive_input())
                exit(FAILURE);
             t = runTime() - t;
             printf("Tails computation took %.2f seconds \n", t * CLK_SCALE);
@@ -205,7 +205,7 @@ void interactive_pq(Logical group_present,
                for (class = pcp->cc; class > 2; --class)
                   consistency(
                       consistency_type, queue, &queue_length, class, pcp);
-            if (pcp->overflow && !isatty(0))
+            if (pcp->overflow && !interactive_input())
                exit(FAILURE);
 
             if (pcp->m != 0) {

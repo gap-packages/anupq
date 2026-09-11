@@ -306,7 +306,7 @@ void pretty_read_generators(struct pcp_vars *pcp)
       if (reading)
          printf("The maximum number of defining generators is %d\n", MAXGENS);
 
-      if (!isatty(0))
+      if (!interactive_input())
          printf("\n");
    }
 }
@@ -385,7 +385,7 @@ void pretty_read_relations(int output, int *max_class, struct pcp_vars *pcp)
    }
    find_char('}', rfile);
 
-   if (!isatty(0))
+   if (!interactive_input())
       printf("\n");
 
    pcp->ndrel = nrels;

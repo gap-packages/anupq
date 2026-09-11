@@ -9,8 +9,11 @@
 
 #include "pq_author.h"
 #include "pq_defs.h"
+#include "global.h"
 #include <sys/types.h>
+#ifndef _WIN32
 #include <sys/times.h>
+#endif
 
 /* system and operating system dependent pieces of code */
 
@@ -23,10 +26,25 @@
 
 int runTime(void)
 {
+#ifdef _WIN32
+   /* CLK_SCALE is 1.0/CLK_TCK and mingw defines CLK_TCK as
+      CLOCKS_PER_SEC, so clock() has the right unit */
+   return (int)clock();
+#else
    struct tms buffer;
 
    times(&buffer);
    return buffer.tms_utime + buffer.tms_cutime;
+#endif
+}
+
+/* pq behaves interactively (prompting, surviving errors) when its input is
+   a terminal, and likewise when GAP drives it through a stream, which need
+   not be a pty */
+
+Logical interactive_input(void)
+{
+   return isatty(0) || GAP4iostream;
 }
 
 /* print startup message */
