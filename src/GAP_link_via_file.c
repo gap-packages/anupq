@@ -187,7 +187,7 @@ void insoluble_stab_gens(int rep,
       strcat(command, " -r -q -A GAP_input < GAP_rep");
 
       /* inform the user that we are about to call GAP                     */
-      if (isatty(0))
+      if (interactive_input())
          printf("Now calling GAP to compute stabiliser...\n");
       unlink("LINK_output");
 

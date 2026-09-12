@@ -7,6 +7,9 @@ Version 3.4.0 (unreleased)
     quotient: the permutation representation handed to AutPGrp is now one
     of the automorphism group modulo its soluble part, as AutPGrp requires
     (issue #67)
+  * Fix various issues which prevented ANUPQ from working with a native
+    Windows (MinGW) build of GAP
+  * Determine the current directory without running the `pwd` program
 
 Version 3.3.3 (2025-11-25)
   * Define the term "proper descendant" and clarify in various places

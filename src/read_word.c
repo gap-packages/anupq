@@ -169,7 +169,7 @@ void read_word(FILE *file, int disp, int type, struct pcp_vars *pcp)
 
       if (integer == 0 && !(commutator || finish || *s == ',')) {
          printf("Error in input data -- %s\n", s);
-         if (!isatty(0))
+         if (!interactive_input())
             exit(FAILURE);
       }
 
