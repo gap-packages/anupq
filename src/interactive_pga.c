@@ -99,7 +99,6 @@ void interactive_pga(Logical group_present,
          t = runTime();
          if (group_present && pga->m == 0)
             start_group(&StartFile, auts, pga, pcp);
-         assert(OutputFile);
          construct(1,
                    &flag,
                    SINGLE_STAGE,
