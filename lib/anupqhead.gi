@@ -56,9 +56,11 @@ ANUPQWarnOfOtherOptions := false;
 
 #############################################################################
 ##
-##  Ensure no zombie `pq' processes from interactive (`PqStart') sessions are 
-##  left lying around when user quits GAP.
+##  Ensure no zombie `pq' processes from interactive (`PqStart') sessions, or
+##  from non-interactive calls interrupted by an error, are left lying around
+##  when user quits GAP.
 ##
 InstallAtExit( PqQuitAll );
+InstallAtExit( PQ_CLOSE_NONINTERACTIVE_STREAM );
 
 #E  anupqhead.gi . . . . . . . . . . . . . . . . . . . . . . . . .  ends here 

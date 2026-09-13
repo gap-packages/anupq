@@ -115,6 +115,17 @@ void write_GAP_matrix(
 }
 
 
+/* read a character sent by GAP; if GAP has gone away, exit rather than
+   loop forever waiting for the end of its reply                             */
+static int read_char_from_GAP(void)
+{
+   int c = getchar();
+
+   if (c == EOF)
+      exit(FAILURE);
+   return c;
+}
+
 /****************************************************************************
 **
 *F  insoluble_stab_gens
@@ -161,17 +172,17 @@ void insoluble_stab_gens(int rep,
       printf("GAP, please compute stabiliser!\n");
 
       /* skip a comment                                                    */
-      while ((c = getchar()) == ' ')
+      while ((c = read_char_from_GAP()) == ' ')
          ;
       if (c == '#') {
-         while ((c = getchar()) != '\n')
+         while ((c = read_char_from_GAP()) != '\n')
             ;
       }
 
       /* we expect a line: "pq, stabiliser is ready.\n"                    */
       if (c == 'p')
          putchar(c);
-      while ((c = getchar()) != '\n')
+      while ((c = read_char_from_GAP()) != '\n')
          putchar(c);
       putchar(c);
    } else {

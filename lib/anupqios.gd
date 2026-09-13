@@ -197,6 +197,12 @@ DeclareGlobalFunction( "PQ_COMPLETE_NONINTERACTIVE_FUNC_CALL" );
 
 #############################################################################
 ##
+#F  PQ_CLOSE_NONINTERACTIVE_STREAM() . . close stream of non-interactive call
+##
+DeclareGlobalFunction( "PQ_CLOSE_NONINTERACTIVE_STREAM" );
+
+#############################################################################
+##
 #F  ToPQLog([<filename>]) . . . . . . log or stop logging pq commands to file
 ##
 DeclareGlobalFunction( "ToPQLog" );

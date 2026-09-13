@@ -2,6 +2,9 @@ In this file we record the changes since the first GAP 4 release of
 the ANUPQ package.
 
 Version 3.4.0 (unreleased)
+  * Fix `pq` processes being left running, possibly at 100% CPU even after
+    quitting GAP, when a non-interactive function is interrupted by an
+    error (issue #79)
   * Fix `PqStandardPresentation` hanging or the stabiliser of an allowable
     subgroup being wrong when the soluble automorphisms act on the Frattini
     quotient: the permutation representation handed to AutPGrp is now one
