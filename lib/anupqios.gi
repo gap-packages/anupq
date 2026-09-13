@@ -820,6 +820,7 @@ local ioIndex, datarec, optrec, optnames;
         Error( "first argument <args[1]> must be a pc group or an fp group\n" );
       fi;
     fi;
+    PQ_CLOSE_NONINTERACTIVE_STREAM();
     ANUPQData.ni := PQ_START( VALUE_PQ_OPTION( "PqWorkspace", 10000000 ),
                               VALUE_PQ_OPTION( "SetupFile" ) );
     datarec := ANUPQData.ni;
@@ -875,6 +876,20 @@ InstallGlobalFunction(PQ_COMPLETE_NONINTERACTIVE_FUNC_CALL, function(datarec)
     Info(InfoANUPQ, 1, "Run `pq' with '", datarec.opts, "' flags.");
     Info(InfoANUPQ, 1, "The result will be saved in: '", 
                        datarec.outfname, "'.");
+  fi;
+end );
+
+#############################################################################
+##
+#F  PQ_CLOSE_NONINTERACTIVE_STREAM() . . close stream of non-interactive call
+##
+##  closes the stream of the last non-interactive call if it is still  open,
+##  i.e. if an error prevented `PQ_COMPLETE_NONINTERACTIVE_FUNC_CALL'.
+##
+InstallGlobalFunction(PQ_CLOSE_NONINTERACTIVE_STREAM, function()
+  if IsBound( ANUPQData.ni.stream ) and
+     not IsClosedStream( ANUPQData.ni.stream ) then
+    CloseStream( ANUPQData.ni.stream );
   fi;
 end );
 

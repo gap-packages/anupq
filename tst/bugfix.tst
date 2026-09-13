@@ -137,6 +137,17 @@ gap> PqAPGSingleStage( procId : StepSize := 2, BasicAlgorithm, CustomiseOutput :
 #I  # of capable immediate descendants is 5
 gap> PqQuit( procId );
 
+# A non-interactive call interrupted by an error left its pq process running #79
+gap> F := FreeGroup( 2 );;
+gap> Pq( F );
+Error, you must supply a value for option: "Prime"
+
+gap> s := ANUPQData.ni.stream;;
+gap> Pq( F : Prime := 2, ClassBound := 1 );
+<pc group of size 4 with 2 generators>
+gap> IsClosedStream( s );
+true
+
 #
 gap> PqQuitAll();
 gap> STOP_TEST( "bugfix.tst", 1 );
