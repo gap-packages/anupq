@@ -18,4 +18,4 @@ PqPGSupplyAutomorphisms(procId, [ [[1,1,0],
                                    [0,1,0]] ]);;
 PqPGConstructDescendants(procId : ClassBound := 5,
                                   OrderBound := 7,
-                                  BasicAlgorithm);;
+                                  BasicAlgorithm);

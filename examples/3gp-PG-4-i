@@ -19,4 +19,4 @@ PqPGSupplyAutomorphisms(procId, [ [[2,0,0,0],
                                    [0,2,0,0],
                                    [0,0,2,0]] ]);;
 PqPGConstructDescendants(procId : ClassBound := 2,
-                                  OrderBound := 5);;
+                                  OrderBound := 5);

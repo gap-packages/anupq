@@ -34,4 +34,4 @@ PqPGConstructDescendants(procId : ClassBound := 4,
                                   CapableDescendants,
                                   StepSize := 1,
                                   PcgsAutomorphisms,
-                                  RankInitialSegmentSubgroups := 4);;
+                                  RankInitialSegmentSubgroups := 4);

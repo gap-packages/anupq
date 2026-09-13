@@ -16,4 +16,4 @@ PqPGSupplyAutomorphisms(procId, [ [[3,0],
                                    [6,0]] ]);;
 PqPGConstructDescendants(procId : ClassBound := 2,
                                   CapableDescendants,
-                                  StepSize := 1);;
+                                  StepSize := 1);

@@ -16,4 +16,4 @@ PqPGSupplyAutomorphisms(procId, [ [[0,1],
                                    [1,0]] ]);;
 PqPGConstructDescendants(procId : ClassBound := 12,
                                   PcgsAutomorphisms,
-                                  Exponent := 4);;
+                                  Exponent := 4);
