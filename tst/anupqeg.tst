@@ -54736,10 +54736,9 @@ gap> des := PqDescendants( Q : StepSize := 1 );
   <pc group of size 27 with 3 generators>, 
   <pc group of size 27 with 3 generators> ]
 gap> S := PqSupplementInnerAutomorphisms( des[3] );
-rec( agAutos := [  ], agOrder := [ 3, 2, 2, 2 ], 
+rec( agAutos := [  ], agOrder := [ 3, 2, 2 ], 
   glAutos := [ Pcgs([ f1, f2, f3 ]) -> [ f1*f2^2, f2, f3 ], 
-      Pcgs([ f1, f2, f3 ]) -> [ f1^2, f2, f3^2 ], 
-      Pcgs([ f1, f2, f3 ]) -> [ f1^2, f2, f3^2 ] ] )
+      Pcgs([ f1, f2, f3 ]) -> [ f1^2*f2, f2, f3^2 ] ] )
 gap> A := AutomorphismGroupPGroup( des[3] );
 rec( 
   agAutos := [ Pcgs([ f1, f2, f3 ]) -> [ f1^2, f2, f3^2 ], 
@@ -54762,10 +54761,9 @@ gap> des := PqDescendants( procId : StepSize := 1 );
   <pc group of size 27 with 3 generators>, 
   <pc group of size 27 with 3 generators> ]
 gap> S := PqSupplementInnerAutomorphisms( des[3] );
-rec( agAutos := [  ], agOrder := [ 3, 2, 2, 2 ], 
+rec( agAutos := [  ], agOrder := [ 3, 2, 2 ], 
   glAutos := [ Pcgs([ f1, f2, f3 ]) -> [ f1*f2^2, f2, f3 ], 
-      Pcgs([ f1, f2, f3 ]) -> [ f1^2, f2, f3^2 ], 
-      Pcgs([ f1, f2, f3 ]) -> [ f1^2, f2, f3^2 ] ] )
+      Pcgs([ f1, f2, f3 ]) -> [ f1^2*f2, f2, f3^2 ] ] )
 gap> A := AutomorphismGroupPGroup( des[3] );
 rec( 
   agAutos := [ Pcgs([ f1, f2, f3 ]) -> [ f1^2, f2, f3^2 ], 

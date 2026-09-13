@@ -103,9 +103,9 @@ local m, n, H, pcgs, aut, NumberAgAutos, i, imgs, NumberGlAutos, p, d,
         ConvertToMatrixRep( mat, aut.field );
         return Permutation( mat, elm, OnRight );
     end;
-    # AutPGrp requires glOper to be a faithful representation of A/S,
-    # S = <agAutos> the soluble part, and glOrder = |A/S|.  The soluble
-    # automorphisms act on V too, so take the action of A on V and
+    # AutPGrp requires glOper to be a faithful permutation representation
+    # of A/S, S = <agAutos> the soluble part, and glOrder = |A/S|.  The
+    # soluble automorphisms act on V too, so take the action of A on V and
     # factor out the image of S.
     glOper := List( aut.glAutos, permOfAuto );
     agOper := List( aut.agAutos, permOfAuto );
@@ -115,6 +115,8 @@ local m, n, H, pcgs, aut, NumberAgAutos, i, imgs, NumberGlAutos, p, d,
         Error( "the soluble automorphisms do not generate a normal subgroup" );
     fi;
     hom := NaturalHomomorphismByNormalSubgroupNC( P, S );
+    # GAP may return a soluble quotient as a pc group
+    hom := hom * IsomorphismPermGroup( ImagesSource( hom ) );
     aut.glOper := List( glOper, x -> ImagesRepresentative( hom, x ) );
     aut.glOrder := Index( P, S );
   else

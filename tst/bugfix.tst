@@ -46,6 +46,13 @@ gap> K := PcGroupCode( 36021959920864, 64 );;  # SmallGroup(64, 241)
 gap> PqStandardPresentation( K );
 <fp group on the generators [ f1, f2, f3, f4, f5, f6 ]>
 
+# No method for ClosureGroup when the automorphism group modulo its soluble
+# part is soluble, since GAP returns that quotient as a pc group
+gap> G := ElementaryAbelianGroup( 9 );;
+gap> des := PqDescendants( G : OrderBound := 3, ClassBound := 2 );;
+gap> SortedList( List( des, AbelianInvariants ) );
+[ [ 3, 3 ], [ 3, 3 ], [ 3, 9 ] ]
+
 #
 gap> PqQuitAll();
 gap> STOP_TEST( "bugfix.tst", 1 );
