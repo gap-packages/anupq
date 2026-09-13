@@ -7,6 +7,12 @@ Version 3.4.0 (unreleased)
     quotient: the permutation representation handed to AutPGrp is now one
     of the automorphism group modulo its soluble part, as AutPGrp requires
     (issue #67)
+  * Fix the `pq` program being built without its GMP code since version
+    3.3.1: it did not compute automorphism group orders, so descendant
+    computations for groups whose Frattini quotient has more than 10000
+    elements could take very long or fail
+  * Fix `PqAPGSingleStage` aborting the `pq` program, a bug introduced in
+    version 3.2.1
   * Fix various issues which prevented ANUPQ from working with a native
     Windows (MinGW) build of GAP
   * Determine the current directory without running the `pwd` program
