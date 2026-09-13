@@ -46820,6 +46820,10 @@ gap> Pq( procId : Prime := 5, Identities := [ Burnside5, Engel3 ] );
 #I  Class 3 with 5 generators.
 #I  Class 3 with 5 generators.
 <pc group of size 3125 with 5 generators>
+gap> ## earlier test files may have bound f1, ..., f6
+gap> for v in [ "f1", "f2", "f3", "f4", "f5", "f6" ] do
+>      if IsBoundGlobal( v ) then UnbindGlobal( v ); fi;
+>    od;
 gap> ##Example: "EpimorphismStandardPresentation" . . . based on manual example
 gap> ##(demonstrates `EpimorphismStandardPresentation' usage)
 gap> F := FreeGroup(6, "F");
