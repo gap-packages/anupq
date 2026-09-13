@@ -110,6 +110,8 @@ LIBS="$save_LIBS"
 if test "x$have_gmp" != xyes; then
     AC_MSG_ERROR([Could not locate GMP, the GNU multiprecision library])
 fi
+# the sources still guard their GMP code with HAVE_GMP
+AC_DEFINE([HAVE_GMP], [1], [Define if GMP is installed and usable])
 
 AC_SUBST(GMP_CPPFLAGS)
 AC_SUBST(GMP_LDFLAGS)
