@@ -136,7 +136,7 @@ BannerFunction := function( info )
   return str;
 end,
 
-TestFile := "tst/testinstall.g",
+TestFile := "tst/testall.g",
 
 Keywords := [
   "p-quotient",
