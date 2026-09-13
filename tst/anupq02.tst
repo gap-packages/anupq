@@ -248,27 +248,18 @@ gap> List(des, d -> Length( DerivedSeries( d ) ) );
 gap> List(des, d -> Maximum( List( d, Order ) ) );
 [ 5, 5, 5 ]
 
-# doc/non-interact.xml:762-784
+# doc/non-interact.xml:762-774
 gap> Q := Pq( FreeGroup(2) : Prime := 3, ClassBound := 1 );
 <pc group of size 9 with 2 generators>
 gap> des := PqDescendants( Q : StepSize := 1 );
 [ <pc group of size 27 with 3 generators>, 
   <pc group of size 27 with 3 generators>, 
   <pc group of size 27 with 3 generators> ]
-gap> S := PqSupplementInnerAutomorphisms( des[3] );
-rec( agAutos := [  ], agOrder := [ 3, 2, 2 ], 
-  glAutos := [ Pcgs([ f1, f2, f3 ]) -> [ f1*f2^2, f2, f3 ], 
-      Pcgs([ f1, f2, f3 ]) -> [ f1^2*f2, f2, f3^2 ] ] )
-gap> A := AutomorphismGroupPGroup( des[3] );
-rec( 
-  agAutos := [ Pcgs([ f1, f2, f3 ]) -> [ f1^2, f2, f3^2 ], 
-      Pcgs([ f1, f2, f3 ]) -> [ f1*f2^2, f2, f3 ], 
-      Pcgs([ f1, f2, f3 ]) -> [ f1*f3, f2, f3 ], 
-      Pcgs([ f1, f2, f3 ]) -> [ f1, f2*f3, f3 ] ], agOrder := [ 2, 3, 3, 3 ], 
-  glAutos := [  ], glOper := [  ], glOrder := 1, 
-  group := <pc group of size 27 with 3 generators>, 
-  one := IdentityMapping( <pc group of size 27 with 3 generators> ), 
-  size := 54 )
+gap> S := PqSupplementInnerAutomorphisms( des[3] );;
+gap> A := AutomorphismGroup( des[3] );;
+gap> Inn := InnerAutomorphismsAutomorphismGroup( A );;
+gap> Size( ClosureGroup( Inn, S.glAutos ) ) = Size( A );
+true
 
 #
 gap> STOP_TEST("anupq02.tst", 1);

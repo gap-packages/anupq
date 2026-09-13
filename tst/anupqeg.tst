@@ -54739,20 +54739,11 @@ gap> des := PqDescendants( Q : StepSize := 1 );
 [ <pc group of size 27 with 3 generators>, 
   <pc group of size 27 with 3 generators>, 
   <pc group of size 27 with 3 generators> ]
-gap> S := PqSupplementInnerAutomorphisms( des[3] );
-rec( agAutos := [  ], agOrder := [ 3, 2, 2 ], 
-  glAutos := [ Pcgs([ f1, f2, f3 ]) -> [ f1*f2^2, f2, f3 ], 
-      Pcgs([ f1, f2, f3 ]) -> [ f1^2*f2, f2, f3^2 ] ] )
-gap> A := AutomorphismGroupPGroup( des[3] );
-rec( 
-  agAutos := [ Pcgs([ f1, f2, f3 ]) -> [ f1^2, f2, f3^2 ], 
-      Pcgs([ f1, f2, f3 ]) -> [ f1*f2^2, f2, f3 ], 
-      Pcgs([ f1, f2, f3 ]) -> [ f1*f3, f2, f3 ], 
-      Pcgs([ f1, f2, f3 ]) -> [ f1, f2*f3, f3 ] ], agOrder := [ 2, 3, 3, 3 ], 
-  glAutos := [  ], glOper := [  ], glOrder := 1, 
-  group := <pc group of size 27 with 3 generators>, 
-  one := IdentityMapping( <pc group of size 27 with 3 generators> ), 
-  size := 54 )
+gap> S := PqSupplementInnerAutomorphisms( des[3] );;
+gap> A := AutomorphismGroup( des[3] );;
+gap> Inn := InnerAutomorphismsAutomorphismGroup( A );;
+gap> Size( ClosureGroup( Inn, S.glAutos ) ) = Size( A );
+true
 gap> # Executing interactive variant of example: "PqSupplementInnerAutomorphisms"
 gap> ##Example: "PqSupplementInnerAutomorphisms" . . . based on manual example
 gap> ##Illustrates `PqSupplementInnerAutomorphisms' usage
@@ -54764,20 +54755,11 @@ gap> des := PqDescendants( procId : StepSize := 1 );
 [ <pc group of size 27 with 3 generators>, 
   <pc group of size 27 with 3 generators>, 
   <pc group of size 27 with 3 generators> ]
-gap> S := PqSupplementInnerAutomorphisms( des[3] );
-rec( agAutos := [  ], agOrder := [ 3, 2, 2 ], 
-  glAutos := [ Pcgs([ f1, f2, f3 ]) -> [ f1*f2^2, f2, f3 ], 
-      Pcgs([ f1, f2, f3 ]) -> [ f1^2*f2, f2, f3^2 ] ] )
-gap> A := AutomorphismGroupPGroup( des[3] );
-rec( 
-  agAutos := [ Pcgs([ f1, f2, f3 ]) -> [ f1^2, f2, f3^2 ], 
-      Pcgs([ f1, f2, f3 ]) -> [ f1*f2^2, f2, f3 ], 
-      Pcgs([ f1, f2, f3 ]) -> [ f1*f3, f2, f3 ], 
-      Pcgs([ f1, f2, f3 ]) -> [ f1, f2*f3, f3 ] ], agOrder := [ 2, 3, 3, 3 ], 
-  glAutos := [  ], glOper := [  ], glOrder := 1, 
-  group := <pc group of size 27 with 3 generators>, 
-  one := IdentityMapping( <pc group of size 27 with 3 generators> ), 
-  size := 54 )
+gap> S := PqSupplementInnerAutomorphisms( des[3] );;
+gap> A := AutomorphismGroup( des[3] );;
+gap> Inn := InnerAutomorphismsAutomorphismGroup( A );;
+gap> Size( ClosureGroup( Inn, S.glAutos ) ) = Size( A );
+true
 gap> ##Example: "R2-5-i" . . . based on: examples/R2-5
 gap> ##Construction of R(2,5)
 gap> F := FreeGroup("a", "b");
