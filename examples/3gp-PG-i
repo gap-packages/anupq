@@ -27,4 +27,4 @@ PqPGConstructDescendants(procId : ClassBound := 4,
                                   CapableDescendants,
                                   StepSize := [2, 3, 1],
                                   PcgsAutomorphisms,
-                                  BasicAlgorithm);;
+                                  BasicAlgorithm);
