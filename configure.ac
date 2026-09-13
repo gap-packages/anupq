@@ -59,7 +59,7 @@ GMP_LDFLAGS=""
 GMP_LIBS="-lgmp"
 
 if test "x$with_gmp" = "xno" ; then
-	AC_MSG_ERROR([GMP is required and cannot be disabled])
+    AC_MSG_ERROR([GMP is required and cannot be disabled])
 elif test "x$with_gmp" = "xyes" ; then
     # If a gaproot was specified, try to find GMP in there; otherwise, fall
     # back to whatever GMP may be found via user specified C/CPP/LDFLAGS
@@ -70,12 +70,12 @@ elif test "x$with_gmp" = "xyes" ; then
         fi
     fi
 else
-	if test -d ${with_gmp}/include && test -d ${with_gmp}/lib ; then
-		GMP_CPPFLAGS="-I${with_gmp}/include"
+    if test -d ${with_gmp}/include && test -d ${with_gmp}/lib ; then
+        GMP_CPPFLAGS="-I${with_gmp}/include"
         GMP_LDFLAGS="-L${with_gmp}/lib"
-	else
-		AC_MSG_ERROR([Could not locate libgmp in the specified location])
-	fi
+    else
+        AC_MSG_ERROR([Could not locate libgmp in the specified location])
+    fi
 fi;
 
 save_CPPFLAGS="$CPPFLAGS"
