@@ -598,46 +598,6 @@ end );
 
 #############################################################################
 ##
-#F  PQ_EVALUATE( <string> ) . . . . . . . . . evaluate a string emulating GAP
-##
-##  For each substring of the string <string> that is a statement (i.e.  ends
-##  in a `;'), `PQ_EVALUATE( <string> )' evaluates it in the same way  {\GAP}
-##  would. If the substring is further followed by  a  `;'  (i.e.  there  was
-##  `;;'), this is an indication that the statement would produce no  output;
-##  otherwise the output that the user would normally see if  she  typed  the
-##  statement interactively is displayed.
-##
-InstallGlobalFunction(PQ_EVALUATE, function(string)
-local from, pos, statement, parts, var;
-  from := 0;
-  pos := Position(string, ';', from);
-  while pos <> fail do
-    statement := string{[from + 1..pos]};
-    statement := ReplacedString(statement," last "," ANUPQData.example.last ");
-    if pos < Length(string) and string[pos + 1] = ';' then
-      Read( InputTextString(statement) );
-      from := pos + 1;
-    else
-      parts := SplitString(statement, "", " \n");
-      if 1 < Length(parts) and parts[2] = ":=" then
-        Read( InputTextString(statement) );
-        Read( InputTextString( 
-                  Concatenation( "View(", parts[1], "); Print(\"\\n\");" ) ) );
-        ANUPQData.example.last := parts[1];
-      else
-        var := EvalString(statement);
-        View( var );
-        Print( "\n" );
-        ANUPQData.example.last := var;
-      fi;
-      from := pos;
-    fi;
-    pos := Position(string, ';', from);
-  od;
-end );
-
-#############################################################################
-##
 #F  PqExample() . . . . . . . . . . execute a pq example or display the index
 #F  PqExample( <example>[, PqStart][, Display] )
 #F  PqExample( <example>[, PqStart][, <filename>] )
@@ -678,10 +638,9 @@ end );
 ##  has finished as `ANUPQData.examples.vars.F'.
 ##
 InstallGlobalFunction(PqExample, function(arg)
-local name, file, instream, line, input, doPqStart, vars, var, printonly,
-      filename, DoAltAction, GetNextLine, PrintLine, action, datarec, optname,
-      linewidth, sizescreen, CheckForCompoundKeywords, hasFunctionExpr, parts,
-      iscompoundStatement, compoundDepth;
+local name, file, instream, line, doPqStart, lastarg, execute, logging,
+      linewidth, sizescreen, vars, var, saved, input, depth, code, words,
+      NextLine;
 
   sizescreen := SizeScreen();
   if sizescreen[1] < 80 then
@@ -710,252 +669,191 @@ local name, file, instream, line, input, doPqStart, vars, var, printonly,
     file := Filename(DirectoriesPackageLibrary( "anupq", "examples"), name);
   fi;
 
-  if name <> "index" then
-    doPqStart := false;
-    if Length(arg) > 1 then
-      # At this point the name of the variable <printonly> doesn't make
-      # sense; however, if the value assigned to <printonly> is `Display'
-      # or an empty string then we ``print only'' and if it is a non-empty
-      # string then it is assumed to be a filename and we `LogTo' that filename.
-      printonly := arg[Minimum(3, Length(arg))];
-      if arg[2] = PqStart then
-        if 2 < Length(name) and 
-           name{[Length(name) - 1 .. Length(name)]} in ["-i", "ni", ".g"] then
-          Error( "example does not have a (different) interactive form\n" );
-        fi;
-        doPqStart := true;
-      fi;
-    else
-      printonly := false;
-    fi;
-
-    DoAltAction := function()
-      if doPqStart then
-        if action[2] = "do" then
-          # uncomment line
-          line := line{[2..Length(line)]};
-        else
-          # replace a variable with a proc id
-          line := ReplacedString( line, action[5], action[3] ); 
-        fi;
-      fi;
-    end;
-
-    if printonly = Display or IsString(printonly) then
-      GetNextLine := function()
-        local from, to;
-        line := ReadLine(instream);
-        if line = fail then
-          return;
-        elif IsBound(action) then
-          action := SplitString(action, "", "# <>\n");
-          DoAltAction();
-          Unbind(action);
-        elif 3 < Length(line) and line{[1..4]} = "#alt" then
-          # only "#alt" actions recognised
-          action := line;
-        elif IsMatchingSublist(line, "#comment:") then
-          line := ReplacedString(line, " supplying", "");
-          from := Position(line, ' ');
-          to   := Position(line, '<', from);
-          Info(InfoANUPQ, 1, 
-               "In the next command, you may", line{[from .. to - 1]});
-          from := to + 1;
-          to   := Position(line, '>') - 1;
-          Info(InfoANUPQ, 1, "supplying to `PqExample' the option: `", 
-                             line{[from .. to]}, "'");
-        fi;
-      end;
-
-      if IsString(printonly) and printonly <> "" then
-        filename := printonly;
-        LogTo( filename ); #Make sure it's empty and writable
-      fi;
-      PrintLine := function()
-        if IsMatchingSublist(line, "##") then 
-          line := line{[2..Length(line)]};
-        elif line[1] = '#' then
-          return;
-        fi;
-        Print( ReplacedString(line, ";;", ";") );
-      end;
-      printonly := true; #now the name of the variable makes sense
-    else
-      printonly := false;
-      ANUPQData.example := rec(options := rec());
-      datarec := ANUPQData.example.options;
-
-      CheckForCompoundKeywords := function()
-        local compoundkeywords;
-        compoundkeywords := Filtered( SplitString(line, "", "( ;\n"),
-                                      w -> w in ["do", "od", "if", "fi",
-                                                 "repeat", "until",
-                                                 "function", "end"] );
-        hasFunctionExpr := "function" in compoundkeywords;
-        compoundDepth := compoundDepth 
-                         + Number(compoundkeywords,
-                                  w -> w in ["do", "if", "repeat", "function"])
-                         - Number(compoundkeywords,
-                                  w -> w in ["od", "fi", "until",  "end"]);
-        return not IsEmpty(compoundkeywords);
-      end;
-
-      GetNextLine := function()
-        local from, to, bhsinput;
-        repeat
-          line := ReadLine(instream);
-          if line = fail then return; fi;
-        until not IsMatchingSublist(line, "#comment:");
-        if IsBound(action) then
-          action := SplitString(action, "", "# <>\n");
-          if action[1] = "alt:" then
-            DoAltAction();
-          else
-            # action[2] = name of a possible option passed to `PqExample'
-            # action[4] = string to be replaced in <line> with the value
-            #             of the option if ok and set
-            optname := action[2];
-            if IsDigitChar(optname[ Length(optname) ]) then
-              optname := optname{[1..Length(optname) - 1]};
-            fi;
-            datarec.(action[2]) := ValueOption(action[2]);
-            if datarec.(action[2]) = fail then
-              Unbind( datarec.(action[2]) );
-            else
-              if not ANUPQoptionChecks.(optname)( datarec.(action[2]) ) then
-                Info(InfoANUPQ, 1, "\"", action[2], "\" value must be a ",
-                                   ANUPQoptionTypes.(optname), 
-                                   ": option ignored.");
-                Unbind( datarec.(action[2]) );
-              else
-                if action[1] = "add" then
-                  line[1] := ' ';
-                fi;
-                if IsString( datarec.(action[2]) ) then
-                  line := ReplacedString( line, action[4],
-                                          Flat(['"',datarec.(action[2]),'"']) );
-                else
-                  line := ReplacedString( line, action[4], 
-                                          String( datarec.(action[2]) ) );
-                fi;
-              fi;
-            fi;
-          fi;
-          Unbind(action);
-        elif IsMatchingSublist(line, "##") then
-          ; # do nothing
-        elif 3 < Length(line) and line{[1..4]} in ["#sub", "#add", "#alt"] then
-          action := line;
-        elif line[1] = '#' then
-          # execute instructions behind the scenes
-          bhsinput := "";
-          repeat
-            Append( bhsinput, 
-                    ReplacedString(line{[2..Length(line)]},
-                                   "datarec",
-                                   "ANUPQData.example.options") );
-            line := ReadLine(instream);
-          until line[1] <> '#' or
-                (3 < Length(line) and line{[1..4]} in ["#sub", "#add", "#com"]);
-          Read( InputTextString(bhsinput) );
-        fi;
-      end;
-
-      PrintLine := function()
-        if IsMatchingSublist(line, "##") then 
-          line := line{[2..Length(line)]};
-        elif line[1] = '#' then
-          return;
-        fi;
-        if input = "" then
-          Print("gap> ");
-        else
-          Print(">    ");
-        fi;
-        Print( ReplacedString(line, ";;", ";") );
-      end;
-    fi;
-  fi;
-  
-  instream := InputTextFile(file);
-  if name <> "index" then
-    FLUSH_PQ_STREAM_UNTIL( instream, 10, 1, ReadLine,
-                           line -> IsMatchingSublist(line, "#Example") );
-    line := FLUSH_PQ_STREAM_UNTIL( instream, 1, 10, ReadLine,
-                                   line -> IsMatchingSublist(line, "#vars:") );
-    if Length(line) + 21 < linewidth then
-      Info(InfoANUPQ, 1, line{[Position(line, ' ')+1..Position(line, ';')-1]},
-                         " are local to `PqExample'");
-    else
-      #this assumes one has been careful to ensure the `#vars:' line is not
-      #longer than 72 characters.
-      Info(InfoANUPQ, 1, line{[Position(line, ' ')+1..Position(line, ';')-1]},
-                         " are");
-      Info(InfoANUPQ, 1, "local to `PqExample'");
-    fi;
-    vars := SplitString(line, "", " ,;\n");
-    vars := vars{[2 .. Length(vars)]};
-    if not printonly then
-      CallFuncList(HideGlobalVariables, vars);
-    fi;
-    line := FLUSH_PQ_STREAM_UNTIL(instream, 1, 10, ReadLine,
-                                  line -> IsMatchingSublist(line, "#options:"));
-    input := "";
-    GetNextLine();
-    while line <> fail do
-      PrintLine();
-      if line[1] <> '#' then
-        if not printonly then
-          if input = "" then
-            compoundDepth := 0;
-            iscompoundStatement := CheckForCompoundKeywords();
-          elif iscompoundStatement and compoundDepth > 0 then
-            CheckForCompoundKeywords();
-          fi;
-          if line <> "\n" then
-            Append(input, line);
-            if iscompoundStatement then
-              if compoundDepth = 0 and Position(input, ';') <> fail then
-                Read( InputTextString(input) );           
-                if hasFunctionExpr then
-                  parts := SplitString(input, "", ":= \n");
-                  Read( InputTextString( 
-                            Concatenation( 
-                                "View(", parts[1], "); Print(\"\\n\");" ) ) );
-                  ANUPQData.example.last := parts[1];
-                fi;
-                iscompoundStatement := false;
-                input := "";
-              fi;
-            elif Position(input, ';') <> fail then
-              PQ_EVALUATE(input);
-              input := "";
-            fi;
-          fi;
-        fi;
-      fi;
-      GetNextLine();
-    od;
-    if printonly then
-      if IsBound(filename) then
-        LogTo();
-      fi;
-    else
-      ANUPQData.example.vars := rec();
-      for var in Filtered(vars, IsBoundGlobal) do
-        ANUPQData.example.vars.(var) := ValueGlobal(var);
-      od;
-      Info(InfoANUPQ, 1, "Variables used in `PqExample' are saved ",
-                         "in `ANUPQData.example.vars'.");
-      CallFuncList(UnhideGlobalVariables, vars);
-    fi;
-  else
+  if name = "index" then
+    instream := InputTextFile(file);
     FLUSH_PQ_STREAM_UNTIL(instream, 1, 10, ReadLine, line -> line = fail);
+    CloseStream(instream);
+    SizeScreen(sizescreen);
+    return;
   fi;
+
+  doPqStart := 1 < Length(arg) and arg[2] = PqStart;
+  if doPqStart and 2 < Length(name) and
+     name{[Length(name) - 1 .. Length(name)]} in ["-i", "ni", ".g"] then
+    Error( "example does not have a (different) interactive form\n" );
+  fi;
+
+  # a last argument `Display' or a string displays the example instead of
+  # executing it; a non-empty string also names a file to log the display to
+  if 1 < Length(arg) then
+    lastarg := arg[Minimum(3, Length(arg))];
+  else
+    lastarg := fail;
+  fi;
+  execute := not (lastarg = Display or IsString(lastarg));
+  logging := IsString(lastarg) and not IsEmpty(lastarg);
+  if logging then
+    LogTo(lastarg);
+  fi;
+  if execute then
+    ANUPQData.example := rec(options := rec());
+  fi;
+
+  # Returns the next line of the example to show, or fail at its end.
+  # Directive lines are consumed here; see examples/README.
+  NextLine := function()
+    local line, directive, option, optname, value, from, to;
+    while true do
+      line := ReadLine(instream);
+      if line = fail or line[1] <> '#' or IsMatchingSublist(line, "##") then
+        return line;
+      fi;
+
+      if IsMatchingSublist(line, "#comment:") and not execute then
+        line := ReplacedString(line, " supplying", "");
+        from := Position(line, ' ');
+        to   := Position(line, '<', from);
+        Info(InfoANUPQ, 1,
+             "In the next command, you may", line{[from .. to - 1]});
+        from := to + 1;
+        to   := Position(line, '>') - 1;
+        Info(InfoANUPQ, 1, "supplying to `PqExample' the option: `",
+                           line{[from .. to]}, "'");
+      elif ForAny(["#alt", "#sub", "#add"], d -> StartsWith(line, d)) then
+        # a directive applies to the line following it
+        directive := SplitString(line, "", "# <>\n");
+        line := ReadLine(instream);
+        if directive[1] = "alt:" then
+          if doPqStart and directive[2] = "do" then
+            line := line{[2 .. Length(line)]};
+          elif doPqStart then
+            line := ReplacedString(line, directive[5], directive[3]);
+          fi;
+        elif execute then
+          # an option with a trailing digit is checked like the option
+          option := directive[2];
+          optname := option;
+          if IsDigitChar(option[Length(option)]) then
+            optname := option{[1 .. Length(option) - 1]};
+          fi;
+          value := ValueOption(option);
+          if value <> fail and not ANUPQoptionChecks.(optname)(value) then
+            Info(InfoANUPQ, 1, "\"", option, "\" value must be a ",
+                               ANUPQoptionTypes.(optname),
+                               ": option ignored.");
+          elif value <> fail then
+            ANUPQData.example.options.(option) := value;
+            if directive[1] = "add" then
+              line[1] := ' ';
+            fi;
+            if IsString(value) then
+              value := Concatenation("\"", value, "\"");
+            else
+              value := String(value);
+            fi;
+            line := ReplacedString(line, directive[4], value);
+          fi;
+        fi;
+        if line = fail or line[1] <> '#' then
+          return line;
+        fi;
+      fi;
+    od;
+  end;
+
+  instream := InputTextFile(file);
+  FLUSH_PQ_STREAM_UNTIL( instream, 10, 1, ReadLine,
+                         line -> IsMatchingSublist(line, "#Example") );
+  line := FLUSH_PQ_STREAM_UNTIL( instream, 1, 10, ReadLine,
+                                 line -> IsMatchingSublist(line, "#vars:") );
+  if Length(line) + 21 < linewidth then
+    Info(InfoANUPQ, 1, line{[Position(line, ' ')+1..Position(line, ';')-1]},
+                       " are local to `PqExample'");
+  else
+    #this assumes one has been careful to ensure the `#vars:' line is not
+    #longer than 72 characters.
+    Info(InfoANUPQ, 1, line{[Position(line, ' ')+1..Position(line, ';')-1]},
+                       " are");
+    Info(InfoANUPQ, 1, "local to `PqExample'");
+  fi;
+  vars := SplitString(line, "", " ,;\n");
+  vars := DuplicateFreeList(vars{[2 .. Length(vars)]});
+
+  # unbind the user's variables of the same names until the example is done
+  if execute then
+    saved := rec();
+    for var in Filtered(vars, IsBoundGlobal) do
+      saved.(var) := [ValueGlobal(var), IsReadOnlyGlobal(var)];
+      if saved.(var)[2] then
+        MakeReadWriteGlobal(var);
+      fi;
+      UnbindGlobal(var);
+    od;
+  fi;
+  FLUSH_PQ_STREAM_UNTIL(instream, 1, 10, ReadLine,
+                        line -> IsMatchingSublist(line, "#options:"));
+
+  # Lines are echoed and collected in <input> until they form complete
+  # statements: all blocks closed and the line's code ending in `;'.
+  input := "";
+  depth := 0;
+  line := NextLine();
+  while line <> fail do
+    if execute and input = "" then
+      Print("gap> ");
+    elif execute then
+      Print(">    ");
+    fi;
+    if IsMatchingSublist(line, "##") then
+      line := line{[2 .. Length(line)]};
+    fi;
+    Print(ReplacedString(line, ";;", ";"));
+
+    if execute and line[1] <> '#' and line <> "\n" then
+      Append(input, line);
+      code := line;
+      if '#' in code then
+        code := code{[1 .. Position(code, '#') - 1]};
+      fi;
+      words := SplitString(code, "", " \n;,()[]");
+      depth := depth
+               + Number(words, w -> w in ["do", "if", "repeat", "function"])
+               - Number(words, w -> w in ["od", "fi", "until", "end"]);
+      code := NormalizedWhitespace(code);
+      if depth <= 0 and not IsEmpty(code) and code[Length(code)] = ';' then
+        READ_ALL_COMMANDS(InputTextString(input), false, false,
+                          function(value) View(value); Print("\n"); end);
+        input := "";
+        depth := 0;
+      fi;
+    fi;
+    line := NextLine();
+  od;
   CloseStream(instream);
-  if linewidth <> sizescreen[1] then
-    SizeScreen( sizescreen ); # restore what was there before
+
+  if execute then
+    ANUPQData.example.vars := rec();
+    for var in vars do
+      if IsBoundGlobal(var) then
+        ANUPQData.example.vars.(var) := ValueGlobal(var);
+        if IsReadOnlyGlobal(var) then
+          MakeReadWriteGlobal(var);
+        fi;
+        UnbindGlobal(var);
+      fi;
+      if IsBound(saved.(var)) then
+        BindGlobal(var, saved.(var)[1]);
+        if not saved.(var)[2] then
+          MakeReadWriteGlobal(var);
+        fi;
+      fi;
+    od;
+    Info(InfoANUPQ, 1, "Variables used in `PqExample' are saved ",
+                       "in `ANUPQData.example.vars'.");
+  elif logging then
+    LogTo();
   fi;
+  SizeScreen(sizescreen);
 end);
 
 #############################################################################

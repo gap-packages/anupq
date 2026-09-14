@@ -112,12 +112,6 @@ DeclareGlobalFunction( "PqParseWord" );
 
 #############################################################################
 ##
-#F  PQ_EVALUATE( <string> ) . . . . . . . . . evaluate a string emulating GAP
-##
-DeclareGlobalFunction( "PQ_EVALUATE" );
-
-#############################################################################
-##
 #F  PqExample() . . . . . . . . . . execute a pq example or display the index
 #F  PqExample( <filename>[, PqStart] )
 ##

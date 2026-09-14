@@ -41,6 +41,11 @@ output a user would normally see. A double-; tells `PqExample' not to
 try to get output from the command on executing  it.  All  statements
 terminating with a double-; are displayed with a single ;.
 
+Lines are executed once they form complete statements, i.e. once a
+line, ignoring a trailing comment, ends in a ; and every do, if,
+repeat and function is closed by od, fi, until and end. Hence a # must
+not occur inside a string.
+
 4. Comments that you want the user  to  see  should  appear  after  a
 double-#. On execution/printing of the example the user only sees one
 #.
@@ -79,10 +84,8 @@ check is used) or the option with a  single  digit  (0..9)  appended.
 (The possibility of adding a digit is included  to  allow  the  cases
 where the same option occurs in more than one line of the example and
 one wishes to avail the user  of  changing  the  option  to  possibly
-different values in those places. There may  be  additional  argument
-checking required for  such  options  which  is  the  reason  10.  is
-provided.) Options passed to `PqExample' with ok values are stored in
-the record `ANUPQData.example.options'.
+different values in those places.) Options passed to `PqExample' with
+ok values are stored in the record `ANUPQData.example.options'.
 
 7. A line of form:
 
@@ -114,39 +117,6 @@ says replace  <var1>  with  <var2>  if  `PqExample'  is  called  with
 argument `PqStart' (the idea being to  convert  the  example  form  a
 non-interactive example to an interactive one).
 
-10. All other lines starting with  a  #  are  lines  that  should  be
-executed in  the  background  (with  the  #  removed)  without  being
-displayed when `PqExample' is called  to  execute  an  example.  Such
-lines are ignored when `PqExample' is called  to  print  an  example.
-This has been added mainly for doing additional option checking.  For
-convenience,  `datarec'  may  be  used   as   an   abbreviation   for
-`ANUPQData.example.options'. 
-
-An example of how one might want to use this is as  follows.  Suppose
-there are two places where one uses `ClassBound' in the  example  but
-you wish to make it possible for  the  user  to  change  the  default
-values used. In this case, there will need to be lines something like
-`#sub <ClassBound1> for ...'  and  `#sub <ClassBound2> for  ...' i.e.
-`PqExample'  will  have  options  `ClassBound1'  and   `ClassBound2'.
-Suppose you need to ensure `ClassBound1'  >  `ClassBound2'  then  you
-might want to do something like the following:
-
-#if IsBound(datarec.ClassBound1) then
-#  if (IsBound(datarec.ClassBound2) and 
-#      datarec.ClassBound2 <= datarec.ClassBound1) or
-#     (not( IsBound(datarec.ClassBound2) ) and 19 <= datarec.ClassBound1) then
-#    datarec.ClassBound2 := datarec.ClassBound1 + 1;
-#    Info(InfoANUPQ,1, "ClassBound2 must be greater than ",datarec.ClassBound1);
-#    Info(InfoANUPQ,1, "ClassBound2 reset to ", datarec.ClassBound2);
-#  fi;
-#elif IsBound(datarec.ClassBound2) and datarec.ClassBound2 <= 3 then
-#  datarec.ClassBound2 := 4;
-#  Info(InfoANUPQ,1, "ClassBound2 must be greater than 3");
-#  Info(InfoANUPQ,1, "ClassBound2 reset to ", datarec.ClassBound2);
-#fi;
-
-Observe that the idea is not to accept values of  options  that  will
-run `PqExample' into error; it's not designed to  cope  with  such  a
-possibility.
+10. All other lines starting with a single # are ignored.
 
   - Greg Gamble -- 7 August, 2001; 14 February, 2002.

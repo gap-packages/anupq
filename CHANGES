@@ -2,6 +2,11 @@ In this file we record the changes since the first GAP 4 release of
 the ANUPQ package.
 
 Version 3.4.0 (unreleased)
+  * Rewrite `PqExample` so that it no longer uses the obsolete GAP
+    functions `HideGlobalVariables` and `UnhideGlobalVariables` (issue #23);
+    this also fixes the examples "3gp-PG-x-i" and "5gp-metabelian-Rel-i",
+    which stopped with an error
+  * ANUPQ now requires GAP 4.12 or newer
   * Fix `pq` processes being left running, possibly at 100% CPU even after
     quitting GAP, when a non-interactive function is interrupted by an
     error (issue #79)

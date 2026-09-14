@@ -7,11 +7,6 @@ it is known to work on Linux and Mac OS X, and also on Windows
 equipped with cygwin.
 <P/>
 
-The current version of the &ANUPQ; package requires &GAP;&nbsp;4.9, and
-version 1.2 of the &AutPGrp; package. However, we recommend using
-at least &GAP;&nbsp;4.6 and &AutPGrp;&nbsp;1.5.
-<P/>
-
 To install the &ANUPQ; package, move the file <C>anupq-<A>XXX</A>.tar.gz</C>
 for some version number <A>XXX</A> into the <C>pkg</C> directory in which you
 plan to install &ANUPQ;. Usually, this will be the directory <C>pkg</C> in the
