@@ -45,7 +45,30 @@ jobs:
           ./pq < tst/test2.pga > /dev/null
           ./pq -i -k < tst/test4.sp > /dev/null
           ./pq -i -k < tst/test5.sp > /dev/null
+          ./pq -i -k < tst/test6.sp > /dev/null
       - uses: gap-actions/process-coverage@v3
       - uses: codecov/codecov-action@v6
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
+
+  # an out-of-bounds access in pq may pass unnoticed, depending on the heap
+  # layout; under AddressSanitizer it fails the run
+  asan:
+    name: AddressSanitizer
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v6
+      - uses: gap-actions/setup-gap@v3
+      - name: Build pq with AddressSanitizer
+        run: |
+          ./autogen.sh
+          ./configure --with-gaproot=$GAPROOT
+          make -j4 CFLAGS="-g -O1 -fno-omit-frame-pointer -fsanitize=address" LDFLAGS="-fsanitize=address"
+      - name: Run pq
+        env:
+          ASAN_OPTIONS: detect_leaks=0 # report memory errors, not leaks
+        run: |
+          ./pq < tst/test1.pga > /dev/null
+          ./pq < tst/test2.pga > /dev/null
+          ./pq -i -k < tst/test6.sp > /dev/null
