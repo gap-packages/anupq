@@ -10,7 +10,7 @@ gap> rels := ["a^4", "b^2*[b, a, b]^-1", "b*(a^2 * b^-1 * a^2)^-1" ];
 [ "a^4", "b^2*[b, a, b]^-1", "b*(a^2 * b^-1 * a^2)^-1" ]
 gap> procId := PqStart(F : Prime := 2, Relators := rels);;
 gap> PqSPComputePcpAndPCover(procId : ClassBound := 1);;
-gap> PqSPStandardPresentation(procId, [ [[1,0],
+gap> PqSPStandardPresentation(procId, [ [[0,1],
 >                                     [1,1]],
 > 
 >                                    [[0,1],

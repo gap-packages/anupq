@@ -128,9 +128,14 @@ int *find_orbit_reps(int *a, int *b, struct pga_vars *pga)
          pga->rep[pga->nmr_orbits] = j;
          length[pga->nmr_orbits] = 1;
          a[j] = -pga->nmr_orbits;
-      } else
-         ++length[-a[a[j]]];
+      }
    }
+
+   /* a[j] can exceed j when the automorphisms are not a PAG-generating
+      sequence, so count members once every representative is numbered */
+   for (j = 1; j <= Degree; ++j)
+      if (a[j] > 0)
+         ++length[-a[a[j]]];
 
    soluble = (pga->soluble || pga->nmr_of_perms == 0 || Degree == 1);
 

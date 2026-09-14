@@ -2,6 +2,8 @@ In this file we record the changes since the first GAP 4 release of
 the ANUPQ package.
 
 Version 3.4.0 (unreleased)
+  * Fix intermittent crashes of the `pq` program when computing standard
+    presentations, and wrong input in the example `2gp-SP-1-Rel-i`
   * Fix `pq` processes being left running, possibly at 100% CPU even after
     quitting GAP, when a non-interactive function is interrupted by an
     error (issue #79)
