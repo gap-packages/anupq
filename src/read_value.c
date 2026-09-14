@@ -32,13 +32,13 @@ void read_value(Logical newline, char *string, int *value, int lower_bound)
 
    while (reading) {
       printf("%s", string);
-      nmr_items = scanf("%s", response);
+      nmr_items = scanf(MAXWORD_SCANF, response);
       verify_read(nmr_items, 1);
 
       /* read past any comments */
       while (response[0] == COMMENT) {
          read_line();
-         nmr_items = scanf("%s", response);
+         nmr_items = scanf(MAXWORD_SCANF, response);
          verify_read(nmr_items, 1);
       }
       if (!interactive_input())
@@ -78,21 +78,50 @@ int string_to_int(char *s, Logical *error)
    return sign * n;
 }
 
+/* read a whitespace-delimited token of any length from stdin;
+   return NULL at end of input */
+
+static char *read_token(void)
+{
+   size_t size = MAXIDENT, length = 0;
+   char *s;
+   int c;
+
+   while ((c = getchar()) != EOF && isspace(c))
+      ;
+   if (c == EOF)
+      return NULL;
+
+   s = (char *)malloc(size);
+   for (; c != EOF && !isspace(c); c = getchar()) {
+      if (length + 1 == size)
+         s = (char *)realloc(s, size *= 2);
+      s[length++] = c;
+   }
+   s[length] = '\0';
+
+   /* leave the delimiter unread, as scanf does, for read_line */
+   if (c != EOF)
+      ungetc(c, stdin);
+
+   return s;
+}
+
 /* read in string */
 
 char *GetString(char *string)
 {
-   int nmr_items;
-   char *s = (char *)malloc(MAXIDENT * sizeof(char));
+   char *s;
 
    printf("%s", string);
 
-   nmr_items = scanf("%s", s);
-   verify_read(nmr_items, 1);
+   s = read_token();
+   verify_read(s != NULL, 1);
    while (s[0] == COMMENT) {
+      free(s);
       read_line();
-      nmr_items = scanf("%s", s);
-      verify_read(nmr_items, 1);
+      s = read_token();
+      verify_read(s != NULL, 1);
    }
    if (!interactive_input())
       printf("%s\n", s);

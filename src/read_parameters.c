@@ -24,7 +24,7 @@ read_parameters(int format, int *max_class, int *output, struct pcp_vars *pcp)
    ident = GetString("Input group identifier: ");
 #endif
 
-   strcpy(pcp->ident, ident);
+   snprintf(pcp->ident, MAXIDENT, "%s", ident);
 
    while (reading) {
       read_value(TRUE, "Input prime: ", &pcp->p, 2);

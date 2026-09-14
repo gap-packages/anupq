@@ -145,13 +145,13 @@ void read_word(FILE *file, int disp, int type, struct pcp_vars *pcp)
 
    display_message(type);
 
-   while (!finish && (nmr_items = fscanf(file, "%s", s)) != EOF) {
+   while (!finish && (nmr_items = fscanf(file, MAXWORD_SCANF, s)) != EOF) {
 
       verify_read(nmr_items, 1);
 
       while (s[0] == COMMENT) {
          read_line();
-         nmr_items = fscanf(file, "%s", s);
+         nmr_items = fscanf(file, MAXWORD_SCANF, s);
          verify_read(nmr_items, 1);
       }
 
