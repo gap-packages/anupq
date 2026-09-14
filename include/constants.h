@@ -14,6 +14,7 @@
 
 #define PQSPACE 10000000       /* space allocated for computation in array y */
 #define MAXWORD 10000          /* maximum length of word */
+#define MAXWORD_SCANF "%9999s" /* reads at most MAXWORD - 1 chars */
 
 #define STACK_SIZE 50000       /* dimension of collection stack */
 #define DEFAULT_CLASS 10       /* default class bound for computation */
