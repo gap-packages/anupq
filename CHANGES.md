@@ -1,353 +1,381 @@
 In this file we record the changes since the first GAP 4 release of
 the ANUPQ package.
 
-Version 3.4.0 (unreleased)
-  * Fix intermittent crashes of the `pq` program when computing standard
-    presentations, and wrong input in the example `2gp-SP-1-Rel-i`
-  * Fix `pq` processes being left running, possibly at 100% CPU even after
-    quitting GAP, when a non-interactive function is interrupted by an
-    error (issue #79)
-  * Fix `PqStandardPresentation` hanging or the stabiliser of an allowable
-    subgroup being wrong when the soluble automorphisms act on the Frattini
-    quotient: the permutation representation handed to AutPGrp is now one
-    of the automorphism group modulo its soluble part, as AutPGrp requires
-    (issue #67)
-  * Fix the `pq` program being built without its GMP code since version
-    3.3.1: it did not compute automorphism group orders, so descendant
-    computations for groups whose Frattini quotient has more than 10000
-    elements could take very long or fail
-  * Fix `PqAPGSingleStage` aborting the `pq` program, a bug introduced in
-    version 3.2.1
-  * Fix various issues which prevented ANUPQ from working with a native
-    Windows (MinGW) build of GAP
-  * Determine the current directory without running the `pwd` program
+## 3.4.0 (unreleased)
 
-Version 3.3.3 (2025-11-25)
-  * Define the term "proper descendant" and clarify in various places
-    that all computed descendants are "proper" (i.e. not isomorphic to
-    the original group)
-  * Janitorial changes
+* Fix intermittent crashes of the `pq` program when computing standard
+  presentations, and wrong input in the example `2gp-SP-1-Rel-i`
+* Fix `pq` processes being left running, possibly at 100% CPU even after
+  quitting GAP, when a non-interactive function is interrupted by an
+  error (issue #79)
+* Fix `PqStandardPresentation` hanging or the stabiliser of an allowable
+  subgroup being wrong when the soluble automorphisms act on the Frattini
+  quotient: the permutation representation handed to AutPGrp is now one
+  of the automorphism group modulo its soluble part, as AutPGrp requires
+  (issue #67)
+* Fix the `pq` program being built without its GMP code since version
+  3.3.1: it did not compute automorphism group orders, so descendant
+  computations for groups whose Frattini quotient has more than 10000
+  elements could take very long or fail
+* Fix `PqAPGSingleStage` aborting the `pq` program, a bug introduced in
+  version 3.2.1
+* Fix various issues which prevented ANUPQ from working with a native
+  Windows (MinGW) build of GAP
+* Determine the current directory without running the `pwd` program
 
-Version 3.3.2 (2025-08-28)
-  * Various janitorial changes
+## 3.3.3 (2025-11-25)
 
-Version 3.3.1 (2024-10-21)
-  * Fix a bug where calling `PqDescendants` too many times will result in a
-    `"failed to launch child process"` error in `PQ_START`
-  * Require GMP library for multiprecesion integer arithmetic, which is
-    already required by GAP itself, and without which some computations may
-    produce strange errors or even wrong results
-  * Improve build system to find GMP more reliably
-  * Update maintainers and contact details
+* Define the term "proper descendant" and clarify in various places
+  that all computed descendants are "proper" (i.e. not isomorphic to
+  the original group)
+* Janitorial changes
 
-Version 3.3.0 (2023-01-05)
-  * Fix some issues in the documentation
-  * Remove `ANUPQGlobalVariables`
-  * Remove most uses of `HideGlobalVariables`
-  * Avoid using internal undocumented GAP functions
-  * Update build system
-  * Remove GAP 4.2 compatibility code
+## 3.3.2 (2025-08-28)
 
-Version 3.2.6 (2022-03-07)
-  * Declared the ANUPQ package to be under the Artistic License 2.0.
-  * Fix crash in PqDescendantsTreeCoclassOne
-  * Various janitorial changes
+* Various janitorial changes
 
-Version 3.2.5 (2022-02-22)
-  * Fixed a hang on macOS 10.15 and later
+## 3.3.1 (2024-10-21)
 
-Version 3.2.4 (2022-02-22)
-  * Fixed more compatibly issues under Windows/Cygwin
-  * Fixed an issue that prevents anupq from linking on some systems
+* Fix a bug where calling `PqDescendants` too many times will result in a
+  `"failed to launch child process"` error in `PQ_START`
+* Require GMP library for multiprecesion integer arithmetic, which is
+  already required by GAP itself, and without which some computations may
+  produce strange errors or even wrong results
+* Improve build system to find GMP more reliably
+* Update maintainers and contact details
 
-Version 3.2.3 (2021-10-31)
-  * Various janitorial changes, e.g. to the build system
+## 3.3.0 (2023-01-05)
 
-Version 3.2.2 (2021-04-11)
-  * Fixed compatibly issues under Windows/Cygwin
-  * Fixed many compiler warnings
-  * Removed use of TemporaryGlobalVarName
-  * Fixed building the manual on Linux
-  * Update Max Horn's contact details
+* Fix some issues in the documentation
+* Remove `ANUPQGlobalVariables`
+* Remove most uses of `HideGlobalVariables`
+* Avoid using internal undocumented GAP functions
+* Update build system
+* Remove GAP 4.2 compatibility code
 
-Version 3.2.1 (2019-04-18)
-  * After some back and forth, drop the limitation on 32-bit builds again;
-    it turns out that 64-bit builds can work just fine
-  * Added a patch by Laurent Bartholdi to the ANUPQ standalone binary,
-    which helps computing lower central quotients in certain cases
-  * Fixed a bug in PqEpimorphism which could produce a wrong result if the
-    input was a p-group but not an fp-group
-  * Various janitorial changes, e.g. to the build system
+## 3.2.6 (2022-03-07)
 
-Version 3.2 (2017-11-29)
-  * Document that ANUPQ is 32-bit only and requires a 32-bit compiler.
-  * Change build system to enforce 32-bit compilation by adding -m32 to CFLAGS
-    and LDFLAGS.
-  * Fix compilation if GMP was not found, and fix interaction between
-    GAP code and the anupq binary in that case
-  * Compatible with GAP 4.9
-  * Internal changes (avoid using GAP function SetFeatureObj, and the
-    unix functions tmpnam() and tempnam())
+* Declared the ANUPQ package to be under the Artistic License 2.0.
+* Fix crash in PqDescendantsTreeCoclassOne
+* Various janitorial changes
 
-Version 3.1.5 (2017-07-20)
-  * Fix bug in configure script which made it warn about testPq
-    missing when running configure the first time
-  * Improve error message when launching child processes fails
-  * Updated README section about the ANUPQ documentation
+## 3.2.5 (2022-02-22)
 
-Version 3.1.4 (2016-03-08)
-   * Remove some obsolete test scripts
-   * Revise how the manual is built
+* Fixed a hang on macOS 10.15 and later
 
-Version 3.1.3 (2016-01-10)
-   * Fixed version and release date in the manual
-   * Fixed some minor issues with the manual contents
-   * Fixed the PackageDoc entry in the PackageInfo.g file
+## 3.2.4 (2022-02-22)
 
-Version 3.1.2 (2016-01-07)
-   o Converted manual to GAPDoc format.
-   o Once again tweaked the build system. It now uses automake, and
-     shares code with other packages like io and nq. This fixes various
-     annoyances and will make it easy to share future fixes and
-     improvements between multiple GAP packages.
-   o Moved package homepage to https://gap-packages.github.io/anupq/
+* Fixed more compatibly issues under Windows/Cygwin
+* Fixed an issue that prevents anupq from linking on some systems
 
-Version 3.1.1 (2013-11-19)
-   o Updated the manual to match recent changes.
-   o Corrected Greg Gamble's email address.
-   o Further improved the build system.
-   o Fixed the testPq script.
+## 3.2.3 (2021-10-31)
 
-Version 3.1 (2013-09-24; never publicly announced)
-   o Requires at least GAP 4.5 and AutPGrp 1.5.
-   o include/pq_author.h:
-       pq program is now version 1.9
-   o Improved the build system: It now makes use of GNU autoconf, and
-     the various Makefiles are now more robust, and compatible with
-     both GAP 4.4 and 4.5. This should simplify building anupq for
-     many users.
-   o Werner Nickel is no longer maintainer.
-   o Max Horn is new (co-)maintainer.
-   o Fixed some warnings in the C code.
+* Various janitorial changes, e.g. to the build system
 
-Version 3.0 (2006-01-24)
-   o lib/{anupga.gi,anupq.gi,anupqprop.gi,anupqxdesc.gi}:
-       deprecated `PrimeOfPGroup' replaced by `PrimePGroup'
-   o lib/anusp.gi:
-       improved non-isomorphism test in `IsPqIsomorphicPGroup' from 
-       checking the exponent-p length to checking the order of the
-       terms in the lower exponent-p central series (suggested by
-       Marco Costantini), and corrected by Jack Schmidt
-   o pre-GAP 4.4 compatibility features removed:
-       - lib/anupqhead.g:
-         . banner removed ... this role is performed by PackageInfo.g
-           since GAP 4.4; thus `pkgbanner' option no longer exists
-         . file split into lib/anupqhead.gd and lib/anupqhead.gi
-       - lib/anupq4r2cpt.g[di]:
-           (GAP 4.2 compatibility) deleted from distribution
-       - lib/anustab.gi:
-           changed `AutPGrp' package test to corresponding GAP 4.4 test
-       - read.g,init.g:
-           . removed all but the `ReadPkg' commands 
-           . changed `ReadPkg' to `ReadPackage'
-           . made adjustments for lib/anupqhead.g split
-   o src/GAP_link_via_file.c:
-       deprecated GAP code updated for version 4.4
-   o include/pq_author.h:
-       pq program is now version 1.8
-   o standalone-doc/{README,guide.tex}:
-       modified for version 1.8 of the pq program
-   o testPq.in
-       - updated to check for GAP 4.4 and AutPGrp 1.2 as minimum versions
-       - now also checks the version of the pq program
-   o PackageInfo.g,README,VERSION,doc/{manual,intro,infra,install}.tex:
-       - package version changed from 2.2 to 3.0
-       - AutPGrp package (at least 1.2) is now essential, not just
-         recommended
-       - pq program now version 1.8
+## 3.2.2 (2021-04-11)
 
-Version 2.2:
-   o PackageInfo.g, README, VERSION, doc/{intro,infra,install}.tex:
-       - fixed typo. in PackageInfo.g: test file is tst/anupqeg.tst
-       - package version changed from 2.1 to 2.2
+* Fixed compatibly issues under Windows/Cygwin
+* Fixed many compiler warnings
+* Removed use of TemporaryGlobalVarName
+* Fixed building the manual on Linux
+* Update Max Horn's contact details
 
-Version 2.1:
-   o lib/anupqi, tst/anupqeg.tst
-       fix for a bug discovered by Tobias Rossmann: this bug was caused
-       in the ANUPQ package's interface by not passing on the parameter
-       StepSize to the standalone properly.  This bug could result in
-       computing the wrong number of descendants.  Produced a new
-       test file
-   o lib/anupqi.gi, Makefile.in, tst/anupqeg.tsk, tst/anupqeg.tst
-       changes suggested by Gary Zablackis in order to make the package
-       run under Windows:
-         - use '[grp]' as intermediate filename instead of '<grp>'
-         - add target to the makefile for compiling the standalone
-           with cygwin 
-         - run PqQuitAll() more often in test example
-   o src/store_definition_sets.c:
-       binomial coefficient algorithm modified to avoid overflow
-   o include/pq_author.h:
-       pq program is now version 1.7
-   o standalone-doc/{README,guide.tex}:
-       modified for version 1.7 of the pq program
-   o PackageInfo.g, README, VERSION, 
-     doc/{manual,intro,infra,anupq,options,install}.tex:
-       - package version changed from 2.0 to 2.1
-       - pq program version changed from 1.6 to 1.7
+## 3.2.1 (2019-04-18)
 
-Version 2.0:
-   o include/pq_author.h:
-       pq program is now version 1.6
-   o src/GAP_link_via_file.c:
-       newline now added to output to GAP
-   o src/{GAP_present.c,pgroup.c},
-     lib/{anupga.gi,anupqi.gi,anustab.gi}:
-       changes to remedy bug reported by Boris Girnat (thanks Boris!)
-       where too many descendants were generated for a group of class
-       more than 1 with insoluble automorphism group
-   o standalone/examples/README:
-       updated with version 1.6 change 
-   o standalone/examples/pga_*, tst/test[123].pga:
-       each file modified due to version 1.6 change
-       (pq now asks an additional question: how many soluble automorphisms?
-       - for all pga examples answer is 0)
-   o standalone-doc/{README,guide.tex}:
-       modified for version 1.6 of the pq program
-   o tst/out/test[123].out
-       modified as per above
-   o examples/PqSupplementInnerAutomorphisms:
-       `PqSupplementInnerAutomorphisms' now returns a record rather than
-       a group; example modified accordingly
-   o lib/anupq.gi:
-       `GAPInfo.DirectoriesTemporary' replaces `DIRECTORIES_TEMPORARY'
-   o lib/anupqopt.gi:
-       added two new options for `PqPGSupplyAutomorphisms', namely
-       `NumberOfSolubleAutomorphisms' and `RelativeOrders'
-   o README, VERSION, 
-     doc/{manual,intro,infra,anupq,options,install}.tex:
-       - package version changed from 1.5 to 2.0
-       - pq program version changed from 1.5 to 1.6
-       - various GAP 4.4 documentation changes
-       - `PqSupplementInnerAutomorphisms' example modified
-   o PkgInfo.g replaced by PackageInfo.g
-       - `Pkg...' fields replaced by `Package...' fields
-       - `AutoLoad' fields replaced by `Autoload'
-       - now defines `Subtitle' fields
-       - package version changed from 1.5 to 2.0
-   o testPq.in:
-       changes for GAP 4.4
-   o init.g:
-       - for GAP 4.3 compatibility, if GAP 4.3 then
-          `GAPInfo' record defined with entries:
-            . `DirectoriesTemporary' defined to be `DIRECTORIES_TEMPORARY'
-            . `Version' which is defined to be the contents of VERSION
-       - commented out deprecated stuff deleted
-       - undocumented ANUPQPackageVersion() function removed
-   o make_zoo:
-       now includes doc/manual.{lab,toc}
-   o tst/anupqeg.tst:
-       modified for `PqSupplementInnerAutomorphisms' change
+* After some back and forth, drop the limitation on 32-bit builds again;
+  it turns out that 64-bit builds can work just fine
+* Added a patch by Laurent Bartholdi to the ANUPQ standalone binary,
+  which helps computing lower central quotients in certain cases
+* Fixed a bug in PqEpimorphism which could produce a wrong result if the
+  input was a p-group but not an fp-group
+* Various janitorial changes, e.g. to the build system
 
-Version 1.5:
-   o lib/anupqios.gi:
-       typo. (and bug!) on line 541 fixed (1 changed to i);
-       thanks to Robert Morse for spotting it.
-   o PkgInfo.g, lib/anupqhead.g:
-       banner generated by `BannerString' field of PkgInfo.g
-       record, rather than by lib/anupqhead.g for GAP 4.4+.
-   o README, VERSION, PkgInfo.g, doc/{install,intro,infra}.tex
-       1.4 changed to 1.5
+## 3.2 (2017-11-29)
 
-Version 1.4:
-   o src/malloc.h: 
-       debugging file removed
-   o src/print_multiweight.c: 
-       removed unnecessary line: #include <malloc.h>
-   o README, VERSION, PkgInfo.g, doc/{install,intro,infra}.tex
-       1.3 changed to 1.4
-   o testPq.in:
-       Added more bullet-proofing, and more intelligent messages when 
-       things go wrong
+* Document that ANUPQ is 32-bit only and requires a 32-bit compiler.
+* Change build system to enforce 32-bit compilation by adding -m32 to CFLAGS
+  and LDFLAGS.
+* Fix compilation if GMP was not found, and fix interaction between
+  GAP code and the anupq binary in that case
+* Compatible with GAP 4.9
+* Internal changes (avoid using GAP function SetFeatureObj, and the
+  unix functions tmpnam() and tempnam())
 
-Version 1.3:
-   o init.g:
-       - now use `StringFile' rather than iostreams to read `VERSION' 
-         (more efficient)
-       - now looks for version 1.1 of AutPGrp
-   o testPq.in:
-       - Added -A option to GAP command.
-       - now looks for version 1.1 of AutPGrp 
-   o lib/{anusp.gi,anupga.gi}:
-       On suggestion of Alexander Hulpke added `IsSyllableWordsFamily'
-       as first argument to `FreeGroup' commands when the group is
-       subsequently converted to a pc group (more efficient)
-   o tst/anupqeg.tst:
-       Remade.
-   o doc/basics.tex:
-       Fixed typo.
-   o README, VERSION, PkgInfo.g, doc/{install,intro,infra}.tex
-       1.2 changed to 1.3
+## 3.1.5 (2017-07-20)
 
-Version 1.2:
-   A number of bugs to do with the input of generators/relations were
-   identified by Robert Morse (thanks Robert):
-   o PQ_GROUP_FROM_PCP (lib/anupq.gi line 531):
-       `GroupHomomorphismByImages' replaced by `GroupHomomorphismByImagesNC'
-       Reason: The check was unnecessary and slowed things down enormously.
-   o PQ_PC_PRESENTATION (lib/anupq.gi):
-       - datarec.gens, datarec.rels: previously `String' was applied to
-         the generators/relators provided and then stored in datarec.gens,
-         datarec.rels; this can be enormously costly. Now, no processing
-         is done when GAP already has them in another form (for pc groups,
-         however, the relators are calculated as before and stored as
-         strings, in datec.rels). The conversion to String is now only done
-         at the point of transmission to the pq program, and done in `ToPQk'.
-       - datarec.gens: an Error is now emitted if the number of defining gen'rs
-         is larger than 511 (the limit imposed by the pq program, see MAXGENS
-         in `include/runtime.h').
-   o ToPQk (lib/anupqios.gi):
-       When `ToPQk' is called with `cmd' equal to "gens" or "rels", cmd is
-       treated as the field of `datarec' so that the transmission of generators
-       and relators to the pq program can be treated specially, to improve 
-       efficiency. The data is still split into ``nice'' lines of length < 69
-       characters, but care is taken to avoid infinite loops when there are
-       no nice places to break the lines.
-   Also updated for changes made in GAP 4.3fix4. 
-   o PqSupplementInnerAutomorphisms (lib/anupga.gi):
-       `SetPcgs' changed to `SetGeneralizedPcgs'.
-   o PQ_AUT_INPUT (lib/anupqi.gi):
-       `Pcgs' changed to `GeneralizedPcgs'.
-   Now requires at least GAP 4.3fix4 and updated AutPGrp package 
-   (in .../autpgrp/gap/autos.gi `ConvertHybridAutGroup' uses 
-   `SetGeneralizedPcgs' in lieu of `SetPcgs'.)
-   o lib/anupq4r2cpt.g[id]: 
-       deprecated.
-   o init.g:
-       commented out backward compatibility with GAP 4.2, since version 1.2
-       requires GAP 4.3fix4 anyway.
-   Updated:
-   o testPq.in:
-       checks for new requirements mentioned above.
-   o make_zoo
-   o README
-   o doc/{intro.tex,install.tex}
-   Added:
-   o PkgInfo.g
+* Fix bug in configure script which made it warn about testPq
+  missing when running configure the first time
+* Improve error message when launching child processes fails
+* Updated README section about the ANUPQ documentation
 
-Version 1.1:
-  First GAP 4 release (GAP 4.2 compatible). Updates the GAP 3 release
-  (Version 1.0). Basically, Version 1.0 and 1.1 are incompatible, being
-  for different versions of GAP, but as much as was feasible of the original 
-  was retained. Principal differences are: 
-   o the key commands all take one argument, with any of the previous 
-     arguments being input as options; the GAP 3 way of inputting arguments is
-     still supported for Pq, PqEpimorphism, PqDescendants etc.;
-   o iostreams are used instead of files to communicate with the pq program;
-   o the source code has been modified to support a -G option that allows the
-     pq program to communicate with GAP via the iostream, rather than start
-     up a new GAP, when it needs GAP to compute stabilisers;
-   o the source code has also been modified to remove a few bugs;
-   o the functionality has been significantly increased.
+## 3.1.4 (2016-03-08)
 
-   - Greg Gamble -- 9 July, 2002; 3 November, 2002; 28 January, 2004. 
+* Remove some obsolete test scripts
+* Revise how the manual is built
+
+## 3.1.3 (2016-01-10)
+
+* Fixed version and release date in the manual
+* Fixed some minor issues with the manual contents
+* Fixed the PackageDoc entry in the PackageInfo.g file
+
+## 3.1.2 (2016-01-07)
+
+- Converted manual to GAPDoc format.
+- Once again tweaked the build system. It now uses automake, and
+  shares code with other packages like io and nq. This fixes various
+  annoyances and will make it easy to share future fixes and
+  improvements between multiple GAP packages.
+- Moved package homepage to https://gap-packages.github.io/anupq/
+
+## 3.1.1 (2013-11-19)
+
+- Updated the manual to match recent changes.
+- Corrected Greg Gamble's email address.
+- Further improved the build system.
+- Fixed the testPq script.
+
+## 3.1 (2013-09-24)
+
+never publicly announced
+- Requires at least GAP 4.5 and AutPGrp 1.5.
+- include/pq_author.h:
+    pq program is now version 1.9
+- Improved the build system: It now makes use of GNU autoconf, and
+  the various Makefiles are now more robust, and compatible with
+  both GAP 4.4 and 4.5. This should simplify building anupq for
+  many users.
+- Werner Nickel is no longer maintainer.
+- Max Horn is new (co-)maintainer.
+- Fixed some warnings in the C code.
+
+## 3.0 (2006-01-24)
+
+- lib/{anupga.gi,anupq.gi,anupqprop.gi,anupqxdesc.gi}:
+    deprecated `PrimeOfPGroup' replaced by `PrimePGroup'
+- lib/anusp.gi:
+    improved non-isomorphism test in `IsPqIsomorphicPGroup' from
+    checking the exponent-p length to checking the order of the
+    terms in the lower exponent-p central series (suggested by
+    Marco Costantini), and corrected by Jack Schmidt
+- pre-GAP 4.4 compatibility features removed:
+    - lib/anupqhead.g:
+      . banner removed ... this role is performed by PackageInfo.g
+        since GAP 4.4; thus `pkgbanner' option no longer exists
+      . file split into lib/anupqhead.gd and lib/anupqhead.gi
+    - lib/anupq4r2cpt.g[di]:
+        (GAP 4.2 compatibility) deleted from distribution
+    - lib/anustab.gi:
+        changed `AutPGrp' package test to corresponding GAP 4.4 test
+    - read.g,init.g:
+        . removed all but the `ReadPkg' commands
+        . changed `ReadPkg' to `ReadPackage'
+        . made adjustments for lib/anupqhead.g split
+- src/GAP_link_via_file.c:
+    deprecated GAP code updated for version 4.4
+- include/pq_author.h:
+    pq program is now version 1.8
+- standalone-doc/{README,guide.tex}:
+    modified for version 1.8 of the pq program
+- testPq.in
+    - updated to check for GAP 4.4 and AutPGrp 1.2 as minimum versions
+    - now also checks the version of the pq program
+- PackageInfo.g,README,VERSION,doc/{manual,intro,infra,install}.tex:
+    - package version changed from 2.2 to 3.0
+    - AutPGrp package (at least 1.2) is now essential, not just
+      recommended
+    - pq program now version 1.8
+
+## 2.2 (2005-07-28)
+
+- PackageInfo.g, README, VERSION, doc/{intro,infra,install}.tex:
+    - fixed typo. in PackageInfo.g: test file is tst/anupqeg.tst
+    - package version changed from 2.1 to 2.2
+
+## 2.1 (2005-07-20)
+
+- lib/anupqi, tst/anupqeg.tst
+    fix for a bug discovered by Tobias Rossmann: this bug was caused
+    in the ANUPQ package's interface by not passing on the parameter
+    StepSize to the standalone properly.  This bug could result in
+    computing the wrong number of descendants.  Produced a new
+    test file
+- lib/anupqi.gi, Makefile.in, tst/anupqeg.tsk, tst/anupqeg.tst
+    changes suggested by Gary Zablackis in order to make the package
+    run under Windows:
+      - use '[grp]' as intermediate filename instead of '`<grp>`'
+      - add target to the makefile for compiling the standalone
+        with cygwin
+      - run PqQuitAll() more often in test example
+- src/store_definition_sets.c:
+    binomial coefficient algorithm modified to avoid overflow
+- include/pq_author.h:
+    pq program is now version 1.7
+- standalone-doc/{README,guide.tex}:
+    modified for version 1.7 of the pq program
+- PackageInfo.g, README, VERSION,
+  doc/{manual,intro,infra,anupq,options,install}.tex:
+    - package version changed from 2.0 to 2.1
+    - pq program version changed from 1.6 to 1.7
+
+## 2.0 (2004-03-24)
+
+- include/pq_author.h:
+    pq program is now version 1.6
+- src/GAP_link_via_file.c:
+    newline now added to output to GAP
+- src/{GAP_present.c,pgroup.c},
+  lib/{anupga.gi,anupqi.gi,anustab.gi}:
+    changes to remedy bug reported by Boris Girnat (thanks Boris!)
+    where too many descendants were generated for a group of class
+    more than 1 with insoluble automorphism group
+- standalone/examples/README:
+    updated with version 1.6 change
+- standalone/examples/pga_*, tst/test[123].pga:
+    each file modified due to version 1.6 change
+    (pq now asks an additional question: how many soluble automorphisms?
+    - for all pga examples answer is 0)
+- standalone-doc/{README,guide.tex}:
+    modified for version 1.6 of the pq program
+- tst/out/test[123].out
+    modified as per above
+- examples/PqSupplementInnerAutomorphisms:
+    `PqSupplementInnerAutomorphisms' now returns a record rather than
+    a group; example modified accordingly
+- lib/anupq.gi:
+    `GAPInfo.DirectoriesTemporary' replaces `DIRECTORIES_TEMPORARY'
+- lib/anupqopt.gi:
+    added two new options for `PqPGSupplyAutomorphisms', namely
+    `NumberOfSolubleAutomorphisms' and `RelativeOrders'
+- README, VERSION,
+  doc/{manual,intro,infra,anupq,options,install}.tex:
+    - package version changed from 1.5 to 2.0
+    - pq program version changed from 1.5 to 1.6
+    - various GAP 4.4 documentation changes
+    - `PqSupplementInnerAutomorphisms' example modified
+- PkgInfo.g replaced by PackageInfo.g
+    - `Pkg...' fields replaced by `Package...' fields
+    - `AutoLoad' fields replaced by `Autoload'
+    - now defines `Subtitle' fields
+    - package version changed from 1.5 to 2.0
+- testPq.in:
+    changes for GAP 4.4
+- init.g:
+    - for GAP 4.3 compatibility, if GAP 4.3 then
+       `GAPInfo' record defined with entries:
+         . `DirectoriesTemporary' defined to be `DIRECTORIES_TEMPORARY'
+         . `Version' which is defined to be the contents of VERSION
+    - commented out deprecated stuff deleted
+    - undocumented ANUPQPackageVersion() function removed
+- make_zoo:
+    now includes doc/manual.{lab,toc}
+- tst/anupqeg.tst:
+    modified for `PqSupplementInnerAutomorphisms' change
+
+## 1.5
+
+- lib/anupqios.gi:
+    typo. (and bug!) on line 541 fixed (1 changed to i);
+    thanks to Robert Morse for spotting it.
+- PkgInfo.g, lib/anupqhead.g:
+    banner generated by `BannerString' field of PkgInfo.g
+    record, rather than by lib/anupqhead.g for GAP 4.4+.
+- README, VERSION, PkgInfo.g, doc/{install,intro,infra}.tex
+    1.4 changed to 1.5
+
+## 1.4
+
+- src/malloc.h:
+    debugging file removed
+- src/print_multiweight.c:
+    removed unnecessary line: #include <malloc.h>
+- README, VERSION, PkgInfo.g, doc/{install,intro,infra}.tex
+    1.3 changed to 1.4
+- testPq.in:
+    Added more bullet-proofing, and more intelligent messages when
+    things go wrong
+
+## 1.3
+
+- init.g:
+    - now use `StringFile' rather than iostreams to read `VERSION'
+      (more efficient)
+    - now looks for version 1.1 of AutPGrp
+- testPq.in:
+    - Added -A option to GAP command.
+    - now looks for version 1.1 of AutPGrp
+- lib/{anusp.gi,anupga.gi}:
+    On suggestion of Alexander Hulpke added `IsSyllableWordsFamily'
+    as first argument to `FreeGroup' commands when the group is
+    subsequently converted to a pc group (more efficient)
+- tst/anupqeg.tst:
+    Remade.
+- doc/basics.tex:
+    Fixed typo.
+- README, VERSION, PkgInfo.g, doc/{install,intro,infra}.tex
+    1.2 changed to 1.3
+
+## 1.2
+
+A number of bugs to do with the input of generators/relations were
+identified by Robert Morse (thanks Robert):
+- PQ_GROUP_FROM_PCP (lib/anupq.gi line 531):
+    `GroupHomomorphismByImages' replaced by `GroupHomomorphismByImagesNC'
+    Reason: The check was unnecessary and slowed things down enormously.
+- PQ_PC_PRESENTATION (lib/anupq.gi):
+    - datarec.gens, datarec.rels: previously `String' was applied to
+      the generators/relators provided and then stored in datarec.gens,
+      datarec.rels; this can be enormously costly. Now, no processing
+      is done when GAP already has them in another form (for pc groups,
+      however, the relators are calculated as before and stored as
+      strings, in datec.rels). The conversion to String is now only done
+      at the point of transmission to the pq program, and done in `ToPQk'.
+    - datarec.gens: an Error is now emitted if the number of defining gen'rs
+      is larger than 511 (the limit imposed by the pq program, see MAXGENS
+      in `include/runtime.h').
+- ToPQk (lib/anupqios.gi):
+    When `ToPQk' is called with `cmd' equal to "gens" or "rels", cmd is
+    treated as the field of `datarec' so that the transmission of generators
+    and relators to the pq program can be treated specially, to improve
+    efficiency. The data is still split into ``nice'' lines of length < 69
+    characters, but care is taken to avoid infinite loops when there are
+    no nice places to break the lines.
+Also updated for changes made in GAP 4.3fix4.
+- PqSupplementInnerAutomorphisms (lib/anupga.gi):
+    `SetPcgs' changed to `SetGeneralizedPcgs'.
+- PQ_AUT_INPUT (lib/anupqi.gi):
+    `Pcgs' changed to `GeneralizedPcgs'.
+Now requires at least GAP 4.3fix4 and updated AutPGrp package
+(in .../autpgrp/gap/autos.gi `ConvertHybridAutGroup' uses
+`SetGeneralizedPcgs' in lieu of `SetPcgs'.)
+- lib/anupq4r2cpt.g[id]:
+    deprecated.
+- init.g:
+    commented out backward compatibility with GAP 4.2, since version 1.2
+    requires GAP 4.3fix4 anyway.
+Updated:
+- testPq.in:
+    checks for new requirements mentioned above.
+- make_zoo
+- README
+- doc/{intro.tex,install.tex}
+Added:
+- PkgInfo.g
+
+## 1.1
+
+First GAP 4 release (GAP 4.2 compatible). Updates the GAP 3 release
+(Version 1.0). Basically, Version 1.0 and 1.1 are incompatible, being
+for different versions of GAP, but as much as was feasible of the original
+was retained. Principal differences are:
+ - the key commands all take one argument, with any of the previous
+   arguments being input as options; the GAP 3 way of inputting arguments is
+   still supported for Pq, PqEpimorphism, PqDescendants etc.;
+ - iostreams are used instead of files to communicate with the pq program;
+ - the source code has been modified to support a -G option that allows the
+   pq program to communicate with GAP via the iostream, rather than start
+   up a new GAP, when it needs GAP to compute stabilisers;
+ - the source code has also been modified to remove a few bugs;
+ - the functionality has been significantly increased.
+
+ - Greg Gamble -- 9 July, 2002; 3 November, 2002; 28 January, 2004.
