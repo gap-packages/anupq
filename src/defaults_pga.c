@@ -152,6 +152,7 @@ void copy_flags(struct pga_vars *flag, struct pga_vars *pga)
    pga->trace = flag->trace;
 
    pga->space_efficient = flag->space_efficient;
+   pga->lean_orbits = FALSE;
    pga->soluble = flag->soluble;
    pga->terminal = flag->terminal;
    pga->exponent_law = flag->exponent_law;

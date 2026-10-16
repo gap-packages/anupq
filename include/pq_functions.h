@@ -66,6 +66,7 @@ int vector_to_word(int cp, int ptr, struct pcp_vars *pcp);
 int* find_orbit_reps(int *a, int *b, struct pga_vars *pga);
 int** label_to_subgroup(int *Index, int **subset, int label, struct pga_vars *pga);
 int** multiply_matrix(int **a, int n, int m, int **b, int q, int p);
+Logical lean_insoluble_orbits(struct pga_vars *pga);
 int** permute_subgroups(FILE *LINK_input, int **a, int **b, char **c, int ***auts, struct pga_vars *pga, struct pcp_vars *pcp);
 int** transpose(int **a, int n, int m);
 int*** central_automorphisms(struct pga_vars *pga, struct pcp_vars *pcp);

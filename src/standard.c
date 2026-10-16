@@ -403,6 +403,7 @@ static int **finish_pga_run(Logical *identity_map,
    t = runTime();
 #endif
 
+   pga->lean_orbits = FALSE; /* the Schreier vectors are needed */
    perms = permute_subgroups(LINK_input, &a, &b, &c, auts, pga, pcp);
 
 #if defined(TIME)

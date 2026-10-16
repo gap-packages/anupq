@@ -119,6 +119,9 @@ int ***restore_pga(FILE *ifp, struct pga_vars *pga, struct pcp_vars *pcp)
    nmr_items = fread(pga, sizeof(struct pga_vars), 1, ifp);
    verify_read(nmr_items, 1);
 
+   /* the way the orbits were computed for this group is not inherited */
+   pga->lean_orbits = FALSE;
+
 #ifdef HAVE_GMP
    mpz_init_set(&pga->aut_order, &aut_ord);
    mpz_clear(&aut_ord);

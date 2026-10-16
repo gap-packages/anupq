@@ -83,6 +83,7 @@ struct pga_vars {
 
    /* algorithm flags */
    Logical space_efficient; 
+   Logical lean_orbits; /* insoluble orbits merged one permutation at a time */
    Logical soluble;
    Logical combined;
    Logical terminal;        /* completely process terminal descendants */

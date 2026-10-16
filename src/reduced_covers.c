@@ -95,9 +95,10 @@ int reduced_covers(FILE *descendant_file,
 #endif
       }
 
+      pga->lean_orbits = lean_insoluble_orbits(pga);
       perms = permute_subgroups(LINK_input, &a, &b, &c, auts, pga, pcp);
 
-      if (!pga->space_efficient) {
+      if (!pga->space_efficient && !pga->lean_orbits) {
          if (soluble_group)
             compute_orbits(&a, &b, &c, perms, pga);
          else
@@ -136,6 +137,7 @@ int reduced_covers(FILE *descendant_file,
          nmr_of_covers += pga->nmr_orbits;
 
       free_space(soluble_group, perms, orbit_length, a, b, c, pga);
+      pga->lean_orbits = FALSE;
    }
 
 #if defined(GAP_LINK)

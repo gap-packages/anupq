@@ -17,6 +17,7 @@ void initialise_pga(struct pga_vars *pga, struct pcp_vars *pcp)
 {
    pga->p = pcp->p;
    pga->q = pga->r = pga->s = 0;
+   pga->lean_orbits = FALSE;
    pga->fixed = 0;
    pga->Degree = 0;
    pga->nmr_of_descendants = 0;

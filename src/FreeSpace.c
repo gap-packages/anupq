@@ -106,7 +106,8 @@ void free_space(Logical soluble_computation,
                 char *c,
                 struct pga_vars *pga)
 {
-   int nmr_of_perms = (pga->space_efficient ? 1 : pga->nmr_of_perms);
+   int nmr_of_perms =
+       (pga->space_efficient || pga->lean_orbits ? 1 : pga->nmr_of_perms);
 
 #ifdef DEBUG
    printf("Free space routine\n");

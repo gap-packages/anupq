@@ -165,6 +165,8 @@ void interactive_pga(Logical group_present,
 #endif
 #endif
             }
+            /* every permutation is kept for the ORBITS option */
+            pga->lean_orbits = FALSE;
             perms = permute_subgroups(LINK_input, &a, &b, &c, auts, pga, pcp);
 
 #if defined(GAP_LINK_VIA_FILE)

@@ -3,6 +3,12 @@ the ANUPQ package.
 
 ## 3.4.0 (unreleased)
 
+* Reduce the memory the `pq` program needs to compute descendants when
+  the automorphism group is insoluble: the orbits on the allowable
+  subgroups are now merged one permutation at a time, instead of first
+  storing the permutation induced by every automorphism (the
+  `SpaceEfficient` option only ever applied to soluble groups). Standard
+  presentations are computed as before
 * Fix intermittent crashes of the `pq` program when computing standard
   presentations, and wrong input in the example `2gp-SP-1-Rel-i`
 * Fix `pq` processes being left running, possibly at 100% CPU even after

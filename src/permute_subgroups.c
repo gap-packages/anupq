@@ -12,6 +12,47 @@
 #include "pga_vars.h"
 #include "pq_functions.h"
 #include "constants.h"
+#include "standard.h"
+
+/* union-find over the allowable subgroups, the root of a class being its
+   least element: a[x] <= x always holds, so a final ascending pass leaves
+   a[x] = least element of the orbit of x -- the array that
+   insoluble_compute_orbits builds from all of the permutations at once */
+
+static int orbit_root(int *a, int x)
+{
+   while (a[x] != x) {
+      a[x] = a[a[x]];
+      x = a[x];
+   }
+   return x;
+}
+
+static void merge_orbits(int *permutation, int *a, struct pga_vars *pga)
+{
+   register int i, ri, rj;
+   register int Degree = pga->Degree;
+
+   for (i = 1; i <= Degree; ++i) {
+      ri = orbit_root(a, i);
+      rj = orbit_root(a, permutation[i]);
+      if (ri < rj)
+         a[rj] = ri;
+      else if (rj < ri)
+         a[ri] = rj;
+   }
+}
+
+/* may the orbits of an insoluble group be found one permutation at a time,
+   holding a single permutation instead of all of them?  Not when the
+   Schreier vectors of a standard presentation computation are wanted */
+
+Logical lean_insoluble_orbits(struct pga_vars *pga)
+{
+   Logical soluble_group =
+       (pga->soluble || pga->Degree == 1 || pga->nmr_of_perms == 0);
+   return !soluble_group && !StandardPresentation;
+}
 
 /* compute all of the permutations of the allowable subgroups
   induced by the extended automorphisms described in auts;
@@ -41,8 +82,18 @@ int **permute_subgroups(FILE *LINK_input,
    if (soluble_group && pga->space_efficient)
       space_for_orbits(a, b, c, pga);
 
+   /* an insoluble group: orbits by union-find, one permutation stored */
+   if (pga->lean_orbits) {
+      register int i;
+      *a = allocate_vector(pga->Degree, 1, FALSE);
+      for (i = 1; i <= pga->Degree; ++i)
+         (*a)[i] = i;
+   }
+
    /* set up space to store permutations */
-   nmr_of_perms = (pga->space_efficient ? 1 : MAX(pga->nmr_of_perms, 1));
+   nmr_of_perms = (pga->space_efficient || pga->lean_orbits
+                       ? 1
+                       : MAX(pga->nmr_of_perms, 1));
    perms = allocate_matrix(nmr_of_perms, pga->Degree, 1, FALSE);
 
    /* the stabiliser of a reduced p-covering group may be trivial */
@@ -74,11 +125,19 @@ int **permute_subgroups(FILE *LINK_input,
 #endif
       }
 
-      /* is the action on the p-multiplicator non-trivial? */
-      if (pga->map[alpha] != 0) {
+      /* is the action on the p-multiplicator non-trivial?  (merging
+         orbits, an automorphism acting as the identity adds nothing,
+         so its permutation is computed only if it is to be printed) */
+      if (pga->map[alpha] != 0 &&
+          !(pga->lean_orbits && !pga->print_permutation &&
+            is_identity(A, q, 0))) {
 
-         nmr_of_perms = (pga->space_efficient ? 1 : pga->map[alpha]);
+         nmr_of_perms = (pga->space_efficient || pga->lean_orbits
+                             ? 1
+                             : pga->map[alpha]);
          compute_permutation(perms[nmr_of_perms], A, pga);
+         if (pga->lean_orbits)
+            merge_orbits(perms[nmr_of_perms], *a, pga);
 
          if (pga->print_permutation) {
             printf("Permutation %d is\n", alpha);
@@ -92,6 +151,12 @@ int **permute_subgroups(FILE *LINK_input,
          else
             process_identity_perm(*a, *b, *c, pga);
       }
+   }
+
+   if (pga->lean_orbits) {
+      register int i;
+      for (i = 1; i <= pga->Degree; ++i)
+         (*a)[i] = (*a)[(*a)[i]];
    }
 
    free_matrix(A, q, 0);
