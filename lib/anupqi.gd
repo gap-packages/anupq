@@ -23,7 +23,13 @@ DeclareGlobalFunction( "PQ_AUT_GROUP" );
 
 #############################################################################
 ##
-#F  PQ_AUT_INPUT( <datarec>, <G> : <options> ) . . . . . . automorphism input
+#F  PQ_PCP_BASIS( <datarec> ) . . . . . . .  pq's pcp in terms of the pc group
+##
+DeclareGlobalFunction( "PQ_PCP_BASIS" );
+
+#############################################################################
+##
+#F  PQ_AUT_INPUT( <datarec>, <G>[, <basis>] : <opts> ) . . . . . . automorphism input
 ##
 DeclareGlobalFunction( "PQ_AUT_INPUT" );
 

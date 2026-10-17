@@ -64,16 +64,56 @@ end );
 
 #############################################################################
 ##
+#F  PQ_PCP_BASIS( <datarec> ) . . . . . . .  pq's pcp in terms of the pc group
+##
+##  `<datarec>.group' is a pc group, given to `pq' by its pcgs `<datarec>.pcgs'.
+##  `pq' computes its own pcp for it, whose generators beyond the  first  need
+##  not be the elements of `<datarec>.pcgs': they are defined as  commutators
+##  and powers of the earlier ones. This returns `fail' if they are the same,
+##  and otherwise a record with an isomorphism `epi' from `<datarec>.group' to
+##  the group of that pcp and `pcgs', the pcp generators there. It writes the
+##  current pcp (of the p-quotient or its p-cover) to a file.
+##
+InstallGlobalFunction( PQ_PCP_BASIS, function( datarec )
+  local file, result, F, fpcgs, n, nat, Q;
+
+  file := Filename( ANUPQData.tmpdir, "PQ_pcp_basis" );
+  PushOptions( rec(nonuser := true) );
+  PQ_WRITE_PC_PRESENTATION( datarec, file );
+  PopOptions();
+  result := PQ_READ_AS_FUNC_WITH_VARS( file, [ "F", "MapImages" ] );
+  F := result.F;
+  fpcgs := FamilyPcgs( F );
+  n := Length( datarec.pcgs );
+  if result.MapImages{[1 .. n]} = fpcgs{[1 .. n]} then
+    return fail;
+  fi;
+  # if the current pcp is a p-cover, its last generators span the multiplicator
+  nat := NaturalHomomorphismByNormalSubgroupNC( F,
+             SubgroupNC( F, fpcgs{[n + 1 .. Length( fpcgs )]} ) );
+  Q := Image( nat );
+  return rec( epi := GroupHomomorphismByImagesNC( datarec.group, Q,
+                       datarec.pcgs,
+                       List( result.MapImages{[1 .. n]}, x -> Image( nat, x ) ) ),
+              pcgs := PcgsByPcSequence( FamilyObj( One( Q ) ),
+                       List( fpcgs{[1 .. n]}, x -> Image( nat, x ) ) ) );
+end );
+
+#############################################################################
+##
 #F  PQ_AUT_INPUT( <datarec>, <G> : <options> ) . . . . . . automorphism input
 ##
 ##  inputs automorphism data for `<datarec>.group' given by <options> to  the
 ##  `pq' binary derived from the pc group  <G>  (used  in  option  1  of  the
 ##  $p$-Group Generation menu and option 2 of the Standard Presentation menu).
 ##
-InstallGlobalFunction( PQ_AUT_INPUT, function( datarec, G )
+InstallGlobalFunction( PQ_AUT_INPUT, function( arg )
 
-  local   autrec,  nrautos,  rank,  gens,  i,  aut,  j,  g, exponents;
-    
+  local   datarec,  G,  basis,  autrec,  nrautos,  rank,  gens,  i,  aut,
+          j,  g,  exponents,  Exponents;
+
+  datarec := arg[1];
+  G := arg[2];
   autrec  := PQ_AUT_GROUP( G );
   nrautos := Length( autrec.glAutos ) + Length( autrec.agAutos );
 
@@ -82,6 +122,17 @@ InstallGlobalFunction( PQ_AUT_INPUT, function( datarec, G )
   
   rank := RankPGroup( G );
   gens := PcgsPCentralSeriesPGroup( G );
+
+  ##  `pq' reads the image of each of its pcp generators 1..rank as exponents
+  ##  w.r.t. its own pcp. If <basis> (from PQ_PCP_BASIS) is given, that pcp
+  ##  differs from <gens>, and the images are transported to it.
+  if 2 < Length(arg) and arg[3] <> fail then
+    basis := arg[3];
+    gens := List( basis.pcgs, x -> PreImagesRepresentative( basis.epi, x ) );
+    Exponents := w -> ExponentsOfPcElement( basis.pcgs, Image( basis.epi, w ) );
+  else
+    Exponents := w -> ExponentsOfPcElement( gens, w );
+  fi;
 
   ToPQ(datarec, [ nrautos ], [ "  #number of automorphisms" ]);
 
@@ -98,7 +149,7 @@ InstallGlobalFunction( PQ_AUT_INPUT, function( datarec, G )
 
       for j in [1..rank] do
           g := gens[j];
-          exponents := Flat( List( ExponentsOfPcElement(gens, Image( aut, g )),
+          exponents := Flat( List( Exponents( Image( aut, g ) ),
                                    e -> [ String(e), " "] ) );
 
           ToPQ(datarec, [ exponents ],
@@ -115,7 +166,7 @@ InstallGlobalFunction( PQ_AUT_INPUT, function( datarec, G )
 
       for j in [1..rank] do
           g := gens[j];
-          exponents := Flat( List( ExponentsOfPcElement(gens, Image( aut, g )),
+          exponents := Flat( List( Exponents( Image( aut, g ) ),
                                    e -> [ String(e), " "] ) );
 
           ToPQ(datarec, [ exponents ],
@@ -2622,7 +2673,7 @@ end );
 ##  the main or Advanced $p$-Group Generation menu.
 ##
 InstallGlobalFunction( PQ_PG_SUPPLY_AUTS, function( arg )
-  local datarec;
+  local datarec, basis;
 
   CallFuncList( PQ_MENU, arg{[1, Length(arg)]});
   datarec := arg[1];
@@ -2634,9 +2685,15 @@ InstallGlobalFunction( PQ_PG_SUPPLY_AUTS, function( arg )
           "the value of option \"NumberOfSolubleAutomorphisms\" (",
           datarec.NumberOfSolubleAutomorphisms, ")\n");
   fi;
+  if 2 = Length(arg) and IsBound( datarec.pcgs ) then
+    basis := PQ_PCP_BASIS( datarec );
+    CallFuncList( PQ_MENU, arg{[1, Length(arg)]});
+  else
+    basis := fail;
+  fi;
   ToPQ(datarec, [ 1 ], [ "  #supply automorphism data" ]);
   if 2 = Length(arg) then
-    PQ_AUT_INPUT( datarec, datarec.group );
+    PQ_AUT_INPUT( datarec, datarec.group, basis );
   else
     CallFuncList( PQ_MANUAL_AUT_INPUT, arg{[1 .. 2]} );
   fi;
