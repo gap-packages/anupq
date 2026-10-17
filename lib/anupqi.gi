@@ -169,7 +169,7 @@ local line, nauts, nsolauts, rank, nexpts, i, j, aut, exponents;
     ToPQ(datarec, [ datarec.NumberOfSolubleAutomorphisms ], 
                   [ "  #number of soluble automorphisms" ]);
     if datarec.NumberOfSolubleAutomorphisms > 0 then
-      for i in datarec.RelativeOrders do
+      for i in [1 .. Length(datarec.RelativeOrders)] do
         ToPQ( datarec, [ datarec.RelativeOrders[i] ], 
                        [ "  #rel order of ", i, "th ag automorphism" ] );
       od;
