@@ -348,8 +348,16 @@ InstallGlobalFunction( PQ_DESCENDANTS, function( args )
 
     PQ_AUT_GROUP(datarec.group); # make sure we have the aut. grp.
 
-    # if <G> is not capable and we want to compute something, return
-    if HasIsCapable(datarec.group) and not IsCapable(datarec.group) and 
+    # if <G> is not capable and we want to compute something, return; the
+    # same if <G> breaks the exponent or metabelian law asked for: every
+    # descendant has <G> as a quotient, so it breaks the law too (and pq
+    # would compute a smaller p-quotient than <G>, which its automorphisms
+    # do not fit)
+    if ( HasIsCapable(datarec.group) and not IsCapable(datarec.group) or
+         VALUE_PQ_OPTION("Exponent", 0) <> 0 and
+         VALUE_PQ_OPTION("Exponent", 0) mod Exponent(datarec.group) <> 0 or
+         VALUE_PQ_OPTION("Metabelian", false) = true and
+         DerivedLength(datarec.group) > 2 ) and
        VALUE_PQ_OPTION("SetupFile") = fail then
         datarec.descendants := [];
         if datarec.calltype = "non-interactive" then
