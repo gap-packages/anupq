@@ -433,8 +433,8 @@ end );
 #F  SavePqList( <file>, <lst> ) . . . . . . . . .  save a list of descendants
 ##
 InstallGlobalFunction( SavePqList, function( file, list )
-    local   appendExp,  l,  G,  pcgs,  p,  i,  w,  str,  word,  j,  
-            automorphisms,  r;
+    local   appendExp,  appendList,  l,  G,  pcgs,  p,  i,  w,  str,  word,
+            j,  autrec;
 
     # function to add exponent vector
     appendExp := function( str, word )
@@ -466,6 +466,13 @@ InstallGlobalFunction( SavePqList, function( file, list )
         return s;
     end;
 
+    # function to add a list of elements of G
+    appendList := function( str, elts )
+        return Concatenation( str, "[",
+                   JoinStringsWithSeparator( List( elts, x -> appendExp( "",
+                       ExponentsOfPcElement( pcgs, x ) ) ), ", " ), "]" );
+    end;
+
     # print head of file
     PrintTo(  file, "ANUPQgroups := [];\n"    );
     AppendTo( file, "Unbind(ANUPQautos);\n\n" );
@@ -477,7 +484,7 @@ InstallGlobalFunction( SavePqList, function( file, list )
         p    := PrimePGroup( G );
         AppendTo( file, "## group number: ", l, "\n"                     );
         AppendTo( file, "ANUPQgroups[", l, "] := function( L )\n"        );
-        AppendTo( file, "local   G,  A,  B;\n"                           );
+        AppendTo( file, "local   G,  A,  B,  C;\n"                       );
         AppendTo( file, "G := FreeGroup( IsSyllableWordsFamily,\n"       );
         AppendTo( file, "                ", Length(pcgs), ", \"G\" );\n" );
         AppendTo( file, "G := G / [\n"                                   );
@@ -517,36 +524,18 @@ InstallGlobalFunction( SavePqList, function( file, list )
         # convert group into an ag group, save presentation
         AppendTo( file, "G := PcGroupFpGroupNC(G);\n"              );
 
-        # add automorphisms
-        if HasAutomorphismGroup(G) then
-            AppendTo( file, "A := [];\nB := [" );
-    	    for r  in [ 1 .. RankPGroup(G) ]  do
-                AppendTo( file, "G.", r );
-                if r <> RankPGroup(G)  then
-                    AppendTo( file, ", " );
-    	    	else
-    	    	    AppendTo( file, "];\n" );
-                fi;
-            od;
-            automorphisms := GeneratorsOfGroup( AutomorphismGroup( G ) );
-            for j  in [ 1 .. Length(automorphisms) ]  do
-                AppendTo( file, "A[", j, "] := [");
-                for r  in [ 1 .. RankPGroup(G) ]  do
-                    word := Image( automorphisms[j], pcgs[r] );
-                    word := ExponentsOfPcElement( pcgs, word );
-                    AppendTo( file, appendExp( "", word ) );
-                    if r <> RankPGroup(G)  then
-                        AppendTo (file, ", \n");
-                    fi;
-                od;
-                AppendTo( file, "]; \n");
-            od;
-    	    AppendTo( file, "ANUPQSetAutomorphismGroup( G, B, A, " );
-            if HasIsSolvableGroup( AutomorphismGroup(G) ) then
-                AppendTo( file, IsSolvableGroup( G ), " );\n" );
-            else
-                AppendTo( file, false, " );\n" );
-            fi;
+        # add the automorphism data pq attached, as pq writes it
+        if HasANUPQAutomorphisms( G ) then
+            autrec := ANUPQAutomorphisms( G );
+            AppendTo( file, "B := ", appendList( "", autrec.gens ), ";\n" );
+            AppendTo( file, "C := [", JoinStringsWithSeparator( List(
+                autrec.centralAutos, a -> appendList( "\n", a ) ), "," ),
+                "];\n" );
+            AppendTo( file, "A := [", JoinStringsWithSeparator( List(
+                autrec.otherAutos, a -> appendList( "\n", a ) ), "," ),
+                "];\n" );
+            AppendTo( file, "ANUPQSetAutomorphismGroup( G, B, C, A, ",
+                      autrec.relativeOrders, ", ", autrec.isSoluble, " );\n" );
         fi;
 
         if HasNuclearRank( G ) then
