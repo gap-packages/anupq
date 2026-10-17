@@ -18,7 +18,7 @@
 
 void insoluble_compute_orbits(int **orbit,
                               int **backptr,
-                              char **schreier,
+                              int **schreier,
                               int **perms,
                               struct pga_vars *pga)
 {
@@ -35,7 +35,7 @@ void insoluble_compute_orbits(int **orbit,
       up schreier vectors and backward pointers */
 
    if (StandardPresentation) {
-      *schreier = allocate_char_vector(Degree, 1, TRUE);
+      *schreier = allocate_vector(Degree, 1, TRUE);
       *backptr = allocate_vector(Degree, 1, TRUE);
    }
 

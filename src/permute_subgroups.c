@@ -20,7 +20,7 @@
 int **permute_subgroups(FILE *LINK_input,
                         int **a,
                         int **b,
-                        char **c,
+                        int **c,
                         int ***auts,
                         struct pga_vars *pga,
                         struct pcp_vars *pcp)

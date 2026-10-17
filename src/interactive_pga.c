@@ -46,7 +46,7 @@ void interactive_pga(Logical group_present,
    int K;
    int label;
    int *a = 0, *b = 0;
-   char *c = 0;
+   int *c = 0;
    int *orbit_length = 0;
    int nmr_of_exponents;
    int *subset = 0;
@@ -342,7 +342,7 @@ void orbit_option(int option,
                   int **perms,
                   int **a,
                   int **b,
-                  char **c,
+                  int **c,
                   int **orbit_length,
                   struct pga_vars *pga)
 {
@@ -399,7 +399,7 @@ void stabiliser_option(int option,
                        int **perms,
                        int *a,
                        int *b,
-                       char *c,
+                       int *c,
                        int *orbit_length,
                        struct pga_vars *pga,
                        struct pcp_vars *pcp)

@@ -25,7 +25,7 @@ void setup_reps(int *reps,
                 int **perms,
                 int *a,
                 int *b,
-                char *c,
+                int *c,
                 int ***auts,
                 FILE *descendant_file,
                 FILE *covers_file,
@@ -33,7 +33,7 @@ void setup_reps(int *reps,
                 struct pcp_vars *pcp)
 {
 
-   char *d = 0; /* used in stabiliser computation */
+   int *d = 0; /* used in stabiliser computation */
    FILE *tmp_file;
    struct pga_vars original; /* copy of pga structure */
    register int i;
@@ -53,7 +53,7 @@ void setup_reps(int *reps,
       d = find_permutation(b, c, pga);
       if (pga->print_stabiliser_array) {
          printf("The array D is \n");
-         print_chars(d, 1, pga->nmr_subgroups + 1);
+         print_array(d, 1, pga->nmr_subgroups + 1);
       }
    }
 
@@ -130,8 +130,8 @@ void setup_reps(int *reps,
 void process_rep(int **perms,
                  int *a,
                  int *b,
-                 char *c,
-                 char *d,
+                 int *c,
+                 int *d,
                  int ***auts,
                  int rep,
                  int orbit_length,

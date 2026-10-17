@@ -41,22 +41,22 @@ static int **find_stabiliser(Logical *identity_map,
                              int **perms,
                              int *a,
                              int *b,
-                             char *c,
+                             int *c,
                              int *orbit_length,
                              struct pga_vars *pga,
                              struct pcp_vars *pcp);
 static void
-trace(char *word_map, int *depth, int label, int *backptr, char *schreier);
-static char *find_word(int *word_length,
+trace(int *word_map, int *depth, int label, int *backptr, int *schreier);
+static int *find_word(int *word_length,
                        Logical soluble_group,
                        int **perms,
                        int rep,
                        int non_standard,
                        int orbit_length,
                        int *b,
-                       char *c,
+                       int *c,
                        struct pga_vars *pga);
-static int **standard_map(char *word_map,
+static int **standard_map(int *word_map,
                           int word_length,
                           Logical *identity_map,
                           int rep,
@@ -297,7 +297,7 @@ static int **finish_pga_run(Logical *identity_map,
 #endif
    int *a;
    int *b;
-   char *c;
+   int *c;
    int *orbit_length;
    int **subgroup_matrix;
    int K;            /* bit string representation of definition set */
@@ -473,7 +473,7 @@ static int **find_stabiliser(Logical *identity_map,
                              int **perms,
                              int *a,
                              int *b,
-                             char *c,
+                             int *c,
                              int *orbit_length,
                              struct pga_vars *pga,
                              struct pcp_vars *pcp)
@@ -486,7 +486,7 @@ static int **find_stabiliser(Logical *identity_map,
    int **map;
    int i;
    int word_length = 0;
-   char *word_map;
+   int *word_map;
 
 #if defined(TIME)
    int t = runTime();
@@ -576,7 +576,7 @@ static int **find_stabiliser(Logical *identity_map,
    return map;
 }
 
-void trace(char *word_map, int *depth, int label, int *backptr, char *schreier)
+void trace(int *word_map, int *depth, int label, int *backptr, int *schreier)
 {
    if (schreier[label] != 0) {
       word_map[++*depth] = schreier[label];
@@ -587,24 +587,24 @@ void trace(char *word_map, int *depth, int label, int *backptr, char *schreier)
 /* find word in defining permutations which maps orbit representative to label;
    store each component of the word of length word_length in array word */
 
-static char *find_word(int *word_length,
+static int *find_word(int *word_length,
                        Logical soluble_group,
                        int **perms,
                        int rep,
                        int non_standard,
                        int orbit_length,
                        int *b,
-                       char *c,
+                       int *c,
                        struct pga_vars *pga)
 {
    int perm_number;
-   char *word_map;
-   char *word_perm;
+   int *word_map;
+   int *word_perm;
    int i, l;
-   char *d;
-   char temp;
+   int *d;
+   int temp;
 
-   word_map = allocate_char_vector(orbit_length, 1, FALSE);
+   word_map = allocate_vector(orbit_length, 1, FALSE);
 
    /* we store word which maps non-standard label to orbit representative;
       in image_of_generator, the word is evaluated starting from the
@@ -615,7 +615,7 @@ static char *find_word(int *word_length,
       l = non_standard;
       while (l != rep) {
          word_map[++*word_length] = d[l];
-         if ((perm_number = pga->map[(int)d[l]]) != 0)
+         if ((perm_number = pga->map[d[l]]) != 0)
             l = inverse_image(l, perms[perm_number], pga);
       }
       /* reverse word */
@@ -624,13 +624,13 @@ static char *find_word(int *word_length,
          word_map[i] = word_map[*word_length - i + 1];
          word_map[*word_length - i + 1] = temp;
       }
-      free_char_vector(d, 1);
+      free_vector(d, 1);
    } else {
-      word_perm = allocate_char_vector(orbit_length, 1, FALSE);
+      word_perm = allocate_vector(orbit_length, 1, FALSE);
       trace(word_perm, word_length, non_standard, b, c);
       for (i = 1; i <= *word_length; ++i)
          word_map[i] = preimage(word_perm[*word_length - i + 1], pga);
-      free_char_vector(word_perm, 1);
+      free_vector(word_perm, 1);
    }
 
    return word_map;
@@ -640,7 +640,7 @@ static char *find_word(int *word_length,
    non_standard, to the orbit representative, rep; the word and
    its length are supplied as word_map and word_length  */
 
-static int **standard_map(char *word_map,
+static int **standard_map(int *word_map,
                           int word_length,
                           Logical *identity_map,
                           int rep,
@@ -659,7 +659,7 @@ static int **standard_map(char *word_map,
    /* copy the word into y */
    for (i = 1; i <= word_length; ++i)
       y[pointer + i] = word_map[i];
-   free_char_vector(word_map, 1);
+   free_vector(word_map, 1);
 
    y[pointer] = word_length;
 
