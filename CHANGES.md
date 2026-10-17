@@ -3,6 +3,11 @@ the ANUPQ package.
 
 ## 3.4.0 (unreleased)
 
+* Fix `EpimorphismStandardPresentation` and
+  `EpimorphismPqStandardPresentation` for a pc p-group whose generators
+  are not its pcgs refining the lower exponent-p central series (for
+  example `AbelianGroup(IsPcGroup, [4, 2])`): the map returned was not
+  bijective
 * Fix intermittent crashes of the `pq` program when computing standard
   presentations, and wrong input in the example `2gp-SP-1-Rel-i`
 * Fix `pq` processes being left running, possibly at 100% CPU even after
