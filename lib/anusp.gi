@@ -305,6 +305,8 @@ InstallGlobalFunction( IsPqIsomorphicPGroup, function( G, H )
     fi;
     if Size(G) <> Size(H)  then
         return false;
+    elif Size(G) = 1  then
+        return true;
     fi;
     p := SmallestRootInt(Size(G));
     if not IsPrimeInt(p)  then

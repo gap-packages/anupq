@@ -3,6 +3,8 @@ the ANUPQ package.
 
 ## 3.4.0 (unreleased)
 
+* Fix `IsIsomorphicPGroup` and `IsPqIsomorphicPGroup` raising an error
+  for two trivial groups
 * Fix intermittent crashes of the `pq` program when computing standard
   presentations, and wrong input in the example `2gp-SP-1-Rel-i`
 * Fix `pq` processes being left running, possibly at 100% CPU even after
