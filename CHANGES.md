@@ -3,6 +3,12 @@ the ANUPQ package.
 
 ## 3.4.0 (unreleased)
 
+* Fix the relative orders of the soluble automorphisms that `PqDescendants`
+  stores for each descendant (`ANUPQAutomorphisms`, and so
+  `PqSupplementInnerAutomorphisms`): there could be more of them than
+  automorphisms, because the `pq` program kept those of an earlier stage
+  when it computed a stabiliser with the soluble algorithm; the descendants
+  themselves were not affected
 * Fix intermittent crashes of the `pq` program when computing standard
   presentations, and wrong input in the example `2gp-SP-1-Rel-i`
 * Fix `pq` processes being left running, possibly at 100% CPU even after
