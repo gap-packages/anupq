@@ -30,7 +30,7 @@ InstallGlobalFunction( PqStabiliserOfAllowableSubgroup,
 function( ANUPQglb, F, gens, relativeOrders, ANUPQsize, ANUPQagsize )
 local m, n, H, pcgs, aut, NumberAgAutos, i, imgs, NumberGlAutos, p, d,
       ANUPQMaxDegree, V, elm, baseU, id, baseN, infoLevelAutGrp, LINK_output,
-      soluble, a, mat, permOfAuto, glOper, agOper, P, S, hom;
+      soluble, a, mat, permOfAuto, glOper, agOper, P, S, hom, matOfAuto;
 
   # number of generators 
   if Length( ANUPQglb.glAutos ) > 0 then
@@ -120,7 +120,15 @@ local m, n, H, pcgs, aut, NumberAgAutos, i, imgs, NumberGlAutos, p, d,
     aut.glOper := List( glOper, x -> ImagesRepresentative( hom, x ) );
     aut.glOrder := Index( P, S );
   else
-    aut.glOrder := ANUPQsize / Size(ANUPQglb.F)^(ANUPQagsize);
+    # V is too large for a permutation action: get |A/S| from the action
+    # of A and of S on V as matrix groups.  The relative orders of S need
+    # not all be p, so |S| is not p^ANUPQagsize.
+    matOfAuto := a -> ImmutableMatrix( aut.field, One( aut.field ) *
+        List( a!.baseimgs, x -> ExponentsOfPcElement( pcgs, x ){[1..d]} ) );
+    P := Group( List( Concatenation( aut.glAutos, aut.agAutos ), matOfAuto ),
+                IdentityMat( d, aut.field ) );
+    S := Subgroup( P, List( aut.agAutos, matOfAuto ) );
+    aut.glOrder := Size( P ) / Size( S );
   fi;
 
   Info(InfoANUPQ, 2, "Order of GL subgroup is ", aut.glOrder);

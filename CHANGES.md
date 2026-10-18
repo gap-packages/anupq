@@ -3,6 +3,12 @@ the ANUPQ package.
 
 ## 3.4.0 (unreleased)
 
+* Fix wrong stabilisers of allowable subgroups, and so wrong automorphism
+  groups passed on to descendants, when the Frattini quotient has more
+  than 10000 elements: the order of the automorphism group modulo its
+  soluble part was computed as if every soluble relative order were p
+  (for the elementary abelian group of order 101^2 it came out as
+  1020000/1030301 instead of 1030200), and AutPGrp cut its orbits short
 * Fix intermittent crashes of the `pq` program when computing standard
   presentations, and wrong input in the example `2gp-SP-1-Rel-i`
 * Fix `pq` processes being left running, possibly at 100% CPU even after
