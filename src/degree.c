@@ -52,11 +52,10 @@ void compute_degree(struct pga_vars *pga)
                               pga->available[i],
                               INT_MAX - pga->Degree);
       if (tmp < 0) {
+         /* the callers cannot continue without the degree, so exit
+            also when input is interactive (as under GAP's -G) */
          text(19, 0, 0, 0, 0);
-         if (!interactive_input())
-            exit(FAILURE);
-         else
-            return;
+         exit(FAILURE);
       }
       pga->Degree += tmp;
       if (maximum < pga->available[i])
