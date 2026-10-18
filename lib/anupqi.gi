@@ -249,6 +249,11 @@ local gens, rels, p, fpgrp, identities, pcgs, len, strp, i, j, Rel, line;
      IsBound(datarec.group) and IsBound(datarec.group!.Name) then
     datarec.GroupName := datarec.group!.Name;
   fi;
+  # pq reads the name as a single token (it stops at white space) and names
+  # the descendant files <name>_class<c> after it, so keep it to one token
+  datarec.GroupName := List( datarec.GroupName,
+                             function(c) if c in " \t\n\r" then return '_'; fi;
+                                         return c; end );
   ToPQk(datarec, ["name ",  datarec.GroupName], []);
   ToPQk(datarec, ["prime ", p], []);
   if identities then
@@ -2794,7 +2799,7 @@ end );
 ##
 InstallGlobalFunction( PQ_PG_CONSTRUCT_DESCENDANTS, function( datarec )
 local nodescendants, class, firstStep, expectedNsteps, optrec, line, ngroups,
-      cls, totngroups, onestage;
+      cls, totngroups, onestage, i;
 
   onestage := IsBound(datarec.des) and IsBound(datarec.des.onestage) and
               datarec.des.onestage;
@@ -2973,8 +2978,14 @@ local nodescendants, class, firstStep, expectedNsteps, optrec, line, ngroups,
     for line in datarec.matchedlines do
       line := SplitString(line, "", " \n");
       ngroups := Int( line[1] );
-      cls := SplitString( line[ Length(line) ], "", "_" );
-      cls := Int( cls[2]{[6 .. Length( cls[2] )]} );
+      # the file name is <GroupName>_class<cls>; <GroupName> may itself
+      # contain "_", so take the trailing digits
+      cls := line[ Length(line) ];
+      i := Length(cls);
+      while i > 0 and IsDigitChar( cls[i] ) do
+        i := i - 1;
+      od;
+      cls := Int( cls{[ i + 1 .. Length(cls) ]} );
       datarec.ndescendants[cls] := [ngroups, line[2] = "capable"];
       totngroups := totngroups + ngroups;
     od;

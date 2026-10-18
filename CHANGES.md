@@ -3,6 +3,12 @@ the ANUPQ package.
 
 ## 3.4.0 (unreleased)
 
+* Fix `PqDescendants` and `PqPGConstructDescendants` failing when the
+  group name (option `GroupName` or the `Name` of the group) contains
+  `_`, and the descendants of an interactive process not being found when
+  it contains white space: the class was read from the file name
+  `<name>_class<c>` by splitting it at `_`, and `pq` cuts the name at
+  white space
 * Fix intermittent crashes of the `pq` program when computing standard
   presentations, and wrong input in the example `2gp-SP-1-Rel-i`
 * Fix `pq` processes being left running, possibly at 100% CPU even after
