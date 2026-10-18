@@ -3,6 +3,12 @@ the ANUPQ package.
 
 ## 3.4.0 (unreleased)
 
+* Fix wrong p-quotients (for example, order 2^26 instead of 2^8 for the
+  free group of rank 8 with exponent 2) and crashes of the `pq` program
+  when an exponent law is enforced at class 2 with automorphisms supplied
+  to the p-quotient (`PqSupplyAutomorphisms`, or option 18 of the Advanced
+  p-Quotient menu): the queue of redundant generators was only enlarged
+  from class 3 on, and `pq` wrote past its end
 * Fix intermittent crashes of the `pq` program when computing standard
   presentations, and wrong input in the example `2gp-SP-1-Rel-i`
 * Fix `pq` processes being left running, possibly at 100% CPU even after

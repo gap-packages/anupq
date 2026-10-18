@@ -41,13 +41,15 @@ void next_class(Logical report, int **head, int **list, struct pcp_vars *pcp)
       tails(BOTH_TAILS, class, pcp->cc, 1, pcp);
       if (pcp->overflow)
          return;
+      /* enlarge the queue for every class, including class 2: it also
+         holds the redundancies found by enforce_exponent */
+      if (pcp->m != 0) {
+         new = pcp->lastg - pcp->ccbeg + 1;
+         exp_flag.queue =
+             reallocate_vector(exp_flag.queue, prev, new, 1, FALSE);
+         prev = new;
+      }
       if (class != 2) {
-         if (pcp->m != 0) {
-            new = pcp->lastg - pcp->ccbeg + 1;
-            exp_flag.queue =
-                reallocate_vector(exp_flag.queue, prev, new, 1, FALSE);
-            prev = new;
-         }
          consistency(0, exp_flag.queue, &exp_flag.queue_length, class, pcp);
          if (pcp->overflow || (pcp->complete != 0 && !pcp->multiplicator))
             return;
