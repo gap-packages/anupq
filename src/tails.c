@@ -296,6 +296,9 @@ void create_tail(int address, int f, int s, struct pcp_vars *pcp)
 
 #include "access.h"
 
+   if (is_pc_limit_reached(pcp))
+      return;
+
    pcp->lastg++;
    lastg = pcp->lastg;
    y[address] = lastg;
@@ -344,6 +347,9 @@ void extend_tail(int address, int f, int s, struct pcp_vars *pcp)
    register int current_class = pcp->cc;
 
 #include "access.h"
+
+   if (is_pc_limit_reached(pcp))
+      return;
 
    if (is_space_exhausted(pcp->ccbeg + 1, pcp))
       return;

@@ -38,3 +38,18 @@ Logical is_space_exhausted(int required, struct pcp_vars *pcp)
    text(11, remain, 0, 0, 0);
    return TRUE;
 }
+
+/* check if another pc generator or pseudo-generator can be added;
+   generator numbers are packed into SC2 bits, so a number above
+   MAXPC would alias another generator; if no number is left,
+   report this, set pcp->overflow TRUE, and return TRUE */
+
+Logical is_pc_limit_reached(struct pcp_vars *pcp)
+{
+   if (pcp->lastg < MAXPC)
+      return FALSE;
+   pcp->overflow = TRUE;
+   printf("The number of pc generators would exceed the limit %d\n",
+         (int)MAXPC);
+   return TRUE;
+}
