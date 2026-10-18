@@ -12,6 +12,31 @@
 #include "constants.h"
 #include "pq_functions.h"
 
+/* exponents are packed into the top WORD_LENGTH - SC2 = 15 bits of an int
+   (see storage_fixed.h), so p - 1 must fit there; MAXPRIME is the largest
+   prime below 2^15 */
+#define MAXPRIME 32749
+
+/* return TRUE if p is a prime the pq can handle, else say why not */
+int valid_prime(int p)
+{
+   int d;
+   if (p > MAXPRIME) {
+      printf("The prime must be at most %d\n", MAXPRIME);
+      return FALSE;
+   }
+   if (p < 2) {
+      printf("%d is not a prime\n", p);
+      return FALSE;
+   }
+   for (d = 2; d * d <= p; ++d)
+      if (p % d == 0) {
+         printf("%d is not a prime\n", p);
+         return FALSE;
+      }
+   return TRUE;
+}
+
 /* read parameters for p-quotient calculation */
 
 void
@@ -28,9 +53,7 @@ read_parameters(int format, int *max_class, int *output, struct pcp_vars *pcp)
 
    while (reading) {
       read_value(TRUE, "Input prime: ", &pcp->p, 2);
-      reading = (pcp->p != 2 && MOD(pcp->p, 2) == 0);
-      if (reading)
-         printf("%d is not a prime\n", pcp->p);
+      reading = !valid_prime(pcp->p);
    }
 
    read_value(TRUE, "Input maximum class: ", max_class, 0);

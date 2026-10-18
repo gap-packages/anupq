@@ -220,7 +220,7 @@ InstallValue( ANUPQGlobalOptions, [ "Prime", "Exponent", "Relators" ] );
 ##  that is a valid value for the option, and `false' otherwise.
 ##
 InstallValue( ANUPQoptionChecks,
-              rec( Prime := x -> IsInt(x) and IsPrimeInt(x),
+              rec( Prime := x -> IsInt(x) and IsPrimeInt(x) and x <= 32749,
                    pQuotient  := IsPcGroup and IsPGroup,
                    ClassBound := IsPosInt,
                    OrderBound := IsPosInt,
@@ -266,7 +266,7 @@ InstallValue( ANUPQoptionChecks,
 ##  values are valid types of the options in plain words.
 ##
 InstallValue( ANUPQoptionTypes,
-              rec( Prime := "prime integer",
+              rec( Prime := "prime integer at most 32749",
                    pQuotient  := "pc p-group",
                    ClassBound := "positive integer",
                    OrderBound := "positive integer",

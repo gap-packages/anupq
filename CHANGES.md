@@ -3,6 +3,12 @@ the ANUPQ package.
 
 ## 3.4.0 (unreleased)
 
+* Fix wrong results for primes p > 32749 (for example, an epimorphism
+  under which the relators did not hold for p = 32771): the `pq` program
+  stores exponents in 15 bits, so larger primes are now rejected, by the
+  `Prime` option, for p-groups given to `PqPCover`, `PqDescendants` and
+  `PqStandardPresentation`, and by the `pq` program itself, which also
+  no longer accepts an odd composite number as the prime (it could hang)
 * Fix intermittent crashes of the `pq` program when computing standard
   presentations, and wrong input in the example `2gp-SP-1-Rel-i`
 * Fix `pq` processes being left running, possibly at 100% CPU even after
