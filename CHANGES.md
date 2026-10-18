@@ -3,6 +3,10 @@ the ANUPQ package.
 
 ## 3.4.0 (unreleased)
 
+* Fix the relative orders that `PqDescendants` attaches to each
+  descendant (the `relativeOrders` field of `ANUPQAutomorphisms`, the
+  `agOrder` field of `PqSupplementInnerAutomorphisms`), which had their
+  last entry repeated: the `pq` program wrote it twice
 * Fix intermittent crashes of the `pq` program when computing standard
   presentations, and wrong input in the example `2gp-SP-1-Rel-i`
 * Fix `pq` processes being left running, possibly at 100% CPU even after
