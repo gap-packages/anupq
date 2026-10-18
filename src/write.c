@@ -38,6 +38,9 @@ void save_pga(FILE *ofp,
 
 #ifdef HAVE_GMP
    mpz_out_str(ofp, 10, &pga->aut_order);
+   /* separator: mpz_inp_str would otherwise also consume the first
+      bytes of the binary record that follows if they look like digits */
+   fputc('\n', ofp);
 #endif
 
    fwrite(pga, sizeof(struct pga_vars), 1, ofp);
