@@ -1,4 +1,4 @@
-gap> START_TEST( "sp_epimorphism.tst" );
+gap> START_TEST( "gh-00100.tst" );
 gap> SetInfoLevel( InfoANUPQ, 1 );
 
 # EpimorphismStandardPresentation paired GeneratorsOfGroup(G) with the
@@ -16,4 +16,4 @@ true
 
 #
 gap> PqQuitAll();
-gap> STOP_TEST( "sp_epimorphism.tst", 1 );
+gap> STOP_TEST( "gh-00100.tst", 1 );
