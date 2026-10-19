@@ -52,7 +52,8 @@ void last_class(struct pcp_vars *pcp)
    for (i = 1, bound = pcp->lastg; i <= bound; i++)
       down_class(pcp->ppower + i, pcp);
 
-   p1 = y[pcp->ppcomm + 2];
+   /* without commutators, y[pcp->ppcomm + 2] lies past the end of y */
+   p1 = (pcp->ncomm > 0) ? y[pcp->ppcomm + 2] : 0;
    for (i = 1, bound = pcp->ncomm; i <= bound; i++)
       down_class(p1 + i, pcp);
 

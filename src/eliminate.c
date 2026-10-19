@@ -73,8 +73,9 @@ void eliminate(Logical middle_of_tails, struct pcp_vars *pcp)
          ;
       pcp->first_pseudo = (i > pcp->lastg) ? lg + 1 : y[ba + i];
 
-      /* update the commutator tables */
-      p1 = y[pcp->ppcomm + 2];
+      /* update the commutator tables; without commutators,
+         y[pcp->ppcomm + 2] lies past the end of y */
+      p1 = (pcp->ncomm > 0) ? y[pcp->ppcomm + 2] : 0;
       for (i = 1, bound = pcp->ncomm; i <= bound; i++) {
          update(p1 + i, pcp);
          if (pcp->overflow)
