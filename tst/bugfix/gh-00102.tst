@@ -1,4 +1,4 @@
-gap> START_TEST( "savepqlist.tst" );
+gap> START_TEST( "gh-00102.tst" );
 gap> SetInfoLevel( InfoANUPQ, 1 );
 
 # SavePqList wrote a call of ANUPQSetAutomorphismGroup with 4 arguments
@@ -16,4 +16,4 @@ true
 
 #
 gap> PqQuitAll();
-gap> STOP_TEST( "savepqlist.tst", 1 );
+gap> STOP_TEST( "gh-00102.tst", 1 );
