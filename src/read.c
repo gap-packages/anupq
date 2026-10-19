@@ -114,6 +114,7 @@ int ***restore_pga(FILE *ifp, struct pga_vars *pga, struct pcp_vars *pcp)
 
    mpz_init(&aut_ord);
    mpz_inp_str(&aut_ord, ifp, 10);
+   verify_read(getc(ifp) == '\n', 1);
 #endif
 
    nmr_items = fread(pga, sizeof(struct pga_vars), 1, ifp);
