@@ -390,8 +390,13 @@ InstallGlobalFunction( PQ_DESCENDANTS, function( args )
         return datarec.descendants;
     fi;
 
+    # pq appends to this file for as long as the process lives, so earlier
+    # calls of the same interactive process left their groups in front
     datarec.descendants 
         := PqList( Filename( ANUPQData.tmpdir, "GAP_library" ) : recursive );
+    datarec.descendants := datarec.descendants{[ 
+        Length(datarec.descendants) - ndescendants + 1 .. 
+        Length(datarec.descendants) ]};
     for G in datarec.descendants do
         if not HasIsCapable(G)  then
             SetIsCapable( G, false );
