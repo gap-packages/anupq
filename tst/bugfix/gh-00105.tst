@@ -1,4 +1,4 @@
-gap> START_TEST( "gmp_separator.tst" );
+gap> START_TEST( "gh-00105.tst" );
 gap> SetInfoLevel( InfoANUPQ, 1 );
 
 # With GMP, pq wrote the automorphism group order as text with no separator
@@ -11,4 +11,4 @@ gap> Set( List( PqDescendants( ElementaryAbelianGroup( 53^2 ) : StepSize := 1 ),
 
 #
 gap> PqQuitAll();
-gap> STOP_TEST( "gmp_separator.tst", 1 );
+gap> STOP_TEST( "gh-00105.tst", 1 );
