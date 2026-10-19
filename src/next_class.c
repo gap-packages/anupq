@@ -41,8 +41,9 @@ void next_class(Logical report, int **head, int **list, struct pcp_vars *pcp)
       tails(BOTH_TAILS, class, pcp->cc, 1, pcp);
       if (pcp->overflow)
          return;
-      /* enlarge the queue for every class, including class 2: it also
-         holds the redundancies found by enforce_exponent */
+      /* the queue holds redundant generators of the current class, found
+         by consistency and later by enforce_exponent; now that tails has
+         defined them, make room for all of them */
       if (pcp->m != 0) {
          new = pcp->lastg - pcp->ccbeg + 1;
          exp_flag.queue =
