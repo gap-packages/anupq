@@ -1,4 +1,4 @@
-gap> START_TEST( "stale_descendants.tst" );
+gap> START_TEST( "gh-00101.tst" );
 gap> SetInfoLevel( InfoANUPQ, 1 );
 
 # An interactive PqDescendants also returned the groups that an earlier
@@ -16,4 +16,4 @@ gap> PqQuit( procId );
 
 #
 gap> PqQuitAll();
-gap> STOP_TEST( "stale_descendants.tst", 1 );
+gap> STOP_TEST( "gh-00101.tst", 1 );
