@@ -1,4 +1,4 @@
-gap> START_TEST( "group_name.tst" );
+gap> START_TEST( "gh-00120.tst" );
 gap> SetInfoLevel( InfoANUPQ, 1 );
 
 # The class of the descendants was read from the name of the file pq saves
@@ -25,4 +25,4 @@ gap> Size( PqCurrentGroup( id ) );
 
 #
 gap> PqQuitAll();
-gap> STOP_TEST( "group_name.tst", 1 );
+gap> STOP_TEST( "gh-00120.tst", 1 );
