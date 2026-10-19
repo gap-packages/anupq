@@ -334,7 +334,7 @@ void GAP_auts(FILE *file,
 
    fprintf(file, "relOrders := [");
    if (pga->nmr_soluble > 0) {
-      for (i = 1; i <= pga->nmr_soluble; ++i)
+      for (i = 1; i < pga->nmr_soluble; ++i)
          fprintf(file, "%d, ", pga->relative[i]);
       fprintf(file, "%d", pga->relative[pga->nmr_soluble]);
    }
