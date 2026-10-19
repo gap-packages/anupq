@@ -64,15 +64,16 @@ end );
 
 #############################################################################
 ##
-#F  PQ_PCP_BASIS( <datarec> ) . . . . . . .  pq's pcp in terms of the pc group
+#F  PQ_PCP_BASIS( <datarec> ) . . . . . . . pq's pcp in terms of the pc group
 ##
-##  `<datarec>.group' is a pc group, given to `pq' by its pcgs `<datarec>.pcgs'.
-##  `pq' computes its own pcp for it, whose generators beyond the  first  need
-##  not be the elements of `<datarec>.pcgs': they are defined as  commutators
-##  and powers of the earlier ones. This returns `fail' if they are the same,
-##  and otherwise a record with an isomorphism `epi' from `<datarec>.group' to
-##  the group of that pcp and `pcgs', the pcp generators there. It writes the
-##  current pcp (of the p-quotient or its p-cover) to a file.
+##  `<datarec>.group' is a pc group, given to `pq' by its  pcgs
+##  `<datarec>.pcgs'. `pq' computes its own pcp for it, whose  generators
+##  beyond the first need not be the elements of `<datarec>.pcgs':  they
+##  are defined as commutators and powers of the earlier ones. This  returns
+##  `fail' if they are the same, and otherwise a record with an  isomorphism
+##  `epi' from `<datarec>.group' to the group of that pcp and `pcgs',  the
+##  pcp generators there. It writes the current pcp (of the  p-quotient  or
+##  its p-cover) to a file.
 ##
 InstallGlobalFunction( PQ_PCP_BASIS, function( datarec )
   local file, result, F, fpcgs, n, nat, Q;
@@ -88,13 +89,15 @@ InstallGlobalFunction( PQ_PCP_BASIS, function( datarec )
   if result.MapImages{[1 .. n]} = fpcgs{[1 .. n]} then
     return fail;
   fi;
-  # if the current pcp is a p-cover, its last generators span the multiplicator
+  # if the current pcp is a p-cover, its last generators span the
+  # multiplicator
   nat := NaturalHomomorphismByNormalSubgroupNC( F,
              SubgroupNC( F, fpcgs{[n + 1 .. Length( fpcgs )]} ) );
   Q := Image( nat );
   return rec( epi := GroupHomomorphismByImagesNC( datarec.group, Q,
                        datarec.pcgs,
-                       List( result.MapImages{[1 .. n]}, x -> Image( nat, x ) ) ),
+                       List( result.MapImages{[1 .. n]},
+                             x -> Image( nat, x ) ) ),
               pcgs := PcgsByPcSequence( FamilyObj( One( Q ) ),
                        List( fpcgs{[1 .. n]}, x -> Image( nat, x ) ) ) );
 end );
@@ -129,7 +132,8 @@ InstallGlobalFunction( PQ_AUT_INPUT, function( arg )
   if 2 < Length(arg) and arg[3] <> fail then
     basis := arg[3];
     gens := List( basis.pcgs, x -> PreImagesRepresentative( basis.epi, x ) );
-    Exponents := w -> ExponentsOfPcElement( basis.pcgs, Image( basis.epi, w ) );
+    Exponents := w -> ExponentsOfPcElement( basis.pcgs,
+                                            Image( basis.epi, w ) );
   else
     Exponents := w -> ExponentsOfPcElement( gens, w );
   fi;
