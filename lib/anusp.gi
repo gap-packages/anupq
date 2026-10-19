@@ -220,14 +220,20 @@ function( args )
 
     # revise images to correspond to images of user-supplied generators 
     datarec.SP := desc.group;
+    # the elements of <datarec.group> pq was given as defining generators
+    if IsBound( datarec.pcgs ) then
+      generators := datarec.pcgs;
+    else
+      generators := GeneratorsOfGroup( datarec.group );
+    fi;
     x  := Length( desc.map );
-    k  := Length( GeneratorsOfGroup( datarec.group ) );
+    k  := Length( generators );
     # images of user supplied generators are last k entries in .pqImages 
 
     datarec.SPepi := GroupHomomorphismByImagesNC( 
                          datarec.group, 
                          datarec.SP, 
-                         GeneratorsOfGroup(datarec.group),
+                         generators,
                          desc.map{[x - k + 1..x]} );
     #PopOptions();
     return datarec.SPepi;
