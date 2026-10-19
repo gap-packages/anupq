@@ -1,4 +1,4 @@
-gap> START_TEST( "isomorphic_trivial.tst" );
+gap> START_TEST( "gh-00104.tst" );
 gap> SetInfoLevel( InfoANUPQ, 1 );
 
 # IsIsomorphicPGroup raised "<G> must be a p-group" for trivial groups
@@ -7,4 +7,4 @@ true
 
 #
 gap> PqQuitAll();
-gap> STOP_TEST( "isomorphic_trivial.tst", 1 );
+gap> STOP_TEST( "gh-00104.tst", 1 );
