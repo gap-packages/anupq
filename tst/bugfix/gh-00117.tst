@@ -1,4 +1,4 @@
-gap> START_TEST( "gl_order.tst" );
+gap> START_TEST( "gh-00117.tst" );
 gap> SetInfoLevel( InfoANUPQ, 1 );
 
 # When the Frattini quotient has more than 10000 elements, the order of the
@@ -22,4 +22,4 @@ gap> Set( orders );
 
 #
 gap> PqQuitAll();
-gap> STOP_TEST( "gl_order.tst", 1 );
+gap> STOP_TEST( "gh-00117.tst", 1 );
