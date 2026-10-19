@@ -1,4 +1,4 @@
-gap> START_TEST( "prime_bound.tst" );
+gap> START_TEST( "gh-00116.tst" );
 gap> SetInfoLevel( InfoANUPQ, 1 );
 
 # The pq stores exponents in 15 bits, so p - 1 >= 2^15 wrapped around:
@@ -18,4 +18,4 @@ Error, the pq program requires a prime p <= 32749, not 32771
 
 #
 gap> PqQuitAll();
-gap> STOP_TEST( "prime_bound.tst", 1 );
+gap> STOP_TEST( "gh-00116.tst", 1 );
