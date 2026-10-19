@@ -1,4 +1,4 @@
-gap> START_TEST( "exponent_queue.tst" );
+gap> START_TEST( "gh-00106.tst" );
 gap> SetInfoLevel( InfoANUPQ, 1 );
 
 # With automorphisms supplied to the p-quotient, enforcing an exponent law
@@ -25,4 +25,4 @@ gap> for d in [ 7 .. 10 ] do
 
 #
 gap> PqQuitAll();
-gap> STOP_TEST( "exponent_queue.tst", 1 );
+gap> STOP_TEST( "gh-00106.tst", 1 );
