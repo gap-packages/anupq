@@ -1,4 +1,4 @@
-gap> START_TEST( "descendants_law.tst" );
+gap> START_TEST( "gh-00097.tst" );
 gap> SetInfoLevel( InfoANUPQ, 1 );
 
 # PqDescendants with an exponent law that the group breaks crashed pq:
@@ -9,4 +9,4 @@ gap> PqDescendants( SmallGroup( 16, 5 ) : Exponent := 4 );
 
 #
 gap> PqQuitAll();
-gap> STOP_TEST( "descendants_law.tst", 1 );
+gap> STOP_TEST( "gh-00097.tst", 1 );
