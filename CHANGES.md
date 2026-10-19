@@ -3,11 +3,6 @@ the ANUPQ package.
 
 ## 3.4.0 (unreleased)
 
-* Fix wrong descendants (for example, three groups of order 8 for
-  `PqDescendants( SmallGroup( 4, 2 ) : StepSize := 4, PcgsAutomorphisms )`,
-  which has none), and interactive processes going out of step, when the
-  step size exceeds the nuclear rank: the `pq` program asked again for the
-  step size and read the answers GAP sent next as step sizes
 * Fix intermittent crashes of the `pq` program when computing standard
   presentations, and wrong input in the example `2gp-SP-1-Rel-i`
 * Fix `pq` processes being left running, possibly at 100% CPU even after

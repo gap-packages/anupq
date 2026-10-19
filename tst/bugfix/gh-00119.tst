@@ -1,4 +1,4 @@
-gap> START_TEST( "step_size_dialogue.tst" );
+gap> START_TEST( "gh-00119.tst" );
 gap> SetInfoLevel( InfoANUPQ, 1 );
 
 # For a step size larger than the nuclear rank pq asked again for the step
@@ -23,4 +23,4 @@ gap> PqPGConstructDescendants( id : ClassBound := 4, StepSize := 1 );
 
 #
 gap> PqQuitAll();
-gap> STOP_TEST( "step_size_dialogue.tst", 1 );
+gap> STOP_TEST( "gh-00119.tst", 1 );
