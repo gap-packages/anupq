@@ -10,10 +10,10 @@ gap> SetInfoLevel( InfoANUPQ, 1 );
 gap> for d in [ 7 .. 10 ] do
 >      procId := PqStart( FreeGroup( d ) : Prime := 2, Exponent := 2 );
 >      PqPcPresentation( procId : ClassBound := 1 );
+>      c := PermList( Concatenation( [ 2 .. d ], [ 1 ] ) );
 >      t := MutableCopyMat( IdentityMat( d ) );
 >      t[1][2] := 1;
->      PqSupplyAutomorphisms( procId,
->          [ PermutationMat( CycleFromList( [ 1 .. d ] ), d ), t ] );
+>      PqSupplyAutomorphisms( procId, [ PermutationMat( c, d ), t ] );
 >      PqNextClass( procId );
 >      Print( PqFactoredOrder( procId ), "\n" );
 >      PqQuit( procId );
