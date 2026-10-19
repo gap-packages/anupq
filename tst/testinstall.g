@@ -4,8 +4,8 @@ tests := [
     "anupga.tst",
     "anupqsmgp.tst",
     "anusp.tst",
-    "bugfix.tst",
 ];
 tests := List(tests, f -> Filename(dirs,f));
+Append(tests, DirectoriesPackageLibrary( "anupq", "tst/bugfix" ));
 
 TestDirectory(tests, rec(exitGAP := true));

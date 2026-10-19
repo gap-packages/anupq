@@ -1,53 +1,9 @@
-gap> START_TEST( "bugfix.tst" );
-gap> SetInfoLevel(InfoANUPQ, 1);
-
-#
-gap> Gpc := PcGroupCode(68146375694269006194915807389502420706068560698170186858702642616271311983852576935888031169808724212486427842287695095990141448242086615015179035279810566253194821421235130797478228790709823744504959547811690291508815054696836089975338898421240232146485972558278354047942767460757806879902001011672205506677433540854819814334041631681046533290684225262516467449392593429627898,3^16);
-<pc group of size 43046721 with 16 generators>
-gap> epi   := PqEpimorphism(Gpc:Prime:=3);;
-gap> Gpq   := Image(epi);
-<pc group of size 43046721 with 16 generators>
-gap> IsBijective(epi);
-true
-gap> gen  := GeneratorsOfGroup(Gpc);;
-gap> im   := List(gen, x-> Image(epi,x));;
-gap> hom := GroupHomomorphismByImages(Gpc,Gpq, gen, im);
-[ f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, f12, f13, f14, f15, f16 ] -> 
-[ f1, f2, f4, f3, f5, f6, f7, f8, f9, f10, f11, f12, f13, f14, f15, f16 ]
-
-# Fix crash in PqDescendantsTreeCoclassOne #54
-gap> G := ElementaryAbelianGroup( 16 );
-<pc group of size 16 with 4 generators>
-gap> PqDescendantsTreeCoclassOne( PqStart( G ) : TreeDepth := 5, CapableDescendants );
-#I  Number of descendants of group #1;1 to class 2: 1
-#I  Number of descendants of group #1;1 #1;1 to class 3: 1
-#I  Number of descendants of group #1;1 #1;1 #1;1 to class 4: 1
-#I  Number of descendants of group #1;1 #1;1 #1;1 #1;1 to class 5: 1
-#I  Number of descendants of group #2;1 to class 2: 1
-#I  Number of descendants of group #1;1 #1;1 to class 3: 1
-#I  Number of descendants of group #1;1 #1;1 #1;1 to class 4: 1
-#I  Number of descendants of group #1;1 #1;1 #1;1 #1;1 to class 5: 1
-
-# Check that the stream gets closed also in early exit cases.
-gap> G:= ExtraspecialGroup( 3^3, "-" );;
-gap> IsCapable( G );
-false
-gap> for i in [ 1 .. 100 ] do PqDescendants( G ); od;
-
-# PqStandardPresentation hung, or the stabiliser of the allowable subgroup
-# was wrong, when the soluble automorphisms act on the Frattini quotient #67
-gap> G := PcGroupCode( 103045295174713575554546522863434350004438213623550127541012273, 512 );;  # SmallGroup(512, 383371)
-gap> H := PcGroupCode( 43868419351818131989320407468466194305, 512 );;  # SmallGroup(512, 383419)
-gap> PqStandardPresentation( G );
-<fp group on the generators [ f1, f2, f3, f4, f5, f6, f7, f8, f9 ]>
-gap> PqStandardPresentation( H );
-<fp group on the generators [ f1, f2, f3, f4, f5, f6, f7, f8, f9 ]>
-gap> K := PcGroupCode( 36021959920864, 64 );;  # SmallGroup(64, 241)
-gap> PqStandardPresentation( K );
-<fp group on the generators [ f1, f2, f3, f4, f5, f6 ]>
+gap> START_TEST( "gh-00086.tst" );
+gap> SetInfoLevel( InfoANUPQ, 1 );
 
 # No method for ClosureGroup when the automorphism group modulo its soluble
 # part is soluble, since GAP returns that quotient as a pc group
+# See https://github.com/gap-packages/anupq/pull/86
 gap> G := ElementaryAbelianGroup( 9 );;
 gap> des := PqDescendants( G : OrderBound := 3, ClassBound := 2 );;
 gap> SortedList( List( des, AbelianInvariants ) );
@@ -137,17 +93,6 @@ gap> PqAPGSingleStage( procId : StepSize := 2, BasicAlgorithm, CustomiseOutput :
 #I  # of capable immediate descendants is 5
 gap> PqQuit( procId );
 
-# A non-interactive call interrupted by an error left its pq process running #79
-gap> F := FreeGroup( 2 );;
-gap> Pq( F );
-Error, you must supply a value for option: "Prime"
-
-gap> s := ANUPQData.ni.stream;;
-gap> Pq( F : Prime := 2, ClassBound := 1 );
-<pc group of size 4 with 2 generators>
-gap> IsClosedStream( s );
-true
-
 #
 gap> PqQuitAll();
-gap> STOP_TEST( "bugfix.tst", 1 );
+gap> STOP_TEST( "gh-00086.tst", 1 );
