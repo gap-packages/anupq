@@ -1,4 +1,4 @@
-gap> START_TEST( "pc_generator_limit.tst" );
+gap> START_TEST( "gh-00114.tst" );
 gap> SetInfoLevel( InfoANUPQ, 1 );
 
 # pc generator numbers are packed into 16 bits, and the limit of 65535
@@ -14,4 +14,4 @@ Error, pq program terminated, with error condition:
 
 #
 gap> PqQuitAll();
-gap> STOP_TEST( "pc_generator_limit.tst", 1 );
+gap> STOP_TEST( "gh-00114.tst", 1 );
