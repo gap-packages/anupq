@@ -3,8 +3,6 @@ the ANUPQ package.
 
 ## 3.4.0 (unreleased)
 
-* Fix `PqPGSupplyAutomorphisms` with the option `RelativeOrders`
-  sending wrong relative orders to `pq`, or failing with an error
 * Fix intermittent crashes of the `pq` program when computing standard
   presentations, and wrong input in the example `2gp-SP-1-Rel-i`
 * Fix `pq` processes being left running, possibly at 100% CPU even after

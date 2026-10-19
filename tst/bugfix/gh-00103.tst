@@ -1,4 +1,4 @@
-gap> START_TEST( "relative_orders.tst" );
+gap> START_TEST( "gh-00103.tst" );
 gap> SetInfoLevel( InfoANUPQ, 1 );
 
 # PqPGSupplyAutomorphisms used the entries of RelativeOrders as indices
@@ -13,4 +13,4 @@ gap> PqQuit( procId );
 
 #
 gap> PqQuitAll();
-gap> STOP_TEST( "relative_orders.tst", 1 );
+gap> STOP_TEST( "gh-00103.tst", 1 );
