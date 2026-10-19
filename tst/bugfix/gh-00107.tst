@@ -1,4 +1,4 @@
-gap> START_TEST( "relative_orders_gap.tst" );
+gap> START_TEST( "gh-00107.tst" );
 gap> SetInfoLevel( InfoANUPQ, 1 );
 
 # pq wrote the relative orders of the soluble automorphisms of each
@@ -14,4 +14,4 @@ gap> a.relativeOrders;
 
 #
 gap> PqQuitAll();
-gap> STOP_TEST( "relative_orders_gap.tst", 1 );
+gap> STOP_TEST( "gh-00107.tst", 1 );
