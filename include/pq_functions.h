@@ -78,6 +78,7 @@ Logical interactive_input(void);
 Logical is_genlim_exceeded(struct pcp_vars *pcp);
 Logical is_identity(int **a, int n, int start);
 Logical is_space_exhausted(int required, struct pcp_vars *pcp);
+Logical is_pc_limit_reached(struct pcp_vars *pcp);
 Logical valid_matrix(int **a, int n, int p, int start);
 void add_to_list(int *subset, struct pga_vars *pga);
 void Allocate_WorkSpace(int work_space, struct pcp_vars *pcp);

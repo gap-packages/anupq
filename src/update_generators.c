@@ -48,6 +48,9 @@ void update_generators(struct pcp_vars *pcp)
       if (value == 0) {
          /* defining generator f was trivial; insert pseudo-generator */
 
+         if (is_pc_limit_reached(pcp))
+            return;
+
          if (is_space_exhausted(3, pcp))
             return;
 

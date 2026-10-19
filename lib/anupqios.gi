@@ -426,7 +426,8 @@ end);
 InstallValue(PQ_ERROR_EXIT_MESSAGES,
   [ "Evaluation in compute_degree may cause integer overflow",
     "A relation is too long -- increase the value of MAXWORD",
-    "Ran out of space during computation" ]);
+    "Ran out of space during computation",
+    "The number of pc generators would exceed the limit" ]);
 
 #############################################################################
 ##
