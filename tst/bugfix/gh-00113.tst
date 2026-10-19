@@ -1,4 +1,4 @@
-gap> START_TEST( "degree_overflow.tst" );
+gap> START_TEST( "gh-00113.tst" );
 gap> SetInfoLevel( InfoANUPQ, 1 );
 
 # Issue #32: the number of allowable subgroups (here 209386049731) does not
@@ -13,4 +13,4 @@ Error, pq program terminated, with error condition:
   Evaluation in compute_degree may cause integer overflow
 
 gap> PqQuitAll();
-gap> STOP_TEST( "degree_overflow.tst", 1 );
+gap> STOP_TEST( "gh-00113.tst", 1 );
