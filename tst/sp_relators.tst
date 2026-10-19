@@ -1,4 +1,4 @@
-gap> START_TEST( "sp_relators.tst" );
+gap> START_TEST( "gh-00098.tst" );
 gap> SetInfoLevel( InfoANUPQ, 1 );
 
 # With the option Relators, PqStandardPresentation took the rank from the
