@@ -1,4 +1,4 @@
-gap> START_TEST( "aut_basis.tst" );
+gap> START_TEST( "gh-00096.tst" );
 gap> SetInfoLevel( InfoANUPQ, 1 );
 
 # pq read the images of the automorphisms of a pc group in its own pcp,
@@ -20,4 +20,4 @@ gap> Length( PqDescendants( G : StepSize := 1 ) );
 
 #
 gap> PqQuitAll();
-gap> STOP_TEST( "aut_basis.tst", 1 );
+gap> STOP_TEST( "gh-00096.tst", 1 );

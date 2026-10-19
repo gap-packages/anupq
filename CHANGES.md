@@ -3,12 +3,6 @@ the ANUPQ package.
 
 ## 3.4.0 (unreleased)
 
-* Fix `PqDescendants` and `PqPGSupplyAutomorphisms` for a group whose
-  pcgs is not the pc presentation `pq` computes for it (for example a copy
-  of `SmallGroup(128, 540)` with another pcgs): the automorphisms were sent
-  in the group's pcgs but read by `pq` in its own, so they were wrong maps.
-  This gave wrong descendants (7 instead of 10 for that example) or crashed
-  the `pq` program
 * Fix intermittent crashes of the `pq` program when computing standard
   presentations, and wrong input in the example `2gp-SP-1-Rel-i`
 * Fix `pq` processes being left running, possibly at 100% CPU even after
