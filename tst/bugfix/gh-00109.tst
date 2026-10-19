@@ -1,4 +1,4 @@
-gap> START_TEST( "commutator_workspace.tst" );
+gap> START_TEST( "gh-00109.tst" );
 gap> SetInfoLevel( InfoANUPQ, 1 );
 
 # A defining relation [b,a]^k with k <> 1 needs more workspace than
@@ -16,4 +16,4 @@ Error, pq program terminated, with error condition:
   Ran out of space during computation
 
 gap> PqQuitAll();
-gap> STOP_TEST( "commutator_workspace.tst", 1 );
+gap> STOP_TEST( "gh-00109.tst", 1 );
