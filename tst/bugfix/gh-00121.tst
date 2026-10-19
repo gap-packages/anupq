@@ -1,4 +1,4 @@
-gap> START_TEST( "sp_tmpdir.tst" );
+gap> START_TEST( "gh-00121.tst" );
 gap> SetInfoLevel( InfoANUPQ, 1 );
 
 # ANUPQDirectoryTemporary moved the working directory of pq but not
@@ -18,4 +18,4 @@ gap> ANUPQData.SPimages := old.SPimages;;
 
 #
 gap> PqQuitAll();
-gap> STOP_TEST( "sp_tmpdir.tst", 1 );
+gap> STOP_TEST( "gh-00121.tst", 1 );

@@ -3,10 +3,6 @@ the ANUPQ package.
 
 ## 3.4.0 (unreleased)
 
-* Fix `PqStandardPresentation` failing after `ANUPQDirectoryTemporary`:
-  the latter moved the working directory of the `pq` program but not
-  `ANUPQData.SPimages`, so the result was read from an empty file in the
-  old directory
 * Fix intermittent crashes of the `pq` program when computing standard
   presentations, and wrong input in the example `2gp-SP-1-Rel-i`
 * Fix `pq` processes being left running, possibly at 100% CPU even after
