@@ -3,11 +3,6 @@ the ANUPQ package.
 
 ## 3.4.0 (unreleased)
 
-* Fix wrong descendants (for example, 16384 instead of 26 step-1
-  descendants of the abelian group of type [2^3, 2^5, 2^7, 2^9, 2^11]),
-  and wrong stabilisers passed on to them, when the soluble orbit
-  algorithm gets 127 or more automorphisms: the `pq` program counted
-  them in `char` variables, which wrapped around
 * Fix intermittent crashes of the `pq` program when computing standard
   presentations, and wrong input in the example `2gp-SP-1-Rel-i`
 * Fix `pq` processes being left running, possibly at 100% CPU even after

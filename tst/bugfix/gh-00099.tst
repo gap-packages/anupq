@@ -1,4 +1,4 @@
-gap> START_TEST( "orbit_counters.tst" );
+gap> START_TEST( "gh-00099.tst" );
 gap> SetInfoLevel( InfoANUPQ, 1 );
 
 # The soluble orbit algorithm counted, per subgroup, the automorphisms
@@ -10,4 +10,4 @@ gap> Length( PqDescendants( G : StepSize := 1 ) );
 
 #
 gap> PqQuitAll();
-gap> STOP_TEST( "orbit_counters.tst", 1 );
+gap> STOP_TEST( "gh-00099.tst", 1 );
