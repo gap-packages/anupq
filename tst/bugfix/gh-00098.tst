@@ -13,4 +13,4 @@ true
 
 #
 gap> PqQuitAll();
-gap> STOP_TEST( "sp_relators.tst", 1 );
+gap> STOP_TEST( "gh-00098.tst", 1 );
