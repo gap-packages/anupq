@@ -103,7 +103,7 @@ void free_space(Logical soluble_computation,
                 int *orbit_length,
                 int *a,
                 int *b,
-                char *c,
+                int *c,
                 struct pga_vars *pga)
 {
    int nmr_of_perms = (pga->space_efficient ? 1 : pga->nmr_of_perms);
@@ -117,7 +117,7 @@ void free_space(Logical soluble_computation,
    free_vector(a, 1);
    if (soluble_computation) {
       free_vector(b, 1);
-      free_char_vector(c, 1);
+      free_vector(c, 1);
    }
    free_vector(pga->map, 1);
    free_vector(pga->rep, 1);

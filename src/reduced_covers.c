@@ -37,7 +37,7 @@ int reduced_covers(FILE *descendant_file,
    int lower_step, upper_step;
    int nmr_of_covers = 0;
    int *a, *b;        /* arrays needed for orbit calculation */
-   char *c;           /* array needed for stabiliser calculation */
+   int *c;            /* array needed for stabiliser calculation */
    int **perms;       /* store all permutations */
    int *orbit_length; /* length of orbits */
    FILE *LINK_input;  /* input file for GAP */

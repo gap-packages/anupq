@@ -13,12 +13,12 @@
 
 /* for each k, find the first permutation, d[k], which brings k into orbit */
 
-char *find_permutation(int *b, char *c, struct pga_vars *pga)
+int *find_permutation(int *b, int *c, struct pga_vars *pga)
 {
    register int i, j, k, l;
-   char *d;
+   int *d;
 
-   d = allocate_char_vector(pga->Degree, 1, TRUE);
+   d = allocate_vector(pga->Degree, 1, TRUE);
 
    /*
      d = (char *) calloc (pga->Degree, sizeof (char));
