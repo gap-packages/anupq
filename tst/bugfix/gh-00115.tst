@@ -1,4 +1,4 @@
-gap> START_TEST( "stabiliser_relative.tst" );
+gap> START_TEST( "gh-00115.tst" );
 gap> SetInfoLevel( InfoANUPQ, 1 );
 
 # When pq computed a stabiliser with the soluble algorithm, it kept the
@@ -22,4 +22,4 @@ gap> a.relativeOrders{ [ 1 .. 3 ] };
 
 #
 gap> PqQuitAll();
-gap> STOP_TEST( "stabiliser_relative.tst", 1 );
+gap> STOP_TEST( "gh-00115.tst", 1 );
