@@ -122,7 +122,7 @@ InstallMethod( FpGroupPcGroup, "pc group", [IsPcGroup], 0, PqFpGroupPcGroup );
 InstallGlobalFunction( PQ_EPIMORPHISM_STANDARD_PRESENTATION, 
 function( args )
     local   datarec, rank, Q, Qclass, automorphisms, generators, x,
-            images, i, r, j, aut, result, desc, k;
+            images, i, r, j, aut, result, desc, k, rels;
 
     datarec := ANUPQ_ARG_CHK("StandardPresentation", args);
 
@@ -143,7 +143,15 @@ function( args )
         PQ_AUT_GROUP( datarec.pQuotient );
         datarec.Prime := PrimePGroup( datarec.pQuotient );
     elif VALUE_PQ_OPTION("Prime", datarec) <> fail then
-        rank := Number( List( AbelianInvariants(datarec.group), 
+        # pq is given the relators of option `Relators' if it is set
+        rels := VALUE_PQ_OPTION("Relators", datarec);
+        if rels <> fail and IsFpGroup(datarec.group) then
+            Q := FreeGroupOfFpGroup(datarec.group) /
+                 PqGAPRelators(datarec.group, rels);
+        else
+            Q := datarec.group;
+        fi;
+        rank := Number( List( AbelianInvariants(Q), 
                               x -> Gcd(x, datarec.Prime) ),
                         y -> y = datarec.Prime );
 
