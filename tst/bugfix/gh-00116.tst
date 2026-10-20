@@ -18,6 +18,26 @@ gap> PqPCover( ElementaryAbelianGroup( 32771^2 ) );
 Error, the pq program requires a prime p < 2^15, not 32771
 gap> if not IsEmpty( OptionsStack ) then ResetOptionsStack(); fi;
 
+# The pq program itself rejects such primes, and composite ones: from the
+# menu it asks again, and a keyword presentation with an invalid prime
+# stops it with INPUT_ERROR (exit status 2)
+gap> run := function( input, opts )
+>      local out;
+>      out := "";
+>      return [ Process( ANUPQData.tmpdir, ANUPQData.binary,
+>                        InputTextString( input ),
+>                        OutputTextString( out, true ), opts ), out ];
+>    end;;
+gap> r := run( "1\nc3\n65537\n9\n3\n1\n1\n{a, b}\n{}\n0\n0\n", [ ] );;
+gap> r[1];
+0
+gap> List( [ "less than 2^15", "9 is not a prime", "has order 3^2" ],
+>          s -> PositionSublist( r[2], s ) <> fail );
+[ true, true, true ]
+gap> List( [ 3, 1, 9, 65537 ], p -> run( Concatenation( "1\nprime ",
+>          String( p ), "\ngenerators {a, b}\n;\n0\n" ), [ "-k" ] )[1] );
+[ 0, 2, 2, 2 ]
+
 #
 gap> PqQuitAll();
 gap> STOP_TEST( "gh-00116.tst", 1 );
