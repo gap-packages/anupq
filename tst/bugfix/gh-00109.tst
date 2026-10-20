@@ -15,5 +15,6 @@ gap> Size( Pq( G : Prime := 2, ClassBound := 3, Relators := [ "[b,a]^3" ],
 Error, pq program terminated, with error condition:
   Ran out of space during computation
 
+gap> if not IsEmpty( OptionsStack ) then ResetOptionsStack(); fi;
 gap> PqQuitAll();
 gap> STOP_TEST( "gh-00109.tst", 1 );
