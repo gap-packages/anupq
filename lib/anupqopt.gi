@@ -65,7 +65,8 @@ InstallValue( ANUPQoptions,
                             "BasicAlgorithm",
                             "CustomiseOutput",
                             "SetupFile",
-                            "PqWorkspace" ],
+                            "PqWorkspace",
+                            "LastClassAutomorphisms" ],
 
                    # options for `[Epimorphism][Pq]StandardPresentation'
                    StandardPresentation
@@ -254,7 +255,8 @@ InstallValue( ANUPQoptionChecks,
                    NumberOfSolubleAutomorphisms := x -> x = 0 or IsPosInt(x),
                    RelativeOrders := x -> IsList(x) and ForAll(x, IsPosInt),
                    Filename := IsString,
-                   TreeDepth := IsPosInt
+                   TreeDepth := IsPosInt,
+                   LastClassAutomorphisms := IsBool
                    )
              );
 
@@ -297,7 +299,8 @@ InstallValue( ANUPQoptionTypes,
                    NumberOfSolubleAutomorphisms := "nonnegative integer",
                    RelativeOrders := "list of positive integers",
                    Filename := "string",
-                   TreeDepth := "positive integer"
+                   TreeDepth := "positive integer",
+                   LastClassAutomorphisms := "boolean"
                    )
              );
 

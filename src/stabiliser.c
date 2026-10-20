@@ -40,7 +40,9 @@ static void check_stabiliser_space(int last, struct pcp_vars *pcp)
 
 /* find the stabiliser of the representative, rep;
    all of the permutations are stored in perms;
-   nmr_of_generators is the number of pcp generators in the descendant */
+   nmr_of_generators is the number of pcp generators in the descendant;
+   if no_stabiliser is set, the stabiliser is not computed and is
+   returned without generators */
 
 int ***stabiliser_of_rep(int **perms,
                          int rep,
@@ -50,6 +52,7 @@ int ***stabiliser_of_rep(int **perms,
                          int *c,
                          int *d,
                          int ***auts,
+                         Logical no_stabiliser,
                          struct pga_vars *pga,
                          struct pcp_vars *pcp)
 {
@@ -74,7 +77,7 @@ int ***stabiliser_of_rep(int **perms,
       this is done before setting up the remainder of the automorphisms
       to minimise the size of the workspace created by the system call */
 
-   if (!soluble_group) {
+   if (!soluble_group && !no_stabiliser) {
 
 #if defined(GAP_LINK) || defined(GAP_LINK_VIA_FILE)
       insoluble_stab_gens(rep, orbit_length, pga, pcp);
@@ -86,7 +89,9 @@ int ***stabiliser_of_rep(int **perms,
    }
 
    /* determine the generators for the stabiliser if soluble */
-   if (soluble_group) {
+   if (no_stabiliser)
+      pga->nmr_soluble = 0;
+   else if (soluble_group) {
       stabiliser_generators(perms, rep, a, b, c, d, auts, pga, pcp);
 
       /* allocate space for stabiliser */

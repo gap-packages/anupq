@@ -10,7 +10,7 @@
 
 #############################################################################
 ##
-#F  PQ_START( <workspace>, <setupfile> ) . . . open a stream for a pq process
+#F  PQ_START( <workspace>, <setupfile>, <flags> )  open a stream for a pq process
 ##
 ##  ensures the images file written by the `pq' binary when in  the  Standard
 ##  Presentation menu is empty, opens an io stream  to  a  `pq'  process  (if
@@ -18,9 +18,10 @@
 ##  is a filename i.e. a string) and returns  a  record  with  fields  `menu'
 ##  (current menu for the `pq' binary), `opts' (the runtime switches used  by
 ##  the `pq' process), `workspace' (the value of <workspace> which should  be
-##  a positive integer), and `stream' (the io or file stream opened).
+##  a positive integer), and `stream' (the io or file stream opened). <flags>
+##  is a list of further runtime switches for the `pq' process.
 ##
-InstallGlobalFunction(PQ_START, function( workspace, setupfile )
+InstallGlobalFunction(PQ_START, function( workspace, setupfile, flags )
 local opts, iorec, topqlogfile;
   PrintTo(ANUPQData.SPimages, ""); #to ensure it's empty
   if setupfile = fail then
@@ -28,6 +29,7 @@ local opts, iorec, topqlogfile;
   else
     opts := [ "-i", "-k", "-g" ];
   fi;
+  Append( opts, flags );
   if workspace <> 10000000 then
     Append( opts, [ "-s", String(workspace) ] );
   fi;
@@ -100,7 +102,7 @@ local opts, iorec, procId, G, workspace, optname;
     workspace := 10000000;
   fi;
 
-  iorec := PQ_START( workspace, fail );
+  iorec := PQ_START( workspace, fail, [] );
   if IsBound( G ) then
     iorec.group := G;
   fi;
@@ -798,7 +800,7 @@ end);
 ##  `"GAP3compatible"'.
 ##
 InstallGlobalFunction(ANUPQ_ARG_CHK, function(funcname, args)
-local ioIndex, datarec, optrec, optnames;
+local ioIndex, datarec, optrec, optnames, flags;
   PQ_OTHER_OPTS_CHK( funcname, IsEmpty(args) or IsPosInt( args[1] ) );
   if IsEmpty(args) or IsPosInt( args[1] ) then
     datarec := ANUPQData.io[ CallFuncList( PqProcessIndex, args ) ];
@@ -809,6 +811,11 @@ local ioIndex, datarec, optrec, optnames;
     elif IsMatchingSublist(funcname, "PqDescendants") then
       if not IsPcGroup( datarec.group ) then
         Error( "group of process must be a pc group\n" );
+      fi;
+      # the process keeps the files of descendants, which a later call may
+      # start from: those of the last class need their automorphisms
+      if VALUE_PQ_OPTION( "LastClassAutomorphisms", true ) = false then
+        Error( "LastClassAutomorphisms := false is for non-interactive calls" );
       fi;
     else # Check for Prime, ClassBound if nec.
       PQ_OPTION_CHECK( funcname, datarec );
@@ -822,8 +829,14 @@ local ioIndex, datarec, optrec, optnames;
       fi;
     fi;
     PQ_CLOSE_NONINTERACTIVE_STREAM();
+    if funcname = "PqDescendants" and
+       VALUE_PQ_OPTION( "LastClassAutomorphisms", true ) = false then
+      flags := [ "-l" ];
+    else
+      flags := [];
+    fi;
     ANUPQData.ni := PQ_START( VALUE_PQ_OPTION( "PqWorkspace", 10000000 ),
-                              VALUE_PQ_OPTION( "SetupFile" ) );
+                              VALUE_PQ_OPTION( "SetupFile" ), flags );
     datarec := ANUPQData.ni;
     datarec.group := args[1];
     datarec.calltype := "non-interactive";
