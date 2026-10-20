@@ -11,10 +11,12 @@ gap> List( GeneratorsOfGroup( G ),
 >          g -> ExponentsOfPcElement( Pcgs( Image( epi ) ), Image( epi, g ) ) );
 [ [ 1 ], [ 21832 ], [ 0 ] ]
 gap> PqEpimorphism( G : Prime := 32771, ClassBound := 1 );
-Error, "Prime" value must be a prime integer at most 32749
+Error, "Prime" value must be a prime integer less than 2^15
 
+gap> if not IsEmpty( OptionsStack ) then ResetOptionsStack(); fi;
 gap> PqPCover( ElementaryAbelianGroup( 32771^2 ) );
-Error, the pq program requires a prime p <= 32749, not 32771
+Error, the pq program requires a prime p < 2^15, not 32771
+gap> if not IsEmpty( OptionsStack ) then ResetOptionsStack(); fi;
 
 #
 gap> PqQuitAll();

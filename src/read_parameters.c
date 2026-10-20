@@ -12,17 +12,21 @@
 #include "constants.h"
 #include "pq_functions.h"
 
-/* exponents are packed into the top WORD_LENGTH - SC2 = 15 bits of an int
-   (see storage_fixed.h), so p - 1 must fit there; MAXPRIME is the largest
-   prime below 2^15 */
-#define MAXPRIME 32749
+/* exponents are packed into the top WORD_LENGTH - SC2 bits of an int
+   (15 by default), so p - 1 must fit there; in RUN_TIME builds the split
+   is set at run time by GSC2 */
+#if defined (RUN_TIME)
+#define EXPONENT_BITS (WORD_LENGTH - GSC2)
+#else
+#define EXPONENT_BITS (WORD_LENGTH - SC2)
+#endif
 
 /* return TRUE if p is a prime the pq can handle, else say why not */
 int valid_prime(int p)
 {
    int d;
-   if (p > MAXPRIME) {
-      printf("The prime must be at most %d\n", MAXPRIME);
+   if (p > (1L << EXPONENT_BITS)) {
+      printf("The prime must be less than 2^%d\n", (int)EXPONENT_BITS);
       return FALSE;
    }
    if (p < 2) {
