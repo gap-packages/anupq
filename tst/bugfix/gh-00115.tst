@@ -11,7 +11,7 @@ gap> ForAll( des, function( G )
 >      local a;
 >      a := ANUPQAutomorphisms( G );
 >      return Length( a.relativeOrders )
->             <= Length( a.centralAutos ) + Length( a.otherAutos ) + 1;
+>             <= Length( a.centralAutos ) + Length( a.otherAutos );
 >    end );
 true
 gap> a := ANUPQAutomorphisms( des[4] );;
