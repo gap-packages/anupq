@@ -8,9 +8,12 @@ gap> SetInfoLevel( InfoANUPQ, 1 );
 gap> orders := [];;
 gap> stab := PGOrbitStabilizer;;
 gap> MakeReadWriteGlobal( "PGOrbitStabilizer" );
-gap> PGOrbitStabilizer := function( A, baseU, baseN, interrupt )
->      if IsBound( A.field ) then Add( orders, A.glOrder ); fi;
->      return stab( A, baseU, baseN, interrupt );
+gap> PGOrbitStabilizer := function( arg )
+>      local r;
+>      if IsBound( arg[1].field ) then Add( orders, arg[1].glOrder ); fi;
+>      # older AutPGrp versions return no value
+>      r := CallFuncListWrap( stab, arg );
+>      if not IsEmpty( r ) then return r[1]; fi;
 >    end;;
 gap> Length( PqDescendants( ElementaryAbelianGroup( 101^2 )
 >                           : OrderBound := 3 ) );
