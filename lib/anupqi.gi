@@ -66,13 +66,13 @@ end );
 ##
 #F  PQ_PCP_BASIS( <datarec> ) . . . . . . . pq's pcp in terms of the pc group
 ##
-##  `<datarec>.group' is a pc group, given to `pq' by its  pcgs
-##  `<datarec>.pcgs'. `pq' computes its own pcp for it, whose  generators
-##  beyond the first need not be the elements of `<datarec>.pcgs':  they
-##  are defined as commutators and powers of the earlier ones. This  returns
-##  `fail' if they are the same, and otherwise a record with an  isomorphism
-##  `epi' from `<datarec>.group' to the group of that pcp and `pcgs',  the
-##  pcp generators there. It writes the current pcp (of the  p-quotient  or
+##  `<datarec>.group' is a pc group, given to `pq' by its pcgs
+##  `<datarec>.pcgs'. `pq' computes its own pcp for it, whose generators
+##  beyond the first need not be the elements of `<datarec>.pcgs': they
+##  are defined as commutators and powers of the earlier ones. This returns
+##  `fail' if they are the same, and otherwise a record with an isomorphism
+##  `epi' from `<datarec>.group' to the group of that pcp and `pcgs', the
+##  pcp generators there. It writes the current pcp (of the p-quotient or
 ##  its p-cover) to a file.
 ##
 InstallGlobalFunction( PQ_PCP_BASIS, function( datarec )
