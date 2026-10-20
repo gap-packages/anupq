@@ -23,6 +23,21 @@ static void evaluate_generators(int pointer,
                                 struct pcp_vars *pcp);
 
 
+/* the Schreier words of stabiliser_generators are stored in y from
+   pcp->lused + 1 upwards and must stay below pcp->subgrp; if they do not
+   fit, report this as every other workspace overflow does and stop */
+
+static void check_stabiliser_space(int last, struct pcp_vars *pcp)
+{
+   register int *y = y_address;
+
+   if (last < pcp->subgrp)
+      return;
+   pcp->overflow = TRUE;
+   text(11, pcp->lastg - y[pcp->clend + pcp->cc - 1], 0, 0, 0);
+   exit(FAILURE);
+}
+
 /* find the stabiliser of the representative, rep;
    all of the permutations are stored in perms;
    nmr_of_generators is the number of pcp generators in the descendant */
@@ -156,6 +171,7 @@ void stabiliser_generators(int **perms,
          for (alpha = d[k] + 1; alpha <= d[k] + c[k] - 1; ++alpha) {
             ++pga->nmr_stabilisers;
             word_length = 1;
+            check_stabiliser_space(pointer + word_length, pcp);
             y[pointer + word_length] = alpha;
 
             /* does automorphism alpha induce a trivial permutation? */
@@ -170,6 +186,7 @@ void stabiliser_generators(int **perms,
             while (next != a[k]) {
                index = d[next];
                ++word_length;
+               check_stabiliser_space(pointer + word_length, pcp);
                y[pointer + word_length] = index;
                if ((perm_number = pga->map[index]) != 0) {
                   next = pga->space_efficient
