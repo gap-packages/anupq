@@ -12,6 +12,35 @@
 #include "constants.h"
 #include "pq_functions.h"
 
+/* exponents are packed into the top WORD_LENGTH - SC2 bits of an int
+   (15 by default), so p - 1 must fit there; in RUN_TIME builds the split
+   is set at run time by GSC2 */
+#if defined (RUN_TIME)
+#define EXPONENT_BITS (WORD_LENGTH - GSC2)
+#else
+#define EXPONENT_BITS (WORD_LENGTH - SC2)
+#endif
+
+/* return TRUE if p is a prime the pq can handle, else say why not */
+int valid_prime(int p)
+{
+   int d;
+   if (p > (1L << EXPONENT_BITS)) {
+      printf("The prime must be less than 2^%d\n", (int)EXPONENT_BITS);
+      return FALSE;
+   }
+   if (p < 2) {
+      printf("%d is not a prime\n", p);
+      return FALSE;
+   }
+   for (d = 2; d * d <= p; ++d)
+      if (p % d == 0) {
+         printf("%d is not a prime\n", p);
+         return FALSE;
+      }
+   return TRUE;
+}
+
 /* read parameters for p-quotient calculation */
 
 void
@@ -28,9 +57,7 @@ read_parameters(int format, int *max_class, int *output, struct pcp_vars *pcp)
 
    while (reading) {
       read_value(TRUE, "Input prime: ", &pcp->p, 2);
-      reading = (pcp->p != 2 && MOD(pcp->p, 2) == 0);
-      if (reading)
-         printf("%d is not a prime\n", pcp->p);
+      reading = !valid_prime(pcp->p);
    }
 
    read_value(TRUE, "Input maximum class: ", max_class, 0);

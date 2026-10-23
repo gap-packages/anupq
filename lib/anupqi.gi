@@ -292,6 +292,11 @@ InstallGlobalFunction( PQ_PC_PRESENTATION, function( datarec, menu )
 local gens, rels, p, fpgrp, identities, pcgs, len, strp, i, j, Rel, line;
 
   p := VALUE_PQ_OPTION("Prime", fail, datarec); # "Prime" is a `global' option
+  # p may also have been taken from a p-group, bypassing the option check;
+  # the pq stores exponents in 15 bits, so it cannot handle larger primes
+  if not ANUPQoptionChecks.Prime(p) then
+    Error("the pq program requires a prime p < 2^15, not ", p);
+  fi;
 
   PQ_MENU(datarec, menu);
 

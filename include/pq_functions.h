@@ -90,6 +90,7 @@ void calculate_jacobi(struct pcp_vars *pcp);
 void calculate_power(int exp, int ptr, int cp, struct pcp_vars *pcp);
 void calculate_tails(int final_class, struct pcp_vars *pcp);
 void check_input(int output, int *max_class, struct pcp_vars *pcp);
+int valid_prime(int p);
 void class1_eliminate(struct pcp_vars *pcp);
 void close_queue(Logical report, int list_length, int limit, int *head, int *list, int *queue, int queue_length, struct pcp_vars *pcp);
 void close_relations(Logical report, int limit, int queue_type, int *head, int *list, int *queue, int length, int *long_queue, int *long_queue_length, struct pcp_vars *pcp);

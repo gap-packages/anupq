@@ -257,10 +257,8 @@ void check_input(int output, int *max_class, struct pcp_vars *pcp)
       pcp->valid = FALSE;
    }
 
-   if (pcp->p != 2 && MOD(pcp->p, 2) == 0) {
-      printf("%d is not a prime\n", pcp->p);
+   if (!valid_prime(pcp->p))
       pcp->valid = FALSE;
-   }
 
    if (*max_class == 0) {
       *max_class = DEFAULT_CLASS;
