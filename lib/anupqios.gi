@@ -10,7 +10,7 @@
 
 #############################################################################
 ##
-#F  PQ_START( <workspace>, <setupfile>, <flags> )  open a stream for a pq process
+#F  PQ_START( <workspace>, <setupfile>, <flags> ) . . . . open a stream to pq
 ##
 ##  ensures the images file written by the `pq' binary when in  the  Standard
 ##  Presentation menu is empty, opens an io stream  to  a  `pq'  process  (if
@@ -815,7 +815,8 @@ local ioIndex, datarec, optrec, optnames, flags;
       # the process keeps the files of descendants, which a later call may
       # start from: those of the last class need their automorphisms
       if VALUE_PQ_OPTION( "LastClassAutomorphisms", true ) = false then
-        Error( "LastClassAutomorphisms := false is for non-interactive calls" );
+        Error( "LastClassAutomorphisms := false is for ",
+               "non-interactive calls" );
       fi;
     else # Check for Prime, ClassBound if nec.
       PQ_OPTION_CHECK( funcname, datarec );

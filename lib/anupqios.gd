@@ -10,7 +10,7 @@
 
 #############################################################################
 ##
-#F  PQ_START( <workspace>, <setupfile>, <flags> )  open a stream for a pq process
+#F  PQ_START( <workspace>, <setupfile>, <flags> ) . . . . open a stream to pq
 ##
 DeclareGlobalFunction( "PQ_START" );
 

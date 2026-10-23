@@ -32,6 +32,7 @@ true
 gap> id := PqStart( G );;
 gap> PqDescendants( id : LastClassAutomorphisms := false );
 Error, LastClassAutomorphisms := false is for non-interactive calls
+gap> if not IsEmpty( OptionsStack ) then ResetOptionsStack(); fi;
 gap> PqQuit( id );
 
 # A setup file says to run pq with -l

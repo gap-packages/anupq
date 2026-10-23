@@ -78,8 +78,8 @@ int main(int argc, char **argv)
    /* process run-time parameters */
    if (process_parameters(argc, argv) == 0) {
 #if defined(RUN_TIME)
-      printf("Usage: pq [-b] [-c] [-d] [-G] [-g] [-i] [-k] [-l] [-s <integer>] [-v] "
-             "[-w <filename>]\n");
+      printf("Usage: pq [-b] [-c] [-d] [-G] [-g] [-i] [-k] [-l] "
+             "[-s <integer>] [-v] [-w <filename>]\n");
 #else
       printf("Usage: pq [-b] [-G] [-g] [-i] [-k] [-l] [-s <integer>] [-v] [-w "
              "<filename>]\n");
