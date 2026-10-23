@@ -471,6 +471,12 @@ DeclareGlobalFunction( "PqEchelonise" );
 
 #############################################################################
 ##
+#F  PQ_CHK_EXPONENT_AUTS( <datarec>, <mlist> ) . . auts enough for exponent?
+##
+DeclareGlobalFunction( "PQ_CHK_EXPONENT_AUTS" );
+
+#############################################################################
+##
 #F  PQ_SUPPLY_OR_EXTEND_AUTOMORPHISMS(<datarec>[,<mlist>])  A p-Q menu opt 18
 ##
 DeclareGlobalFunction( "PQ_SUPPLY_OR_EXTEND_AUTOMORPHISMS" );
