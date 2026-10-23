@@ -15,6 +15,7 @@
 
 /*static int ***setup_identity_auts (int nmr_of_generators, int ***auts, struct
  * pga_vars *pga);*/
+static void stabiliser_relative_orders(int pointer, struct pga_vars *pga);
 static void evaluate_generators(int pointer,
                                 int nmr_of_generators,
                                 int ***stabiliser,
@@ -88,6 +89,7 @@ int ***stabiliser_of_rep(int **perms,
    /* determine the generators for the stabiliser if soluble */
    if (soluble_group) {
       stabiliser_generators(perms, rep, a, b, c, d, auts, pga, pcp);
+      stabiliser_relative_orders(pointer, pga);
 
       /* allocate space for stabiliser */
       stabiliser = allocate_array(
@@ -403,3 +405,31 @@ int ***read_stabiliser_gens(int nmr_of_generators,
 }
 
 #endif
+
+/* the soluble stabiliser generators were stored by stabiliser_generators
+   as words starting at y[pointer]; generator t is auts[alpha_t] times a
+   word in automorphisms preceding alpha_t, and alpha_t increases with t;
+   so the generators coming from the first pga->nmr_soluble automorphisms
+   come first and form an induced polycyclic sequence of the stabiliser,
+   generator t having the relative order of auts[alpha_t];
+   replace pga->nmr_soluble and pga->relative accordingly */
+
+static void stabiliser_relative_orders(int pointer, struct pga_vars *pga)
+{
+   register int *y = y_address;
+   int *relative;
+   int nmr_soluble = 0;
+   int t, alpha;
+
+   relative = allocate_vector(pga->nmr_stabilisers, 1, 0);
+   for (t = 1; t <= pga->nmr_stabilisers; ++t) {
+      alpha = y[pointer + 1];
+      if (alpha <= pga->nmr_soluble)
+         relative[++nmr_soluble] = pga->relative[alpha];
+      pointer += y[pointer] + 1;
+   }
+
+   /* free_vector (pga->relative, 1); */
+   pga->relative = relative;
+   pga->nmr_soluble = nmr_soluble;
+}
