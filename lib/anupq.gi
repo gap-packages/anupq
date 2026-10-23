@@ -36,6 +36,7 @@ local created;
   Add( GAPInfo.DirectoriesTemporary, dir );
   ANUPQData.tmpdir  := Directory(dir);
   ANUPQData.outfile := Filename(ANUPQData.tmpdir, "PQ_OUTPUT");
+  ANUPQData.SPimages := Filename(ANUPQData.tmpdir, "GAP_library");
   return ANUPQData.tmpdir;
 end);
 
