@@ -1,27 +1,25 @@
 gap> START_TEST( "gh-00117.tst" );
-gap> SetInfoLevel( InfoANUPQ, 1 );
 
 # When the Frattini quotient has more than 10000 elements, the order of the
 # automorphism group modulo its soluble part was computed as if every
 # soluble relative order were p; for (C_101)^2 it came out as 1020000/1030301
 # instead of |GL(2,101)|/100 = 1030200, and AutPGrp cut its orbits short
-gap> orders := [];;
-gap> stab := PGOrbitStabilizer;;
-gap> MakeReadWriteGlobal( "PGOrbitStabilizer" );
-gap> PGOrbitStabilizer := function( arg )
->      local r;
->      if IsBound( arg[1].field ) then Add( orders, arg[1].glOrder ); fi;
->      # older AutPGrp versions return no value
->      r := CallFuncListWrap( stab, arg );
->      if not IsEmpty( r ) then return r[1]; fi;
->    end;;
+gap> SetInfoLevel( InfoANUPQ, 2 );
 gap> Length( PqDescendants( ElementaryAbelianGroup( 101^2 )
 >                           : OrderBound := 3 ) );
+#I  Order of GL subgroup is 1030200
+#I  No. of soluble autos is 4
+#I    dim U = 1  dim N = 2  dim M = 2
+#I    nice stabilizer with matr rep
+#I  Order of GL subgroup is 1030200
+#I  No. of soluble autos is 4
+#I    dim U = 2  dim N = 3  dim M = 3
+#I  Order of GL subgroup is 1030200
+#I  No. of soluble autos is 4
+#I    dim U = 2  dim N = 3  dim M = 3
+#I    nice stabilizer with matr rep
 3
-gap> PGOrbitStabilizer := stab;;
-gap> MakeReadOnlyGlobal( "PGOrbitStabilizer" );
-gap> Set( orders );
-[ 1030200 ]
+gap> SetInfoLevel( InfoANUPQ, 1 );
 
 #
 gap> PqQuitAll();
