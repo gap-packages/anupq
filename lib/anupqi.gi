@@ -64,6 +64,34 @@ end );
 
 #############################################################################
 ##
+#F  PQ_PCP_QUOTIENT( <datarec>, <n> ) . pq's pcp modulo its last generators
+##
+##  writes the current pcp of `pq' to a file and reads it back as a pc group
+##  <F>. If that pcp is a $p$-cover, its generators beyond the first <n>
+##  span the multiplicator. This returns a record with <F>, `MapImages' (the
+##  images of the defining generators in <F>), the natural epimorphism `nat'
+##  from <F> onto its quotient by the generators beyond the first <n>, and
+##  `pcgs', the images of the first <n> generators there.
+##
+InstallGlobalFunction( PQ_PCP_QUOTIENT, function( datarec, n )
+  local file, result, F, fpcgs, nat;
+
+  file := Filename( ANUPQData.tmpdir, "PQ_pcp_basis" );
+  PushOptions( rec(nonuser := true) );
+  PQ_WRITE_PC_PRESENTATION( datarec, file );
+  PopOptions();
+  result := PQ_READ_AS_FUNC_WITH_VARS( file, [ "F", "MapImages" ] );
+  F := result.F;
+  fpcgs := FamilyPcgs( F );
+  nat := NaturalHomomorphismByNormalSubgroupNC( F,
+             SubgroupNC( F, fpcgs{[n + 1 .. Length( fpcgs )]} ) );
+  return rec( F := F, MapImages := result.MapImages, nat := nat,
+              pcgs := PcgsByPcSequence( FamilyObj( One( Image( nat ) ) ),
+                        List( fpcgs{[1 .. n]}, x -> Image( nat, x ) ) ) );
+end );
+
+#############################################################################
+##
 #F  PQ_PCP_BASIS( <datarec> ) . . . . . . . pq's pcp in terms of the pc group
 ##
 ##  `<datarec>.group' is a pc group, given to `pq' by its pcgs
@@ -76,30 +104,18 @@ end );
 ##  its p-cover) to a file.
 ##
 InstallGlobalFunction( PQ_PCP_BASIS, function( datarec )
-  local file, result, F, fpcgs, n, nat, Q;
+  local n, pcp;
 
-  file := Filename( ANUPQData.tmpdir, "PQ_pcp_basis" );
-  PushOptions( rec(nonuser := true) );
-  PQ_WRITE_PC_PRESENTATION( datarec, file );
-  PopOptions();
-  result := PQ_READ_AS_FUNC_WITH_VARS( file, [ "F", "MapImages" ] );
-  F := result.F;
-  fpcgs := FamilyPcgs( F );
   n := Length( datarec.pcgs );
-  if result.MapImages{[1 .. n]} = fpcgs{[1 .. n]} then
+  pcp := PQ_PCP_QUOTIENT( datarec, n );
+  if pcp.MapImages{[1 .. n]} = FamilyPcgs( pcp.F ){[1 .. n]} then
     return fail;
   fi;
-  # if the current pcp is a p-cover, its last generators span the
-  # multiplicator
-  nat := NaturalHomomorphismByNormalSubgroupNC( F,
-             SubgroupNC( F, fpcgs{[n + 1 .. Length( fpcgs )]} ) );
-  Q := Image( nat );
-  return rec( epi := GroupHomomorphismByImagesNC( datarec.group, Q,
-                       datarec.pcgs,
-                       List( result.MapImages{[1 .. n]},
-                             x -> Image( nat, x ) ) ),
-              pcgs := PcgsByPcSequence( FamilyObj( One( Q ) ),
-                       List( fpcgs{[1 .. n]}, x -> Image( nat, x ) ) ) );
+  return rec( epi := GroupHomomorphismByImagesNC( datarec.group,
+                       Image( pcp.nat ), datarec.pcgs,
+                       List( pcp.MapImages{[1 .. n]},
+                             x -> Image( pcp.nat, x ) ) ),
+              pcgs := pcp.pcgs );
 end );
 
 #############################################################################
@@ -2463,19 +2479,34 @@ end );
 ##  Presentation menu.
 ##
 InstallGlobalFunction( PQ_SP_STANDARD_PRESENTATION, function( arg )
-local datarec, savefile;
+local datarec, savefile, Q;
   datarec := arg[1];
   savefile := PQ_CHK_PATH( 
                   VALUE_PQ_OPTION( "StandardPresentationFile",
                                    Filename( ANUPQData.tmpdir, "SPres" ) ),
                   "w", datarec);
+  ##  `pq' reads the automorphisms in its own pcp of the p-quotient, which
+  ##  need not be the pcgs of `<datarec>.pQuotient', so take the
+  ##  automorphisms of the group of that pcp; the current pcp of `pq' is
+  ##  that of the p-cover
+  if 1 = Length(arg) then
+    if IsBound( datarec.setupfile ) then
+      Q := datarec.pQuotient;
+    else
+      Q := GroupByPcgs( PQ_PCP_QUOTIENT( datarec,
+                            Length( Pcgs( datarec.pQuotient ) ) ).pcgs );
+      if Size( Q ) <> Size( datarec.pQuotient ) then
+        Error( "option `pQuotient' is not the p-quotient of the group\n" );
+      fi;
+    fi;
+  fi;
   PQ_MENU(datarec, "SP");
   ToPQ(datarec, [ 2 ], [ "  #compute standard presentation" ]);
   ToPQ(datarec, [ savefile ], [ "  #file for saving pres'n" ]);
   ToPQ(datarec, [ VALUE_PQ_OPTION("ClassBound", 63)], [ "  #class bound" ]);
 
   if 1 = Length(arg) then
-    PQ_AUT_INPUT( datarec, datarec.pQuotient );
+    PQ_AUT_INPUT( datarec, Q );
   else
     PQ_MANUAL_AUT_INPUT( datarec, arg[2] );
   fi;
