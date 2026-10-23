@@ -1952,6 +1952,47 @@ end );
 
 #############################################################################
 ##
+#F  PQ_CHK_EXPONENT_AUTS( <datarec>, <mlist> ) . . auts enough for exponent?
+##
+##  With automorphisms supplied, the `pq' program enforces an exponent law
+##  by testing only a reduced list of words and closing the relations found
+##  under the automorphisms (see `extra_relations.c'). That is enough only
+##  if the group is relatively free (no relators, no metabelian law) and the
+##  automorphisms induce the full general linear group on its Frattini
+##  quotient; otherwise the $p$-quotient comes out too big. This signals an
+##  error unless that holds or no exponent law is enforced.
+##
+InstallGlobalFunction( PQ_CHK_EXPONENT_AUTS, function( datarec, mlist )
+  local p, d, rels, mats;
+
+  if VALUE_PQ_OPTION("Exponent", 0, datarec) = 0 then
+    return;
+  fi;
+  p := VALUE_PQ_OPTION("Prime", fail, datarec);
+  d := Length( mlist[1] );
+  if IsFpGroup( datarec.group ) then
+    rels := VALUE_PQ_OPTION("Relators", datarec);
+    if rels = fail then
+      rels := RelatorsOfFpGroup( datarec.group );
+    fi;
+  else
+    rels := fail; # a presentation of a pc group has relations
+  fi;
+  ##  the action on the Frattini quotient: the images of its d generators,
+  ##  modulo the generators of higher weight
+  mats := List( mlist, m -> List( m, row -> row{[1 .. d]} ) * One( GF(p) ) );
+  if rels <> [] or VALUE_PQ_OPTION("Metabelian", false, datarec) = true or
+     ForAny( mats, m -> RankMat( m ) < d ) or
+     Size( Group( mats ) ) <> Size( GL( d, p ) ) then
+    Error( "with an exponent law, the automorphisms must induce ",
+           "GL(", d, ", ", p, ") on the\n",
+           "Frattini quotient of a group without relators ",
+           "or metabelian law" );
+  fi;
+end );
+
+#############################################################################
+##
 #F  PQ_SUPPLY_OR_EXTEND_AUTOMORPHISMS(<datarec>[,<mlist>])  A p-Q menu opt 18
 ##
 ##  inputs data to the `pq' binary for option 18 of the Advanced $p$-Quotient
@@ -1962,6 +2003,9 @@ end );
 InstallGlobalFunction( PQ_SUPPLY_OR_EXTEND_AUTOMORPHISMS, function( arg )
 local datarec;
   datarec := arg[1];
+  if 2 = Length(arg) then
+    PQ_CHK_EXPONENT_AUTS( datarec, arg[2] );
+  fi;
   PQ_MENU(datarec, "ApQ"); #we need options from the Advanced p-Q Menu
   if 1 = Length(arg) then
     ToPQ(datarec, [ 18 ], [ " #extend auts" ]);
@@ -1983,6 +2027,11 @@ end );
 ##  same dimensions; in particular, the number of rows of each matrix must be
 ##  the number of pc generators of the  current  $p$-quotient  of  the  group
 ##  associated with the interactive {\ANUPQ} process.
+##
+##  If an exponent law is enforced, the automorphisms must induce the  full
+##  general linear group on the Frattini quotient of a group given without
+##  relators and without the metabelian law; otherwise an error is signalled
+##  (see `PQ_CHK_EXPONENT_AUTS').
 ##
 ##  *Note:*
 ##  For those familiar with the  `pq'  binary,  `PqSupplyAutomorphisms'  uses

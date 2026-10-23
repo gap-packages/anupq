@@ -1558,6 +1558,16 @@ corresponding weight one generator under the respective automorphism.
 </Item>
 </List>
 
+If an exponent law is enforced (option <C>Exponent</C>), the <C>pq</C>
+program tests it only on a reduced list of words and closes the relations
+found under the automorphisms. This is enough only if the group is given
+without relators and without the metabelian law, and the automorphisms
+induce the full general linear group <M>GL(d, p)</M> on its Frattini
+quotient of rank <M>d</M>; otherwise the <M>p</M>-quotient would come out
+too big. <C>PqSupplyAutomorphisms</C> therefore signals an error unless
+that holds.
+<P/>
+
 <E>Note:</E> 
 For those familiar with the <C>pq</C> program, <C>PqSupplyAutomorphisms</C> uses
 menu item 18 of the Advanced <M>p</M>-Quotient menu.
