@@ -12,6 +12,7 @@
 #include "pga_vars.h"
 #include "constants.h"
 #include "pq_functions.h"
+#include "global.h"
 #define SINGLE_STAGE 5
 
 /* set up algorithm and print defaults for p-group generation calculation */
@@ -280,7 +281,10 @@ void read_step_size(struct pga_vars *pga, struct pcp_vars *pcp)
    while (reading) {
       read_value(TRUE, "Input step size: ", &pga->step_size, 1);
       reading = (pga->step_size <= 0);
-      if (interactive_input())
+      /* only a person at a terminal can answer a re-prompt; when GAP drives
+         pq it sends its next answer regardless, so accept the value and let
+         the step range check reject it (no descendants) */
+      if (interactive_input() && !GAP4iostream)
          reading = (reading || (pga->step_size > pcp->newgen));
       if (reading)
          printf("Error: step sizes range from 1 to %d only\n", pcp->newgen);
