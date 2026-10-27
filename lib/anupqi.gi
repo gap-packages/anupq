@@ -289,7 +289,8 @@ end );
 ##  `"pQ"' (main $p$-Quotient menu) or `"SP' (Standard Presentation menu).
 ##
 InstallGlobalFunction( PQ_PC_PRESENTATION, function( datarec, menu )
-local gens, rels, p, fpgrp, identities, pcgs, len, strp, i, j, Rel, line;
+local gens, rels, p, fpgrp, iso, identities, pcgs, len, strp, i, j, Rel,
+      line;
 
   p := VALUE_PQ_OPTION("Prime", fail, datarec); # "Prime" is a `global' option
   # p may also have been taken from a p-group, bypassing the option check;
@@ -324,7 +325,10 @@ local gens, rels, p, fpgrp, identities, pcgs, len, strp, i, j, Rel, line;
   fi;
   ToPQk(datarec, ["output ", VALUE_PQ_OPTION("OutputLevel", 0, datarec)], []);
 
+  # <datarec.pqgens> are the elements of <datarec.group> that pq is given
+  # as its defining generators
   if IsFpGroup(datarec.group) then
+    datarec.pqgens := GeneratorsOfGroup(datarec.group);
     gens := FreeGeneratorsOfFpGroup(datarec.group);
     rels := VALUE_PQ_OPTION("Relators", datarec);
     if rels = fail then
@@ -333,12 +337,18 @@ local gens, rels, p, fpgrp, identities, pcgs, len, strp, i, j, Rel, line;
       Info(InfoANUPQ, 2, "Relators parsed ok.");
     fi;
   elif not( IsPGroup(datarec.group) ) then
-    fpgrp := FpGroupPcGroup( datarec.group );
+    # pq is given a presentation on the generators of <fpgrp>, which stand
+    # for these elements, not for GeneratorsOfGroup(datarec.group)
+    iso := IsomorphismFpGroup( datarec.group );
+    fpgrp := Range( iso );
+    datarec.pqgens := List( GeneratorsOfGroup(fpgrp),
+                            x -> PreImagesRepresentative( iso, x ) );
     gens := FreeGeneratorsOfFpGroup(fpgrp);
     rels := RelatorsOfFpGroup(fpgrp);
   else
     pcgs := PcgsPCentralSeriesPGroup(datarec.group);
     datarec.pcgs := pcgs;
+    datarec.pqgens := pcgs;
     len  := Length(pcgs);
     gens := List( [1..len], i -> Concatenation( "g", String(i) ) );
     strp := String(p);
