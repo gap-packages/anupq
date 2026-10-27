@@ -120,7 +120,8 @@ local m, n, H, pcgs, aut, NumberAgAutos, i, imgs, NumberGlAutos, p, d,
     aut.glOper := List( glOper, x -> ImagesRepresentative( hom, x ) );
     aut.glOrder := Index( P, S );
   else
-    aut.glOrder := ANUPQsize / Size(ANUPQglb.F)^(ANUPQagsize);
+    # the relative orders of the soluble part need not all be p
+    aut.glOrder := ANUPQsize / Product( relativeOrders );
   fi;
 
   Info(InfoANUPQ, 2, "Order of GL subgroup is ", aut.glOrder);
