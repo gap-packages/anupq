@@ -23,6 +23,12 @@ DeclareGlobalFunction( "PQ_AUT_GROUP" );
 
 #############################################################################
 ##
+#F  PQ_PCP_QUOTIENT( <datarec>, <n> ) . pq's pcp modulo its last generators
+##
+DeclareGlobalFunction( "PQ_PCP_QUOTIENT" );
+
+#############################################################################
+##
 #F  PQ_PCP_BASIS( <datarec> ) . . . . . . . pq's pcp in terms of the pc group
 ##
 DeclareGlobalFunction( "PQ_PCP_BASIS" );
