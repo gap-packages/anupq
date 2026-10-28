@@ -36,6 +36,7 @@ local created;
   Add( GAPInfo.DirectoriesTemporary, dir );
   ANUPQData.tmpdir  := Directory(dir);
   ANUPQData.outfile := Filename(ANUPQData.tmpdir, "PQ_OUTPUT");
+  ANUPQData.SPimages := Filename(ANUPQData.tmpdir, "GAP_library");
   return ANUPQData.tmpdir;
 end);
 
@@ -219,8 +220,8 @@ InstallGlobalFunction( PQ_GROUP_FROM_PCP, function( datarec, out )
       datarec.pCover := result.F;
       IsPGroup( datarec.pCover );
     else
-      if IsBound(datarec.pcgs) then
-        gens := datarec.pcgs;
+      if IsBound(datarec.pqgens) then
+        gens := datarec.pqgens;
       else
         gens := GeneratorsOfGroup( datarec.group );
       fi;

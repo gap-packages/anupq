@@ -23,7 +23,19 @@ DeclareGlobalFunction( "PQ_AUT_GROUP" );
 
 #############################################################################
 ##
-#F  PQ_AUT_INPUT( <datarec>, <G> : <options> ) . . . . . . automorphism input
+#F  PQ_PCP_QUOTIENT( <datarec>, <n> ) . pq's pcp modulo its last generators
+##
+DeclareGlobalFunction( "PQ_PCP_QUOTIENT" );
+
+#############################################################################
+##
+#F  PQ_PCP_BASIS( <datarec> ) . . . . . . . pq's pcp in terms of the pc group
+##
+DeclareGlobalFunction( "PQ_PCP_BASIS" );
+
+#############################################################################
+##
+#F  PQ_AUT_INPUT( <datarec>, <G>[, <basis>] : <opts> ) . . automorphism input
 ##
 DeclareGlobalFunction( "PQ_AUT_INPUT" );
 
@@ -462,6 +474,12 @@ DeclareGlobalFunction( "PQ_ECHELONISE" );
 #F  PqEchelonise()
 ##
 DeclareGlobalFunction( "PqEchelonise" );
+
+#############################################################################
+##
+#F  PQ_CHK_EXPONENT_AUTS( <datarec>, <mlist> ) . . auts enough for exponent?
+##
+DeclareGlobalFunction( "PQ_CHK_EXPONENT_AUTS" );
 
 #############################################################################
 ##

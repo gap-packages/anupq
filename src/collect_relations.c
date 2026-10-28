@@ -31,9 +31,13 @@ void collect_relations(struct pcp_vars *pcp)
 
    for (i = 1; i <= ndrel; ++i) {
 
-      /* space is required for two collected parts set up here
-         and possibly for 5 * pcp->lastg in collect_def_comm */
-      if (is_space_exhausted(7 * lastg + 7, pcp))
+      /* space is required for two collected parts set up here (2 * lastg)
+         and for the work areas of collect_def_comm and power, which lie
+         below pcp->submlg = pcp->subgrp - lastg and reach down to
+         pcp->subgrp - 10 * lastg - 8; a commutator on the right-hand
+         side is collected with pcp->lused raised by lastg, so in total
+         11 * lastg + 9 positions above pcp->lused must be free */
+      if (is_space_exhausted(11 * lastg + 9, pcp))
          return;
 
       cp1 = pcp->lused;

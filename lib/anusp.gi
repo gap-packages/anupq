@@ -221,8 +221,8 @@ function( args )
     # revise images to correspond to images of user-supplied generators 
     datarec.SP := desc.group;
     # the elements of <datarec.group> pq was given as defining generators
-    if IsBound( datarec.pcgs ) then
-      generators := datarec.pcgs;
+    if IsBound( datarec.pqgens ) then
+      generators := datarec.pqgens;
     else
       generators := GeneratorsOfGroup( datarec.group );
     fi;
