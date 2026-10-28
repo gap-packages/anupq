@@ -29,6 +29,9 @@
    -g to write GAP group library and to run pq from within GAP;
    -i to choose standard presentation menu;
    -k to read from file using key words;
+   -l to compute no automorphism groups for the descendants of the
+      last class of a p-group generation iteration -- they are not
+      saved for further construction either;
    -s <integer> to allocate array of size <integer> for workspace y;
    -t to pass time limit in CPU seconds for computation
       where t = 0 implies infinite time;
@@ -56,6 +59,8 @@ int Compact_Description = 0;
 int Compact_Order = 0;
 char *Group_library_file = 0;
 Logical GAP4iostream = FALSE;
+Logical NoLastClassAutomorphisms = FALSE;
+int IterationClassBound = 0;
 
 
 static int process_parameters(int argc, char **argv);
@@ -73,10 +78,10 @@ int main(int argc, char **argv)
    /* process run-time parameters */
    if (process_parameters(argc, argv) == 0) {
 #if defined(RUN_TIME)
-      printf("Usage: pq [-b] [-c] [-d] [-G] [-g] [-i] [-k] [-s <integer>] [-v] "
-             "[-w <filename>]\n");
+      printf("Usage: pq [-b] [-c] [-d] [-G] [-g] [-i] [-k] [-l] "
+             "[-s <integer>] [-v] [-w <filename>]\n");
 #else
-      printf("Usage: pq [-b] [-G] [-g] [-i] [-k] [-s <integer>] [-v] [-w "
+      printf("Usage: pq [-b] [-G] [-g] [-i] [-k] [-l] [-s <integer>] [-v] [-w "
              "<filename>]\n");
 #endif
       exit(INPUT_ERROR);
@@ -152,6 +157,8 @@ static int process_parameters(int argc, char **argv)
 #endif
       else if (strcmp(argv[i], "-k") == 0)
          format = FILE_INPUT;
+      else if (strcmp(argv[i], "-l") == 0)
+         NoLastClassAutomorphisms = TRUE;
       else if (strcmp(argv[i], "-G") == 0) {
          Group_library = GAP_LIBRARY;
          menu = ISOM_MENU;
