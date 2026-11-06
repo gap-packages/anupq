@@ -73,7 +73,7 @@ int*** determine_action(int format, int *nmr_of_auts, struct pcp_vars *pcp);
 int*** immediate_descendant(FILE *descendant_file, struct pga_vars *pga, struct pcp_vars *pcp);
 int*** read_auts(int option, int *nmr_of_auts, int *nmr_of_exponents, struct pcp_vars *pcp);
 int*** restore_pga(FILE *ifp, struct pga_vars *pga, struct pcp_vars *pcp);
-int*** stabiliser_of_rep(int **perms, int rep, int orbit_length, int *a, int *b, int *c, int *d, int ***auts, struct pga_vars *pga, struct pcp_vars *pcp);
+int*** stabiliser_of_rep(int **perms, int rep, int orbit_length, int *a, int *b, int *c, int *d, int ***auts, Logical no_stabiliser, struct pga_vars *pga, struct pcp_vars *pcp);
 Logical interactive_input(void);
 Logical is_genlim_exceeded(struct pcp_vars *pcp);
 Logical is_identity(int **a, int n, int start);

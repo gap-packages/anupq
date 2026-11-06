@@ -253,6 +253,14 @@ The program may be invoked with the following runtime parameters:
       files in the \texttt{examples} directory whose names commence with 
       \texttt{keywords\_}. This option cannot be used with \texttt{-b}.
 
+\item[\texttt{-l}\hspace*{1em}]
+      The automorphism groups of the descendants of the last class of an
+      iteration of $p$-group generation (option ``Construct descendants''
+      of the main Menu for {\it p}-Group Generation) are not computed,
+      and no automorphisms are written for them with \texttt{-g}.
+      The file of these descendants is removed, since a further
+      construction cannot start from them.
+
 \item[\texttt{-s} {\it integer}]\ \\
       All computations of power-commutator presentations occur
       in an integer array, $y$ -- the space of this array,  by 

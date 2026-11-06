@@ -14,12 +14,13 @@ gap> START_TEST("anupq04.tst");
 gap> AllANUPQoptions();
 [ "AllDescendants", "BasicAlgorithm", "Bounds", "CapableDescendants", 
   "ClassBound", "CustomiseOutput", "Exponent", "Filename", "GroupName", 
-  "Identities", "Metabelian", "NumberOfSolubleAutomorphisms", "OrderBound", 
-  "OutputLevel", "PcgsAutomorphisms", "PqWorkspace", "Prime", 
-  "PrintAutomorphisms", "PrintPermutations", "QueueFactor", 
-  "RankInitialSegmentSubgroups", "RedoPcp", "RelativeOrders", "Relators", 
-  "SetupFile", "SpaceEfficient", "StandardPresentationFile", "StepSize", 
-  "SubList", "TreeDepth", "pQuotient" ]
+  "Identities", "LastClassAutomorphisms", "Metabelian", 
+  "NumberOfSolubleAutomorphisms", "OrderBound", "OutputLevel", 
+  "PcgsAutomorphisms", "PqWorkspace", "Prime", "PrintAutomorphisms", 
+  "PrintPermutations", "QueueFactor", "RankInitialSegmentSubgroups", 
+  "RedoPcp", "RelativeOrders", "Relators", "SetupFile", "SpaceEfficient", 
+  "StandardPresentationFile", "StepSize", "SubList", "TreeDepth", "pQuotient" 
+ ]
 
 #
 gap> STOP_TEST("anupq04.tst", 1);

@@ -20,12 +20,13 @@ package:
 gap> AllANUPQoptions();
 [ "AllDescendants", "BasicAlgorithm", "Bounds", "CapableDescendants", 
   "ClassBound", "CustomiseOutput", "Exponent", "Filename", "GroupName", 
-  "Identities", "Metabelian", "NumberOfSolubleAutomorphisms", "OrderBound", 
-  "OutputLevel", "PcgsAutomorphisms", "PqWorkspace", "Prime", 
-  "PrintAutomorphisms", "PrintPermutations", "QueueFactor", 
-  "RankInitialSegmentSubgroups", "RedoPcp", "RelativeOrders", "Relators", 
-  "SetupFile", "SpaceEfficient", "StandardPresentationFile", "StepSize", 
-  "SubList", "TreeDepth", "pQuotient" ]
+  "Identities", "LastClassAutomorphisms", "Metabelian", 
+  "NumberOfSolubleAutomorphisms", "OrderBound", "OutputLevel", 
+  "PcgsAutomorphisms", "PqWorkspace", "Prime", "PrintAutomorphisms", 
+  "PrintPermutations", "QueueFactor", "RankInitialSegmentSubgroups", 
+  "RedoPcp", "RelativeOrders", "Relators", "SetupFile", "SpaceEfficient", 
+  "StandardPresentationFile", "StepSize", "SubList", "TreeDepth", "pQuotient" 
+ ]
 ]]></Example>
 </Description>
 </ManSection>
@@ -319,6 +320,23 @@ on the Frattini quotient of <A>G</A> as such a sequence, an error is signalled.
 Supplied automorphisms are checked only on the Frattini quotient; a sequence
 that passes this check without being PAG-generating gives wrong results (for
 example, isomorphic descendants more than once).
+</Item>
+
+<Mark><C>LastClassAutomorphisms := false</C>
+<Label Name="option LastClassAutomorphisms"/><Index>option LastClassAutomorphisms</Index></Mark>
+<Item>
+Non-interactively, this option directs that the <C>pq</C> program not compute
+the automorphism groups of the descendants of the last class (the class given
+by <C>ClassBound</C>, or the class of <A>G</A> plus one by default): those
+descendants are not used to construct further descendants, and for each of
+them the <C>pq</C> program otherwise computes the stabiliser of its allowable
+subgroup, which it asks &GAP; to compute when the automorphism group is
+insoluble. The descendants returned are the same; those of the last class
+have no attribute <C>ANUPQAutomorphisms</C>, so <C>PqDescendants</C> must
+compute their automorphism groups anew if it is called for one of them. By
+default, <C>LastClassAutomorphisms</C> is <K>true</K>. Interactively, the
+<C>pq</C> process keeps the files of descendants, from which a later call may
+continue, so <C>LastClassAutomorphisms := false</C> is refused.
 </Item>
 
 <Mark><C>OrderBound := <A>n</A></C>
