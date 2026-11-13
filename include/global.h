@@ -20,5 +20,7 @@ extern int Compact_Order;
 extern char *Group_library_file;
 
 extern Logical GAP4iostream;
+extern Logical NoLastClassAutomorphisms;
+extern int IterationClassBound;
 
 #endif

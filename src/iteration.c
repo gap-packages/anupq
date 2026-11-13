@@ -12,6 +12,7 @@
 #include "pga_vars.h"
 #include "constants.h"
 #include "pq_functions.h"
+#include "global.h"
 #define ITERATION 6
 
 /* this procedure controls each iteration of the generation algorithm;
@@ -45,6 +46,11 @@ void iteration(int call_depth,
       pga->step_size = step_sequence[call_depth];
       flag->step_size = step_sequence[call_depth];
    }
+
+   /* process_rep reads the class bound to recognise the descendants of
+      the last class (for -l) */
+   if (call_depth == 1)
+      IterationClassBound = class_bound;
 
    CreateName(name, call_depth, pcp);
 
@@ -92,8 +98,18 @@ void iteration(int call_depth,
                    order_bound,
                    pga,
                    pcp);
+      else if (NoLastClassAutomorphisms) {
+         /* with -l these groups were saved without their automorphism
+            groups: remove the file, so that no further construction can
+            start from one of them */
+         CloseFile(descendant_file);
+         remove(name);
+      }
    } else
       CloseFile(descendant_file);
+
+   if (call_depth == 1)
+      IterationClassBound = 0;
 }
 
 /* set up output file name */

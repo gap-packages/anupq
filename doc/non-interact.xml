@@ -642,6 +642,9 @@ to the <C>AutomorphismGroupPGroup</C> function of the &AutPGrp; package.
 <Item>
   <C>PqWorkspace := <A>workspace</A></C><Index>option PqWorkspace</Index>
 </Item>
+<Item>
+  <C>LastClassAutomorphisms := false</C><Index>option LastClassAutomorphisms</Index>
+</Item>
 </List>
 
 <E>Notes:</E>

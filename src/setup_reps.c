@@ -150,6 +150,7 @@ void process_rep(int **perms,
    FILE *file = 0;
    FILE *GAP_library = 0;
    int lused, rank_of_cover;
+   Logical no_stabiliser;
 
    /* construct the presentation for the descendant and
       assemble the necessary automorphism information */
@@ -222,15 +223,22 @@ void process_rep(int **perms,
    rank_of_cover = pcp->lastg;
    lused = pcp->lused;
 
-   stabiliser =
-       stabiliser_of_rep(perms, rep, orbit_length, a, b, c, d, auts, pga, pcp);
+   /* with -l, a descendant of the last class of an iteration is not
+      iterated further, so its automorphism group is not needed: skip
+      computing the stabiliser (which GAP computes when the automorphism
+      group is insoluble) and write no automorphisms for it */
+   no_stabiliser = NoLastClassAutomorphisms && pga->final_stage &&
+                   !StandardPresentation && IterationClassBound != 0 &&
+                   pcp->cc >= IterationClassBound;
+   stabiliser = stabiliser_of_rep(
+       perms, rep, orbit_length, a, b, c, d, auts, no_stabiliser, pga, pcp);
 
 #ifdef HAVE_GMP
-   if (pga->final_stage)
+   if (pga->final_stage && !no_stabiliser)
       report_autgp_order(pga, pcp);
 #endif
 
-   if (pga->final_stage && (pga->capable || pga->terminal)) {
+   if (pga->final_stage && (pga->capable || pga->terminal) && !no_stabiliser) {
       if (Group_library == GAP_LIBRARY) {
          GAP_library = OpenFile("GAP_library", "a+");
          GAP_auts(GAP_library, central, stabiliser, pga, pcp);

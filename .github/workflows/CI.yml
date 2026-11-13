@@ -50,6 +50,7 @@ jobs:
           ./pq -i -k < tst/test8.pq > /dev/null
           ./pq -G < tst/test8.pq > /dev/null
           script -qec ./pq /dev/null < tst/test9.pga > /dev/null
+          ./pq -l < tst/test1.pga > /dev/null
       - uses: gap-actions/process-coverage@v3
       - uses: codecov/codecov-action@v6
         with:
@@ -78,3 +79,4 @@ jobs:
           ./pq -i -k < tst/test6.sp > /dev/null
           ./pq -k < tst/test7.pq > /dev/null
           ./pq -G < tst/test8.pq > /dev/null
+          ./pq -l < tst/test1.pga > /dev/null
