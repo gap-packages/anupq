@@ -20,7 +20,7 @@ Persons := [
     IsAuthor      := true,
     IsMaintainer  := false,
     Email         := "Greg.Gamble@uwa.edu.au",
-    #WWWHome       := "http://school.maths.uwa.edu.au/~gregg", # FIXME: broken URL?
+    #WWWHome       := "https://research-repository.uwa.edu.au/en/persons/gregory-gamble/",
     PostalAddress := Concatenation(
                        "Department of Mathematics and Statistics\n",
                        "Curtin University\n",
