@@ -651,10 +651,17 @@ static int **standard_map(int *word_map,
    register int *y = y_address;
 
    int nmr_of_generators = y[pcp->clend + pcp->cc - 1] + pga->s;
-   register int pointer = pcp->lused + 1;
+   register int pointer;
    int cp = pcp->lused;
    int **standard;
    int i, j;
+
+   /* room for the word, its length and the image of a generator, which
+      image_of_generator stores after the word; the word can have as many
+      letters as the orbit of the representative has elements */
+   if (is_space_exhausted(word_length + 1 + pcp->lastg, pcp))
+      exit(FAILURE);
+   pointer = pcp->lused + 1;
 
    /* copy the word into y */
    for (i = 1; i <= word_length; ++i)
