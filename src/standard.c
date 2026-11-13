@@ -403,7 +403,9 @@ static int **finish_pga_run(Logical *identity_map,
    t = runTime();
 #endif
 
-   perms = permute_subgroups(LINK_input, &a, &b, &c, auts, pga, pcp);
+   perms = permute_orbit(LINK_input, &non_standard, auts, pga, pcp);
+   if (perms == 0)
+      perms = permute_subgroups(LINK_input, &a, &b, &c, auts, pga, pcp);
 
 #if defined(TIME)
    t = runTime() - t;
@@ -455,6 +457,7 @@ static int **finish_pga_run(Logical *identity_map,
 #endif
 
    free_space(TRUE, perms, orbit_length, a, b, c, pga);
+   free_orbit_labels();
 
    /* memory leakage September 1996 */
    free_vector(pga->list, 0);
@@ -511,10 +514,10 @@ static int **find_stabiliser(Logical *identity_map,
       length[1] = orbit_length[i];
       if (output == MAX_STANDARD_PRINT)
          printf("The non-standard subgroup %d has orbit representative %d\n",
-                non_standard,
-                pga->rep[i]);
+                point_label(non_standard),
+                point_label(pga->rep[i]));
    } else {
-      printf("%d is not an orbit representative\n", rep[1]);
+      printf("%d is not an orbit representative\n", point_label(rep[1]));
       exit(FAILURE);
    }
 
@@ -770,7 +773,7 @@ static void list_subgroup(int rep, struct pga_vars *pga, struct pcp_vars *pcp)
       return;
 
    Subgroup = OpenFile("ISOM_Subgroup", "a+");
-   S = label_to_subgroup(&index, &subset, rep, pga);
+   S = label_to_subgroup(&index, &subset, point_label(rep), pga);
 
 #if defined(DEBUG)
    printf("The standard matrix is\n");

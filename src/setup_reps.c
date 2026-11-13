@@ -154,7 +154,7 @@ void process_rep(int **perms,
 
    /* construct the presentation for the descendant and
       assemble the necessary automorphism information */
-   S = label_to_subgroup(&index, &subset, rep, pga);
+   S = label_to_subgroup(&index, &subset, point_label(rep), pga);
    if (pga->print_subgroup) {
       printf("The standard matrix for the allowable subgroup is:\n");
       print_matrix(S, pga->s, pga->q);

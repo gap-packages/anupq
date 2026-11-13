@@ -81,7 +81,7 @@ int ***stabiliser_of_rep(int **perms,
    if (!soluble_group && !no_stabiliser) {
 
 #if defined(GAP_LINK) || defined(GAP_LINK_VIA_FILE)
-      insoluble_stab_gens(rep, orbit_length, pga, pcp);
+      insoluble_stab_gens(point_label(rep), orbit_length, pga, pcp);
 #else
       printf("To compute stabilisers in insoluble automorphism groups, ");
       printf("you must compile pq\nwith the compiler flag GAP_LINK set\n");

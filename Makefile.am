@@ -117,6 +117,7 @@ pq_SOURCES = \
     src/options.c \
     src/orbit_summary.c \
     src/permute_elements.c \
+    src/permute_orbit.c \
     src/permute_subgroups.c \
     src/pgroup.c \
     src/power.c \
