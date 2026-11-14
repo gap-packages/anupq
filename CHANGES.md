@@ -21,6 +21,10 @@ the ANUPQ package.
   version 3.2.1
 * Fix various issues which prevented ANUPQ from working with a native
   Windows (MinGW) build of GAP
+* Fix interactive functions such as `PqTails` being far slower at output
+  level 2 or 3 than at level 1, hours instead of minutes for large
+  classes: after each step GAP read a listing of every relation from the
+  `pq` program, to learn the order of the group (issue #6)
 * Determine the current directory without running the `pwd` program
 
 ## 3.3.3 (2025-11-25)
