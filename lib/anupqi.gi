@@ -765,7 +765,7 @@ end );
 ##  is called to ensure `<datarec>.ngens' is complete.
 ##
 InstallGlobalFunction( PQ_SET_GRP_DATA, function( datarec )
-local line, classpos;
+local line, classpos, lev;
   if IsBound(datarec.setupfile) then 
     # A fudge ... some things we can only know by actually running it!
     Info(InfoANUPQ + InfoWarning,1, 
@@ -783,7 +783,18 @@ local line, classpos;
   # Group: [grp] to lower exponent-<p> central class <c> has order <p>^<n>
   if not IsBound(datarec.matchedline) then
     PushOptions(rec(nonuser := true));
+    # Only the first line is needed.  At output level 2 or more pq follows
+    # it with every non-trivial relation, gigabytes for large classes, so
+    # display at level 1.  The p-G menus have no output level.
+    if IsBound(datarec.OutputLevel) and datarec.OutputLevel > 1 and
+       datarec.menu[ Length(datarec.menu) ] <> 'G' then
+      lev := datarec.OutputLevel;
+      PQ_SET_OUTPUT_LEVEL(datarec, 1);
+    fi;
     ToPQ(datarec, [ 4 ], [ "  #display presentation" ]);
+    if IsBound(lev) then
+      PQ_SET_OUTPUT_LEVEL(datarec, lev);
+    fi;
     PopOptions();
   fi;
   line := SplitString(datarec.matchedline, "", ":,. ^\n");
