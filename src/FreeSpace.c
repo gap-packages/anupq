@@ -51,6 +51,10 @@ void free_array(int ***a, int n, int m, int start)
    printf("Free array\n");
 #endif
 
+   /* read_auts returns NULL for no automorphisms */
+   if (a == NULL)
+      return;
+
    if (n == 0)
       n = 1;
    if (m == 0)
