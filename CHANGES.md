@@ -5,6 +5,8 @@ the ANUPQ package.
 
 * Fix intermittent crashes of the `pq` program when computing standard
   presentations, and wrong input in the example `2gp-SP-1-Rel-i`
+* Fix the `pq` program crashing when `StandardPresentation` is called with
+  the option `PcgsAutomorphisms` for a cyclic 2-group
 * Fix `pq` processes being left running, possibly at 100% CPU even after
   quitting GAP, when a non-interactive function is interrupted by an
   error (issue #79)
