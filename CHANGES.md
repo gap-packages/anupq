@@ -3,6 +3,43 @@ the ANUPQ package.
 
 ## 3.4.0 (unreleased)
 
+Many of the fixes and improvements in this release were contributed by
+GitHub user [tombouctou](https://github.com/tombouctou). Generative AI
+helped to find and fix many of the bugs and to implement improvements.
+
+* Add the option `LastClassAutomorphisms := false` to `PqDescendants`:
+  it skips computing the automorphism groups of the descendants of the
+  last class, which can make `PqDescendants` much faster when they are
+  not needed
+* Fix `PqDescendants` and related functions returning wrong descendants
+  (missing groups or isomorphic duplicates) in several situations: for
+  pc groups given by a pcgs other than the one `pq` computes (for
+  example isomorphic copies of SmallGroups library groups), for groups
+  with 127 or more automorphisms, for groups whose Frattini quotient has
+  more than 10000 elements, with the option `PcgsAutomorphisms`, and
+  with a step size larger than the nuclear rank
+* Fix wrong results of `StandardPresentation` with the option
+  `pQuotient`, and wrong epimorphisms returned by `PqEpimorphism` and
+  `EpimorphismStandardPresentation` for groups whose generators are not
+  their pcgs
+* Fix p-quotients with an exponent law coming out too large when
+  automorphisms are supplied: `PqSupplyAutomorphisms` now signals an
+  error unless they induce the full general linear group on the
+  Frattini quotient of a relatively free group
+* The `pq` program now stops with an error instead of returning wrong
+  results when it runs out of workspace, needs more than 65535 pc
+  generators, or is given a prime larger than 2^15
+* Fix crashes and hangs of the `pq` program, among them `PqDescendants`
+  for some primes (for example 53), `PqDescendants` for a group that
+  breaks the exponent or metabelian law asked for (it now returns `[]`),
+  `PqStandardPresentation` with the option `Relators`, and group names
+  containing `_` or white space
+* Fix `SavePqList` writing files that `PqList` cannot read, the option
+  `RelativeOrders` of `PqPGSupplyAutomorphisms`, `IsIsomorphicPGroup`
+  for trivial groups, `PqStandardPresentation` after
+  `ANUPQDirectoryTemporary`, an interactive `PqDescendants` also
+  returning the groups of earlier calls, and the relative orders in the
+  automorphism data attached to descendants
 * Fix intermittent crashes of the `pq` program when computing standard
   presentations, and wrong input in the example `2gp-SP-1-Rel-i`
 * Fix `pq` processes being left running, possibly at 100% CPU even after
